@@ -142,3 +142,96 @@ div[style*="display:grid"]>*,.refs{min-width:0;max-width:100%}
 .sstep-h{font-family:var(--head);color:var(--gold);font-weight:700;letter-spacing:.03em}
 .snum{display:inline-block;background:var(--btn);color:#1a1307;border-radius:3px;padding:0 6px;margin-right:6px;font-family:var(--body);font-size:12px;font-weight:600;vertical-align:2px}
 .ref.start figcaption::before{content:"Start here · ";color:var(--gold);font-weight:600}
+
+/* ===================== Neutral charcoal theme (companion app) =====================
+   Matches the user's chat app: neutral greys, no colour tint, white primary buttons. The RS3 plugin-style palette
+   above is kept for the future Jagex plugin (see plugin/drop_clue_helper/DESIGN.md). These overrides win because they come last. */
+:root{
+  --win:#1f1f1f; --title:#0e0e0e; --row:#1f1f1f; --row-hi:#2a2a2a; --edge:#2a2a2a; --edge-dk:#0e0e0e;
+  --ctrl:#1f1f1f; --ctrl2:#2a2a2a;
+  --gold:#e8e8e8; --gold2:#e8e8e8; --orange:#e8e8e8; --hint:#9a9a9a; --btn:#f2f2f2; --btn-dk:#d0d0d0;
+  --cancel:#2a2a2a; --cancel-text:#e8e8e8;
+  --text:#e8e8e8; --muted:#9a9a9a;
+  --green:#5cc98a; --red:#e86a6a; --yellow:#d8c56a;
+  --r1:#e8e8e8; --r2:#5cc98a; --r3:#d8c56a; --r4:#c08cf0; --r5:#f0955a;
+  --head:"Fira Sans","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+html,body{background:#121212}
+body{background:#121212}
+a{color:#e8e8e8;text-decoration:underline;text-decoration-color:#5a5a5a;text-underline-offset:2px} a:hover{text-decoration-color:#e8e8e8}
+a.hit,a.btn,a.item{text-decoration:none}
+.top{background:#0e0e0e;border-bottom:1px solid #2a2a2a;box-shadow:none}
+.sigil{background:#1f1f1f;border:1px solid #3c3c3c;color:#e8e8e8;box-shadow:none}
+h1{text-transform:none;letter-spacing:.01em;font-weight:600;color:var(--text);font-size:19px}
+h2,h3,.pill,.kv b,th,summary,.tabs button,.btn,.sstep-h{text-transform:none;letter-spacing:.01em;font-weight:600}
+h2{color:var(--text);font-size:16px}
+h3{color:var(--text)}
+.stepsec{color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-size:12.5px}
+.panel{background:#1f1f1f;border:1px solid #2a2a2a;border-radius:14px;box-shadow:none}
+.panel>h2:first-child{background:transparent;border-bottom:1px solid #2a2a2a;color:var(--text);border-radius:14px 14px 0 0}
+.tabs{gap:6px;padding-bottom:8px}
+.tabs button{background:transparent;border:1px solid transparent;color:var(--muted);border-radius:999px;font-size:14px;padding:6px 14px}
+.tabs button:hover{color:var(--text);background:#1f1f1f}
+.tabs button.on{background:#3c3c3c;color:#e8e8e8;border-color:#3c3c3c;box-shadow:none}
+input[type=search],input[type=text],select{background:#1f1f1f;border:1px solid #2a2a2a;border-radius:14px;box-shadow:none;color:var(--text)}
+select{background-image:linear-gradient(45deg,transparent 50%,#9a9a9a 50%),linear-gradient(-45deg,transparent 50%,#9a9a9a 50%);
+  background-position:calc(100% - 16px) 55%,calc(100% - 10px) 55%;background-size:6px 6px,6px 6px;background-repeat:no-repeat}
+select option{background:#1f1f1f}
+input:focus,select:focus{outline:none;border-color:#5a5a5a}
+.btn{background:#f2f2f2;color:#121212;border:1px solid #f2f2f2;border-radius:999px;box-shadow:none;font-size:13.5px;padding:7px 16px}
+.btn:hover{background:#ffffff}
+.btn.ghost{background:#2a2a2a;color:#e8e8e8;border-color:#3c3c3c;box-shadow:none}
+.btn.ghost:hover{background:#3c3c3c}
+.hit{background:#1f1f1f;border:1px solid #2a2a2a;border-radius:14px;box-shadow:none}
+.panel .hit{background:#121212}
+.hit:hover,.hit:focus{background:#2a2a2a;border-color:#3c3c3c}
+.tag{background:#2a2a2a;border:1px solid #3c3c3c;color:#c8c8c8;border-radius:999px;padding:1px 9px}
+.pill{color:var(--muted);font-size:12px}
+.kv b{color:var(--muted);font-size:12.5px}
+th{color:var(--muted)} th.sorted{color:#e8e8e8}
+td{background:#121212;border-color:#2a2a2a}
+.ph{background:#121212;border:1px solid #2a2a2a;color:#5a5a5a;border-radius:8px}
+details{border-top:1px solid #2a2a2a}
+summary{color:#e8e8e8;font-size:13.5px}
+.disclaimer{background:#0e0e0e;border-top:1px solid #2a2a2a;color:var(--muted)}
+.cluecard,.step,.sstep{background:#121212;border:1px solid #2a2a2a;border-radius:14px;box-shadow:none}
+.step.done{background:#161616} .step.done>span{color:var(--muted)} .step input{accent-color:#e8e8e8}
+.sstep{border-left:3px solid #3c3c3c}
+.sstep-h{color:#e8e8e8}
+.snum{background:#f2f2f2;color:#121212;border-radius:999px;padding:0 8px}
+.stepw .steppics{background:#121212;border-color:#2a2a2a;border-radius:14px 14px 0 0}
+.stepw .steppics+.step{border-radius:0 0 14px 14px}
+.quote{color:var(--text)}
+.hint{color:var(--muted)}
+/* subtle frame around every picture */
+.ref{background:#0e0e0e;border:1px solid #2a2a2a;border-radius:12px;box-shadow:0 1px 3px #0008}
+.ref img{background:#0e0e0e}
+.ref figcaption{color:var(--muted);border-top:1px solid #2a2a2a}
+.ref.entrance figcaption::before,.ref.map figcaption::before,.ref.start figcaption::before{color:#e8e8e8}
+.clueimg,.cluepic{border:1px solid #2a2a2a;border-radius:12px}
+#lightbox{background:#0e0e0ef2}
+#lightbox img{border:1px solid #2a2a2a;border-radius:12px}
+#lightbox .lbcap{color:var(--text)}
+.prog{background:#121212;border:1px solid #2a2a2a;border-radius:999px}
+.prog>div{background:#e8e8e8}
+/* warmer text + RuneScape gold accents (still neutral charcoal backgrounds, no blue) */
+:root{--text:#f5f5f5;--muted:#bdbdbd;--gold:#f2c66d;--gold2:#f2c66d;--orange:#f2c66d;--hint:#bdbdbd;
+  --r1:#f5f5f5;--r2:#7fd88f;--r3:#f2c66d;--r4:#f0a35e;--r5:#ef6b6b}
+html,body,.hit,input[type=search],input[type=text],select{color:#f5f5f5}
+h1,h2,h3,.panel>h2:first-child,.stepsec,.sstep-h,summary,th.sorted{color:#f2c66d}
+a{color:#f2c66d;text-decoration:none} a:hover{color:#ffd98a;text-decoration:underline}
+.tabs button.on{color:#f2c66d;box-shadow:inset 0 -2px 0 #f2c66d}
+.tabs button:hover{color:#ffd98a}
+.kv span,td.num,.hit .meta{color:#f5f5f5}
+.hit .meta{color:#bdbdbd}
+td.num span[class^="r"]{font-weight:600}
+.sn{color:#f2c66d;font-weight:600}
+.snum{background:#f2c66d;color:#121212}
+.sstep{border-left:3px solid #f2c66d}
+.ref.entrance figcaption::before,.ref.map figcaption::before,.ref.start figcaption::before{color:#f2c66d}
+.pill,.kv b,th{color:#bdbdbd}
+.note{color:#bdbdbd}
+.step input{accent-color:#f2c66d}
+.prog>div{background:#f2c66d}
+input:focus,select:focus{border-color:#f2c66d66}
+.kv span{color:#f2c66d}.kv span.pre{color:#f5f5f5} td.num .note{color:#f2c66d}
