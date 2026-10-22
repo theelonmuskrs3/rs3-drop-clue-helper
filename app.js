@@ -345,6 +345,7 @@ async function aboutView() {
   const m = await get('data/meta.json');
   const cc = Object.entries(m.clue_counts).map(([t, o]) => `<tr><td>${esc(cap(t.replace('_', ' ')))}</td><td>${Object.entries(o).map(([k, v]) => `${TYPE_LABEL[k] || k} ${v}`).join(' · ')}</td></tr>`).join('');
   view.innerHTML = `<div class="panel parch"><h2>About this app</h2>
+    <p><b>Made by Dev Soy Yoda.</b></p>
     <p><b>Unofficial fan-made tool.</b> All images and game content are the property of Jagex Ltd. RuneScape is a trademark of Jagex Ltd.
     This is an unofficial, fan-made tool for personal use only. It is not affiliated with or endorsed by Jagex, and it is not for sale or for profit.</p>
     <p>Data and images come from the RuneScape Wiki (<a href="https://runescape.wiki" target="_blank" rel="noopener">runescape.wiki</a>), whose text is licensed
