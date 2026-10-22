@@ -172,6 +172,18 @@ function travelBlock(title, travel, open) {
   (t.getting_there || []).forEach(g => parts.push(`<div><b class="pill">${esc(g.heading)}</b>${gallery(g.pics)}<div class="pre">${esc(g.text)}</div></div>`));
   return `<details ${open ? 'open' : ''}><summary>How to get to ${esc(title)}</summary><div style="display:grid;gap:8px;margin-top:6px">${parts.join('')}</div></details>`;
 }
+/* "Step 1 - Start here" (surface map with pin) -> overview -> "Step 2+ - Get inside" */
+function startSteps(l) {
+  if (!l || !(l.start_here || l.start_overview || (l.get_inside || []).length)) return '';
+  let n = 1; const out = [];
+  if (l.start_here || l.start_overview) {
+    out.push(`<div class="sstep"><div class="sstep-h"><span class="snum">Step ${n++}</span> Start here${l.start_here && l.start_here.entrance_name ? ` — ${esc(l.start_here.entrance_name)}` : ''}</div>
+      ${gallery([l.start_here && l.start_here.pic, l.start_overview].filter(Boolean))}
+      ${l.start_here && l.start_here.coords ? `<div class="note">World map point: ${coordStr(l.start_here.coords)}</div>` : ''}</div>`);
+  }
+  (l.get_inside || []).forEach((g, i) => out.push(`<div class="sstep"><div class="sstep-h"><span class="snum">Step ${n++}</span> ${i === 0 ? 'Get inside' : 'Then'}</div>${gallery([g.pic].filter(Boolean))}${g.text ? `<div class="pre">${esc(g.text)}</div>` : ''}</div>`));
+  return `<div class="ssteps">${out.join('')}</div>`;
+}
 function mlBlock(l) {
   const P = l.place || {};
   const parts = [];
@@ -186,7 +198,7 @@ function mlBlock(l) {
   return `<div style="padding:10px 0;border-bottom:1px solid #ffffff12">
     <div class="row"><b style="font-family:var(--head);color:var(--gold2)">${esc(l.name || 'Unknown location')}</b>
     ${l.levels ? `<span class="tag">Lvl ${esc(l.levels)}</span>` : ''}${l.members ? '<span class="tag">Members</span>' : ''}${l.spawns ? `<span class="tag">${l.spawns} spawns</span>` : ''}</div>
-    ${gallery(l.pics)}
+    ${startSteps(l)}${gallery(l.pics)}
     <div style="display:grid;gap:8px;margin-top:4px">${parts.join('')}</div></div>`;
 }
 function locBlock(l, travel) {
@@ -343,7 +355,7 @@ async function questDetail(name, qs) {
   const pre = (q.prereq_quests || []).length || (q.prereq_other || []).length ? `<div><b class="pill">Quests</b><ul class="blist">${(q.prereq_quests || []).map(t => `<li>${qlink(t)}</li>`).join('')}${(q.prereq_other || []).map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : '';
   const full = (q.prereq_full || []).length ? `<details><summary>Full prerequisite chain (${q.prereq_full.length})</summary><ul class="blist">${q.prereq_full.map(t => `<li>${qlink(t)}</li>`).join('')}</ul></details>` : '';
   const reqs = pre + (q.requirements ? `<div><b class="pill">Skills &amp; other</b>${bulletList(q.requirements)}</div>` : '') + (q.ironman ? `<div><b class="pill">Ironman</b>${bulletList(q.ironman)}</div>` : '') + full;
-  const start = q.start || q.start_coords || q.start_pics ? `${gallery(q.start_pics)}<div class="pre">${esc(q.start || '')}</div>
+  const start = q.start || q.start_coords || q.start_pics || q.start_steps ? `${startSteps(q.start_steps)}${gallery(q.start_pics)}<div class="pre">${esc(q.start || '')}</div>
     ${q.start_coords ? `<div style="margin-top:6px"><b class="pill">Start point</b> ${coordStr(q.start_coords, q.start_plane)}</div>` : ''}
     ${q.start_lodestones ? `<div style="margin-top:6px"><b class="pill">Nearest lodestones</b> ${q.start_lodestones.map(l => `${esc(l.name)} (${l.tiles} tiles)`).join(', ')} <span class="note">straight-line</span></div>` : ''}
     ${(q.start_links || []).map((x, i) => travelBlock(x, travel, i === 0)).join('')}` : '';
@@ -358,8 +370,9 @@ async function questDetail(name, qs) {
   ${q.steps && q.steps.length ? `<div class="panel"><h2>Walkthrough</h2>
     <div class="row"><div class="prog"><div id="bar"></div></div><span class="note" id="pct"></span>
     <label class="note"><input type="checkbox" id="hide"> Hide finished steps</label><button class="btn ghost" id="reset">Reset progress</button></div>
-    <div class="note" style="margin:6px 0">${q.steps_source === 'quick guide' ? 'From the wiki quick guide.' : 'From the full wiki guide (no quick guide in this copy).'} Pictures are the wiki's own screenshots for that step (or the place/NPC it sends you to); tap one to enlarge. Ticks are saved on this device only.</div>
+    <div class="note" style="margin:6px 0">${q.steps_source === 'quick guide' ? 'From the wiki quick guide.' : 'From the full wiki guide (no quick guide in this copy).'} Pictures are the wiki's own: images from the guide shown at the step they belong to, or the wiki picture of the place/NPC that step links to. Tap one to enlarge. Ticks are saved on this device only.</div>
     <div id="steps"></div></div>` : ''}
+  ${(q.guide_pics || []).length ? `<div class="panel"><h2>More pictures from the wiki guide</h2><div class="note">These appear in the full wiki guide but don't clearly match one quick-guide step, so they are listed under the wiki's own section headings.</div>${q.guide_pics.map(g => `<h3 class="stepsec">${esc(g.sec)}</h3>${gallery(g.p)}`).join('')}</div>` : ''}
   ${sec('Rewards', bulletList(q.rewards))}`;
   $('#qdone').onclick = () => { if (qIsDone(name)) localStorage.removeItem(QDONE(name)); else localStorage.setItem(QDONE(name), '1'); questDetail(name, qs); };
   if (!q.steps || !q.steps.length) return;
@@ -400,7 +413,8 @@ async function aboutView() {
     <b>Items</b><span>${m.items.toLocaleString()} (${m.icons.toLocaleString()} with icons)</span><b>Clues</b><span>${m.clues.toLocaleString()}</span><b>Travel pages</b><span>${m.locations.toLocaleString()}</span></div>
     <table style="margin-top:10px"><thead><tr><th>Tier</th><th>Clue types</th></tr></thead><tbody>${cc}</tbody></table></div>
   <div class="panel"><h2>Known gaps</h2><ul>
-    <li>The offline wiki copy was still downloading when this was built, so monsters, items and places late in the alphabet may be missing.</li>
+    <li>Pictures come from the wiki pages themselves: ${(m.coverage.quest_pictures_total || 0).toLocaleString()} quest pictures (steps, start NPCs and places) and location maps, entrances and teleports for monsters. Steps the wiki shows no picture for get the place or NPC they mention, where the wiki has one.</li>
+    <li>Wiki map views are interactive on the wiki; here they are still pictures (red dots mark spawns).</li>
     <li>${m.icons_missing.toLocaleString()} item icons and ${m.monster_images_missing} monster pictures were not downloaded yet; they show as a “?” box.</li>
     <li>${m.missing_location_pages} place pages were not in the copy yet, so some “how to get there” notes are missing.</li>
     <li>Not yet in the copy: ${esc(m.missing_clue_pages.join(', '))}.</li>

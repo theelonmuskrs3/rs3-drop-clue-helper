@@ -137,3 +137,8 @@ summary{cursor:pointer;font-family:var(--head);font-weight:700;font-size:12.5px;
 div[style*="display:grid"]{grid-template-columns:minmax(0,1fr)}
 div[style*="display:grid"]>*,.refs{min-width:0;max-width:100%}
 .ref.npc{max-width:200px}
+.ssteps{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin:8px 0}
+.sstep{background:var(--row);border:1px solid var(--edge);border-left:3px solid var(--btn);border-radius:3px;padding:8px 10px;min-width:0}
+.sstep-h{font-family:var(--head);color:var(--gold);font-weight:700;letter-spacing:.03em}
+.snum{display:inline-block;background:var(--btn);color:#1a1307;border-radius:3px;padding:0 6px;margin-right:6px;font-family:var(--body);font-size:12px;font-weight:600;vertical-align:2px}
+.ref.start figcaption::before{content:"Start here · ";color:var(--gold);font-weight:600}
