@@ -15,7 +15,7 @@ let ICONS = {}, EMOTES = {}, MTHUMB = {};
 
 const PH = (glyph, size = 32) => `<span class="ph" style="width:${size}px;height:${size}px" title="Picture not downloaded yet">${glyph}</span>`;
 function icon(item) {
-  const f = ICONS[item];
+  const f = ICONS[item] || GICONS[item];
   return f ? `<img class="ico" loading="lazy" src="${esc(f)}" alt="">` : PH('✦');
 }
 function mthumb(name, size = 36) {
@@ -212,30 +212,300 @@ function locBlock(l, travel) {
   </div>`;
 }
 
-/* ---------- items ---------- */
+/* ---------- items: search + rarity + GE prices, "My stats" gear finder, best sets (all numbers from the wiki copy) ---------- */
+let GICONS = {};
+const WIKI = p => 'https://runescape.wiki/w/' + encodeURIComponent(String(p).replace(/ /g, '_'));
+const gp = n => n == null ? '' : Math.round(n).toLocaleString() + ' gp';
+const SLOT_LABEL = {head: 'Head', neck: 'Neck', cape: 'Cape', body: 'Body', legs: 'Legs', hands: 'Hands', feet: 'Feet', ring: 'Ring', ammo: 'Ammo', pocket: 'Pocket',
+  aura: 'Aura', sigil: 'Sigil', main: 'Main-hand', off: 'Off-hand (shield)', offw: 'Off-hand weapon', '2h': 'Two-handed'};
+const SLOT_ORDER = ['2h', 'main', 'offw', 'off', 'head', 'body', 'legs', 'hands', 'feet', 'neck', 'cape', 'ring', 'ammo', 'pocket', 'aura', 'sigil'];
+const STYLES = {melee: 'Melee', ranged: 'Ranged', magic: 'Magic', necromancy: 'Necromancy'};
+const STYLE_BONUS = {melee: 'strength', ranged: 'ranged', magic: 'magic', necromancy: 'necromancy'};
+const MAIN_SKILLS = ['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Necromancy', 'Constitution', 'Prayer'];
+const WEAPON = new Set(['main', '2h', 'offw', 'ammo']);
+/* wiki Infobox Item 'restriction' values for gear that only works inside a minigame or quest, or that is gone from the game */
+const RESTRICTED = new Set(['minigame', 'quest', 'removed', 'beta']);
+const RST_LABEL = {minigame: 'minigame only', quest: 'quest only', removed: 'removed from game', beta: 'beta only', dungeoneering: 'Daemonheim only', limited: 'limited time', th: 'Treasure Hunter', cache: 'Guthixian Cache', special: 'special'};
+let IDATA = null;
+async function itemData() {
+  if (IDATA) return IDATA;
+  const [items, pr, gd] = await Promise.all([get('data/items.json'), get('data/prices.json'), get('data/gear.json')]);
+  const gear = {}; gd.gear.forEach(g => { gear[g.n] = g; });
+  const best = {};
+  for (const [n, src] of Object.entries(items)) {
+    let r = null, p = null;
+    for (const s of src) { if (s[4] != null && s[4] <= 4 && (r == null || s[4] < r)) r = s[4]; if (s[3] != null && (p == null || s[3] > p)) p = s[3]; }
+    best[n] = [r, p];
+  }
+  const names = [...new Set([...Object.keys(items), ...Object.keys(gear), ...Object.keys(pr.prices)])];
+  const tierN = {}; names.forEach(n => { tierN[n] = norm(n); });
+  return IDATA = {items, pr, gd, gear, best, names, tierN};
+}
+function priceOf(D, n) { const v = D.pr.prices[n]; if (v != null) return v; const g = D.gear[n]; return g && g.ge != null ? g.ge : null; }
+function tradeOf(D, n) {
+  if (D.pr.prices[n] != null) return true;
+  const t = D.pr.tradeable[n]; if (t != null) return !!t;
+  const g = D.gear[n]; return g && g.trade != null ? g.trade : null;
+}
+function geDateET(D) {
+  const d = new Date(D.pr.ts * 1000);
+  return d.toLocaleString('en-US', {timeZone: 'America/New_York', day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit'}) + ' ET';
+}
+function priceTag(D, n) {
+  const v = priceOf(D, n), t = tradeOf(D, n);
+  if (v != null) return `<span class="gp">${gp(v)}</span>`;
+  if (t === false) return '<span class="untr">Untradeable</span>';
+  return '<span class="note">no GE price</span>';
+}
+function rarTag(r) { return r == null ? '' : `<span class="rtag r${r}">${RANK[r]}</span>`; }
+function subnav(on) {
+  const b = (h, t, k) => `<a class="btn sub ${on === k ? 'on' : ''}" href="${h}">${t}</a>`;
+  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~stats', 'My stats → gear', 'stats')}${b('#items/~sets', 'Best sets (wiki)', 'sets')}</div>`;
+}
+
+/* ----- stats storage ----- */
+function loadStats() { try { return JSON.parse(localStorage.getItem('mystats') || '{}'); } catch (e) { return {}; } }
+function saveStats(s) { localStorage.setItem('mystats', JSON.stringify(s)); }
+const lv = (S, k) => +S[k] || 1;
+function reqMet(g, S) { for (const [k, v] of Object.entries(g.req || {})) if (lv(S, k) < v) return false; return true; }
+function reqText(g) {
+  const r = Object.entries(g.req || {}).map(([k, v]) => `${v} ${k}`);
+  if (g.req_other) r.push(g.req_other);
+  return r.join(', ') || 'None listed';
+}
+function styleOk(g, st) { return g.cls === st || ((g.cls === 'hybrid' || g.cls === 'all' || g.cls === 'none') && !WEAPON.has(g.slot)); }
+function keyStat(g, st) {
+  if (WEAPON.has(g.slot) && g.damage != null) return `dmg ${g.damage}${g.accuracy != null ? ` · acc ${g.accuracy}` : ''}`;
+  const b = g[STYLE_BONUS[st]]; const parts = [];
+  if (g.armour != null) parts.push(`armour ${g.armour}`);
+  if (b != null) parts.push(`+${b} ${STYLE_BONUS[st]}`);
+  if (g.life != null) parts.push(`life ${g.life}`);
+  if (g.prayer != null) parts.push(`prayer ${g.prayer}`);
+  return parts.join(' · ');
+}
+const ruleSort = st => (a, b) => (b.tier ?? -1) - (a.tier ?? -1) || ((b.type || '').includes('power') - (a.type || '').includes('power'))
+  || ((WEAPON.has(a.slot) ? (b.damage ?? 0) - (a.damage ?? 0) : (b[STYLE_BONUS[st]] ?? 0) - (a[STYLE_BONUS[st]] ?? 0))) || (b.armour ?? 0) - (a.armour ?? 0) || a.n.localeCompare(b.n);
+function usable(D, S, st, opt) {
+  return D.gd.gear.filter(g => styleOk(g, st) && reqMet(g, S) && (!opt.hideDung || !g.dung) && (!opt.hideRec || !g.recolour) && (!opt.hideRst || !RESTRICTED.has(g.rst)) && (!opt.trade || priceOf(D, g.n) != null));
+}
+/* PvP damage reduction, from the wiki Armour page (Damage reduction): head/body/legs only, by required level, slot and armour type */
+const PVP_K = {head: 0.0375, body: 0.06, legs: 0.0525};
+function pvpRed(g) {
+  const k = PVP_K[g.slot]; const L = (g.req || {}).Defence; if (!k || !L) return null;
+  const t = g.type || '';
+  if (t === 'tank' || t === 'pvp') return k * L;
+  if (t.includes('power') || t.includes('hybrid') || g.cls === 'hybrid' || g.cls === 'all') return k * L / 2;
+  return null;
+}
+/* PvM: the wiki's Recommended equipment for PvM/<style> tables */
+function recPicks(D, S, st, opt) {
+  const rec = D.gd.recommended[st]; if (!rec) return {};
+  const by = {};
+  rec.rows.forEach(r => {
+    if (/target specific|tank/i.test(r.tab)) return;
+    r.items.forEach(n => {
+      const g = D.gear[n]; if (!g || !g.slot || !reqMet(g, S) || g.req_other) return;
+      if (opt.hideDung && g.dung) return;
+      if (RESTRICTED.has(g.rst)) return;
+      const key = [r.tier ?? g.tier ?? -1, r.style_bonus ?? g[STYLE_BONUS[st]] ?? 0, r.order];
+      const cur = by[g.slot];
+      if (!cur || key[0] > cur.key[0] || (key[0] === cur.key[0] && (key[1] > cur.key[1] || (key[1] === cur.key[1] && key[2] > cur.key[2])))) by[g.slot] = {g, r, key};
+    });
+  });
+  return by;
+}
+function bestSet(D, S, st, mode, opt) {
+  const pool = usable(D, S, st, {...opt, hideRec: true, hideRst: true}).filter(g => !g.req_other && g.slot);
+  const rs = ruleSort(st);
+  /* stat rule only uses items whose wiki infobox lists a skill requirement: items listed as 'requirements = None' are often quest, minigame
+     or reward items (Thok's sword, Deathmatch/Crucible variants) whose tier would otherwise top every slot at level 1 */
+  const hasReq = g => Object.keys(g.req || {}).length > 0;
+  const rule = slot => pool.filter(g => g.slot === slot && hasReq(g)).sort(rs)[0];
+  const rec = recPicks(D, S, st, opt);
+  const out = [];
+  const slots = ['2h', 'main', 'off', 'offw', 'head', 'body', 'legs', 'hands', 'feet', 'neck', 'cape', 'ring', 'ammo', 'pocket'];
+  for (const slot of slots) {
+    let pick = null, why = '', src = '';
+    if (mode === 'pvp' && PVP_K[slot]) {
+      const c = pool.filter(g => g.slot === slot && pvpRed(g) != null).sort((a, b) => pvpRed(b) - pvpRed(a) || (b.tier ?? 0) - (a.tier ?? 0) || (b[STYLE_BONUS[st]] ?? 0) - (a[STYLE_BONUS[st]] ?? 0));
+      if (c[0]) { pick = c[0]; why = `Highest PvP damage reduction you can wear: ${pvpRed(pick).toFixed(2)}% (${pick.type} armour, Defence ${pick.req.Defence})`; src = 'Armour#Damage reduction'; }
+    }
+    if (!pick && rec[slot]) {
+      pick = rec[slot].g; const r = rec[slot].r;
+      why = `Wiki pick: highest ${r.tier != null ? 'tier' : 'entry'} you can wear in “${r.tab}”${r.tier != null ? ` (tier ${r.tier}${r.tier_note ? '*' : ''})` : ''}`;
+      src = D.gd.recommended[st].page;
+      if (mode === 'pvp') why += '. The wiki gives no PvP-specific pick for this slot, so this is the PvM pick';
+    }
+    if (!pick) {
+      pick = rule(slot);
+      if (pick) why = mode === 'pvp' && (slot === 'hands' || slot === 'feet' || slot === 'off') ? 'Stat rule (no PvP pick on the wiki; gloves, boots and shields do not reduce damage in PvP)' : 'Stat rule, not a wiki pick: highest tier, then power type, then damage/style bonus, then armour';
+    }
+    if (pick && !hasReq(pick)) why += '. The wiki lists no level requirement to wear it, but it has to be earned first (quest, minigame or reward); see its wiki page';
+    if (pick) out.push({slot, g: pick, why, src, note: rec[slot] && pick === rec[slot].g ? rec[slot].r.note : ''});
+  }
+  return out;
+}
+function statInputs(S, extra) {
+  const f = k => `<label class="stat"><span>${k}</span><input type="number" inputmode="numeric" min="1" max="120" data-sk="${k}" value="${lv(S, k)}"></label>`;
+  return `<div class="statgrid">${MAIN_SKILLS.map(f).join('')}</div>
+    <details style="margin-top:8px"><summary>Other skills used in gear requirements (${extra.length})</summary><div class="statgrid">${extra.map(f).join('')}</div></details>
+    <div class="row" style="margin-top:8px"><button class="btn ghost" data-all="1">All 1</button><button class="btn ghost" data-all="70">All 70</button><button class="btn ghost" data-all="99">All 99</button>
+    <span class="note">Saved on this device only.</span></div>`;
+}
+function gearRow(D, g, st, extra = '') {
+  return `<tr><td><a class="item" href="#items/${encodeURIComponent(g.n)}">${icon(g.n)}<span>${esc(g.n)}</span></a>${g.dung ? ' <span class="tag">Daemonheim</span>' : ''}${g.rst && g.rst !== 'dungeoneering' ? ` <span class="tag">${esc(RST_LABEL[g.rst] || g.rst)}</span>` : ''}${g.type ? ` <span class="tag">${esc(g.type)}</span>` : ''}</td>
+    <td>${esc(SLOT_LABEL[g.slot] || g.slot || '')}</td><td class="num">${g.tier ?? esc(g.tier_text || '')}</td><td>${esc(keyStat(g, st))}</td><td>${esc(reqText(g))}</td><td class="num">${priceTag(D, g.n)}</td>${extra}</tr>`;
+}
+async function statsView() {
+  const D = await itemData();
+  const S = loadStats();
+  const opt = Object.assign({style: 'melee', mode: 'pvm', slot: '', sort: 'tier', hideDung: true, hideRec: true, hideRst: true, trade: false, more: 0}, JSON.parse(sessionStorage.gearopt || '{}'));
+  const extraSk = [...new Set(D.gd.gear.flatMap(g => Object.keys(g.req || {})))].filter(k => !MAIN_SKILLS.includes(k)).sort();
+  view.innerHTML = `${subnav('stats')}<div class="panel"><h2>Your levels</h2>${statInputs(S, extraSk)}</div>
+    <div class="panel"><h2>Best set for your stats</h2><div class="chips" id="sty">${Object.entries(STYLES).map(([k, v]) => `<button data-v="${k}">${v}</button>`).join('')}</div>
+    <div class="chips" id="mode"><button data-v="pvm">PvM</button><button data-v="pvp">PvP</button></div><div id="best"></div></div>
+    <div class="panel"><h2>All gear you can wear</h2><div class="row">
+      <select id="slot"><option value="">Every slot</option>${SLOT_ORDER.map(s => `<option value="${s}">${SLOT_LABEL[s]}</option>`).join('')}</select>
+      <select id="sort"><option value="tier">Tier, high → low</option><option value="dmg">Damage / style bonus</option><option value="arm">Armour</option><option value="price">GE price, high → low</option><option value="pricel">GE price, low → high</option><option value="name">Name A–Z</option></select></div>
+      <div class="row" style="margin-top:6px"><label class="chk"><input type="checkbox" id="hd"> Hide Daemonheim-only gear</label><label class="chk"><input type="checkbox" id="hs"> Hide minigame/quest-only and removed gear</label><label class="chk"><input type="checkbox" id="hr"> Hide recolours</label><label class="chk"><input type="checkbox" id="tr"> On the GE only</label></div>
+      <div id="all"></div></div>`;
+  const setChips = () => { document.querySelectorAll('#sty button').forEach(b => b.classList.toggle('on', b.dataset.v === opt.style)); document.querySelectorAll('#mode button').forEach(b => b.classList.toggle('on', b.dataset.v === opt.mode)); };
+  $('#slot').value = opt.slot; $('#sort').value = opt.sort; $('#hd').checked = opt.hideDung; $('#hr').checked = opt.hideRec; $('#hs').checked = opt.hideRst; $('#tr').checked = opt.trade;
+  const draw = () => {
+    sessionStorage.gearopt = JSON.stringify({...opt, more: 0}); setChips();
+    const st = opt.style, bs = bestSet(D, S, st, opt.mode, opt);
+    const recPage = D.gd.recommended[st] && D.gd.recommended[st].page;
+    const q = D.gd.pvp_quotes || [];
+    const total = bs.reduce((a, x) => a + (priceOf(D, x.g.n) || 0), 0);
+    $('#best').innerHTML = `<div class="note" style="margin:8px 0">${opt.mode === 'pvm'
+      ? `Picks come from the wiki's <a href="${WIKI(recPage)}" target="_blank" rel="noopener">${esc(recPage)}</a> tables: for each slot, the highest-tier entry whose requirements you meet. A slot the wiki table has nothing for at your levels falls back to a stat rule (marked). Two-handed and main-hand + off-hand are shown side by side; use one or the other.`
+      : `Head, body and legs: the piece with the most PvP damage reduction you can wear, worked out with the wiki's Armour page formula. Other slots: the wiki has no PvP-specific picks, so the PvM pick or the stat rule is shown, and it says so.`}</div>
+      <div style="overflow-x:auto"><table><thead><tr><th>Slot</th><th>Item</th><th>Tier</th><th>Stats (wiki)</th><th>Price</th><th>Why</th></tr></thead><tbody>
+      ${bs.map(x => `<tr><td>${esc(SLOT_LABEL[x.slot])}</td><td><a class="item" href="#items/${encodeURIComponent(x.g.n)}">${icon(x.g.n)}<span>${esc(x.g.n)}</span></a></td><td class="num">${x.g.tier ?? ''}</td>
+        <td>${esc(keyStat(x.g, st))}</td><td class="num">${priceTag(D, x.g.n)}</td><td class="why">${esc(x.why)}${x.src ? ` <a class="note" href="${WIKI(x.src)}" target="_blank" rel="noopener">[wiki]</a>` : ''}${x.note ? `<div class="note">${esc(x.note).replace(/\n/g, '<br>')}</div>` : ''}</td></tr>`).join('') || '<tr><td colspan="6" class="note">Nothing to show.</td></tr>'}
+      </tbody></table></div><div class="note" style="margin-top:6px">Total GE value of the listed pieces: ${gp(total)} (untradeables count as 0; both weapon options are included). Prices as of ${esc(D.pr.date)} (${esc(geDateET(D))}).</div>
+      ${opt.mode === 'pvp' ? `<div class="quotes">${q.filter(x => /PvP/.test(x.text) || x.page === 'Player versus player').map(x => `<blockquote>“${esc(x.text)}” <a href="${WIKI(x.page)}" target="_blank" rel="noopener">— ${esc(x.page)}</a></blockquote>`).join('')}
+        <div class="note">PvP-type armour sets on the wiki's Armour page: ${D.gd.armour_sets.filter(s => s.type === 'PvP' && s.styles.includes(STYLES[st])).map(s => `<a href="${WIKI(s.set)}" target="_blank" rel="noopener">${esc(s.set)}</a> (level ${s.level})${lv(S, 'Defence') >= s.level ? ' ✓' : ''}`).join(', ') || 'none for this style'}. ✓ = your Defence is at least that level.</div></div>`
+      : `<div class="quotes">${q.filter(x => x.page === 'Recommended equipment for PvM').map(x => `<blockquote>“${esc(x.text)}” <a href="${WIKI(x.page)}" target="_blank" rel="noopener">— ${esc(x.page)}</a></blockquote>`).join('')}</div>`}`;
+    let list = usable(D, S, st, opt).filter(g => !opt.slot || g.slot === opt.slot);
+    const sb = STYLE_BONUS[st];
+    const sorts = {tier: ruleSort(st), dmg: (a, b) => ((b.damage ?? b[sb] ?? -1) - (a.damage ?? a[sb] ?? -1)), arm: (a, b) => (b.armour ?? -1) - (a.armour ?? -1),
+      price: (a, b) => (priceOf(D, b.n) ?? -1) - (priceOf(D, a.n) ?? -1), pricel: (a, b) => (priceOf(D, a.n) ?? 1e15) - (priceOf(D, b.n) ?? 1e15), name: (a, b) => a.n.localeCompare(b.n)};
+    list.sort(sorts[opt.sort] || sorts.tier);
+    const lim = 200 * (1 + opt.more);
+    $('#all').innerHTML = `<div class="note" style="margin:6px 0">${list.length.toLocaleString()} ${STYLES[st]} items (weapons of that style plus armour/jewellery any style can wear) meet your levels. Requirements are the skill levels in each item's wiki infobox; anything else it needs (quests etc.) is listed too.</div>
+      <div style="overflow-x:auto"><table><thead><tr><th>Item</th><th>Slot</th><th>Tier</th><th>Stats (wiki)</th><th>Requirements</th><th>Price</th></tr></thead><tbody>
+      ${list.slice(0, lim).map(g => gearRow(D, g, st)).join('')}</tbody></table></div>${list.length > lim ? `<div class="row" style="margin-top:8px"><button class="btn ghost" id="more">Show more (${(list.length - lim).toLocaleString()} left)</button></div>` : ''}`;
+    const m = $('#more'); if (m) m.onclick = () => { opt.more++; drawList(); };
+  };
+  const drawList = () => { const y = window.scrollY; draw(); window.scrollTo(0, y); };
+  document.querySelectorAll('#sty button').forEach(b => b.onclick = () => { opt.style = b.dataset.v; opt.more = 0; draw(); });
+  document.querySelectorAll('#mode button').forEach(b => b.onclick = () => { opt.mode = b.dataset.v; draw(); });
+  $('#slot').onchange = e => { opt.slot = e.target.value; opt.more = 0; draw(); };
+  $('#sort').onchange = e => { opt.sort = e.target.value; draw(); };
+  $('#hd').onchange = e => { opt.hideDung = e.target.checked; draw(); };
+  $('#hr').onchange = e => { opt.hideRec = e.target.checked; draw(); };
+  $('#hs').onchange = e => { opt.hideRst = e.target.checked; draw(); };
+  $('#tr').onchange = e => { opt.trade = e.target.checked; draw(); };
+  view.querySelectorAll('input[data-sk]').forEach(i => i.oninput = () => { const v = Math.max(1, Math.min(120, parseInt(i.value, 10) || 1)); S[i.dataset.sk] = v; saveStats(S); clearTimeout(i._t); i._t = setTimeout(draw, 250); });
+  view.querySelectorAll('button[data-all]').forEach(b => b.onclick = () => { const v = +b.dataset.all; view.querySelectorAll('input[data-sk]').forEach(i => { i.value = v; S[i.dataset.sk] = v; }); saveStats(S); draw(); });
+  draw();
+}
+async function setsView() {
+  const D = await itemData(); const S = loadStats();
+  const opt = Object.assign({style: 'melee', type: ''}, JSON.parse(sessionStorage.setopt || '{}'));
+  view.innerHTML = `${subnav('sets')}<div class="panel"><h2>Best sets by style and tier</h2>
+    <div class="chips" id="sty">${Object.entries(STYLES).map(([k, v]) => `<button data-v="${k}">${v}</button>`).join('')}</div><div id="out"></div></div>`;
+  const draw = () => {
+    sessionStorage.setopt = JSON.stringify(opt);
+    document.querySelectorAll('#sty button').forEach(b => b.classList.toggle('on', b.dataset.v === opt.style));
+    const rec = D.gd.recommended[opt.style];
+    const tabs = {}; (rec ? rec.rows : []).forEach(r => { (tabs[r.sec + ' · ' + r.tab] ??= []).push(r); });
+    const ok = n => { const g = D.gear[n]; return g ? reqMet(g, S) : null; };
+    const types = ['Power', 'PvP', 'Tank', 'Hybrid', 'All'];
+    const sets = D.gd.armour_sets.filter(s => s.styles.includes(STYLES[opt.style]) && (!opt.type || s.type === opt.type)).sort((a, b) => (b.level ?? 0) - (a.level ?? 0));
+    $('#out').innerHTML = `<h3>Wiki recommended PvM equipment</h3><div class="note">From <a href="${WIKI(rec.page)}" target="_blank" rel="noopener">${esc(rec.page)}</a>, in the wiki's order (lowest tier first). ✓ = you meet the item's requirements with your saved levels; ✗ = you don't yet; ? = the item page has no stats in the copy.</div>
+      ${Object.entries(tabs).map(([t, rows]) => `<details ${/Weapons|Armour/.test(t) ? 'open' : ''}><summary>${esc(t)} <span class="note">(${rows.length})</span></summary><div style="overflow-x:auto"><table><thead><tr><th>Tier</th><th>Items</th><th>Price</th><th>Notes (wiki)</th></tr></thead><tbody>
+        ${rows.map(r => `<tr><td class="num">${r.tier ?? (r.style_bonus != null ? `bonus ${r.style_bonus}` : '')}${r.tier_note ? '*' : ''}</td>
+          <td>${r.items.map(n => { const o = ok(n); return `<div><a class="item" href="#items/${encodeURIComponent(n)}">${icon(n)}<span>${esc(n)}</span></a> ${o == null ? '<span class="note">?</span>' : o ? '<span class="ok">✓</span>' : '<span class="no">✗</span>'}</div>`; }).join('')}</td>
+          <td class="num">${r.items.map(n => `<div>${priceTag(D, n)}</div>`).join('')}</td><td class="note">${esc(r.note).replace(/\n/g, '<br>')}</td></tr>`).join('')}</tbody></table></div></details>`).join('')}
+      <h3 style="margin-top:14px">Armour sets by type (wiki Armour page)</h3><div class="chips" id="typ"><button data-v="">All types</button>${types.map(t => `<button data-v="${t}">${t}</button>`).join('')}</div>
+      <div class="note" style="margin:6px 0">${esc((D.gd.pvp_quotes.find(x => /^In general players should choose/.test(x.text)) || {}).text || '')}</div>
+      <div style="overflow-x:auto"><table><thead><tr><th>Set</th><th>Level</th><th>Type</th><th>Styles</th><th>You</th></tr></thead><tbody>
+      ${sets.map(s => `<tr><td><a href="${WIKI(s.set)}" target="_blank" rel="noopener">${esc(s.set)}</a>${s.note ? ` <span class="note">${esc(s.note)}</span>` : ''}</td><td class="num">${s.level ?? ''}</td><td>${esc(s.type)}</td><td>${esc(s.styles.join(', '))}</td>
+        <td>${s.level == null ? '' : lv(S, 'Defence') >= s.level ? '<span class="ok">✓</span>' : '<span class="no">✗</span>'}</td></tr>`).join('')}</tbody></table></div>
+      <div class="note">“You” compares the set's level with your saved Defence level.</div>`;
+    document.querySelectorAll('#typ button').forEach(b => { b.classList.toggle('on', b.dataset.v === opt.type); b.onclick = () => { opt.type = b.dataset.v; draw(); }; });
+  };
+  document.querySelectorAll('#sty button').forEach(b => b.onclick = () => { opt.style = b.dataset.v; draw(); });
+  draw();
+}
+function statTable(g) {
+  const F = [['cls', 'Class'], ['slot', 'Slot'], ['tier', 'Tier'], ['type', 'Type'], ['damage', 'Damage'], ['accuracy', 'Accuracy'], ['style', 'Attack style'], ['speed', 'Speed'], ['attack_range', 'Range'],
+    ['armour', 'Armour'], ['life', 'Life points'], ['prayer', 'Prayer'], ['strength', 'Strength'], ['ranged', 'Ranged'], ['magic', 'Magic'], ['necromancy', 'Necromancy'],
+    ['damagetier', 'Damage tier'], ['accuracytier', 'Accuracy tier'], ['armourtier', 'Armour tier'], ['armourdamagetier', 'Armour damage tier'], ['pvmreduction', 'PvM reduction %'], ['pvpreduction', 'PvP reduction %'], ['degrades', 'Degrades'], ['release', 'Released']];
+  return `<div class="kv">${F.filter(([k]) => g[k] != null && g[k] !== '').map(([k, l]) => `<b>${l}</b><span>${esc(k === 'slot' ? SLOT_LABEL[g.slot] || g.slot : g[k])}</span>`).join('')}<b>Requirements</b><span>${esc(reqText(g))}</span></div>
+    ${g.v ? `<div class="note">Stats for the “${esc(g.v)}” version.</div>` : ''}${g.dung ? '<div class="note">Dungeoneering item (Daemonheim only).</div>' : ''}${g.rst && g.rst !== 'dungeoneering' ? `<div class="note">Wiki restriction: ${esc(RST_LABEL[g.rst] || g.rst)}.</div>` : ''}`;
+}
 async function itemsView(name) {
-  const [items] = await Promise.all([get('data/items.json'), loadThumbs()]);
-  const names = Object.keys(items);
+  if (name === '~stats') return statsView();
+  if (name === '~sets') return setsView();
+  const [D] = await Promise.all([itemData(), loadThumbs()]);
+  const {items, best, gear} = D;
+  const asof = `as of ${esc(D.pr.date)} (${esc(geDateET(D))})`;
   if (name) {
-    const src = items[name] || [];
+    const src = items[name] || [], g = gear[name], v = priceOf(D, name), t = tradeOf(D, name);
     view.innerHTML = `<div class="row" style="margin-bottom:10px"><a class="btn ghost" href="#items">← Items</a></div>
-    <div class="panel"><div class="row">${icon(name)}<h2 style="margin:0">${esc(name)}</h2></div>
-    <div class="note" style="margin:6px 0 10px">Dropped by ${src.length} source${src.length === 1 ? '' : 's'}, best chance first.</div>
+    <div class="panel"><div class="row">${icon(name)}<h2 style="margin:0">${esc(name)}</h2>${best[name] ? rarTag(best[name][0]) : ''}</div>
+    <div class="price">${v != null ? `Grand Exchange: <span class="gp">${gp(v)}</span> <span class="note">${asof}</span>` : t === false ? '<span class="untr">Untradeable</span> <span class="note">(wiki item infobox)</span>' : `<span class="note">No Grand Exchange price in the ${esc(D.pr.date)} data.</span>`}</div>
+    ${g ? `<h3>Equipment stats <a class="note" href="${WIKI(g.p)}" target="_blank" rel="noopener">[wiki: ${esc(g.p)}]</a></h3>${statTable(g)}` : ''}
+    ${src.length ? `<h3>Drops</h3><div class="note" style="margin:6px 0 10px">Dropped by ${src.length} source${src.length === 1 ? '' : 's'}, best chance first.</div>
     <div style="overflow-x:auto"><table><thead><tr><th>Dropped by</th><th>Qty</th><th>Rarity</th></tr></thead><tbody>
     ${src.map(s => `<tr><td>${s[5] ? `<a class="item" href="#drops/${encodeURIComponent(s[0])}">${mthumb(s[0], 32)}<span>${esc(s[0])}</span></a>` : `<span class="item">${PH('◆')}<span>${esc(s[0])} <span class="tag">other source</span></span></span>`}</td>
-      <td>${esc(s[1])}</td><td class="num">${rarityCell(s[2], s[3], s[4])}</td></tr>`).join('')}</tbody></table></div></div>`;
+      <td>${esc(s[1])}</td><td class="num">${rarityCell(s[2], s[3], s[4])}</td></tr>`).join('')}</tbody></table></div>` : '<div class="note" style="margin-top:8px">Not in any drop table in the wiki copy.</div>'}</div>`;
     return;
   }
-  view.innerHTML = `<div class="panel"><h2>Who drops it?</h2>${searchBox('q', 'e.g. abyssal whip, uncut dragonstone…', sessionStorage.iq || '')}
-    <div class="note" style="margin-top:6px">${names.length.toLocaleString()} items appear in the drop tables.</div><div id="res" class="list"></div></div>`;
+  const o = Object.assign({q: '', rar: '', show: 'all', slot: '', sort: 'match'}, JSON.parse(sessionStorage.iopt || '{}'));
+  if (sessionStorage.iq && !o.q) o.q = sessionStorage.iq;
+  view.innerHTML = `${subnav('search')}<div class="panel"><h2>Find any item</h2>${searchBox('q', 'e.g. abyssal whip, bandos chestplate…', o.q)}
+    <div class="chips" id="rar"><button data-v="">Any rarity</button>${RANK.map((r, i) => `<button data-v="${i}" class="r${i}">${r}</button>`).join('')}</div>
+    <div class="row" style="margin-top:8px"><select id="show"><option value="all">All items</option><option value="drop">Dropped by something</option><option value="gear">Equipment</option><option value="ge">On the Grand Exchange</option><option value="untr">Untradeable</option></select>
+    <select id="slot"><option value="">Any slot</option>${SLOT_ORDER.map(s => `<option value="${s}">${SLOT_LABEL[s]}</option>`).join('')}</select>
+    <select id="sort"><option value="match">Best match</option><option value="name">Name A–Z</option><option value="price">Price, high → low</option><option value="pricel">Price, low → high</option><option value="common">Rarity, common first</option><option value="rare">Rarity, rarest first</option><option value="tier">Tier, high → low</option></select></div>
+    <div class="note" style="margin-top:6px">${D.names.length.toLocaleString()} items: ${Object.keys(items).length.toLocaleString()} in drop tables, ${D.gd.gear.length.toLocaleString()} equipment pieces, ${Object.keys(D.pr.prices).length.toLocaleString()} with a GE price. Prices ${asof}, from the wiki's GE price data.
+    Rarity is an item's best drop chance across all its sources, banded the way the wiki colours drop tables (Always; Common ≥ 1/16; Uncommon ≥ 1/64; Rare ≥ 1/256; Very rare below that).</div><div id="res" class="list"></div></div>`;
   const q = $('#q'), out = $('#res');
+  $('#show').value = o.show; $('#slot').value = o.slot; $('#sort').value = o.sort;
   const draw = () => {
-    sessionStorage.iq = q.value; const nq = norm(q.value);
-    if (!nq) { out.innerHTML = '<div class="note">Start typing an item name.</div>'; return; }
-    const hits = names.map(n => [score(n, nq), n]).filter(x => x[0] >= 0).sort((a, b) => b[0] - a[0]).slice(0, 60);
-    out.innerHTML = hits.map(([, n]) => `<a class="hit" href="#items/${encodeURIComponent(n)}">${icon(n)}<span>${esc(n)}</span><span class="meta">${items[n].length} source${items[n].length === 1 ? '' : 's'}</span></a>`).join('');
+    o.q = q.value; sessionStorage.iopt = JSON.stringify(o); sessionStorage.iq = q.value;
+    document.querySelectorAll('#rar button').forEach(b => b.classList.toggle('on', b.dataset.v === String(o.rar)));
+    const nq = norm(q.value);
+    let hits = D.names.map(n => [nq ? score(n, nq) : 0, n]).filter(x => x[0] >= 0);
+    if (o.rar !== '') hits = hits.filter(([, n]) => best[n] && best[n][0] === +o.rar);
+    if (o.show === 'drop') hits = hits.filter(([, n]) => items[n]);
+    else if (o.show === 'gear') hits = hits.filter(([, n]) => gear[n]);
+    else if (o.show === 'ge') hits = hits.filter(([, n]) => priceOf(D, n) != null);
+    else if (o.show === 'untr') hits = hits.filter(([, n]) => tradeOf(D, n) === false);
+    if (o.slot) hits = hits.filter(([, n]) => gear[n] && gear[n].slot === o.slot);
+    const P = n => priceOf(D, n), B = n => best[n] ? best[n][1] : null;
+    const so = {match: (a, b) => b[0] - a[0] || a[1].localeCompare(b[1]), name: (a, b) => a[1].localeCompare(b[1]), price: (a, b) => (P(b[1]) ?? -1) - (P(a[1]) ?? -1),
+      pricel: (a, b) => (P(a[1]) ?? 1e15) - (P(b[1]) ?? 1e15), common: (a, b) => (B(b[1]) ?? -1) - (B(a[1]) ?? -1), rare: (a, b) => (B(a[1]) ?? 9) - (B(b[1]) ?? 9),
+      tier: (a, b) => ((gear[b[1]] || {}).tier ?? -1) - ((gear[a[1]] || {}).tier ?? -1)};
+    if (!nq && o.sort === 'match' && o.rar === '' && o.show === 'all' && !o.slot) { out.innerHTML = '<div class="note">Start typing an item name, or pick a rarity, filter or sort to browse.</div>'; return; }
+    hits.sort(so[o.sort] || so.match);
+    const n0 = hits.length; hits = hits.slice(0, 100);
+    out.innerHTML = `<div class="note">${n0.toLocaleString()} match${n0 === 1 ? '' : 'es'}${n0 > 100 ? ', showing the first 100' : ''}.</div>` + hits.map(([, n]) => {
+      const g = gear[n], b = best[n];
+      return `<a class="hit" href="#items/${encodeURIComponent(n)}">${icon(n)}<span>${esc(n)}${g && g.tier != null ? ` <span class="tag">T${g.tier}</span>` : ''}${g && g.slot ? ` <span class="tag">${esc(SLOT_LABEL[g.slot] || g.slot)}</span>` : ''}</span>
+        <span class="meta">${b ? rarTag(b[0]) : ''}${priceTag(D, n)}${items[n] ? `<div>${items[n].length} source${items[n].length === 1 ? '' : 's'}</div>` : ''}</span></a>`;
+    }).join('');
   };
-  q.oninput = draw; draw(); q.focus();
+  q.oninput = draw;
+  document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; draw(); });
+  $('#show').onchange = e => { o.show = e.target.value; draw(); };
+  $('#slot').onchange = e => { o.slot = e.target.value; draw(); };
+  $('#sort').onchange = e => { o.sort = e.target.value; draw(); };
+  draw(); q.focus();
 }
 
 /* ---------- clues ---------- */
@@ -411,7 +681,10 @@ async function aboutView() {
     Font: Fira Sans (SIL Open Font License).</p></div>
   <div class="panel"><h2>What's inside</h2><div class="kv">
     <b>Built</b><span>${esc(m.built)}</span><b>Monsters</b><span>${m.monsters.toLocaleString()}</span><b>Drop entries</b><span>${m.drop_entries.toLocaleString()}</span>
-    <b>Items</b><span>${m.items.toLocaleString()} (${m.icons.toLocaleString()} with icons)</span><b>Clues</b><span>${m.clues.toLocaleString()}</span><b>Travel pages</b><span>${m.locations.toLocaleString()}</span></div>
+    <b>Items</b><span>${m.items.toLocaleString()} (${m.icons.toLocaleString()} with icons)</span><b>Clues</b><span>${m.clues.toLocaleString()}</span><b>Travel pages</b><span>${m.locations.toLocaleString()}</span>
+    ${m.gear ? `<b>Gear</b><span>${m.gear.items.toLocaleString()} items · ${m.gear.with_stats.toLocaleString()} with stats · ${m.gear.with_requirements.toLocaleString()} with requirements · ${m.gear.with_price.toLocaleString()} with a GE price</span>` : ''}
+    ${m.ge ? `<b>GE prices</b><span>${m.ge.prices.toLocaleString()} items, as of ${esc(m.ge.date)} (${esc(m.ge.source)})</span>` : ''}</div>
+    <div class="note" style="margin-top:8px">Rarity bands follow the wiki's drop tables (Module:DropsLine): Always, Common ≥ 1/16, Uncommon ≥ 1/64, Rare ≥ 1/256, Very rare below that.</div>
     <table style="margin-top:10px"><thead><tr><th>Tier</th><th>Clue types</th></tr></thead><tbody>${cc}</tbody></table></div>
   <div class="panel"><h2>Known gaps</h2><ul>
     <li>Pictures come from the wiki pages themselves: ${(m.coverage.quest_pictures_total || 0).toLocaleString()} quest pictures (steps, start NPCs and places) and location maps, entrances and teleports for monsters. Steps the wiki shows no picture for get the place or NPC they mention, where the wiki has one.</li>
@@ -505,7 +778,7 @@ async function detectLauncher() {
 
 /* ---------- boot ---------- */
 (async () => {
-  try { const ic = await get('data/icons.json'); ICONS = ic.items || ic; EMOTES = ic.emotes || {}; } catch (e) { ICONS = {}; }
+  try { const ic = await get('data/icons.json'); ICONS = ic.items || ic; EMOTES = ic.emotes || {}; GICONS = ic.gear || {}; } catch (e) { ICONS = {}; }
   route(); detectLauncher();
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();

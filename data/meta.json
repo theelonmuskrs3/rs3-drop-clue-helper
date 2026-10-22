@@ -1,5 +1,5 @@
 {
- "built": "2026-10-22 01:04 EDT",
+ "built": "2026-10-22 16:20 EDT",
  "monsters": 1481,
  "drop_entries": 21768,
  "items": 3297,
@@ -91,7 +91,7 @@
   ]
  },
  "quests": {
-  "generated": "2026-10-22 01:04:35 EDT",
+  "generated": "2026-10-22 16:20:16 EDT",
   "questreq_master_list": 392,
   "stubs_page_missing": 9,
   "total": 404,
@@ -119,8 +119,28 @@
   "items": [],
   "item_sources": 0,
   "clues": 0,
-  "quests": []
+  "quests": [],
+  "gear": 0
  },
- "drops_generated": "2026-10-22 01:04:24 EDT",
- "clues_generated": "2026-10-22 01:04:26 EDT"
+ "drops_generated": "2026-10-22 16:19:57 EDT",
+ "gear": {
+  "items": 11424,
+  "with_stats": 8354,
+  "with_requirements": 7580,
+  "with_price": 2892,
+  "recommended_rows": {
+   "melee": 128,
+   "ranged": 122,
+   "magic": 108,
+   "necromancy": 78,
+   "hybrid": 62
+  },
+  "armour_sets": 168
+ },
+ "ge": {
+  "date": "21 October 2026 04:14:23 (UTC)",
+  "source": "Module:GEPrices/data.json (RS3 wiki), saved in the wiki copy as ge_prices_2026-10-21.json",
+  "prices": 7367
+ },
+ "clues_generated": "2026-10-22 16:20:07 EDT"
 }
