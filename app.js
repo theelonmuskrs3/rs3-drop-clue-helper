@@ -35,6 +35,28 @@ function rarityCell(raw, p, rank) {
   const pct = p != null && p < 1 ? `<div class="note">${fmtP(p)}</div>` : '';
   return `<span class="${cls}">${esc(raw || '?')}</span>${pct}`;
 }
+/* ---------- reference pictures (from the wiki, shown with the text they belong to; tap to enlarge) ---------- */
+function fig(p, cls = '') {
+  if (!p) return '';
+  const [src, cap, w, h, kind] = p;
+  return `<figure class="ref ${kind || ''} ${cls}"><img class="refimg" loading="lazy" decoding="async" src="${esc(src)}" ${w ? `width="${w}" height="${h}"` : ''} alt="${esc(cap)}" data-cap="${esc(cap)}" onerror="this.closest('figure').remove()">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`;
+}
+function gallery(list, cls = '') {
+  list = (list || []).filter(Boolean);
+  if (!list.length) return '';
+  return `<div class="refs ${list.length > 1 ? 'multi' : 'single'} ${cls}">${list.map(p => fig(p)).join('')}</div>`;
+}
+const lb = document.createElement('div'); lb.id = 'lightbox'; lb.hidden = true;
+lb.innerHTML = '<img alt=""><div class="lbcap"></div><div class="lbhint">Tap anywhere to close</div>';
+document.body.appendChild(lb);
+lb.onclick = () => { lb.hidden = true; };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.hidden = true; });
+document.addEventListener('click', e => {
+  const im = e.target.closest && e.target.closest('img.refimg');
+  if (!im) return;
+  e.preventDefault(); e.stopPropagation();
+  lb.querySelector('img').src = im.currentSrc || im.src; lb.querySelector('.lbcap').textContent = im.dataset.cap || ''; lb.hidden = false;
+}, true);
 function coordStr(c, plane) { return c ? `${c[0]}, ${c[1]}${plane ? ` (floor ${plane})` : ''}` : ''; }
 
 /* ---------- tabs / routing ---------- */
@@ -98,7 +120,7 @@ async function monsterView(name, mons) {
     ['Weakness', d.weakness], ['Aggressive', d.aggressive], ['Examine', d.examine]].filter(x => x[1]);
   view.innerHTML = `<div class="row" style="margin-bottom:10px"><a class="btn ghost" href="#drops">← Monsters</a></div>
   <div class="panel"><div class="row" style="gap:16px;align-items:flex-start">
-    ${d.img ? `<img src="${esc(d.img)}" alt="" style="max-height:96px;max-width:96px">` : PH('☗', 96)}
+    ${d.big ? fig(d.big, 'hero') : d.img ? `<img src="${esc(d.img)}" alt="" style="max-height:96px;max-width:96px">` : PH('☗', 96)}
     <div style="flex:1;min-width:220px"><h2>${esc(name)}</h2><div class="kv">${kv.map(([k, v]) => `<b>${k}</b><span>${esc(v)}</span>`).join('')}</div>
     ${d.rare_drop_table ? '<div class="note" style="margin-top:6px">Also has access to the rare drop table.</div>' : ''}</div></div></div>
   <div class="panel"><h2>Drops</h2>
@@ -132,18 +154,40 @@ async function monsterView(name, mons) {
     const k = th.dataset.k; sort = k === 'likely' ? (sort === 'likely' ? 'rarest' : 'likely') : k === 'qty' ? sort : k;
     $('#s').value = sort; localStorage.dsort = sort; draw(); });
   draw();
-  $('#locs').innerHTML = d.locs.length ? d.locs.map(l => locBlock(l, travel)).join('') : '<div class="note">The wiki copy lists no spawn locations for this monster (it may be an instance, boss arena or event).</div>';
+  $('#locs').innerHTML = (d.ml || []).length ? d.ml.map(mlBlock).join('') : d.locs.length ? d.locs.map(l => locBlock(l, travel)).join('') : '<div class="note">The wiki copy lists no spawn locations for this monster (it may be an instance, boss arena or event).</div>';
 }
 function travelBlock(title, travel, open) {
   const t = travel.locations[title]; if (!t) return '';
   const parts = [];
+  const top = [t.pic, t.entrance && [...t.entrance.slice(0, 4), 'entrance'], t.map_pic && [...t.map_pic.slice(0, 4), 'map']].filter(Boolean);
+  if (top.length) parts.push(gallery(top));
   if (t.summary) parts.push(`<div class="pre">${esc(t.summary)}</div>`);
   if (t.location) parts.push(`<div><b class="pill">Area</b> ${esc(t.location)}</div>`);
   if (t.map_coords) parts.push(`<div><b class="pill">Map point</b> ${coordStr(t.map_coords)} <span class="note">(the wiki's map marker for this place, usually the area or entrance)</span></div>`);
-  if (t.nearest_lodestones) parts.push(`<div><b class="pill">Nearest lodestones</b> ${t.nearest_lodestones.map(l => `${esc(l.name)} (${l.tiles} tiles)`).join(', ')} <span class="note">straight-line, not a walking route</span></div>`);
+  if (t.nearest_lodestones) {
+    const lp = t.nearest_lodestones.map(l => (travel.lodestones.find(x => x.name === l.name) || {}).pic).filter(Boolean).slice(0, 1);
+    parts.push(`<div><b class="pill">Nearest lodestones</b> ${t.nearest_lodestones.map(l => `${esc(l.name)} (${l.tiles} tiles)`).join(', ')} <span class="note">straight-line, not a walking route</span>${gallery(lp, 'small')}</div>`);
+  }
   if (t.teleport) parts.push(`<div><b class="pill">Teleports</b><div class="pre">${esc(t.teleport)}</div></div>`);
-  (t.getting_there || []).forEach(g => parts.push(`<div><b class="pill">${esc(g.heading)}</b><div class="pre">${esc(g.text)}</div></div>`));
+  (t.getting_there || []).forEach(g => parts.push(`<div><b class="pill">${esc(g.heading)}</b>${gallery(g.pics)}<div class="pre">${esc(g.text)}</div></div>`));
   return `<details ${open ? 'open' : ''}><summary>How to get to ${esc(title)}</summary><div style="display:grid;gap:8px;margin-top:6px">${parts.join('')}</div></details>`;
+}
+function mlBlock(l) {
+  const P = l.place || {};
+  const parts = [];
+  if (l.requirements) parts.push(`<div class="note">Requirements: ${esc(l.requirements)}</div>`);
+  if (l.text) parts.push(`<div class="pre">${esc(l.text)}</div>`);
+  if (P.summary) parts.push(`<div class="pre">${esc(P.summary)}</div>`);
+  if (P.location && P.location !== l.name) parts.push(`<div><b class="pill">Area</b> ${esc(P.location)}</div>`);
+  if ((l.teleports || []).length) parts.push(`<div><b class="pill">Nearest teleports</b>${gallery(l.teleports.map(t => t.pic).filter(Boolean), 'small')}
+    <div class="note">${l.teleports.map(t => `${t.icon ? `<img class="ico" src="${esc(t.icon)}" alt="" style="width:20px;height:20px">` : ''}${esc(t.name)}${t.code ? ' (' + esc(t.code) + ')' : ''}${t.tiles ? ` · ${t.tiles} tiles` : ''}${t.kind ? ` <span class="tag">${esc(t.kind)}</span>` : ''}`).join('<br>')}</div></div>`);
+  if (P.teleport) parts.push(`<div><b class="pill">Teleports</b><div class="pre">${esc(P.teleport)}</div></div>`);
+  (P.getting_there || []).forEach(g => parts.push(`<div><b class="pill">${esc(g.heading || 'Getting there')}</b>${gallery(g.pics)}<div class="pre">${esc(g.text)}</div></div>`));
+  return `<div style="padding:10px 0;border-bottom:1px solid #ffffff12">
+    <div class="row"><b style="font-family:var(--head);color:var(--gold2)">${esc(l.name || 'Unknown location')}</b>
+    ${l.levels ? `<span class="tag">Lvl ${esc(l.levels)}</span>` : ''}${l.members ? '<span class="tag">Members</span>' : ''}${l.spawns ? `<span class="tag">${l.spawns} spawns</span>` : ''}</div>
+    ${gallery(l.pics)}
+    <div style="display:grid;gap:8px;margin-top:4px">${parts.join('')}</div></div>`;
 }
 function locBlock(l, travel) {
   return `<div style="padding:8px 0;border-bottom:1px solid #ffffff12">
@@ -299,13 +343,13 @@ async function questDetail(name, qs) {
   const pre = (q.prereq_quests || []).length || (q.prereq_other || []).length ? `<div><b class="pill">Quests</b><ul class="blist">${(q.prereq_quests || []).map(t => `<li>${qlink(t)}</li>`).join('')}${(q.prereq_other || []).map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : '';
   const full = (q.prereq_full || []).length ? `<details><summary>Full prerequisite chain (${q.prereq_full.length})</summary><ul class="blist">${q.prereq_full.map(t => `<li>${qlink(t)}</li>`).join('')}</ul></details>` : '';
   const reqs = pre + (q.requirements ? `<div><b class="pill">Skills &amp; other</b>${bulletList(q.requirements)}</div>` : '') + (q.ironman ? `<div><b class="pill">Ironman</b>${bulletList(q.ironman)}</div>` : '') + full;
-  const start = q.start || q.start_coords ? `<div class="pre">${esc(q.start || '')}</div>
+  const start = q.start || q.start_coords || q.start_pics ? `${gallery(q.start_pics)}<div class="pre">${esc(q.start || '')}</div>
     ${q.start_coords ? `<div style="margin-top:6px"><b class="pill">Start point</b> ${coordStr(q.start_coords, q.start_plane)}</div>` : ''}
     ${q.start_lodestones ? `<div style="margin-top:6px"><b class="pill">Nearest lodestones</b> ${q.start_lodestones.map(l => `${esc(l.name)} (${l.tiles} tiles)`).join(', ')} <span class="note">straight-line</span></div>` : ''}
-    ${(q.start_links || []).map((x, i) => travelBlock(x, travel, false)).join('')}` : '';
+    ${(q.start_links || []).map((x, i) => travelBlock(x, travel, i === 0)).join('')}` : '';
   const done = qIsDone(name);
   view.innerHTML = `<div class="row" style="margin-bottom:10px"><a class="btn ghost" href="#quests">← Quests</a></div>
-  <div class="panel"><div class="row" style="gap:14px;align-items:flex-start">${qIcon(q.icon, 48)}<div style="flex:1;min-width:220px"><h2>${esc(name)}</h2>
+  <div class="panel">${q.image ? `<div class="qhero">${fig(q.image, 'hero')}</div>` : ''}<div class="row" style="gap:14px;align-items:flex-start">${qIcon(q.icon, 48)}<div style="flex:1;min-width:220px"><h2>${esc(name)}</h2>
     <div class="kv">${kv.map(([k, v]) => `<b>${k}</b><span>${esc(v)}</span>`).join('')}</div>
     ${q.stub ? '<div class="note" style="margin-top:6px">This quest page was not in the offline copy yet. Only its prerequisites are known; rebuild after the download finishes.</div>' : ''}
     <div class="row" style="margin-top:10px"><button class="btn ${done ? '' : 'ghost'}" id="qdone">${done ? '✓ Marked complete' : 'Mark quest complete'}</button></div></div></div></div>
@@ -314,7 +358,7 @@ async function questDetail(name, qs) {
   ${q.steps && q.steps.length ? `<div class="panel"><h2>Walkthrough</h2>
     <div class="row"><div class="prog"><div id="bar"></div></div><span class="note" id="pct"></span>
     <label class="note"><input type="checkbox" id="hide"> Hide finished steps</label><button class="btn ghost" id="reset">Reset progress</button></div>
-    <div class="note" style="margin:6px 0">${q.steps_source === 'quick guide' ? 'From the wiki quick guide.' : 'From the full wiki guide (no quick guide in this copy).'} Ticks are saved on this device only.</div>
+    <div class="note" style="margin:6px 0">${q.steps_source === 'quick guide' ? 'From the wiki quick guide.' : 'From the full wiki guide (no quick guide in this copy).'} Pictures are the wiki's own screenshots for that step (or the place/NPC it sends you to); tap one to enlarge. Ticks are saved on this device only.</div>
     <div id="steps"></div></div>` : ''}
   ${sec('Rewards', bulletList(q.rewards))}`;
   $('#qdone').onclick = () => { if (qIsDone(name)) localStorage.removeItem(QDONE(name)); else localStorage.setItem(QDONE(name), '1'); questDetail(name, qs); };
@@ -328,8 +372,8 @@ async function questDetail(name, qs) {
       const ok = prog.has(s.id); n++;
       if (ok && hide.checked) return '';
       const h = s.sec !== last ? `<h3 class="stepsec">${esc(s.sec)}</h3>` : ''; last = s.sec;
-      return h + `<label class="step ${ok ? 'done' : ''}"><input type="checkbox" data-id="${s.id}" ${ok ? 'checked' : ''}><span><span class="sn">${n}.</span> ${esc(s.t)}
-        ${s.sub && s.sub.length ? `<ul class="blist">${s.sub.map(x => `<li style="margin-left:${(x.d - 1) * 16}px">${esc(x.t)}</li>`).join('')}</ul>` : ''}</span></label>`;
+      return h + `<div class="stepw ${ok ? 'done' : ''}">${s.p ? gallery(s.p, 'steppics') : ''}<label class="step ${ok ? 'done' : ''}"><input type="checkbox" data-id="${s.id}" ${ok ? 'checked' : ''}><span><span class="sn">${n}.</span> ${esc(s.t)}
+        ${s.sub && s.sub.length ? `<ul class="blist">${s.sub.map(x => `<li style="margin-left:${(x.d - 1) * 16}px">${esc(x.t)}</li>`).join('')}</ul>` : ''}</span></label></div>`;
     }).join('');
     const pc = Math.round(100 * [...prog].filter(id => q.steps.some(s => s.id === id)).length / q.steps.length);
     $('#bar').style.width = pc + '%'; $('#pct').textContent = `${pc}% done`;
@@ -361,11 +405,26 @@ async function aboutView() {
     <li>${m.missing_location_pages} place pages were not in the copy yet, so some “how to get there” notes are missing.</li>
     <li>Not yet in the copy: ${esc(m.missing_clue_pages.join(', '))}.</li>
     <li>Nearest lodestone is a straight-line distance on the main map, not a walking route.</li></ul></div>
+  <div class="panel"><h2>Pictures offline</h2><div class="note">Quest, place and entrance pictures load when you open them and are then kept for offline use. To keep every picture on this device now (best on Wi-Fi), tap below.</div>
+    <div class="row" style="margin-top:8px"><button class="btn" id="saveall">Save all pictures for offline</button><span class="note" id="saveprog"></span></div></div>
   <div class="panel"><h2>Install</h2><ul>
     <li>Windows (Edge or Chrome): open the app, then use the install icon in the address bar, or menu → Apps → Install.</li>
     <li>Android (Chrome): menu → Add to Home screen / Install app.</li>
     <li>iPhone or iPad (Safari): Share → Add to Home Screen.</li>
     <li>After the first full load it works offline.</li></ul></div>`;
+  $('#saveall').onclick = async () => {
+    const btn = $('#saveall'), out = $('#saveprog'); btn.disabled = true;
+    try {
+      const pc = await (await fetch('precache.json', {cache: 'no-store'})).json();
+      const c = await caches.open('dch-' + pc.version); const list = pc.extra || []; let done = 0;
+      out.textContent = `0 / ${list.length} (${pc.extra_mb} MB)`;
+      for (let i = 0; i < list.length; i += 12) {
+        await Promise.all(list.slice(i, i + 12).map(async f => { if (!(await c.match(f))) await c.add(f).catch(() => {}); }));
+        done = Math.min(list.length, i + 12); out.textContent = `${done} / ${list.length} saved`;
+      }
+      out.textContent = `All ${list.length} pictures saved for offline use.`;
+    } catch (e) { out.textContent = 'Could not save: ' + e.message; btn.disabled = false; }
+  };
 }
 
 /* ---------- boot ---------- */
