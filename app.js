@@ -462,7 +462,7 @@ async function checkUpdates() {
   else if (r.up_to_date) updDialog(`<h3>Up to date</h3><div class="updmsg">You have the latest version (<b>${esc(r.latest)}</b>).</div><div class="row">${close}</div>`);
   else {
     const n = r.changed_count + (r.removed_count || 0);
-    updDialog(`<h3>Update available</h3><div class="updmsg">Update available: <b>${n.toLocaleString()} file${n === 1 ? '' : 's'}, ${mb(r.bytes)}</b><br><span class="note">Installed ${esc(r.current)} → latest ${esc(r.latest)}</span></div>
+    updDialog(`<h3>Update available</h3><div class="updmsg">Update available: <b>${n.toLocaleString()} file${n === 1 ? '' : 's'}, ${mb(r.bytes)}</b><br><span class="note">${r.current === r.latest ? 'Some files differ from the live version; this repairs them.' : `Installed ${esc(r.current)} → latest ${esc(r.latest)}`}</span></div>
       <div class="row"><button class="btn" id="updnow">Update now</button>${close}</div>`);
     $('#updnow').onclick = applyUpdate;
   }
