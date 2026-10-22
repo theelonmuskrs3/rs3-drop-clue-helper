@@ -71,6 +71,7 @@ async function route() {
     else if (tab === 'clues') await cluesView(arg);
     else if (tab === 'about') await aboutView();
     else if (tab === 'quests') await questsView(arg);
+    else if (tab === 'map') await mapTab(arg);
     else await dropsView(arg);
   } catch (e) { view.innerHTML = `<div class="panel">Could not load data: ${esc(e.message)}</div>`; }
   window.scrollTo(0, 0);

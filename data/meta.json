@@ -1,5 +1,5 @@
 {
- "built": "2026-10-21 22:53 EDT",
+ "built": "2026-10-22 01:04 EDT",
  "monsters": 1481,
  "drop_entries": 21768,
  "items": 3297,
@@ -91,7 +91,7 @@
   ]
  },
  "quests": {
-  "generated": "2026-10-21 22:53:41 EDT",
+  "generated": "2026-10-22 01:04:35 EDT",
   "questreq_master_list": 392,
   "stubs_page_missing": 9,
   "total": 404,
@@ -121,6 +121,6 @@
   "clues": 0,
   "quests": []
  },
- "drops_generated": "2026-10-21 22:53:30 EDT",
- "clues_generated": "2026-10-21 22:53:32 EDT"
+ "drops_generated": "2026-10-22 01:04:24 EDT",
+ "clues_generated": "2026-10-22 01:04:26 EDT"
 }
