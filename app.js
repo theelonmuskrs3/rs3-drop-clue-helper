@@ -421,11 +421,14 @@ async function aboutView() {
     <li>Nearest lodestone is a straight-line distance on the main map, not a walking route.</li></ul></div>
   <div class="panel"><h2>Pictures offline</h2><div class="note">Quest, place and entrance pictures load when you open them and are then kept for offline use. To keep every picture on this device now (best on Wi-Fi), tap below.</div>
     <div class="row" style="margin-top:8px"><button class="btn" id="saveall">Save all pictures for offline</button><span class="note" id="saveprog"></span></div></div>
+  <div class="panel" id="updpanel" hidden><h2>Updates</h2><div class="note">This Windows program can update itself from the live app in one click. Only changed files are downloaded and each one is checked before it replaces the old copy.</div>
+    <div class="row" style="margin-top:8px"><button class="btn" id="updcheck">Check for updates</button><span class="note" id="updver"></span></div></div>
   <div class="panel"><h2>Install</h2><ul>
     <li>Windows (Edge or Chrome): open the app, then use the install icon in the address bar, or menu → Apps → Install.</li>
     <li>Android (Chrome): menu → Add to Home screen / Install app.</li>
     <li>iPhone or iPad (Safari): Share → Add to Home Screen.</li>
     <li>After the first full load it works offline.</li></ul></div>`;
+  if (LAUNCHER) { $('#updpanel').hidden = false; $('#updver').textContent = 'Installed version: ' + (LAUNCHER.current || 'unknown'); $('#updcheck').onclick = checkUpdates; }
   $('#saveall').onclick = async () => {
     const btn = $('#saveall'), out = $('#saveprog'); btn.disabled = true;
     try {
@@ -441,9 +444,67 @@ async function aboutView() {
   };
 }
 
+/* ---------- one-click updater (only inside the Windows launcher) ---------- */
+let LAUNCHER = null;
+function updDialog(html) {
+  let d = document.getElementById('upddlg');
+  if (!d) { d = document.createElement('div'); d.id = 'upddlg'; d.innerHTML = '<div class="box"></div>'; document.body.appendChild(d);
+    d.addEventListener('click', e => { if (e.target === d && !d.dataset.busy) d.hidden = true; }); }
+  d.hidden = false; d.querySelector('.box').innerHTML = html; return d;
+}
+const mb = b => (b / 1e6 < 0.1 && b > 0 ? '<0.1' : (b / 1e6).toFixed(1)) + ' MB';
+async function checkUpdates() {
+  const d = updDialog('<h3>Check for updates</h3><div class="updmsg">Checking the live app…</div>');
+  let r;
+  try { r = await (await fetch('/__update/check', {cache: 'no-store'})).json(); } catch (e) { r = {error: e.message}; }
+  const close = '<button class="btn ghost" id="updclose">Close</button>';
+  if (r.error) updDialog(`<h3>Check for updates</h3><div class="updmsg">Couldn't check right now: ${esc(r.error)}<br>Make sure you're online and try again.</div><div class="row">${close}</div>`);
+  else if (r.up_to_date) updDialog(`<h3>Up to date</h3><div class="updmsg">You have the latest version (<b>${esc(r.latest)}</b>).</div><div class="row">${close}</div>`);
+  else {
+    const n = r.changed_count + (r.removed_count || 0);
+    updDialog(`<h3>Update available</h3><div class="updmsg">Update available: <b>${n.toLocaleString()} file${n === 1 ? '' : 's'}, ${mb(r.bytes)}</b><br><span class="note">Installed ${esc(r.current)} → latest ${esc(r.latest)}</span></div>
+      <div class="row"><button class="btn" id="updnow">Update now</button>${close}</div>`);
+    $('#updnow').onclick = applyUpdate;
+  }
+  const c = document.getElementById('updclose'); if (c) c.onclick = () => { d.hidden = true; };
+}
+async function applyUpdate() {
+  const d = updDialog('<h3>Updating…</h3><div class="updmsg" id="updtxt">Starting…</div><div class="updbar"><i id="updfill"></i></div><div class="note">Keep this window open.</div>');
+  d.dataset.busy = '1';
+  const tick = setInterval(async () => {
+    try {
+      const p = await (await fetch('/__update/progress', {cache: 'no-store'})).json();
+      if (p.phase === 'download') { $('#updtxt').textContent = `Downloading ${p.done.toLocaleString()} / ${p.total.toLocaleString()} files (${mb(p.bytes)} of ${mb(p.total_bytes)})`;
+        $('#updfill').style.width = (p.total_bytes ? 100 * p.bytes / p.total_bytes : 100 * p.done / Math.max(1, p.total)) + '%'; }
+      else if (p.phase === 'install') { $('#updtxt').textContent = 'Installing…'; $('#updfill').style.width = '100%'; }
+      else if (p.phase === 'checking') $('#updtxt').textContent = 'Checking files…';
+    } catch (e) {}
+  }, 500);
+  let r;
+  try { r = await (await fetch('/__update/apply', {method: 'POST', cache: 'no-store'})).json(); } catch (e) { r = {ok: false, error: e.message}; }
+  clearInterval(tick); delete d.dataset.busy;
+  if (!r.ok) { updDialog(`<h3>Update failed</h3><div class="updmsg">${esc(r.error || 'Unknown error')}<br>Your current version was left as it was.</div><div class="row"><button class="btn ghost" id="updclose">Close</button></div>`);
+    $('#updclose').onclick = () => { document.getElementById('upddlg').hidden = true; }; return; }
+  updDialog(`<h3>Updated</h3><div class="updmsg">Now on <b>${esc(r.version)}</b>. Reloading…</div>`);
+  // drop the old service worker and its caches so every new file is used
+  try { for (const g of await navigator.serviceWorker?.getRegistrations?.() || []) await g.unregister(); } catch (e) {}
+  try { for (const k of await caches.keys()) if (k.startsWith('dch-')) await caches.delete(k); } catch (e) {}
+  setTimeout(() => location.reload(), 600);
+}
+async function detectLauncher() {
+  try {
+    const r = await fetch('/__update/info', {cache: 'no-store'});
+    if (!r.ok) return;
+    const j = await r.json(); if (!j.launcher) return;
+    LAUNCHER = j; const b = $('#updbtn'); b.hidden = false; b.onclick = checkUpdates;
+    const p = document.getElementById('updpanel');
+    if (p) { p.hidden = false; $('#updver').textContent = 'Installed version: ' + (j.current || 'unknown'); $('#updcheck').onclick = checkUpdates; }
+  } catch (e) {}
+}
+
 /* ---------- boot ---------- */
 (async () => {
   try { const ic = await get('data/icons.json'); ICONS = ic.items || ic; EMOTES = ic.emotes || {}; } catch (e) { ICONS = {}; }
-  route();
+  route(); detectLauncher();
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();

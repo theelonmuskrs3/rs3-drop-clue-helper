@@ -1,5 +1,5 @@
 // Network-first service worker: always fresh when online (dev preview stays live), full offline fallback from cache.
-// build: 20261021-2246 (bump so phones pick up the new version)
+// build: 20261021-2250 (bump so phones pick up the new version)
 const PREFIX = 'dch-';
 self.addEventListener('install', e => {
   e.waitUntil((async () => {
@@ -23,6 +23,7 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
+  if (new URL(req.url).pathname.startsWith('/__update/')) return; // Windows launcher updater: never cache
   e.respondWith((async () => {
     try {
       const net = await fetch(req, {cache: 'no-store'});
