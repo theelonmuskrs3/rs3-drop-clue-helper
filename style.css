@@ -21,7 +21,7 @@
   --text:#decfa9;     /* row text */
   --muted:#968b74;    /* help text */
   --green:#01d601; --red:#de0404; --yellow:#e8e030;
-  --r1:#decfa9; --r2:#01d601; --r3:#4fb3ff; --r4:#c77dff; --r5:#ff9f40;
+  --r1:#decfa9; --r2:#01d601; --r3:#f2c66d; --r4:#ff8a2a; --r5:#ff9f40;
   --head:"Cinzel","Trajan Pro","Palatino Linotype",Georgia,serif;
   --body:"Fira Sans","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
@@ -33,7 +33,7 @@ a{color:var(--orange);text-decoration:none} a:hover{text-decoration:underline}
   border-bottom:1px solid var(--edge);box-shadow:0 1px 0 var(--edge-dk),0 4px 14px #000c}
 .brand{display:flex;gap:10px;align-items:center;max-width:1100px;margin:0 auto}
 .sigil{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:17px;color:var(--gold);
-  background:radial-gradient(circle at 40% 35%,#3e4a63,#1c2333 70%);border:2px solid #8a7550;box-shadow:inset 0 0 6px #000}
+  background:radial-gradient(circle at 40% 35%,#5a0c18,#1a0408 70%);border:2px solid #8a7550;box-shadow:inset 0 0 6px #000}
 h1{font-family:var(--head);font-weight:700;letter-spacing:.05em;margin:0;font-size:19px;color:var(--gold2);text-transform:uppercase}
 .sub{font-size:12.5px;color:var(--muted)}
 .tabs{display:flex;flex-wrap:wrap;gap:4px;max-width:1100px;margin:8px auto 0}
@@ -153,7 +153,7 @@ div[style*="display:grid"]>*,.refs{min-width:0;max-width:100%}
   --cancel:#2a2a2a; --cancel-text:#e8e8e8;
   --text:#e8e8e8; --muted:#9a9a9a;
   --green:#5cc98a; --red:#e86a6a; --yellow:#d8c56a;
-  --r1:#e8e8e8; --r2:#5cc98a; --r3:#d8c56a; --r4:#c08cf0; --r5:#f0955a;
+  --r1:#e8e8e8; --r2:#5cc98a; --r3:#d8c56a; --r4:#ff2a3f; --r5:#f0955a;
   --head:"Fira Sans","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 html,body{background:#121212}
