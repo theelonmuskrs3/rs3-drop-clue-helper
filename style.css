@@ -287,3 +287,10 @@ td.why{font-size:13px;color:#bdbdbd;min-width:220px}
 .quotes blockquote{margin:8px 0;padding:6px 10px;border-left:3px solid #f2c66d;background:#121212;border-radius:0 8px 8px 0;font-size:13.5px;color:#f5f5f5}
 .ok{color:#7fd88f;font-weight:700}.no{color:#ef6b6b;font-weight:700}
 input[type=number]::-webkit-inner-spin-button{opacity:.4}
+/* skills grid (in-game order, 3 columns): wiki skill icon + level input */
+.skgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px;max-width:420px}
+.sk{display:flex;align-items:center;gap:6px;background:#121212;border:1px solid #2a2a2a;border-radius:8px;padding:4px 6px}
+.sk img{width:27px;height:27px;image-rendering:auto;flex:none}
+.sk input{width:100%;min-width:0;font-size:16px;color:#f2c66d;background:#1f1f1f;border:1px solid #3c3c3c;border-radius:6px;padding:3px 6px;text-align:right}
+.sk input:focus{outline:1px solid #f2c66d66}
+.sktot{display:flex;gap:18px;margin-top:8px;font-size:14px;color:#c8c8c8}.sktot b{color:#f2c66d;font-size:16px}

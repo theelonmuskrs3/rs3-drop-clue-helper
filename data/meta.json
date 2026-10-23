@@ -1,5 +1,5 @@
 {
- "built": "2026-10-22 16:20 EDT",
+ "built": "2026-10-22 20:19 EDT",
  "monsters": 1481,
  "drop_entries": 21768,
  "items": 3297,
@@ -91,7 +91,7 @@
   ]
  },
  "quests": {
-  "generated": "2026-10-22 16:20:16 EDT",
+  "generated": "2026-10-22 20:18:58 EDT",
   "questreq_master_list": 392,
   "stubs_page_missing": 9,
   "total": 404,
@@ -120,9 +120,10 @@
   "item_sources": 0,
   "clues": 0,
   "quests": [],
-  "gear": 0
+  "gear": 0,
+  "all_items": 0
  },
- "drops_generated": "2026-10-22 16:19:57 EDT",
+ "drops_generated": "2026-10-22 20:18:27 EDT",
  "gear": {
   "items": 11424,
   "with_stats": 8354,
@@ -137,10 +138,35 @@
   },
   "armour_sets": 168
  },
+ "all_items": {
+  "rows": 38722,
+  "with_icon": 37272,
+  "with_ge_price": 7356,
+  "extract": {
+   "pages_with_infobox_item_or_skin": 31859,
+   "redirect": 0,
+   "osrs": 0,
+   "err": 0,
+   "pages_used": 31859,
+   "no_infobox_parsed": 0,
+   "search_aliases": 110195,
+   "entries": 38722,
+   "items": 34011,
+   "overrides": 4711,
+   "distinct_item_names": 28065,
+   "with_ge_price": 7356,
+   "ge_prices_total": 7367,
+   "with_image": 37751,
+   "holiday": 251,
+   "not_currently_obtainable": 4349,
+   "discontinued_flag": 5574,
+   "seconds": 9
+  }
+ },
  "ge": {
   "date": "21 October 2026 04:14:23 (UTC)",
   "source": "Module:GEPrices/data.json (RS3 wiki), saved in the wiki copy as ge_prices_2026-10-21.json",
   "prices": 7367
  },
- "clues_generated": "2026-10-22 16:20:07 EDT"
+ "clues_generated": "2026-10-22 20:18:48 EDT"
 }
