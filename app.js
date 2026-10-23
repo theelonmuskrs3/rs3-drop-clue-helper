@@ -878,7 +878,7 @@ async function aboutView() {
   const m = await get('data/meta.json');
   const cc = Object.entries(m.clue_counts).map(([t, o]) => `<tr><td>${esc(cap(t.replace('_', ' ')))}</td><td>${Object.entries(o).map(([k, v]) => `${TYPE_LABEL[k] || k} ${v}`).join(' · ')}</td></tr>`).join('');
   view.innerHTML = `<div class="panel parch"><h2>About this app</h2>
-    <p><b>Made by Dev. Soy Yoda.</b></p>
+    <p><b>Made by <span class="nx-poison" data-text="Dev. Soy Yoda">Dev. Soy Yoda</span>.</b></p>
     <p><b>Unofficial fan-made tool.</b> All images and game content are the property of Jagex Ltd. RuneScape is a trademark of Jagex Ltd.
     This is an unofficial, fan-made tool for personal use only. It is not affiliated with or endorsed by Jagex, and it is not for sale or for profit.</p>
     <p>Data and images come from the RuneScape Wiki (<a href="https://runescape.wiki" target="_blank" rel="noopener">runescape.wiki</a>), whose text is licensed
@@ -902,6 +902,11 @@ async function aboutView() {
     <div class="row" style="margin-top:8px"><button class="btn" id="saveall">Save all pictures for offline</button><span class="note" id="saveprog"></span></div></div>
   <div class="panel" id="updpanel" hidden><h2>Updates</h2><div class="note">This Windows program can update itself from the live app in one click. Only changed files are downloaded and each one is checked before it replaces the old copy.</div>
     <div class="row" style="margin-top:8px"><button class="btn" id="updcheck">Check for updates</button><span class="note" id="updver"></span></div></div>
+  <div class="panel"><h2>Share with a clan mate</h2><div class="kv">
+    <b>Web app</b><span><a href="${SHARE_URL}" target="_blank" rel="noopener">${SHARE_URL.replace('https://', '')}</a> <button class="btn sub nx-copy" data-copy="${SHARE_URL}">Copy</button></span>
+    <b>Windows program</b><span><a href="${SHARE_PC}" rel="noopener">${SHARE_PC.replace('https://', '')}</a> <button class="btn sub nx-copy" data-copy="${SHARE_PC}">Copy</button></span>
+    <b>Backup links</b><span><a href="https://theelonmuskrs3.github.io/dch/" target="_blank" rel="noopener">theelonmuskrs3.github.io/dch</a><br><a href="https://theelonmuskrs3.github.io/dch/pc/" rel="noopener">theelonmuskrs3.github.io/dch/pc</a></span></div>
+    <div class="note" style="margin-top:8px">The web app opens in any browser (phone or PC) and can be installed from there. The Windows program is the same app in its own window, with one-click updates.</div></div>
   <div class="panel"><h2>Install</h2><ul>
     <li>Windows (Edge or Chrome): open the app, then use the install icon in the address bar, or menu → Apps → Install.</li>
     <li>Android (Chrome): menu → Add to Home screen / Install app.</li>
@@ -922,6 +927,40 @@ async function aboutView() {
     } catch (e) { out.textContent = 'Could not save: ' + e.message; btn.disabled = false; }
   };
 }
+
+/* ---------- share link + install-as-app (header buttons) ---------- */
+const SHARE_URL = 'https://is.gd/rs3dch', SHARE_PC = 'https://is.gd/rs3dchpc';
+async function copyText(t) {
+  try { await navigator.clipboard.writeText(t); return true; } catch (e) {}
+  try { const x = document.createElement('textarea'); x.value = t; x.style.position = 'fixed'; x.style.opacity = '0'; document.body.appendChild(x); x.select(); const ok = document.execCommand('copy'); x.remove(); return ok; } catch (e) { return false; }
+}
+function toast(msg) {
+  let t = document.getElementById('nx-toast');
+  if (!t) { t = document.createElement('div'); t.id = 'nx-toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
+  t.textContent = msg; t.classList.add('on'); clearTimeout(toast.tm); toast.tm = setTimeout(() => t.classList.remove('on'), 3200);
+}
+let INSTALL_EVT = null;
+(function initShare() {
+  const sh = document.getElementById('nx-share');
+  if (sh) sh.onclick = async () => {
+    const data = {title: 'Drop & Clue Helper (unofficial RS3 fan tool)', text: 'RS3 drops, items, clues, quests and map from the RuneScape Wiki. Made by Dev. Soy Yoda.', url: SHARE_URL};
+    if (navigator.share && matchMedia('(pointer:coarse)').matches) { try { await navigator.share(data); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+    toast((await copyText(SHARE_URL)) ? 'Link copied: ' + SHARE_URL.replace('https://', '') + ' (send it to your clan mate)' : 'Share this link: ' + SHARE_URL);
+  };
+  document.addEventListener('click', async e => {
+    const b = e.target.closest && e.target.closest('.nx-copy'); if (!b) return;
+    toast((await copyText(b.dataset.copy)) ? 'Copied: ' + b.dataset.copy.replace('https://', '') : b.dataset.copy);
+  });
+  const ib = document.getElementById('nx-install');
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); INSTALL_EVT = e; if (ib && !LAUNCHER) ib.hidden = false; });
+  window.addEventListener('appinstalled', () => { INSTALL_EVT = null; if (ib) ib.hidden = true; toast('Installed. Open it from your apps or home screen.'); });
+  if (ib) ib.onclick = async () => {
+    if (!INSTALL_EVT) return; INSTALL_EVT.prompt();
+    try { await INSTALL_EVT.userChoice; } catch (e) {} INSTALL_EVT = null; ib.hidden = true;
+  };
+  // inside the Windows program (frameless launcher) the download/install buttons are pointless
+  if (typeof window.dchWin === 'function') { const dl = document.getElementById('nx-dl'); if (dl) dl.hidden = true; }
+})();
 
 /* ---------- one-click updater (only inside the Windows launcher) ---------- */
 let LAUNCHER = null;
@@ -975,7 +1014,7 @@ async function detectLauncher() {
     const r = await fetch('/__update/info', {cache: 'no-store'});
     if (!r.ok) return;
     const j = await r.json(); if (!j.launcher) return;
-    LAUNCHER = j; const b = $('#updbtn'); b.hidden = false; b.onclick = checkUpdates;
+    LAUNCHER = j; document.documentElement.classList.add('nx-launcher'); const dl = $('#nx-dl'); if (dl) dl.hidden = true; const ib = $('#nx-install'); if (ib) ib.hidden = true; const b = $('#updbtn'); b.hidden = false; b.onclick = checkUpdates;
     const p = document.getElementById('updpanel');
     if (p) { p.hidden = false; $('#updver').textContent = 'Installed version: ' + (j.current || 'unknown'); $('#updcheck').onclick = checkUpdates; }
   } catch (e) {}

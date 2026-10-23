@@ -139,6 +139,21 @@
     badges(view);
   }).observe(view, {childList: true, subtree: true});
 
+  /* ---------- poison on "Dev. Soy Yoda" (CSS drips, like the DDS logo) ---------- */
+  function poison(root) {
+    (root || D).querySelectorAll('.nx-poison:not([data-psn])').forEach(el => {
+      el.dataset.psn = '1';
+      const big = !!el.closest('.top');
+      const spots = big ? [[8, 0, 3.4], [31, 1.3, 4.1], [52, .5, 3.7], [71, 2.2, 4.6], [90, 1.7, 3.9]] : [[18, 0, 3.6], [55, 1.4, 4.2], [86, .7, 3.9]];
+      spots.forEach(([x, d, t], i) => {
+        const s = D.createElement('i'); s.className = 'psn-drip p' + (i + 1); s.setAttribute('aria-hidden', 'true');
+        s.style.left = x + '%'; s.style.animationDelay = d + 's'; s.style.animationDuration = t + 's'; el.appendChild(s);
+      });
+    });
+  }
+  poison();
+  new MutationObserver(() => poison(view)).observe(view, {childList: true});
+
   /* ---------- header clock ---------- */
   const clk = D.getElementById('nx-clock');
   const tick = () => { if (clk && !D.hidden) clk.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}); };

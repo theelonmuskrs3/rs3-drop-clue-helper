@@ -1,5 +1,5 @@
 // Network-first service worker: always fresh when online (dev preview stays live), full offline fallback from cache.
-// build: 20261023-0136 (bump so phones pick up the new version)
+// build: 20261023-1944 (bump so phones pick up the new version)
 const PREFIX = 'dch-';
 self.addEventListener('install', e => {
   e.waitUntil((async () => {
