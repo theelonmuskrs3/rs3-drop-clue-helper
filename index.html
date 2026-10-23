@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-fx="high">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Drop &amp; Clue Helper (unofficial RS3 fan tool)</title>
 <meta name="description" content="Unofficial, fan-made offline RS3 drop table and clue scroll helper. Not affiliated with Jagex.">
-<meta name="theme-color" content="#121212">
+<meta name="theme-color" content="#050505">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="appicons/icon-192.png">
 <link rel="apple-touch-icon" href="appicons/icon-180.png">
@@ -13,25 +13,66 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Drop &amp; Clue">
+<link rel="preload" href="fonts/orbitron-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="neon.css">
+<script>/* FX level before first paint: saved choice, else High on desktop / Low on phone; reduced motion => Off */
+(function(){var d=document.documentElement,s=null;try{s=localStorage.getItem('dch-fx')}catch(e){}
+if(!s){s=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':(matchMedia('(pointer:coarse)').matches||innerWidth<760)?'low':'high'}d.dataset.fx=s})();</script>
 </head>
 <body>
+<!-- decorative background layers (abstract only: no game art) -->
+<div class="nx-bg" aria-hidden="true">
+  <div class="nx-space"></div>
+  <div class="nx-aurora"><i></i><i></i><i></i></div>
+  <div class="nx-gridwrap"><div class="nx-grid"></div></div>
+  <div class="nx-fog"><i></i><i></i></div>
+  <canvas id="nx-fx"></canvas>
+  <div class="nx-vignette"></div>
+</div>
+<!-- glass title bar: only shown inside the Windows program when the window is frameless -->
+<div class="nx-titlebar" id="nx-titlebar" hidden>
+  <div class="nx-drag" id="nx-drag"><span class="nx-tb-dot"></span>DROP &amp; CLUE HELPER <span class="nx-tb-sub">// command center</span></div>
+  <div class="nx-tb-btns">
+    <button data-w="min" title="Minimize" aria-label="Minimize"><svg viewBox="0 0 12 12"><path d="M2 6.5h8"/></svg></button>
+    <button data-w="max" title="Maximize" aria-label="Maximize"><svg viewBox="0 0 12 12"><rect x="2.5" y="2.5" width="7" height="7" rx="1"/></svg></button>
+    <button data-w="close" class="x" title="Close" aria-label="Close"><svg viewBox="0 0 12 12"><path d="M3 3l6 6M9 3l-6 6"/></svg></button>
+  </div>
+</div>
 <header class="top">
   <div class="brand">
-    <div class="sigil" aria-hidden="true">✦</div>
-    <div>
-      <h1>Drop &amp; Clue Helper</h1>
+    <div class="sigil nx-emblem" aria-hidden="true">
+      <svg viewBox="0 0 100 100">
+        <defs>
+          <linearGradient id="nxg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00F6FF"/><stop offset=".55" stop-color="#A855FF"/><stop offset="1" stop-color="#FF2E9A"/></linearGradient>
+          <radialGradient id="nxg2"><stop offset="0" stop-color="#00F6FF" stop-opacity=".55"/><stop offset="1" stop-color="#00F6FF" stop-opacity="0"/></radialGradient>
+        </defs>
+        <circle cx="50" cy="50" r="46" fill="url(#nxg2)" class="e-core"/>
+        <g class="e-ring1"><circle cx="50" cy="50" r="44" fill="none" stroke="url(#nxg1)" stroke-width="1.6" stroke-dasharray="3 5"/></g>
+        <g class="e-ring2"><circle cx="50" cy="50" r="36" fill="none" stroke="#3DCBFF" stroke-width="1" stroke-dasharray="40 10 4 10" opacity=".9"/>
+          <path d="M50 10v6M50 84v6M10 50h6M84 50h6" stroke="#00F6FF" stroke-width="2"/></g>
+        <g class="e-rune"><path d="M50 22 74 64H26Z" fill="none" stroke="url(#nxg1)" stroke-width="2.4" stroke-linejoin="round"/>
+          <path d="M50 78 26 36h48Z" fill="none" stroke="#A855FF" stroke-width="1.4" stroke-linejoin="round" opacity=".75"/>
+          <circle cx="50" cy="50" r="7" fill="#050505" stroke="#00F6FF" stroke-width="2"/><circle cx="50" cy="50" r="2.6" fill="#fff"/></g>
+      </svg>
+    </div>
+    <div class="nx-brandtext">
+      <h1 data-text="Drop &amp; Clue Helper">Drop &amp; Clue Helper</h1>
       <div class="sub">Made by Dev. Soy Yoda</div>
     </div>
+    <div class="nx-status" aria-hidden="true"><span class="nx-led"></span><span id="nx-sys">WIKI ARCHIVE · ONLINE</span><span class="nx-clock" id="nx-clock"></span></div>
+    <button class="btn nx-fxbtn" id="nx-fxbtn" title="Visual effects level (saved on this device)">FX: High</button>
     <button class="btn updbtn" id="updbtn" hidden title="Check for updates">⟳ Updates</button>
   </div>
   <nav class="tabs" role="tablist">
-    <button data-tab="drops" class="on">Monsters</button>
-    <button data-tab="items">Items</button>
-    <button data-tab="clues">Clues</button>
-    <button data-tab="quests">Quests</button>
-    <button data-tab="map">Map</button>
-    <button data-tab="about">About</button>
+    <button data-tab="drops" class="on"><i class="nx-ti" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13M2 11l3 3M11 14l3-3"/></svg></i>Monsters</button>
+    <button data-tab="items"><i class="nx-ti" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 1.5l5.6 3.25v6.5L8 14.5l-5.6-3.25v-6.5z"/></svg></i>Items</button>
+    <button data-tab="clues"><i class="nx-ti" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 1l1.8 5.2L15 8l-5.2 1.8L8 15l-1.8-5.2L1 8l5.2-1.8z"/></svg></i>Clues</button>
+    <button data-tab="quests"><i class="nx-ti" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 1.5l5.5 2v4c0 3.4-2.4 5.9-5.5 7-3.1-1.1-5.5-3.6-5.5-7v-4z"/></svg></i>Quests</button>
+    <button data-tab="map"><i class="nx-ti" aria-hidden="true"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/><path d="M8 1v4M8 11v4M1 8h4M11 8h4"/></svg></i>Map</button>
+    <button data-tab="about"><i class="nx-ti" aria-hidden="true"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5"/><path d="M8 7v4.5M8 4.6v.2"/></svg></i>About</button>
+    <span class="nx-ink" aria-hidden="true"></span>
   </nav>
 </header>
 <main id="view"><div class="panel loading">Loading the archives…</div></main>
@@ -44,5 +85,6 @@
 </footer>
 <script src="map.js"></script>
 <script src="app.js"></script>
+<script src="neon.js"></script>
 </body>
 </html>
