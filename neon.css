@@ -382,6 +382,12 @@ blockquote,.quotes blockquote{border-left:2px solid var(--vi)!important;backgrou
 .nx-ti svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;display:block}
 .tabs button.on .nx-ti svg{filter:drop-shadow(0 0 4px var(--cy))}
 .nx-ink{top:0;bottom:auto}
+/* frameless launcher window: resize edges */
+.nx-rz{position:fixed;z-index:9999;background:transparent}
+.nx-rz-n,.nx-rz-s{left:10px;right:10px;height:5px}.nx-rz-n{top:0;cursor:ns-resize}.nx-rz-s{bottom:0;cursor:ns-resize}
+.nx-rz-e,.nx-rz-w{top:10px;bottom:10px;width:5px}.nx-rz-e{right:0;cursor:ew-resize}.nx-rz-w{left:0;cursor:ew-resize}
+.nx-rz-ne,.nx-rz-nw,.nx-rz-se,.nx-rz-sw{width:10px;height:10px}
+.nx-rz-ne{top:0;right:0;cursor:nesw-resize}.nx-rz-sw{bottom:0;left:0;cursor:nesw-resize}.nx-rz-nw{top:0;left:0;cursor:nwse-resize}.nx-rz-se{bottom:0;right:0;cursor:nwse-resize}
 /* ---------------- phone ---------------- */
 @media (max-width:760px){
   .top{padding:calc(8px + env(safe-area-inset-top)) 12px 0}

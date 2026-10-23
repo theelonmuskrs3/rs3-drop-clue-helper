@@ -157,7 +157,16 @@
     if (typeof window.dchWin !== 'function') return false;
     const tb = D.getElementById('nx-titlebar'); if (!tb) return true;
     // handshake: the launcher (v1.3+) drops its native frame only when the page asks, so an older page never ends up frameless
-    Promise.resolve(window.dchWin('frameless')).then(ok => { if (ok) { tb.hidden = false; H.classList.add('nx-frameless'); } }).catch(() => {});
+    Promise.resolve(window.dchWin('frameless')).then(ok => {
+      if (!ok) return;
+      tb.hidden = false; H.classList.add('nx-frameless');
+      // invisible resize edges (the native border is gone)
+      ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw'].forEach(e => {
+        const d = D.createElement('div'); d.className = 'nx-rz nx-rz-' + e;
+        d.addEventListener('mousedown', ev => { if (ev.button === 0) { ev.preventDefault(); window.dchWin('rz:' + e); } });
+        D.body.appendChild(d);
+      });
+    }).catch(() => {});
     tb.querySelectorAll('[data-w]').forEach(b => b.onclick = () => window.dchWin(b.dataset.w));
     const drag = D.getElementById('nx-drag');
     drag.addEventListener('mousedown', e => { if (e.button === 0) { e.preventDefault(); window.dchWin(e.detail === 2 ? 'max' : 'drag'); } });
