@@ -437,3 +437,37 @@ blockquote,.quotes blockquote{border-left:2px solid var(--crim)!important;backgr
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}}
 html[data-fx=off] *,html[data-fx=off] *::before,html[data-fx=off] *::after{animation-iteration-count:1!important}
 html[data-fx=off] .tabs button.on,html[data-fx=off] .nx-ink,html[data-fx=off] .rtag.r4,html[data-fx=off] h1::after{animation:none!important}
+/* ---------- header logo: Dragon dagger (p++) — the RS3 wiki's own detail picture (File:Dragon dagger (p++) detail.png); the poison drips are plain CSS ---------- */
+.nx-dds{position:relative;flex:none;width:72px;height:65px;margin:-4px 0 -4px;--psn:#5dff2e;--psn2:#1fae12}
+.nx-dds .dds-img{position:relative;z-index:2;width:100%;height:100%;object-fit:contain;transform:rotate(-4deg);transform-origin:30% 75%;
+  filter:drop-shadow(0 1px 0 #000) drop-shadow(0 0 5px rgba(255,31,61,.55)) drop-shadow(0 0 9px rgba(93,255,46,.28));animation:ddsSway 6s ease-in-out infinite}
+.nx-dds .dds-glow{position:absolute;z-index:1;left:46%;top:-8%;width:62%;height:70%;border-radius:50%;
+  background:radial-gradient(circle,rgba(93,255,46,.30),rgba(93,255,46,0) 68%);animation:ddsGlow 2.8s ease-in-out infinite;pointer-events:none}
+.nx-dds .dds-drip{position:absolute;z-index:3;width:4px;height:5px;margin-left:-2px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;
+  background:radial-gradient(circle at 40% 35%,#eaffd6 0 18%,var(--psn) 45%,var(--psn2));
+  box-shadow:0 0 4px var(--psn),0 0 9px rgba(93,255,46,.6);opacity:0;transform-origin:50% 0;animation:ddsDrip 3.2s cubic-bezier(.55,0,.85,.4) infinite;pointer-events:none}
+.nx-dds .d1{left:80%;top:47%;animation-delay:0s}
+.nx-dds .d2{left:86%;top:34%;animation-delay:1.15s;animation-duration:3.7s}
+.nx-dds .d3{left:91.5%;top:21%;animation-delay:2.1s;animation-duration:3.4s}
+.nx-dds .d4{left:83%;top:41%;animation-delay:.6s;animation-duration:4.4s;width:3px;height:4px;margin-left:-1.5px}
+.nx-dds .dds-pool{position:absolute;z-index:0;left:66%;bottom:-5px;width:42%;height:6px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(93,255,46,.55),rgba(93,255,46,0) 70%);filter:blur(1px);animation:ddsPool 3.2s ease-in-out infinite;pointer-events:none}
+@keyframes ddsDrip{0%{opacity:0;transform:translateY(0) scale(.3,.3)}
+  12%{opacity:1;transform:translateY(0) scale(.85,.8)}
+  34%{opacity:1;transform:translateY(1px) scale(.9,1.45)}
+  44%{opacity:1;transform:translateY(5px) scale(.75,1.7)}
+  82%{opacity:.85;transform:translateY(26px) scale(.7,1.25)}
+  100%{opacity:0;transform:translateY(34px) scale(.5,.8)}}
+@keyframes ddsGlow{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:1;transform:scale(1.06)}}
+@keyframes ddsPool{0%,100%{opacity:.35;transform:scaleX(.8)}60%{opacity:.9;transform:scaleX(1.05)}}
+@keyframes ddsSway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(-1deg) translateY(-1px)}}
+.brand:hover .nx-dds .dds-img{filter:drop-shadow(0 1px 0 #000) drop-shadow(0 0 7px rgba(255,31,61,.8)) drop-shadow(0 0 14px rgba(93,255,46,.5))}
+.nx-tb-dds{width:20px;height:18px;object-fit:contain;flex:none;filter:drop-shadow(0 0 3px rgba(255,31,61,.7)) drop-shadow(0 0 5px rgba(93,255,46,.35))}
+/* FX setting: Low = two slower drips, Off / reduced motion = still picture with a soft static glow */
+html[data-fx=low] .nx-dds .d3,html[data-fx=low] .nx-dds .d4{display:none}
+html[data-fx=low] .nx-dds .dds-drip{animation-duration:5.5s}
+html[data-fx=low] .nx-dds .dds-img{animation:none}
+html[data-fx=off] .nx-dds .dds-drip,html[data-fx=off] .nx-dds .dds-pool{display:none}
+html[data-fx=off] .nx-dds .dds-img,html[data-fx=off] .nx-dds .dds-glow{animation:none!important}
+@media (prefers-reduced-motion:reduce){.nx-dds .dds-drip,.nx-dds .dds-pool{display:none}.nx-dds .dds-img,.nx-dds .dds-glow{animation:none!important}}
+@media (max-width:760px){.nx-dds{width:46px;height:42px}.nx-dds .dds-drip{width:3px;height:4px;margin-left:-1.5px}}

@@ -46,7 +46,7 @@ if(!s){s=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':(matchMedi
 </div>
 <!-- glass title bar: only shown inside the Windows program when the window is frameless -->
 <div class="nx-titlebar" id="nx-titlebar" hidden>
-  <div class="nx-drag" id="nx-drag"><span class="nx-tb-dot"></span>DROP &amp; CLUE HELPER <span class="nx-tb-sub">· rune command center</span></div>
+  <div class="nx-drag" id="nx-drag"><img class="nx-tb-dds" src="brand/dds.webp" width="20" height="18" alt="">DROP &amp; CLUE HELPER <span class="nx-tb-sub">· rune command center</span></div>
   <div class="nx-tb-btns">
     <button data-w="min" title="Minimize" aria-label="Minimize"><svg viewBox="0 0 12 12"><path d="M2 6.5h8"/></svg></button>
     <button data-w="max" title="Maximize" aria-label="Maximize"><svg viewBox="0 0 12 12"><rect x="2.5" y="2.5" width="7" height="7" rx="1"/></svg></button>
@@ -55,22 +55,11 @@ if(!s){s=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':(matchMedi
 </div>
 <header class="top">
   <div class="brand">
-    <div class="sigil nx-emblem" aria-hidden="true">
-      <svg viewBox="0 0 100 100">
-        <defs>
-          <linearGradient id="nxg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe7a6"/><stop offset=".5" stop-color="#d9a441"/><stop offset="1" stop-color="#8a6420"/></linearGradient>
-          <radialGradient id="nxg2"><stop offset="0" stop-color="#ff1f3d" stop-opacity=".6"/><stop offset="1" stop-color="#ff1f3d" stop-opacity="0"/></radialGradient>
-          <linearGradient id="nxg3" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#c8102e"/><stop offset=".55" stop-color="#ff7a1a"/><stop offset="1" stop-color="#ffd36b"/></linearGradient>
-        </defs>
-        <circle cx="50" cy="50" r="47" fill="url(#nxg2)" class="e-core"/>
-        <g class="e-ring1"><circle cx="50" cy="50" r="45" fill="none" stroke="url(#nxg1)" stroke-width="2"/>
-          <circle cx="50" cy="50" r="41" fill="none" stroke="#ff1f3d" stroke-width="1" stroke-dasharray="2 4"/>
-          <path d="M50 3l3 5h-6zM50 97l-3-5h6zM3 50l5-3v6zM97 50l-5 3v-6z" fill="#f2c66d"/></g>
-        <g class="e-ring2"><path d="M50 14 81 68H19Z" fill="none" stroke="#c8102e" stroke-width="1.6" stroke-linejoin="round"/>
-          <path d="M50 86 19 32h62Z" fill="none" stroke="#c8102e" stroke-width="1.6" stroke-linejoin="round" opacity=".8"/></g>
-        <g class="e-rune"><circle cx="50" cy="50" r="22" fill="#0b0707" stroke="url(#nxg1)" stroke-width="2.4"/>
-          <path class="e-flame" d="M50 33c5 6 9 10 9 16a9 9 0 0 1-18 0c0-4 2-6 4-8 0 3 1 5 3 6-1-5 0-9 2-14z" fill="url(#nxg3)"/></g>
-      </svg>
+    <div class="nx-dds" aria-hidden="true" title="Dragon dagger (p++)">
+      <span class="dds-glow"></span>
+      <img class="dds-img" src="brand/dds.webp" width="160" height="144" alt="" decoding="async">
+      <span class="dds-drip d1"></span><span class="dds-drip d2"></span><span class="dds-drip d3"></span><span class="dds-drip d4"></span>
+      <span class="dds-pool"></span>
     </div>
     <div class="nx-brandtext">
       <h1 data-text="Drop &amp; Clue Helper">Drop &amp; Clue Helper</h1>
