@@ -5,6 +5,7 @@
 const MT = {idx: null, tiles: null, packs: {}, rows: null};
 const MTYPES = [['ent', 'Entrances'], ['dun', 'Dungeons'], ['lad', 'Ladders/Stairs'], ['npc', 'NPCs'], ['obj', 'Objects'], ['shop', 'Shops'],
   ['bank', 'Banks'], ['tele', 'Teleports/Lodestones'], ['place', 'Places'], ['other', 'Other']];
+const MGL = {npc: '☺', obj: '⬢', shop: '⚖', bank: '⛁', dun: '⛫', ent: '⛩', lad: '☰', tele: '✧', place: '⌂', other: '◆'};
 const MTL = Object.fromEntries(MTYPES);
 async function mapData() {
   if (!MT.idx) {
@@ -90,7 +91,7 @@ async function mapTab(arg) {
     $('#cnt').textContent = nq || s.t ? `${hits.length.toLocaleString()} match${hits.length === 1 ? '' : 'es'}${hits.length > 80 ? ' (showing 80)' : ''}` : 'Type a name, or pick a type.';
     out.innerHTML = hits.slice(0, 80).map(r => {
       const where = r[5] != null ? `${r[2] & 2 ? '' : 'start '}${r[5]}, ${r[6]}` : r[2] & 1 ? 'separate map area' : 'no map coordinates on the wiki';
-      return `<a class="hit" href="#map/${r[4]}${r[2] & 8 ? '?row=' + encodeURIComponent(r[0]) : ''}"><span class="mtype t-${r[1]}">${esc(MTL[r[1]] || r[1])}</span><span>${esc(r[0])}${r[2] & 16 ? ' <span class="tag">removed</span>' : ''}</span><span class="meta">${esc(where)}</span></a>`;
+      return `<a class="hit" href="#map/${r[4]}${r[2] & 8 ? '?row=' + encodeURIComponent(r[0]) : ''}">${r[7] ? `<img class="ico" loading="lazy" decoding="async" src="mapimg/${r[7]}.webp" alt="" onerror="this.outerHTML='<span class=&quot;ph&quot; title=&quot;No picture on the RS3 wiki&quot;>${MGL[r[1]] || '◆'}</span>'">` : `<span class="ph" title="No picture on the RS3 wiki">${MGL[r[1]] || '◆'}</span>`}<span>${esc(r[0])}${r[2] & 16 ? ' <span class="tag">removed</span>' : ''}</span><span class="meta"><span class="mtype t-${r[1]}">${esc(MTL[r[1]] || r[1])}</span> ${esc(where)}</span></a>`;
     }).join('');
     const wp = hits.filter(r => r[5] != null).slice(0, 400).map(r => ({x: r[5], y: r[6], id: r[4], name: r[0], row: r[2] & 8 ? r[0] : null}));
     wm.setPins(wp);
@@ -155,7 +156,7 @@ async function mapEntry(id) {
     ${g.req ? `<div class="note">Requirements: ${esc(g.req)}</div>` : ''}<div class="note">How found: ${esc(g.how)}</div></div>`).join('')}</div>` : '';
   view.innerHTML = `<div class="row" style="margin-bottom:10px"><a class="btn ghost" href="#map">← Map search</a></div>
   <div class="panel"><div class="row" style="gap:16px;align-items:flex-start">
-    ${e.img ? fig([e.img[0], e.img[1]], 'hero') : PH('⌖', 96)}
+    ${e.img ? fig([e.img[0], e.img[1] + (e.imgw && /^(infobox (owner|location)|related page)/.test(e.imgw) ? ' · picture from ' + (e.imgw.match(/'([^']+)'/) || [, 'a related page'])[1] : '')], 'hero') : PH(MGL[e.t] || '⌖', 96)}
     <div style="flex:1;min-width:220px"><h2>${esc(title)}</h2>${e.rm ? '<div class="note" style="color:#ef6b6b;margin-bottom:6px">The wiki marks this as removed or past content, so it may no longer be in the game.</div>' : ''}${e.d ? `<div class="pre">${esc(e.d)}</div>` : ''}
     <div class="kv" style="margin-top:8px">${kv.map(([k, v]) => `<b>${k}</b><span>${esc(v)}</span>`).join('')}</div>
     <div style="margin-top:8px">${mapLink(e.page)}</div></div></div></div>

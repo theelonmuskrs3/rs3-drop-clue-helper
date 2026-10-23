@@ -1,11 +1,11 @@
 {
- "built": "2026-10-22 21:50 EDT",
+ "built": "2026-10-22 23:11 EDT",
  "monsters": 1481,
  "drop_entries": 21768,
  "items": 3297,
- "icons": 4420,
- "icons_missing": 215,
- "monster_images_missing": 10,
+ "icons": 4566,
+ "icons_missing": 69,
+ "monster_images_missing": 2,
  "map_clue_images_missing": 0,
  "clues": 1595,
  "clue_counts": {
@@ -58,14 +58,14 @@
   "Treasure Trails/Full guide"
  ],
  "coverage": {
-  "monsters_with_picture_pct": 99.3,
-  "drop_rows_with_icon_pct": 99.9,
-  "distinct_items_with_icon_pct": 95.4,
-  "clue_required_items_with_icon_pct": 94.3,
+  "monsters_with_picture_pct": 99.8,
+  "drop_rows_with_icon_pct": 100.0,
+  "distinct_items_with_icon_pct": 98.5,
+  "clue_required_items_with_icon_pct": 96.0,
   "clues_with_picture_pct": 91.4,
   "clues_without_any_wiki_picture": 137,
   "clue_pictures_not_downloaded": 0,
-  "quests_with_icon_pct": 95.0,
+  "quests_with_icon_pct": 99.8,
   "quests_with_main_picture": 384,
   "quests_with_any_picture_pct": 97.8,
   "quest_pictures_total": 7077,
@@ -83,7 +83,7 @@
   "quest_pictures_not_downloaded": 244,
   "quest_pictures_skipped_tiny": 123,
   "quest_pictures_mb": 108.5,
-  "quest_item_lines_with_picture_pct": 92.5,
+  "quest_item_lines_with_picture_pct": 98.5,
   "emotes_with_icon_pct": 90.9,
   "emote_icons_missing": [
    "Bow, Curtsy",
@@ -91,7 +91,7 @@
   ]
  },
  "quests": {
-  "generated": "2026-10-22 21:50:31 EDT",
+  "generated": "2026-10-22 23:10:53 EDT",
   "questreq_master_list": 392,
   "stubs_page_missing": 9,
   "total": 404,
@@ -123,7 +123,7 @@
   "gear": 0,
   "all_items": 0
  },
- "drops_generated": "2026-10-22 21:50:00 EDT",
+ "drops_generated": "2026-10-22 23:10:19 EDT",
  "gear": {
   "items": 11424,
   "with_stats": 8354,
@@ -140,7 +140,7 @@
  },
  "all_items": {
   "rows": 38722,
-  "with_icon": 37272,
+  "with_icon": 38245,
   "with_ge_price": 7356,
   "extract": {
    "pages_with_infobox_item_or_skin": 31859,
@@ -160,7 +160,7 @@
    "holiday": 251,
    "not_currently_obtainable": 4349,
    "discontinued_flag": 5574,
-   "seconds": 11
+   "seconds": 12
   }
  },
  "ge": {
@@ -168,5 +168,5 @@
   "source": "Module:GEPrices/data.json (RS3 wiki), saved in the wiki copy as ge_prices_2026-10-21.json",
   "prices": 7367
  },
- "clues_generated": "2026-10-22 21:50:23 EDT"
+ "clues_generated": "2026-10-22 23:10:45 EDT"
 }

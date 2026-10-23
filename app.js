@@ -11,9 +11,9 @@ const TIERS = ['beginner', 'easy', 'medium', 'hard', 'elite', 'master', 'cs_week
 const TYPE_LABEL = {emote: 'Emote', anagram: 'Anagram', coordinate: 'Coordinate', cryptic: 'Cryptic', simple: 'Simple', map: 'Map',
   scan: 'Scan', compass: 'Compass', cs_week: 'CS Week', cipher: 'Cipher'};
 const cap = s => s === 'cs_week' || s === 'cs week' ? 'CS Week' : s ? s[0].toUpperCase() + s.slice(1) : s;
-let ICONS = {}, EMOTES = {}, MTHUMB = {};
+let ICONS = {}, EMOTES = {}, MTHUMB = {}, SRCPICS = {};
 
-const PH = (glyph, size = 32) => `<span class="ph" style="width:${size}px;height:${size}px" title="Picture not downloaded yet">${glyph}</span>`;
+const PH = (glyph, size = 32) => `<span class="ph" style="width:${size}px;height:${size}px" title="No picture on the RS3 wiki">${glyph}</span>`;
 function icon(item) {
   const f = ICONS[item] || GICONS[item] || IICONS[item];
   return f ? `<img class="ico" loading="lazy" src="${esc(f)}" alt="">` : PH('✦');
@@ -520,7 +520,7 @@ async function itemsView(name) {
     ${g ? `<h3>Equipment stats <a class="note" href="${WIKI(g.p)}" target="_blank" rel="noopener">[wiki: ${esc(g.p)}]</a></h3>${statTable(g)}` : ''}
     ${src.length ? `<h3>Drops</h3><div class="note" style="margin:6px 0 10px">Dropped by ${src.length} source${src.length === 1 ? '' : 's'}, best chance first.</div>
     <div style="overflow-x:auto"><table><thead><tr><th>Dropped by</th><th>Qty</th><th>Rarity</th></tr></thead><tbody>
-    ${src.map(s => `<tr><td>${s[5] ? `<a class="item" href="#drops/${encodeURIComponent(s[0])}">${mthumb(s[0], 32)}<span>${esc(s[0])}</span></a>` : `<span class="item">${PH('◆')}<span>${esc(s[0])} <span class="tag">other source</span></span></span>`}</td>
+    ${src.map(s => `<tr><td>${s[5] ? `<a class="item" href="#drops/${encodeURIComponent(s[0])}">${mthumb(s[0], 32)}<span>${esc(s[0])}</span></a>` : `<span class="item">${SRCPICS[s[0]] ? `<img class="ico" style="width:32px;height:32px" loading="lazy" src="${esc(SRCPICS[s[0]])}" alt="">` : PH('◆')}<span>${esc(s[0])} <span class="tag">other source</span></span></span>`}</td>
       <td>${esc(s[1])}</td><td class="num">${rarityCell(s[2], s[3], s[4])}</td></tr>`).join('')}</tbody></table></div>` : '<div class="note" style="margin-top:8px">Not in any drop table in the wiki copy.</div>'}</div>`;
     return;
   }
@@ -862,7 +862,7 @@ async function detectLauncher() {
 
 /* ---------- boot ---------- */
 (async () => {
-  try { const ic = await get('data/icons.json'); ICONS = ic.items || ic; EMOTES = ic.emotes || {}; GICONS = ic.gear || {}; SKICONS = ic.skills || {}; SKORDER = ic.skill_order || []; SKMAX = ic.skill_max || {}; } catch (e) { ICONS = {}; }
+  try { const ic = await get('data/icons.json'); ICONS = ic.items || ic; EMOTES = ic.emotes || {}; GICONS = ic.gear || {}; SKICONS = ic.skills || {}; SKORDER = ic.skill_order || []; SKMAX = ic.skill_max || {}; SRCPICS = ic.sources || {}; } catch (e) { ICONS = {}; }
   route(); detectLauncher();
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
