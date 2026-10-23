@@ -471,3 +471,55 @@ html[data-fx=off] .nx-dds .dds-drip,html[data-fx=off] .nx-dds .dds-pool{display:
 html[data-fx=off] .nx-dds .dds-img,html[data-fx=off] .nx-dds .dds-glow{animation:none!important}
 @media (prefers-reduced-motion:reduce){.nx-dds .dds-drip,.nx-dds .dds-pool{display:none}.nx-dds .dds-img,.nx-dds .dds-glow{animation:none!important}}
 @media (max-width:760px){.nx-dds{width:46px;height:42px}.nx-dds .dds-drip{width:3px;height:4px;margin-left:-1.5px}}
+
+/* ===== Obtainable items + dragon-gear touches (pictures: RS3 wiki) ===== */
+.obhero{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.obhero h2{margin:0 0 4px}
+.obhpic{width:56px;height:56px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(255,31,61,.45));flex:none}
+.obhpics{display:flex;flex:none}.obhpics .obhpic:nth-child(2){margin-left:-22px;transform:translateY(6px)}.obhpics .obhpic:nth-child(3){margin-left:-22px}
+#res #drgstrip,#res>.note{grid-column:1/-1}
+.obmode{margin:10px 0}
+.obmode button{font-size:15px;padding:10px 16px}
+.chips .cnt{opacity:.6;font-weight:600;margin-left:4px}
+.chips button.drgchip{border-left:3px solid var(--red)}
+
+.obgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.obcard{position:relative;display:grid;grid-template-columns:76px 1fr;gap:12px;padding:12px;border-radius:6px;background:var(--stone2);border:1px solid #2a1f19;box-shadow:inset 0 1px 0 var(--metalhi)}
+.obcard:hover{border-color:#8a1424;box-shadow:inset 0 1px 0 var(--metalhi),0 0 16px rgba(255,31,61,.18)}
+.obcard.drg{border-color:#5a0c18;background:linear-gradient(160deg,rgba(122,10,26,.35),rgba(12,10,10,.9) 55%),var(--stone2)}
+.obcard.drg::after{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:2px;background:linear-gradient(180deg,var(--red),var(--deep))}
+.obpic{width:72px;height:72px;object-fit:contain;align-self:start;background:radial-gradient(circle at 50% 55%,rgba(255,31,61,.12),transparent 70%);border-radius:4px}
+.obico{display:flex;align-items:center;justify-content:center}
+.obbody{min-width:0}
+.obtitle{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font:700 16px/1.2 var(--ui)}
+.obtitle a{color:var(--text)}
+.obprice{margin:3px 0}
+.obtags{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0}
+.tag.drgtag{border-color:#c8102e;color:#ffd0c8;background:rgba(200,16,46,.18)}
+.tag.warn{border-color:var(--ember);color:var(--ember2)}
+.obhow{margin:6px 0;padding:6px 10px;border-left:2px solid var(--crim);background:rgba(0,0,0,.25);color:var(--soft);font-size:13.5px;line-height:1.45}
+.obhow cite{display:block;margin-top:4px;font-style:normal;font-size:11.5px;color:var(--muted)}
+.obkv{font-size:13px;margin:4px 0}
+.obstat{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0}
+.obstat span{font:600 11.5px/1.2 var(--ui);padding:2px 6px;border-radius:3px;background:rgba(200,16,46,.14);border:1px solid #5a0c18;color:#ffd9cf}
+.obempty{display:flex;align-items:center;gap:14px;padding:18px;border:1px dashed #5a0c18;border-radius:6px;margin-top:10px}
+.drgbox{margin-top:14px;padding:12px;border-radius:6px;border:1px solid #5a0c18;background:linear-gradient(160deg,rgba(122,10,26,.3),rgba(10,8,8,.85) 60%)}
+.drghead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.drgt{font:700 15px/1 var(--head,var(--ui));letter-spacing:.14em;text-transform:uppercase;color:#ffd0c8;text-shadow:0 0 10px rgba(255,31,61,.55)}
+
+.drgrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:6px}
+.drgcard{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:8px;border-radius:5px;background:rgba(0,0,0,.35);border:1px solid #3a0610;color:var(--text);font-size:13px}
+.drgcard:hover{border-color:var(--red);text-decoration:none;box-shadow:0 0 14px rgba(255,31,61,.3)}
+.drgpic{width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(255,31,61,.4))}
+.drgcard .obstat{justify-content:center}
+@media (max-width:760px){
+  .obgrid{grid-template-columns:1fr}
+  .obcard{grid-template-columns:60px 1fr;padding:10px;gap:10px}
+  .obpic{width:58px;height:58px}
+  .obhpic{width:44px;height:44px}
+  .obhero{flex-direction:column;align-items:flex-start;gap:8px}
+  .obmode button{font-size:13px;padding:8px 10px}
+  .drgrow{grid-template-columns:repeat(2,1fr)}
+}
+html[data-fx=off] .obhpic,html[data-fx=off] .drgpic{filter:none}
+.drgmini{width:26px;height:26px;object-fit:contain;vertical-align:middle;margin-right:8px}

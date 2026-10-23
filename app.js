@@ -269,7 +269,7 @@ function priceTag(D, n) {
 function rarTag(r) { return r == null ? '' : `<span class="rtag r${r}">${RANK[r]}</span>`; }
 function subnav(on) {
   const b = (h, t, k) => `<a class="btn sub ${on === k ? 'on' : ''}" href="${h}">${t}</a>`;
-  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~stats', 'My stats → gear', 'stats')}${b('#items/~sets', 'Best sets (wiki)', 'sets')}</div>`;
+  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~stats', 'My stats → gear', 'stats')}${b('#items/~sets', 'Best sets (wiki)', 'sets')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}</div>`;
 }
 
 /* ----- stats storage ----- */
@@ -506,6 +506,7 @@ function obtainNote(d) {
 async function itemsView(name) {
   if (name === '~stats') return statsView();
   if (name === '~sets') return setsView();
+  if (name === '~obtain' || name === '~dragon') return obtainView(name === '~dragon' ? 'dragon' : null);
   const [D] = await Promise.all([itemData(), loadThumbs()]);
   const {items, best, gear} = D;
   const asof = `as of ${esc(D.pr.date)} (${esc(geDateET(D))})`;
@@ -576,7 +577,7 @@ async function itemsView(name) {
     const so = {match: (a, b) => b[0] - a[0] || a[1].localeCompare(b[1]), name: (a, b) => a[1].localeCompare(b[1]), price: (a, b) => (P(b[1]) ?? -1) - (P(a[1]) ?? -1),
       pricel: (a, b) => (P(a[1]) ?? 1e15) - (P(b[1]) ?? 1e15), common: (a, b) => (B(b[1]) ?? -1) - (B(a[1]) ?? -1), rare: (a, b) => (B(a[1]) ?? 9) - (B(b[1]) ?? 9),
       tier: (a, b) => ((gear[b[1]] || {}).tier ?? -1) - ((gear[a[1]] || {}).tier ?? -1)};
-    if (!nq && o.sort === 'match' && o.rar === '' && o.show === 'all' && !o.slot && !o.tr && !o.mem && !o.fl) { out.innerHTML = '<div class="note">Start typing an item name, or pick a rarity, filter or sort to browse.</div>'; return; }
+    if (!nq && o.sort === 'match' && o.rar === '' && o.show === 'all' && !o.slot && !o.tr && !o.mem && !o.fl) { out.innerHTML = '<div class="note">Start typing an item name, or pick a rarity, filter or sort to browse.</div><div id="drgstrip"></div>'; dragonStrip(D, $('#drgstrip')); return; }
     hits.sort(so[o.sort] || so.match);
     const n0 = hits.length; hits = hits.slice(0, 100);
     out.innerHTML = `<div class="note">${n0.toLocaleString()} match${n0 === 1 ? '' : 'es'}${n0 > 100 ? ', showing the first 100' : ''}.</div>` + hits.map(([, n]) => {
@@ -590,6 +591,126 @@ async function itemsView(name) {
   document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; draw(); });
   ['show', 'tr', 'mem', 'fl', 'slot', 'sort'].forEach(k => { $('#' + k).onchange = e => { o[k] = e.target.value; draw(); }; });
   draw(); q.focus();
+}
+
+/* ---------- Obtainable: items the RS3 wiki does not mark discontinued / unobtainable / deleted (data/ob.json, from extract_obtainable.py) ----------
+   rows [iall row, category bits, how-to-obtain text quoted from the wiki page, which part of the page it came from, extras{sh shops, dr drops, rc recipe skills, rf facility, rq2 wear reqs, only, pic, g dragon stats}] */
+const obPic = (x, n, cls = 'obpic') => x && x.pic ? `<img class="${cls}" loading="lazy" src="obimg/${esc(x.pic)}.webp" alt="" title="${esc(n)} (picture: RS3 wiki)">` : `<span class="${cls} obico">${icon(n)}</span>`;
+const DRAGON_FEATURE = ['Dragon platebody', 'Dragon full helm', 'Dragon kiteshield', 'Dragon claw', 'Dragon dagger', 'Dragon longsword', 'Dragon scimitar', 'Dragon battleaxe', 'Dragon platelegs', 'Dragon boots', 'Dragon gloves', 'Dragon chainbody', 'Dragon halberd', 'Dragon hatchet', 'Dragon pickaxe', 'Dragon mace'];
+function dragonPick(D, rows, k = 8) {
+  const by = {}; rows.forEach(r => { by[D.ia.rows[r[0]][0]] = r; });
+  const L = DRAGON_FEATURE.map(n => by[n]).filter(r => r && r[4].pic);
+  for (const r of rows) { if (L.length >= k) break; if (r[4].pic && !L.includes(r)) L.push(r); }
+  return L.slice(0, k);
+}
+function gStat(g) {
+  if (!g) return '';
+  const t = [g.tier != null ? `T${g.tier}` : '', g.cls ? cap(g.cls) : '', g.slot ? SLOT_LABEL[g.slot] || g.slot : '', g.type ? cap(g.type) : '', g.damage != null ? `Damage ${g.damage}` : '', g.accuracy != null ? `Accuracy ${g.accuracy}` : '', g.armour != null ? `Armour ${g.armour}` : '', g.strength ? `Strength +${g.strength}` : ''].filter(Boolean);
+  return t.length ? `<div class="obstat">${t.map(x => `<span>${esc(x)}</span>`).join('')}</div>` : '';
+}
+async function dragonStrip(D, el) {
+  if (!el) return;
+  let dr; try { dr = await get('data/obdragon.json'); } catch (e) { return; }
+  const L = dragonPick(D, dr.rows, 8); if (!L.length || !el.isConnected) return;
+  el.innerHTML = `<div class="drgbox"><div class="drghead"><span class="drgt">${L[0] ? obPic(L[0][4], D.ia.rows[L[0][0]][0], "drgmini") : ""}Dragon gear</span><a class="btn sub" href="#items/~dragon">See all ${dr.rows.length} dragon items →</a></div>
+    <div class="drgrow">${L.map(r => { const n = D.ia.rows[r[0]][0], v = priceOf(D, n); return `<a class="drgcard" href="#items/${encodeURIComponent(n)}">${obPic(r[4], n, 'drgpic')}<b>${esc(n)}</b>${gStat(r[4].g)}<span class="${v != null ? 'gp' : 'untr'}">${v != null ? gp(v) : 'no GE price'}</span></a>`; }).join('')}</div>
+    <div class="note">Pictures, stats and prices from the RS3 wiki (GE ${esc(D.pr.date)}).</div></div>`;
+}
+async function obtainView(cat0) {
+  const [D, OB] = await Promise.all([itemData(), get('data/ob.json')]);
+  const B = OB.bits, CL = Object.fromEntries(OB.cats), F = D.FL;
+  const COOL = B.cape | B.override | B.outfit | B.pet | B.event | B.achieve | B.dragon;
+  const o = Object.assign({mode: 'money', cat: '', q: '', tr: '', mem: '', eq: '', hol: '', rar: '', only: '', sort: ''}, JSON.parse(sessionStorage.obopt || '{}'));
+  if (cat0) { o.cat = cat0; o.mode = 'cool'; o.q = ''; }
+  const st = OB.stats || {}, ex = st.excluded || {};
+  const nEx = Object.entries(ex).filter(([k]) => !/^no GE price/.test(k)).reduce((a, [, v]) => a + v, 0);
+  const dung = ex['Daemonheim-only'] || 0;
+  const name = r => D.ia.rows[r[0]][0];
+  const cnt = {}; OB.rows.forEach(r => { for (const [c] of OB.cats) if (r[1] & B[c]) cnt[c] = (cnt[c] || 0) + 1; });
+  const dpick = dragonPick(D, OB.rows.filter(r => r[1] & B.dragon), 6);
+  view.innerHTML = `${subnav('obtain')}<div class="panel obpanel"><div class="obhero"><div class="obhpics" title="Dragon gear pictures from the RS3 wiki">${dpick.slice(0, 3).map(r => obPic(r[4], name(r), 'obhpic')).join('')}</div><div><h2>Obtainable items</h2>
+    <div class="note">${OB.rows.length.toLocaleString()} items and cosmetics you can still get, from the RS3 wiki copy (${esc(OB.snap)}). Left out: ${nEx.toLocaleString()} entries the wiki marks discontinued, currently unobtainable, deleted/removed, hidden, “Unobtainable items” or with a removal date, plus ${dung.toLocaleString()} Daemonheim-only items (they can't leave Daemonheim). Quest-only and minigame-only items are tagged and hidden unless you ask for them. “How to get it” is quoted from each item's wiki page.</div></div></div>
+    <div class="chips obmode" id="mode"><button data-v="money">Worth money</button><button data-v="cool">Cosmetically cool</button></div>
+    ${searchBox('q', 'Search obtainable items, e.g. veteran cape, dragon, pet, partyhat…', o.q)}
+    <div class="chips" id="cat"><button data-v="">All categories</button>${OB.cats.map(([c, l]) => `<button data-v="${c}" class="${c === 'dragon' ? 'drgchip' : ''}">${esc(l)} <span class="cnt">${(cnt[c] || 0).toLocaleString()}</span></button>`).join('')}</div>
+    <div class="chips" id="rar"><button data-v="">Any rarity</button>${RANK.map((r, i) => `<button data-v="${i}" class="r${i}">${r}</button>`).join('')}</div>
+    <div class="row" style="margin-top:8px">
+    <select id="tr"><option value="">Tradeable or not</option><option value="trade">Tradeable (GE)</option><option value="untr">Untradeable</option></select>
+    <select id="mem"><option value="">Members &amp; free</option><option value="mem">Members</option><option value="f2p">Free-to-play</option></select>
+    <select id="eq"><option value="">Equipable or not</option><option value="equip">Equipable / wearable</option></select>
+    <select id="hol"><option value="">Holiday &amp; normal</option><option value="holiday">Holiday / event items only</option><option value="noh">No holiday items</option></select>
+    <select id="only"><option value="">Hide quest-only &amp; minigame-only</option><option value="show">Include quest-only &amp; minigame-only</option></select>
+    <select id="sort"><option value="">Default for the mode</option><option value="price">GE price, high → low</option><option value="pricel">GE price, low → high</option><option value="name">Name A–Z</option><option value="rare">Rarest drop first</option></select></div>
+    <div id="obres"></div></div>`;
+  const q = $('#q'), out = $('#obres');
+  ['tr', 'mem', 'eq', 'hol', 'only', 'sort'].forEach(k => { $('#' + k).value = o[k]; });
+  const best = r => { const b = D.best[name(r)]; return b ? b[0] : null; };
+  let lim = 48;
+  const draw = () => {
+    o.q = q.value; sessionStorage.obopt = JSON.stringify(o);
+    document.querySelectorAll('#mode button').forEach(b => b.classList.toggle('on', b.dataset.v === o.mode));
+    document.querySelectorAll('#cat button').forEach(b => b.classList.toggle('on', b.dataset.v === o.cat));
+    document.querySelectorAll('#rar button').forEach(b => b.classList.toggle('on', b.dataset.v === String(o.rar)));
+    const nq = norm(q.value);
+    let L = [];
+    for (const r of OB.rows) {
+      const ir = D.ia.rows[r[0]], n = ir[0], f = ir[3], x = r[4];
+      if (o.mode === 'money' && !o.cat && ir[2] == null) continue;
+      if (o.mode === 'cool' && !o.cat && !(r[1] & COOL)) continue;
+      if (o.cat && !(r[1] & B[o.cat])) continue;
+      if (x.only && o.only !== 'show') continue;
+      if (o.tr === 'trade' && !(f & F.trade || ir[2] != null)) continue;
+      if (o.tr === 'untr' && !(f & F.untr)) continue;
+      if (o.mem && !(f & F[o.mem])) continue;
+      if (o.eq && !(f & F.equip)) continue;
+      if (o.hol === 'holiday' && !(f & F.holiday || r[1] & B.event)) continue;
+      if (o.hol === 'noh' && (f & F.holiday)) continue;
+      if (o.rar !== '' && best(r) !== +o.rar) continue;
+      let s = 0;
+      if (nq) { s = score(n, nq); if (s < 0) { if (!norm(r[2]).includes(nq)) continue; s = -50; } }
+      L.push([s, r]);
+    }
+    const P = r => D.ia.rows[r[0]][2];
+    const sort = o.sort || (o.mode === 'money' ? 'price' : 'pic');
+    const cmp = {price: (a, b) => (P(b) ?? -1) - (P(a) ?? -1), pricel: (a, b) => (P(a) ?? 1e15) - (P(b) ?? 1e15), name: (a, b) => name(a).localeCompare(name(b)),
+      rare: (a, b) => (best(b) ?? -1) - (best(a) ?? -1) || (P(b) ?? -1) - (P(a) ?? -1),
+      pic: (a, b) => (b[4].pic ? 1 : 0) - (a[4].pic ? 1 : 0) || (P(b) ?? -1) - (P(a) ?? -1) || name(a).localeCompare(name(b))}[sort];
+    L.sort((a, b) => (nq ? b[0] - a[0] : 0) || cmp(a[1], b[1]));
+    const tradeN = L.filter(([, r]) => P(r) != null).length;
+    if (!L.length) {
+      out.innerHTML = `<div class="obempty">${dpick.slice(0, 2).map(r => obPic(r[4], name(r), 'obhpic')).join('')}<div><b>No obtainable items match.</b><div class="note">Try another word, category or filter.</div></div></div>`; return;
+    }
+    out.innerHTML = `<div class="note" style="margin:8px 0">${L.length.toLocaleString()} item${L.length === 1 ? '' : 's'} (${tradeN.toLocaleString()} with a GE price${tradeN ? `, GE ${esc(D.pr.date)}` : ''})${L.length > lim ? `, showing ${lim}` : ''}.</div>
+      <div class="obgrid">${L.slice(0, lim).map(([, r]) => obCard(D, OB, r)).join('')}</div>${L.length > lim ? '<div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="more">Show more</button></div>' : ''}`;
+    const m = $('#more'); if (m) m.onclick = () => { lim += 96; draw(); };
+  };
+  let tmr = null;
+  q.oninput = () => { clearTimeout(tmr); lim = 48; tmr = setTimeout(draw, 150); };
+  const reset = () => { lim = 48; draw(); };
+  document.querySelectorAll('#mode button').forEach(b => b.onclick = () => { o.mode = b.dataset.v; o.cat = ''; reset(); });
+  document.querySelectorAll('#cat button').forEach(b => b.onclick = () => { o.cat = o.cat === b.dataset.v ? '' : b.dataset.v; reset(); });
+  document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; reset(); });
+  ['tr', 'mem', 'eq', 'hol', 'only', 'sort'].forEach(k => { $('#' + k).onchange = e => { o[k] = e.target.value; reset(); }; });
+  draw();
+}
+const OB_SRC = {lead: 'page intro'};
+function obCard(D, OB, r) {
+  const ir = D.ia.rows[r[0]], n = ir[0], page = ir[4] || n, f = ir[3], F = D.FL, x = r[4], v = ir[2];
+  const tags = OB.cats.filter(([c]) => r[1] & OB.bits[c]).map(([c, l]) => `<span class="tag ${c === 'dragon' ? 'drgtag' : ''}">${esc(l)}</span>`);
+  if (x.only) tags.unshift(`<span class="tag warn">${x.only === 'quest' ? 'Quest only' : x.only === 'minigame' ? 'Minigame only' : 'Guthixian Cache only'}</span>`);
+  if (f & F.holiday) tags.push('<span class="tag">Holiday item</span>');
+  const fl = [f & F.mem ? 'Members' : f & F.f2p ? 'Free-to-play' : '', v != null || f & F.trade ? 'Tradeable' : ''].filter(Boolean).join(' · ');
+  const b = D.best[n];
+  const how = r[2] ? `<blockquote class="obhow">“${esc(r[2])}”<cite>— RS3 wiki, <a href="${WIKI(page)}" target="_blank" rel="noopener">${esc(page)}</a> (${esc(OB_SRC[r[3]] || r[3] + ' section')})</cite></blockquote>` : '<div class="note">The wiki page has no intro text; see the wiki link.</div>';
+  const kv = [];
+  if (x.sh) kv.push(['Sold by', x.sh.map(s => `${esc(s[0])}${s[1] ? ` (${/^\d+$/.test(s[1]) ? (+s[1]).toLocaleString() : esc(s[1])}${s[2] ? ' ' + esc(s[2]) : /^\d+$/.test(s[1]) ? ' coins' : ''})` : ''}`).join(', ') + (x.nsh > x.sh.length ? ` +${x.nsh - x.sh.length} more` : '')]);
+  if (x.dr) kv.push(['Dropped by', x.dr.map(d => `${esc(d[0])}${d[1] ? ` <span class="${d[2] != null ? 'r' + Math.min(d[2], 4) : ''}">(${esc(d[1])})</span>` : ''}`).join(', ') + (x.nd > x.dr.length ? ` +${x.nd - x.dr.length} more` : '')]);
+  if (x.rc) kv.push(['Made with', esc(x.rc) + (x.rf ? ` at ${esc(x.rf)}` : '')]);
+  if (x.rq2) kv.push(['To wear', esc(x.rq2)]);
+  return `<div class="obcard ${r[1] & OB.bits.dragon ? 'drg' : ''}">${obPic(x, n)}<div class="obbody"><div class="obtitle"><a href="#items/${encodeURIComponent(n)}">${esc(n)}</a>${b ? rarTag(b[0]) : ''}</div>
+    <div class="obprice">${v != null ? `<span class="gp">${gp(v)}</span>` : f & F.untr ? '<span class="untr">Untradeable</span>' : '<span class="note">no GE price</span>'}${fl ? ` <span class="note">${fl}</span>` : ''}</div>
+    <div class="obtags">${tags.join('')}</div>${gStat(x.g)}${how}${kv.length ? `<div class="kv obkv">${kv.map(([k, v]) => `<b>${k}</b><span>${v}</span>`).join('')}</div>` : ''}
+    <div class="note"><a href="${WIKI(page)}" target="_blank" rel="noopener">Open on the RS3 wiki ↗</a></div></div></div>`;
 }
 
 /* ---------- clues ---------- */
