@@ -550,29 +550,25 @@ html.nx-launcher .nx-dl,html.nx-launcher .nx-install{display:none!important}
   .top .sub{white-space:nowrap}
 }
 
-/* ---------- poison name: "Dev. Soy Yoda" drips like the Dragon dagger (p++) logo — CSS only ---------- */
-.nx-poison{position:relative;display:inline-block;--psn:#5dff2e;--psn2:#1fae12;color:#b8ff8f;
-  background:linear-gradient(180deg,#eaffd6 0,#8dff5a 38%,#3fd61f 66%,#1d8f10 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 1px 0 #000) drop-shadow(0 0 4px rgba(93,255,46,.55)) drop-shadow(0 0 10px rgba(93,255,46,.25));animation:psnGlow 3.2s ease-in-out infinite}
-.nx-poison::before{content:"";position:absolute;left:-2%;right:-2%;bottom:-2px;height:3px;border-radius:0 0 40% 40%/0 0 100% 100%;
-  background:linear-gradient(90deg,transparent,rgba(93,255,46,.75) 12%,rgba(93,255,46,.4) 50%,rgba(93,255,46,.8) 85%,transparent);filter:blur(.4px);pointer-events:none}
-.nx-poison .psn-drip{position:absolute;top:calc(100% - 3px);width:4px;height:5px;margin-left:-2px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;
-  background:radial-gradient(circle at 40% 35%,#eaffd6 0 18%,var(--psn) 45%,var(--psn2));-webkit-text-fill-color:initial;
-  box-shadow:0 0 4px var(--psn),0 0 8px rgba(93,255,46,.6);opacity:0;transform-origin:50% 0;animation:psnDrip 3.8s cubic-bezier(.55,0,.85,.4) infinite;pointer-events:none}
-.nx-poison .p2,.nx-poison .p4{width:3px;height:4px;margin-left:-1.5px}
-@keyframes psnDrip{0%{opacity:0;transform:translateY(0) scale(.3,.3)}
-  14%{opacity:1;transform:translateY(0) scale(.85,.8)}
-  36%{opacity:1;transform:translateY(1px) scale(.9,1.5)}
-  46%{opacity:1;transform:translateY(4px) scale(.75,1.75)}
-  84%{opacity:.8;transform:translateY(18px) scale(.65,1.2)}
-  100%{opacity:0;transform:translateY(24px) scale(.5,.8)}}
-@keyframes psnGlow{0%,100%{filter:drop-shadow(0 1px 0 #000) drop-shadow(0 0 3px rgba(93,255,46,.45)) drop-shadow(0 0 8px rgba(93,255,46,.18))}
-  50%{filter:drop-shadow(0 1px 0 #000) drop-shadow(0 0 6px rgba(93,255,46,.8)) drop-shadow(0 0 14px rgba(93,255,46,.4))}}
-.disclaimer .nx-poison,.panel .nx-poison{letter-spacing:.06em}
-/* FX setting: Low = 2 slower drips, no pulsing; Off / reduced motion = static green glow, no drips */
-html[data-fx=low] .nx-poison{animation:none}
-html[data-fx=low] .nx-poison .psn-drip:nth-of-type(n+3){display:none}
-html[data-fx=low] .nx-poison .psn-drip{animation-duration:6s!important}
-html[data-fx=off] .nx-poison{animation:none!important}
-html[data-fx=off] .nx-poison .psn-drip{display:none}
-@media (prefers-reduced-motion:reduce){.nx-poison{animation:none!important}.nx-poison .psn-drip{display:none}}
+/* ---------- poison name: "Dev. Soy Yoda" — glossy liquid letters; drips are drawn by neon.js (canvas + SVG goo filter) from the measured letter positions ---------- */
+.nx-poison{position:relative;display:inline-block;isolation:isolate;--psn:#5dff2e}
+.nx-poison::before{content:"";position:absolute;z-index:-1;left:-8px;right:-8px;top:-4px;bottom:-4px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 60%,rgba(93,255,46,.18),rgba(93,255,46,0) 68%);animation:psnAura 3.6s ease-in-out infinite}
+.psn-txt{display:inline-block;filter:drop-shadow(0 1px 0 #000) drop-shadow(0 0 3px rgba(93,255,46,.6)) drop-shadow(0 0 9px rgba(93,255,46,.28))}
+.psn-ch{display:inline-block;color:#6dff3e;
+  background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.95) 50%,transparent 62%) 160% 0/320% 100% no-repeat,
+    linear-gradient(180deg,#f2ffe4 0,#a6ff6e 26%,#4ee82a 52%,#2fc61a 78%,#1f9a10 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:psnShine 5.2s ease-in-out infinite;animation-delay:calc(var(--i) * .13s)}
+.psn-bl{display:inline-block;width:0;height:0;vertical-align:baseline;overflow:hidden}
+.psn-cv{position:absolute;left:0;top:0;pointer-events:none;z-index:3}
+.psn-cv canvas{position:absolute;left:0;top:0;display:block}
+.psn-cv .g{filter:url(#psn-goo) drop-shadow(0 0 2.5px rgba(93,255,46,.65))}
+@keyframes psnAura{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes psnShine{0%,55%{background-position:160% 0,0 0}85%,100%{background-position:-60% 0,0 0}}
+/* FX Low: no pulsing/shine, fewer simpler drips (neon.js); FX Off / reduced motion: still glossy glow, no drips */
+html[data-fx=low] .psn-ch{animation:none;background:linear-gradient(180deg,#f2ffe4 0,#a6ff6e 26%,#4ee82a 52%,#2fc61a 78%,#1f9a10 100%);-webkit-background-clip:text;background-clip:text}
+html[data-fx=low] .nx-poison::before,html[data-fx=off] .nx-poison::before{animation:none;opacity:.8}
+html[data-fx=off] .psn-ch{animation:none;background:linear-gradient(180deg,#f2ffe4 0,#a6ff6e 26%,#4ee82a 52%,#2fc61a 78%,#1f9a10 100%);-webkit-background-clip:text;background-clip:text}
+html[data-fx=off] .psn-cv{display:none}
+@media (prefers-reduced-motion:reduce){.psn-ch{animation:none!important;background:linear-gradient(180deg,#f2ffe4 0,#a6ff6e 26%,#4ee82a 52%,#2fc61a 78%,#1f9a10 100%);-webkit-background-clip:text;background-clip:text}.nx-poison::before{animation:none!important;opacity:.8}.psn-cv{display:none}}
