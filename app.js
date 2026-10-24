@@ -278,8 +278,64 @@ const STATS_KEY = 'mystats_v2';
 const DEFAULT_STATS = {Attack: 75, Constitution: 78, Mining: 58, Strength: 78, Agility: 38, Smithing: 54, Defence: 78, Herblore: 28, Fishing: 61, Ranged: 64, Thieving: 48, Cooking: 90,
   Prayer: 51, Crafting: 55, Firemaking: 42, Magic: 99, Fletching: 101, Woodcutting: 71, Runecrafting: 29, Slayer: 47, Farming: 11, Construction: 44, Hunter: 31, Summoning: 23,
   Dungeoneering: 43, Divination: 1, Invention: 1, Archaeology: 1, Necromancy: 2};
-function loadStats() { try { const v = localStorage.getItem(STATS_KEY); if (v) return JSON.parse(v); } catch (e) {} localStorage.removeItem('mystats'); return {...DEFAULT_STATS}; }
-function saveStats(s) { localStorage.setItem(STATS_KEY, JSON.stringify(s)); }
+/* validate saved levels: integer, 1..skill max (wiki). Skills missing from storage fall back to the owner's levels. Returns null if nothing usable. */
+function cleanStats(o) {
+  if (!o || typeof o !== 'object' || Array.isArray(o)) return null;
+  const out = {...DEFAULT_STATS}; let n = 0;
+  for (const [k, v] of Object.entries(o)) {
+    if (!/^[A-Za-z' ]{2,24}$/.test(k)) continue;
+    const x = typeof v === 'number' ? v : typeof v === 'string' && /^\s*\d{1,4}\s*$/.test(v) ? +v : NaN;
+    if (!Number.isFinite(x)) continue;
+    out[k] = Math.max(1, Math.min(skMax(k), Math.floor(x))); n++;
+  }
+  return n ? out : null;
+}
+const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+let STATS_SAVED = false;   /* true once the owner's own saved levels were found on this device */
+function loadStats() {
+  for (const key of [STATS_KEY, STATS_KEY + '_bak']) {
+    const raw = lsGet(key); if (!raw) continue;
+    let o = null; try { o = JSON.parse(raw); } catch (e) {}
+    const c = cleanStats(o && o.levels ? o.levels : o);
+    if (c) { STATS_SAVED = true; return c; }
+    try { localStorage.setItem(key + '_corrupt', raw.slice(0, 4000)); } catch (e) {}   /* keep the bad value for inspection, never crash */
+  }
+  try { localStorage.removeItem('mystats'); } catch (e) {}
+  return {...DEFAULT_STATS};
+}
+/* saving: debounced after each change, and flushed right away on blur / tab hidden / page hide / close so nothing typed is lost */
+let _stSave = null, _stDirty = null, _stBind = false;
+function statsFlush() {
+  clearTimeout(_stSave); _stSave = null;
+  if (!_stDirty) return true;
+  const s = _stDirty; _stDirty = null;
+  const j = JSON.stringify({v: 2, t: Date.now(), levels: s});
+  try { localStorage.setItem(STATS_KEY, j); localStorage.setItem(STATS_KEY + '_bak', j); STATS_SAVED = true; statsBadge(true); return true; }
+  catch (e) { statsBadge(false); return false; }
+}
+function saveStats(s) {
+  _stDirty = {...s}; statsBadge(null);
+  clearTimeout(_stSave); _stSave = setTimeout(statsFlush, 250);
+  if (!_stBind) {
+    _stBind = true;
+    const f = () => { statsFlush(); };
+    addEventListener('pagehide', f); addEventListener('beforeunload', f); addEventListener('blur', f);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') f(); });
+    document.addEventListener('focusout', f);
+    try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
+  }
+}
+let _stBadgeT = 0;
+function statsBadge(ok) {
+  const b = document.getElementById('stsaved'); if (!b) return;
+  clearTimeout(_stBadgeT);
+  if (ok === null) { b.textContent = 'Saving…'; b.className = 'stsaved'; return; }
+  if (ok) { b.textContent = 'Saved ✓'; b.className = 'stsaved on'; _stBadgeT = setTimeout(() => { b.className = 'stsaved on idle'; }, 1800); }
+  else { b.textContent = 'Not saved (browser storage is blocked)'; b.className = 'stsaved on bad'; }
+}
+/* gear style + PvM/PvP choice are remembered across visits too */
+function loadPrefs() { try { const o = JSON.parse(lsGet('gearprefs_v1') || '{}'); return {style: STYLES[o.style] ? o.style : null, mode: o.mode === 'pvp' || o.mode === 'pvm' ? o.mode : null}; } catch (e) { return {style: null, mode: null}; } }
+function savePrefs(o) { try { localStorage.setItem('gearprefs_v1', JSON.stringify({style: o.style, mode: o.mode})); } catch (e) {} }
 let SKICONS = {}, SKORDER = [], SKMAX = {};
 const skMax = k => SKMAX[k] || 120;
 /* wiki Combat level page: (13/10 × max(Att+Str, 2 Mag, 2 Rang, 2 Necr) + Def + Const + ⌊Pray/2⌋ + ⌊Summ/2⌋) / 4, rounded down */
@@ -369,8 +425,8 @@ function statInputs(S, extra) {
   const f = k => `<label class="sk" title="${k} (max ${skMax(k)})">${SKICONS[k] ? `<img src="${esc(SKICONS[k])}" alt="" width="27" height="27">` : `<span>${k.slice(0, 3)}</span>`}<input type="number" inputmode="numeric" min="1" max="${skMax(k)}" aria-label="${k} level" title="${k}" data-sk="${k}" value="${lv(S, k)}"></label>`;
   return `<div class="skgrid">${order.map(f).join('')}</div>
     <div class="sktot"><span title="Total level">Total level <b id="tot">${totalLevel(S)}</b></span><span title="Combat level (wiki formula)">Combat <b id="cmb">${combatLevel(S)}</b></span></div>
-    <div class="row" style="margin-top:8px"><button class="btn ghost" data-all="1">All 1</button><button class="btn ghost" data-all="max">All max</button><button class="btn ghost" data-all="mine">My levels</button>
-    <span class="note">Saved on this device only. Max level per skill is from each skill's RS3 wiki page.</span></div>`;
+    <div class="row" style="margin-top:8px"><button class="btn ghost" data-all="1">All 1</button><button class="btn ghost" data-all="max">All max</button><button class="btn ghost" data-all="mine" title="Put back the levels from your skills screenshot">Reset to my defaults</button><span id="stsaved" class="stsaved on idle" aria-live="polite">Saved ✓</span>
+    <span class="note">Saved automatically on this device only. Max level per skill is from each skill's RS3 wiki page.</span></div>`;
 }
 function gearRow(D, g, st, extra = '') {
   return `<tr><td><a class="item" href="#items/${encodeURIComponent(g.n)}">${icon(g.n)}<span>${esc(g.n)}</span></a>${g.dung ? ' <span class="tag">Daemonheim</span>' : ''}${g.rst && g.rst !== 'dungeoneering' ? ` <span class="tag">${esc(RST_LABEL[g.rst] || g.rst)}</span>` : ''}${g.type ? ` <span class="tag">${esc(g.type)}</span>` : ''}</td>
@@ -379,7 +435,9 @@ function gearRow(D, g, st, extra = '') {
 async function statsView() {
   const D = await itemData();
   const S = loadStats();
+  const pf = loadPrefs();
   const opt = Object.assign({style: 'melee', mode: 'pvm', slot: '', sort: 'tier', hideDung: true, hideRec: true, hideRst: true, trade: false, more: 0}, JSON.parse(sessionStorage.gearopt || '{}'));
+  if (pf.style) opt.style = pf.style; if (pf.mode) opt.mode = pf.mode;
   const extraSk = [...new Set(D.gd.gear.flatMap(g => Object.keys(g.req || {})))].filter(k => !MAIN_SKILLS.includes(k)).sort();
   view.innerHTML = `${subnav('stats')}<div class="panel"><h2>Your levels</h2>${statInputs(S, extraSk)}</div>
     <div class="panel"><h2>Best set for your stats</h2><div class="chips" id="sty">${Object.entries(STYLES).map(([k, v]) => `<button data-v="${k}">${v}</button>`).join('')}</div>
@@ -392,7 +450,7 @@ async function statsView() {
   const setChips = () => { document.querySelectorAll('#sty button').forEach(b => b.classList.toggle('on', b.dataset.v === opt.style)); document.querySelectorAll('#mode button').forEach(b => b.classList.toggle('on', b.dataset.v === opt.mode)); };
   $('#slot').value = opt.slot; $('#sort').value = opt.sort; $('#hd').checked = opt.hideDung; $('#hr').checked = opt.hideRec; $('#hs').checked = opt.hideRst; $('#tr').checked = opt.trade;
   const draw = () => {
-    sessionStorage.gearopt = JSON.stringify({...opt, more: 0}); setChips();
+    sessionStorage.gearopt = JSON.stringify({...opt, more: 0}); savePrefs(opt); setChips();
     const st = opt.style, bs = bestSet(D, S, st, opt.mode, opt);
     const recPage = D.gd.recommended[st] && D.gd.recommended[st].page;
     const q = D.gd.pvp_quotes || [];
@@ -429,16 +487,18 @@ async function statsView() {
   $('#tr').onchange = e => { opt.trade = e.target.checked; draw(); };
   const totals = () => { $('#tot').textContent = totalLevel(S); $('#cmb').textContent = combatLevel(S); };
   view.querySelectorAll('input[data-sk]').forEach(i => i.oninput = () => { const k = i.dataset.sk, v = Math.max(1, Math.min(skMax(k), parseInt(i.value, 10) || 1)); S[k] = v; saveStats(S); totals(); clearTimeout(i._t); i._t = setTimeout(draw, 250); });
-  view.querySelectorAll('button[data-all]').forEach(b => b.onclick = () => { const a = b.dataset.all; view.querySelectorAll('input[data-sk]').forEach(i => { const k = i.dataset.sk, v = a === 'max' ? skMax(k) : a === 'mine' ? (DEFAULT_STATS[k] || 1) : +a; i.value = v; S[k] = v; }); saveStats(S); totals(); draw(); });
+  view.querySelectorAll('input[data-sk]').forEach(i => i.onchange = () => { const k = i.dataset.sk; if (S[k] != null) i.value = S[k]; statsFlush(); });
+  { const b = $('#stsaved'); if (b) b.textContent = STATS_SAVED ? 'Saved ✓' : 'Auto-save on'; }
+  view.querySelectorAll('button[data-all]').forEach(b => b.onclick = () => { const a = b.dataset.all; if (a === 'mine' && !confirm('Put all your levels back to your defaults (from your skills screenshot)? This replaces the levels saved on this device.')) return; view.querySelectorAll('input[data-sk]').forEach(i => { const k = i.dataset.sk, v = a === 'max' ? skMax(k) : a === 'mine' ? (DEFAULT_STATS[k] || 1) : +a; i.value = v; S[k] = v; }); saveStats(S); statsFlush(); totals(); draw(); });
   draw();
 }
 async function setsView() {
   const D = await itemData(); const S = loadStats();
-  const opt = Object.assign({style: 'melee', type: ''}, JSON.parse(sessionStorage.setopt || '{}'));
+  const opt = Object.assign({style: 'melee', type: ''}, JSON.parse(sessionStorage.setopt || '{}')); { const pf = loadPrefs(); if (pf.style) opt.style = pf.style; }
   view.innerHTML = `${subnav('sets')}<div class="panel"><h2>Best sets by style and tier</h2>
     <div class="chips" id="sty">${Object.entries(STYLES).map(([k, v]) => `<button data-v="${k}">${v}</button>`).join('')}</div><div id="out"></div></div>`;
   const draw = () => {
-    sessionStorage.setopt = JSON.stringify(opt);
+    sessionStorage.setopt = JSON.stringify(opt); { const pf = loadPrefs(); savePrefs({style: opt.style, mode: pf.mode || 'pvm'}); }
     document.querySelectorAll('#sty button').forEach(b => b.classList.toggle('on', b.dataset.v === opt.style));
     const rec = D.gd.recommended[opt.style];
     const tabs = {}; (rec ? rec.rows : []).forEach(r => { (tabs[r.sec + ' · ' + r.tab] ??= []).push(r); });

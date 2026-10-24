@@ -579,3 +579,6 @@ html[data-fx=off] .psn-cv{display:none}
 .hidx a.hit>span:first-child{display:block;font-weight:600}
 .hidx a.hit .meta{display:block;margin-top:4px;text-transform:none;letter-spacing:0;font-size:.82rem;line-height:1.35;white-space:normal;border:0;background:none;padding:0;color:var(--muted,#b9a9a9)}
 @media(max-width:760px){.hidx{grid-template-columns:1fr}}
+/* auto-save badge (My stats) */
+.stsaved{font-family:var(--head);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#7ee08a;margin-left:8px;opacity:0;transition:opacity .4s}
+.stsaved.on{opacity:1}.stsaved.on.idle{opacity:.55}.stsaved.bad{color:#ff6b6b;opacity:1}
