@@ -582,3 +582,10 @@ html[data-fx=off] .psn-cv{display:none}
 /* auto-save badge (My stats) */
 .stsaved{font-family:var(--head);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#7ee08a;margin-left:8px;opacity:0;transition:opacity .4s}
 .stsaved.on{opacity:1}.stsaved.on.idle{opacity:.55}.stsaved.bad{color:#ff6b6b;opacity:1}
+/* quest step lists and the Hans index: keep real heights (no placeholder sizes) and don't replay the card animation, so ticking never shifts the page */
+#steps .step,.hidx a.hit{content-visibility:visible;contain-intrinsic-size:none}
+.hidx a.hit{animation:none}
+/* Hans's tasks: dialogue-choice steps */
+.chtag{display:inline-block;font-family:var(--head);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#120a08;background:#ffb000;border-radius:3px;padding:1px 6px;margin-right:4px;vertical-align:1px;font-weight:700}
+.stepw.choice .step{border-left:3px solid #ff1f3d}
+.stepw[hidden],h3.stepsec[hidden]{display:none!important}

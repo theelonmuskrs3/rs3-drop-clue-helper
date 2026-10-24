@@ -913,7 +913,7 @@ async function questDetail(name, qs) {
   ${q.steps && q.steps.length ? `<div class="panel"><h2>Walkthrough</h2>
     <div class="row"><div class="prog"><div id="bar"></div></div><span class="note" id="pct"></span>
     <label class="note"><input type="checkbox" id="hide"> Hide finished steps</label><button class="btn ghost" id="reset">Reset progress</button></div>
-    <div class="note" style="margin:6px 0">${isH ? "Built only from the wiki: the 25th Anniversary task list page (task text, items, requirements) and the dialogue in the wiki's NPC transcripts for each task. The wiki has no separate walkthrough page for these tasks, so each one is: do what the task says, then read the dialogue that confirms it. Pictures are the wiki's own NPC and place pictures. Ticks are saved on this device only." : q.steps_source === 'quick guide' ? 'From the wiki quick guide.' : 'From the full wiki guide (no quick guide in this copy).'} Pictures are the wiki's own: images from the guide shown at the step they belong to, or the wiki picture of the place/NPC that step links to. Tap one to enlarge. Ticks are saved on this device only.</div>
+    <div class="note" style="margin:6px 0">${isH ? "Built only from the wiki: the 25th Anniversary task list page (task text, items, requirements) and the wiki's Hans transcript for the dialogue menus where you must pick a specific option (marked \u201cChoose option\u201d). The wiki has no separate walkthrough page for these tasks, so each one is: do what the task says, then the pop-up confirms it. Pictures are the wiki's own NPC and place pictures. Ticks are saved on this device only." : q.steps_source === 'quick guide' ? 'From the wiki quick guide.' : 'From the full wiki guide (no quick guide in this copy).'} Pictures are the wiki's own: images from the guide shown at the step they belong to, or the wiki picture of the place/NPC that step links to. Tap one to enlarge. Ticks are saved on this device only.</div>
     <div id="steps"></div></div>` : ''}
   ${(q.guide_pics || []).length ? `<div class="panel"><h2>More pictures from the wiki guide</h2><div class="note">These appear in the full wiki guide but don't clearly match one quick-guide step, so they are listed under the wiki's own section headings.</div>${q.guide_pics.map(g => `<h3 class="stepsec">${esc(g.sec)}</h3>${gallery(g.p)}`).join('')}</div>` : ''}
   ${sec('Rewards', bulletList(q.rewards) + (isH ? '<div class="note" style="margin-top:6px">The wiki lists no separate reward per task: the reward comes after all tasks are done and you speak to Hans again.</div>' : ''))}
@@ -923,23 +923,46 @@ async function questDetail(name, qs) {
   const prog = qProg(row[10]);
   const save = () => localStorage.setItem(QKEY(row[10]), JSON.stringify([...prog]));
   const hide = $('#hide'); hide.checked = localStorage.qhide === '1';
+  /* Render every step ONCE, then tick/untick in place. (Re-building the whole list on each tick re-created every picture, which made the
+     page jump to a different place and flicker, worst on phones. Step ids are unchanged, so saved ticks keep working.) */
+  const secOf = new Map(); q.steps.forEach(x => { if (!secOf.has(x.sec)) secOf.set(x.sec, []); secOf.get(x.sec).push(x); });
+  const idxHtml = () => [...q.index].sort((a, b) => a.order - b.order).map(t => { const dn = secOf.get(`Route stop ${t.order} of 25: ${t.year} – ${t.name}`).every(x => prog.has(x.id)); return `<a class="hit ${dn ? 'qs-done' : ''}" data-go="${t.do}" href="#"><span class="${dn ? 'qs-done' : 'qs-none'}">${dn ? '✓ ' : ''}${t.order}. ${t.year} – ${esc(t.name)}</span><span class="meta">${esc(t.task)}</span></a>`; }).join('');
+  const bindIdx = () => $('#hidx').querySelectorAll('a[data-go]').forEach(a => a.onclick = e => {
+    e.preventDefault(); if (hide.checked) { hide.checked = false; localStorage.qhide = '0'; refresh(); }
+    const t = q.steps.find(x => x.id === a.dataset.go); const el = document.getElementById('hs-' + (q.steps.find(x => x.sec === t.sec) || t).id);
+    if (!el) return;
+    $('#steps').querySelectorAll('img[loading=lazy]').forEach(i => i.loading = 'eager');
+    const go = () => { const hh = (document.querySelector('.top') || {}).offsetHeight || 0; window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - hh - 8, behavior: 'instant'}); };
+    go(); let n = 0; const iv = setInterval(() => { go(); if (++n > 12) clearInterval(iv); }, 120);
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(ev => window.addEventListener(ev, () => clearInterval(iv), {once: true, passive: true}));
+  });
+  const refresh = () => {
+    const hs = hide.checked; let last = null;
+    $('#steps').querySelectorAll('.stepw').forEach(w => {
+      const ok = prog.has(w.dataset.id), cb = w.querySelector('input'); cb.checked = ok;
+      w.classList.toggle('done', ok); w.querySelector('label.step').classList.toggle('done', ok); w.hidden = ok && hs;
+    });
+    $('#steps').querySelectorAll('h3.stepsec').forEach(h => { h.hidden = hs && (secOf.get(h.dataset.sec) || []).every(x => prog.has(x.id)); });
+    const pc = Math.round(100 * q.steps.filter(x => prog.has(x.id)).length / q.steps.length);
+    $('#bar').style.width = pc + '%'; $('#pct').textContent = `${pc}% done`;
+    if (isH && $('#hidx')) {
+      if (!$('#hidx').children.length) { $('#hidx').innerHTML = idxHtml(); bindIdx(); }
+      else $('#hidx').querySelectorAll('a[data-go]').forEach(a => { const t = q.index.find(x => x.do === a.dataset.go); const dn = secOf.get(`Route stop ${t.order} of 25: ${t.year} \u2013 ${t.name}`).every(x => prog.has(x.id)); a.classList.toggle('qs-done', dn); const sp = a.firstElementChild; sp.className = dn ? 'qs-done' : 'qs-none'; sp.textContent = `${dn ? '\u2713 ' : ''}${t.order}. ${t.year} \u2013 ${t.name}`; });
+    }
+  };
   const draw = () => {
     let last = null, n = 0;
     $('#steps').innerHTML = q.steps.map(s => {
       const ok = prog.has(s.id); n++;
-      if (ok && hide.checked) return '';
-      const h = s.sec !== last ? `<h3 class="stepsec" id="hs-${s.id}">${esc(s.sec)}</h3>` : ''; last = s.sec;
-      return h + `<div class="stepw ${ok ? 'done' : ''}">${s.p ? gallery(s.p, 'steppics') : ''}<label class="step ${ok ? 'done' : ''}"><input type="checkbox" data-id="${s.id}" ${ok ? 'checked' : ''}><span><span class="sn">${n}.</span> ${esc(s.t)}
+      const h = s.sec !== last ? `<h3 class="stepsec" id="hs-${s.id}" data-sec="${esc(s.sec)}">${esc(s.sec)}</h3>` : ''; last = s.sec;
+      return h + `<div class="stepw ${ok ? 'done' : ''} ${s.choice ? 'choice' : ''}" data-id="${s.id}">${s.p ? gallery(s.p, 'steppics') : ''}<label class="step ${ok ? 'done' : ''}"><input type="checkbox" data-id="${s.id}" ${ok ? 'checked' : ''}><span><span class="sn">${n}.</span> ${s.choice ? '<span class="chtag">Choose option</span> ' : ''}${esc(s.t)}
         ${s.sub && s.sub.length ? `<ul class="blist">${s.sub.map(x => `<li style="margin-left:${(x.d - 1) * 16}px">${esc(x.t)}</li>`).join('')}</ul>` : ''}</span></label></div>`;
     }).join('');
-    const pc = Math.round(100 * [...prog].filter(id => q.steps.some(s => s.id === id)).length / q.steps.length);
-    $('#bar').style.width = pc + '%'; $('#pct').textContent = `${pc}% done`;
-    if (isH && $('#hidx')) $('#hidx').innerHTML = [...q.index].sort((a, b) => a.order - b.order).map(t => `<a class="hit ${prog.has(t.done) ? 'qs-done' : ''}" data-go="${t.do}" href="#"><span class="${prog.has(t.done) ? 'qs-done' : 'qs-none'}">${prog.has(t.done) ? '✓ ' : ''}${t.order}. ${t.year} – ${esc(t.name)}</span><span class="meta">${esc(t.task)}</span></a>`).join('');
-    if (isH && $('#hidx')) $('#hidx').querySelectorAll('a[data-go]').forEach(a => a.onclick = e => { e.preventDefault(); if (hide.checked) { hide.checked = false; localStorage.qhide = '0'; draw(); } const t = q.steps.find(x => x.id === a.dataset.go); const el = document.getElementById('hs-' + (q.steps.find(x => x.sec === t.sec) || t).id); if (el) { $('#steps').querySelectorAll('img[loading=lazy]').forEach(i => i.loading = 'eager'); const go = () => { const hh = (document.querySelector('.top') || {}).offsetHeight || 0; window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - hh - 8, behavior: 'instant'}); }; go(); let n = 0; const iv = setInterval(() => { go(); if (++n > 50) clearInterval(iv); }, 120); ['wheel', 'touchstart', 'keydown'].forEach(ev => window.addEventListener(ev, () => clearInterval(iv), {once: true, passive: true})); } });
-    $('#steps').querySelectorAll('input[data-id]').forEach(cb => cb.onchange = () => { cb.checked ? prog.add(cb.dataset.id) : prog.delete(cb.dataset.id); save(); draw(); });
+    $('#steps').onchange = e => { const cb = e.target; if (!cb.matches || !cb.matches('input[data-id]')) return; cb.checked ? prog.add(cb.dataset.id) : prog.delete(cb.dataset.id); save(); refresh(); };
+    refresh();
   };
-  hide.onchange = () => { localStorage.qhide = hide.checked ? '1' : '0'; draw(); };
-  $('#reset').onclick = () => { if (confirm('Clear all ticks for this quest?')) { prog.clear(); save(); draw(); } };
+  hide.onchange = () => { localStorage.qhide = hide.checked ? '1' : '0'; refresh(); };
+  $('#reset').onclick = () => { if (confirm('Clear all ticks for this quest?')) { prog.clear(); save(); refresh(); } };
   draw();
 }
 
