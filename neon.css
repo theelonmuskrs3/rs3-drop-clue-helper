@@ -572,3 +572,10 @@ html[data-fx=low] .nx-poison::before,html[data-fx=off] .nx-poison::before{animat
 html[data-fx=off] .psn-ch{animation:none;background:linear-gradient(180deg,#f2ffe4 0,#a6ff6e 26%,#4ee82a 52%,#2fc61a 78%,#1f9a10 100%);-webkit-background-clip:text;background-clip:text}
 html[data-fx=off] .psn-cv{display:none}
 @media (prefers-reduced-motion:reduce){.psn-ch{animation:none!important;background:linear-gradient(180deg,#f2ffe4 0,#a6ff6e 26%,#4ee82a 52%,#2fc61a 78%,#1f9a10 100%);-webkit-background-clip:text;background-clip:text}.nx-poison::before{animation:none!important;opacity:.8}.psn-cv{display:none}}
+
+/* Hans's tasks index (Quests tab) */
+.hidx{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:6px;margin-top:8px}
+.hidx a.hit{display:block;padding:8px 10px}
+.hidx a.hit>span:first-child{display:block;font-weight:600}
+.hidx a.hit .meta{display:block;margin-top:4px;text-transform:none;letter-spacing:0;font-size:.82rem;line-height:1.35;white-space:normal;border:0;background:none;padding:0;color:var(--muted,#b9a9a9)}
+@media(max-width:760px){.hidx{grid-template-columns:1fr}}

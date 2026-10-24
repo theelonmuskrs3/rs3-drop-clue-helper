@@ -793,15 +793,20 @@ function bulletList(lst, withPics) {
   if (!lst || !lst.length) return '';
   return `<ul class="blist${withPics ? " pics" : ""}">${lst.map(r => `<li style="margin-left:${Math.max(0, r.d - 1) * 18}px">${withPics ? `<span class="item">${r.i ? `<img class="ico" loading="lazy" src="${esc(r.i)}" alt="">` : PH('✦')}<span>${esc(r.t)}</span></span>` : esc(r.t)}</li>`).join('')}</ul>`;
 }
+async function hansRow() {
+  const h = await get('data/hans.json').catch(() => null);
+  return h ? [h.title, 'tasks', '', 'Event', h.length, 0, h.icon, h.steps.length, 'wiki', 0, 'hans', 0] : null;
+}
 async function questsView(name) {
-  const qs = await get('data/quests.json');
+  let qs = await get('data/quests.json');
+  const hr = await hansRow(); if (hr) qs = [hr, ...qs];
   if (name) return questDetail(name, qs);
   const st = JSON.parse(sessionStorage.qf || '{"q":"","kind":"","mem":"","diff":""}');
   const diffs = [...new Set(qs.map(q => q[3]).filter(Boolean))].sort((a, b) => ['Novice', 'Intermediate', 'Experienced', 'Master', 'Grandmaster', 'Special'].indexOf(a) - ['Novice', 'Intermediate', 'Experienced', 'Master', 'Grandmaster', 'Special'].indexOf(b));
   const opt = (v, l, cur) => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(l)}</option>`;
   view.innerHTML = `<div class="panel"><h2>Quest helper</h2>${searchBox('q', 'Search quests…', st.q)}
     <div class="row" style="margin-top:8px">
-      <select id="kind">${opt('', 'Quests & miniquests', st.kind)}${opt('quest', 'Quests', st.kind)}${opt('miniquest', 'Miniquests', st.kind)}</select>
+      <select id="kind">${opt('', 'Quests & miniquests', st.kind)}${opt('quest', 'Quests', st.kind)}${opt('miniquest', 'Miniquests', st.kind)}${opt('tasks', 'Anniversary task list', st.kind)}</select>
       <select id="mem">${opt('', 'Free & members', st.mem)}${opt('No', 'Free-to-play', st.mem)}${opt('Yes', 'Members', st.mem)}</select>
       <select id="diff">${opt('', 'Any difficulty', st.diff)}${diffs.map(d => opt(d, d, st.diff)).join('')}</select>
       <span class="note" id="cnt"></span></div></div><div class="panel"><div class="hint" style="margin-bottom:6px">Green = complete, yellow = in progress, red = not started (tracked on this device).</div><div id="res" class="list" style="margin-top:0"></div></div>`;
@@ -823,7 +828,8 @@ async function questsView(name) {
 async function questDetail(name, qs) {
   const row = qs.find(q => q[0] === name);
   if (!row) { view.innerHTML = `<div class="panel">${esc(name)} is not in this offline copy yet. <a href="#quests">Back to quests</a></div>`; return; }
-  const [q, travel] = await Promise.all([get(`data/q/${row[10]}.json`), get('data/travel.json')]);
+  const [q, travel] = await Promise.all([get(row[10] === 'hans' ? 'data/hans.json' : `data/q/${row[10]}.json`), get('data/travel.json')]);
+  const isH = row[10] === 'hans';
   const titles = new Set(qs.map(x => x[0]));
   const qlink = t => titles.has(t) ? `<a href="#quests/${encodeURIComponent(t)}">${esc(t)}</a>${qIsDone(t) ? ' <span class="r1">✓</span>' : ''}` : esc(t);
   const kv = [['Type', cap(q.kind)], ['Members', q.members], ['Difficulty', q.difficulty], ['Length', q.length], ['Quest points', q.qp], ['Series', q.series], ['Released', q.release]].filter(x => x[1]);
@@ -840,16 +846,18 @@ async function questDetail(name, qs) {
   <div class="panel">${q.image ? `<div class="qhero">${fig(q.image, 'hero')}</div>` : ''}<div class="row" style="gap:14px;align-items:flex-start">${qIcon(q.icon, 48)}<div style="flex:1;min-width:220px"><h2>${esc(name)}</h2>
     <div class="kv">${kv.map(([k, v]) => `<b>${k}</b><span>${esc(v)}</span>`).join('')}</div>
     ${q.stub ? '<div class="note" style="margin-top:6px">This quest page was not in the offline copy yet. Only its prerequisites are known; rebuild after the download finishes.</div>' : ''}
-    <div class="row" style="margin-top:10px"><button class="btn ${done ? '' : 'ghost'}" id="qdone">${done ? '✓ Marked complete' : 'Mark quest complete'}</button></div></div></div></div>
+    <div class="row" style="margin-top:10px"><button class="btn ${done ? '' : 'ghost'}" id="qdone">${done ? '✓ Marked complete' : isH ? 'Mark task list complete' : 'Mark quest complete'}</button></div></div></div></div>
+  ${isH ? `<div class="panel"><h2>All ${q.index.length} tasks</h2><div class="note">The wiki's own 25th Anniversary task list (tap a task to jump to its steps). Do them in any order; the route number is the wiki's recommended order. A tick means that task's steps are all ticked below.</div><div id="hidx" class="hidx"></div></div>` : ''}
   ${sec('Start', start)}${sec('Requirements', reqs)}
   ${sec('Items required', bulletList(q.items, true))}${sec('Recommended', bulletList(q.recommended, true))}${sec('Enemies to defeat', bulletList(q.kills))}
   ${q.steps && q.steps.length ? `<div class="panel"><h2>Walkthrough</h2>
     <div class="row"><div class="prog"><div id="bar"></div></div><span class="note" id="pct"></span>
     <label class="note"><input type="checkbox" id="hide"> Hide finished steps</label><button class="btn ghost" id="reset">Reset progress</button></div>
-    <div class="note" style="margin:6px 0">${q.steps_source === 'quick guide' ? 'From the wiki quick guide.' : 'From the full wiki guide (no quick guide in this copy).'} Pictures are the wiki's own: images from the guide shown at the step they belong to, or the wiki picture of the place/NPC that step links to. Tap one to enlarge. Ticks are saved on this device only.</div>
+    <div class="note" style="margin:6px 0">${isH ? "Built only from the wiki: the 25th Anniversary task list page (task text, items, requirements) and the dialogue in the wiki's NPC transcripts for each task. The wiki has no separate walkthrough page for these tasks, so each one is: do what the task says, then read the dialogue that confirms it. Pictures are the wiki's own NPC and place pictures. Ticks are saved on this device only." : q.steps_source === 'quick guide' ? 'From the wiki quick guide.' : 'From the full wiki guide (no quick guide in this copy).'} Pictures are the wiki's own: images from the guide shown at the step they belong to, or the wiki picture of the place/NPC that step links to. Tap one to enlarge. Ticks are saved on this device only.</div>
     <div id="steps"></div></div>` : ''}
   ${(q.guide_pics || []).length ? `<div class="panel"><h2>More pictures from the wiki guide</h2><div class="note">These appear in the full wiki guide but don't clearly match one quick-guide step, so they are listed under the wiki's own section headings.</div>${q.guide_pics.map(g => `<h3 class="stepsec">${esc(g.sec)}</h3>${gallery(g.p)}`).join('')}</div>` : ''}
-  ${sec('Rewards', bulletList(q.rewards))}`;
+  ${sec('Rewards', bulletList(q.rewards) + (isH ? '<div class="note" style="margin-top:6px">The wiki lists no separate reward per task: the reward comes after all tasks are done and you speak to Hans again.</div>' : ''))}
+  ${isH ? `<div class="panel"><h2>Wiki pages</h2><ul class="blist">${q.wiki_links.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join('')}</ul></div>` : ''}`;
   $('#qdone').onclick = () => { if (qIsDone(name)) localStorage.removeItem(QDONE(name)); else localStorage.setItem(QDONE(name), '1'); questDetail(name, qs); };
   if (!q.steps || !q.steps.length) return;
   const prog = qProg(row[10]);
@@ -860,12 +868,14 @@ async function questDetail(name, qs) {
     $('#steps').innerHTML = q.steps.map(s => {
       const ok = prog.has(s.id); n++;
       if (ok && hide.checked) return '';
-      const h = s.sec !== last ? `<h3 class="stepsec">${esc(s.sec)}</h3>` : ''; last = s.sec;
+      const h = s.sec !== last ? `<h3 class="stepsec" id="hs-${s.id}">${esc(s.sec)}</h3>` : ''; last = s.sec;
       return h + `<div class="stepw ${ok ? 'done' : ''}">${s.p ? gallery(s.p, 'steppics') : ''}<label class="step ${ok ? 'done' : ''}"><input type="checkbox" data-id="${s.id}" ${ok ? 'checked' : ''}><span><span class="sn">${n}.</span> ${esc(s.t)}
         ${s.sub && s.sub.length ? `<ul class="blist">${s.sub.map(x => `<li style="margin-left:${(x.d - 1) * 16}px">${esc(x.t)}</li>`).join('')}</ul>` : ''}</span></label></div>`;
     }).join('');
     const pc = Math.round(100 * [...prog].filter(id => q.steps.some(s => s.id === id)).length / q.steps.length);
     $('#bar').style.width = pc + '%'; $('#pct').textContent = `${pc}% done`;
+    if (isH && $('#hidx')) $('#hidx').innerHTML = [...q.index].sort((a, b) => a.order - b.order).map(t => `<a class="hit ${prog.has(t.done) ? 'qs-done' : ''}" data-go="${t.do}" href="#"><span class="${prog.has(t.done) ? 'qs-done' : 'qs-none'}">${prog.has(t.done) ? '✓ ' : ''}${t.order}. ${t.year} – ${esc(t.name)}</span><span class="meta">${esc(t.task)}</span></a>`).join('');
+    if (isH && $('#hidx')) $('#hidx').querySelectorAll('a[data-go]').forEach(a => a.onclick = e => { e.preventDefault(); if (hide.checked) { hide.checked = false; localStorage.qhide = '0'; draw(); } const t = q.steps.find(x => x.id === a.dataset.go); const el = document.getElementById('hs-' + (q.steps.find(x => x.sec === t.sec) || t).id); if (el) { $('#steps').querySelectorAll('img[loading=lazy]').forEach(i => i.loading = 'eager'); const go = () => { const hh = (document.querySelector('.top') || {}).offsetHeight || 0; window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - hh - 8, behavior: 'instant'}); }; go(); let n = 0; const iv = setInterval(() => { go(); if (++n > 50) clearInterval(iv); }, 120); ['wheel', 'touchstart', 'keydown'].forEach(ev => window.addEventListener(ev, () => clearInterval(iv), {once: true, passive: true})); } });
     $('#steps').querySelectorAll('input[data-id]').forEach(cb => cb.onchange = () => { cb.checked ? prog.add(cb.dataset.id) : prog.delete(cb.dataset.id); save(); draw(); });
   };
   hide.onchange = () => { localStorage.qhide = hide.checked ? '1' : '0'; draw(); };
