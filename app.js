@@ -619,12 +619,14 @@ async function itemsView(name) {
     view.innerHTML = `<div class="row" style="margin-bottom:10px"><a class="btn ghost" href="#items">← Items</a></div>
     <div class="panel"><div class="row">${icon(name)}<h2 style="margin:0">${esc(name)}</h2>${best[name] ? rarTag(best[name][0]) : ''}${flagTags(D, name)}</div>
     <div class="price">${v != null ? `Grand Exchange: <span class="gp">${gp(v)}</span> <span class="note">${asof}${d && d.gename ? ` · GE entry “${esc(d.gename)}”` : ''}</span>` : t === false ? '<span class="untr">Untradeable</span> <span class="note">(wiki item infobox)</span>' : `<span class="note">No Grand Exchange price in the ${esc(D.pr.date)} data.</span>`}</div>
+    <div id="wtg"></div>
     ${d ? `<h3>Item info <a class="note" href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">[wiki: ${esc(page)}]</a></h3>${infoTable(d)}${obtainNote(d)}` : `<div class="note" style="margin-top:6px"><a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">Open “${esc(page)}” on the RS3 wiki</a></div>`}
     ${g ? `<h3>Equipment stats <a class="note" href="${WIKI(g.p)}" target="_blank" rel="noopener noreferrer">[wiki: ${esc(g.p)}]</a></h3>${statTable(g)}` : ''}
     ${src.length ? `<h3>Drops</h3><div class="note" style="margin:6px 0 10px">Dropped by ${src.length} source${src.length === 1 ? '' : 's'}, best chance first.</div>
     <div style="overflow-x:auto"><table><thead><tr><th>Dropped by</th><th>Qty</th><th>Rarity</th></tr></thead><tbody>
     ${src.map(s => `<tr><td>${s[5] ? `<a class="item" href="#drops/${encodeURIComponent(s[0])}">${mthumb(s[0], 32)}<span>${esc(s[0])}</span></a>` : `<span class="item">${SRCPICS[s[0]] ? `<img class="ico" style="width:32px;height:32px" loading="lazy" src="${esc(SRCPICS[s[0]])}" alt="">` : PH('◆')}<span>${esc(s[0])} <span class="tag">other source</span></span></span>`}</td>
       <td>${esc(s[1])}</td><td class="num">${rarityCell(s[2], s[3], s[4])}</td></tr>`).join('')}</tbody></table></div>` : '<div class="note" style="margin-top:8px">Not in any drop table in the wiki copy.</div>'}</div>`;
+    fillWtg($('#wtg'), D, name, page, src).catch(e => { const w = $('#wtg'); if (w) w.innerHTML = `<div class="note">Could not load source data: ${esc(e.message)}</div>`; });
     return;
   }
   const o = sjson(sessionStorage, 'iopt', {q: '', rar: '', show: 'all', slot: '', sort: 'match', tr: '', mem: '', fl: ''});
@@ -1330,3 +1332,142 @@ async function detectLauncher() {
   route(); detectLauncher();
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
+
+/* ---------- Where to get it: shops, drops, recipes, rewards, spawns, availability for every item (data/src, built from the RS3 wiki by extract_sources.py + build_sources.py) ----------
+   Per-page shard rec: s shops [shop, owner, location, stock, sells, buys, currency, members(1/0/-1), historical, shopMapId, ownerMapId, [map,x,y,plane] (wiki coordinates), 'T' = rotating (Thalmund)],
+   p ground spawns, r recipes, w reward-type sources, q quest rewards, h availability history, x wiki note, dm {drop source: map entry id}, t Thalmund flag. */
+const fnv1a = s => { let h = 0x811c9dc5; for (const b of new TextEncoder().encode(s)) { h ^= b; h = Math.imul(h, 0x01000193) >>> 0; } return h >>> 0; };
+let SSUM = null;
+const sumData = () => SSUM || (SSUM = get('data/src/sum.json').catch(() => ({})));
+const srcOf = async page => { try { return (await get(`data/src/${fnv1a(page) % 256}.json`))[page] || null; } catch (_) { return null; } };
+const SMONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const fmtD = t => { const d = new Date(t); return `${d.getUTCDate()} ${SMONTH[d.getUTCMonth()]} ${d.getUTCFullYear()}`; };
+const mod = (a, n) => ((a % n) + n) % n;
+const memTag = m => m === 1 ? '<span class="tag">Members</span>' : m === 0 ? '<span class="tag">Free-to-play</span>' : '';
+const money = (v, c) => v == null ? '<span class="note">not listed</span>' : `<span class="gp">${Number(v).toLocaleString()} ${esc(c || 'gp')}</span>`;
+const mmBtn = (o, label = 'Show on map') => `<button class="btn mini" data-mm="${esc(JSON.stringify(o))}" data-t="${esc(label)}">${esc(label)}</button>`;
+
+/* Thalmund's Wares rotation, ported from the wiki's Module:Rotations/Thalmund (starts 14 February 2024, a new stock every 7 days) */
+function thalDates(T, page, now = Date.now()) {
+  const t0 = Date.UTC(T.start[0], T.start[1] - 1, T.start[2]), day = 86400000;
+  const days = Math.floor((now - t0) / day), cur = Math.floor(days / 7), first = Math.floor((days - 1) / 7) + 1;
+  const hit = idx => T.slots.flatMap((sl, si) => {
+    const i = idx + sl.o, e = sl.q ? sl.i.find(x => x[1] === sl.q[mod(i, sl.q.length)]) : sl.i[mod(i, sl.i.length)];
+    return e && e[0] === page ? [si] : [];
+  });
+  const rows = [];
+  for (let i = first, guard = 0; rows.length < 5 && guard < 3000; i++, guard++) { const h = hit(i); if (h.length) rows.push({d: t0 + i * 7 * day, slots: h}); }
+  return {now: hit(cur).length ? {d: t0 + cur * 7 * day, slots: hit(cur)} : null, rows, T};
+}
+function thalHtml(T, page) {
+  const R = thalDates(T, page), sl = i => esc((T.slots[i].t || '').replace(/^Slot \d+:\s*/, ''));
+  return `<div class="wsec"><h4>Upcoming available dates</h4>
+    <div class="note">Thalmund’s Wares restocks every 7 days (new stock from 00:00 UTC on Wednesdays, counted from 14 February 2024 by the wiki’s rotation module). ${R.now ? `<b class="r0">In stock this week</b> (since ${fmtD(R.now.d)}, slot ${R.now.slots.map(i => i + 1).join(', ')}).` : 'Not in stock this week.'}</div>
+    ${R.rows.length ? `<div class="tscroll"><table><thead><tr><th>Available from</th><th>Slot</th></tr></thead><tbody>${R.rows.map(r => `<tr><td>${fmtD(r.d)}</td><td>${r.slots.map(i => `${i + 1} <span class="note">(${sl(i)})</span>`).join(', ')}</td></tr>`).join('')}</tbody></table></div>` : '<div class="note">No further appearance found in the rotation.</div>'}</div>`;
+}
+function shopCard(s) {
+  const [shop, owner, loc, stock, sell, buy, cur, mem, hist, sid, oid, pin, rot] = s;
+  const pinO = pin ? {map: pin[0], x: pin[1], y: pin[2], plane: pin[3] || 0, pins: [[pin[1], pin[2]]], label: `Start here — ${shop}`} : null;
+  return `<div class="wcard${hist ? ' hist' : ''}"><div class="wc-h"><b>${esc(shop)}</b>${memTag(mem)}${rot ? '<span class="tag">Rotating stock</span>' : ''}${hist ? '<span class="tag warn">Discontinued shop stock (wiki marks historical)</span>' : ''}</div>
+    <div class="kv"><b>Seller</b><span>${owner ? (oid != null ? `<a href="#map/${oid}">${esc(owner)}</a>` : esc(owner)) : '<span class="note">not stated</span>'}</span>
+    <b>Shop</b><span>${sid != null ? `<a href="#map/${sid}">${esc(shop)}</a>` : esc(shop)}</span>
+    <b>Location</b><span>${loc ? esc(loc) : '<span class="note">not stated</span>'}</span>
+    <b>Stock</b><span>${stock !== '' && stock != null ? esc(stock) : '<span class="note">not stated</span>'}</span>
+    <b>Sold at</b><span>${money(sell, cur)}</span><b>Bought at</b><span>${money(buy, cur)}</span>
+    ${pin ? `<b>Wiki coordinates</b><span>${coordStr([pin[1], pin[2]], pin[3])}${pin[0] !== 28 ? ` · map ${pin[0]}` : ''}</span>` : ''}</div>
+    <div class="row wacts">${sid != null ? `<a class="btn mini" href="#map/${sid}">Open in Map tab</a>` : ''}${pinO ? mmBtn(pinO) : ''}${!sid && !pinO ? '<span class="note">The wiki gives no map location for this shop.</span>' : ''}</div></div>`;
+}
+function spawnCard(p) {
+  const [loc, mem, req, map, plane, xy, text] = p;
+  const o = xy && xy.length ? {map, plane: plane || 0, x: xy[0][0], y: xy[0][1], pins: xy, label: `Ground spawn${loc ? ' — ' + loc : ''}`} : null;
+  return `<div class="wcard"><div class="wc-h"><b>${esc(loc || 'Ground spawn')}</b>${memTag(mem)}${xy && xy.length ? `<span class="tag">${xy.length} spawn${xy.length === 1 ? '' : 's'}</span>` : ''}</div>
+    ${text ? `<div class="pre">${esc(text)}</div>` : ''}${req && req !== 'none' ? `<div class="note">Requirements: ${esc(req)}</div>` : ''}
+    ${o ? `<div class="note">Wiki coordinates: ${xy.slice(0, 5).map(c => coordStr(c, plane)).join(' · ')}${xy.length > 5 ? ` · +${xy.length - 5} more` : ''}</div><div class="row wacts">${mmBtn(o)}</div>` : '<div class="note">No coordinates on the wiki.</div>'}</div>`;
+}
+function recipeCard(r, D) {
+  const [m, mem, sk, mats, fac, tool, quest, page, ticks, outs] = r;
+  return `<div class="wcard"><div class="wc-h"><b>${esc(m || 'Creation')}</b>${memTag(mem)}</div><div class="kv">
+    ${sk && sk.length ? `<b>Skills</b><span>${sk.map(x => `${esc(x[0])} ${esc(x[1])}${x[2] ? ` <span class="note">(${esc(x[2])} xp)</span>` : ''}`).join(', ')}</span>` : ''}
+    ${mats && mats.length ? `<b>Materials</b><span data-nosrc>${mats.map(x => `${x[2] ? itemLink(x[0]) : esc(x[0])} <span class="note">× ${esc(x[1])}</span>`).join('<br>')}</span>` : ''}
+    ${fac ? `<b>Facility</b><span>${esc(fac)}</span>` : ''}${tool ? `<b>Tools</b><span>${esc(tool)}</span>` : ''}${quest ? `<b>Quest</b><span>${esc(quest)}</span>` : ''}
+    ${ticks ? `<b>Time</b><span>${esc(ticks)} ticks</span>` : ''}${outs && outs.length > 1 ? `<b>Produces</b><span>${outs.map(x => `${esc(x[0])} × ${esc(x[1])}`).join(', ')}</span>` : ''}</div>
+    ${page ? `<div class="note"><a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">Recipe on the RS3 wiki: ${esc(page)} ↗</a></div>` : ''}</div>`;
+}
+function availRows(H) {
+  const now = Date.now();
+  return H.map(h => {
+    const a = relDate(h[0]), b = h[1] && !/^(no|n\/a)$/i.test(h[1]) ? relDate(h[1]) + 86400000 : 0;
+    const st = a && a > now ? '<span class="tag">Upcoming</span>' : a && (!b || b > now) && /^(no|n\/a)$/i.test(h[1] || 'no') ? '<span class="tag">Available (no end date)</span>' : a && b > now ? '<span class="tag r0t">Available now</span>' : '';
+    return `<tr><td>${esc(h[0] || '?')}</td><td>${esc(h[1] || '—')}${h[2] ? ` <span class="note">${esc(h[2])}</span>` : ''}</td><td>${esc(h[3] && !/^no$/i.test(h[3]) ? h[3] : '—')}${h[4] ? ` <span class="note">${esc(h[4])}</span>` : ''} ${st}</td></tr>`;
+  }).join('');
+}
+function mapActionFor(S) {
+  const sh = (S.s || []).find(s => !s[8] && String(s[3]).trim() !== '0' && (s[9] != null || s[11])) || (S.s || []).find(s => s[9] != null || s[11]);
+  if (sh) return sh[9] != null ? `<a class="btn mini" href="#map/${sh[9]}">Open map</a>` : mmBtn({map: sh[11][0], x: sh[11][1], y: sh[11][2], plane: sh[11][3] || 0, pins: [[sh[11][1], sh[11][2]]], label: `Start here — ${sh[0]}`}, 'Open map');
+  const sp = (S.p || []).find(p => p[5] && p[5].length);
+  if (sp) return mmBtn({map: sp[3], plane: sp[4] || 0, x: sp[5][0][0], y: sp[5][0][1], pins: sp[5], label: `Ground spawn — ${sp[0]}`}, 'Open map');
+  const dm = S.dm && Object.values(S.dm)[0];
+  return dm != null ? `<a class="btn mini" href="#map/${dm}">Open map</a>` : '';
+}
+async function fillWtg(el, D, name, page, drops) {
+  const [S0, SM] = await Promise.all([srcOf(page).then(x => x || (page !== name ? srcOf(name) : null)), sumData()]);
+  if (!el.isConnected) return;
+  const S = S0 || {}, sum = SM[page] || SM[name] || '';
+  const sec = [];
+  const hasAny = (S.s && S.s.length) || (S.p && S.p.length) || (S.r && S.r.length) || (S.w && S.w.length) || (S.q && S.q.length) || (S.h && S.h.length) || (drops && drops.length);
+  if (S.s && S.s.length) {
+    const cur = S.s.filter(s => !s[8]), old = S.s.filter(s => s[8]), all = [...cur, ...old];
+    sec.push(`<div class="wsec"><h4>Shops <span class="note">(${(S.sn || all.length).toLocaleString()})</span></h4>
+      ${all.slice(0, 5).map(shopCard).join('')}${all.length > 5 ? `<details><summary>+${(S.sn || all.length) - 5} more shop${(S.sn || all.length) - 5 === 1 ? '' : 's'}</summary>${all.slice(5).map(shopCard).join('')}</details>` : ''}
+      ${S.sn > all.length ? `<div class="note">Showing ${all.length} of ${S.sn} shops; see the wiki page for the rest.</div>` : ''}</div>`);
+    if (S.t) { try { sec.push(thalHtml(await get('data/src/thal.json'), page)); } catch (_) {} }
+  }
+  if (drops && drops.length) {
+    const top = drops.slice(0, 8);
+    sec.push(`<div class="wsec"><h4>Monster &amp; other drops <span class="note">(${drops.length.toLocaleString()} sources, best chance first; full table below)</span></h4>
+      ${top.map(s => `<div class="wrow">${s[5] ? `<a class="item" href="#drops/${encodeURIComponent(s[0])}">${mthumb(s[0], 28)}<span>${esc(s[0])}</span></a>` : `<span class="item"><span>${esc(s[0])}</span></span>`}
+        <span class="note">${s[1] ? 'qty ' + esc(s[1]) + ' · ' : ''}${esc(s[2] || '')}</span>${S.dm && S.dm[s[0]] != null ? `<a class="btn mini" href="#map/${S.dm[s[0]]}">Open map</a>` : ''}</div>`).join('')}</div>`);
+  }
+  if (S.w && S.w.length) sec.push(`<div class="wsec"><h4>Rewards &amp; other sources <span class="note">(${(S.wn || S.w.length).toLocaleString()})</span></h4>
+    ${S.w.map(w => `<div class="wrow"><a href="${WIKI(w[0])}" target="_blank" rel="noopener noreferrer">${esc(w[0])}</a><span class="tag">${esc(w[1])}</span>
+      <span class="note">${[w[2], w[3] ? 'qty ' + w[3] : '', w[4]].filter(Boolean).map(esc).join(' · ')}</span>${w[6] != null ? `<a class="btn mini" href="#map/${w[6]}">Open map</a>` : ''}</div>`).join('')}
+    ${S.wn > S.w.length ? `<div class="note">+${S.wn - S.w.length} more on the wiki.</div>` : ''}</div>`);
+  if (S.r && S.r.length) sec.push(`<div class="wsec"><h4>Creation <span class="note">(${(S.rn || S.r.length).toLocaleString()} recipe${(S.rn || S.r.length) === 1 ? '' : 's'})</span></h4>${S.r.map(r => recipeCard(r, D)).join('')}${S.rn > S.r.length ? `<div class="note">+${S.rn - S.r.length} more recipes on the wiki.</div>` : ''}</div>`);
+  if (S.p && S.p.length) sec.push(`<div class="wsec"><h4>Ground spawns <span class="note">(${(S.pn || S.p.length).toLocaleString()} places)</span></h4>${S.p.map(spawnCard).join('')}${S.pn > S.p.length ? `<div class="note">+${S.pn - S.p.length} more places on the wiki.</div>` : ''}</div>`);
+  if (S.q && S.q.length) sec.push(`<div class="wsec"><h4>Quest rewards</h4>${S.q.map(q => `<div class="wrow"><a href="#quests/${encodeURIComponent(q[0])}">${esc(q[0])}</a><span class="note">${esc(q[1])}</span></div>`).join('')}${S.qn > S.q.length ? `<div class="note">+${S.qn - S.q.length} more quests.</div>` : ''}</div>`);
+  if (S.h && S.h.length) sec.push(`<div class="wsec"><h4>Availability history <span class="note">(release-history table on the wiki page)</span></h4><div class="tscroll"><table><thead><tr><th>Start</th><th>End</th><th>Event / content</th></tr></thead><tbody>${availRows(S.h)}</tbody></table></div>${S.hn > S.h.length ? `<div class="note">+${S.hn - S.h.length} older rows on the wiki.</div>` : ''}</div>`);
+  if (S.x) sec.push(`<div class="wsec"><blockquote class="obhow">“${esc(S.x)}${S.x.length >= 360 ? '…' : ''}”<cite>— RS3 wiki, <a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">${esc(page)}</a> (page introduction)</cite></blockquote></div>`);
+  const act = mapActionFor(S);
+  el.innerHTML = `<h3>Where to get it</h3><div class="wtg">
+    ${sum ? `<div class="wsum wrow"><b>${esc(sum)}</b>${act}</div>` : ''}
+    ${sec.length ? sec.join('') : ''}
+    ${!hasAny && !S.x ? `<div class="note wnone">The RS3 wiki has no source data for this item: no shop, drop, recipe, ground spawn, reward or availability entry was found for it. <a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">Check the wiki page ↗</a></div>` : ''}
+    <div class="note">Built from the RS3 wiki’s shop, drop, recipe, spawn and rotation data. Map pins sit only at coordinates the wiki states.</div></div>`;
+}
+document.addEventListener('click', async e => {
+  const b = e.target.closest('button[data-mm]'); if (!b) return;
+  const host = b.closest('.wcard,.wsum') || b.parentElement;
+  let box = host.querySelector(':scope > .mmbox');
+  if (box) { box.remove(); b.textContent = b.dataset.t; return; }
+  box = document.createElement('div'); box.className = 'mmbox mapwrap'; host.appendChild(box); b.textContent = 'Hide map';
+  try { await miniMap(box, JSON.parse(b.dataset.mm)); } catch (err) { box.innerHTML = `<div class="note">Could not load the map: ${esc(err.message)}</div>`; }
+});
+
+/* a one-line source summary on every item card (search hits, Obtainable, Discontinued, gear / best-set / clue / quest / monster-drop item links) */
+let decoT = 0;
+async function decorateCards() {
+  const els = [...view.querySelectorAll('a.hit[href^="#items/"],a.item[href^="#items/"],.obtitle>a[href^="#items/"]')].filter(a => !a.dataset.sd && !a.closest('[data-nosrc]'));
+  if (!els.length) return;
+  els.forEach(a => { a.dataset.sd = '1'; });
+  const S = await sumData();
+  for (const a of els) {
+    let n; try { n = decodeURIComponent(a.getAttribute('href').slice(7)); } catch (_) { continue; }
+    const s = S[n]; if (s === undefined || !a.isConnected) continue;
+    const el = document.createElement('small'); el.className = 'srcline' + (s ? '' : ' none');
+    el.textContent = s || 'No source data on the RS3 wiki';
+    if (a.classList.contains('hit')) a.appendChild(el);
+    else if (a.parentElement.classList.contains('obtitle')) a.parentElement.after(el);
+    else (a.querySelector('span') || a).appendChild(el);
+  }
+}
+new MutationObserver(() => { if (!decoT) decoT = setTimeout(() => { decoT = 0; decorateCards(); }, 60); }).observe(view, {childList: true, subtree: true});

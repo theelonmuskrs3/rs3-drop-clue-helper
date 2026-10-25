@@ -183,6 +183,20 @@ async function mapEntry(id) {
   });
 }
 
+/* small map for the item pages' "Where to get it": o = {map, plane, x, y, pins [[x,y],...], label}; pins sit only at wiki-stated coordinates */
+async function miniMap(el, o) {
+  await mapData();
+  const surf = String(o.map) === '28', pl = o.plane || 0, pins = o.pins && o.pins.length ? o.pins : [[o.x, o.y]];
+  const have = z => MT.tiles.packs[`${o.map}/${z}/${pl}`];
+  if (!(surf ? MT.idx.meta.surface.zooms : [1, 2]).some(have)) { el.innerHTML = `<div class="note">The wiki’s map tiles for this area (map ${esc(o.map)}, floor ${pl}) are not in the app. Wiki coordinates: ${esc(coordStr([o.x, o.y], pl))}.</div>`; return null; }
+  const xs = pins.map(p => p[0]), ys = pins.map(p => p[1]), span = Math.max(10, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+  const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2, k = Math.max(0.5, Math.min(6, 180 / span));
+  const v = new TileView(el, surf ? {map: '28', plane: pl, x: Math.round(cx), y: Math.round(cy), k, height: 260, lodes: true}
+    : {map: String(o.map), plane: pl, x: Math.round(cx), y: Math.round(cy), k: Math.max(k, 3), height: 260, zooms: [1, 2], floors: false});
+  v.setPins(pins.map((p, i) => ({x: p[0], y: p[1], main: i === 0, name: i === 0 ? o.label : undefined})));
+  return v;
+}
+
 /* ---------- pan/zoom viewer over the wiki's map tiles ---------- */
 async function tilePack(map, z, plane, bx, by) {
   const key = `${map}/${z}/${plane}/${bx}_${by}`;

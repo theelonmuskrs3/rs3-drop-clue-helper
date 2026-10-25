@@ -648,3 +648,30 @@ table{max-width:100%}
 @media (max-width:420px){
   .nx-drag{font-size:11px;letter-spacing:.06em;gap:6px}
 }
+
+/* ---------- Where to get it (item pages) + source lines on item cards ---------- */
+.srcline{display:block;margin-top:3px;font:500 11.5px/1.35 var(--body);letter-spacing:.01em;color:#e7c8a8;opacity:.95;white-space:normal;word-break:break-word;text-transform:none}
+.srcline::before{content:"⌖ ";color:var(--red)}
+.srcline.none{color:var(--muted);opacity:.75;font-style:italic}
+.srcline.none::before{content:"· ";color:var(--muted)}
+.hit>.srcline{grid-column:1/-1;margin:2px 2px 0;padding-top:6px;border-top:1px solid rgba(255,31,61,.18)}
+.obtitle+.srcline{margin:2px 0 6px}
+.wtg{display:grid;gap:12px;min-width:0}
+.wtg h4{margin:4px 0 6px;font:700 13px/1.2 var(--head);letter-spacing:.14em;text-transform:uppercase;color:#ffcfd5;border-left:3px solid var(--red);padding-left:8px}
+.wtg .wsec{min-width:0}
+.wsum{background:linear-gradient(165deg,rgba(60,8,16,.55),rgba(14,8,8,.9));border:1px solid rgba(255,31,61,.45);border-radius:6px;padding:10px 12px;box-shadow:0 0 22px rgba(255,31,61,.12)}
+.wsum b{color:#ffe9d2;font:600 15px/1.35 var(--body)}
+.wrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);min-width:0}
+.wrow>*{min-width:0}
+.wcard{background:linear-gradient(165deg,rgba(26,21,19,.94),rgba(10,8,8,.95));border:1px solid #3a2c22;border-left:3px solid var(--crim);border-radius:6px;padding:10px 12px;margin:0 0 8px;min-width:0;overflow-wrap:anywhere}
+.wcard.hist{border-left-color:#6b5a3a;opacity:.88}
+.wc-h{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-bottom:6px}
+.wcard .kv{grid-template-columns:minmax(78px,max-content) 1fr;font-size:13.5px}
+.wcard .kv b{color:var(--muted);font-weight:600}
+.wacts{margin-top:8px;gap:8px}
+.btn.mini{font-size:11px;padding:7px 11px;letter-spacing:.08em}
+.mmbox{margin-top:8px;width:100%;min-width:0}
+.tscroll{overflow-x:auto;max-width:100%}
+.wtg details{margin:4px 0}.wtg summary{cursor:pointer;color:#ffb4bd;font-weight:600;padding:4px 0}
+.wnone{border:1px dashed #5a2a30;border-radius:6px;padding:10px 12px}
+@media (max-width:480px){.wcard .kv{grid-template-columns:1fr;gap:0}.wcard .kv b{margin-top:6px}.btn.mini{flex:1 1 auto;text-align:center}}
