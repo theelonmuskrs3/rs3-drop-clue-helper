@@ -675,3 +675,45 @@ table{max-width:100%}
 .wtg details{margin:4px 0}.wtg summary{cursor:pointer;color:#ffb4bd;font-weight:600;padding:4px 0}
 .wnone{border:1px dashed #5a2a30;border-radius:6px;padding:10px 12px}
 @media (max-width:480px){.wcard .kv{grid-template-columns:1fr;gap:0}.wcard .kv b{margin-top:6px}.btn.mini{flex:1 1 auto;text-align:center}}
+
+/* ---------- header: compact clock box; the credit/name never wraps ---------- */
+.nx-status{gap:6px;padding:4px 9px;font-size:10px;letter-spacing:.1em;white-space:nowrap;flex:0 1 auto;min-width:0}
+.nx-led{width:6px;height:6px;flex:none}
+.nx-clock{font-size:10.5px;letter-spacing:.06em;white-space:nowrap}
+.top .sub,.top .sub *{white-space:nowrap}
+.nx-poison{white-space:nowrap;display:inline-block}
+.nx-brandtext{min-width:min-content;flex:0 0 auto}
+@media (max-width:1100px){.nx-status #nx-sys{display:none}.nx-status{padding:4px 8px}}
+@media (max-width:760px){.nx-brandtext{flex:0 1 auto}}
+
+/* ---------- header at exe/side-by-side widths (561-1000px): two roomy rows ---------- */
+@media (min-width:561px) and (max-width:1000px){
+  .top{padding-left:18px;padding-right:18px}
+  .brand{flex-wrap:wrap;row-gap:12px;column-gap:16px;align-items:center}
+  .nx-brandtext{flex:1 1 220px;min-width:min-content}
+  .nx-status{display:flex!important;order:1;margin-left:auto}
+  .nx-fxbtn{order:2;margin-left:0}
+  .updbtn{order:3}
+  .nx-hbtns{order:9;flex:1 1 100%;display:grid;grid-template-columns:1fr 1fr 1.7fr;gap:10px}
+  .nx-hbtns:has(.nx-install[hidden]){grid-template-columns:1fr 1.9fr}
+  .nx-hb{justify-content:center;padding:10px 12px;letter-spacing:.12em}
+  .nx-hb .nx-hbt{display:inline}.nx-dl .nx-hbt-s{display:none}
+  h1{font-size:21px}
+  .top .sub{font-size:11px;letter-spacing:.2em;margin-top:6px}
+}
+@media (min-width:700px) and (max-width:1000px){
+  .tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:14px 0 14px;overflow:visible}
+  .tabs button{justify-content:center;padding:10px 4px;font-size:11.5px;letter-spacing:.08em;gap:6px}
+}
+@media (min-width:561px) and (max-width:699px){
+  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px 0 14px;overflow:visible}
+  .tabs button{justify-content:center}
+}
+@media (min-width:561px) and (max-width:1000px){
+  html.nx-launcher .nx-brandtext{flex:1 1 auto}
+  html.nx-launcher .brand::after{content:"";order:4;flex:1 1 100%;height:0;margin-top:-12px}
+  html.nx-launcher .nx-hbtns{order:5;flex:1 1 30%;min-width:110px;display:flex}
+  html.nx-launcher .nx-hbtns .nx-hb{flex:1}
+  html.nx-launcher .nx-fxbtn{order:6;flex:1 1 30%;min-width:100px;padding-top:11px;padding-bottom:11px}
+  html.nx-launcher .updbtn{order:7;flex:1 1 30%;min-width:110px;padding-top:11px;padding-bottom:11px}
+}
