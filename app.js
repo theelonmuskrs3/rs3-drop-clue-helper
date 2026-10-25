@@ -99,10 +99,11 @@ async function route() {
     else if (tab === 'clues') await cluesView(arg);
     else if (tab === 'about') await aboutView();
     else if (tab === 'quests') await questsView(arg);
+    else if (tab === 'secrets') await secretsView(arg);
     else if (tab === 'map') await mapTab(arg);
     else await dropsView(arg);
   } catch (e) { view.innerHTML = `<div class="panel">Could not load data: ${esc(e.message)}</div>`; }
-  window.scrollTo(0, 0);
+  if (!(tab === 'secrets' && arg)) window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', route);
 
@@ -1161,6 +1162,64 @@ async function questDetail(name, qs) {
 }
 
 /* ---------- about ---------- */
+/* ---------- Secrets: easter eggs & hidden interactions the RS3 wiki documents as still possible (data/secrets.json) ---------- */
+const SEC = {kind: '', rw: false, quick: false};
+const SEC_KL = {item: 'Item', title: 'Title', pet: 'Pet', cosmetic: 'Cosmetic', emote: 'Emote', none: 'Just for fun'};
+function secReward(w) {
+  const src = w.ic || w.ip;
+  const img = src ? `<img class="ico" loading="lazy" src="${esc(src)}" alt="">` : PH('✦', 28);
+  const nm = w.i ? `<a href="#items/${encodeURIComponent(w.i)}">${esc(w.n)}</a>` : `<span>${esc(w.n)}</span>`;
+  const price = w.k !== 'item' || !w.i ? '' : w.ge != null ? `<span class="gp">${gp(w.ge)}</span>` : w.tr === 2 ? '<span class="untr">Untradeable</span>' : '<span class="note">no GE price</span>';
+  return `<div class="wrow secrw">${img}${nm}<span class="tag">${SEC_KL[w.k] || w.k}</span>${price}</div>`;
+}
+function secMap(r, m) {
+  const p = m.pins[0], o = {map: m.map, plane: m.plane || 0, x: p[0], y: p[1], pins: m.pins, label: m.l};
+  return `<div class="wcard"><div class="wc-h"><b>${esc(m.l)}</b>${m.pins.length > 1 ? `<span class="tag">${m.pins.length} pins</span>` : ''}</div>
+    <div class="note">Wiki coordinates: ${m.pins.slice(0, 6).map(c => coordStr(c, m.plane)).join(' · ')}${m.pins.length > 6 ? ` · +${m.pins.length - 6} more` : ''}${m.map !== '28' ? ` · map ${esc(m.map)}` : ''}</div>
+    <div class="row wacts">${mmBtn(o, 'Find on map')}</div></div>`;
+}
+function secCard(r) {
+  const tags = r.k.map(k => `<span class="tag">${SEC_KL[k]}</span>`).join('') + (r.x ? '<span class="tag warn">Ended</span>' : '') + (!r.rq.length ? '<span class="tag">No requirements</span>' : '') + (r.m ? '<span class="tag">Map pin</span>' : '');
+  const img = r.p ? `<img class="secpic" loading="lazy" src="secimg/${esc(r.p)}.webp" alt="">` : PH('✦', 64);
+  const rw = r.rw.length ? `<div class="wsec"><h4>Reward${r.rw.length === 1 ? '' : 's'}</h4>${r.rw.map(secReward).join('')}</div>` : '<div class="note secnorw">No reward. It is just for fun.</div>';
+  const rq = r.rq.length ? `<div class="wsec"><h4>Requirements</h4><div class="secreq">${r.rq.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div></div>` : '<div class="wsec"><h4>Requirements</h4><div class="note">None stated on the wiki.</div></div>';
+  const list = r.l ? `<div class="tscroll"><table><thead><tr>${r.l.h.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${r.l.rows.map(x => `<tr>${x.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : '';
+  return `<details class="sec${r.x ? ' secpast' : ''}" id="sec-${esc(r.id)}" data-id="${esc(r.id)}"><summary><div class="secpicw">${img}</div>
+    <div class="sectxt"><b class="sect">${esc(r.t)}</b><span class="secd">${esc(r.d)}</span><span class="sectags">${tags}</span></div></summary>
+    <div class="secbody">${rq}${rw}
+      <div class="wsec"><h4>${r.x ? 'How it worked' : 'Steps'}</h4><ol class="secsteps">${r.s.map(s => `<li>${esc(s)}</li>`).join('')}</ol>${list}${r.tip ? `<div class="note">${esc(r.tip)}</div>` : ''}</div>
+      ${r.m ? `<div class="wsec"><h4>Find on map</h4>${r.m.map(m => secMap(r, m)).join('')}<div class="note">Pins sit only at coordinates the RS3 wiki gives.</div></div>` : ''}
+      <div class="note"><a href="${WIKI(r.w)}" target="_blank" rel="noopener noreferrer">Open on the RS3 wiki ↗</a></div></div></details>`;
+}
+async function secretsView(arg) {
+  const S = await get('data/secrets.json'), all = S.rows, cur = all.filter(r => !r.x);
+  const hay = all.map(r => norm([r.t, r.d, r.rq.join(' '), r.rw.map(w => w.n).join(' '), r.s.join(' '), r.l ? r.l.rows.map(x => x.join(' ')).join(' ') : '', r.k.map(k => SEC_KL[k]).join(' '), (r.m || []).map(m => m.l).join(' ')].join(' ')));
+  const cnt = k => cur.filter(r => r.k.includes(k)).length;
+  view.innerHTML = `<div class="panel"><h2>Secrets &amp; easter eggs</h2>
+    <div class="note">${cur.length} hidden interactions the RS3 wiki documents as still possible in the game today, ${cur.filter(r => r.rw.length).length} of them give a reward. Open one for requirements and numbered steps. Pins sit only where the wiki gives coordinates.</div>
+    ${searchBox('sq', 'Search secrets, rewards, quests… e.g. title, pet, candle', sessionStorage.sq || '')}
+    <div class="chips" id="skind"><button data-v=""${!SEC.kind ? ' class="on"' : ''}>All</button>${S.kinds.filter(([k]) => cnt(k)).map(([k, l]) => `<button data-v="${k}"${SEC.kind === k ? ' class="on"' : ''}>${esc(l)}<span class="cnt">${cnt(k)}</span></button>`).join('')}</div>
+    <div class="chips" id="sflag"><button data-v="rw"${SEC.rw ? ' class="on"' : ''}>Gives a reward</button><button data-v="quick"${SEC.quick ? ' class="on"' : ''}>Quick (no requirements)</button></div>
+    <div id="sres"></div></div>`;
+  const q = $('#sq'), out = $('#sres');
+  const draw = () => {
+    sessionStorage.sq = q.value; const nq = norm(q.value), toks = nq ? nq.split(' ') : [];
+    const ok = (r, i) => (!SEC.kind || r.k.includes(SEC.kind)) && (!SEC.rw || r.rw.length) && (!SEC.quick || !r.rq.length) && toks.every(t => hay[i].includes(t));
+    const pick = past => all.map((r, i) => [r, i]).filter(([r, i]) => !!r.x === past && ok(r, i)).map(([r, i]) => [nq ? score(r.t, nq) : 0, r])
+      .sort((a, b) => b[0] - a[0]).map(x => x[1]);
+    const A = pick(false), P = pick(true);
+    out.innerHTML = `<div class="note" style="margin:8px 0">${A.length} of ${cur.length} shown.</div>
+      ${A.length ? `<div class="secgrid">${A.map(secCard).join('')}</div>` : '<div class="obempty"><div><b>No secret matches.</b><div class="note">Try another word or clear a filter.</div></div></div>'}
+      ${P.length ? `<details class="secgone"><summary>No longer possible <span class="note">(${P.length}, documented on the wiki as ended or removed)</span></summary><div class="secgrid">${P.map(secCard).join('')}</div></details>` : ''}`;
+  };
+  let tmr = null;
+  q.oninput = () => { clearTimeout(tmr); tmr = setTimeout(draw, 150); };
+  document.querySelectorAll('#skind button').forEach(b => b.onclick = () => { SEC.kind = SEC.kind === b.dataset.v ? '' : b.dataset.v; document.querySelectorAll('#skind button').forEach(x => x.classList.toggle('on', x.dataset.v === SEC.kind)); draw(); });
+  document.querySelectorAll('#sflag button').forEach(b => b.onclick = () => { const k = b.dataset.v === 'rw' ? 'rw' : 'quick'; SEC[k] = !SEC[k]; b.classList.toggle('on', SEC[k]); draw(); });
+  if (arg) { sessionStorage.sq = ''; q.value = ''; SEC.kind = ''; SEC.rw = SEC.quick = false; document.querySelectorAll('#skind button,#sflag button').forEach(x => x.classList.toggle('on', x.dataset.v === '')); }
+  draw();
+  if (arg) { const d = document.getElementById('sec-' + arg); if (d) { const g = d.closest('.secgone'); if (g) g.open = true; d.open = true; d.scrollIntoView({block: 'start'}); } }
+}
 async function aboutView() {
   const m = await get('data/meta.json');
   const cc = Object.entries(m.clue_counts).map(([t, o]) => `<tr><td>${esc(cap(t.replace('_', ' ')))}</td><td>${Object.entries(o).map(([k, v]) => `${TYPE_LABEL[k] || k} ${v}`).join(' · ')}</td></tr>`).join('');
@@ -1175,6 +1234,7 @@ async function aboutView() {
     <b>Built</b><span>${esc(m.built)}</span><b>Monsters</b><span>${m.monsters.toLocaleString()}</span><b>Drop entries</b><span>${m.drop_entries.toLocaleString()}</span>
     <b>Items</b><span>${m.items.toLocaleString()} (${m.icons.toLocaleString()} with icons)</span><b>Clues</b><span>${m.clues.toLocaleString()}</span><b>Travel pages</b><span>${m.locations.toLocaleString()}</span>
     ${m.gear ? `<b>Gear</b><span>${m.gear.items.toLocaleString()} items · ${m.gear.with_stats.toLocaleString()} with stats · ${m.gear.with_requirements.toLocaleString()} with requirements · ${m.gear.with_price.toLocaleString()} with a GE price</span>` : ''}
+    ${m.secrets ? `<b>Secrets</b><span>${m.secrets.entries} easter eggs and hidden interactions still possible today · ${m.secrets.with_reward} give a reward · ${m.secrets.with_map} with map pins (${m.secrets.pins} pins) · ${m.secrets.past} ended ones listed separately</span>` : ''}
     ${m.ge ? `<b>GE prices</b><span>${m.ge.prices.toLocaleString()} items, as of ${esc(m.ge.date)} (${esc(m.ge.source)})</span>` : ''}</div>
     <div class="note" style="margin-top:8px">Rarity bands follow the wiki's drop tables (Module:DropsLine): Always, Common ≥ 1/16, Uncommon ≥ 1/64, Rare ≥ 1/256, Very rare below that.</div>
     <table style="margin-top:10px"><thead><tr><th>Tier</th><th>Clue types</th></tr></thead><tbody>${cc}</tbody></table></div>
@@ -1414,7 +1474,8 @@ async function fillWtg(el, D, name, page, drops) {
   if (!el.isConnected) return;
   const S = S0 || {}, sum = SM[page] || SM[name] || '';
   const sec = [];
-  const hasAny = (S.s && S.s.length) || (S.p && S.p.length) || (S.r && S.r.length) || (S.w && S.w.length) || (S.q && S.q.length) || (S.h && S.h.length) || (drops && drops.length);
+  const eggs = await get('data/secrets.json').then(d => d.rows.filter(r => !r.x && r.rw.some(w => w.i === name))).catch(() => []);
+  const hasAny = eggs.length || (S.s && S.s.length) || (S.p && S.p.length) || (S.r && S.r.length) || (S.w && S.w.length) || (S.q && S.q.length) || (S.h && S.h.length) || (drops && drops.length);
   if (S.s && S.s.length) {
     const cur = S.s.filter(s => !s[8]), old = S.s.filter(s => s[8]), all = [...cur, ...old];
     sec.push(`<div class="wsec"><h4>Shops <span class="note">(${(S.sn || all.length).toLocaleString()})</span></h4>
@@ -1437,6 +1498,7 @@ async function fillWtg(el, D, name, page, drops) {
   if (S.q && S.q.length) sec.push(`<div class="wsec"><h4>Quest rewards</h4>${S.q.map(q => `<div class="wrow"><a href="#quests/${encodeURIComponent(q[0])}">${esc(q[0])}</a><span class="note">${esc(q[1])}</span></div>`).join('')}${S.qn > S.q.length ? `<div class="note">+${S.qn - S.q.length} more quests.</div>` : ''}</div>`);
   if (S.h && S.h.length) sec.push(`<div class="wsec"><h4>Availability history <span class="note">(release-history table on the wiki page)</span></h4><div class="tscroll"><table><thead><tr><th>Start</th><th>End</th><th>Event / content</th></tr></thead><tbody>${availRows(S.h)}</tbody></table></div>${S.hn > S.h.length ? `<div class="note">+${S.hn - S.h.length} older rows on the wiki.</div>` : ''}</div>`);
   if (S.x) sec.push(`<div class="wsec"><blockquote class="obhow">“${esc(S.x)}${S.x.length >= 360 ? '…' : ''}”<cite>— RS3 wiki, <a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">${esc(page)}</a> (page introduction)</cite></blockquote></div>`);
+  if (eggs.length) sec.push(`<div class="wsec"><h4>Easter egg reward</h4>${eggs.map(r => `<div class="wrow"><a href="#secrets/${esc(r.id)}">${esc(r.t)}</a><span class="tag">Secret</span><span class="note">${esc(r.rq.length ? 'has requirements, see steps' : 'no requirements')}</span></div>`).join('')}<div class="note">A hidden interaction the RS3 wiki documents. Open it in the Secrets tab for the steps.</div></div>`);
   const act = mapActionFor(S);
   el.innerHTML = `<h3>Where to get it</h3><div class="wtg">
     ${sum ? `<div class="wsum wrow"><b>${esc(sum)}</b>${act}</div>` : ''}
