@@ -598,3 +598,53 @@ html[data-fx=off] .psn-cv{display:none}
 .allwiki{position:absolute;right:10px;top:8px;font-size:12px;color:var(--gold2,#ff5a5a);text-decoration:none;border:1px solid #3a1a1e;border-radius:3px;padding:2px 6px;background:rgba(0,0,0,.35)}
 .allwiki:hover{color:#fff;border-color:#8a1424}
 .obdisc{margin:4px 0 2px;font-size:13px}.obdisc .tag.warn{margin-right:6px}
+
+/* ---------- narrow window support (v1.3.3): usable down to 320px wide, e.g. next to the game client ---------- */
+html,body{max-width:100%;overflow-x:clip}
+img,svg,video,canvas{max-width:100%}
+.panel,.hit,.row,.card,.kv{min-width:0}
+.hit>*{min-width:0}.hit,.hit *{overflow-wrap:anywhere}
+pre,code,.mono{white-space:pre-wrap;overflow-wrap:anywhere}
+table{max-width:100%}
+.panel .tblwrap,.tablewrap,.scrollx{overflow-x:auto;max-width:100%}
+@media (max-width:560px){
+  .nx-tb-sub{display:none}
+  .nx-drag{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:10px;letter-spacing:.14em}
+  .nx-tb-btns button{width:40px}
+  .brand{flex-wrap:wrap}
+  .brand>div:not(.nx-hbtns):not(.nx-dds){min-width:0}
+  .row{flex-wrap:wrap}
+  .row select,.row input,.row .btn{max-width:100%}
+  select{max-width:100%;text-overflow:ellipsis}
+  .updbtn,.nx-fxbtn{white-space:nowrap}
+  #upddlg .box{width:min(94vw,520px);box-sizing:border-box;max-height:92vh;overflow:auto}
+  .modal,.dlg,.sheet{max-width:96vw;box-sizing:border-box}
+}
+@media (max-width:420px){
+  .top{padding-left:8px;padding-right:8px}
+  main{padding:12px 6px 20px}
+  .panel{padding:11px}
+  .tabs{gap:4px}
+  .tabs button{padding:9px 2px;font-size:10.5px;letter-spacing:.04em;gap:4px}
+  .tabs button svg{width:13px;height:13px;flex:none}
+  .nx-hb{padding:9px 4px;letter-spacing:.06em;font-size:10px;gap:5px}
+  h1{font-size:14.5px}
+  .hit{grid-template-columns:40px 1fr;padding:8px 9px;gap:8px}
+  .hit>.ico,.hit>img:first-child,.hit>.ph{width:38px!important;height:38px!important}
+  .drgrow{grid-template-columns:1fr 1fr}
+  .tag,.pill{max-width:100%}
+}
+@media (max-width:360px){
+  .tabs button{font-size:10px;letter-spacing:.02em}
+  .tabs button svg{display:none}
+  .brand{gap:6px}
+  .nx-emblem.sigil{width:34px;height:34px}
+  .top .sub{letter-spacing:.1em}
+  .btn{padding-left:9px;padding-right:9px}
+}
+@media (max-width:760px){
+  html.nx-launcher .nx-hbtns,.nx-hbtns:has(.nx-dl[hidden]){grid-template-columns:1fr}
+}
+@media (max-width:420px){
+  .nx-drag{font-size:11px;letter-spacing:.06em;gap:6px}
+}
