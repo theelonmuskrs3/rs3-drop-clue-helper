@@ -67,6 +67,24 @@ document.addEventListener('click', e => {
   e.preventDefault(); e.stopPropagation();
   lb.querySelector('img').src = im.currentSrc || im.src; lb.querySelector('.lbcap').textContent = im.dataset.cap || ''; lb.hidden = false;
 }, true);
+function imapBtn(c, plane, mapID, label) {   // interactive wiki-tile map for a spawn point (mounted on tap)
+  if (!c || c.length < 2) return '';
+  return `<div class="imapbox"><button class="btn ghost" data-imap="${+c[0]},${+c[1]},${+plane || 0},${esc(String(mapID || '28'))}" data-lab="${esc(label || '')}">🗺 Open interactive map</button><div class="imap" hidden></div></div>`;
+}
+async function mountImap(b) {
+  const host = b.nextElementSibling; if (!host) return;
+  if (!host.hidden) { host.hidden = true; b.textContent = '🗺 Open interactive map'; return; }
+  const [x, y, pl, mp] = b.dataset.imap.split(','); host.hidden = false; b.textContent = '🗺 Hide interactive map';
+  if (host.dataset.m) return; host.dataset.m = 1;
+  try {
+    await mapData();
+    const surf = mp === '28';
+    if (!surf && !MT.tiles.packs[`${mp}/${(MT.idx.meta.surface.zooms || [1])[0]}/${pl}`] && !Object.keys(MT.tiles.packs).some(k => k.startsWith(mp + '/'))) { host.innerHTML = '<div class="note">The wiki has no map tiles for this area.</div>'; return; }
+    const v = new TileView(host, surf ? {map: '28', plane: +pl, x: +x, y: +y, k: 2, height: 300} : {map: mp, plane: +pl, x: +x, y: +y, k: 4, height: 300, zooms: [1, 2], floors: false});
+    v.setPins([{x: +x, y: +y, main: true, name: b.dataset.lab || 'Spawn'}]);
+  } catch (e) { host.innerHTML = '<div class="note">Map could not load.</div>'; }
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-imap]'); if (b) mountImap(b); });
 function coordStr(c, plane) { return c ? `${c[0]}, ${c[1]}${plane ? ` (floor ${plane})` : ''}` : ''; }
 
 /* ---------- tabs / routing ---------- */
@@ -165,7 +183,7 @@ async function monsterView(name, mons) {
     const k = th.dataset.k; sort = k === 'likely' ? (sort === 'likely' ? 'rarest' : 'likely') : k === 'qty' ? sort : k;
     $('#s').value = sort; localStorage.dsort = sort; draw(); });
   draw();
-  $('#locs').innerHTML = (d.ml || []).length ? d.ml.map(mlBlock).join('') : d.locs.length ? d.locs.map(l => locBlock(l, travel)).join('') : '<div class="note">The wiki copy lists no spawn locations for this monster (it may be an instance, boss arena or event).</div>';
+  $('#locs').innerHTML = (d.ml || []).length ? d.ml.map(l => mlBlock(l, d.locs)).join('') : d.locs.length ? d.locs.map(l => locBlock(l, travel)).join('') : '<div class="note">The wiki copy lists no spawn locations for this monster (it may be an instance, boss arena or event).</div>';
 }
 function travelBlock(title, travel, open) {
   const t = travel.locations[title]; if (!t) return '';
@@ -195,8 +213,9 @@ function startSteps(l) {
   (l.get_inside || []).forEach((g, i) => out.push(`<div class="sstep"><div class="sstep-h"><span class="snum">Step ${n++}</span> ${i === 0 ? 'Get inside' : 'Then'}</div>${gallery([g.pic].filter(Boolean))}${g.text ? `<div class="pre">${esc(g.text)}</div>` : ''}</div>`));
   return `<div class="ssteps">${out.join('')}</div>`;
 }
-function mlBlock(l) {
+function mlBlock(l, locs) {
   const P = l.place || {};
+  const sp = (locs || []).find(z => z.coords && z.loc === l.name);
   const parts = [];
   if (l.requirements) parts.push(`<div class="note">Requirements: ${esc(l.requirements)}</div>`);
   if (l.text) parts.push(`<div class="pre">${esc(l.text)}</div>`);
@@ -210,13 +229,14 @@ function mlBlock(l) {
     <div class="row"><b style="font-family:var(--head);color:var(--gold2)">${esc(l.name || 'Unknown location')}</b>
     ${l.levels ? `<span class="tag">Lvl ${esc(l.levels)}</span>` : ''}${l.members ? '<span class="tag">Members</span>' : ''}${l.spawns ? `<span class="tag">${l.spawns} spawns</span>` : ''}</div>
     ${startSteps(l)}${gallery(l.pics)}
+    ${sp ? `<div class="note">Spawn coordinates: ${coordStr(sp.coords, sp.plane)}${sp.mapID && sp.mapID !== '28' ? ` · separate map area (map ${esc(sp.mapID)})` : ''}</div>${imapBtn(sp.coords, sp.plane, sp.mapID, l.name)}` : ''}
     <div style="display:grid;gap:8px;margin-top:4px">${parts.join('')}</div></div>`;
 }
 function locBlock(l, travel) {
   return `<div style="padding:8px 0;border-bottom:1px solid #ffffff12">
     <div class="row"><b style="font-family:var(--head);color:var(--gold2)">${esc(l.loc || 'Unknown location')}</b>
     ${l.levels ? `<span class="tag">Lvl ${esc(l.levels)}</span>` : ''}${l.members ? '<span class="tag">Members</span>' : ''}${l.spawns ? `<span class="tag">${l.spawns} spawns</span>` : ''}</div>
-    ${l.coords ? `<div class="note">Spawn coordinates: ${coordStr(l.coords, l.plane)}${l.mapID && l.mapID !== '28' ? ` · separate map area (map ${esc(l.mapID)})` : ''}</div>` : ''}
+    ${l.coords ? `<div class="note">Spawn coordinates: ${coordStr(l.coords, l.plane)}${l.mapID && l.mapID !== '28' ? ` · separate map area (map ${esc(l.mapID)})` : ''}</div>${imapBtn(l.coords, l.plane, l.mapID, l.loc)}` : ''}
     ${l.requirements ? `<div class="note">Requirements: ${esc(l.requirements)}</div>` : ''}
     ${(l.links || []).map((x, i) => travelBlock(x, travel, i === 0)).join('')}
   </div>`;
@@ -279,7 +299,7 @@ function priceTag(D, n) {
 function rarTag(r) { return r == null ? '' : `<span class="rtag r${r}">${RANK[r]}</span>`; }
 function subnav(on) {
   const b = (h, t, k) => `<a class="btn sub ${on === k ? 'on' : ''}" href="${h}">${t}</a>`;
-  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~stats', 'My stats → gear', 'stats')}${b('#items/~sets', 'Best sets (wiki)', 'sets')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}</div>`;
+  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~stats', 'My stats → gear', 'stats')}${b('#items/~sets', 'Best sets (wiki)', 'sets')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}</div>`;
 }
 
 /* ----- stats storage ----- */
@@ -587,6 +607,8 @@ async function itemsView(name) {
   if (name === '~stats') return statsView();
   if (name === '~sets') return setsView();
   if (name === '~obtain' || name === '~dragon') return obtainView(name === '~dragon' ? 'dragon' : null);
+  if (name === '~disc') return discView();
+  if (name === '~all') return allView();
   const [D] = await Promise.all([itemData(), loadThumbs()]);
   const {items, best, gear} = D;
   const asof = `as of ${esc(D.pr.date)} (${esc(geDateET(D))})`;
@@ -789,8 +811,158 @@ function obCard(D, OB, r) {
   if (x.rq2) kv.push(['To wear', esc(x.rq2)]);
   return `<div class="obcard ${r[1] & OB.bits.dragon ? 'drg' : ''}">${obPic(x, n)}<div class="obbody"><div class="obtitle"><a href="#items/${encodeURIComponent(n)}">${esc(n)}</a>${b ? rarTag(b[0]) : ''}</div>
     <div class="obprice">${v != null ? `<span class="gp">${gp(v)}</span>` : f & F.untr ? '<span class="untr">Untradeable</span>' : '<span class="note">no GE price</span>'}${fl ? ` <span class="note">${fl}</span>` : ''}</div>
-    <div class="obtags">${tags.join('')}</div>${gStat(x.g)}${how}${kv.length ? `<div class="kv obkv">${kv.map(([k, v]) => `<b>${k}</b><span>${v}</span>`).join('')}</div>` : ''}
+    <div class="obtags">${tags.join('')}</div>${x.why ? discNote(x) : ''}${gStat(x.g)}${how}${kv.length ? `<div class="kv obkv">${kv.map(([k, v]) => `<b>${k}</b><span>${v}</span>`).join('')}</div>` : ''}
     <div class="note"><a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">Open on the RS3 wiki ↗</a></div></div></div>`;
+}
+
+/* ---------- Discontinued: items the RS3 wiki itself marks discontinued / currently unobtainable / deleted / removed (data/obdisc.json) ----------
+   These are the entries left out of Obtainable. Release / removal dates, the marker template and "re-released" are quoted from the wiki page's own infobox. */
+const WGRP = w => /unobtainable/i.test(w) ? 'unob' : /discontinued/i.test(w) ? 'disc' : 'del';
+const WGLAB = {unob: 'Unobtainable', disc: 'Discontinued', del: 'Deleted / removed / hidden'};
+const MONTHS = {january: 0, february: 1, march: 2, april: 3, may: 4, june: 5, july: 6, august: 7, september: 8, october: 9, november: 10, december: 11};
+function relDate(t) {
+  const m = /(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/.exec(t || ''); if (m && MONTHS[m[2].toLowerCase()] != null) return Date.UTC(+m[3], MONTHS[m[2].toLowerCase()], +m[1]);
+  const y = /\b(\d{4})\b/.exec(t || ''); return y ? Date.UTC(+y[1], 0, 1) : 0;
+}
+function discNote(x) {
+  const g = WGRP(x.why), L = [];
+  L.push(`<span class="tag warn">${esc(WGLAB[g])}</span> <span class="note">wiki marker: “${esc(x.why)}”</span>`);
+  const kv = [];
+  if (x.rel) kv.push(['Released', esc(x.rel)]);
+  if (x.rem) kv.push(['Removed', esc(x.rem)]);
+  if (x.rr) kv.push(['Re-released', x.rr === 'yes' ? 'yes, at some point (wiki infobox)' : x.rr === 'no' ? 'no (wiki infobox)' : esc(x.rr)]);
+  if (x.rs) kv.push(['Wiki restriction', esc(x.rs)]);
+  return `<div class="obdisc">${L.join('')}${kv.length ? `<div class="kv obkv">${kv.map(([k, v]) => `<b>${k}</b><span>${v}</span>`).join('')}</div>` : ''}</div>`;
+}
+async function discView() {
+  const [D, OB] = await Promise.all([itemData(), get('data/obdisc.json')]);
+  const B = OB.bits, F = D.FL;
+  const o = sjson(sessionStorage, 'dcopt', {q: '', cat: '', g: '', pr: '', tr: '', mem: '', eq: '', hol: '', rar: '', sort: 'price'});
+  const name = r => D.ia.rows[r[0]][0];
+  const cnt = {}; OB.rows.forEach(r => { for (const [c] of OB.cats) if (r[1] & B[c]) cnt[c] = (cnt[c] || 0) + 1; });
+  const nPrice = OB.rows.filter(r => D.ia.rows[r[0]][2] != null).length, nRel = OB.rows.filter(r => r[4].rel).length, nRem = OB.rows.filter(r => r[4].rem).length;
+  const gc = {unob: 0, disc: 0, del: 0}; OB.rows.forEach(r => { gc[WGRP(r[4].why)]++; });
+  const pics = OB.rows.filter(r => r[4].pic && D.ia.rows[r[0]][2] != null).sort((a, b) => D.ia.rows[b[0]][2] - D.ia.rows[a[0]][2]).slice(0, 3);
+  OB.rows.forEach(r => { r[5] = relDate(r[4].rel); r[6] = relDate(r[4].rem); });
+  view.innerHTML = `${subnav('disc')}<div class="panel obpanel"><div class="obhero"><div class="obhpics">${pics.map(r => obPic(r[4], name(r), 'obhpic')).join('')}</div><div><h2>Discontinued items</h2>
+    <div class="note">${OB.rows.length.toLocaleString()} items and cosmetics the RS3 wiki itself marks gone: ${gc.unob.toLocaleString()} “unobtainable”, ${gc.disc.toLocaleString()} “discontinued”, ${gc.del.toLocaleString()} deleted / removed / hidden or with a removal date. Partyhats, Santa hats, Halloween masks, holiday and event items live here. They are the entries left out of Obtainable. ${nRel.toLocaleString()} have a release date and ${nRem.toLocaleString()} a removal date on the wiki; ${nPrice.toLocaleString()} have a Grand Exchange price (${esc(D.pr.date)}). Everything shown is the wiki's own wording (${esc(OB.snap)} copy).</div></div></div>
+    ${searchBox('q', 'Search discontinued items, e.g. red partyhat, santa, h\'ween mask, easter…', o.q)}
+    <div class="chips" id="cat"><button data-v="">All categories</button>${OB.cats.map(([c, l]) => `<button data-v="${c}">${esc(l)} <span class="cnt">${(cnt[c] || 0).toLocaleString()}</span></button>`).join('')}</div>
+    <div class="chips" id="rar"><button data-v="">Any rarity</button>${RANK.map((r, i) => `<button data-v="${i}" class="r${i}">${r}</button>`).join('')}</div>
+    <div class="row" style="margin-top:8px">
+    <select id="g"><option value="">Any wiki marker</option><option value="unob">Unobtainable</option><option value="disc">Discontinued</option><option value="del">Deleted / removed / hidden</option></select>
+    <select id="pr"><option value="">With or without a GE price</option><option value="yes">Has a GE price</option><option value="no">No GE price</option></select>
+    <select id="tr"><option value="">Tradeable or not</option><option value="trade">Tradeable (GE)</option><option value="untr">Untradeable</option></select>
+    <select id="mem"><option value="">Members &amp; free</option><option value="mem">Members</option><option value="f2p">Free-to-play</option></select>
+    <select id="eq"><option value="">Equipable or not</option><option value="equip">Equipable / wearable</option></select>
+    <select id="hol"><option value="">Holiday &amp; normal</option><option value="holiday">Holiday / event items only</option></select>
+    <select id="sort"><option value="price">GE price, high → low</option><option value="pricel">GE price, low → high</option><option value="name">Name A–Z</option><option value="rare">Rarest drop first</option><option value="reln">Released: newest first</option><option value="relo">Released: oldest first</option><option value="remn">Removed: newest first</option></select></div>
+    <div id="obres"></div></div>`;
+  const q = $('#q'), out = $('#obres');
+  ['g', 'pr', 'tr', 'mem', 'eq', 'hol', 'sort'].forEach(k => { $('#' + k).value = o[k]; });
+  const best = r => { const b = D.best[name(r)]; return b ? b[0] : null; };
+  let lim = 48;
+  const draw = () => {
+    o.q = q.value; sessionStorage.dcopt = JSON.stringify(o);
+    document.querySelectorAll('#cat button').forEach(b => b.classList.toggle('on', b.dataset.v === o.cat));
+    document.querySelectorAll('#rar button').forEach(b => b.classList.toggle('on', b.dataset.v === String(o.rar)));
+    const nq = norm(q.value);
+    let L = [];
+    for (const r of OB.rows) {
+      const ir = D.ia.rows[r[0]], n = ir[0], f = ir[3], x = r[4];
+      if (o.cat && !(r[1] & B[o.cat])) continue;
+      if (o.g && WGRP(x.why) !== o.g) continue;
+      if (o.pr === 'yes' && ir[2] == null) continue;
+      if (o.pr === 'no' && ir[2] != null) continue;
+      if (o.tr === 'trade' && !(f & F.trade || ir[2] != null)) continue;
+      if (o.tr === 'untr' && !(f & F.untr)) continue;
+      if (o.mem && !(f & F[o.mem])) continue;
+      if (o.eq && !(f & F.equip)) continue;
+      if (o.hol === 'holiday' && !(f & F.holiday || r[1] & B.event)) continue;
+      if (o.rar !== '' && best(r) !== +o.rar) continue;
+      let s = 0;
+      if (nq) { s = score(n, nq); if (s < 0) { if (!norm(ir[4] || '').includes(nq) && !norm(r[2]).includes(nq)) continue; s = -50; } }
+      L.push([s, r]);
+    }
+    const P = r => D.ia.rows[r[0]][2];
+    const tie = (a, b) => (b[4].pic ? 1 : 0) - (a[4].pic ? 1 : 0) || name(a).localeCompare(name(b));
+    const cmp = {price: (a, b) => (P(b) ?? -1) - (P(a) ?? -1) || tie(a, b), pricel: (a, b) => (P(a) ?? 1e15) - (P(b) ?? 1e15) || tie(a, b), name: (a, b) => name(a).localeCompare(name(b)),
+      rare: (a, b) => (best(b) ?? -1) - (best(a) ?? -1) || (P(b) ?? -1) - (P(a) ?? -1) || tie(a, b),
+      reln: (a, b) => b[5] - a[5] || tie(a, b), relo: (a, b) => (a[5] || 9e15) - (b[5] || 9e15) || tie(a, b), remn: (a, b) => b[6] - a[6] || tie(a, b)}[o.sort] || ((a, b) => tie(a, b));
+    L.sort((a, b) => (nq ? b[0] - a[0] : 0) || cmp(a[1], b[1]));
+    const tradeN = L.filter(([, r]) => P(r) != null).length;
+    if (!L.length) { out.innerHTML = '<div class="obempty"><div><b>No discontinued items match.</b><div class="note">Try another word or loosen a filter. To look through every item of the wiki use “Search all items”.</div></div></div>'; return; }
+    out.innerHTML = `<div class="note" style="margin:8px 0">${L.length.toLocaleString()} item${L.length === 1 ? '' : 's'} (${tradeN.toLocaleString()} with a GE price${tradeN ? `, GE ${esc(D.pr.date)}` : ''})${L.length > lim ? `, showing ${lim}` : ''}.</div>
+      <div class="obgrid">${L.slice(0, lim).map(([, r]) => obCard(D, OB, r)).join('')}</div>${L.length > lim ? '<div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="more">Show more</button></div>' : ''}`;
+    const m = $('#more'); if (m) m.onclick = () => { lim += 96; draw(); };
+  };
+  let tmr = null;
+  q.oninput = () => { clearTimeout(tmr); lim = 48; tmr = setTimeout(draw, 150); };
+  const reset = () => { lim = 48; draw(); };
+  document.querySelectorAll('#cat button').forEach(b => b.onclick = () => { o.cat = o.cat === b.dataset.v ? '' : b.dataset.v; reset(); });
+  document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; reset(); });
+  ['g', 'pr', 'tr', 'mem', 'eq', 'hol', 'sort'].forEach(k => { $('#' + k).onchange = e => { o[k] = e.target.value; reset(); }; });
+  draw();
+}
+
+/* ---------- Search all items: ignores every filter, category and section; searches all rows of data/iall.json (every wiki item entry) ---------- */
+async function allView() {
+  const D = await itemData();
+  const rows = D.ia.rows, TOT = rows.length;
+  if (!D.nameN) { D.nameN = rows.map(r => norm(r[0])); D.nameC = D.nameN.map(n => n.replace(/ /g, '')); D.pageN = rows.map(r => r[4] ? norm(r[4]) : ''); }
+  const F = D.FL;
+  let sq = ''; try { sq = sessionStorage.alq || ''; } catch (e) {}
+  view.innerHTML = `${subnav('all')}<div class="panel"><h2>Search all items</h2>
+    ${searchBox('q', 'Any item, any state: e.g. red partyhat, h\'ween mask, abyssal whip, a quest item, a Daemonheim item…', sq)}
+    <div class="row" style="margin-top:6px"><button class="btn ghost" id="clr">Clear</button><span class="note">No filters apply here: every one of the ${TOT.toLocaleString()} entries of the RS3 wiki item list is searched, including Daemonheim-only, quest-only, discontinued, cosmetic-override, untradeable and no-GE-price items. Names, the wiki page title and the wiki's own redirects (alternative names) are matched.</span></div>
+    <div class="note" id="cnt" style="margin:8px 0"></div><div id="res" class="list"></div><div id="more"></div></div>`;
+  const q = $('#q'), out = $('#res'), cnt = $('#cnt'), more = $('#more');
+  let hits = [], lim = 60, seq = 0;
+  const run = async () => {
+    const my = ++seq, nq = norm(q.value); try { sessionStorage.alq = q.value; } catch (e) {}
+    lim = 60;
+    if (!nq) { hits = []; cnt.textContent = `Type to search all ${TOT.toLocaleString()} items.`; out.innerHTML = ''; more.innerHTML = ''; return; }
+    const qc = nq.replace(/ /g, ''), tk = nq.split(' ').filter(Boolean), M = new Map(), N = D.nameN, PN = D.pageN;
+    const has = (s, t) => s.includes(t);
+    for (let i = 0; i < TOT; i++) {
+      const n = N[i]; let sc = -1;
+      if (n === nq) sc = 1000;
+      else if (n.startsWith(nq)) sc = 800 - n.length / 100;
+      else {
+        let ok = true, ws = 0;
+        for (const t of tk) { const k = n.indexOf(t); if (k < 0) { ok = false; break; } if (k === 0 || n[k - 1] === ' ') ws++; }
+        if (ok) sc = 300 + ws * 20 - n.length / 100;
+        else if (qc.length >= 4 && D.nameC[i].includes(qc)) sc = 200 - n.length / 100;
+        else if (PN[i]) { ok = tk.every(t => has(PN[i], t)); if (ok) sc = 150 - PN[i].length / 100; }
+      }
+      if (sc >= 0) M.set(i, sc);
+    }
+    if (nq.length >= 2) {   // the wiki's redirects ("h'ween mask", "phat", misspellings) from the alias shard of the first letter
+      const c0 = nq[0]; let A = D.alias[c0];
+      if (A === undefined) { try { A = D.alias[c0] = await get(`data/ia/${c0}.json`); } catch (e) { A = D.alias[c0] = []; } if (my !== seq) return; }
+      if (A) for (const [a, ids] of A) { if (!tk.every(t => a.includes(t))) continue; const sc = (a === nq ? 700 : a.startsWith(nq) ? 450 : 100) - a.length / 100; for (const i of ids) if (!M.has(i) || M.get(i) < sc) M.set(i, sc); }
+    }
+    hits = [...M.entries()].sort((a, b) => b[1] - a[1] || N[a[0]].localeCompare(N[b[0]]) || a[0] - b[0]).map(h => h[0]);
+    draw();
+  };
+  const rowTags = r => { const f = r[3], t = [];
+    if (f & F.override) t.push('Cosmetic override'); if (f & F.holiday) t.push('Holiday item'); if (f & F.disc) t.push('Discontinued'); else if (f & F.limited) t.push('Limited time');
+    if (f & F.quest) t.push('Quest item'); if (f & F.removed) t.push('Removed from game'); return t.map(x => `<span class="tag">${x}</span>`).join(''); };
+  const draw = () => {
+    cnt.textContent = hits.length ? `${hits.length.toLocaleString()} of ${TOT.toLocaleString()} entries match${hits.length > lim ? ` · showing ${lim}` : ''}.` : `No entries match in all ${TOT.toLocaleString()} items.`;
+    out.innerHTML = hits.slice(0, lim).map(i => {
+      const r = rows[i], n = r[0], pg = r[4] || n;
+      const pic = r[1] ? `<img class="ico" loading="lazy" decoding="async" src="${esc(r[1])}.webp" alt="">` : PH('✦');
+      const price = r[2] != null ? `<span class="gp">${gp(r[2])}</span>` : r[3] & F.untr ? '<span class="untr">Untradeable</span>' : '<span class="note">no GE price</span>';
+      return `<div class="allrow"><a class="hit" href="#items/${encodeURIComponent(n)}">${pic}<span>${esc(n)}${pg !== n ? ` <span class="note">(wiki page: ${esc(pg)})</span>` : ''}${rowTags(r)}</span><span class="meta">${price}</span></a><a class="allwiki" href="${WIKI(pg)}" target="_blank" rel="noopener noreferrer" title="Open on the RS3 wiki">wiki ↗</a></div>`;
+    }).join('');
+    more.innerHTML = hits.length > lim ? '<div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="mb">Show more</button></div>' : '';
+    const mb = $('#mb'); if (mb) mb.onclick = () => { lim += 100; draw(); };
+  };
+  let tmr = null;
+  q.oninput = () => { clearTimeout(tmr); tmr = setTimeout(run, 120); };
+  $('#clr').onclick = () => { q.value = ''; run(); q.focus(); };
+  run(); q.focus();
 }
 
 /* ---------- clues ---------- */
@@ -1005,12 +1177,15 @@ async function aboutView() {
     <div class="note" style="margin-top:8px">Rarity bands follow the wiki's drop tables (Module:DropsLine): Always, Common ≥ 1/16, Uncommon ≥ 1/64, Rare ≥ 1/256, Very rare below that.</div>
     <table style="margin-top:10px"><thead><tr><th>Tier</th><th>Clue types</th></tr></thead><tbody>${cc}</tbody></table></div>
   <div class="panel"><h2>Known gaps</h2><ul>
-    <li>Pictures come from the wiki pages themselves: ${(m.coverage.quest_pictures_total || 0).toLocaleString()} quest pictures (steps, start NPCs and places) and location maps, entrances and teleports for monsters. Steps the wiki shows no picture for get the place or NPC they mention, where the wiki has one.</li>
-    <li>Wiki map views are interactive on the wiki; here they are still pictures (red dots mark spawns).</li>
-    <li>${m.icons_missing.toLocaleString()} item icons and ${m.monster_images_missing} monster pictures were not downloaded yet; they show as a “?” box.</li>
-    <li>${m.missing_location_pages} place pages were not in the copy yet, so some “how to get there” notes are missing.</li>
-    <li>Not yet in the copy: ${esc(m.missing_clue_pages.join(', '))}.</li>
-    <li>Nearest lodestone is a straight-line distance on the main map, not a walking route.</li></ul></div>
+    <li>Pictures come from the wiki pages themselves: ${(m.coverage.quest_pictures_total || 0).toLocaleString()} quest pictures (steps, start NPCs and places) and location maps, entrances and teleports for monsters. A step the wiki shows no picture for gets the place or NPC picture it mentions, where the wiki has one. ${m.qpic_not_on_wiki ? `${m.qpic_not_on_wiki.toLocaleString()} picture names that quest pages mention do not exist as files on the wiki itself (mostly NPC chatheads), so nothing can be shown for those.` : ''}</li>
+    <li>${m.spawn_maps ? `${m.spawn_maps.with_tiles.toLocaleString()} of ${m.spawn_maps.with_coords.toLocaleString()} monster spawn locations open an interactive map (drag, zoom, floors) built from the wiki's own map tiles, with the wiki's spawn point marked.` : ''} The wiki gives one spawn coordinate per place, so the other map layers the wiki can show (extra markers, routes, filters) are not reproduced, and the location pictures still show the wiki's red spawn dots.</li>
+    ${m.icons_missing_names && m.icons_missing_names.length ? `<li>${m.icons_missing_names.length.toLocaleString()} item names have no icon because they are not single wiki items (for example “Nothing equipped…” rows), and ${m.icons_variant.toLocaleString()} names use the first variant icon of their wiki disambiguation page.${m.monster_images_missing_names && m.monster_images_missing_names.length ? ` The wiki has no picture for ${m.monster_images_missing_names.map(esc).join(' and ')}.` : ''}</li>` : ''}
+    ${m.missing_location_pages ? `<li>${m.missing_location_pages} place pages were not in the copy yet, so some “how to get there” notes are missing.</li>` : ''}
+    ${m.missing_clue_pages && m.missing_clue_pages.length ? `<li>Not yet in the copy: ${esc(m.missing_clue_pages.join(', '))}.</li>` : ''}
+    ${m.clue_pages_not_on_wiki && m.clue_pages_not_on_wiki.length ? `<li>These clue pages do not exist on the RS3 wiki, so there is nothing to copy: ${esc(m.clue_pages_not_on_wiki.join(', '))}. The wiki's own Cryptic, Scan and Compass clue pages are included.</li>` : ''}
+    <li>Nearest lodestone is a straight-line distance on the main map, not a walking route: the wiki publishes no walking-route data to compute one from.</li>
+    <li>The gear finder only knows the requirements in an item's wiki infobox (skill levels, and the wiki's extra requirement text where it has some). Quest and unlock requirements that the wiki only describes in an item's page text are not checked.</li>
+    <li>Obtainable follows the wiki's own markers. Items from pages the wiki marks only as a whole (not per item) may sit under Items › Discontinued instead; a few promo items can still be listed.</li></ul></div>
   <div class="panel" id="privpanel"><h2>Privacy &amp; security</h2><ul>
     <li><b>Your levels and progress stay on your device.</b> They are saved in this browser or window only (local storage) and are never sent anywhere. Every device starts fresh and keeps its own.</li>
     <li>No accounts, no tracking, no analytics, no ads, no cookies, no third-party scripts or fonts. The app only loads its own files.</li>

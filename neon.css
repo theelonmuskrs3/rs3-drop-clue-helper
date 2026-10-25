@@ -593,3 +593,8 @@ html[data-fx=off] .psn-cv{display:none}
 .welcome{display:flex;flex-wrap:wrap;align-items:center;gap:10px;max-width:1100px;margin:10px auto 0;padding:10px 14px;border:1px solid #6b1420;border-left:3px solid #ff1f3d;border-radius:5px;background:rgba(200,16,46,.09);color:#fff;font-size:.92rem}
 .welcome span{flex:1 1 260px}
 .welcome .btn{white-space:nowrap}
+.imapbox{margin:6px 0}.imapbox .btn{padding:5px 12px}.imap{margin-top:6px;min-height:300px}
+.allrow{position:relative}.allrow .hit{padding-right:64px}
+.allwiki{position:absolute;right:10px;top:8px;font-size:12px;color:var(--gold2,#ff5a5a);text-decoration:none;border:1px solid #3a1a1e;border-radius:3px;padding:2px 6px;background:rgba(0,0,0,.35)}
+.allwiki:hover{color:#fff;border-color:#8a1424}
+.obdisc{margin:4px 0 2px;font-size:13px}.obdisc .tag.warn{margin-right:6px}
