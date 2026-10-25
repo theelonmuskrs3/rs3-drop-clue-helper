@@ -589,3 +589,7 @@ html[data-fx=off] .psn-cv{display:none}
 .chtag{display:inline-block;font-family:var(--head);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#120a08;background:#ffb000;border-radius:3px;padding:1px 6px;margin-right:4px;vertical-align:1px;font-weight:700}
 .stepw.choice .step{border-left:3px solid #ff1f3d}
 .stepw[hidden],h3.stepsec[hidden]{display:none!important}
+/* first-run prompt (no saved levels on this device) */
+.welcome{display:flex;flex-wrap:wrap;align-items:center;gap:10px;max-width:1100px;margin:10px auto 0;padding:10px 14px;border:1px solid #6b1420;border-left:3px solid #ff1f3d;border-radius:5px;background:rgba(200,16,46,.09);color:#fff;font-size:.92rem}
+.welcome span{flex:1 1 260px}
+.welcome .btn{white-space:nowrap}

@@ -69,7 +69,7 @@ async function mapTab(arg) {
   await mapData();
   const idp = (arg || '').split('?')[0];
   if (/^\d+$/.test(idp)) return mapEntry(+idp);
-  const st = JSON.parse(sessionStorage.mapq || '{"q":"","t":""}');
+  const st = (() => { try { const o = JSON.parse(sessionStorage.mapq || 'null'); return {q: typeof (o && o.q) === 'string' ? o.q : '', t: typeof (o && o.t) === 'string' ? o.t : ''}; } catch (e) { return {q: '', t: ''}; } })();
   const rows = MT.idx.rows, meta = MT.idx.meta;
   const withC = rows.filter(r => r[2] & 1).length;
   view.innerHTML = `<div class="panel"><h2>Map search</h2>
@@ -91,7 +91,7 @@ async function mapTab(arg) {
     $('#cnt').textContent = nq || s.t ? `${hits.length.toLocaleString()} match${hits.length === 1 ? '' : 'es'}${hits.length > 80 ? ' (showing 80)' : ''}` : 'Type a name, or pick a type.';
     out.innerHTML = hits.slice(0, 80).map(r => {
       const where = r[5] != null ? `${r[2] & 2 ? '' : 'start '}${r[5]}, ${r[6]}` : r[2] & 1 ? 'separate map area' : 'no map coordinates on the wiki';
-      return `<a class="hit" href="#map/${r[4]}${r[2] & 8 ? '?row=' + encodeURIComponent(r[0]) : ''}">${r[7] ? `<img class="ico" loading="lazy" decoding="async" src="mapimg/${r[7]}.webp" alt="" onerror="this.outerHTML='<span class=&quot;ph&quot; title=&quot;No picture on the RS3 wiki&quot;>${MGL[r[1]] || '◆'}</span>'">` : `<span class="ph" title="No picture on the RS3 wiki">${MGL[r[1]] || '◆'}</span>`}<span>${esc(r[0])}${r[2] & 16 ? ' <span class="tag">removed</span>' : ''}</span><span class="meta"><span class="mtype t-${r[1]}">${esc(MTL[r[1]] || r[1])}</span> ${esc(where)}</span></a>`;
+      return `<a class="hit" href="#map/${r[4]}${r[2] & 8 ? '?row=' + encodeURIComponent(r[0]) : ''}">${r[7] ? `<img class="ico" loading="lazy" decoding="async" src="mapimg/${r[7]}.webp" alt="" data-ph="${esc(MGL[r[1]] || '◆')}">` : `<span class="ph" title="No picture on the RS3 wiki">${MGL[r[1]] || '◆'}</span>`}<span>${esc(r[0])}${r[2] & 16 ? ' <span class="tag">removed</span>' : ''}</span><span class="meta"><span class="mtype t-${r[1]}">${esc(MTL[r[1]] || r[1])}</span> ${esc(where)}</span></a>`;
     }).join('');
     const wp = hits.filter(r => r[5] != null).slice(0, 400).map(r => ({x: r[5], y: r[6], id: r[4], name: r[0], row: r[2] & 8 ? r[0] : null}));
     wm.setPins(wp);
@@ -106,11 +106,11 @@ async function mapTab(arg) {
   draw(); q.focus();
 }
 
-function mapLink(t) { return `<a href="https://runescape.wiki/w/${encodeURIComponent(t.replace(/ /g, '_'))}" target="_blank" rel="noopener">${esc(t)} on the RS3 wiki ↗</a>`; }
+function mapLink(t) { return `<a href="https://runescape.wiki/w/${encodeURIComponent(t.replace(/ /g, '_'))}" target="_blank" rel="noopener noreferrer">${esc(t)} on the RS3 wiki ↗</a>`; }
 async function mapEntry(id) {
   const meta = MT.idx.meta;
   const rowSel = (location.hash.split('?row=')[1] || '');
-  const rowName = rowSel ? decodeURIComponent(rowSel) : '';
+  let rowName = ''; try { rowName = rowSel ? decodeURIComponent(rowSel) : ''; } catch (_) { rowName = rowSel; }
   const e = (await get(`data/map/s/${Math.floor(id / meta.shard)}.json`))[id];
   if (!e) { view.innerHTML = `<div class="panel">Not found. <a href="#map">Back</a></div>`; return; }
   let groups = e.g || [];

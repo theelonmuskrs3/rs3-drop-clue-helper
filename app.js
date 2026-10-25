@@ -35,11 +35,21 @@ function rarityCell(raw, p, rank) {
   const pct = p != null && p < 1 ? `<div class="note">${fmtP(p)}</div>` : '';
   return `<span class="${cls}">${esc(raw || '?')}</span>${pct}`;
 }
+/* safe JSON reads: storage is user-editable, so anything that is not the expected shape is ignored (never crash, never trust) */
+const sjson = (st, k, dflt) => { try { const o = JSON.parse(st.getItem(k) || 'null'); return o && typeof o === 'object' && !Array.isArray(o) ? Object.assign({}, dflt, Object.fromEntries(Object.entries(o).filter(([a]) => a !== '__proto__' && a in dflt))) : dflt; } catch (e) { return dflt; } };
+/* images that fail to load: remove a broken reference picture, or swap a missing map icon for its glyph (replaces inline onerror attributes so the page can run under a strict Content-Security-Policy) */
+// no browser/WebView autofill history for the search or level boxes
+document.addEventListener('focusin', e => { const t = e.target; if (t && t.tagName === 'INPUT') t.setAttribute('autocomplete', 'off'); });
+document.addEventListener('error', e => {
+  const i = e.target; if (!i || i.tagName !== 'IMG') return;
+  if (i.classList.contains('refimg')) { const f = i.closest('figure'); if (f) f.remove(); }
+  else if (i.dataset && i.dataset.ph !== undefined) { const sp = document.createElement('span'); sp.className = 'ph'; sp.title = 'No picture on the RS3 wiki'; sp.textContent = i.dataset.ph; i.replaceWith(sp); }
+}, true);
 /* ---------- reference pictures (from the wiki, shown with the text they belong to; tap to enlarge) ---------- */
 function fig(p, cls = '') {
   if (!p) return '';
   const [src, cap, w, h, kind] = p;
-  return `<figure class="ref ${kind || ''} ${cls}"><img class="refimg" loading="lazy" decoding="async" src="${esc(src)}" ${w ? `width="${w}" height="${h}"` : ''} alt="${esc(cap)}" data-cap="${esc(cap)}" onerror="this.closest('figure').remove()">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`;
+  return `<figure class="ref ${kind || ''} ${cls}"><img class="refimg" loading="lazy" decoding="async" src="${esc(src)}" ${w ? `width="${w}" height="${h}"` : ''} alt="${esc(cap)}" data-cap="${esc(cap)}">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`;
 }
 function gallery(list, cls = '') {
   list = (list || []).filter(Boolean);
@@ -64,7 +74,7 @@ document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { locat
 function setTab(t) { document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t)); }
 async function route() {
   const [tab, ...rest] = (location.hash.slice(1) || 'drops').split('/');
-  const arg = rest.length ? decodeURIComponent(rest.join('/')) : '';
+  let arg = ''; try { arg = rest.length ? decodeURIComponent(rest.join('/')) : ''; } catch (_) { arg = rest.join('/'); }
   setTab(tab);
   try {
     if (tab === 'items') await itemsView(arg);
@@ -273,17 +283,16 @@ function subnav(on) {
 }
 
 /* ----- stats storage ----- */
-/* stats are saved per device; v2 replaces older saved values once with the owner's levels (read from their in-game skills screenshot) */
+/* Levels are saved only in this device's own localStorage (key below); nothing is sent anywhere. A device with nothing saved starts at the
+   neutral RS3 starting levels: every skill 1, Constitution 10 (wiki: Constitution starts at level 10). */
 const STATS_KEY = 'mystats_v2';
-const DEFAULT_STATS = {Attack: 75, Constitution: 78, Mining: 58, Strength: 78, Agility: 38, Smithing: 54, Defence: 78, Herblore: 28, Fishing: 61, Ranged: 64, Thieving: 48, Cooking: 90,
-  Prayer: 51, Crafting: 55, Firemaking: 42, Magic: 99, Fletching: 101, Woodcutting: 71, Runecrafting: 29, Slayer: 47, Farming: 11, Construction: 44, Hunter: 31, Summoning: 23,
-  Dungeoneering: 43, Divination: 1, Invention: 1, Archaeology: 1, Necromancy: 2};
-/* validate saved levels: integer, 1..skill max (wiki). Skills missing from storage fall back to the owner's levels. Returns null if nothing usable. */
+function neutralStats() { const o = {}; for (const k of new Set([...SKORDER, ...MAIN_SKILLS])) o[k] = 1; o.Constitution = 10; return o; }
+/* validate saved levels: integer, 1..skill max (wiki). Skills missing from storage fall back to the neutral start. Returns null if nothing usable. */
 function cleanStats(o) {
   if (!o || typeof o !== 'object' || Array.isArray(o)) return null;
-  const out = {...DEFAULT_STATS}; let n = 0;
+  const out = neutralStats(); let n = 0;
   for (const [k, v] of Object.entries(o)) {
-    if (!/^[A-Za-z' ]{2,24}$/.test(k)) continue;
+    if (!/^[A-Za-z' ]{2,24}$/.test(k) || k === '__proto__') continue;
     const x = typeof v === 'number' ? v : typeof v === 'string' && /^\s*\d{1,4}\s*$/.test(v) ? +v : NaN;
     if (!Number.isFinite(x)) continue;
     out[k] = Math.max(1, Math.min(skMax(k), Math.floor(x))); n++;
@@ -291,7 +300,7 @@ function cleanStats(o) {
   return n ? out : null;
 }
 const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
-let STATS_SAVED = false;   /* true once the owner's own saved levels were found on this device */
+let STATS_SAVED = false;   /* true once this device has saved levels */
 function loadStats() {
   for (const key of [STATS_KEY, STATS_KEY + '_bak']) {
     const raw = lsGet(key); if (!raw) continue;
@@ -301,7 +310,7 @@ function loadStats() {
     try { localStorage.setItem(key + '_corrupt', raw.slice(0, 4000)); } catch (e) {}   /* keep the bad value for inspection, never crash */
   }
   try { localStorage.removeItem('mystats'); } catch (e) {}
-  return {...DEFAULT_STATS};
+  return neutralStats();
 }
 /* saving: debounced after each change, and flushed right away on blur / tab hidden / page hide / close so nothing typed is lost */
 let _stSave = null, _stDirty = null, _stBind = false;
@@ -310,7 +319,7 @@ function statsFlush() {
   if (!_stDirty) return true;
   const s = _stDirty; _stDirty = null;
   const j = JSON.stringify({v: 2, t: Date.now(), levels: s});
-  try { localStorage.setItem(STATS_KEY, j); localStorage.setItem(STATS_KEY + '_bak', j); STATS_SAVED = true; statsBadge(true); return true; }
+  try { localStorage.setItem(STATS_KEY, j); localStorage.setItem(STATS_KEY + '_bak', j); STATS_SAVED = true; welcomeBanner(); statsBadge(true); return true; }
   catch (e) { statsBadge(false); return false; }
 }
 function saveStats(s) {
@@ -324,6 +333,17 @@ function saveStats(s) {
     document.addEventListener('focusout', f);
     try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
   }
+}
+/* first-run prompt: shown only while this device has no saved levels (and until dismissed) */
+function welcomeBanner() {
+  let b = document.getElementById('welcome');
+  const dismissed = lsGet('dch-welcome') === '1';
+  if (STATS_SAVED || dismissed) { if (b) b.remove(); return; }
+  if (b) return;
+  b = document.createElement('div'); b.id = 'welcome'; b.className = 'welcome'; b.setAttribute('role', 'region'); b.setAttribute('aria-label', 'Welcome');
+  b.innerHTML = '<span><b>Welcome!</b> Enter your own skill levels so the gear and quest helpers fit <i>your</i> account. They are saved only on this device; nothing is sent anywhere.</span><a class="btn" href="#items/~stats">Enter my levels</a><button class="btn ghost" type="button" id="welx" aria-label="Dismiss">Later</button>';
+  const m = document.getElementById('view'); m.parentNode.insertBefore(b, m);
+  document.getElementById('welx').onclick = () => { try { localStorage.setItem('dch-welcome', '1'); } catch (e) {} b.remove(); };
 }
 let _stBadgeT = 0;
 function statsBadge(ok) {
@@ -425,7 +445,7 @@ function statInputs(S, extra) {
   const f = k => `<label class="sk" title="${k} (max ${skMax(k)})">${SKICONS[k] ? `<img src="${esc(SKICONS[k])}" alt="" width="27" height="27">` : `<span>${k.slice(0, 3)}</span>`}<input type="number" inputmode="numeric" min="1" max="${skMax(k)}" aria-label="${k} level" title="${k}" data-sk="${k}" value="${lv(S, k)}"></label>`;
   return `<div class="skgrid">${order.map(f).join('')}</div>
     <div class="sktot"><span title="Total level">Total level <b id="tot">${totalLevel(S)}</b></span><span title="Combat level (wiki formula)">Combat <b id="cmb">${combatLevel(S)}</b></span></div>
-    <div class="row" style="margin-top:8px"><button class="btn ghost" data-all="1">All 1</button><button class="btn ghost" data-all="max">All max</button><button class="btn ghost" data-all="mine" title="Put back the levels from your skills screenshot">Reset to my defaults</button><span id="stsaved" class="stsaved on idle" aria-live="polite">Saved ✓</span>
+    <div class="row" style="margin-top:8px"><button class="btn ghost" data-all="1">All 1</button><button class="btn ghost" data-all="max">All max</button><button class="btn ghost" data-all="start" title="Every skill 1, Constitution 10 (the RS3 starting levels)">Reset to starting levels</button><span id="stsaved" class="stsaved on idle" aria-live="polite">Saved ✓</span>
     <span class="note">Saved automatically on this device only. Max level per skill is from each skill's RS3 wiki page.</span></div>`;
 }
 function gearRow(D, g, st, extra = '') {
@@ -436,7 +456,7 @@ async function statsView() {
   const D = await itemData();
   const S = loadStats();
   const pf = loadPrefs();
-  const opt = Object.assign({style: 'melee', mode: 'pvm', slot: '', sort: 'tier', hideDung: true, hideRec: true, hideRst: true, trade: false, more: 0}, JSON.parse(sessionStorage.gearopt || '{}'));
+  const opt = sjson(sessionStorage, 'gearopt', {style: 'melee', mode: 'pvm', slot: '', sort: 'tier', hideDung: true, hideRec: true, hideRst: true, trade: false, more: 0});
   if (pf.style) opt.style = pf.style; if (pf.mode) opt.mode = pf.mode;
   const extraSk = [...new Set(D.gd.gear.flatMap(g => Object.keys(g.req || {})))].filter(k => !MAIN_SKILLS.includes(k)).sort();
   view.innerHTML = `${subnav('stats')}<div class="panel"><h2>Your levels</h2>${statInputs(S, extraSk)}</div>
@@ -456,15 +476,15 @@ async function statsView() {
     const q = D.gd.pvp_quotes || [];
     const total = bs.reduce((a, x) => a + (priceOf(D, x.g.n) || 0), 0);
     $('#best').innerHTML = `<div class="note" style="margin:8px 0">${opt.mode === 'pvm'
-      ? `Picks come from the wiki's <a href="${WIKI(recPage)}" target="_blank" rel="noopener">${esc(recPage)}</a> tables: for each slot, the highest-tier entry whose requirements you meet. A slot the wiki table has nothing for at your levels falls back to a stat rule (marked). Two-handed and main-hand + off-hand are shown side by side; use one or the other.`
+      ? `Picks come from the wiki's <a href="${WIKI(recPage)}" target="_blank" rel="noopener noreferrer">${esc(recPage)}</a> tables: for each slot, the highest-tier entry whose requirements you meet. A slot the wiki table has nothing for at your levels falls back to a stat rule (marked). Two-handed and main-hand + off-hand are shown side by side; use one or the other.`
       : `Head, body and legs: the piece with the most PvP damage reduction you can wear, worked out with the wiki's Armour page formula. Other slots: the wiki has no PvP-specific picks, so the PvM pick or the stat rule is shown, and it says so.`}</div>
       <div style="overflow-x:auto"><table><thead><tr><th>Slot</th><th>Item</th><th>Tier</th><th>Stats (wiki)</th><th>Price</th><th>Why</th></tr></thead><tbody>
       ${bs.map(x => `<tr><td>${esc(SLOT_LABEL[x.slot])}</td><td><a class="item" href="#items/${encodeURIComponent(x.g.n)}">${icon(x.g.n)}<span>${esc(x.g.n)}</span></a></td><td class="num">${x.g.tier ?? ''}</td>
-        <td>${esc(keyStat(x.g, st))}</td><td class="num">${priceTag(D, x.g.n)}</td><td class="why">${esc(x.why)}${x.src ? ` <a class="note" href="${WIKI(x.src)}" target="_blank" rel="noopener">[wiki]</a>` : ''}${x.note ? `<div class="note">${esc(x.note).replace(/\n/g, '<br>')}</div>` : ''}</td></tr>`).join('') || '<tr><td colspan="6" class="note">Nothing to show.</td></tr>'}
+        <td>${esc(keyStat(x.g, st))}</td><td class="num">${priceTag(D, x.g.n)}</td><td class="why">${esc(x.why)}${x.src ? ` <a class="note" href="${WIKI(x.src)}" target="_blank" rel="noopener noreferrer">[wiki]</a>` : ''}${x.note ? `<div class="note">${esc(x.note).replace(/\n/g, '<br>')}</div>` : ''}</td></tr>`).join('') || '<tr><td colspan="6" class="note">Nothing to show.</td></tr>'}
       </tbody></table></div><div class="note" style="margin-top:6px">Total GE value of the listed pieces: ${gp(total)} (untradeables count as 0; both weapon options are included). Prices as of ${esc(D.pr.date)} (${esc(geDateET(D))}).</div>
-      ${opt.mode === 'pvp' ? `<div class="quotes">${q.filter(x => /PvP/.test(x.text) || x.page === 'Player versus player').map(x => `<blockquote>“${esc(x.text)}” <a href="${WIKI(x.page)}" target="_blank" rel="noopener">— ${esc(x.page)}</a></blockquote>`).join('')}
-        <div class="note">PvP-type armour sets on the wiki's Armour page: ${D.gd.armour_sets.filter(s => s.type === 'PvP' && s.styles.includes(STYLES[st])).map(s => `<a href="${WIKI(s.set)}" target="_blank" rel="noopener">${esc(s.set)}</a> (level ${s.level})${lv(S, 'Defence') >= s.level ? ' ✓' : ''}`).join(', ') || 'none for this style'}. ✓ = your Defence is at least that level.</div></div>`
-      : `<div class="quotes">${q.filter(x => x.page === 'Recommended equipment for PvM').map(x => `<blockquote>“${esc(x.text)}” <a href="${WIKI(x.page)}" target="_blank" rel="noopener">— ${esc(x.page)}</a></blockquote>`).join('')}</div>`}`;
+      ${opt.mode === 'pvp' ? `<div class="quotes">${q.filter(x => /PvP/.test(x.text) || x.page === 'Player versus player').map(x => `<blockquote>“${esc(x.text)}” <a href="${WIKI(x.page)}" target="_blank" rel="noopener noreferrer">— ${esc(x.page)}</a></blockquote>`).join('')}
+        <div class="note">PvP-type armour sets on the wiki's Armour page: ${D.gd.armour_sets.filter(s => s.type === 'PvP' && s.styles.includes(STYLES[st])).map(s => `<a href="${WIKI(s.set)}" target="_blank" rel="noopener noreferrer">${esc(s.set)}</a> (level ${s.level})${lv(S, 'Defence') >= s.level ? ' ✓' : ''}`).join(', ') || 'none for this style'}. ✓ = your Defence is at least that level.</div></div>`
+      : `<div class="quotes">${q.filter(x => x.page === 'Recommended equipment for PvM').map(x => `<blockquote>“${esc(x.text)}” <a href="${WIKI(x.page)}" target="_blank" rel="noopener noreferrer">— ${esc(x.page)}</a></blockquote>`).join('')}</div>`}`;
     let list = usable(D, S, st, opt).filter(g => !opt.slot || g.slot === opt.slot);
     const sb = STYLE_BONUS[st];
     const sorts = {tier: ruleSort(st), dmg: (a, b) => ((b.damage ?? b[sb] ?? -1) - (a.damage ?? a[sb] ?? -1)), arm: (a, b) => (b.armour ?? -1) - (a.armour ?? -1),
@@ -489,12 +509,12 @@ async function statsView() {
   view.querySelectorAll('input[data-sk]').forEach(i => i.oninput = () => { const k = i.dataset.sk, v = Math.max(1, Math.min(skMax(k), parseInt(i.value, 10) || 1)); S[k] = v; saveStats(S); totals(); clearTimeout(i._t); i._t = setTimeout(draw, 250); });
   view.querySelectorAll('input[data-sk]').forEach(i => i.onchange = () => { const k = i.dataset.sk; if (S[k] != null) i.value = S[k]; statsFlush(); });
   { const b = $('#stsaved'); if (b) b.textContent = STATS_SAVED ? 'Saved ✓' : 'Auto-save on'; }
-  view.querySelectorAll('button[data-all]').forEach(b => b.onclick = () => { const a = b.dataset.all; if (a === 'mine' && !confirm('Put all your levels back to your defaults (from your skills screenshot)? This replaces the levels saved on this device.')) return; view.querySelectorAll('input[data-sk]').forEach(i => { const k = i.dataset.sk, v = a === 'max' ? skMax(k) : a === 'mine' ? (DEFAULT_STATS[k] || 1) : +a; i.value = v; S[k] = v; }); saveStats(S); statsFlush(); totals(); draw(); });
+  view.querySelectorAll('button[data-all]').forEach(b => b.onclick = () => { const a = b.dataset.all; if (a === 'start' && !confirm('Reset all your levels to the starting levels (every skill 1, Constitution 10)? This replaces the levels saved on this device.')) return; view.querySelectorAll('input[data-sk]').forEach(i => { const k = i.dataset.sk, v = a === 'max' ? skMax(k) : a === 'start' ? (k === 'Constitution' ? 10 : 1) : +a; i.value = v; S[k] = v; }); saveStats(S); statsFlush(); totals(); draw(); });
   draw();
 }
 async function setsView() {
   const D = await itemData(); const S = loadStats();
-  const opt = Object.assign({style: 'melee', type: ''}, JSON.parse(sessionStorage.setopt || '{}')); { const pf = loadPrefs(); if (pf.style) opt.style = pf.style; }
+  const opt = sjson(sessionStorage, 'setopt', {style: 'melee', type: ''}); { const pf = loadPrefs(); if (pf.style) opt.style = pf.style; }
   view.innerHTML = `${subnav('sets')}<div class="panel"><h2>Best sets by style and tier</h2>
     <div class="chips" id="sty">${Object.entries(STYLES).map(([k, v]) => `<button data-v="${k}">${v}</button>`).join('')}</div><div id="out"></div></div>`;
   const draw = () => {
@@ -505,7 +525,7 @@ async function setsView() {
     const ok = n => { const g = D.gear[n]; return g ? reqMet(g, S) : null; };
     const types = ['Power', 'PvP', 'Tank', 'Hybrid', 'All'];
     const sets = D.gd.armour_sets.filter(s => s.styles.includes(STYLES[opt.style]) && (!opt.type || s.type === opt.type)).sort((a, b) => (b.level ?? 0) - (a.level ?? 0));
-    $('#out').innerHTML = `<h3>Wiki recommended PvM equipment</h3><div class="note">From <a href="${WIKI(rec.page)}" target="_blank" rel="noopener">${esc(rec.page)}</a>, in the wiki's order (lowest tier first). ✓ = you meet the item's requirements with your saved levels; ✗ = you don't yet; ? = the item page has no stats in the copy.</div>
+    $('#out').innerHTML = `<h3>Wiki recommended PvM equipment</h3><div class="note">From <a href="${WIKI(rec.page)}" target="_blank" rel="noopener noreferrer">${esc(rec.page)}</a>, in the wiki's order (lowest tier first). ✓ = you meet the item's requirements with your saved levels; ✗ = you don't yet; ? = the item page has no stats in the copy.</div>
       ${Object.entries(tabs).map(([t, rows]) => `<details ${/Weapons|Armour/.test(t) ? 'open' : ''}><summary>${esc(t)} <span class="note">(${rows.length})</span></summary><div style="overflow-x:auto"><table><thead><tr><th>Tier</th><th>Items</th><th>Price</th><th>Notes (wiki)</th></tr></thead><tbody>
         ${rows.map(r => `<tr><td class="num">${r.tier ?? (r.style_bonus != null ? `bonus ${r.style_bonus}` : '')}${r.tier_note ? '*' : ''}</td>
           <td>${r.items.map(n => { const o = ok(n); return `<div><a class="item" href="#items/${encodeURIComponent(n)}">${icon(n)}<span>${esc(n)}</span></a> ${o == null ? '<span class="note">?</span>' : o ? '<span class="ok">✓</span>' : '<span class="no">✗</span>'}</div>`; }).join('')}</td>
@@ -513,7 +533,7 @@ async function setsView() {
       <h3 style="margin-top:14px">Armour sets by type (wiki Armour page)</h3><div class="chips" id="typ"><button data-v="">All types</button>${types.map(t => `<button data-v="${t}">${t}</button>`).join('')}</div>
       <div class="note" style="margin:6px 0">${esc((D.gd.pvp_quotes.find(x => /^In general players should choose/.test(x.text)) || {}).text || '')}</div>
       <div style="overflow-x:auto"><table><thead><tr><th>Set</th><th>Level</th><th>Type</th><th>Styles</th><th>You</th></tr></thead><tbody>
-      ${sets.map(s => `<tr><td><a href="${WIKI(s.set)}" target="_blank" rel="noopener">${esc(s.set)}</a>${s.note ? ` <span class="note">${esc(s.note)}</span>` : ''}</td><td class="num">${s.level ?? ''}</td><td>${esc(s.type)}</td><td>${esc(s.styles.join(', '))}</td>
+      ${sets.map(s => `<tr><td><a href="${WIKI(s.set)}" target="_blank" rel="noopener noreferrer">${esc(s.set)}</a>${s.note ? ` <span class="note">${esc(s.note)}</span>` : ''}</td><td class="num">${s.level ?? ''}</td><td>${esc(s.type)}</td><td>${esc(s.styles.join(', '))}</td>
         <td>${s.level == null ? '' : lv(S, 'Defence') >= s.level ? '<span class="ok">✓</span>' : '<span class="no">✗</span>'}</td></tr>`).join('')}</tbody></table></div>
       <div class="note">“You” compares the set's level with your saved Defence level.</div>`;
     document.querySelectorAll('#typ button').forEach(b => { b.classList.toggle('on', b.dataset.v === opt.type); b.onclick = () => { opt.type = b.dataset.v; draw(); }; });
@@ -577,15 +597,15 @@ async function itemsView(name) {
     view.innerHTML = `<div class="row" style="margin-bottom:10px"><a class="btn ghost" href="#items">← Items</a></div>
     <div class="panel"><div class="row">${icon(name)}<h2 style="margin:0">${esc(name)}</h2>${best[name] ? rarTag(best[name][0]) : ''}${flagTags(D, name)}</div>
     <div class="price">${v != null ? `Grand Exchange: <span class="gp">${gp(v)}</span> <span class="note">${asof}${d && d.gename ? ` · GE entry “${esc(d.gename)}”` : ''}</span>` : t === false ? '<span class="untr">Untradeable</span> <span class="note">(wiki item infobox)</span>' : `<span class="note">No Grand Exchange price in the ${esc(D.pr.date)} data.</span>`}</div>
-    ${d ? `<h3>Item info <a class="note" href="${WIKI(page)}" target="_blank" rel="noopener">[wiki: ${esc(page)}]</a></h3>${infoTable(d)}${obtainNote(d)}` : `<div class="note" style="margin-top:6px"><a href="${WIKI(page)}" target="_blank" rel="noopener">Open “${esc(page)}” on the RS3 wiki</a></div>`}
-    ${g ? `<h3>Equipment stats <a class="note" href="${WIKI(g.p)}" target="_blank" rel="noopener">[wiki: ${esc(g.p)}]</a></h3>${statTable(g)}` : ''}
+    ${d ? `<h3>Item info <a class="note" href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">[wiki: ${esc(page)}]</a></h3>${infoTable(d)}${obtainNote(d)}` : `<div class="note" style="margin-top:6px"><a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">Open “${esc(page)}” on the RS3 wiki</a></div>`}
+    ${g ? `<h3>Equipment stats <a class="note" href="${WIKI(g.p)}" target="_blank" rel="noopener noreferrer">[wiki: ${esc(g.p)}]</a></h3>${statTable(g)}` : ''}
     ${src.length ? `<h3>Drops</h3><div class="note" style="margin:6px 0 10px">Dropped by ${src.length} source${src.length === 1 ? '' : 's'}, best chance first.</div>
     <div style="overflow-x:auto"><table><thead><tr><th>Dropped by</th><th>Qty</th><th>Rarity</th></tr></thead><tbody>
     ${src.map(s => `<tr><td>${s[5] ? `<a class="item" href="#drops/${encodeURIComponent(s[0])}">${mthumb(s[0], 32)}<span>${esc(s[0])}</span></a>` : `<span class="item">${SRCPICS[s[0]] ? `<img class="ico" style="width:32px;height:32px" loading="lazy" src="${esc(SRCPICS[s[0]])}" alt="">` : PH('◆')}<span>${esc(s[0])} <span class="tag">other source</span></span></span>`}</td>
       <td>${esc(s[1])}</td><td class="num">${rarityCell(s[2], s[3], s[4])}</td></tr>`).join('')}</tbody></table></div>` : '<div class="note" style="margin-top:8px">Not in any drop table in the wiki copy.</div>'}</div>`;
     return;
   }
-  const o = Object.assign({q: '', rar: '', show: 'all', slot: '', sort: 'match', tr: '', mem: '', fl: ''}, JSON.parse(sessionStorage.iopt || '{}'));
+  const o = sjson(sessionStorage, 'iopt', {q: '', rar: '', show: 'all', slot: '', sort: 'match', tr: '', mem: '', fl: ''});
   if (sessionStorage.iq && !o.q) o.q = sessionStorage.iq;
   if (o.show === 'untr') { o.show = 'all'; o.tr = 'untr'; }
   const st = D.ia.stats || {};
@@ -680,7 +700,7 @@ async function obtainView(cat0) {
   const [D, OB] = await Promise.all([itemData(), get('data/ob.json')]);
   const B = OB.bits, CL = Object.fromEntries(OB.cats), F = D.FL;
   const COOL = B.cape | B.override | B.outfit | B.pet | B.event | B.achieve | B.dragon;
-  const o = Object.assign({mode: 'money', cat: '', q: '', tr: '', mem: '', eq: '', hol: '', rar: '', only: '', sort: ''}, JSON.parse(sessionStorage.obopt || '{}'));
+  const o = sjson(sessionStorage, 'obopt', {mode: 'money', cat: '', q: '', tr: '', mem: '', eq: '', hol: '', rar: '', only: '', sort: ''});
   if (cat0) { o.cat = cat0; o.mode = 'cool'; o.q = ''; }
   const st = OB.stats || {}, ex = st.excluded || {};
   const nEx = Object.entries(ex).filter(([k]) => !/^no GE price/.test(k)).reduce((a, [, v]) => a + v, 0);
@@ -761,7 +781,7 @@ function obCard(D, OB, r) {
   if (f & F.holiday) tags.push('<span class="tag">Holiday item</span>');
   const fl = [f & F.mem ? 'Members' : f & F.f2p ? 'Free-to-play' : '', v != null || f & F.trade ? 'Tradeable' : ''].filter(Boolean).join(' · ');
   const b = D.best[n];
-  const how = r[2] ? `<blockquote class="obhow">“${esc(r[2])}”<cite>— RS3 wiki, <a href="${WIKI(page)}" target="_blank" rel="noopener">${esc(page)}</a> (${esc(OB_SRC[r[3]] || r[3] + ' section')})</cite></blockquote>` : '<div class="note">The wiki page has no intro text; see the wiki link.</div>';
+  const how = r[2] ? `<blockquote class="obhow">“${esc(r[2])}”<cite>— RS3 wiki, <a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">${esc(page)}</a> (${esc(OB_SRC[r[3]] || r[3] + ' section')})</cite></blockquote>` : '<div class="note">The wiki page has no intro text; see the wiki link.</div>';
   const kv = [];
   if (x.sh) kv.push(['Sold by', x.sh.map(s => `${esc(s[0])}${s[1] ? ` (${/^\d+$/.test(s[1]) ? (+s[1]).toLocaleString() : esc(s[1])}${s[2] ? ' ' + esc(s[2]) : /^\d+$/.test(s[1]) ? ' coins' : ''})` : ''}`).join(', ') + (x.nsh > x.sh.length ? ` +${x.nsh - x.sh.length} more` : '')]);
   if (x.dr) kv.push(['Dropped by', x.dr.map(d => `${esc(d[0])}${d[1] ? ` <span class="${d[2] != null ? 'r' + Math.min(d[2], 4) : ''}">(${esc(d[1])})</span>` : ''}`).join(', ') + (x.nd > x.dr.length ? ` +${x.nd - x.dr.length} more` : '')]);
@@ -770,7 +790,7 @@ function obCard(D, OB, r) {
   return `<div class="obcard ${r[1] & OB.bits.dragon ? 'drg' : ''}">${obPic(x, n)}<div class="obbody"><div class="obtitle"><a href="#items/${encodeURIComponent(n)}">${esc(n)}</a>${b ? rarTag(b[0]) : ''}</div>
     <div class="obprice">${v != null ? `<span class="gp">${gp(v)}</span>` : f & F.untr ? '<span class="untr">Untradeable</span>' : '<span class="note">no GE price</span>'}${fl ? ` <span class="note">${fl}</span>` : ''}</div>
     <div class="obtags">${tags.join('')}</div>${gStat(x.g)}${how}${kv.length ? `<div class="kv obkv">${kv.map(([k, v]) => `<b>${k}</b><span>${v}</span>`).join('')}</div>` : ''}
-    <div class="note"><a href="${WIKI(page)}" target="_blank" rel="noopener">Open on the RS3 wiki ↗</a></div></div></div>`;
+    <div class="note"><a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">Open on the RS3 wiki ↗</a></div></div></div>`;
 }
 
 /* ---------- clues ---------- */
@@ -807,7 +827,7 @@ function clueCard(c, travel) {
 async function cluesView(arg) {
   const [clues, travel, mech] = await Promise.all([get('data/clues.json'), get('data/travel.json'), get('data/mechanics.json')]);
   const tiers = TIERS.filter(t => clues.some(c => c.tier === t)), types = Object.keys(TYPE_LABEL).filter(t => clues.some(c => c.type === t));
-  const st = JSON.parse(sessionStorage.cq || '{"q":"","tier":"","type":""}');
+  const st = sjson(sessionStorage, 'cq', {q: '', tier: '', type: ''});
   if (arg) st.q = arg;
   view.innerHTML = `<div class="panel"><h2>Clue solver</h2>
     ${searchBox('q', 'Paste clue text, anagram letters, emote, NPC or coordinates (e.g. 22 30 N 3 01 E)', st.q)}
@@ -846,7 +866,7 @@ async function cluesView(arg) {
 
 /* ---------- quests ---------- */
 const QKEY = id => 'qprog:' + id, QDONE = t => 'qdone:' + t;
-const qProg = id => new Set(JSON.parse(localStorage.getItem(QKEY(id)) || '[]'));
+const qProg = id => { try { const a = JSON.parse(localStorage.getItem(QKEY(id)) || '[]'); return new Set(Array.isArray(a) ? a.filter(x => typeof x === 'string' && x.length < 64) : []); } catch (e) { return new Set(); } };
 const qIsDone = t => localStorage.getItem(QDONE(t)) === '1';
 function qIcon(f, size = 36) { return f ? `<img class="ico" style="width:${size}px;height:${size}px" loading="lazy" src="${esc(f)}" alt="">` : PH('❖', size); }
 function bulletList(lst, withPics) {
@@ -861,7 +881,7 @@ async function questsView(name) {
   let qs = await get('data/quests.json');
   const hr = await hansRow(); if (hr) qs = [hr, ...qs];
   if (name) return questDetail(name, qs);
-  const st = JSON.parse(sessionStorage.qf || '{"q":"","kind":"","mem":"","diff":""}');
+  const st = sjson(sessionStorage, 'qf', {q: '', kind: '', mem: '', diff: ''});
   const diffs = [...new Set(qs.map(q => q[3]).filter(Boolean))].sort((a, b) => ['Novice', 'Intermediate', 'Experienced', 'Master', 'Grandmaster', 'Special'].indexOf(a) - ['Novice', 'Intermediate', 'Experienced', 'Master', 'Grandmaster', 'Special'].indexOf(b));
   const opt = (v, l, cur) => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(l)}</option>`;
   view.innerHTML = `<div class="panel"><h2>Quest helper</h2>${searchBox('q', 'Search quests…', st.q)}
@@ -907,7 +927,7 @@ async function questDetail(name, qs) {
     <div class="kv">${kv.map(([k, v]) => `<b>${k}</b><span>${esc(v)}</span>`).join('')}</div>
     ${q.stub ? '<div class="note" style="margin-top:6px">This quest page was not in the offline copy yet. Only its prerequisites are known; rebuild after the download finishes.</div>' : ''}
     <div class="row" style="margin-top:10px"><button class="btn ${done ? '' : 'ghost'}" id="qdone">${done ? '✓ Marked complete' : isH ? 'Mark task list complete' : 'Mark quest complete'}</button></div></div></div></div>
-  ${isH ? `<div class="panel"><h2>All ${q.index.length} tasks</h2><div class="note">The wiki's own 25th Anniversary task list (tap a task to jump to its steps). Do them in any order; the route number is the wiki's recommended order. A tick means that task's steps are all ticked below.</div><div id="hidx" class="hidx"></div></div>` : ''}
+  ${isH ? `<div class="panel"><h2>All ${q.index.length} tasks</h2><div class="note">The wiki's own 25th Anniversary task list (tap a task to jump to its steps). Listed in order of the year they celebrate, 2001 to 2025. You can do them in any order. A tick means that task's steps are all ticked below.</div><div id="hidx" class="hidx"></div></div>` : ''}
   ${sec('Start', start)}${sec('Requirements', reqs)}
   ${sec('Items required', bulletList(q.items, true))}${sec('Recommended', bulletList(q.recommended, true))}${sec('Enemies to defeat', bulletList(q.kills))}
   ${q.steps && q.steps.length ? `<div class="panel"><h2>Walkthrough</h2>
@@ -917,7 +937,7 @@ async function questDetail(name, qs) {
     <div id="steps"></div></div>` : ''}
   ${(q.guide_pics || []).length ? `<div class="panel"><h2>More pictures from the wiki guide</h2><div class="note">These appear in the full wiki guide but don't clearly match one quick-guide step, so they are listed under the wiki's own section headings.</div>${q.guide_pics.map(g => `<h3 class="stepsec">${esc(g.sec)}</h3>${gallery(g.p)}`).join('')}</div>` : ''}
   ${sec('Rewards', bulletList(q.rewards) + (isH ? '<div class="note" style="margin-top:6px">The wiki lists no separate reward per task: the reward comes after all tasks are done and you speak to Hans again.</div>' : ''))}
-  ${isH ? `<div class="panel"><h2>Wiki pages</h2><ul class="blist">${q.wiki_links.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join('')}</ul></div>` : ''}`;
+  ${isH ? `<div class="panel"><h2>Wiki pages</h2><ul class="blist">${q.wiki_links.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(t)}</a></li>`).join('')}</ul></div>` : ''}`;
   $('#qdone').onclick = () => { if (qIsDone(name)) localStorage.removeItem(QDONE(name)); else localStorage.setItem(QDONE(name), '1'); questDetail(name, qs); };
   if (!q.steps || !q.steps.length) return;
   const prog = qProg(row[10]);
@@ -926,7 +946,7 @@ async function questDetail(name, qs) {
   /* Render every step ONCE, then tick/untick in place. (Re-building the whole list on each tick re-created every picture, which made the
      page jump to a different place and flicker, worst on phones. Step ids are unchanged, so saved ticks keep working.) */
   const secOf = new Map(); q.steps.forEach(x => { if (!secOf.has(x.sec)) secOf.set(x.sec, []); secOf.get(x.sec).push(x); });
-  const idxHtml = () => [...q.index].sort((a, b) => a.order - b.order).map(t => { const dn = secOf.get(`Route stop ${t.order} of 25: ${t.year} – ${t.name}`).every(x => prog.has(x.id)); return `<a class="hit ${dn ? 'qs-done' : ''}" data-go="${t.do}" href="#"><span class="${dn ? 'qs-done' : 'qs-none'}">${dn ? '✓ ' : ''}${t.order}. ${t.year} – ${esc(t.name)}</span><span class="meta">${esc(t.task)}</span></a>`; }).join('');
+  const idxHtml = () => [...q.index].sort((a, b) => a.year - b.year).map(t => { const dn = secOf.get(`Task ${t.order} of 25: ${t.year} – ${t.name}`).every(x => prog.has(x.id)); return `<a class="hit ${dn ? 'qs-done' : ''}" data-go="${t.do}" href="#"><span class="${dn ? 'qs-done' : 'qs-none'}">${dn ? '✓ ' : ''}${t.order}. ${t.year} – ${esc(t.name)}</span><span class="meta">${esc(t.task)}</span></a>`; }).join('');
   const bindIdx = () => $('#hidx').querySelectorAll('a[data-go]').forEach(a => a.onclick = e => {
     e.preventDefault(); if (hide.checked) { hide.checked = false; localStorage.qhide = '0'; refresh(); }
     const t = q.steps.find(x => x.id === a.dataset.go); const el = document.getElementById('hs-' + (q.steps.find(x => x.sec === t.sec) || t).id);
@@ -947,7 +967,7 @@ async function questDetail(name, qs) {
     $('#bar').style.width = pc + '%'; $('#pct').textContent = `${pc}% done`;
     if (isH && $('#hidx')) {
       if (!$('#hidx').children.length) { $('#hidx').innerHTML = idxHtml(); bindIdx(); }
-      else $('#hidx').querySelectorAll('a[data-go]').forEach(a => { const t = q.index.find(x => x.do === a.dataset.go); const dn = secOf.get(`Route stop ${t.order} of 25: ${t.year} \u2013 ${t.name}`).every(x => prog.has(x.id)); a.classList.toggle('qs-done', dn); const sp = a.firstElementChild; sp.className = dn ? 'qs-done' : 'qs-none'; sp.textContent = `${dn ? '\u2713 ' : ''}${t.order}. ${t.year} \u2013 ${t.name}`; });
+      else $('#hidx').querySelectorAll('a[data-go]').forEach(a => { const t = q.index.find(x => x.do === a.dataset.go); const dn = secOf.get(`Task ${t.order} of 25: ${t.year} \u2013 ${t.name}`).every(x => prog.has(x.id)); a.classList.toggle('qs-done', dn); const sp = a.firstElementChild; sp.className = dn ? 'qs-done' : 'qs-none'; sp.textContent = `${dn ? '\u2713 ' : ''}${t.order}. ${t.year} \u2013 ${t.name}`; });
     }
   };
   const draw = () => {
@@ -974,8 +994,8 @@ async function aboutView() {
     <p><b>Made by <span class="nx-poison" data-text="Dev. Soy Yoda">Dev. Soy Yoda</span>.</b></p>
     <p><b>Unofficial fan-made tool.</b> All images and game content are the property of Jagex Ltd. RuneScape is a trademark of Jagex Ltd.
     This is an unofficial, fan-made tool for personal use only. It is not affiliated with or endorsed by Jagex, and it is not for sale or for profit.</p>
-    <p>Data and images come from the RuneScape Wiki (<a href="https://runescape.wiki" target="_blank" rel="noopener">runescape.wiki</a>), whose text is licensed
-    <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0</a>. This app re-uses an offline copy of that content, reformatted; mistakes in extraction are ours, not the wiki's.
+    <p>Data and images come from the RuneScape Wiki (<a href="https://runescape.wiki" target="_blank" rel="noopener noreferrer">runescape.wiki</a>), whose text is licensed
+    <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 3.0</a>. This app re-uses an offline copy of that content, reformatted; mistakes in extraction are ours, not the wiki's.
     Fonts: Cinzel, Cinzel Decorative, Orbitron, Rajdhani, Inter and Fira Sans (SIL Open Font License).</p></div>
   <div class="panel"><h2>What's inside</h2><div class="kv">
     <b>Built</b><span>${esc(m.built)}</span><b>Monsters</b><span>${m.monsters.toLocaleString()}</span><b>Drop entries</b><span>${m.drop_entries.toLocaleString()}</span>
@@ -991,14 +1011,22 @@ async function aboutView() {
     <li>${m.missing_location_pages} place pages were not in the copy yet, so some “how to get there” notes are missing.</li>
     <li>Not yet in the copy: ${esc(m.missing_clue_pages.join(', '))}.</li>
     <li>Nearest lodestone is a straight-line distance on the main map, not a walking route.</li></ul></div>
+  <div class="panel" id="privpanel"><h2>Privacy &amp; security</h2><ul>
+    <li><b>Your levels and progress stay on your device.</b> They are saved in this browser or window only (local storage) and are never sent anywhere. Every device starts fresh and keeps its own.</li>
+    <li>No accounts, no tracking, no analytics, no ads, no cookies, no third-party scripts or fonts. The app only loads its own files.</li>
+    <li>Clearing this site's data (or uninstalling) erases your saved levels and ticks. They are not backed up for you.</li>
+    <li>Strict Content-Security-Policy; links to other sites open without sending a referrer. The Windows program checks every downloaded file against a SHA-256 list before it installs it.</li>
+    <li>The Windows program is not code-signed, so Windows SmartScreen may warn on first run (More info → Run anyway). Only download it from the links on this page.</li></ul>
+    <div class="row" style="margin-top:8px"><button class="btn sub" id="showsha">Show app version &amp; Windows download checksum</button></div>
+    <div class="note" id="shaout" style="margin-top:6px;word-break:break-all"></div></div>
   <div class="panel"><h2>Pictures offline</h2><div class="note">Quest, place and entrance pictures load when you open them and are then kept for offline use. To keep every picture on this device now (best on Wi-Fi), tap below.</div>
     <div class="row" style="margin-top:8px"><button class="btn" id="saveall">Save all pictures for offline</button><span class="note" id="saveprog"></span></div></div>
   <div class="panel" id="updpanel" hidden><h2>Updates</h2><div class="note">This Windows program can update itself from the live app in one click. Only changed files are downloaded and each one is checked before it replaces the old copy.</div>
     <div class="row" style="margin-top:8px"><button class="btn" id="updcheck">Check for updates</button><span class="note" id="updver"></span></div></div>
   <div class="panel"><h2>Share with a clan mate</h2><div class="kv">
-    <b>Web app</b><span><a href="${SHARE_URL}" target="_blank" rel="noopener">${SHARE_URL.replace('https://', '')}</a> <button class="btn sub nx-copy" data-copy="${SHARE_URL}">Copy</button></span>
-    <b>Windows program</b><span><a href="${SHARE_PC}" rel="noopener">${SHARE_PC.replace('https://', '')}</a> <button class="btn sub nx-copy" data-copy="${SHARE_PC}">Copy</button></span>
-    <b>Backup links</b><span><a href="https://theelonmuskrs3.github.io/dch/" target="_blank" rel="noopener">theelonmuskrs3.github.io/dch</a><br><a href="https://theelonmuskrs3.github.io/dch/pc/" rel="noopener">theelonmuskrs3.github.io/dch/pc</a></span></div>
+    <b>Web app</b><span><a href="${SHARE_URL}" target="_blank" rel="noopener noreferrer">${SHARE_URL.replace('https://', '')}</a> <button class="btn sub nx-copy" data-copy="${SHARE_URL}">Copy</button></span>
+    <b>Windows program</b><span><a href="${SHARE_PC}" rel="noopener noreferrer">${SHARE_PC.replace('https://', '')}</a> <button class="btn sub nx-copy" data-copy="${SHARE_PC}">Copy</button></span>
+    <b>Backup links</b><span><a href="https://theelonmuskrs3.github.io/dch/" target="_blank" rel="noopener noreferrer">theelonmuskrs3.github.io/dch</a><br><a href="https://theelonmuskrs3.github.io/dch/pc/" rel="noopener noreferrer">theelonmuskrs3.github.io/dch/pc</a></span></div>
     <div class="note" style="margin-top:8px">The web app opens in any browser (phone or PC) and can be installed from there. The Windows program is the same app in its own window, with one-click updates.</div></div>
   <div class="panel"><h2>Install</h2><ul>
     <li>Windows (Edge or Chrome): open the app, then use the install icon in the address bar, or menu → Apps → Install.</li>
@@ -1006,6 +1034,13 @@ async function aboutView() {
     <li>iPhone or iPad (Safari): Share → Add to Home Screen.</li>
     <li>After the first full load it works offline.</li></ul></div>`;
   if (LAUNCHER) { $('#updpanel').hidden = false; $('#updver').textContent = 'Installed version: ' + (LAUNCHER.current || 'unknown'); $('#updcheck').onclick = checkUpdates; }
+  $('#showsha').onclick = async () => {
+    const out = $('#shaout'); out.textContent = 'Loading…';
+    try {
+      const u = await (await fetch('update.json', {cache: 'no-store'})).json();
+      out.textContent = 'App version ' + String(u.version || '?') + (u.bundle && u.bundle.sha256 ? ' · app bundle SHA-256 ' + String(u.bundle.sha256) : '') + '. The Windows program download page lists the SHA-256 of DropClueHelper-Windows.zip; compare it with certutil -hashfile <file> SHA256.';
+    } catch (_) { out.textContent = 'Could not load the version info (offline?).'; }
+  };
   $('#saveall').onclick = async () => {
     const btn = $('#saveall'), out = $('#saveprog'); btn.disabled = true;
     try {
@@ -1116,6 +1151,7 @@ async function detectLauncher() {
 /* ---------- boot ---------- */
 (async () => {
   try { const ic = await get('data/icons.json'); ICONS = ic.items || ic; EMOTES = ic.emotes || {}; GICONS = ic.gear || {}; SKICONS = ic.skills || {}; SKORDER = ic.skill_order || []; SKMAX = ic.skill_max || {}; SRCPICS = ic.sources || {}; } catch (e) { ICONS = {}; }
+  loadStats(); welcomeBanner();
   route(); detectLauncher();
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();

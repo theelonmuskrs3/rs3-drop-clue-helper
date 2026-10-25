@@ -149,7 +149,7 @@
     const R = (a, b) => a + Math.random() * (b - a), clamp = (v, a, b) => Math.min(b, Math.max(a, v));
     const eo = t => 1 - Math.pow(1 - clamp(t, 0, 1), 3);
     let raf = 0, last = 0, acc = 0;
-    const SLOW = +new URLSearchParams(location.search).get('psnslow') || 1;   // debug only: ?psnslow=0.1 plays the drips in slow motion
+    const SLOW = Math.min(5, Math.max(0.05, +new URLSearchParams(location.search).get('psnslow') || 1));   // debug only: ?psnslow=0.1 plays the drips in slow motion
     const GOO = '#44e024';
     const live = () => !D.hidden && !rm.matches && H.dataset.fx !== 'off';
 
