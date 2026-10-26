@@ -563,7 +563,7 @@ html.nx-launcher .nx-dl,html.nx-launcher .nx-install{display:none!important}
   animation:psnShine 5.2s ease-in-out infinite;animation-delay:calc(var(--i) * .13s)}
 .psn-bl{display:inline-block;width:0;height:0;vertical-align:baseline;overflow:hidden}
 .psn-cv{position:absolute;left:0;top:0;pointer-events:none;z-index:3}
-.psn-cv canvas{position:absolute;left:0;top:0;display:block}
+.psn-cv canvas{position:absolute;left:0;top:0;display:block;max-width:none;max-height:none}
 .psn-cv .g{filter:url(#psn-goo) drop-shadow(0 0 2.5px rgba(93,255,46,.65))}
 @keyframes psnAura{0%,100%{opacity:.55}50%{opacity:1}}
 @keyframes psnShine{0%,55%{background-position:160% 0,0 0}85%,100%{background-position:-60% 0,0 0}}
