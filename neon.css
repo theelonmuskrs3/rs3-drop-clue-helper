@@ -719,18 +719,16 @@ table{max-width:100%}
   html.nx-launcher .updbtn{order:7;flex:1 1 30%;min-width:110px;padding-top:11px;padding-bottom:11px}
 }
 
-/* ===== Secrets tab: 7 tabs fit at every width ===== */
+/* ===== 9 tabs fit at every width ===== */
 @media (max-width:699px){
-  .tabs{grid-template-columns:repeat(12,1fr)}
-  .tabs button{grid-column:span 4;min-width:0}
-  .tabs button:nth-child(-n+4){grid-column:span 3}
+  .tabs{grid-template-columns:repeat(3,1fr)}
+  .tabs button{grid-column:auto;min-width:0}
 }
 @media (min-width:700px) and (max-width:1000px){
-  .tabs{grid-template-columns:repeat(7,1fr);gap:6px}
-  .tabs button{min-width:0;padding:10px 2px;font-size:11px;letter-spacing:.05em;gap:5px}
-  .tabs button svg{width:12px;height:12px}
+  .tabs{grid-template-columns:repeat(9,1fr);gap:5px}
+  .tabs button{min-width:0;padding:10px 1px;font-size:10.5px;letter-spacing:.03em;gap:4px}
+  .tabs button svg{display:none}
 }
-@media (min-width:700px) and (max-width:820px){.tabs button svg{display:none}}
 
 /* ===== Secrets cards ===== */
 .secgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:12px;align-items:start}
@@ -934,3 +932,40 @@ body.intrain .trtopb.on{display:block}
 @media (max-width:360px){.trsub>summary{font-size:11px;letter-spacing:.04em}}
 
 .rqrow{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.rqrow .tag{font-size:12px;text-transform:none;letter-spacing:0;text-decoration:none}.rqt{margin:6px 0;line-height:1.45}
+
+/* ===== Money tab (reuses the Training card / fold / bar patterns) ===== */
+.mmp{font-weight:700;color:var(--gold)}.mmp i{font-style:normal;font-weight:500;font-size:12px;color:var(--soft);margin-left:3px}.mmneg{color:#ff6b6b}.mmnone{color:var(--muted);font-weight:500;font-size:12.5px}
+.mmreq{display:block;font-size:12px;color:var(--soft);margin-top:2px;overflow-wrap:anywhere}
+.mmcard.fit{border-left-color:#3fbf6a}
+.mmsel{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.mmsel label{display:flex;flex-direction:column;gap:3px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);min-width:0}
+.mmsel select{width:100%;min-width:0;text-transform:none;letter-spacing:0}
+.mmrng{margin:8px 0}.mmrng label{font-size:12px;color:var(--soft);display:block;margin-bottom:4px}.mmrng input{width:100%}
+.mmlist{display:block}.mmmore{text-align:center;margin:12px 0}
+.mmspc{flex:1}
+.mmhero{display:block;max-width:100%;max-height:260px;width:auto;height:auto;margin:0 0 8px;border:1px solid #2a1f19;border-radius:4px;object-fit:contain}
+.mmpics{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.mmpics img{max-width:100%;max-height:180px;width:auto;height:auto;border:1px solid #2a1f19;border-radius:4px}
+.mmfig{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:5px 0;border-top:1px solid rgba(255,255,255,.06);font-size:13.5px}
+.mmfig>b:first-child{color:var(--soft);font-weight:600}.mmfig span{text-align:right;min-width:0;overflow-wrap:anywhere}
+.mmfig .gp{color:var(--gold)}.mmest{border-top:1px dashed #6b1420}
+.mmfig i{font-style:normal;color:var(--muted);font-size:11.5px}
+.mmreqs{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.mmreqs .tag{font-size:12px;text-transform:none;letter-spacing:0;text-decoration:none;max-width:100%;white-space:normal}
+.mmrq i{font-style:normal;opacity:.75}.mmit .ico{width:18px;height:18px;vertical-align:-4px;margin-right:4px}
+.mmor{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.mmln td .ico{width:20px;height:20px;vertical-align:-5px;margin-right:5px}.mmln td.r,.mmln th:nth-child(n+2){text-align:right;white-space:nowrap}
+.mmln td i{font-style:normal;color:var(--muted);font-size:11px}
+.mmsrc{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;padding-top:10px;border-top:1px solid #3a1a1f}
+.mmsrcb{border-color:var(--red);color:#fff;background:#2a0f14;font-weight:700}
+.mmnotes{margin:8px 0 0 18px;font-size:12.5px;color:var(--soft)}
+.mmrel .tag{text-decoration:none}
+.mmdet .wsec h4{margin:12px 0 4px;font:700 12px/1.3 var(--head);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+body.intrain #mmres .tcard{margin-bottom:8px}
+@media (max-width:640px){
+  .mmsel{grid-template-columns:1fr 1fr;gap:6px}.mmsel label{font-size:10px}
+  .mmfig{font-size:13px}
+  .mmhero{max-height:170px}
+  details.tcard .sectags{display:none}
+  .mmreqs .tag{font-size:11.5px}
+}
+.mmrt{font-size:12px;color:var(--soft)}
+.chips#mmc button,.chips#mmf button{padding:7px 10px;font-size:11.5px}

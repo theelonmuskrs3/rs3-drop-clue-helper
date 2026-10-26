@@ -188,6 +188,8 @@ def expand(text, C, depth=0):
     return ''.join(out)
 
 def truthy(s): return bool(s.strip())
+EXTRA_TPL = {}   # name(lowercase) -> fn(pos, named, C, ex) -> str|None  (extra template handlers, e.g. for the Money tab)
+
 def eval_tpl(body, C, depth):
     parts = split_top(body)
     head = re.sub(r'^(?:safesubst|subst):', '', parts[0].strip(), flags=re.I)
@@ -249,11 +251,30 @@ def eval_tpl(body, C, depth):
     pos, named = parse_args(parts[1:], ex)
     P = lambda k, d='': pos[k] if len(pos) > k else d
     if nm in ('geprice', 'gep', 'geitem'):
-        name = P(0)
+        name = P(0).strip()
         pr = C.ge(name)
-        if pr is None: C.ge_miss.add(name); C.unres.add('GE price ' + name); return ''
+        if pr is None:
+            C.ge_miss.add(name)
+            if named.get('dflt') not in (None, ''): return named['dflt']
+            C.unres.add('GE price ' + name); return ''
         C.ge_used += 1
-        return str(int(pr))
+        # Module:Exchange price(): optional multiplier (number, or a fraction/expression) in arg 2 (or arg 3 after a yes/no), named tax / round
+        multi = 1.0; a1 = P(1).strip()
+        try: multi = float(a1.replace(',', '')) if a1 else 1.0
+        except ValueError:
+            if re.search(r'[/*+-]', a1):
+                try: v = expr_eval(a1)
+                except Exception: v = None
+                multi = float(v) if v not in (None, '') else 1.0
+            elif a1.lower() in ('yes', 'no', 'y', 'n', 'true', 'false', '1', '0'):
+                a2 = P(2).strip()
+                try: multi = float(a2) if a2 else 1.0
+                except ValueError: multi = 1.0
+        if (named.get('tax') or '').strip().lower() in ('yes', 'y', 'true', '1') and name != 'Bond': pr = pr - math.floor(pr * 0.02)
+        r_ = pr * multi
+        if (named.get('round') or '').strip().lstrip('-').isdigit():
+            m_ = 10 ** int(named['round']); r_ = math.floor(r_ * m_ + 0.5) / m_
+        return str(int(r_)) if r_ == int(r_) else ('%.14g' % r_)
     if nm in ('coins', 'nocoins', 'coins short', 'cs'):
         v = P(0).replace(',', '').strip()
         if not v: return ''
@@ -296,6 +317,10 @@ def eval_tpl(body, C, depth):
         if nm == 'members': return ''
         return ''
     if nm in ('yes', 'no', 'na', 'n/a'): return {'yes': 'Yes', 'no': 'No', 'na': 'N/A', 'n/a': 'N/A'}[nm]
+    h_ = EXTRA_TPL.get(nm)
+    if h_:
+        r_ = h_(pos, named, C, ex)
+        if r_ is not None: return r_
     # the wiki's own template page
     src = tpl_text(head)
     if src is None: C.unres.add(head); return ''
@@ -383,7 +408,7 @@ class R:
             if host and host.group(1).lower() in OK_HOSTS: return '\x06' + f'<a class="wl" href="{E(u)}" target="_blank" rel="noopener noreferrer">{E(tx or u)}</a>' + '\x07'
             return E(tx)
         s = re.sub(r'\[(https?://[^\s\]]+)(?:\s+([^\]]*))?\]', lambda m: ext(m), s)
-        s = re.sub(r'(?<![\x06\w])https?://\S+', '', s)
+        s = re.sub(r'\x06.*?\x07|(?<!\w)https?://\S+', lambda m: m.group(0) if m.group(0)[:1] == '\x06' else '', s, flags=re.S)
         # split protected html chunks (\x06..\x07) from text
         res_, i = [], 0
         for m in re.finditer(r'\x06(.*?)\x07', s, re.S):

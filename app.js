@@ -93,7 +93,7 @@ function setTab(t) { document.querySelectorAll('.tabs button').forEach(b => b.cl
 async function route() {
   const [tab, ...rest] = (location.hash.slice(1) || 'drops').split('/');
   let arg = ''; try { arg = rest.length ? decodeURIComponent(rest.join('/')) : ''; } catch (_) { arg = rest.join('/'); }
-  setTab(tab); document.body.classList.toggle('intrain', tab === 'train');
+  setTab(tab); document.body.classList.toggle('intrain', tab === 'train' || tab === 'money');
   try {
     if (tab === 'items') await itemsView(arg);
     else if (tab === 'clues') await cluesView(arg);
@@ -101,6 +101,7 @@ async function route() {
     else if (tab === 'quests') await questsView(arg);
     else if (tab === 'secrets') await secretsView(arg);
     else if (tab === 'train') await trainView(arg);
+    else if (tab === 'money') await moneyView(arg);
     else if (tab === 'map') await mapTab(arg);
     else await dropsView(arg);
   } catch (e) { view.innerHTML = `<div class="panel">Could not load data: ${esc(e.message)}</div>`; }
@@ -1387,6 +1388,225 @@ async function trainSkill(T, sk, gk) {
   setG(gi);
 }
 window.addEventListener('scroll', () => { const b = document.getElementById('trtopb'); if (b) b.classList.toggle('on', window.scrollY > 700); }, {passive: true});
+/* ================= Money tab: every RS3 wiki "Money making guide" ================= */
+const MM = {q: '', c: '', sk: '', mem: '', fit: '', sort: 'profit', minp: 0, afk: false, cmb: false, ob: false, norec: false, n: 20, idx: null, shards: {}};
+const MM_CATS = [['', 'All'], ['pvm', 'PvM & bossing'], ['slay', 'Slayer'], ['mini', 'Minigames'], ['gath', 'Gathering'], ['proc', 'Processing & crafting'], ['coll', 'Collecting'], ['merch', 'Merching'], ['rec', 'Recurring'], ['oth', 'Other']];
+const MM_SK = ['Attack','Defence','Strength','Constitution','Ranged','Prayer','Magic','Cooking','Woodcutting','Fletching','Fishing','Firemaking','Crafting','Smithing','Mining','Herblore','Agility','Thieving','Slayer','Farming','Runecrafting','Hunter','Construction','Summoning','Dungeoneering','Divination','Invention','Archaeology','Necromancy'];
+const MM_MIN = [0, 50e3, 100e3, 250e3, 500e3, 1e6, 2e6, 5e6];
+const MM_TAG = {afk: 'AFK / low effort', cmb: 'Needs combat', slay: 'Slayer', mini: 'Minigame', merch: 'Merching', rec: 'Recurring', ob: 'Not profitable now', pp: 'Partly parsed', nd: 'No steps on wiki', free: 'Free-form page'};
+const MM_SUBS = {high: 'High-level combat', mid: 'Mid-level combat', low: 'Low-level combat', boss: 'Boss'};
+const MM_INT = ['', 'Low intensity', 'Moderate intensity', 'High intensity'];
+const mmCats = r => { const o = []; if (r.g === 'pvm') o.push('pvm'); else if (r.g !== 'oth' || true) o.push(r.g); if (r.tg.includes('slay')) o.push('slay'); if (r.tg.includes('mini')) o.push('mini'); if (r.tg.includes('merch')) o.push('merch'); return o; };
+const mmWiki = pg => 'https://runescape.wiki/w/Money_making_guide/' + encodeURIComponent(String(pg).replace(/ /g, '_')).replace(/%2C/g, ',');
+const mmGp = n => n == null ? '' : (n < 0 ? '−' : '') + Math.abs(Math.round(n)).toLocaleString() + ' gp';
+function mmFit(r, S) {
+  if (!STATS_SAVED || !S) return null;
+  let gap = 0; for (const [s, l] of r.rl || []) { const h = +S[s] || 1; if (h < l) gap = Math.max(gap, l - h); }
+  const q = (r.qq || []).some(x => !qIsDone(x));
+  return !gap && !q ? 'ok' : gap <= 5 && !q ? 'close' : 'no';
+}
+const mmLvl = r => Math.max(0, ...(r.rl || []).map(x => x[1]));
+function mmReqLine(r, S) {
+  const parts = (r.rl || []).slice(0, 3).map(([s, l]) => { const h = STATS_SAVED && S ? (+S[s] || 1) : null; return `${h == null ? '' : h >= l ? '✓ ' : '✗ '}${l} ${s}`; });
+  const more = (r.rl || []).length - parts.length; if (more > 0) parts.push('+' + more);
+  if ((r.qq || []).length) parts.push(r.qq.length + (r.qq.length > 1 ? ' quests' : ' quest'));
+  return parts.length ? 'Needs ' + parts.join(', ') : 'No skill or quest requirement stated';
+}
+function mmOk(r, nq, S) {
+  if (MM.c && !mmCats(r).includes(MM.c)) return false;
+  if (MM.mem === 'f2p' && r.mem) return false;
+  if (MM.mem === 'p2p' && !r.mem) return false;
+  if (!MM.ob && r.tg.includes('ob') && !nq) return false;
+  if (MM.afk && !r.tg.includes('afk')) return false;
+  if (MM.cmb && !r.tg.includes('cmb')) return false;
+  if (MM.norec && r.at) return false;
+  if (MM.sk && !(r.xs || []).includes(MM.sk) && !(r.rl || []).some(x => x[0] === MM.sk)) return false;
+  if (MM.minp && !(r.pw != null && r.pw >= MM.minp)) return false;
+  if (MM.fit) { const f = mmFit(r, S); if (MM.fit === 'ok' && f !== 'ok') return false; if (MM.fit === 'close' && f !== 'ok' && f !== 'close') return false; if (MM.fit === 'no' && f !== 'no') return false; }
+  if (nq) { const h = norm(r.t + ' ' + r.pg + ' ' + (r.xs || []).join(' ') + ' ' + (r.rl || []).map(x => x[0]).join(' ') + ' ' + (r.qq || []).join(' ') + ' ' + (r.io || []).join(' ') + ' ' + r.tg.map(t => MM_TAG[t] || '').join(' ')); if (!nq.split(' ').every(t => h.includes(t))) return false; }
+  return true;
+}
+function mmSort(rows) {
+  const k = MM.sort;
+  rows.sort((a, b) => {
+    if (k === 'name') return a.t.localeCompare(b.t);
+    if (k === 'level') return mmLvl(a) - mmLvl(b) || a.t.localeCompare(b.t);
+    const x = a.pw == null ? -Infinity : a.pw, y = b.pw == null ? -Infinity : b.pw;
+    return (y - x) || a.t.localeCompare(b.t);
+  });
+  return rows;
+}
+function mmProfitTxt(r) {
+  if (r.pw == null) return '<span class="mmp mmnone">Profit: not stated</span>';
+  return `<span class="mmp${r.pw < 0 ? ' mmneg' : ''}">${mmGp(r.pw)}<i>${r.at ? '/hr of activity · wiki' : '/hr · wiki'}</i></span>${r.at && r.rt ? `<span class="mmrt"> · every ${esc(r.rt)}</span>` : ''}`;
+}
+function mmCard(r, S, open) {
+  const f = mmFit(r, S);
+  const kind = r.mem ? 'Members' : 'Free-to-play';
+  const cat = (MM_CATS.find(c => c[0] === r.g) || [0, 'Other'])[1];
+  const tags = [kind, cat].concat(r.tg.filter(t => t !== 'rec' || r.g !== 'rec').map(t => MM_TAG[t]).filter(Boolean)).map(t => `<span class="tag${/Not profitable|Partly|No steps/.test(t) ? ' warn' : ''}">${esc(t)}</span>`).join('')
+    + (f === 'ok' ? '<span class="tag fit">Fits your levels</span>' : f === 'close' ? '<span class="tag warn">Close to your levels</span>' : '');
+  const pic = r.th ? `<img class="secpic" loading="lazy" src="${esc(r.th)}" alt="">` : PH('◈', 40);
+  return `<details class="sec tcard mmcard${f === 'ok' ? ' fit' : ''}" data-id="${esc(r.id)}"${open ? ' open' : ''}><summary><div class="secpicw">${pic}</div>
+    <div class="sectxt"><b class="sect">${esc(r.t)}</b><span class="secd">${mmProfitTxt(r)}</span><span class="mmreq">${esc(mmReqLine(r, S))}</span><span class="sectags">${tags}</span></div></summary>
+    <div class="secbody"><div class="trmeta">${tags}</div><div class="mmdet"><div class="note">Loading…</div></div></div></details>`;
+}
+async function mmShard(i) {
+  if (!MM.shards[i]) MM.shards[i] = get(`data/mm/${i}.json`).then(d => { const o = {}; for (const p of d.p) for (const m of p.m) o[m.id] = [m, p.pre]; return o; });
+  return MM.shards[i];
+}
+/* the app's own price for one line (Grand Exchange price in this app) */
+function mmLinePrice(D, l) {
+  if (l.n === 'Coins') return [1, false];
+  if (l.v != null) return [l.v, false];
+  const p = priceOf(D, l.n); if (p == null) return [null, true];
+  return [p > 49 && l.n !== 'Bond' ? p - Math.floor(p / 50) : p, false];
+}
+function mmEstimate(D, m) {
+  let out = 0, inn = 0, miss = [];
+  for (const l of m.out) { const [p, mi] = mmLinePrice(D, l); if (mi) miss.push(l.n); else out += l.q * p; }
+  for (const l of m.inp) { let p; if (l.n === 'Coins') p = 1; else if (l.v != null) p = l.v; else { p = priceOf(D, l.n); if (p == null) { miss.push(l.n); continue; } } inn += l.q * p; }
+  let h = out - inn;
+  return {h, out, inn, miss};
+}
+function mmReqChips(m, S) {
+  const have = STATS_SAVED && S ? S : null;
+  const chip = (e) => {
+    const rec = e.i === 'r' ? ' <i>(recommended)</i>' : e.i === 'o' ? ' <i>(optional)</i>' : '';
+    const nt = e.nt ? ` <i>${esc(e.nt)}</i>` : '';
+    if (e.k === 's') {
+      const h = have ? (+have[e.s] || 1) : null;
+      const ok = h != null && MM_SK.includes(e.s) ? h >= e.l : null;
+      return `<span class="tag mmrq ${ok == null || e.alt ? '' : ok ? 'ok' : 'no'}">${ok == null || e.alt ? '' : ok ? '✓ ' : '✗ '}${e.l} ${esc(e.s)}${rec}${nt}</span>`;
+    }
+    if (e.k === 'q') { const dn = qIsDone(e.q); return `<a class="tag mmrq ${e.alt ? '' : dn ? 'ok' : (have ? 'no' : '')}" href="#quests/${encodeURIComponent(e.q)}">${e.alt ? '' : dn ? '✓ ' : have ? '✗ ' : ''}Quest: ${esc(e.q)}${rec}${nt}</a>`; }
+    if (e.k === 'i') {
+      const ic = e.ic ? `<img class="ico" loading="lazy" src="${esc(e.ic)}" alt="">` : '';
+      const lab = `${e.c > 1 ? e.c + ' × ' : ''}${esc(e.t || e.n)}${rec}${nt}`;
+      return e.a ? `<a class="tag mmrq mmit" href="#items/${encodeURIComponent(e.n)}">${ic}${lab}</a>` : `<a class="tag mmrq mmit" href="${esc(e.u || WIKI(e.n))}" target="_blank" rel="noopener noreferrer">${lab} ↗</a>`;
+    }
+    return `<span class="tag mmrq mmoth">${e.h}${rec}</span>`;
+  };
+  return m.rq.map((e, i) => { const o = e.alt && m.rq[i - 1] && m.rq[i - 1].alt && !(e.k === 'o' && /^or /.test(e.h || '')) ? '<span class="mmor">or</span>' : ''; return o + chip(e); }).join('');
+}
+function mmLines(D, lines, title, noteExtra) {
+  if (!lines.length) return '';
+  const rows = lines.map(l => {
+    const [p, mi] = mmLinePrice(D, l);
+    const ic = l.ic ? `<img class="ico" loading="lazy" src="${esc(l.ic)}" alt="">` : '';
+    const nm = l.a ? `<a class="ti" href="#items/${encodeURIComponent(l.n)}">${esc(l.n)}</a>` : esc(l.n);
+    const q = l.q >= 100 ? Math.round(l.q).toLocaleString() : +(+l.q).toFixed(2);
+    const price = l.n === 'Coins' ? '1' : l.v != null ? `${Math.round(l.v).toLocaleString()} <i>wiki value</i>` : mi ? '<i>no price</i>' : Math.round(p).toLocaleString();
+    return `<tr><td>${ic}${nm}${l.nt ? ` <i>${esc(l.nt)}</i>` : ''}${l.cv ? ' <i title="The wiki prices this with a calculation this app does not reproduce; the app price is used in the estimate.">(wiki calc)</i>' : ''}</td><td class="r">${q}</td><td class="r">${price}</td></tr>`;
+  }).join('');
+  return `<details class="trsub mmln"${lines.length <= 6 ? ' open' : ''}><summary>${title} <span class="cnt">${lines.length}</span></summary><div class="tscroll"><table class="tt"><thead><tr><th>Item</th><th>Per hour</th><th>Price each</th></tr></thead><tbody>${rows}</tbody></table></div>${noteExtra || ''}</details>`;
+}
+async function mmFill(card, r, S) {
+  const box = card.querySelector('.mmdet'); if (box.dataset.done) return; box.dataset.done = '1';
+  const [sh, D] = await Promise.all([mmShard(r.sh), itemData()]);
+  const hit = sh[r.id]; if (!hit) { box.innerHTML = '<div class="note">This method is missing from the data bundle.</div>'; return; }
+  const [m, lead] = hit;
+  const est = mmEstimate(D, m), perk = m.pk != null;
+  const dateNote = m.ts ? `guide last edited ${m.ts}` : '';
+  /* profit blocks: wiki figure and app estimate stay separate */
+  let wiki = '';
+  if (m.pw == null) wiki = `<div class="mmfig"><b>Profit per hour <i>(per the wiki)</i></b><span class="mmnone">Not stated — this guide's profit depends on a live wiki calculation that cannot be reproduced offline.</span></div>`;
+  else if (m.run != null) wiki = `<div class="mmfig"><b>Profit per hour <i>(per the wiki)</i></b><span><b class="gp">${mmGp(m.pw)}</b></span></div><div class="mmfig"><b>Each time you do it</b><span>${mmGp(m.run)} every ${esc(m.rt || '?')}, ${m.at} min of activity</span></div>`;
+  else wiki = `<div class="mmfig"><b>Profit per hour <i>(per the wiki)</i></b><span><b class="gp">${mmGp(m.pw)}</b></span></div>${perk ? `<div class="mmfig"><b>Profit per kill</b><span>${mmGp(m.pk)}${m.kph ? ` · ${m.kph} ${esc(m.kn || 'kills')}/hr` : ''}</span></div>` : ''}`;
+  const estOk = (m.out.length || m.inp.length) && !est.miss.length;
+  const estBlk = !(m.out.length || m.inp.length) ? '' : `<div class="mmfig mmest"><b>Estimated from this app's GE prices</b><span><b class="gp">${mmGp(m.run != null && m.at ? est.h * 60 / m.at : est.h)}</b>/hr${est.miss.length ? ` <i>(no app price for ${esc(est.miss.slice(0, 3).join(', '))}${est.miss.length > 3 ? ' +' + (est.miss.length - 3) : ''}, counted as 0)</i>` : ''}</span></div>`;
+  const wnote = `<div class="note">“Per the wiki” is the wiki's own profit formula (its Money making guide module) applied to its Grand Exchange data of ${esc(MM_GE)}${dateNote ? ', ' + esc(dateNote) : ''}. The separate estimate re-prices the same hourly quantities with this app's own Grand Exchange prices; the two normally agree and differ where the wiki uses fixed values or an item has no price here. Live wiki pages use today's prices, so their figures drift from these.</div>`;
+  /* requirements */
+  const ph = trPhone();
+  const reqs = m.rq.length ? `<div class="secreq mmreqs">${mmReqChips(m, S)}</div>${STATS_SAVED ? '' : '<div class="note">Save your levels (Items → my levels) to see ✓/✗ against them.</div>'}` : '<div class="note">The wiki lists no requirements for this method.</div>';
+  /* xp */
+  const xp = m.xp.length ? `<div class="kv">${m.xp.map(x => `<b><a href="#train/${encodeURIComponent(x.s)}">${esc(x.s)}</a></b><span>${x.h.toLocaleString()} xp/hr${x.pk ? ` <i>(${x.x} per kill)</i>` : ''}${x.nt ? ` <i>${esc(x.nt)}</i>` : ''}</span>`).join('')}</div>` : '';
+  const items = (m.it || []).map(([n, ic]) => `<a class="trit" href="#items/${encodeURIComponent(n)}">${ic ? `<img class="ico" loading="lazy" src="${esc(ic)}" alt="">` : PH('✦', 28)}<span>${esc(n)}</span>${priceOf(D, n) ? `<b class="gp">${gp(priceOf(D, n))}</b>` : ''}</a>`).join('');
+  const pics = (m.pic || []);
+  const hero = pics[0] ? `<img class="mmhero" loading="lazy" src="${esc(pics[0])}" alt="">` : '';
+  const more = pics.length > 1 ? `<details class="trsub"><summary>More pictures <span class="cnt">${pics.length - 1}</span></summary><div class="mmpics">${pics.slice(1).map(p => `<img loading="lazy" src="${esc(p)}" alt="">`).join('')}</div></details>` : '';
+  const rel = [];
+  for (const q of m.qs || []) rel.push(`<a class="tag" href="#quests/${encodeURIComponent(q)}">Quest: ${esc(q)}</a>`);
+  for (const t of m.ms || []) rel.push(`<a class="tag" href="#drops/${encodeURIComponent(t)}">Monster: ${esc(t)}</a>`);
+  for (const s of new Set([...(m.xs || []), ...m.rq.filter(e => e.k === 's' && MM_SK.includes(e.s)).map(e => e.s)])) if (MM_SK.includes(s)) rel.push(`<a class="tag" href="#train/${encodeURIComponent(s)}">Training: ${esc(s)}</a>`);
+  const wl = (m.wl || []).filter(n => !/^(Category|Map:)/.test(n) || true).slice(0, 8).map(n => `<a class="tag" href="${WIKI(n)}" target="_blank" rel="noopener noreferrer">${esc(n)} ↗</a>`).join('');
+  const steps = [lead && lead.trim() ? `<details class="trsub"${ph ? '' : ' open'}><summary>Overview from the wiki</summary><div class="trbody">${lead}</div></details>` : '',
+    m.pre ? `<div class="trbody">${m.pre}</div>` : '',
+    m.h ? `<details class="trsub trsteps" open><summary>Step by step from the wiki</summary><div class="trbody">${m.h}${m.post ? m.post : ''}${m.nt ? `<ol class="mmnotes">${m.nt.map(n => `<li>${n}</li>`).join('')}</ol>` : ''}</div></details>` : (m.post ? `<div class="trbody">${m.post}</div>` : '<div class="note">The wiki has no step-by-step text for this method.</div>')].join('');
+  const tg = m.tg.includes('pp') ? '<div class="note"><span class="tag warn">Partly parsed</span> A few wiki templates in this guide are interactive and are not shown; use the source link for the full page.</div>' : '';
+  const ob = m.ob ? `<div class="note"><b>Other benefits:</b> ${m.ob}</div>` : '';
+  box.innerHTML = `${hero}
+    <div class="wsec"><h4>Profit</h4>${wiki}${estBlk}${wnote}</div>
+    <div class="wsec"><h4>Requirements</h4>${reqs}${m.in ? '' : ''}</div>
+    ${m.iy ? `<div class="note">${MM_INT[m.iy]} (wiki)${m.sub ? ' · ' + MM_SUBS[m.sub] : ''}${m.mem ? '' : ' · free-to-play'}</div>` : ''}
+    ${xp ? `<div class="wsec"><h4>Experience</h4>${xp}</div>` : ''}${ob}
+    ${mmLines(D, m.inp, 'Supplies used', '')}${mmLines(D, m.out, 'What you get', '')}
+    ${items ? `<details class="trsub"><summary>Items mentioned <span class="cnt">${(m.it || []).length}</span></summary><div class="tritems">${items}</div></details>` : ''}
+    ${steps}${more}${tg}
+    ${rel.length ? `<details class="trsub"><summary>Related in this app <span class="cnt">${rel.length}</span></summary><div class="chips mmrel">${rel.join('')}</div></details>` : ''}
+    ${wl ? `<details class="trsub"><summary>Wiki pages mentioned <span class="cnt">${(m.wl || []).length}</span></summary><div class="chips mmrel">${wl}</div></details>` : ''}
+    <div class="mmsrc"><a class="btn mmsrcb" href="${esc(mmWiki(r.pg))}" target="_blank" rel="noopener noreferrer">Source: RS3 Wiki ↗</a><span class="note">${esc(m.pg || 'Money making guide/' + r.pg)}${m.ts ? ' · last edited ' + esc(m.ts) : ''} · text and numbers CC BY-NC-SA 3.0, from the RS3 Wiki</span> <a class="note" href="#money/${encodeURIComponent(r.id)}">Link to this method</a></div>`;
+}
+let MM_GE = '';
+function mmBindCards(root, rows, S) {
+  const by = {}; rows.forEach(r => by[r.id] = r);
+  root.querySelectorAll('details.mmcard').forEach(c => { const go = () => { if (c.open) mmFill(c, by[c.dataset.id], S).catch(e => { c.querySelector('.mmdet').innerHTML = `<div class="note">Could not load: ${esc(e.message)}</div>`; delete c.querySelector('.mmdet').dataset.done; }); }; c.addEventListener('toggle', go); if (c.open) go(); });
+}
+async function moneyView(arg) {
+  if (!MM.idx) { const d = await get('data/money.json'); MM.idx = d; MM_GE = d.ge_date; }
+  const X = MM.idx, S = loadStats() || {};
+  if (arg) {
+    const r = X.rows.find(x => x.id === arg);
+    if (!r) { view.innerHTML = `<div class="panel"><a class="btn mini ghost" href="#money">← Money</a><div class="obempty"><div><b>That money-making method is not in the guide list.</b></div></div></div>`; return; }
+    view.innerHTML = `<div class="trbar"><a class="btn mini ghost" href="#money">← Money</a><b class="trbn">Money</b><span class="mmspc"></span><button type="button" class="btn mini ghost" id="trtop">↑ Top</button></div>
+      <div class="panel trpanel">${mmCard(r, S, true)}</div><button type="button" class="trtopb" id="trtopb" aria-label="Back to top">↑</button>`;
+    mmBindCards(view, [r], S); $('#trtop').onclick = $('#trtopb').onclick = () => window.scrollTo(0, 0); return;
+  }
+  const st = X.stats, skills = [...new Set(X.rows.flatMap(r => [...(r.xs || []), ...(r.rl || []).map(x => x[0])]))].filter(s => MM_SK.includes(s)).sort();
+  const cnt = {}; for (const c of MM_CATS) cnt[c[0]] = c[0] ? X.rows.filter(r => !r.tg.includes('ob') && mmCats(r).includes(c[0])).length : X.rows.filter(r => !r.tg.includes('ob')).length;
+  view.innerHTML = `<div class="trbar" id="mmbar"><b class="trbn">Money</b><select id="mmcatj" aria-label="Category">${MM_CATS.map(c => `<option value="${c[0]}"${MM.c === c[0] ? ' selected' : ''}>${esc(c[1])} (${cnt[c[0]]})</option>`).join('')}</select><button type="button" class="btn mini ghost" id="trtop" aria-label="Back to top">↑ Top</button></div>
+    <div class="panel"><h2>Money making</h2>
+    <div class="note">Every money-making guide on the RS3 wiki: ${st.methods.toLocaleString()} methods from ${st.pages} guide pages. Profit is “per the wiki” (its own formula on its Grand Exchange data of ${esc(X.ge_date)}); a separate estimate from this app's prices is inside each method. Methods with no profit figure are listed last as “not stated”.</div>
+    ${searchBox('mmq', 'Search methods… e.g. dragons, herbs, Ranged 80, AFK', MM.q)}
+    <div class="chips" id="mmc">${MM_CATS.map(c => `<button data-v="${c[0]}"${MM.c === c[0] ? ' class="on"' : ''}>${esc(c[1])}<span class="cnt">${cnt[c[0]]}</span></button>`).join('')}</div>
+    <div class="mmsel"><label>Skill<select id="mmsk"><option value="">Any skill</option>${skills.map(s => `<option${MM.sk === s ? ' selected' : ''}>${esc(s)}</option>`).join('')}</select></label>
+      <label>Access<select id="mmmem"><option value="">F2P &amp; members</option><option value="f2p"${MM.mem === 'f2p' ? ' selected' : ''}>Free-to-play only</option><option value="p2p"${MM.mem === 'p2p' ? ' selected' : ''}>Members only</option></select></label>
+      <label>My levels<select id="mmfit"><option value="">Any</option><option value="ok"${MM.fit === 'ok' ? ' selected' : ''}>Fits my levels</option><option value="close"${MM.fit === 'close' ? ' selected' : ''}>Fits or close (within 5)</option><option value="no"${MM.fit === 'no' ? ' selected' : ''}>Can't do yet</option></select></label>
+      <label>Sort<select id="mmsort"><option value="profit">Profit/hr (wiki)</option><option value="level"${MM.sort === 'level' ? ' selected' : ''}>Level needed</option><option value="name"${MM.sort === 'name' ? ' selected' : ''}>Name</option></select></label></div>
+    <div class="mmrng"><label for="mmmin">Min profit/hr (wiki): <b id="mmminv">${MM.minp ? mmGp(MM.minp) : 'any'}</b></label><input id="mmmin" type="range" min="0" max="${MM_MIN.length - 1}" step="1" value="${Math.max(0, MM_MIN.indexOf(MM.minp))}"></div>
+    <div class="chips" id="mmf"><button data-v="afk"${MM.afk ? ' class="on"' : ''}>AFK / low effort</button><button data-v="cmb"${MM.cmb ? ' class="on"' : ''}>Needs combat</button><button data-v="norec"${MM.norec ? ' class="on"' : ''}>Hide timed recurring</button><button data-v="ob"${MM.ob ? ' class="on"' : ''}>Show not-profitable methods</button></div>
+    ${STATS_SAVED ? '' : '<div class="note">Tip: save your levels (Items → my levels) to use “Fits my levels” and to see ✓/✗ on requirements. They stay on this device.</div>'}
+    <div id="mmres"></div></div>
+    <div class="panel"><h3>Sources</h3><div class="note">All text, numbers and pictures come from these RS3 wiki pages (CC BY-NC-SA 3.0, <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener noreferrer">licence</a>). Nothing is written by this app. Each method has its own “Source: RS3 Wiki” link.</div>
+      <details class="thv"><summary>${st.pages} guide pages + ${st.list_pages} index pages</summary><ul class="trsrc">${X.src.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(t.replace('Money making guide/', ''))} ↗</a></li>`).join('')}<li><a href="${WIKI('Money making guide')}" target="_blank" rel="noopener noreferrer">Money making guide (index) ↗</a></li><li><a href="${WIKI('Money making')}" target="_blank" rel="noopener noreferrer">Money making ↗</a></li></ul></details></div>
+    <button type="button" class="trtopb" id="trtopb" aria-label="Back to top">↑</button>`;
+  const out = $('#mmres'), q = $('#mmq'); let tmr = null;
+  const draw = (keep) => {
+    if (!keep) MM.n = 20;
+    MM.q = q.value; const nq = norm(q.value);
+    const rows = mmSort(X.rows.filter(r => mmOk(r, nq, S)));
+    const show = rows.slice(0, MM.n);
+    const hidden = X.rows.filter(r => r.tg.includes('ob')).length;
+    out.innerHTML = `<div class="note trcount">${rows.length.toLocaleString()} of ${X.rows.length.toLocaleString()} methods${MM.ob || nq ? '' : ` (${hidden} not-profitable ones hidden)`}.${rows.some(r => r.pw == null) && MM.sort === 'profit' ? ' Methods with no wiki profit figure are last.' : ''}</div>
+      ${show.length ? `<div class="mmlist">${show.map(r => mmCard(r, S, false)).join('')}</div>` : '<div class="obempty"><div><b>No method matches.</b><div class="note">Clear a filter, lower the minimum profit, or change the search.</div></div></div>'}
+      ${rows.length > show.length ? `<div class="mmmore"><button type="button" class="btn" id="mmmore">Show ${Math.min(20, rows.length - show.length)} more <span class="cnt">${rows.length - show.length} left</span></button></div>` : ''}`;
+    mmBindCards(out, show, S);
+    const mb = $('#mmmore'); if (mb) mb.onclick = () => { MM.n += 20; const y = window.scrollY; draw(true); window.scrollTo(0, y); };
+    document.querySelectorAll('#mmc button').forEach(b => b.classList.toggle('on', b.dataset.v === MM.c));
+    $('#mmcatj').value = MM.c;
+  };
+  q.oninput = () => { clearTimeout(tmr); tmr = setTimeout(draw, 200); };
+  document.querySelectorAll('#mmc button').forEach(b => b.onclick = () => { MM.c = b.dataset.v; draw(); });
+  $('#mmcatj').onchange = e => { MM.c = e.target.value; draw(); };
+  $('#mmsk').onchange = e => { MM.sk = e.target.value; draw(); };
+  $('#mmmem').onchange = e => { MM.mem = e.target.value; draw(); };
+  $('#mmfit').onchange = e => { MM.fit = e.target.value; draw(); };
+  $('#mmsort').onchange = e => { MM.sort = e.target.value; draw(); };
+  $('#mmmin').oninput = e => { MM.minp = MM_MIN[+e.target.value]; $('#mmminv').textContent = MM.minp ? mmGp(MM.minp) : 'any'; draw(); };
+  document.querySelectorAll('#mmf button').forEach(b => b.onclick = () => { MM[b.dataset.v] = !MM[b.dataset.v]; b.classList.toggle('on', MM[b.dataset.v]); draw(); });
+  $('#trtop').onclick = $('#trtopb').onclick = () => window.scrollTo(0, 0);
+  draw();
+}
 async function aboutView() {
   const m = await get('data/meta.json');
   const cc = Object.entries(m.clue_counts).map(([t, o]) => `<tr><td>${esc(cap(t.replace('_', ' ')))}</td><td>${Object.entries(o).map(([k, v]) => `${TYPE_LABEL[k] || k} ${v}`).join(' · ')}</td></tr>`).join('');
@@ -1403,10 +1623,12 @@ async function aboutView() {
     ${m.gear ? `<b>Gear</b><span>${m.gear.items.toLocaleString()} items · ${m.gear.with_stats.toLocaleString()} with stats · ${m.gear.with_requirements.toLocaleString()} with requirements · ${m.gear.with_price.toLocaleString()} with a GE price</span>` : ''}
     ${m.secrets ? `<b>Secrets</b><span>${m.secrets.entries} easter eggs and hidden interactions still possible today · ${m.secrets.with_reward} give a reward · ${m.secrets.with_map} with map pins (${m.secrets.pins} pins) · ${m.secrets.past} ended ones listed separately</span>` : ''}
     ${m.training ? `<b>Training</b><span>${m.training.skills} skills · ${m.training.guides} wiki guides · ${m.training.cards.toLocaleString()} sections · ${m.training.cost.toLocaleString()} with costs or item prices · ${m.training.xph.toLocaleString()} with a stated xp/hour · ${m.training.maps} with map pins · ${m.training.pics.toLocaleString()} with a wiki picture</span>` : ''}
+    ${m.money ? `<b>Money making</b><span>${m.money.methods.toLocaleString()} methods from ${m.money.pages.toLocaleString()} wiki guide pages (+ ${m.money.list_pages} list pages) · ${m.money.with_profit.toLocaleString()} with a wiki profit figure · ${m.money.with_req_parsed.toLocaleString()} with requirements parsed to levels · ${m.money.with_maps} with a map pin · ${m.money.with_pic.toLocaleString()} with a wiki picture · ${m.money.obsolete} marked not profitable on the wiki</span>` : ''}
     ${m.ge ? `<b>GE prices</b><span>${m.ge.prices.toLocaleString()} items, as of ${esc(m.ge.date)} (${esc(m.ge.source)})</span>` : ''}</div>
     <div class="note" style="margin-top:8px">Rarity bands follow the wiki's drop tables (Module:DropsLine): Always, Common ≥ 1/16, Uncommon ≥ 1/64, Rare ≥ 1/256, Very rare below that.</div>
     <table style="margin-top:10px"><thead><tr><th>Tier</th><th>Clue types</th></tr></thead><tbody>${cc}</tbody></table></div>
   <div class="panel"><h2>Known gaps</h2><ul>
+    ${m.money ? `<li>Money making: every guide page in Category:Money making guides is included, built only from the wiki. Profits shown “per the wiki” use the wiki's own formula on its Grand Exchange data (${esc((m.ge && m.ge.date) || '')}); the estimate inside each method uses this app's prices and can differ. ${m.money.partly} guides have free-form layouts and are tagged “Partly parsed”; ${m.money.unresolved_templates} wiki templates could not be expanded and are shown as plain text; ${m.money.ge_missing_methods} methods use items with no GE price here; ${m.money.profit_not_stated} methods state no profit. “Find on map” appears only where the wiki gives coordinates (${m.money.with_maps} methods). Recurring methods (timed) show the wiki's per-hour-of-activity figure.</li>` : ''}
     <li>Pictures come from the wiki pages themselves: ${(m.coverage.quest_pictures_total || 0).toLocaleString()} quest pictures (steps, start NPCs and places) and location maps, entrances and teleports for monsters. A step the wiki shows no picture for gets the place or NPC picture it mentions, where the wiki has one. ${m.qpic_not_on_wiki ? `${m.qpic_not_on_wiki.toLocaleString()} picture names that quest pages mention do not exist as files on the wiki itself (mostly NPC chatheads), so nothing can be shown for those.` : ''}</li>
     <li>${m.spawn_maps ? `${m.spawn_maps.with_tiles.toLocaleString()} of ${m.spawn_maps.with_coords.toLocaleString()} monster spawn locations open an interactive map (drag, zoom, floors) built from the wiki's own map tiles, with the wiki's spawn point marked.` : ''} The wiki gives one spawn coordinate per place, so the other map layers the wiki can show (extra markers, routes, filters) are not reproduced, and the location pictures still show the wiki's red spawn dots.</li>
     ${m.icons_missing_names && m.icons_missing_names.length ? `<li>${m.icons_missing_names.length.toLocaleString()} item names have no icon because they are not single wiki items (for example “Nothing equipped…” rows), and ${m.icons_variant.toLocaleString()} names use the first variant icon of their wiki disambiguation page.${m.monster_images_missing_names && m.monster_images_missing_names.length ? ` The wiki has no picture for ${m.monster_images_missing_names.map(esc).join(' and ')}.` : ''}</li>` : ''}
