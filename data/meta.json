@@ -1,5 +1,5 @@
 {
- "built": "2026-10-25 23:31 EDT",
+ "built": "2026-10-25 23:59 EDT",
  "monsters": 1481,
  "drop_entries": 21768,
  "items": 3297,
@@ -127,7 +127,7 @@
   ]
  },
  "quests": {
-  "generated": "2026-10-25 23:28:23 EDT",
+  "generated": "2026-10-25 23:55:58 EDT",
   "questreq_master_list": 392,
   "stubs_page_missing": 9,
   "total": 404,
@@ -159,7 +159,7 @@
   "gear": 0,
   "all_items": 0
  },
- "drops_generated": "2026-10-25 23:27:38 EDT",
+ "drops_generated": "2026-10-25 23:55:22 EDT",
  "gear": {
   "items": 11424,
   "with_stats": 8354,
@@ -196,7 +196,7 @@
    "holiday": 251,
    "not_currently_obtainable": 4349,
    "discontinued_flag": 5574,
-   "seconds": 13
+   "seconds": 8
   }
  },
  "secrets": {
@@ -218,10 +218,52 @@
   "no_pic": [],
   "map_free": []
  },
+ "training": {
+  "skills": 29,
+  "cards": 961,
+  "cost": 537,
+  "maps": 12,
+  "pics": 255,
+  "xph": 201,
+  "req": 326,
+  "items": 719,
+  "guides": 50,
+  "by_skill": {
+   "Attack": 35,
+   "Strength": 35,
+   "Defence": 36,
+   "Constitution": 37,
+   "Ranged": 35,
+   "Prayer": 42,
+   "Magic": 54,
+   "Cooking": 40,
+   "Woodcutting": 43,
+   "Fletching": 39,
+   "Fishing": 30,
+   "Firemaking": 32,
+   "Crafting": 47,
+   "Smithing": 29,
+   "Mining": 47,
+   "Herblore": 13,
+   "Agility": 18,
+   "Thieving": 13,
+   "Slayer": 38,
+   "Farming": 23,
+   "Runecrafting": 37,
+   "Hunter": 26,
+   "Construction": 25,
+   "Summoning": 56,
+   "Dungeoneering": 39,
+   "Divination": 34,
+   "Invention": 19,
+   "Archaeology": 13,
+   "Necromancy": 26
+  }
+ },
  "ge": {
   "date": "21 October 2026 04:14:23 (UTC)",
   "source": "Module:GEPrices/data.json (RS3 wiki), saved in the wiki copy as ge_prices_2026-10-21.json",
   "prices": 7367
  },
- "clues_generated": "2026-10-25 23:28:12 EDT"
+ "clues_generated": "2026-10-25 23:55:49 EDT"
 }
