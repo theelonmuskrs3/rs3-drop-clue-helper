@@ -93,7 +93,7 @@ function setTab(t) { document.querySelectorAll('.tabs button').forEach(b => b.cl
 async function route() {
   const [tab, ...rest] = (location.hash.slice(1) || 'drops').split('/');
   let arg = ''; try { arg = rest.length ? decodeURIComponent(rest.join('/')) : ''; } catch (_) { arg = rest.join('/'); }
-  setTab(tab);
+  setTab(tab); document.body.classList.toggle('intrain', tab === 'train');
   try {
     if (tab === 'items') await itemsView(arg);
     else if (tab === 'clues') await cluesView(arg);
@@ -1239,25 +1239,33 @@ function trOk(c, g, nq) {
   if (nq) { const h = norm(c.t + ' ' + c.g + ' ' + (c.it || []).map(x => x[0]).join(' ') + ' ' + (c.rq || []).map(x => x[0]).join(' ') + ' ' + (c.q || []).join(' ') + ' ' + (c._tx || '')); if (!nq.split(' ').every(t => h.includes(t))) return false; }
   return true;
 }
+const trPhone = () => matchMedia('(max-width:640px)').matches;
 function trCard(c, g, skn, lvl, T) {
-  const fit = trFit(c, lvl);
+  const fit = trFit(c, lvl), ph = trPhone();
   const tags = [g.k === 'f2p' ? 'F2P' : g.k === 'both' ? 'F2P & members' : 'Members'].concat((c.tg || []).map(t => TR_TAG[t])).map(t => `<span class="tag">${esc(t)}</span>`).join('')
     + (fit ? '<span class="tag fit">Fits your level</span>' : '') + (c.mp ? '<span class="tag">Map pin</span>' : '') + (c.pt ? '<span class="tag warn">Partly on wiki</span>' : '');
   const pic = c.p ? `<img class="secpic" loading="lazy" src="${esc(c.p)}" alt="">` : (SKICONS[skn] ? `<img class="secpic skic" loading="lazy" src="${esc(SKICONS[skn])}" alt="">` : PH('✦', 40));
   const rate = c.xph ? `<span class="trx">${c.xph[1] > c.xph[0] ? trAbbr(c.xph[0]) + '–' + trAbbr(c.xph[1]) : trAbbr(c.xph[0])} xp/hr <i>(wiki)</i></span>` : '';
-  const rq = (c.rq || []).map(([s, l]) => { const have = (loadStats() || {})[s]; const ok = have != null && have >= l; return `<span class="tag ${have == null ? '' : ok ? 'ok' : 'no'}">${have != null ? (ok ? '✓ ' : '✗ ') : ''}${l} ${esc(s)}</span>`; }).join('')
+  const have = loadStats() || {};
+  const rq = (c.rq || []).map(([s, l]) => { const h = have[s]; const ok = h != null && h >= l; return `<span class="tag ${h == null ? '' : ok ? 'ok' : 'no'}">${h != null ? (ok ? '✓ ' : '✗ ') : ''}${l} ${esc(s)}</span>`; }).join('')
     + (c.q || []).map(q => `<a class="tag" href="#quests/${encodeURIComponent(q)}">Quest: ${esc(q)}</a>`).join('');
-  const items = (c.it || []).map(([n, ge, ic]) => `<a class="trit" href="#items/${encodeURIComponent(n)}">${ic ? `<img class="ico" loading="lazy" src="${esc(ic)}" alt="">` : PH('✦', 28)}<span>${esc(n)}</span>${ge ? `<b class="gp">${gp(ge)}</b>` : ''}</a>`).join('');
+  const its = c.it || [];
+  const items = its.map(([n, ge, ic]) => `<a class="trit" href="#items/${encodeURIComponent(n)}">${ic ? `<img class="ico" loading="lazy" src="${esc(ic)}" alt="">` : PH('✦', 28)}<span>${esc(n)}</span>${ge ? `<b class="gp">${gp(ge)}</b>` : ''}</a>`).join('');
+  const peek = its.slice(0, 5).map(([n, , ic]) => ic ? `<img class="ico" loading="lazy" src="${esc(ic)}" alt="">` : '').join('');
   const cn = (c.cn || []).length ? `<ul class="trcn">${c.cn.map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : '';
+  const cost1 = c.m && (c.cn || []).length ? `<span class="trcs">Cost: ${esc(c.cn[0].length > 90 ? c.cn[0].slice(0, 88) + '…' : c.cn[0])}</span>` : '';
+  const words = c.h.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  const stepsOpen = !ph && words < 220 ? ' open' : (ph && words < 45 ? ' open' : '');
+  const rangeTxt = trRange(c);
   return `<details class="sec tcard${fit ? ' fit' : ''}"><summary><div class="secpicw">${pic}</div>
-    <div class="sectxt"><b class="sect">${esc(c.t)}</b><span class="secd">${[trRange(c), rate].filter(Boolean).join(' · ')}${g.k === 'both' ? '' : ''}</span><span class="sectags">${tags}</span></div></summary>
+    <div class="sectxt"><b class="sect">${esc(c.t)}</b><span class="secd">${[rangeTxt, rate].filter(Boolean).join(' · ')}</span>${cost1}<span class="sectags">${tags}</span></div></summary>
     <div class="secbody">
-      ${c.m ? `<div class="wsec"><h4>Requirements</h4>${rq ? `<div class="secreq">${rq}</div><div class="note">As the wiki lists them for this method. ✓/✗ compares with the levels saved on this device.</div>` : '<div class="note">The wiki lists no skill or quest requirement for this method.</div>'}</div>` : ''}
-      ${items ? `<div class="wsec"><h4>Items &amp; prices</h4><div class="tritems">${items}</div><div class="note">Items the wiki links in this section. Prices are Grand Exchange prices in this app (tap an item for where to get it).</div></div>` : ''}
-      ${c.m && (cn || c.xph) ? `<div class="wsec"><h4>Costs &amp; experience</h4>${c.xph ? `<div class="note">Experience stated on the wiki: ${c.xph[1] > c.xph[0] ? c.xph[0].toLocaleString() + ' to ' + c.xph[1].toLocaleString() : c.xph[0].toLocaleString()} xp per hour.</div>` : ''}${cn}<div class="note">Quoted from the wiki text below; rates vary with boosts and play style.</div></div>` : ''}
-      <div class="wsec"><h4>${c.m ? 'Instructions (from the wiki)' : 'From the wiki'}</h4><div class="trbody">${c.h}</div>
-      ${c.pt ? '<div class="note">Part of this section is built from a wiki table or calculator that needs the wiki\'s live scripts, so it is not shown here. Open the wiki page for it.</div>' : ''}</div>
-      <div class="note"><a href="${esc(trWiki(g, c))}" target="_blank" rel="noopener noreferrer">${esc(g.t)} on the RS3 wiki ↗</a></div></div></details>`;
+      <div class="trmeta">${tags}</div>
+      ${c.m ? `<div class="wsec"><h4>Requirements</h4>${rq ? `<div class="secreq">${rq}</div>` : '<div class="note">The wiki lists no skill or quest requirement for this method.</div>'}</div>` : ''}
+      ${items ? `<details class="trsub"${!ph && its.length <= 8 ? ' open' : ''}><summary>Items &amp; prices <span class="cnt">${its.length}</span><span class="trpeek">${peek}</span></summary><div class="tritems">${items}</div></details>` : ''}
+      ${c.m && (cn || c.xph) ? `<div class="wsec"><h4>Costs &amp; experience</h4>${c.xph ? `<div class="note">Experience stated on the wiki: ${c.xph[1] > c.xph[0] ? c.xph[0].toLocaleString() + ' to ' + c.xph[1].toLocaleString() : c.xph[0].toLocaleString()} xp per hour.</div>` : ''}${cn}</div>` : ''}
+      <details class="trsub trsteps"${stepsOpen}><summary>${c.m ? 'Instructions from the wiki' : 'Wiki text'} <span class="cnt">${words} words</span></summary><div class="trbody">${c.h}</div></details>
+      <div class="note trsrcl"><a href="${esc(trWiki(g, c))}" target="_blank" rel="noopener noreferrer">${esc(g.t)} on the RS3 wiki ↗</a>${c.pt ? ' · part of this section is a live wiki table, not shown here' : ''}</div></div></details>`;
 }
 function trFilters(id) {
   const on = (k, v) => ' class="on"';
@@ -1303,11 +1311,14 @@ async function trainSkill(T, sk, gk) {
   const D = await get(`data/t/${sk.n}.json`), stats = loadStats() || {}, lvl = stats[sk.n] || 1, cap = sk.cap;
   let gi = D.g.findIndex(g => g.k === gk); if (gi < 0) { const pk = TR.gk[sk.n] || 'p2p'; D.g.forEach((g, i) => { if (g.k === pk && (gi < 0 || g.c.length > D.g[gi].c.length)) gi = i; }); } if (gi < 0) gi = 0;
   const gtab = D.g.length > 1 ? `<div class="chips" id="trg">${D.g.map((g, i) => `<button data-i="${i}"${i === gi ? ' class="on"' : ''}>${esc(g.t.replace(/ training$/i, ''))}<span class="cnt">${g.c.length}</span></button>`).join('')}</div>` : '';
-  view.innerHTML = `<div class="panel"><div class="trhead">${SKICONS[sk.n] ? `<img src="${esc(SKICONS[sk.n])}" alt="" width="40" height="40">` : ''}<div><h2>${esc(sk.n)} training</h2>
-      <div class="note"><a href="#train">← All skills</a> · Your level on this device: <b>${lvl}</b>${stats[sk.n] ? '' : ' (not saved yet)'} · <a href="#items/~stats">edit my levels</a></div></div></div>
-    <div class="note">From <span id="trsrc"></span>. Open a section for its requirements, items, costs and steps.</div>${gtab}</div>
+  view.innerHTML = `<div class="trbar" id="trbar"><a class="btn mini ghost" href="#train">← Skills</a><b class="trbn">${esc(sk.n)}</b><select id="trjump" aria-label="Jump to a level range or section"><option value="">Jump to…</option></select><button type="button" class="btn mini ghost" id="trtop" aria-label="Back to top">↑ Top</button></div>
+    <div class="panel trpanel"><div class="trhead">${SKICONS[sk.n] ? `<img src="${esc(SKICONS[sk.n])}" alt="" width="40" height="40">` : ''}<div><h2>${esc(sk.n)} training</h2>
+      <div class="note">Your level on this device: <b>${lvl}</b>${stats[sk.n] ? '' : ' (not saved yet)'} · <a href="#items/~stats">edit my levels</a></div></div></div>
+    <div class="note">From <span id="trsrc"></span>.</div>${gtab}
+    <details class="trhow"><summary>How to read these sections</summary><div class="note">Tap a section to open it. Items are the ones the wiki links in that section; prices are Grand Exchange prices in this app, and tapping an item shows where to get it. ✓/✗ compares a requirement with the levels saved on this device. Costs and xp/hr are quoted from the wiki text; rates vary with boosts and play style.</div></details></div>
     <div class="panel" id="trcalc"></div>
-    <div class="panel"><div class="row"><input id="trq2" type="search" placeholder="Search this guide…" value="${esc(TR.q)}" autocomplete="off" autocapitalize="off" spellcheck="false"></div>${trFilters('trs')}<div id="trout"></div></div>`;
+    <div class="panel trpanel"><div class="row"><input id="trq2" type="search" placeholder="Search this guide…" value="${esc(TR.q)}" autocomplete="off" autocapitalize="off" spellcheck="false"></div>${trFilters('trs')}<div id="trout"></div></div>
+    <button type="button" class="trtopb" id="trtopb" aria-label="Back to top">↑</button>`;
   const q = $('#trq2'), out = $('#trout'), calc = $('#trcalc');
   let g = D.g[gi], tmr = null;
   const drawCalc = () => {
@@ -1323,21 +1334,26 @@ async function trainSkill(T, sk, gk) {
     plan.sort((x, y) => x[0] - y[0] || x[1] - y[1]);
     const hrs = (xp, r) => { const h = xp / r; return h < 1 ? Math.round(h * 60) + ' min' : (h < 10 ? h.toFixed(1) : Math.round(h).toLocaleString()) + ' h'; };
     $('#trcalcout').innerHTML = `<div class="kv"><b>XP at level ${cur}</b><span>${a.toLocaleString()}</span><b>XP at level ${tg}</b><span>${b.toLocaleString()}</span><b>XP needed</b><span><b class="gp">${need.toLocaleString()}</b>${tg > cap ? ' <span class="note">(past the normal level ' + cap + ' cap: virtual levels)</span>' : ''}</span></div>
-      ${plan.length ? `<div class="tscroll"><table class="tt"><thead><tr><th>Wiki method</th><th>Levels</th><th>XP in range</th><th>Time at the wiki's stated rate</th></tr></thead><tbody>${plan.map(([lo, hi, c, xp]) => `<tr><td>${esc(c.t)}</td><td>${lo}–${hi}</td><td>${xp.toLocaleString()}</td><td>${c.xph[1] > c.xph[0] ? hrs(xp, c.xph[1]) + ' to ' + hrs(xp, c.xph[0]) : hrs(xp, c.xph[0])}</td></tr>`).join('')}</tbody></table></div>
-      <div class="note">Estimated: the XP between those levels (wiki XP table) divided by the xp/hour the method's wiki text states. Real speed depends on boosts, supplies and play style. Methods overlap, so use one per level range.</div>` : '<div class="note">This guide states no hourly rate for methods in that range.</div>'}`;
+      ${plan.length ? `<details class="trsub"${trPhone() ? '' : ' open'}><summary>Plan by wiki method <span class="cnt">${plan.length}</span></summary><ol class="trplan">${plan.map(([lo, hi, c, xp]) => `<li><b>Levels ${lo}–${hi}</b> <span>${esc(c.t)}</span><i>${xp.toLocaleString()} xp · about ${c.xph[1] > c.xph[0] ? hrs(xp, c.xph[1]) + ' to ' + hrs(xp, c.xph[0]) : hrs(xp, c.xph[0])}</i></li>`).join('')}</ol></details>
+      <div class="note">Estimated: XP between those levels (wiki XP table) ÷ the xp/hour the wiki states. Methods overlap, so use one per level range.</div>` : '<div class="note">This guide states no hourly rate for methods in that range.</div>'}`;
   };
   calc.innerHTML = `<h3>XP to a target level</h3><div class="row trcalcrow"><label>From level <input id="trc1" type="number" inputmode="numeric" min="1" max="${cap + 20}" value="${lvl}"></label><label>To level <input id="trc2" type="number" inputmode="numeric" min="2" max="${sk.el ? 150 : 120}" value="${Math.min(cap, Math.max(lvl + 1, 99))}"></label></div><div id="trcalcout"></div>
     <div class="note">XP table from the wiki's Experience page (${sk.el ? 'elite skill curve' : 'standard curve'}). Your saved level is only read, never changed.</div>`;
   const drawList = () => {
-    TR.q = q.value; const nq = norm(q.value); let n = 0, firstFit = null, lastG = null, h = '';
+    TR.q = q.value; const nq = norm(q.value), act = nq || TR.mem || TR.cheap || TR.profit || TR.afk || TR.fit;
+    const groups = []; let n = 0, firstFit = false;
     for (const c of g.c) {
       if (TR.fit && !trFit(c, lvl)) continue;
       if (!trOk(c, g, nq)) continue;
-      if (c.g !== lastG) { h += `<h3 class="trgh">${esc(c.g)}</h3>`; lastG = c.g; }
-      h += trCard(c, g, sk.n, lvl, T); n++;
-      if (!firstFit && trFit(c, lvl)) firstFit = true;
+      let G = groups[groups.length - 1]; if (!G || G.t !== c.g) groups.push(G = {t: c.g, cs: []});
+      G.cs.push(c); n++;
+      if (STATS_SAVED && stats[sk.n] && trFit(c, lvl)) { firstFit = true; G.fit = true; }
     }
-    out.innerHTML = `<div class="note" style="margin:8px 0">${n} of ${g.c.length} sections shown.${D.g.length > 1 && (TR.mem === 'f2p' && g.k === 'p2p' || TR.mem === 'p2p' && g.k === 'f2p') ? ' This guide is hidden by the Free-to-play / Members filter.' : ''}</div>${h || '<div class="obempty"><div><b>Nothing matches.</b><div class="note">Clear a filter or the search.</div></div></div>'}${firstFit ? '<div class="note">Sections marked “Fits your level” include level ' + lvl + '.</div>' : ''}`;
+    let openIdx = groups.findIndex(G => G.fit); if (openIdx < 0) openIdx = groups.findIndex(G => G.cs.some(c => c.m)); if (openIdx < 0) openIdx = 0;
+    const rng = G => { const m = G.cs.filter(c => c.m && c.lo != null); if (!m.length) return ''; const lo = Math.min(...m.map(c => c.lo)), hi = Math.max(...m.map(c => c.hi)); return lo === hi ? 'level ' + lo : 'levels ' + lo + '–' + hi; };
+    const h = groups.map((G, i) => `<details class="trgrp" id="trgrp${i}"${act || i === openIdx ? ' open' : ''}><summary><b>${esc(G.t)}</b><span class="cnt">${G.cs.length}</span>${rng(G) ? `<span class="trgr">${rng(G)}</span>` : ''}${G.fit ? '<span class="tag fit">Fits your level</span>' : ''}</summary><div class="trgb">${G.cs.map(c => trCard(c, g, sk.n, lvl, T)).join('')}</div></details>`).join('');
+    out.innerHTML = `<div class="note trcount">${n} of ${g.c.length} sections shown.${D.g.length > 1 && (TR.mem === 'f2p' && g.k === 'p2p' || TR.mem === 'p2p' && g.k === 'f2p') ? ' This guide is hidden by the Free-to-play / Members filter.' : ''}${act ? '' : ' Only one group is open to keep the page short; open the others below or use “Jump to”.'}</div>${h || '<div class="obempty"><div><b>Nothing matches.</b><div class="note">Clear a filter or the search.</div></div></div>'}${firstFit ? '<div class="note">Sections marked “Fits your level” include level ' + lvl + '.</div>' : ''}`;
+    const jump = $('#trjump'); if (jump) { jump.innerHTML = '<option value="">Jump to…</option>' + groups.map((G, i) => `<option value="${i}">${esc(G.t)}${rng(G) ? ' (' + rng(G) + ')' : ''}</option>`).join(''); }
   };
   const setG = i => {
     gi = i; g = D.g[i]; TR.gk[sk.n] = g.k;
@@ -1349,8 +1365,12 @@ async function trainSkill(T, sk, gk) {
   q.oninput = () => { clearTimeout(tmr); tmr = setTimeout(drawList, 150); };
   trBindFilters('trs', drawList);
   ['trc1', 'trc2'].forEach(id => $('#' + id).oninput = drawCalc);
+  const toTop = () => window.scrollTo(0, 0);
+  $('#trtop').onclick = toTop; $('#trtopb').onclick = toTop;
+  $('#trjump').onchange = e => { const el = document.getElementById('trgrp' + e.target.value); if (!el) return; el.open = true; el.scrollIntoView({block: 'start'}); e.target.value = ''; };
   setG(gi);
 }
+window.addEventListener('scroll', () => { const b = document.getElementById('trtopb'); if (b) b.classList.toggle('on', window.scrollY > 700); }, {passive: true});
 async function aboutView() {
   const m = await get('data/meta.json');
   const cc = Object.entries(m.clue_counts).map(([t, o]) => `<tr><td>${esc(cap(t.replace('_', ' ')))}</td><td>${Object.entries(o).map(([k, v]) => `${TYPE_LABEL[k] || k} ${v}`).join(' · ')}</td></tr>`).join('');
