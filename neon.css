@@ -932,3 +932,5 @@ body.intrain .trtopb.on{display:block}
 @media (max-width:360px){.trtile b{font-size:12px;letter-spacing:0}.trtile{padding:7px 6px;column-gap:6px}}
 @media (max-width:640px){.trcn{font-size:13px;line-height:1.4;padding-left:16px}.trsub>summary{letter-spacing:.08em}}
 @media (max-width:360px){.trsub>summary{font-size:11px;letter-spacing:.04em}}
+
+.rqrow{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.rqrow .tag{font-size:12px;text-transform:none;letter-spacing:0;text-decoration:none}.rqt{margin:6px 0;line-height:1.45}

@@ -582,6 +582,21 @@ function flagTags(D, n) {
   if (f & F.quest) t.push('Quest item');
   return t.map(x => `<span class="tag">${x}</span>`).join('');
 }
+/* Requirements block on item pages: the wiki equipment infobox/Equipment table skill levels (checked against this device's saved levels) plus the wiki's own requirement sentences from the item page */
+function itemReqBlock(g, d, page) {
+  const have = STATS_SAVED ? loadStats() || {} : null, ch = [];
+  const lvl = k => have ? lv(have, k) : null;
+  if (g) for (const [k, v] of Object.entries(g.req || {})) {
+    const L = lvl(k), cls = L == null ? '' : L >= v ? ' ok' : ' no';
+    ch.push(`<span class="tag rq${cls}" title="${L == null ? 'Save your levels in My stats to check this' : `Your ${esc(k)}: ${L}`}">${L == null ? '' : L >= v ? '✓ ' : '✗ '}${v} ${esc(k)}</span>`);
+  }
+  if (g && g.req_other) ch.push(`<span class="tag rq">${esc(g.req_other)}</span>`);
+  const qs = d && d.rqq ? d.rqq : [];
+  for (const q of qs) { const dn = qIsDone(q); ch.push(`<a class="tag rq${dn ? ' ok' : ''}" href="#quests/${encodeURIComponent(q)}">${dn ? '✓ ' : ''}Quest: ${esc(q)}</a>`); }
+  const txt = d && d.rq ? `<div class="note rqt">From the wiki (<a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">${esc(page)}</a>): “${esc(d.rq)}”</div>` : '';
+  if (!ch.length && !txt) return g ? '<h3>Requirements</h3><div class="note">The wiki lists no skill requirement for this item.</div>' : '';
+  return `<h3>Requirements</h3><div class="rqrow">${ch.join('')}</div>${have ? '' : (ch.some(c => c.includes('rq"') || c.includes('rq ')) && g && Object.keys(g.req || {}).length ? '<div class="note">Save your levels in My stats to see ✓ / ✗ for each skill.</div>' : '')}${txt}`;
+}
 async function itemDetail(D, name) {
   const i = D.row[name] ?? D.byPage[name]; if (i == null) return null;
   try { const sh = await get(`data/i/${Math.floor(i / D.ia.ch)}.json`); return sh[i % D.ia.ch] || null; } catch (e) { return null; }
@@ -621,6 +636,7 @@ async function itemsView(name) {
     view.innerHTML = `<div class="row" style="margin-bottom:10px"><a class="btn ghost" href="#items">← Items</a></div>
     <div class="panel"><div class="row">${icon(name)}<h2 style="margin:0">${esc(name)}</h2>${best[name] ? rarTag(best[name][0]) : ''}${flagTags(D, name)}</div>
     <div class="price">${v != null ? `Grand Exchange: <span class="gp">${gp(v)}</span> <span class="note">${asof}${d && d.gename ? ` · GE entry “${esc(d.gename)}”` : ''}</span>` : t === false ? '<span class="untr">Untradeable</span> <span class="note">(wiki item infobox)</span>' : `<span class="note">No Grand Exchange price in the ${esc(D.pr.date)} data.</span>`}</div>
+    ${itemReqBlock(g, d, page)}
     <div id="wtg"></div>
     ${d ? `<h3>Item info <a class="note" href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">[wiki: ${esc(page)}]</a></h3>${infoTable(d)}${obtainNote(d)}` : `<div class="note" style="margin-top:6px"><a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">Open “${esc(page)}” on the RS3 wiki</a></div>`}
     ${g ? `<h3>Equipment stats <a class="note" href="${WIKI(g.p)}" target="_blank" rel="noopener noreferrer">[wiki: ${esc(g.p)}]</a></h3>${statTable(g)}` : ''}
