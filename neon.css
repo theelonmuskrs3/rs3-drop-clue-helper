@@ -977,3 +977,23 @@ body.intrain #mmres .tcard{margin-bottom:8px}
 .glv i{opacity:.7;font-style:normal;font-size:.85em}
 .glmore{display:inline}.glmore>summary{display:inline;cursor:pointer;color:var(--accent,#e0b050)}
 .usedin details>summary,.wsec>details>summary{cursor:pointer}
+
+/* Gear filter (Items): collapsed panel with compact wrapped chips */
+.gfq{margin:8px 0 2px}
+.gfq .gfc{margin-top:6px;gap:6px}
+.gfp{margin-top:8px;border-top:1px solid #2a1d18;padding-top:6px}
+.gfp>summary{cursor:pointer;font-size:12.5px;gap:8px;flex-wrap:wrap}
+.gfs{font:600 12px var(--ui);letter-spacing:.04em;text-transform:none;color:#ffb4bd;margin-left:2px;min-width:0;overflow-wrap:anywhere}
+.gfl{font:700 11px var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin:8px 0 0}
+.gfq .chips button{font-size:11.5px;letter-spacing:.06em;padding:7px 10px}
+.gfq .chips .cnt{margin-left:3px;font-size:10.5px}
+.gfr{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:10px;font-size:13px}
+.gfr label{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.gfr select{width:auto;min-width:0;padding:6px 8px;font-size:14px}
+.gfw input{width:18px;height:18px;accent-color:#c8102e}
+.gfr .cnt{opacity:.6}
+.gfn{margin-top:8px;font-size:12px;line-height:1.45}
+@media (max-width:420px){
+  .row:has(>input[type=search]:only-child)>input[type=search]{font-size:15px;padding:13px 8px 13px 44px;background-position:13px 50%;background-size:20px}
+  .gfq .chips button{padding:6px 8px;font-size:11px}
+}

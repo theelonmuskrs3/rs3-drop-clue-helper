@@ -111,6 +111,7 @@ window.addEventListener('hashchange', route);
 
 /* ---------- search helper ---------- */
 function searchBox(id, ph, val = '') {
+  if (window.matchMedia && matchMedia('(max-width:420px)').matches && ph.length > 28) { const c = ph.slice(0, 27); ph = c.slice(0, Math.max(c.lastIndexOf(' '), 10)).replace(/[,:;\s]+$/, '') + '…'; }
   return `<div class="row"><input id="${id}" type="search" placeholder="${esc(ph)}" value="${esc(val)}" autocomplete="off" autocapitalize="off" spellcheck="false"></div>`;
 }
 function score(name, q, pre) {
@@ -276,7 +277,7 @@ async function itemData() {
   ia.rows.forEach((r, i) => { row[r[0]] = i; if (r[1]) IICONS[r[0]] = r[1] + '.webp'; const pg = r[4] || r[0]; if (byPage[pg] == null || pg === r[0]) byPage[pg] = i; });
   const names = [...new Set([...ia.rows.map(r => r[0]), ...Object.keys(items), ...Object.keys(gear), ...Object.keys(pr.prices)])];
   const tierN = {}; names.forEach(n => { tierN[n] = norm(n); });
-  return IDATA = {items, pr, gd, gear, best, names, tierN, ia, row, byPage, FL: ia.fl || {}, alias: {}};
+  return IDATA = {items, pr, gd, gear, best, names, tierN, ia, row, byPage, FL: ia.fl || {}, alias: {}, gi: new Map()};
 }
 const rowOf = (D, n) => { const i = D.row[n] ?? D.byPage[n]; return i == null ? null : D.ia.rows[i]; };
 const hasF = (D, n, k) => { const r = rowOf(D, n); return !!(r && D.FL[k] && (r[3] & D.FL[k])); };
@@ -649,22 +650,25 @@ async function itemsView(name) {
     return;
   }
   const o = sjson(sessionStorage, 'iopt', {q: '', rar: '', show: 'all', slot: '', sort: 'match', tr: '', mem: '', fl: ''});
+  const gf = gfLoad(), GS = loadStats();
+  let dragonSet = null; try { const dr = await get('data/obdragon.json'); dragonSet = new Set(dr.rows.map(r => D.ia.rows[r[0]][0])); } catch (e) {}
   if (sessionStorage.iq && !o.q) o.q = sessionStorage.iq;
   if (o.show === 'untr') { o.show = 'all'; o.tr = 'untr'; }
   const st = D.ia.stats || {};
   view.innerHTML = `${subnav('search')}<div class="panel"><h2>Find any item</h2>${searchBox('q', 'e.g. red partyhat, santa hat, abyssal whip…', o.q)}
+    ${gfHTML(gf, !!dragonSet)}
     <div class="chips" id="rar"><button data-v="">Any rarity</button>${RANK.map((r, i) => `<button data-v="${i}" class="r${i}">${r}</button>`).join('')}</div>
     <div class="row" style="margin-top:8px"><select id="show"><option value="all">All items</option><option value="drop">Dropped by something</option><option value="gear">Equipment (with stats)</option><option value="ge">On the Grand Exchange</option></select>
     <select id="tr"><option value="">Tradeable or not</option><option value="trade">Tradeable</option><option value="untr">Untradeable</option></select>
     <select id="mem"><option value="">Members &amp; free</option><option value="mem">Members</option><option value="f2p">Free-to-play</option></select>
     <select id="fl"><option value="">Any kind</option><option value="items">Items only (no cosmetic overrides)</option><option value="equip">Equipable</option><option value="quest">Quest items</option><option value="holiday">Holiday items (wiki category)</option><option value="disc">Discontinued / not currently obtainable</option><option value="limited">Limited time (wiki restriction)</option><option value="mtx">Treasure Hunter</option><option value="override">Cosmetic overrides</option></select>
-    <select id="slot"><option value="">Any slot</option>${SLOT_ORDER.map(s => `<option value="${s}">${SLOT_LABEL[s]}</option>`).join('')}</select>
     <select id="sort"><option value="match">Best match</option><option value="name">Name A–Z</option><option value="price">GE price, high → low</option><option value="pricel">GE price, low → high</option><option value="common">Rarity, common first</option><option value="rare">Rarity, rarest first</option><option value="tier">Tier, high → low</option></select></div>
     <div class="note" style="margin-top:6px">${D.names.length.toLocaleString()} items: every item page of the RS3 wiki copy (${(st.items || 0).toLocaleString()} item infobox entries incl. versions, ${(st.overrides || 0).toLocaleString()} cosmetic overrides), ${Object.keys(items).length.toLocaleString()} in drop tables, ${D.gd.gear.length.toLocaleString()} equipment pieces with stats, ${Object.keys(D.pr.prices).length.toLocaleString()} with a GE price. Prices ${asof}, from the wiki's GE price data.
     Rarity is an item's best drop chance across all its sources, banded the way the wiki colours drop tables (Always; Common ≥ 1/16; Uncommon ≥ 1/64; Rare ≥ 1/256; Very rare below that).</div><div id="res" class="list"></div></div>`;
   const q = $('#q'), out = $('#res');
-  ['show', 'tr', 'mem', 'fl', 'slot', 'sort'].forEach(k => { $('#' + k).value = o[k]; });
+  ['show', 'tr', 'mem', 'fl', 'sort'].forEach(k => { $('#' + k).value = o[k]; });
   const F = D.FL;
+  let lim = 24;
   const fl = n => { const r = rowOf(D, n); return r ? r[3] : 0; };
   const draw = () => {
     o.q = q.value; sessionStorage.iopt = JSON.stringify(o); sessionStorage.iq = q.value;
@@ -695,26 +699,107 @@ async function itemsView(name) {
     if (o.fl === 'items') hits = hits.filter(([, n]) => !(fl(n) & F.override));
     else if (o.fl === 'equip') hits = hits.filter(([, n]) => fl(n) & F.equip || gear[n]);
     else if (o.fl) hits = hits.filter(([, n]) => fl(n) & F[o.fl]);
-    if (o.slot) hits = hits.filter(([, n]) => gear[n] && gear[n].slot === o.slot);
+    /* gear filter: dragon chip, then class / slot / tier / wearable; counts on every chip are taken from the list before its own group is applied */
+    const nDr = dragonSet ? hits.filter(([, n]) => dragonSet.has(n)).length : 0;
+    if (gf.dragon && dragonSet) hits = hits.filter(([, n]) => dragonSet.has(n));
+    const gi = n => gearInfo(D, n);
+    gfRefresh(hits.map(([, n]) => gi(n)), nDr);
+    if (gfActive(gf)) hits = hits.filter(([, n]) => gfPass(gi(n), gf, GS));
     const P = n => priceOf(D, n), B = n => best[n] ? best[n][1] : null;
     const so = {match: (a, b) => b[0] - a[0] || a[1].localeCompare(b[1]), name: (a, b) => a[1].localeCompare(b[1]), price: (a, b) => (P(b[1]) ?? -1) - (P(a[1]) ?? -1),
       pricel: (a, b) => (P(a[1]) ?? 1e15) - (P(b[1]) ?? 1e15), common: (a, b) => (B(b[1]) ?? -1) - (B(a[1]) ?? -1), rare: (a, b) => (B(a[1]) ?? 9) - (B(b[1]) ?? 9),
       tier: (a, b) => ((gear[b[1]] || {}).tier ?? -1) - ((gear[a[1]] || {}).tier ?? -1)};
-    if (!nq && o.sort === 'match' && o.rar === '' && o.show === 'all' && !o.slot && !o.tr && !o.mem && !o.fl) { out.innerHTML = '<div class="note">Start typing an item name, or pick a rarity, filter or sort to browse.</div><div id="drgstrip"></div>'; dragonStrip(D, $('#drgstrip')); return; }
-    hits.sort(so[o.sort] || so.match);
-    const n0 = hits.length; hits = hits.slice(0, 100);
-    out.innerHTML = `<div class="note">${n0.toLocaleString()} match${n0 === 1 ? '' : 'es'}${n0 > 100 ? ', showing the first 100' : ''}.</div>` + hits.map(([, n]) => {
-      const g = gear[n], b = best[n], src = dropsOf(D, n);
-      return `<a class="hit" href="#items/${encodeURIComponent(n)}">${icon(n)}<span>${esc(n)}${g && g.tier != null ? ` <span class="tag">T${g.tier}</span>` : ''}${g && g.slot ? ` <span class="tag">${esc(SLOT_LABEL[g.slot] || g.slot)}</span>` : ''}${flagTags(D, n)}</span>
+    const none = !nq && !gfActive(gf) && !gf.dragon && o.rar === '' && o.show === 'all' && !o.tr && !o.mem && !o.fl;
+    const tierD = (a, b) => ((gear[b[1]] || {}).tier ?? -1) - ((gear[a[1]] || {}).tier ?? -1);
+    /* default order with no search text: tier first when a gear filter is on, then GE price, high to low */
+    const dflt = (a, b) => (gfActive(gf) ? tierD(a, b) : 0) || (P(b[1]) ?? -1) - (P(a[1]) ?? -1) || a[1].localeCompare(b[1]);
+    hits.sort(!nq && o.sort === 'match' ? dflt : so[o.sort] || so.match);
+    const n0 = hits.length; hits = hits.slice(0, lim);
+    out.innerHTML = `<div class="note">${none ? 'No filter picked: showing the most valuable items by Grand Exchange price. Type a name, or choose a class, slot, tier or other filter, to narrow it down. ' : ''}${n0.toLocaleString()} match${n0 === 1 ? '' : 'es'}${n0 > lim ? `, showing ${lim}` : ''}.</div>` + (n0 ? '' : '<div class="obempty"><div><b>No items match.</b><div class="note">Loosen a filter, or use “Clear gear filter”.</div></div></div>') + hits.map(([, n]) => {
+      const g = gear[n], b = best[n], src = dropsOf(D, n), gv = gi(n), cl = gv && gv.c !== 'unc' && gv.c !== 'none' ? GF_CLS.find(c => c[0] === gv.c)[1] : '';
+      return `<a class="hit" href="#items/${encodeURIComponent(n)}">${icon(n)}<span>${esc(n)}${g && g.tier != null ? ` <span class="tag">T${g.tier}</span>` : ''}${cl ? ` <span class="tag">${cl}</span>` : ''}${g && g.slot ? ` <span class="tag">${esc(SLOT_LABEL[g.slot] || g.slot)}</span>` : ''}${flagTags(D, n)}</span>
         <span class="meta">${b ? rarTag(b[0]) : ''}${priceTag(D, n)}${src ? `<div>${src.length} source${src.length === 1 ? '' : 's'}</div>` : ''}</span></a>`;
-    }).join('');
+    }).join('') + (n0 > lim ? '<div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="more">Show more</button></div>' : '');
+    const m = $('#more'); if (m) m.onclick = () => { lim += 48; draw(); };
   };
+  const redraw = () => { lim = 24; draw(); };
+  const gfRefresh = gfBind(D, gf, GS, redraw);
   let tmr = null;
-  q.oninput = () => { clearTimeout(tmr); tmr = setTimeout(draw, 150); };
-  document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; draw(); });
-  ['show', 'tr', 'mem', 'fl', 'slot', 'sort'].forEach(k => { $('#' + k).onchange = e => { o[k] = e.target.value; draw(); }; });
+  q.oninput = () => { clearTimeout(tmr); tmr = setTimeout(redraw, 150); };
+  document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; redraw(); });
+  ['show', 'tr', 'mem', 'fl', 'sort'].forEach(k => { $('#' + k).onchange = e => { o[k] = e.target.value; redraw(); }; });
   draw(); q.focus();
 }
+
+/* ---------- Gear class filter (Items tab): class, slot, tier range, "wearable with my stats", all from the RS3 wiki's Infobox Bonuses (data/gear.json) ----------
+   class = the wiki's own `class` field of Infobox Bonuses ("All" and "Hybrid" are both the wiki's Hybrid armour class); where that field is missing or "none" the
+   wiki's Melee / Ranged / Magic / Necromancy / Hybrid armour class pages (ArmourOverviewTable) are the fallback (g.cc); nothing is guessed from an item name. */
+const GF_CLS = [['melee', 'Melee'], ['ranged', 'Ranged'], ['magic', 'Magic'], ['necromancy', 'Necromancy'], ['hybrid', 'Hybrid'], ['none', 'No class'], ['unc', 'Unclassified']];
+const GF_SLOT = [['head', 'Head', ['head']], ['body', 'Body', ['body']], ['legs', 'Legs', ['legs']], ['hands', 'Gloves', ['hands']], ['feet', 'Boots', ['feet']], ['cape', 'Cape', ['cape']],
+  ['neck', 'Neck', ['neck']], ['ring', 'Ring', ['ring']], ['ammo', 'Ammo', ['ammo']], ['weapon', 'Weapon', ['main', '2h']], ['offw', 'Off-hand weapon', ['offw']], ['shield', 'Shield', ['off']],
+  ['pocket', 'Pocket', ['pocket']], ['aura', 'Aura', ['aura']]];
+const GF_SLOTSET = Object.fromEntries(GF_SLOT.map(([k, , ss]) => [k, ss])), GF_SLOTKEY = {}; GF_SLOT.forEach(([k, , ss]) => ss.forEach(x => { GF_SLOTKEY[x] = k; }));
+const GF_TIERS = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 92, 95, 99];
+const GF_DEF = {cls: '', slot: '', tmin: '', tmax: '', wear: false, dragon: false};
+function gearInfo(D, n, pg) {
+  let v = D.gi.get(n); if (v !== undefined) return v;
+  const g = D.gear[n] || (pg ? D.gear[pg] : null) || (() => { const r = rowOf(D, n); return r && r[4] ? D.gear[r[4]] : null; })();
+  if (g) {
+    const k = g.cls === 'all' ? 'hybrid' : g.cls;
+    const c = ['melee', 'ranged', 'magic', 'necromancy', 'hybrid'].includes(k) ? k : g.cc ? g.cc : k === 'none' ? 'none' : 'unc';
+    v = {c, s: g.slot || null, t: g.tier ?? null, g};
+  } else { const r = rowOf(D, n); v = r && (r[3] & D.FL.equip) && !(r[3] & D.FL.override) ? {c: 'unc', s: null, t: null, g: null} : null; }
+  D.gi.set(n, v); return v;
+}
+const gfActive = f => !!(f.cls || f.slot || f.tmin || f.tmax || f.wear);
+function gfPass(v, f, S, skip) {
+  if (!v) return false;
+  if (skip !== 'c' && f.cls && v.c !== f.cls) return false;
+  if (skip !== 's' && f.slot && !GF_SLOTSET[f.slot].includes(v.s)) return false;
+  if (skip !== 't' && (f.tmin || f.tmax)) { if (v.t == null || (f.tmin && v.t < +f.tmin) || (f.tmax && v.t > +f.tmax)) return false; }
+  if (skip !== 'w' && f.wear && !(v.g && reqMet(v.g, S))) return false;
+  return true;
+}
+function gfHTML(f, withDragon) {
+  const tier = id => `<select id="${id}" aria-label="${id === 'gtmin' ? 'Lowest tier' : 'Highest tier'}"><option value="">${id === 'gtmin' ? 'Any' : 'Any'}</option>${GF_TIERS.map(t => `<option value="${t}">${t}</option>`).join('')}</select>`;
+  return `<div class="gfq">${withDragon ? '<div class="chips gfc" id="gfset"><button type="button" id="gfd" class="drgchip" title="Dragon gear: the RS3 wiki items of the Dragon category">Dragon gear <span class="cnt"></span></button></div>' : ''}
+    <details class="gfp" id="gfp"${gfActive(f) ? ' open' : ''}><summary><span>Gear filter</span><span class="gfs" id="gfs"></span></summary>
+    <div class="gfl">Class</div><div class="chips gfc" id="gfc">${GF_CLS.map(([k, l]) => `<button type="button" data-k="${k}">${l} <span class="cnt"></span></button>`).join('')}</div>
+    <div class="gfl">Slot</div><div class="chips gfc" id="gfsl">${GF_SLOT.map(([k, l]) => `<button type="button" data-k="${k}">${l} <span class="cnt"></span></button>`).join('')}</div>
+    <div class="gfr"><label>Tier ${tier('gtmin')} to ${tier('gtmax')}</label><label class="gfw"><input type="checkbox" id="gfw"> Wearable with my stats <span class="cnt" id="gfwc"></span></label><button type="button" class="btn ghost" id="gfx">Clear gear filter</button></div>
+    <div class="note gfn" id="gfn"></div></details></div>`;
+}
+/* wires the panel; returns refresh(infos): updates every chip count (each count ignores its own group, so you see what a click would give) */
+function gfBind(D, f, S, onChange, dragonSet) {
+  const $$ = q => document.querySelectorAll(q);
+  const save = () => { try { sessionStorage.gfopt = JSON.stringify(f); } catch (e) {} };
+  $('#gtmin').value = f.tmin; $('#gtmax').value = f.tmax; $('#gfw').checked = !!f.wear;
+  $$('#gfc button').forEach(b => b.onclick = () => { f.cls = f.cls === b.dataset.k ? '' : b.dataset.k; save(); onChange(); });
+  $$('#gfsl button').forEach(b => b.onclick = () => { f.slot = f.slot === b.dataset.k ? '' : b.dataset.k; save(); onChange(); });
+  $('#gtmin').onchange = e => { f.tmin = e.target.value; if (f.tmin && f.tmax && +f.tmin > +f.tmax) f.tmax = f.tmin; $('#gtmax').value = f.tmax; save(); onChange(); };
+  $('#gtmax').onchange = e => { f.tmax = e.target.value; if (f.tmin && f.tmax && +f.tmin > +f.tmax) f.tmin = f.tmax; $('#gtmin').value = f.tmin; save(); onChange(); };
+  $('#gfw').onchange = e => { f.wear = e.target.checked; save(); onChange(); };
+  $('#gfx').onclick = () => { f.cls = f.slot = f.tmin = f.tmax = ''; f.wear = false; $('#gtmin').value = $('#gtmax').value = ''; $('#gfw').checked = false; save(); onChange(); };
+  const gd = $('#gfd'); if (gd) gd.onclick = () => { f.dragon = !f.dragon; save(); onChange(); };
+  return (infos, nDragon) => {
+    const cc = {}, sc = {}; let wc = 0;
+    for (const v of infos) {
+      if (!v) continue;
+      if (gfPass(v, f, S, 'c')) cc[v.c] = (cc[v.c] || 0) + 1;
+      if (v.s && gfPass(v, f, S, 's')) { const k = GF_SLOTKEY[v.s]; if (k) sc[k] = (sc[k] || 0) + 1; }
+      if (v.g && reqMet(v.g, S) && gfPass(v, f, S, 'w')) wc++;
+    }
+    $$('#gfc button').forEach(b => { b.classList.toggle('on', f.cls === b.dataset.k); b.querySelector('.cnt').textContent = (cc[b.dataset.k] || 0).toLocaleString(); });
+    $$('#gfsl button').forEach(b => { b.classList.toggle('on', f.slot === b.dataset.k); b.querySelector('.cnt').textContent = (sc[b.dataset.k] || 0).toLocaleString(); });
+    $('#gfwc').textContent = wc.toLocaleString();
+    if (gd) { gd.classList.toggle('on', !!f.dragon); gd.querySelector('.cnt').textContent = (nDragon || 0).toLocaleString(); }
+    const parts = [f.dragon ? 'Dragon gear' : '', f.cls ? (GF_CLS.find(c => c[0] === f.cls) || [])[1] : '', f.slot ? (GF_SLOT.find(c => c[0] === f.slot) || [])[1] : '',
+      f.tmin || f.tmax ? `Tier ${f.tmin || 'any'}–${f.tmax || 'any'}` : '', f.wear ? 'Wearable' : ''].filter(Boolean);
+    $('#gfs').textContent = parts.length ? parts.join(' · ') : 'any class, slot or tier';
+    $('#gfn').innerHTML = `Class is the “class” field of each item's wiki equipment infobox (Hybrid = the wiki's “Hybrid” and “All” armour, which it treats as one class). “No class” = the wiki states class none (cosmetics, tools…). “Unclassified” = equipable items whose wiki page states no class. Where the infobox gives none, the wiki's own class pages (Melee, Ranged, Magic, Necromancy, Hybrid armour) are used. “Wearable” checks skill levels only (${STATS_SAVED ? 'your saved levels' : 'no levels saved on this device, so the starting levels; <a href="#items/~stats">enter yours</a>'}), not quests or unlocks.`;
+  };
+}
+const gfLoad = () => ({...GF_DEF, ...sjson(sessionStorage, 'gfopt', GF_DEF)});
 
 /* ---------- Obtainable: items the RS3 wiki does not mark discontinued / unobtainable / deleted (data/ob.json, from extract_obtainable.py) ----------
    rows [iall row, category bits, how-to-obtain text quoted from the wiki page, which part of the page it came from, extras{sh shops, dr drops, rc recipe skills, rf facility, rq2 wear reqs, only, pic, g dragon stats}] */
@@ -731,19 +816,12 @@ function gStat(g) {
   const t = [g.tier != null ? `T${g.tier}` : '', g.cls ? cap(g.cls) : '', g.slot ? SLOT_LABEL[g.slot] || g.slot : '', g.type ? cap(g.type) : '', g.damage != null ? `Damage ${g.damage}` : '', g.accuracy != null ? `Accuracy ${g.accuracy}` : '', g.armour != null ? `Armour ${g.armour}` : '', g.strength ? `Strength +${g.strength}` : ''].filter(Boolean);
   return t.length ? `<div class="obstat">${t.map(x => `<span>${esc(x)}</span>`).join('')}</div>` : '';
 }
-async function dragonStrip(D, el) {
-  if (!el) return;
-  let dr; try { dr = await get('data/obdragon.json'); } catch (e) { return; }
-  const L = dragonPick(D, dr.rows, 8); if (!L.length || !el.isConnected) return;
-  el.innerHTML = `<div class="drgbox"><div class="drghead"><span class="drgt">${L[0] ? obPic(L[0][4], D.ia.rows[L[0][0]][0], "drgmini") : ""}Dragon gear</span><a class="btn sub" href="#items/~dragon">See all ${dr.rows.length} dragon items →</a></div>
-    <div class="drgrow">${L.map(r => { const n = D.ia.rows[r[0]][0], v = priceOf(D, n); return `<a class="drgcard" href="#items/${encodeURIComponent(n)}">${obPic(r[4], n, 'drgpic')}<b>${esc(n)}</b>${gStat(r[4].g)}<span class="${v != null ? 'gp' : 'untr'}">${v != null ? gp(v) : 'no GE price'}</span></a>`; }).join('')}</div>
-    <div class="note">Pictures, stats and prices from the RS3 wiki (GE ${esc(D.pr.date)}).</div></div>`;
-}
 async function obtainView(cat0) {
   const [D, OB] = await Promise.all([itemData(), get('data/ob.json')]);
   const B = OB.bits, CL = Object.fromEntries(OB.cats), F = D.FL;
   const COOL = B.cape | B.override | B.outfit | B.pet | B.event | B.achieve | B.dragon;
   const o = sjson(sessionStorage, 'obopt', {mode: 'money', cat: '', q: '', tr: '', mem: '', eq: '', hol: '', rar: '', only: '', sort: ''});
+  const gf = gfLoad(), GS = loadStats();
   if (cat0) { o.cat = cat0; o.mode = 'cool'; o.q = ''; }
   const st = OB.stats || {}, ex = st.excluded || {};
   const nEx = Object.entries(ex).filter(([k]) => !/^no GE price/.test(k)).reduce((a, [, v]) => a + v, 0);
@@ -755,6 +833,7 @@ async function obtainView(cat0) {
     <div class="note">${OB.rows.length.toLocaleString()} items and cosmetics you can still get, from the RS3 wiki copy (${esc(OB.snap)}). Left out: ${nEx.toLocaleString()} entries the wiki marks discontinued, currently unobtainable, deleted/removed, hidden, “Unobtainable items” or with a removal date, plus ${dung.toLocaleString()} Daemonheim-only items (they can't leave Daemonheim). Quest-only and minigame-only items are tagged and hidden unless you ask for them. “How to get it” is quoted from each item's wiki page.</div></div></div>
     <div class="chips obmode" id="mode"><button data-v="money">Worth money</button><button data-v="cool">Cosmetically cool</button></div>
     ${searchBox('q', 'Search obtainable items, e.g. veteran cape, dragon, pet, partyhat…', o.q)}
+    ${gfHTML(gf, false)}
     <div class="chips" id="cat"><button data-v="">All categories</button>${OB.cats.map(([c, l]) => `<button data-v="${c}" class="${c === 'dragon' ? 'drgchip' : ''}">${esc(l)} <span class="cnt">${(cnt[c] || 0).toLocaleString()}</span></button>`).join('')}</div>
     <div class="chips" id="rar"><button data-v="">Any rarity</button>${RANK.map((r, i) => `<button data-v="${i}" class="r${i}">${r}</button>`).join('')}</div>
     <div class="row" style="margin-top:8px">
@@ -793,6 +872,9 @@ async function obtainView(cat0) {
       if (nq) { s = score(n, nq); if (s < 0) { if (!norm(r[2]).includes(nq)) continue; s = -50; } }
       L.push([s, r]);
     }
+    const gI = L.map(([, r]) => gearInfo(D, name(r), D.ia.rows[r[0]][4]));
+    gfRefresh(gI);
+    if (gfActive(gf)) L = L.filter((_, i) => gfPass(gI[i], gf, GS));
     const P = r => D.ia.rows[r[0]][2];
     const sort = o.sort || (o.mode === 'money' ? 'price' : 'pic');
     const cmp = {price: (a, b) => (P(b) ?? -1) - (P(a) ?? -1), pricel: (a, b) => (P(a) ?? 1e15) - (P(b) ?? 1e15), name: (a, b) => name(a).localeCompare(name(b)),
@@ -810,6 +892,7 @@ async function obtainView(cat0) {
   let tmr = null;
   q.oninput = () => { clearTimeout(tmr); lim = 48; tmr = setTimeout(draw, 150); };
   const reset = () => { lim = 48; draw(); };
+  const gfRefresh = gfBind(D, gf, GS, reset);
   document.querySelectorAll('#mode button').forEach(b => b.onclick = () => { o.mode = b.dataset.v; o.cat = ''; reset(); });
   document.querySelectorAll('#cat button').forEach(b => b.onclick = () => { o.cat = o.cat === b.dataset.v ? '' : b.dataset.v; reset(); });
   document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; reset(); });
@@ -859,6 +942,7 @@ async function discView() {
   const [D, OB] = await Promise.all([itemData(), get('data/obdisc.json')]);
   const B = OB.bits, F = D.FL;
   const o = sjson(sessionStorage, 'dcopt', {q: '', cat: '', g: '', pr: '', tr: '', mem: '', eq: '', hol: '', rar: '', sort: 'price'});
+  const gf = gfLoad(), GS = loadStats();
   const name = r => D.ia.rows[r[0]][0];
   const cnt = {}; OB.rows.forEach(r => { for (const [c] of OB.cats) if (r[1] & B[c]) cnt[c] = (cnt[c] || 0) + 1; });
   const nPrice = OB.rows.filter(r => D.ia.rows[r[0]][2] != null).length, nRel = OB.rows.filter(r => r[4].rel).length, nRem = OB.rows.filter(r => r[4].rem).length;
@@ -868,6 +952,7 @@ async function discView() {
   view.innerHTML = `${subnav('disc')}<div class="panel obpanel"><div class="obhero"><div class="obhpics">${pics.map(r => obPic(r[4], name(r), 'obhpic')).join('')}</div><div><h2>Discontinued items</h2>
     <div class="note">${OB.rows.length.toLocaleString()} items and cosmetics the RS3 wiki itself marks gone: ${gc.unob.toLocaleString()} “unobtainable”, ${gc.disc.toLocaleString()} “discontinued”, ${gc.del.toLocaleString()} deleted / removed / hidden or with a removal date. Partyhats, Santa hats, Halloween masks, holiday and event items live here. They are the entries left out of Obtainable. ${nRel.toLocaleString()} have a release date and ${nRem.toLocaleString()} a removal date on the wiki; ${nPrice.toLocaleString()} have a Grand Exchange price (${esc(D.pr.date)}). Everything shown is the wiki's own wording (${esc(OB.snap)} copy).</div></div></div>
     ${searchBox('q', 'Search discontinued items, e.g. red partyhat, santa, h\'ween mask, easter…', o.q)}
+    ${gfHTML(gf, false)}
     <div class="chips" id="cat"><button data-v="">All categories</button>${OB.cats.map(([c, l]) => `<button data-v="${c}">${esc(l)} <span class="cnt">${(cnt[c] || 0).toLocaleString()}</span></button>`).join('')}</div>
     <div class="chips" id="rar"><button data-v="">Any rarity</button>${RANK.map((r, i) => `<button data-v="${i}" class="r${i}">${r}</button>`).join('')}</div>
     <div class="row" style="margin-top:8px">
@@ -905,6 +990,9 @@ async function discView() {
       if (nq) { s = score(n, nq); if (s < 0) { if (!norm(ir[4] || '').includes(nq) && !norm(r[2]).includes(nq)) continue; s = -50; } }
       L.push([s, r]);
     }
+    const gI = L.map(([, r]) => gearInfo(D, name(r), D.ia.rows[r[0]][4]));
+    gfRefresh(gI);
+    if (gfActive(gf)) L = L.filter((_, i) => gfPass(gI[i], gf, GS));
     const P = r => D.ia.rows[r[0]][2];
     const tie = (a, b) => (b[4].pic ? 1 : 0) - (a[4].pic ? 1 : 0) || name(a).localeCompare(name(b));
     const cmp = {price: (a, b) => (P(b) ?? -1) - (P(a) ?? -1) || tie(a, b), pricel: (a, b) => (P(a) ?? 1e15) - (P(b) ?? 1e15) || tie(a, b), name: (a, b) => name(a).localeCompare(name(b)),
@@ -920,6 +1008,7 @@ async function discView() {
   let tmr = null;
   q.oninput = () => { clearTimeout(tmr); lim = 48; tmr = setTimeout(draw, 150); };
   const reset = () => { lim = 48; draw(); };
+  const gfRefresh = gfBind(D, gf, GS, reset);
   document.querySelectorAll('#cat button').forEach(b => b.onclick = () => { o.cat = o.cat === b.dataset.v ? '' : b.dataset.v; reset(); });
   document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; reset(); });
   ['g', 'pr', 'tr', 'mem', 'eq', 'hol', 'sort'].forEach(k => { $('#' + k).onchange = e => { o[k] = e.target.value; reset(); }; });
@@ -933,16 +1022,25 @@ async function allView() {
   if (!D.nameN) { D.nameN = rows.map(r => norm(r[0])); D.nameC = D.nameN.map(n => n.replace(/ /g, '')); D.pageN = rows.map(r => r[4] ? norm(r[4]) : ''); }
   const F = D.FL;
   let sq = ''; try { sq = sessionStorage.alq || ''; } catch (e) {}
+  const gf = gfLoad(), GS = loadStats();
   view.innerHTML = `${subnav('all')}<div class="panel"><h2>Search all items</h2>
     ${searchBox('q', 'Any item, any state: e.g. red partyhat, h\'ween mask, abyssal whip, a quest item, a Daemonheim item…', sq)}
-    <div class="row" style="margin-top:6px"><button class="btn ghost" id="clr">Clear</button><span class="note">No filters apply here: every one of the ${TOT.toLocaleString()} entries of the RS3 wiki item list is searched, including Daemonheim-only, quest-only, discontinued, cosmetic-override, untradeable and no-GE-price items. Names, the wiki page title and the wiki's own redirects (alternative names) are matched.</span></div>
+    ${gfHTML(gf, false)}
+    <div class="row" style="margin-top:6px"><button class="btn ghost" id="clr">Clear</button><span class="note">No section, category or other filter applies here (only the optional gear filter above narrows the list): every one of the ${TOT.toLocaleString()} entries of the RS3 wiki item list is searched, including Daemonheim-only, quest-only, discontinued, cosmetic-override, untradeable and no-GE-price items. Names, the wiki page title and the wiki's own redirects (alternative names) are matched.</span></div>
     <div class="note" id="cnt" style="margin:8px 0"></div><div id="res" class="list"></div><div id="more"></div></div>`;
   const q = $('#q'), out = $('#res'), cnt = $('#cnt'), more = $('#more');
-  let hits = [], lim = 60, seq = 0;
+  let hits = [], hitsAll = [], lim = 60, seq = 0;
+  const gInfo = i => gearInfo(D, rows[i][0], rows[i][4]);
+  const gfRefresh = gfBind(D, gf, GS, () => run());
   const run = async () => {
     const my = ++seq, nq = norm(q.value); try { sessionStorage.alq = q.value; } catch (e) {}
     lim = 60;
-    if (!nq) { hits = []; cnt.textContent = `Type to search all ${TOT.toLocaleString()} items.`; out.innerHTML = ''; more.innerHTML = ''; return; }
+    if (!nq) {
+      const ix = rows.map((_, i) => i);
+      if (!gfActive(gf)) { hits = hitsAll = []; gfRefresh(ix.map(gInfo)); cnt.textContent = `Type to search all ${TOT.toLocaleString()} items, or open the gear filter to browse by class, slot or tier.`; out.innerHTML = ''; more.innerHTML = ''; return; }
+      hitsAll = ix.filter(i => gInfo(i)).sort((a, b) => (gInfo(b).t ?? -1) - (gInfo(a).t ?? -1) || D.nameN[a].localeCompare(D.nameN[b]) || a - b);
+      return draw();
+    }
     const qc = nq.replace(/ /g, ''), tk = nq.split(' ').filter(Boolean), M = new Map(), N = D.nameN, PN = D.pageN;
     const has = (s, t) => s.includes(t);
     for (let i = 0; i < TOT; i++) {
@@ -963,13 +1061,15 @@ async function allView() {
       if (A === undefined) { try { A = D.alias[c0] = await get(`data/ia/${c0}.json`); } catch (e) { A = D.alias[c0] = []; } if (my !== seq) return; }
       if (A) for (const [a, ids] of A) { if (!tk.every(t => a.includes(t))) continue; const sc = (a === nq ? 700 : a.startsWith(nq) ? 450 : 100) - a.length / 100; for (const i of ids) if (!M.has(i) || M.get(i) < sc) M.set(i, sc); }
     }
-    hits = [...M.entries()].sort((a, b) => b[1] - a[1] || N[a[0]].localeCompare(N[b[0]]) || a[0] - b[0]).map(h => h[0]);
+    hitsAll = [...M.entries()].sort((a, b) => b[1] - a[1] || N[a[0]].localeCompare(N[b[0]]) || a[0] - b[0]).map(h => h[0]);
     draw();
   };
   const rowTags = r => { const f = r[3], t = [];
     if (f & F.override) t.push('Cosmetic override'); if (f & F.holiday) t.push('Holiday item'); if (f & F.disc) t.push('Discontinued'); else if (f & F.limited) t.push('Limited time');
     if (f & F.quest) t.push('Quest item'); if (f & F.removed) t.push('Removed from game'); return t.map(x => `<span class="tag">${x}</span>`).join(''); };
   const draw = () => {
+    const infos = hitsAll.map(gInfo); gfRefresh(infos);
+    hits = gfActive(gf) ? hitsAll.filter((_, k) => gfPass(infos[k], gf, GS)) : hitsAll;
     cnt.textContent = hits.length ? `${hits.length.toLocaleString()} of ${TOT.toLocaleString()} entries match${hits.length > lim ? ` · showing ${lim}` : ''}.` : `No entries match in all ${TOT.toLocaleString()} items.`;
     out.innerHTML = hits.slice(0, lim).map(i => {
       const r = rows[i], n = r[0], pg = r[4] || n;
@@ -1567,7 +1667,7 @@ async function moneyView(arg) {
   view.innerHTML = `<div class="trbar" id="mmbar"><b class="trbn">Money</b><select id="mmcatj" aria-label="Category">${MM_CATS.map(c => `<option value="${c[0]}"${MM.c === c[0] ? ' selected' : ''}>${esc(c[1])} (${cnt[c[0]]})</option>`).join('')}</select><button type="button" class="btn mini ghost" id="trtop" aria-label="Back to top">↑ Top</button></div>
     <div class="panel"><h2>Money making</h2>
     <div class="note">Every money-making guide on the RS3 wiki: ${st.methods.toLocaleString()} methods from ${st.pages} guide pages. Profit is “per the wiki” (its own formula on its Grand Exchange data of ${esc(X.ge_date)}); a separate estimate from this app's prices is inside each method. Methods with no profit figure are listed last as “not stated”.</div>
-    ${searchBox('mmq', 'Search methods… e.g. dragons, herbs, Ranged 80, AFK', MM.q)}
+    ${searchBox('mmq', 'Search methods, e.g. dragons, herbs, AFK', MM.q)}
     <div class="chips" id="mmc">${MM_CATS.map(c => `<button data-v="${c[0]}"${MM.c === c[0] ? ' class="on"' : ''}>${esc(c[1])}<span class="cnt">${cnt[c[0]]}</span></button>`).join('')}</div>
     <div class="mmsel"><label>Skill<select id="mmsk"><option value="">Any skill</option>${skills.map(s => `<option${MM.sk === s ? ' selected' : ''}>${esc(s)}</option>`).join('')}</select></label>
       <label>Access<select id="mmmem"><option value="">F2P &amp; members</option><option value="f2p"${MM.mem === 'f2p' ? ' selected' : ''}>Free-to-play only</option><option value="p2p"${MM.mem === 'p2p' ? ' selected' : ''}>Members only</option></select></label>
