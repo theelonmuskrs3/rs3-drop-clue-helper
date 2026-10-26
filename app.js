@@ -1444,6 +1444,35 @@ function spawnCard(p) {
     ${text ? `<div class="pre">${esc(text)}</div>` : ''}${req && req !== 'none' ? `<div class="note">Requirements: ${esc(req)}</div>` : ''}
     ${o ? `<div class="note">Wiki coordinates: ${xy.slice(0, 5).map(c => coordStr(c, plane)).join(' · ')}${xy.length > 5 ? ` · +${xy.length - 5} more` : ''}</div><div class="row wacts">${mmBtn(o)}</div>` : '<div class="note">No coordinates on the wiki.</div>'}</div>`;
 }
+/* Thieving rows: v = [source, version, level, level range, wiki type, qty, rarity, rarity note, xp, tool]; data/src/thv.json: source -> {t, l: [[loc, mem(1/0/-1), requirements, map, plane, [[x,y]..], dropversion]]} (wiki coordinates only) */
+const tvNorm = x => String(x || '').toLowerCase().replace(/(ing|s)$/, '').trim();
+function thvLocs(I, ver) {
+  const all = I.l || [], nv = String(ver || '').toLowerCase().trim();
+  const hit = all.filter(l => !l[6] || (nv && (l[6].toLowerCase() === nv || tvNorm(l[6]) === tvNorm(nv))));
+  return hit.length ? hit : all;
+}
+function thvLocCard(l, src) {
+  const [loc, mem, req, map, plane, xy] = l;
+  const o = xy && xy.length ? {map, plane: plane || 0, x: xy[0][0], y: xy[0][1], pins: xy, label: `Thieve — ${src}${loc ? ' — ' + loc : ''}`} : null;
+  return `<div class="wcard wloc"><div class="wc-h"><b>${esc(loc || 'Wiki map location')}</b>${memTag(mem)}${xy && xy.length ? `<span class="tag">${xy.length} pin${xy.length === 1 ? '' : 's'}</span>` : ''}</div>
+    ${req ? `<div class="note">Requirements: ${esc(req)}</div>` : ''}
+    ${o ? `<div class="note">Wiki coordinates: ${xy.slice(0, 4).map(c => coordStr(c, plane)).join(' · ')}${xy.length > 4 ? ` · +${xy.length - 4} more` : ''}${map !== 28 ? ` · map ${esc(map)}` : ''}</div><div class="row wacts">${mmBtn(o, 'Find on map')}</div>` : '<div class="note">No coordinates on the wiki.</div>'}</div>`;
+}
+function thvRow(v, TH) {
+  const [src, ver, lv, lr, ty, qty, rar, note, xp, tool] = v, I = TH[src] || {t: '', l: []}, ls = thvLocs(I, ver);
+  const lvl = lv != null ? `Thieving ${lv}` : lr ? `Thieving ${lr[0]}–${lr[1]}` : 'Thieving level not stated';
+  const lvFull = lv != null ? `Thieving level ${lv}` : lr ? `Thieving level ${lr[0]}–${lr[1]} (varies by version or room; see the wiki page)` : 'Thieving level <span class="note">not stated on the wiki</span>';
+  const reqs = [...new Set(ls.map(l => l[2]).filter(Boolean))];
+  const mems = new Set(ls.map(l => l[1]).filter(m => m === 0 || m === 1)), mem = mems.size === 1 ? [...mems][0] : -1;
+  const pins = ls.filter(l => l[5] && l[5].length).length;
+  return `<details class="thv"><summary><span class="tag thv-t">Thieve</span><b>${esc(src)}</b><span class="note">${[ty, lvl, qty ? 'qty ' + qty : '', rar].filter(Boolean).map(esc).join(' · ')}</span>${pins ? '<span class="tag">Map pin</span>' : ''}</summary>
+    <div class="thv-b"><div class="kv"><b>Source</b><span><a href="${WIKI(src)}" target="_blank" rel="noopener noreferrer">${esc(src)} ↗</a>${memTag(mem)}</span>
+      ${ty ? `<b>Method</b><span>${esc(ty)}</span>` : ''}${ver ? `<b>Version</b><span>${esc(ver)}</span>` : ''}
+      <b>Requires</b><span>${lvFull}${reqs.map(r => `<br>${esc(r)}`).join('')}${tool ? `<br>Tool: ${esc(tool)}` : ''}</span>
+      <b>Quantity</b><span>${qty ? esc(qty) : '<span class="note">not stated</span>'}</span><b>Chance</b><span>${rar ? esc(rar) : '<span class="note">not stated</span>'}</span>
+      ${xp ? `<b>XP</b><span>${esc(xp)} Thieving xp per success</span>` : ''}${note ? `<b>Note</b><span>${esc(note)}</span>` : ''}</div>
+      ${ls.length ? `<div class="thv-loc"><b>Where (${ls.length} location${ls.length === 1 ? '' : 's'} on the wiki)</b>${ls.slice(0, 3).map(l => thvLocCard(l, src)).join('')}${ls.length > 3 ? `<details><summary>Show all ${ls.length} locations</summary>${ls.slice(3).map(l => thvLocCard(l, src)).join('')}</details>` : ''}</div>` : '<div class="note">The wiki gives no location for this source.</div>'}</div></details>`;
+}
 function recipeCard(r, D) {
   const [m, mem, sk, mats, fac, tool, quest, page, ticks, outs] = r;
   return `<div class="wcard"><div class="wc-h"><b>${esc(m || 'Creation')}</b>${memTag(mem)}</div><div class="kv">
@@ -1461,12 +1490,13 @@ function availRows(H) {
     return `<tr><td>${esc(h[0] || '?')}</td><td>${esc(h[1] || '—')}${h[2] ? ` <span class="note">${esc(h[2])}</span>` : ''}</td><td>${esc(h[3] && !/^no$/i.test(h[3]) ? h[3] : '—')}${h[4] ? ` <span class="note">${esc(h[4])}</span>` : ''} ${st}</td></tr>`;
   }).join('');
 }
-function mapActionFor(S) {
+function mapActionFor(S, TH) {
   const sh = (S.s || []).find(s => !s[8] && String(s[3]).trim() !== '0' && (s[9] != null || s[11])) || (S.s || []).find(s => s[9] != null || s[11]);
   if (sh) return sh[9] != null ? `<a class="btn mini" href="#map/${sh[9]}">Open map</a>` : mmBtn({map: sh[11][0], x: sh[11][1], y: sh[11][2], plane: sh[11][3] || 0, pins: [[sh[11][1], sh[11][2]]], label: `Start here — ${sh[0]}`}, 'Open map');
   const sp = (S.p || []).find(p => p[5] && p[5].length);
   if (sp) return mmBtn({map: sp[3], plane: sp[4] || 0, x: sp[5][0][0], y: sp[5][0][1], pins: sp[5], label: `Ground spawn — ${sp[0]}`}, 'Open map');
   const dm = S.dm && Object.values(S.dm)[0];
+  if (dm == null && S.v && TH) for (const v of S.v) { const l = thvLocs(TH[v[0]] || {}, v[1]).find(x => x[5] && x[5].length); if (l) return mmBtn({map: l[3], plane: l[4] || 0, x: l[5][0][0], y: l[5][0][1], pins: l[5], label: `Thieve — ${v[0]}${l[0] ? ' — ' + l[0] : ''}`}, 'Open map'); }
   return dm != null ? `<a class="btn mini" href="#map/${dm}">Open map</a>` : '';
 }
 async function fillWtg(el, D, name, page, drops) {
@@ -1474,8 +1504,10 @@ async function fillWtg(el, D, name, page, drops) {
   if (!el.isConnected) return;
   const S = S0 || {}, sum = SM[page] || SM[name] || '';
   const sec = [];
+  const TH = S.v && S.v.length ? await get('data/src/thv.json').catch(() => ({})) : {};
+  if (!el.isConnected) return;
   const eggs = await get('data/secrets.json').then(d => d.rows.filter(r => !r.x && r.rw.some(w => w.i === name))).catch(() => []);
-  const hasAny = eggs.length || (S.s && S.s.length) || (S.p && S.p.length) || (S.r && S.r.length) || (S.w && S.w.length) || (S.q && S.q.length) || (S.h && S.h.length) || (drops && drops.length);
+  const hasAny = eggs.length || (S.s && S.s.length) || (S.p && S.p.length) || (S.r && S.r.length) || (S.w && S.w.length) || (S.v && S.v.length) || (S.q && S.q.length) || (S.h && S.h.length) || (drops && drops.length);
   if (S.s && S.s.length) {
     const cur = S.s.filter(s => !s[8]), old = S.s.filter(s => s[8]), all = [...cur, ...old];
     sec.push(`<div class="wsec"><h4>Shops <span class="note">(${(S.sn || all.length).toLocaleString()})</span></h4>
@@ -1489,6 +1521,12 @@ async function fillWtg(el, D, name, page, drops) {
       ${top.map(s => `<div class="wrow">${s[5] ? `<a class="item" href="#drops/${encodeURIComponent(s[0])}">${mthumb(s[0], 28)}<span>${esc(s[0])}</span></a>` : `<span class="item"><span>${esc(s[0])}</span></span>`}
         <span class="note">${s[1] ? 'qty ' + esc(s[1]) + ' · ' : ''}${esc(s[2] || '')}</span>${S.dm && S.dm[s[0]] != null ? `<a class="btn mini" href="#map/${S.dm[s[0]]}">Open map</a>` : ''}</div>`).join('')}</div>`);
   }
+  if (S.v && S.v.length) {
+    const vn = S.vn || S.v.length, nsrc = new Set(S.v.map(v => v[0])).size;
+    sec.push(`<div class="wsec"><h4>Thieving <span class="note">(${vn.toLocaleString()} drop${vn === 1 ? '' : 's'} from ${nsrc} source${nsrc === 1 ? '' : 's'}, lowest level first)</span></h4>
+      ${S.v.slice(0, 6).map(v => thvRow(v, TH)).join('')}${S.v.length > 6 ? `<details class="thvmore"><summary>Show all ${S.v.length} thieving sources</summary>${S.v.slice(6).map(v => thvRow(v, TH)).join('')}</details>` : ''}
+      ${vn > S.v.length ? `<div class="note">+${vn - S.v.length} more on the wiki.</div>` : ''}</div>`);
+  }
   if (S.w && S.w.length) sec.push(`<div class="wsec"><h4>Rewards &amp; other sources <span class="note">(${(S.wn || S.w.length).toLocaleString()})</span></h4>
     ${S.w.map(w => `<div class="wrow"><a href="${WIKI(w[0])}" target="_blank" rel="noopener noreferrer">${esc(w[0])}</a><span class="tag">${esc(w[1])}</span>
       <span class="note">${[w[2], w[3] ? 'qty ' + w[3] : '', w[4]].filter(Boolean).map(esc).join(' · ')}</span>${w[6] != null ? `<a class="btn mini" href="#map/${w[6]}">Open map</a>` : ''}</div>`).join('')}
@@ -1499,7 +1537,7 @@ async function fillWtg(el, D, name, page, drops) {
   if (S.h && S.h.length) sec.push(`<div class="wsec"><h4>Availability history <span class="note">(release-history table on the wiki page)</span></h4><div class="tscroll"><table><thead><tr><th>Start</th><th>End</th><th>Event / content</th></tr></thead><tbody>${availRows(S.h)}</tbody></table></div>${S.hn > S.h.length ? `<div class="note">+${S.hn - S.h.length} older rows on the wiki.</div>` : ''}</div>`);
   if (S.x) sec.push(`<div class="wsec"><blockquote class="obhow">“${esc(S.x)}${S.x.length >= 360 ? '…' : ''}”<cite>— RS3 wiki, <a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">${esc(page)}</a> (page introduction)</cite></blockquote></div>`);
   if (eggs.length) sec.push(`<div class="wsec"><h4>Easter egg reward</h4>${eggs.map(r => `<div class="wrow"><a href="#secrets/${esc(r.id)}">${esc(r.t)}</a><span class="tag">Secret</span><span class="note">${esc(r.rq.length ? 'has requirements, see steps' : 'no requirements')}</span></div>`).join('')}<div class="note">A hidden interaction the RS3 wiki documents. Open it in the Secrets tab for the steps.</div></div>`);
-  const act = mapActionFor(S);
+  const act = mapActionFor(S, TH);
   el.innerHTML = `<h3>Where to get it</h3><div class="wtg">
     ${sum ? `<div class="wsum wrow"><b>${esc(sum)}</b>${act}</div>` : ''}
     ${sec.length ? sec.join('') : ''}

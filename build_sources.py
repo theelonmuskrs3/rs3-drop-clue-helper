@@ -115,12 +115,36 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
             for n, q in r['mat']:
                 cn = canon(n); mats.append([cn or n, q, 1 if cn else 0])
             R[c]['r'].append([r.get('m') or '', 1 if r.get('mem') else 0, r['sk'], mats, r.get('fac') or '', r.get('tool') or '', r.get('q') or '', r.get('page') or '', r.get('ticks') or '', [[o[0], o[1]] for o in r.get('out', [])]])
+    # ---- thieving: source pages (level / type / xp / wiki locations) + per-item rows
+    TV = collections.defaultdict(dict); thv_src = {}
+    def pick(info, ver):
+        vs = info.get('vers') or []
+        nv = norm(ver)
+        stem = lambda x: re.sub(r'(ing|s)$', '', norm(x))
+        hit = [v for v in vs if nv and (norm(v['v']) == nv or norm(v['dv']) == nv)] or [v for v in vs if nv and v['v'] and stem(v['v']) and stem(v['v']) == stem(ver)]
+        if hit: return hit[0], None
+        lvs = sorted({v['lv'] for v in vs if v['lv'] is not None})
+        if len(lvs) <= 1:
+            blank = [v for v in vs if not v['v']]
+            return (blank or vs or [None])[0], None
+        return None, [lvs[0], lvs[-1]]
+    def thv_row(r):
+        info = S.get('thieving', {}).get(r['src'])
+        v, lr = pick(info, r.get('ver')) if info else (None, None)
+        if info and r['src'] not in thv_src:
+            thv_src[r['src']] = {'t': info.get('ty') or '', 'l': [[l['loc'], 1 if l.get('mem') is True else 0 if l.get('mem') is False else -1, l.get('req') or '', l['map'], l['plane'], l['xy'], l.get('dv') or ''] for l in info['locs']]}
+        ty = (v or {}).get('ty') or (info or {}).get('ty') or ''
+        return [r['src'], r.get('ver') or '', (v or {}).get('lv'), lr, ty, r['qty'], rar_ok(r['rar']), r.get('note') or '', (v or {}).get('xp') or '', (v or {}).get('tool') or '']
     # ---- reward-type DropsLines (+ plain DropsLine on non-monster pages)
     for it, rows in S['dl'].items():
         c = canon(it)
         if not c: continue
         for r in rows:
             if is_osrs(r['src']): continue
+            if r['k'] == 'Thieving':
+                tv = thv_row(r)
+                TV[c].setdefault((tv[0], tv[1], tv[5], tv[6], tv[7]), tv)
+                continue
             key = (r['src'], r['k'])
             rar = rar_ok(r['rar']); cand = [r['src'], r['k'], r.get('sect') or '', r['qty'], rar, r.get('gem') and 1 or 0, mapid(r['src'])]
             old = R[c]['w'].get(key)
@@ -145,7 +169,8 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
         for rw in q.get('rewards', []):
             if rw.get('d', 9) > 2 or len(rw.get('t', '')) > 80: continue
             for l in rw.get('l', []):
-                c = names.get(l)
+                lt = re.sub(r'#.*$', '', l or '')
+                c = names.get(l) or names.get(lt) or low.get(norm(lt)) or (names.get(re.sub(r'#.*$', '', redir.get(lt, ''))) if redir.get(lt) else None)
                 if c and c not in seen:
                     seen.add(c); R[c]['q'].append([qn, rw['t']])
     # ---- monster drops: map ids for the top sources (drops themselves stay in items.json)
@@ -155,7 +180,7 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
     for n, k0 in pages.items():
         rec = R.get(n)
         dr = items.get(n) or items.get(k0) or []
-        if not rec and not dr and n not in obx: continue
+        if not rec and not dr and n not in obx and n not in TV: continue
         shops = rec['s'] if rec else []
         # dedupe shops
         seen = set(); sl = []
@@ -169,6 +194,7 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
         rcl.sort(key=lambda r: (0 if r[7] == n else 1))
         wl = sorted(rec['w'].values(), key=lambda w: (-rar_rank(w[4]), w[0])) if rec else []
         ql = rec['q'] if rec else []
+        tvl = sorted(TV[n].values(), key=lambda v: (v[2] is None and v[3] is None, v[2] if v[2] is not None else (v[3][0] if v[3] else 0), -rar_rank(v[6]), v[0])) if n in TV else []
         hl = sorted(rec['h'], key=lambda r: dkey(r[0]), reverse=True) if rec else []
         # drop monsters ids
         dm = {}
@@ -180,6 +206,7 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
         if spl: o['p'] = spl[:8]; o['pn'] = len(spl)
         if rcl: o['r'] = rcl[:8]; o['rn'] = len(rcl)
         if wl: o['w'] = wl[:14]; o['wn'] = len(wl)
+        if tvl: o['v'] = tvl[:40]; o['vn'] = len(tvl)
         if ql: o['q'] = ql[:12]; o['qn'] = len(ql)
         if hl: o['h'] = hl[:10]; o['hn'] = len(hl)
         if dm: o['dm'] = dm
@@ -195,6 +222,10 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
         if rcl: cnt['recipe'] += 1
         if spl: cnt['spawn'] += 1
         if spl and any(p[5] for p in spl): cnt['spawn_with_pin'] += 1
+        if tvl:
+            cnt['thieving_items'] += 1
+            lc = {(v[0]) for v in tvl}
+            if any(any(l[5] for l in thv_src.get(sn, {}).get('l', [])) for sn in lc): cnt['thieving_items_with_map_pin'] += 1
         if wl: cnt['reward_or_other_dropsline'] += 1
         for k_ in {w[1] for w in wl}: cnt['reward_kind:' + k_] += 1
         for r_ in rcl[:1]:
@@ -212,6 +243,9 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
         elif dr:
             d = dr[0]; mons = len(dr)
             s = f"Drop: {d[0]}" + (f" ({d[2]})" if d[2] else '') + (f" +{mons-1} more" if mons > 1 else '')
+        elif tvl:
+            t0 = tvl[0]; srcs_ = list(dict.fromkeys(v[0] for v in tvl))
+            s = f"Thieve: {t0[0]}" + (f" (level {t0[2]})" if t0[2] is not None else f" (level {t0[3][0]}–{t0[3][1]})" if t0[3] else '') + (f" +{len(srcs_)-1} more" if len(srcs_) > 1 else '')
         elif wl:
             w = wl[0]; s = f"{w[1]}: {w[0]}" + (f" +{len(wl)-1} more" if len(wl) > 1 else '')
         elif rcl:
@@ -253,6 +287,11 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
     json.dump(smap, open(f'{sd}/sum.json', 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     json.dump({'start': [2024, 2, 14], 'slots': [{'t': sl['title'], 'o': sl.get('offset') or 0, 'q': sl.get('seq'), 'i': [[canon(x['item']) or x['item'], x['key']] for x in sl['items']]} for sl in th]},
               open(f'{sd}/thal.json', 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+    json.dump(thv_src, open(f'{sd}/thv.json', 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+    cnt['thieving_sources_in_app'] = len(thv_src)
+    cnt['thieving_locations_with_pin'] = sum(1 for v in thv_src.values() for l in v['l'] if l[5])
+    cnt['thieving_pin_markers'] = sum(len(l[5]) for v in thv_src.values() for l in v['l'])
+    cnt['thieving_source_rows'] = sum(len(v) for v in TV.values())
     cnt['unmatched_source_keys'] = len(unmatched)
     cnt['unmatched_source_rows'] = sum(unmatched.values())
     cnt['unmatched_examples'] = [k for k, _ in unmatched.most_common(15)]
