@@ -163,6 +163,19 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
             if r_[2] and r_[0] < len(iall):
                 ir = iall[r_[0]]; obx.setdefault(ir[4] if len(ir) > 4 else ir[0], r_[2])
     except Exception: pass
+    # ---- 'Used in' (reverse of the creation recipes) + prose sections / related item pages / navboxes from the item pages
+    UI = collections.defaultdict(dict)
+    for it, rows in S['recipe'].items():
+        pc = canon(it)
+        if not pc: continue
+        for r in rows:
+            sk = r['sk'][0] if r.get('sk') else None
+            for n_, q_ in r['mat']:
+                cm = canon(n_)
+                if cm and cm != pc and pc not in UI[cm]: UI[cm][pc] = [pc, sk[0] if sk else '', sk[1] if sk else None, 1 if r.get('mem') else 0]
+    IT = {}
+    try: IT = json.load(open(f'{SRC}/itemtext.json', encoding='utf-8'))
+    except Exception as e: print('itemtext.json missing', e)
     # ---- quest rewards
     for qn, q in (quests.get('quests') or {}).items():
         seen = set()
@@ -180,7 +193,7 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
     for n, k0 in pages.items():
         rec = R.get(n)
         dr = items.get(n) or items.get(k0) or []
-        if not rec and not dr and n not in obx and n not in TV: continue
+        if not rec and not dr and n not in obx and n not in TV and n not in IT and n not in UI: continue
         shops = rec['s'] if rec else []
         # dedupe shops
         seen = set(); sl = []
@@ -202,13 +215,27 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
             i = mapid(d[0]);
             if i is not None: dm[d[0]] = i
         o = {}
-        if sl: o['s'] = sl[:30]; o['sn'] = len(sl)
-        if spl: o['p'] = spl[:8]; o['pn'] = len(spl)
-        if rcl: o['r'] = rcl[:8]; o['rn'] = len(rcl)
-        if wl: o['w'] = wl[:14]; o['wn'] = len(wl)
-        if tvl: o['v'] = tvl[:40]; o['vn'] = len(tvl)
-        if ql: o['q'] = ql[:12]; o['qn'] = len(ql)
-        if hl: o['h'] = hl[:10]; o['hn'] = len(hl)
+        if sl: o['s'] = sl; o['sn'] = len(sl)
+        if spl: o['p'] = spl; o['pn'] = len(spl)
+        if rcl: o['r'] = rcl; o['rn'] = len(rcl)
+        if wl: o['w'] = wl; o['wn'] = len(wl)
+        if tvl: o['v'] = tvl; o['vn'] = len(tvl)
+        if ql: o['q'] = ql; o['qn'] = len(ql)
+        if hl: o['h'] = hl; o['hn'] = len(hl)
+        ui = sorted(UI[n].values(), key=lambda u: (u[2] is None, u[2] or 0, u[0])) if n in UI else []
+        if ui: o['u'] = ui; cnt['used_in_items'] += 1; cnt['used_in_rows'] += len(ui)
+        itx = IT.get(n) or {}
+        tx = itx.get('t') or []
+        if tx: o['tx'] = tx; cnt['prose_pages'] += 1
+        if any(t_[3] == 'o' for t_ in tx): cnt['prose_source_pages'] += 1
+        if any(t_[3] == 'u' for t_ in tx): cnt['prose_uses_pages'] += 1
+        rl = [canon(x) for x in itx.get('rel', [])]; rl = list(dict.fromkeys(x for x in rl if x and x != n))
+        if rl: o['rel'] = rl; cnt['related_item_pages'] += 1
+        if itx.get('nb'): o['nb'] = itx['nb']; cnt['navbox_pages'] += 1
+        hs_ = bool(dr) or any(k in o for k in ('s', 'p', 'r', 'w', 'v', 'q', 'h'))
+        sc_ = [x for x in itx.get('sn', []) if not (not hs_ and n in obx and x in obx[n][:360]) and not any(x in t_[1] for t_ in tx)]
+        sc_ = sc_[:2] if hs_ else sc_
+        if sc_: o['sc'] = sc_; cnt['article_sentence_pages'] += 1; cnt['article_sentence_pages_without_structured'] += (0 if hs_ else 1)
         if dm: o['dm'] = dm
         if n in thal_items: o['t'] = 1
         # coverage
@@ -262,9 +289,15 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
         elif sl:
             a = sl[0]; s = f"Was sold: {a[0]} (discontinued)"
         if s is None: s = ''
-        if not o and n in obx and not dr:
+        if not any(k in o for k in ('s', 'p', 'r', 'w', 'v', 'q', 'h')) and n in obx and not dr:
             o['x'] = obx[n][:360]; cnt['wiki_text_only'] += 1
             if not s: s = 'Wiki note: ' + obx[n][:80].rstrip(' ,.;:') + ('…' if len(obx[n]) > 80 else '')
+        if not s and not dr and not any(k in o for k in ('s', 'p', 'r', 'w', 'v', 'q', 'h')):
+            o_ = [t_ for t_ in o.get('tx', []) if t_[3] == 'o']
+            if not o_ and o.get('sc'):
+                s = 'Wiki note: ' + o['sc'][0][:90].rstrip(' ,.;:') + ('…' if len(o['sc'][0]) > 90 else '')
+            elif o_: s = 'Wiki note: ' + o_[0][1].split('\n')[0][:80].rstrip(' ,.;:') + ('…' if len(o_[0][1].split('\n')[0]) > 80 else '')
+            elif o.get('rel'): s = 'See also: ' + o['rel'][0]
         if o: out[n] = o
         sums[n] = s
         if o or dr: cnt['any_structured_source'] += 1
@@ -299,8 +332,13 @@ def build(APP, SRC, BASE, iall, items, quests, is_osrs, mon_titles):
     cnt['summary_lines'] = sum(1 for s in sums.values() if s); cnt['sum_json_keys'] = len(smap)
     # rows (not distinct names) with data: rows whose name has data
     pg = lambda r: r[4] if len(r) > 4 else r[0]
-    cnt['rows_with_structured_source'] = sum(1 for r in iall if (pg(r) in out and 'x' not in out[pg(r)]) or items.get(pg(r)) or items.get(r[0]))
-    cnt['rows_wiki_text_only'] = sum(1 for r in iall if pg(r) in out and list(out[pg(r)]) == ['x'] and not (items.get(pg(r)) or items.get(r[0])))
+    STRUCT = ('s', 'p', 'r', 'w', 'v', 'q', 'h')
+    hasd = lambda r: bool(items.get(pg(r)) or items.get(r[0]))
+    hs = lambda r: pg(r) in out and any(k in out[pg(r)] for k in STRUCT)
+    hp = lambda r: pg(r) in out and (any(t_[3] == 'o' for t_ in out[pg(r)].get('tx', [])) or 'x' in out[pg(r)] or 'rel' in out[pg(r)] or 'sc' in out[pg(r)])
+    cnt['rows_with_structured_source'] = sum(1 for r in iall if hs(r) or hasd(r))
+    cnt['rows_wiki_text_only'] = sum(1 for r in iall if not (hs(r) or hasd(r)) and hp(r))
     cnt['rows_without_any_source'] = len(iall) - cnt['rows_with_structured_source'] - cnt['rows_wiki_text_only']
+    cnt['rows_without_source_but_used_in_or_related'] = sum(1 for r in iall if not (hs(r) or hasd(r) or hp(r)) and pg(r) in out)
     json.dump(dict(cnt), open(f'{BASE}/neon_shots/sources_stats.json', 'w'), indent=1)
     return dict(cnt)

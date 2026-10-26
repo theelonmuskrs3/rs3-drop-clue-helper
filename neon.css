@@ -969,3 +969,11 @@ body.intrain #mmres .tcard{margin-bottom:8px}
 }
 .mmrt{font-size:12px;color:var(--soft)}
 .chips#mmc button,.chips#mmf button{padding:7px 10px;font-size:11.5px}
+
+/* Sources at a glance + Used in */
+.glance .wrow{align-items:flex-start;gap:8px}
+.glance .gk{flex:0 0 auto;min-width:54px;text-align:center}
+.glv{flex:1 1 0;min-width:0;line-height:1.5;overflow-wrap:anywhere}
+.glv i{opacity:.7;font-style:normal;font-size:.85em}
+.glmore{display:inline}.glmore>summary{display:inline;cursor:pointer;color:var(--accent,#e0b050)}
+.usedin details>summary,.wsec>details>summary{cursor:pointer}
