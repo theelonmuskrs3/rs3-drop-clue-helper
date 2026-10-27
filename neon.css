@@ -1155,3 +1155,15 @@ html[data-fx=off] .sk2p i{transition:none}
 html[data-fx=high] #updbtn.has::after{animation:nxPatchDot 1.6s ease-in-out infinite}
 @keyframes nxPatchDot{50%{transform:scale(1.5);opacity:.6}}
 @media (prefers-reduced-motion:reduce){#updbtn.has::after{animation:none!important}}
+/* ===== Character tab: skills use the original My stats tiles (.skgrid/.sk); only glow added ===== */
+.chsk .skgrid{max-width:470px;margin:8px 0 0}
+.chsk .sk.l99{box-shadow:0 0 0 1px var(--gold),0 0 12px rgba(255,176,0,.35),inset 0 1px 0 var(--metalhi),inset 0 -6px 12px rgba(0,0,0,.4)}
+.chsk .sk.lmax{box-shadow:0 0 0 1px var(--gold2),0 0 16px rgba(255,31,61,.45),inset 0 1px 0 var(--metalhi),inset 0 -6px 12px rgba(0,0,0,.4)}
+html[data-fx=off] .chsk .sk{transition:none}
+.chsk .sktot{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:10px;font-size:13px}
+@media (max-width:360px){.chsk .skgrid{gap:4px}.chsk .sk{gap:3px;padding:3px 4px}.chsk .sk img{width:24px;height:24px}.chsk .sk input{padding:3px 3px;font-size:16px}}
+/* ===== Easter Eggs tab icon: wiki 'Easter egg' item image recoloured to the black/red palette; static (no hover motion) ===== */
+.tabs button .nx-egg img{width:14px;height:15px;display:block;image-rendering:pixelated;filter:grayscale(1) brightness(2.6) contrast(1.15) sepia(1) saturate(8) hue-rotate(-40deg) drop-shadow(0 0 3px rgba(255,31,61,.7))}
+.tabs button.on .nx-egg img{filter:grayscale(1) brightness(2.8) contrast(1.15) sepia(1) saturate(6) hue-rotate(-8deg) drop-shadow(0 0 4px rgba(255,176,0,.8))}
+.tabs button:hover .nx-egg,.tabs button.on .nx-egg{filter:none;transform:none;opacity:1}
+@media (max-width:699px){.tabs button .nx-egg img{width:15px;height:16px}}

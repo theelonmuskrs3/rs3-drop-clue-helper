@@ -634,17 +634,9 @@ const CH_ICO = {
   quest: '<path d="M8 1.5l5.5 2v4c0 3.4-2.4 5.9-5.5 7-3.1-1.1-5.5-3.6-5.5-7v-4z"/><path d="M5.6 8l1.7 1.7 3.2-3.4"/>'};
 async function charView(sub) {
   const S = loadStats(), BASE = {...S};
-  const narrow = window.matchMedia('(max-width:700px)').matches;
   let undo = null;
-  const skIcon = k => SKICONS[k] ? `<img class="sk2i" src="${esc(SKICONS[k])}" alt="" width="30" height="30" decoding="async">` : `<span class="sk2i sk2ph">${esc(k.slice(0, 3))}</span>`;
-  const tile = k => `<div class="sk2" data-k="${esc(k)}"><div class="sk2r">${skIcon(k)}<input type="number" inputmode="numeric" min="${skMin(k)}" max="${skMax(k)}" aria-label="${esc(k)} level (${skMin(k)} to ${skMax(k)})" data-sk="${esc(k)}" value="${lv(S, k)}"></div>
-    <div class="sk2n">${esc(k)}</div>
-    <div class="sk2c"><button type="button" class="sk2b" data-d="-1" aria-label="Lower ${esc(k)} by 1">−</button><button type="button" class="sk2b" data-d="1" aria-label="Raise ${esc(k)} by 1">+</button></div>
-    <div class="sk2p"><i></i></div></div>`;
-  const ordIdx = k => { const i = SKORDER.indexOf(k); return i < 0 ? 99 : i; };
-  const listed = new Set(CH_GROUPS.flatMap(g => g[1]));
-  const groups = CH_GROUPS.map(([n, ks]) => [n, ks.filter(k => SKORDER.includes(k)).sort((a, b) => ordIdx(a) - ordIdx(b))]);
-  const rest = SKORDER.filter(k => !listed.has(k)); if (rest.length) groups.push(['Other', rest]);
+  /* skills: the original My stats interface (3-column grid, wiki skill icon + level input, in-game order), restored from the Items tab */
+  const tile = k => `<label class="sk" data-k="${esc(k)}" title="${esc(k)} (max ${skMax(k)})">${SKICONS[k] ? `<img src="${esc(SKICONS[k])}" alt="" width="27" height="27">` : `<span>${esc(k.slice(0, 3))}</span>`}<input type="number" inputmode="numeric" min="${skMin(k)}" max="${skMax(k)}" aria-label="${esc(k)} level (${skMin(k)} to ${skMax(k)})" title="${esc(k)}" data-sk="${esc(k)}" value="${lv(S, k)}"></label>`;
   const maxTot = SKORDER.reduce((a, k) => a + skMax(k), 0);
   const tiles = [['wear', 'Gear I can wear', 'Items filtered to your levels'], ['sets', 'Full sets I can wear', 'Whole armour sets that fit'], ['train', 'Training that fits me', 'Training guides for your levels'], ['money', 'Money making that fits', 'Methods that fit your levels'], ['quest', 'Quests to do', 'Quests you have not finished']];
   view.innerHTML = `<section class="panel chhero"><div class="chhead"><div class="chdds" aria-hidden="true"><span class="chglow"></span><img src="brand/dds.webp" width="64" height="58" alt="" decoding="async"></div>
@@ -656,14 +648,15 @@ async function charView(sub) {
     <div class="chpriv"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 7.5h9V14h-9zM5.2 7.5V5.2a2.8 2.8 0 015.6 0v2.3"/></svg><span>Private: saved automatically in this browser on this device only, never sent anywhere. Each device keeps its own levels.${STATS_SAVED ? '' : ' <b>Nothing saved yet:</b> tap + or type a level to start.'}</span></div></section>
   <section class="panel chsk"><h2>Skills</h2>
     <div class="chtools"><button type="button" class="btn ghost" data-all="1">All 1</button><button type="button" class="btn ghost" data-all="99">All 99</button><button type="button" class="btn ghost" data-all="max">All max</button><button type="button" class="btn ghost" data-all="start" title="Every skill 1, Constitution 10 (the RS3 starting levels)">Starting levels</button><button type="button" class="btn" id="chundo" hidden>Undo</button></div>
-    ${groups.map(([n, ks], gi) => `<details class="chgrp" data-g="${esc(n)}"${gi === 0 || !narrow ? ' open' : ''}><summary><b>${esc(n)}</b><span class="cnt">${ks.length}</span><span class="chgs" data-gs="${esc(n)}"></span></summary><div class="chgrid">${ks.map(tile).join('')}</div></details>`).join('')}
-    <div class="note chnote">Each skill's top level is from its RS3 wiki page. The bar shows how far your level is toward 99 (then toward the skill's top level) on the wiki's experience table; hover a skill for the XP.</div></section>
+    <div class="skgrid">${SKORDER.map(tile).join('')}</div>
+    <div class="sktot"><span title="Total level">Total level <b id="tot2">${totalLevel(S)}</b></span><span title="Combat level (wiki formula)">Combat <b id="cmb2">${combatLevel(S)}</b></span></div>
+    <div class="note chnote">Each skill's top level is from its RS3 wiki page. Type a level in a skill; hover it to see the wiki XP for that level.</div></section>
   <section class="panel chnow"><h2>What can I do now</h2><div class="chtiles">${tiles.map(([k, t, d]) => `<button type="button" class="chgo" data-go="${k}"><svg viewBox="0 0 16 16" aria-hidden="true">${CH_ICO[k]}</svg><span class="chgt"><b>${t}</b><small>${d}</small></span><span class="chgc" id="chgc-${k}"></span></button>`).join('')}</div>
     <div class="note chnote">These open the other tabs already filtered to your saved levels. ${STATS_SAVED ? '' : 'Until you save your levels they use every skill at 1 (Constitution 10).'}</div></section>
   <section class="panel chgear"><h2>Gear for my levels</h2>
     <details class="chsec" id="chg1"><summary><b>Best set &amp; all gear I can wear</b><span class="note">picked from the wiki's recommended tables</span></summary><div id="chgm" class="chmount"><div class="note">Opening…</div></div></details>
     <details class="chsec" id="chg2"${sub === 'sets' ? ' open' : ''}><summary><b>Wiki recommended sets</b><span class="note">by style and tier</span></summary><div id="chwm" class="chmount"><div class="note">Opening…</div></div></details></section>`;
-  const grid = k => document.querySelector(`.sk2[data-k="${CSS.escape(k)}"]`);
+  const grid = k => document.querySelector(`.sk[data-k="${CSS.escape(k)}"]`);
   const pulse = (el, cls = 'pulse') => { if (!el) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); clearTimeout(el._pt); el._pt = setTimeout(() => el.classList.remove(cls), 600); };
   const barOf = (k, L) => {
     const M = skMax(k), goal = L < 99 ? 99 : M;
@@ -673,18 +666,15 @@ async function charView(sub) {
   };
   const paint = k => {
     const t = grid(k); if (!t) return; const L = lv(S, k), M = skMax(k), b = barOf(k, L);
-    t.classList.toggle('l99', L >= 99); t.classList.toggle('lmax', L >= M);
-    t.querySelector('.sk2p').style.setProperty('--p', (b.p * 100).toFixed(1) + '%'); t.title = b.t;
+    t.classList.toggle('l99', L >= 99); t.classList.toggle('lmax', L >= M); t.title = b.t;
     const inp = t.querySelector('input'); if (document.activeElement !== inp) inp.value = L;
-    t.querySelector('[data-d="-1"]').disabled = L <= skMin(k); t.querySelector('[data-d="1"]').disabled = L >= M;
   };
   let questN = null;
   const hero = (bump) => {
     const set = (id, v) => { const e = document.getElementById(id); if (e && e.textContent !== String(v)) { e.textContent = v; if (bump) pulse(e.parentNode, 'bump'); } };
-    set('tot', totalLevel(S)); set('cmb', combatLevel(S));
+    set('tot', totalLevel(S)); set('cmb', combatLevel(S)); set('tot2', totalLevel(S)); set('cmb2', combatLevel(S));
     const n99 = SKORDER.filter(k => lv(S, k) >= 99).length, nmx = SKORDER.filter(k => lv(S, k) >= skMax(k)).length;
     set('n99', n99); const m = document.getElementById('nmx'); if (m) m.textContent = `${nmx} at top level`;
-    for (const [n, ks] of groups) { const e = document.querySelector(`[data-gs="${CSS.escape(n)}"]`); if (e) e.textContent = `Σ ${ks.reduce((a, k) => a + lv(S, k), 0).toLocaleString()}`; }
     document.querySelector('.chhero').classList.toggle('chmaxed', nmx === SKORDER.length && nmx > 0);
   };
   let hubT = 0, hubs = [], cntT = 0;
@@ -696,18 +686,11 @@ async function charView(sub) {
     return true;
   };
   const applyAll = fn => { undo = {...S}; for (const k of SKORDER) S[k] = Math.max(skMin(k), Math.min(skMax(k), fn(k))); saveStats(S); statsFlush(); SKORDER.forEach(paint); hero(true); later(); const u = document.getElementById('chundo'); u.hidden = false; };
-  view.querySelectorAll('.sk2').forEach(t => {
+  view.querySelectorAll('.sk').forEach(t => {
     const k = t.dataset.k, inp = t.querySelector('input');
     inp.oninput = () => { const v = parseInt(inp.value, 10); if (Number.isFinite(v)) setLv(k, v); };
     inp.onchange = () => { const v = parseInt(inp.value, 10); setLv(k, Number.isFinite(v) ? v : lv(S, k)); inp.value = lv(S, k); statsFlush(); };
     inp.onfocus = () => { try { inp.select(); } catch (e) {} };
-    t.querySelectorAll('.sk2b').forEach(b => {
-      let h = 0, iv = 0; const d = +b.dataset.d, step = () => setLv(k, lv(S, k) + d, d > 0);
-      const stop = () => { clearTimeout(h); clearInterval(iv); h = iv = 0; statsFlush(); };
-      b.onpointerdown = e => { if (e.button) return; step(); h = setTimeout(() => { iv = setInterval(() => { if (!step()) stop(); }, 85); }, 420); };
-      ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => b.addEventListener(ev, () => { if (h || iv) stop(); }));
-      b.onclick = e => { if (e.detail === 0) { step(); statsFlush(); } };   /* keyboard activation only; mouse/touch already stepped on pointerdown */
-    });
   });
   view.querySelectorAll('button[data-all]').forEach(b => b.onclick = () => { const a = b.dataset.all; applyAll(k => a === 'max' ? skMax(k) : a === 'start' ? skMin(k) === 10 ? 10 : 1 : Math.min(+a, skMax(k))); });
   document.getElementById('chundo').onclick = () => { if (!undo) return; const u = undo; undo = null; for (const k of SKORDER) S[k] = u[k]; saveStats(S); statsFlush(); SKORDER.forEach(paint); hero(true); later(); document.getElementById('chundo').hidden = true; };
@@ -1526,7 +1509,7 @@ async function questDetail(name, qs) {
 }
 
 /* ---------- about ---------- */
-/* ---------- Secrets: easter eggs & hidden interactions the RS3 wiki documents as still possible (data/secrets.json) ---------- */
+/* ---------- Easter Eggs tab (route #secrets kept for old links): easter eggs & hidden interactions the RS3 wiki documents as still possible (data/secrets.json) ---------- */
 const SEC = {kind: '', rw: false, quick: false};
 const SEC_KL = {item: 'Item', title: 'Title', pet: 'Pet', cosmetic: 'Cosmetic', emote: 'Emote', none: 'Just for fun'};
 function secReward(w) {
@@ -1559,9 +1542,9 @@ async function secretsView(arg) {
   const S = await get('data/secrets.json'), all = S.rows, cur = all.filter(r => !r.x);
   const hay = all.map(r => norm([r.t, r.d, r.rq.join(' '), r.rw.map(w => w.n).join(' '), r.s.join(' '), r.l ? r.l.rows.map(x => x.join(' ')).join(' ') : '', r.k.map(k => SEC_KL[k]).join(' '), (r.m || []).map(m => m.l).join(' ')].join(' ')));
   const cnt = k => cur.filter(r => r.k.includes(k)).length;
-  view.innerHTML = `<div class="panel"><h2>Secrets &amp; easter eggs</h2>
+  view.innerHTML = `<div class="panel"><h2>Easter Eggs &amp; hidden secrets</h2>
     <div class="note">${cur.length} hidden interactions the RS3 wiki documents as still possible in the game today, ${cur.filter(r => r.rw.length).length} of them give a reward. Open one for requirements and numbered steps. Pins sit only where the wiki gives coordinates.</div>
-    ${searchBox('sq', 'Search secrets, rewards, quests… e.g. title, pet, candle', sessionStorage.sq || '')}
+    ${searchBox('sq', 'Search easter eggs, rewards, quests… e.g. title, pet, candle', sessionStorage.sq || '')}
     <div class="chips" id="skind"><button data-v=""${!SEC.kind ? ' class="on"' : ''}>All</button>${S.kinds.filter(([k]) => cnt(k)).map(([k, l]) => `<button data-v="${k}"${SEC.kind === k ? ' class="on"' : ''}>${esc(l)}<span class="cnt">${cnt(k)}</span></button>`).join('')}</div>
     <div class="chips" id="sflag"><button data-v="rw"${SEC.rw ? ' class="on"' : ''}>Gives a reward</button><button data-v="quick"${SEC.quick ? ' class="on"' : ''}>Quick (no requirements)</button></div>
     <div id="sres"></div></div>`;
@@ -1573,7 +1556,7 @@ async function secretsView(arg) {
       .sort((a, b) => b[0] - a[0]).map(x => x[1]);
     const A = pick(false), P = pick(true);
     out.innerHTML = `<div class="note" style="margin:8px 0">${A.length} of ${cur.length} shown.</div>
-      ${A.length ? `<div class="secgrid">${A.map(secCard).join('')}</div>` : '<div class="obempty"><div><b>No secret matches.</b><div class="note">Try another word or clear a filter.</div></div></div>'}
+      ${A.length ? `<div class="secgrid">${A.map(secCard).join('')}</div>` : '<div class="obempty"><div><b>No easter egg matches.</b><div class="note">Try another word or clear a filter.</div></div></div>'}
       ${P.length ? `<details class="secgone"><summary>No longer possible <span class="note">(${P.length}, documented on the wiki as ended or removed)</span></summary><div class="secgrid">${P.map(secCard).join('')}</div></details>` : ''}`;
   };
   let tmr = null;
@@ -1967,7 +1950,7 @@ async function aboutView() {
     <b>Built</b><span>${esc(m.built)}</span><b>Monsters</b><span>${m.monsters.toLocaleString()}</span><b>Drop entries</b><span>${m.drop_entries.toLocaleString()}</span>
     <b>Items</b><span>${m.items.toLocaleString()} (${m.icons.toLocaleString()} with icons)</span><b>Clues</b><span>${m.clues.toLocaleString()}</span><b>Travel pages</b><span>${m.locations.toLocaleString()}</span>
     ${m.gear ? `<b>Gear</b><span>${m.gear.items.toLocaleString()} items · ${m.gear.with_stats.toLocaleString()} with stats · ${m.gear.with_requirements.toLocaleString()} with requirements · ${m.gear.with_price.toLocaleString()} with a GE price</span>` : ''}
-    ${m.secrets ? `<b>Secrets</b><span>${m.secrets.entries} easter eggs and hidden interactions still possible today · ${m.secrets.with_reward} give a reward · ${m.secrets.with_map} with map pins (${m.secrets.pins} pins) · ${m.secrets.past} ended ones listed separately</span>` : ''}
+    ${m.secrets ? `<b>Easter Eggs</b><span>${m.secrets.entries} easter eggs and hidden interactions still possible today · ${m.secrets.with_reward} give a reward · ${m.secrets.with_map} with map pins (${m.secrets.pins} pins) · ${m.secrets.past} ended ones listed separately</span>` : ''}
     ${m.training ? `<b>Training</b><span>${m.training.skills} skills · ${m.training.guides} wiki guides · ${m.training.cards.toLocaleString()} sections · ${m.training.cost.toLocaleString()} with costs or item prices · ${m.training.xph.toLocaleString()} with a stated xp/hour · ${m.training.maps} with map pins · ${m.training.pics.toLocaleString()} with a wiki picture</span>` : ''}
     ${m.money ? `<b>Money making</b><span>${m.money.methods.toLocaleString()} methods from ${m.money.pages.toLocaleString()} wiki guide pages (+ ${m.money.list_pages} list pages) · ${m.money.with_profit.toLocaleString()} with a wiki profit figure · ${m.money.with_req_parsed.toLocaleString()} with requirements parsed to levels · ${m.money.with_maps} with a map pin · ${m.money.with_pic.toLocaleString()} with a wiki picture · ${m.money.obsolete} marked not profitable on the wiki</span>` : ''}
     ${m.ge ? `<b>GE prices</b><span>${m.ge.prices.toLocaleString()} items, as of ${esc(m.ge.date)} (${esc(m.ge.source)})</span>` : ''}</div>
@@ -2373,7 +2356,7 @@ async function fillWtg(el, D, name, page, drops) {
   }
   if (S.rel && S.rel.length && !(S.rel.length && sum.startsWith('See also'))) sec.push(`<div class="wsec"><h4>Related item pages <span class="note">(the wiki lists their sources under this item)</span></h4>${S.rel.map(n => `<div class="wrow">${itemLink(n)}<span class="note">${esc(SM[n] || 'see the item page')}</span></div>`).join('')}</div>`);
   if (S.nb && S.nb.length) sec.push(`<div class="wsec"><h4>Listed with <span class="note">(the wiki’s navigation boxes on this page; a hint where to look, not a stated method)</span></h4><div class="wrow">${S.nb.map(b => `<a href="${WIKI(b[1])}" target="_blank" rel="noopener noreferrer">${esc(b[0])} ↗</a>`).join(' · ')}</div></div>`);
-  if (eggs.length) sec.push(`<div class="wsec"><h4>Easter egg reward</h4>${eggs.map(r => `<div class="wrow"><a href="#secrets/${esc(r.id)}">${esc(r.t)}</a><span class="tag">Secret</span><span class="note">${esc(r.rq.length ? 'has requirements, see steps' : 'no requirements')}</span></div>`).join('')}<div class="note">A hidden interaction the RS3 wiki documents. Open it in the Secrets tab for the steps.</div></div>`);
+  if (eggs.length) sec.push(`<div class="wsec"><h4>Easter egg reward</h4>${eggs.map(r => `<div class="wrow"><a href="#secrets/${esc(r.id)}">${esc(r.t)}</a><span class="tag">Easter egg</span><span class="note">${esc(r.rq.length ? 'has requirements, see steps' : 'no requirements')}</span></div>`).join('')}<div class="note">A hidden interaction the RS3 wiki documents. Open it in the Easter Eggs tab for the steps.</div></div>`);
   const act = mapActionFor(S, TH);
   const uRow = u => `<div class="wrow">${itemLink(u[0])}<span class="note">${[u[1] && u[2] != null ? `${u[1]} ${u[2]}` : '', u[3] ? 'members' : 'free-to-play'].filter(Boolean).map(esc).join(' · ')}</span></div>`;
   const usedIn = (S.u && S.u.length) || txu.length ? `<div class="wsec usedin"><h4>Used in <span class="note">(${S.u && S.u.length ? `${S.u.length.toLocaleString()} item${S.u.length === 1 ? '' : 's'} made with this, from the wiki’s creation recipes` : 'RS3 wiki text'})</span></h4>
