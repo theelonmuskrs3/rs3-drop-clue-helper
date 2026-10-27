@@ -1206,3 +1206,21 @@ html[data-fx=low] .uphat img,html[data-fx=off] .uphat img{animation:none;filter:
 #upddlg .updonebox .row{justify-content:center}
 #upddlg .updonebox .row .btn{flex:0 1 200px}
 @media (max-width:360px){.uphat{width:100px;height:100px;margin-top:-50px}.uphat img{width:70px}}
+
+/* quest NPC map pins */
+.qnp>details>summary{flex-wrap:wrap;row-gap:2px}.qnp summary h2{display:inline;margin:0;font:inherit;letter-spacing:inherit}.qnp summary .note{margin:0;text-transform:none;letter-spacing:0;font-weight:400}
+.qnbar{margin:10px 0 8px;gap:8px}.qnmapbox{margin:6px 0 8px;min-width:0}.qnmapbox[hidden]{display:none}
+.qnchips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}.qnchips:empty{display:none}
+.qnl{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:4px;max-height:360px;overflow-y:auto;overscroll-behavior:contain}
+.qnr{display:flex;align-items:center;gap:8px;padding:5px 8px 5px 6px;border:1px solid #2c2119;border-radius:5px;background:rgba(255,255,255,.02);min-width:0}
+.qnr.can{cursor:pointer}.qnr.sel{border-color:var(--gold);background:rgba(242,198,109,.08)}
+.qnn{flex:0 0 22px;height:22px;border-radius:50%;background:#f2c66d;color:#1a0606;font:700 11px/22px var(--ui);text-align:center}
+.qnh{flex:0 0 36px;width:36px;height:44px;object-fit:contain;border-radius:3px;background:#0b0706}
+.qnph{display:flex;align-items:center;justify-content:center;color:#6d5a4a;font-weight:700}
+.qnm{flex:1 1 auto;min-width:0;line-height:1.35}.qnm>a{font-weight:600;overflow-wrap:anywhere}.qnm .note{font-size:12px}
+.qnm .tag{font-size:9px;padding:1px 5px;margin-left:2px}.qnno{color:#9d8d7d}
+.qnr .btn.mini{flex:0 0 auto;white-space:nowrap;padding:6px 9px}
+.qnsq{font-size:12px;color:var(--gold);padding:6px 2px 0}
+.qninfo{margin:4px 0;font-size:13px;min-width:0;overflow-wrap:anywhere}.qninfo .note{font-size:12px;margin-top:2px}
+@media (max-width:480px){.qnr{gap:6px;padding:4px 6px 4px 5px}.qnh{flex-basis:30px;width:30px;height:38px}.qnr .btn.mini{flex:0 0 auto;font-size:10px;padding:6px 7px}.qnl{max-height:300px}}
+@media (max-width:340px){.qnh{display:none}}

@@ -1430,8 +1430,15 @@ async function questsView(name) {
 async function questDetail(name, qs) {
   const row = qs.find(q => q[0] === name);
   if (!row) { view.innerHTML = `<div class="panel">${esc(name)} is not in this offline copy yet. <a href="#quests">Back to quests</a></div>`; return; }
-  const [q, travel] = await Promise.all([get(row[10] === 'hans' ? 'data/hans.json' : `data/q/${row[10]}.json`), get('data/travel.json')]);
+  const [q, travel, qn] = await Promise.all([get(row[10] === 'hans' ? 'data/hans.json' : `data/q/${row[10]}.json`), get('data/travel.json'), row[10] === 'hans' ? null : get(`data/qn/${row[10]}.json`).catch(() => null)]);
   const isH = row[10] === 'hans';
+  const qnE = qn && qn.n && qn.n.length ? qn.n.map((e, i) => ({...e, num: i + 1})) : [];
+  const qnPin = qnE.filter(e => (e.p || []).length).length;
+  const qnHtml = qnE.length ? `<div class="panel qnp"><details id="qnd"><summary><h2>NPCs on the map</h2><span class="note">${qnE.length} NPC${qnE.length === 1 ? '' : 's'} · ${qnPin} with a wiki map pin</span></summary>
+    <div class="row qnbar">${qnPin ? `<button class="btn mini" id="qnall">📍 Show all quest pins</button><a class="btn mini ghost" href="#map/qn/${row[10]}">Open in Map tab</a>` : ''}</div>
+    <div id="qnbox" class="mapwrap" hidden></div>
+    <ul class="qnl" id="qnl">${qnRows(qnE, row[10])}</ul>
+    <div class="note">In walkthrough order. Pins are the coordinates written on each NPC's own RS3 wiki page; where the wiki has none, the NPC is listed without a pin.</div></details></div>` : '';
   const titles = new Set(qs.map(x => x[0]));
   const qlink = t => titles.has(t) ? `<a href="#quests/${encodeURIComponent(t)}">${esc(t)}</a>${qIsDone(t) ? ' <span class="r1">✓</span>' : ''}` : esc(t);
   const kv = [['Type', cap(q.kind)], ['Members', q.members], ['Difficulty', q.difficulty], ['Length', q.length], ['Quest points', q.qp], ['Series', q.series], ['Released', q.release]].filter(x => x[1]);
@@ -1450,7 +1457,7 @@ async function questDetail(name, qs) {
     ${q.stub ? '<div class="note" style="margin-top:6px">This quest page was not in the offline copy yet. Only its prerequisites are known; rebuild after the download finishes.</div>' : ''}
     <div class="row" style="margin-top:10px"><button class="btn ${done ? '' : 'ghost'}" id="qdone">${done ? '✓ Marked complete' : isH ? 'Mark task list complete' : 'Mark quest complete'}</button></div></div></div></div>
   ${isH ? `<div class="panel"><h2>All ${q.index.length} tasks</h2><div class="note">The wiki's own 25th Anniversary task list (tap a task to jump to its steps). Listed in order of the year they celebrate, 2001 to 2025. You can do them in any order. A tick means that task's steps are all ticked below.</div><div id="hidx" class="hidx"></div></div>` : ''}
-  ${sec('Start', start)}${sec('Requirements', reqs)}
+  ${sec('Start', start)}${qnHtml}${sec('Requirements', reqs)}
   ${sec('Items required', bulletList(q.items, true))}${sec('Recommended', bulletList(q.recommended, true))}${sec('Enemies to defeat', bulletList(q.kills))}
   ${q.steps && q.steps.length ? `<div class="panel"><h2>Walkthrough</h2>
     <div class="row"><div class="prog"><div id="bar"></div></div><span class="note" id="pct"></span>
@@ -1460,6 +1467,16 @@ async function questDetail(name, qs) {
   ${(q.guide_pics || []).length ? `<div class="panel"><h2>More pictures from the wiki guide</h2><div class="note">These appear in the full wiki guide but don't clearly match one quick-guide step, so they are listed under the wiki's own section headings.</div>${q.guide_pics.map(g => `<h3 class="stepsec">${esc(g.sec)}</h3>${gallery(g.p)}`).join('')}</div>` : ''}
   ${sec('Rewards', bulletList(q.rewards) + (isH ? '<div class="note" style="margin-top:6px">The wiki lists no separate reward per task: the reward comes after all tasks are done and you speak to Hans again.</div>' : ''))}
   ${isH ? `<div class="panel"><h2>Wiki pages</h2><ul class="blist">${q.wiki_links.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(t)}</a></li>`).join('')}</ul></div>` : ''}`;
+  if (qnE.length && $('#qnall')) {
+    let ctl = null;
+    const mark = n => document.querySelectorAll('#qnl .qnr').forEach(li => li.classList.toggle('sel', +li.dataset.n === n));
+    $('#qnall').onclick = async () => {
+      const box = $('#qnbox');
+      if (box.dataset.on) { box.hidden = !box.hidden; return; }
+      box.dataset.on = '1'; box.hidden = false; box.innerHTML = '<div class="note">Loading the map…</div>';
+      try { ctl = await qnMap(box, qnE, {height: 250, onSel: mark}); } catch (err) { box.innerHTML = `<div class="note">Could not load the map: ${esc(err.message)}</div>`; }
+    };
+  }
   $('#qdone').onclick = () => { if (qIsDone(name)) localStorage.removeItem(QDONE(name)); else localStorage.setItem(QDONE(name), '1'); questDetail(name, qs); };
   if (!q.steps || !q.steps.length) return;
   const prog = qProg(row[10]);

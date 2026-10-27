@@ -68,6 +68,7 @@ const nearestLode = (x, y) => {
 async function mapTab(arg) {
   await mapData();
   const idp = (arg || '').split('?')[0];
+  if (/^qn\/[0-9a-f]{10}$/.test(idp)) return mapQuestNpcs(idp.slice(3), (arg.split('?')[1] || ''));
   if (/^\d+$/.test(idp)) return mapEntry(+idp);
   const st = (() => { try { const o = JSON.parse(sessionStorage.mapq || 'null'); return {q: typeof (o && o.q) === 'string' ? o.q : '', t: typeof (o && o.t) === 'string' ? o.t : ''}; } catch (e) { return {q: '', t: ''}; } })();
   const rows = MT.idx.rows, meta = MT.idx.meta;
@@ -259,6 +260,7 @@ class TileView {
     const nk = Math.min(32, Math.max(0.125, this.k * f)); const gx = this.cx + (sx - this.W / 2) / this.k, gy = this.cy - (sy - this.H / 2) / this.k;
     this.k = nk; this.cx = gx - (sx - this.W / 2) / nk; this.cy = gy + (sy - this.H / 2) / nk; this.draw();
   }
+  setPlane(pl) { this.plane = pl; const sl = this.el.querySelector('select'); if (sl) sl.value = String(pl); this.draw(); }
   setPins(p, polys) { this.pins = p || []; this.polys = polys || []; this.draw(); }
   S(x, y) { return [(x - this.cx) * this.k + this.W / 2, this.H / 2 - (y - this.cy) * this.k]; }
   click(sx, sy) {
@@ -312,6 +314,11 @@ class TileView {
     for (const p of this.pins) {
       if (p.main) { main = p; continue; }
       const [a, b] = this.S(p.x + .5, p.y + .5); if (a < -8 || a > W + 8 || b < -8 || b > H + 8) continue;
+      if (p.num != null) {   // numbered quest NPC pin (same number as the row in the list)
+        c.fillStyle = '#f2c66d'; c.strokeStyle = '#7a1a1a'; c.lineWidth = 2; c.beginPath(); c.arc(a, b, 10, 0, 7); c.fill(); c.stroke();
+        c.fillStyle = '#1a0606'; c.font = '700 11px ' + getComputedStyle(document.body).fontFamily; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(String(p.num), a, b + .5); c.textBaseline = 'alphabetic';
+        continue;
+      }
       c.fillStyle = '#f2c66d'; c.strokeStyle = '#7a1a1a'; c.lineWidth = 2; c.beginPath(); c.arc(a, b, this.onPin ? 5 : 4, 0, 7); c.fill(); c.stroke();
     }
     if (main) {
@@ -330,4 +337,107 @@ class TileView {
     c.fillStyle = '#121212cc'; c.fillRect(0, H - 18, 128, 18); c.fillStyle = '#bdbdbd'; c.font = '11px ' + getComputedStyle(document.body).fontFamily; c.textAlign = 'left';
     c.fillText(`${Math.floor(this.cx)}, ${Math.floor(this.cy)} · floor ${this.plane}`, 6, H - 5);
   }
+}
+
+/* ---------- quest NPC pins ----------
+   data/qn/<quest id>.json (build_qnpc.py) lists, in walkthrough order, the NPCs a quest sends you to, with the wiki's own map pins for each NPC page.
+   Numbered gold pins = the row numbers in the list; the picked NPC gets the big red pin and its name. */
+const QN_ROLE = {s: 'Starts quest', f: 'Finishes quest', t: 'Talk to', k: 'Fight'};
+const qnPts = e => (e.p || []).length ? (e.pm >= 0 ? [e.p[e.pm]] : e.p) : [];
+const qnWiki = t => 'https://runescape.wiki/w/' + encodeURIComponent(String(t).replace(/ /g, '_')).replace(/%2C/g, ',').replace(/%28/g, '(').replace(/%29/g, ')');
+function qnRows(ents, qid, mapLinks = true) {
+  let sq = null;
+  return ents.map(e => {
+    const head = (e.sq || null) !== sq ? (sq = e.sq || null, e.sq ? `<li class="qnsq">From the sub-quest <a href="#quests/${encodeURIComponent(e.sq)}">${esc(e.sq)}</a></li>` : '') : '';
+    const roles = e.r.includes('s') || e.r.includes('f') ? e.r.replace(/[tk]/g, '') : e.r;
+    const tags = [...roles].map(c => `<span class="tag qnt-${c}">${QN_ROLE[c]}</span>`).join(' ');
+    const st = e.st && e.st.length ? `<span class="note">${e.st.length === 1 ? 'step' : 'steps'} ${e.st.slice(0, 4).join(', ')}${e.st.length > 4 ? ` +${e.st.length - 4}` : ''}</span>` : '';
+    const where = !(e.p || []).length ? '<span class="note qnno">no wiki coordinates</span>' : e.pm < 0 ? `<span class="note">wiki lists ${e.np || e.p.length} places</span>` : '';
+    const act = (e.p || []).length ? `<a class="btn mini" href="#map/qn/${qid}?n=${e.num}" data-qn="${e.num}">📍 Show on map</a>` : '';
+    return head + `<li class="qnr" data-n="${e.num}"><span class="qnn">${e.num}</span>${e.i ? `<img class="qnh" src="${esc(e.i)}" alt="" width="36" height="44" loading="lazy" decoding="async">` : '<span class="qnh qnph">?</span>'}
+      <div class="qnm"><a href="${esc(qnWiki(e.t))}" target="_blank" rel="noopener noreferrer">${esc(e.d)}</a> ${tags}<div>${st} ${where}</div></div>${mapLinks ? act : ''}</li>`;
+  }).join('');
+}
+async function qnMap(el, ents, o = {}) {
+  await mapData();
+  const keys = [...new Set(ents.flatMap(e => qnPts(e).map(p => String(p[0]))))].sort((a, b) => (a === '28' ? -1 : 0) - (b === '28' ? -1 : 0));
+  if (!keys.length) { el.innerHTML = '<div class="note">The wiki has no map coordinates for any of these NPCs.</div>'; return null; }
+  el.innerHTML = '<div class="qnchips"></div><div class="qnview"></div>';
+  const chips = el.firstChild, host = el.lastChild, H = o.height || 260;
+  const ctl = {sel: null, map: null, v: null, pins: []};
+  const mname = k => k === '28' ? 'Surface' : `Other area (map ${k})`;
+  const have = (k, pl) => (k === '28' ? MT.idx.meta.surface.zooms : [1, 2]).some(z => MT.tiles.packs[`${k}/${z}/${pl}`]);
+  const build = k => {
+    ctl.map = k; ctl.pins = [];
+    for (const e of ents) qnPts(e).forEach((p, i) => { if (String(p[0]) === k) ctl.pins.push({x: p[2], y: p[3], pl: p[1], num: e.num, name: e.d, first: i === 0}); });
+    chips.innerHTML = keys.length > 1 ? keys.map(c => `<button class="btn mini ${c === k ? '' : 'ghost'}" data-k="${c}">${esc(mname(c))} (${ents.filter(e => qnPts(e).some(p => String(p[0]) === c)).length})</button>`).join(' ') : '';
+    const surf = k === '28', pl0 = surf ? 0 : ctl.pins[0].pl;
+    const pl = have(k, pl0) ? pl0 : (have(k, 0) ? 0 : pl0);
+    if (!have(k, pl)) { ctl.v = null; host.className = 'qnview'; host.innerHTML = `<div class="note">The wiki’s map tiles for this area (map ${esc(k)}, floor ${pl}) are not in the app. Wiki coordinates: ${ctl.pins.map(p => `${p.num}. ${esc(p.name)} ${esc(coordStr([p.x, p.y], p.pl))}`).join('; ')}.</div>`; return; }
+    host.innerHTML = '';
+    const xs = ctl.pins.map(p => p.x), ys = ctl.pins.map(p => p.y);
+    ctl.v = new TileView(host, surf ? {map: '28', plane: pl, x: 3200, y: 3300, k: 1, height: H, lodes: true} : {map: k, plane: pl, x: xs[0], y: ys[0], k: 3, height: H, zooms: [1, 2], floors: false});
+    ctl.v.onPin = p => { if (p.num != null) ctl.select(p.num); };
+  };
+  const frame = () => {
+    const v = ctl.v; if (!v) return; const xs = ctl.pins.map(p => p.x), ys = ctl.pins.map(p => p.y);
+    const span = Math.max(24, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    v.cx = (Math.min(...xs) + Math.max(...xs)) / 2 + .5; v.cy = (Math.min(...ys) + Math.max(...ys)) / 2 + .5;
+    v.k = Math.max(0.35, Math.min(6, Math.min(v.W, H) / span / 1.35)); v.home = [v.cx, v.cy, v.k];
+  };
+  const paint = () => {
+    const v = ctl.v; if (!v) return;
+    v.setPins(ctl.pins.map(p => ({x: p.x, y: p.y, num: p.num, main: p.num === ctl.sel && p.first, name: `${p.num}. ${p.name}`})));
+  };
+  ctl.all = () => { ctl.sel = null; if (ctl.map !== keys[0]) build(keys[0]); frame(); paint(); if (o.onSel) o.onSel(null); };
+  ctl.select = num => {
+    const e = ents.find(x => x.num === num); if (!e) return ctl.all();
+    ctl.sel = num; const pts = qnPts(e);
+    if (pts.length) {
+      const k = String(pts[0][0]); if (k !== ctl.map) build(k);
+      const v = ctl.v;
+      if (v) {
+        if (k === '28' && pts[0][1] !== v.plane && have(k, pts[0][1])) v.setPlane(pts[0][1]);
+        else if (k === '28' && pts[0][1] === 0 && v.plane !== 0) v.setPlane(0);
+        v.cx = pts[0][2] + .5; v.cy = pts[0][3] + .5; v.k = Math.max(v.k < 2.5 ? 3 : v.k, k === '28' ? 3 : 4); v.home = [v.cx, v.cy, v.k];
+        if (pts.length > 1) { const xs = pts.map(p => p[2]), ys = pts.map(p => p[3]), span = Math.max(24, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)); v.cx = (Math.min(...xs) + Math.max(...xs)) / 2 + .5; v.cy = (Math.min(...ys) + Math.max(...ys)) / 2 + .5; v.k = Math.max(0.35, Math.min(6, Math.min(v.W, H) / span / 1.35)); v.home = [v.cx, v.cy, v.k]; }
+      }
+    }
+    paint(); if (o.onSel) o.onSel(num);
+  };
+  chips.onclick = ev => { const b = ev.target.closest('button[data-k]'); if (!b) return; build(b.dataset.k); frame(); paint(); ctl.sel = null; if (o.onSel) o.onSel(null); };
+  build(keys[0]); frame(); paint();
+  return ctl;
+}
+async function mapQuestNpcs(qid, query) {
+  const [qs, sh] = await Promise.all([get('data/quests.json'), get(`data/qn/${qid}.json`).catch(() => null)]);
+  const row = qs.find(r => r[10] === qid);
+  if (!row || !sh) { view.innerHTML = `<div class="panel">No NPC pins for this quest. <a href="#quests">Back to quests</a></div>`; return; }
+  const ents = sh.n.map((e, i) => ({...e, num: i + 1}));
+  const pinned = ents.filter(e => (e.p || []).length);
+  const n0 = +(new URLSearchParams(query).get('n') || 0);
+  view.innerHTML = `<div class="row" style="margin-bottom:10px"><a class="btn ghost" href="#quests/${encodeURIComponent(row[0])}">← ${esc(row[0])}</a><a class="btn ghost" href="#map">Map search</a></div>
+    <div class="panel qnp"><h2>${esc(row[0])}: NPC map pins</h2>
+    <div class="note">${ents.length} NPC${ents.length === 1 ? '' : 's'} in walkthrough order, ${pinned.length} with a wiki map pin. Numbers match the list. Tap a pin or a row.</div>
+    <div id="qnmap" class="mapwrap qnmapbox"></div><div id="qninfo" class="qninfo"></div>
+    <ul class="qnl" id="qnl">${qnRows(ents, qid, false)}</ul>
+    <div class="note">Pins are the coordinates written on each NPC's own RS3 wiki page. Nothing is estimated; NPCs the wiki has no coordinates for are listed without a pin.</div></div>`;
+  const info = $('#qninfo');
+  const show = n => {
+    document.querySelectorAll('#qnl .qnr').forEach(li => li.classList.toggle('sel', +li.dataset.n === n));
+    if (n) { history.replaceState(null, '', `#map/qn/${qid}?n=${n}`); const li = document.querySelector(`#qnl .qnr[data-n="${n}"]`); if (li && li.scrollIntoView) li.scrollIntoView({block: 'nearest'}); }
+    else history.replaceState(null, '', `#map/qn/${qid}`);
+    const e = ents.find(x => x.num === n);
+    if (!e) { info.innerHTML = `<div class="note">All ${pinned.length} pins. Tap one for its details.</div>`; return; }
+    const pts = qnPts(e), p0 = pts[0];
+    const ln = p0 && String(p0[0]) === '28' ? nearestLode(p0[2], p0[3]) : '';
+    info.innerHTML = `<b>${e.num}. <a href="${esc(qnWiki(e.t))}" target="_blank" rel="noopener noreferrer">${esc(e.d)}</a></b> ${[...e.r.replace(/[tk]/g, c => (e.r.includes('s') || e.r.includes('f')) ? '' : c)].map(c => `<span class="tag">${QN_ROLE[c]}</span>`).join(' ')}
+      ${p0 ? `<div class="note">${pts.length > 1 ? `The wiki lists ${pts.length} places (the quest text does not say which): ${pts.map(p => esc(coordStr([p[2], p[3]], p[1]))).join(' · ')}` : `Wiki coordinates ${esc(coordStr([p0[2], p0[3]], p0[1]))}`}${ln ? ` · nearest lodestone: ${ln}` : ''}</div>` : '<div class="note">No wiki coordinates for this NPC, so there is no pin.</div>'}`;
+  };
+  const ctl = await qnMap($('#qnmap'), ents, {height: Math.round(Math.min(420, Math.max(260, innerHeight * .42))), onSel: show});
+  if (!ctl) { info.innerHTML = ''; return; }
+  const pick = n => (ents.find(e => e.num === n && (e.p || []).length) ? ctl.select(n) : ctl.all());
+  $('#qnl').onclick = ev => { const li = ev.target.closest('.qnr'); if (!li || ev.target.closest('a')) return; const n = +li.dataset.n; if (ents.find(e => e.num === n && e.p && e.p.length)) { ctl.select(n); $('#qnmap').scrollIntoView({block: 'nearest'}); } };
+  document.querySelectorAll('#qnl .qnr').forEach(li => { const e = ents[+li.dataset.n - 1]; if ((e.p || []).length) li.classList.add('can'); });
+  pick(n0);
 }
