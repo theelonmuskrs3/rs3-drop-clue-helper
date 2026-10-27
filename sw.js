@@ -1,5 +1,5 @@
 // Network-first service worker: always fresh when online (dev preview stays live), full offline fallback from cache.
-// build: 20261026-2139 (bump so phones pick up the new version)
+// build: 20261026-2253 (bump so phones pick up the new version)
 const PREFIX = 'dch-';
 self.addEventListener('install', e => {
   e.waitUntil((async () => {
@@ -8,7 +8,7 @@ self.addEventListener('install', e => {
     const c = await caches.open(PREFIX + version);
     // add in chunks so one missing file does not abort the whole install
     for (let i = 0; i < files.length; i += 40)
-      await Promise.all(files.slice(i, i + 40).map(f => c.add(new Request(f, {cache: 'reload'})).catch(() => {})));
+      await Promise.all(files.slice(i, i + 40).map(async f => { try { if (!(await c.match(f))) await c.add(new Request(f, {cache: 'reload'})); } catch (e) {} }));
     await self.skipWaiting();
   })());
 });

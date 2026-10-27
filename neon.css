@@ -1167,3 +1167,27 @@ html[data-fx=off] .chsk .sk{transition:none}
 .tabs button.on .nx-egg img{filter:grayscale(1) brightness(2.8) contrast(1.15) sepia(1) saturate(6) hue-rotate(-8deg) drop-shadow(0 0 4px rgba(255,176,0,.8))}
 .tabs button:hover .nx-egg,.tabs button.on .nx-egg{filter:none;transform:none;opacity:1}
 @media (max-width:699px){.tabs button .nx-egg img{width:15px;height:16px}}
+/* ===== Character skills: everything centred at every width (equal left/right gaps) ===== */
+.chsk{text-align:center}
+.chsk>h2:first-child{justify-content:center;padding-left:0;padding-right:0}
+.chsk>h2:first-child::after{display:none}
+.chsk .chtools{justify-content:center}
+.chsk .skgrid{width:100%;max-width:540px;margin:8px auto 0;grid-template-columns:repeat(3,minmax(0,1fr));justify-content:center;text-align:left}
+.chsk .sktot{justify-content:center;text-align:center}
+.chsk .chnote{text-align:center;margin-left:auto;margin-right:auto;max-width:640px}
+/* ===== Update progress: black/red bar + percentage only ===== */
+#upddlg .updver{color:var(--soft);font-size:13px;letter-spacing:.06em;margin:2px 0 4px}#upddlg .updver b{color:var(--gold)}
+#upddlg .updpct{font:900 40px/1 var(--head);color:var(--gold2);text-align:center;margin:14px 0 10px;text-shadow:0 0 18px rgba(255,31,61,.55),0 2px 0 #000;font-variant-numeric:tabular-nums}
+#upddlg .updbar{height:16px;margin:0 0 12px;background:linear-gradient(#050303,#120a0a);border:1px solid #000;border-radius:3px;box-shadow:0 0 0 1px var(--goldd),inset 0 2px 5px #000,0 0 18px rgba(255,31,61,.15);overflow:hidden;position:relative}
+#upddlg .updbar>i{display:block;height:100%;width:0;background:linear-gradient(180deg,#ff5a6e 0,var(--red) 35%,var(--crim) 100%);box-shadow:0 0 14px var(--red),inset 0 1px 0 rgba(255,255,255,.35);transition:width .35s ease-out;position:relative;overflow:hidden}
+#upddlg .updbar>i::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-100%);animation:updsheen 1.6s linear infinite}
+@keyframes updsheen{to{transform:translateX(100%)}}
+html[data-fx=low] #upddlg .updbar>i::after,html[data-fx=off] #upddlg .updbar>i::after{animation:none;display:none}
+html[data-fx=low] #upddlg .updbar>i{box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+html[data-fx=off] #upddlg .updbar>i,html[data-fx=off] #upddlg .updbar{transition:none;box-shadow:none}
+html[data-fx=off] #upddlg .updpct{text-shadow:none}
+@media (prefers-reduced-motion:reduce){#upddlg .updbar>i{transition:none}#upddlg .updbar>i::after{animation:none;display:none}}
+#upddlg.updfull .updpct{color:#fff}
+#upddlg .box .note#updnote{text-align:center}
+@media (max-width:360px){#upddlg .updpct{font-size:34px}}
+.chsk>h2:first-child{border-image:linear-gradient(90deg,transparent,rgba(255,31,61,.55),transparent) 1}

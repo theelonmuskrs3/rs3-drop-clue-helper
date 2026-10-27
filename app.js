@@ -2055,7 +2055,35 @@ function updDialog(html) {
     d.addEventListener('click', e => { if (e.target === d && !d.dataset.busy) d.hidden = true; }); }
   d.hidden = false; d.querySelector('.box').innerHTML = html; return d;
 }
-const mb = b => (b / 1e6 < 0.1 && b > 0 ? '<0.1' : (b / 1e6).toFixed(1)) + ' MB';
+/* Update progress UI: only a version (optional), a black/red bar and the percentage. No file counts, no sizes.
+   The percentage is computed from real work (bytes / files done) and is held at 99% until the update is fully applied. */
+function updProgressUI(ver, label) {
+  const d = updDialog(`<h3>${esc(label || 'Updating…')}</h3>${ver ? `<div class="updver">Version <b>${esc(ver)}</b></div>` : ''}
+    <div class="updpct" id="updpct" aria-hidden="true">0%</div>
+    <div class="updbar" id="updbar" role="progressbar" aria-label="Update progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="updfill"></i></div>
+    <div class="note" id="updnote">Keep this window open.</div>`);
+  d.dataset.busy = '1'; d.querySelector('.box').classList.remove('patch');
+  let shown = 0;
+  const set = (pct, done) => {
+    pct = done ? 100 : Math.max(shown, Math.min(99, Math.floor(pct || 0)));   // never goes backwards, never 100 before the update is applied
+    shown = pct;
+    const f = document.getElementById('updfill'); if (!f) return;
+    f.style.width = pct + '%'; document.getElementById('updpct').textContent = pct + '%';
+    document.getElementById('updbar').setAttribute('aria-valuenow', String(pct));
+    d.classList.toggle('updfull', pct >= 100);
+  };
+  return {d, set, note: t => { const n = document.getElementById('updnote'); if (n) n.textContent = t; }};
+}
+/* Windows program: launcher progress (download 0-80% by bytes, install 80-99% by files) */
+const exePct = p => {
+  if (!p) return 0;
+  if (p.phase === 'download') {
+    const f = p.total_bytes > 0 ? p.bytes / p.total_bytes : p.total > 0 ? p.done / p.total : 0;
+    return 80 * Math.max(0, Math.min(1, f));
+  }
+  if (p.phase === 'install') return 80 + 19 * Math.max(0, Math.min(1, p.total > 0 ? p.done / p.total : 0));
+  return 0;
+};
 async function checkUpdates() {
   const d = updDialog('<h3>Check for updates</h3><div class="updmsg">Checking the live app…</div>');
   let r;
@@ -2064,35 +2092,30 @@ async function checkUpdates() {
   if (r.error) updDialog(`<h3>Check for updates</h3><div class="updmsg">Couldn't check right now: ${esc(r.error)}<br>Make sure you're online and try again.</div><div class="row">${close}</div>`);
   else if (r.up_to_date) updDialog(`<h3>Up to date</h3><div class="updmsg">You have the latest version (<b>${esc(r.latest)}</b>).</div><div class="row">${close}</div>`);
   else {
-    const n = r.changed_count + (r.removed_count || 0);
-    updDialog(`<h3>Update available</h3><div class="updmsg">Update available: <b>${n.toLocaleString()} file${n === 1 ? '' : 's'}, ${mb(r.bytes)}</b><br><span class="note">${r.current === r.latest ? 'Some files differ from the live version; this repairs them.' : `Installed ${esc(r.current)} → latest ${esc(r.latest)}`}</span></div>
+    updDialog(`<h3>Update available</h3><div class="updmsg">${r.current === r.latest ? 'Some files differ from the live version; updating repairs them.' : `New version <b>${esc(r.latest)}</b>${r.current ? ` (installed ${esc(r.current)})` : ''}.`}</div>
       <div class="row"><button class="btn" id="updnow">Update now</button>${close}</div>`);
-    $('#updnow').onclick = applyUpdate;
+    $('#updnow').onclick = () => applyUpdate(r.latest);
   }
   const c = document.getElementById('updclose'); if (c) c.onclick = () => { d.hidden = true; };
 }
-async function applyUpdate() {
-  const d = updDialog('<h3>Updating…</h3><div class="updmsg" id="updtxt">Starting…</div><div class="updbar"><i id="updfill"></i></div><div class="note">Keep this window open.</div>');
-  d.dataset.busy = '1';
+async function applyUpdate(ver) {
+  const ui = updProgressUI(typeof ver === 'string' ? ver : '', 'Updating…'), d = ui.d;
   const tick = setInterval(async () => {
     try {
       const p = await (await fetch('/__update/progress', {cache: 'no-store'})).json();
-      if (p.phase === 'download') { $('#updtxt').textContent = `Downloading ${p.done.toLocaleString()} / ${p.total.toLocaleString()} files (${mb(p.bytes)} of ${mb(p.total_bytes)})`;
-        $('#updfill').style.width = (p.total_bytes ? 100 * p.bytes / p.total_bytes : 100 * p.done / Math.max(1, p.total)) + '%'; }
-      else if (p.phase === 'install') { $('#updtxt').textContent = 'Installing…'; $('#updfill').style.width = '100%'; }
-      else if (p.phase === 'checking') $('#updtxt').textContent = 'Checking files…';
+      if (p.phase === 'download' || p.phase === 'install') ui.set(exePct(p));
     } catch (e) {}
-  }, 500);
+  }, 400);
   let r;
   try { r = await (await fetch('/__update/apply', {method: 'POST', cache: 'no-store'})).json(); } catch (e) { r = {ok: false, error: e.message}; }
   clearInterval(tick); delete d.dataset.busy;
   if (!r.ok) { updDialog(`<h3>Update failed</h3><div class="updmsg">${esc(r.error || 'Unknown error')}<br>Your current version was left as it was.</div><div class="row"><button class="btn ghost" id="updclose">Close</button></div>`);
     $('#updclose').onclick = () => { document.getElementById('upddlg').hidden = true; }; return; }
-  updDialog(`<h3>Updated</h3><div class="updmsg">Now on <b>${esc(r.version)}</b>. Reloading…</div>`);
   // drop the old service worker and its caches so every new file is used
   try { for (const g of await navigator.serviceWorker?.getRegistrations?.() || []) await g.unregister(); } catch (e) {}
   try { for (const k of await caches.keys()) if (k.startsWith('dch-')) await caches.delete(k); } catch (e) {}
-  setTimeout(() => location.reload(), 600);
+  ui.set(100, true); ui.note('Updated. Restarting…');
+  setTimeout(() => location.reload(), 1100);
 }
 async function detectLauncher() {
   try {
@@ -2123,10 +2146,26 @@ function patchCard(o) {
   if (o.now) $('#patchnow').onclick = () => { d.querySelector('.box').classList.remove('patch'); o.now(); };
   return d;
 }
-async function reloadFresh() {
+/* Installed web app / browser: download the new version's files into a new cache (real progress = files done), then switch to it. */
+async function reloadFresh(ver) {
+  const ui = updProgressUI(typeof ver === 'string' ? ver : '', 'Updating…');
+  let ok = true, keep = null;
+  try {
+    const pc = await (await fetch('precache.json', {cache: 'no-store'})).json();
+    const files = pc.files || []; keep = 'dch-' + pc.version;
+    if (!('caches' in window) || !files.length) throw new Error('nocache');
+    const c = await caches.open(keep); let done = 0;
+    for (let i = 0; i < files.length; i += 40) {
+      await Promise.all(files.slice(i, i + 40).map(async f => { try { if (!(await c.match(f))) await c.add(new Request(f, {cache: 'reload'})); } catch (e) {} done++; }));
+      ui.set(95 * done / files.length);
+    }
+  } catch (e) { ok = e && e.message === 'nocache'; }          // no cache support: nothing to download, just switch
+  if (!ok) { updDialog('<h3>Update failed</h3><div class="updmsg">Couldn\u2019t download the new version. Check your connection and try again; nothing was changed.</div><div class="row"><button class="btn ghost" id="updclose">Close</button></div>');
+    $('#updclose').onclick = () => { document.getElementById('upddlg').hidden = true; }; return; }
   try { for (const g of await navigator.serviceWorker?.getRegistrations?.() || []) await g.unregister(); } catch (e) {}
-  try { for (const k of await caches.keys()) if (k.startsWith('dch-')) await caches.delete(k); } catch (e) {}
-  location.reload();
+  try { for (const k of await caches.keys()) if (k.startsWith('dch-') && k !== keep) await caches.delete(k); } catch (e) {}
+  ui.set(100, true); ui.note('Updated. Restarting…');
+  setTimeout(() => location.reload(), 1100);
 }
 const dlgOpen = () => { const d = document.getElementById('upddlg'); return d && !d.hidden; };
 /* Windows program: optional newer launcher notice, from launcher.json that ships with the app (never replaces anything by itself) */
@@ -2144,9 +2183,8 @@ async function exePatchCheck() {
   if (!r || r.error || r.up_to_date) return;
   const b = $('#updbtn'); if (b) b.classList.add('has');
   if (sessionStorage.patchLater === r.latest) return;
-  const n = r.changed_count + (r.removed_count || 0);
-  patchCard({title: 'A new patch is ready', msg: `New version <b>${esc(r.latest)}</b>${r.current && r.current !== r.latest ? ` (you have ${esc(r.current)})` : ''}. <b>${n.toLocaleString()} file${n === 1 ? '' : 's'}, ${mb(r.bytes)}</b> to download. Only changed files are fetched and each one is verified before it replaces the old one.`,
-    notes: '<div class="note">What changed is shown on the next start, after the update is installed.</div>', extra: await launcherNote(), now: applyUpdate, onLater: () => { try { sessionStorage.patchLater = r.latest; } catch (e) {} }});
+  patchCard({title: 'A new patch is ready', msg: `New version <b>${esc(r.latest)}</b>${r.current && r.current !== r.latest ? ` (you have ${esc(r.current)})` : ''}. Your saved levels and settings are kept.`,
+    notes: '<div class="note">What changed is shown on the next start, after the update is installed.</div>', extra: await launcherNote(), now: () => applyUpdate(r.latest), onLater: () => { try { sessionStorage.patchLater = r.latest; } catch (e) {} }});
 }
 async function webPatchWatch() {
   if (LAUNCHER) return;
@@ -2156,7 +2194,7 @@ async function webPatchWatch() {
     if (document.hidden || dlgOpen()) return;
     const v = await live(); if (!v || v === PATCH_BOOT || sessionStorage.patchLater === v) return;
     const n = await fetchJ('whatsnew.json');
-    patchCard({title: 'A newer version is ready', msg: 'This window is running an older version. Reload to use the newest one; your saved levels and settings stay on this device.', notes: patchNotes(n), now: reloadFresh, nowLabel: 'Update now', onLater: () => { try { sessionStorage.patchLater = v; } catch (e) {} }});
+    patchCard({title: 'A newer version is ready', msg: 'This window is running an older version. Reload to use the newest one; your saved levels and settings stay on this device.', notes: patchNotes(n), now: () => reloadFresh(v), nowLabel: 'Update now', onLater: () => { try { sessionStorage.patchLater = v; } catch (e) {} }});
   };
   document.addEventListener('visibilitychange', chk); setInterval(chk, 20 * 60 * 1000);
 }
