@@ -1100,7 +1100,6 @@ html[data-fx=off] .sk2p i{transition:none}
 }
 @media (max-width:359px){
   .chgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .chhead .stsaved{display:none}
 }
 
 /* ===== Items | Sets view toggle and set cards ===== */
@@ -1224,3 +1223,10 @@ html[data-fx=low] .uphat img,html[data-fx=off] .uphat img{animation:none;filter:
 .qninfo{margin:4px 0;font-size:13px;min-width:0;overflow-wrap:anywhere}.qninfo .note{font-size:12px;margin-top:2px}
 @media (max-width:480px){.qnr{gap:6px;padding:4px 6px 4px 5px}.qnh{flex-basis:30px;width:30px;height:38px}.qnr .btn.mini{flex:0 0 auto;font-size:10px;padding:6px 7px}.qnl{max-height:300px}}
 @media (max-width:340px){.qnh{display:none}}
+
+/* Saved ✓ pill that follows the skills (sticky under the top bar, zero height so nothing shifts) */
+.chsk .sksv{position:sticky;top:calc(var(--topH,0px) + 8px);height:0;z-index:16;pointer-events:none}
+.sksaved{position:absolute;right:0;top:0;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;font:700 13px/1 var(--head);letter-spacing:.12em;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,#8f1226,#4a0a14);border:1px solid #ff3b57;box-shadow:0 0 0 1px #000,0 6px 18px rgba(0,0,0,.65),0 0 16px rgba(255,31,61,.45);opacity:0;transform:translateY(-4px);transition:opacity .35s var(--ease),transform .35s var(--ease);white-space:nowrap;max-width:100%}
+.sksaved.show{opacity:1;transform:none}.sksaved.bad{background:#3a0a0a;border-color:#ff6b6b;color:#ffb4b4;white-space:normal}
+@media (prefers-reduced-motion:reduce){.sksaved{transition:none;transform:none}}
+html[data-fx=off] .sksaved{transition:none}

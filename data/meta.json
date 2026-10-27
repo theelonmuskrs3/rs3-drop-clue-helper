@@ -1,5 +1,5 @@
 {
- "built": "2026-10-27 16:56 EDT",
+ "built": "2026-10-27 18:39 EDT",
  "monsters": 1481,
  "drop_entries": 21768,
  "items": 3297,
@@ -127,7 +127,7 @@
   ]
  },
  "quests": {
-  "generated": "2026-10-27 16:43:05 EDT",
+  "generated": "2026-10-27 18:22:56 EDT",
   "questreq_master_list": 392,
   "stubs_page_missing": 9,
   "total": 404,
@@ -159,7 +159,7 @@
   "gear": 0,
   "all_items": 0
  },
- "drops_generated": "2026-10-27 16:42:24 EDT",
+ "drops_generated": "2026-10-27 18:22:10 EDT",
  "gear": {
   "items": 11424,
   "with_stats": 8354,
@@ -196,7 +196,7 @@
    "holiday": 251,
    "not_currently_obtainable": 4349,
    "discontinued_flag": 5574,
-   "seconds": 11
+   "seconds": 13
   }
  },
  "secrets": {
@@ -309,5 +309,5 @@
   "source": "Module:GEPrices/data.json (RS3 wiki), saved in the wiki copy as ge_prices_2026-10-21.json",
   "prices": 7367
  },
- "clues_generated": "2026-10-27 16:42:56 EDT"
+ "clues_generated": "2026-10-27 18:22:46 EDT"
 }

@@ -377,6 +377,17 @@ function statsBadge(ok) {
   if (ok === null) { b.textContent = 'Saving…'; b.className = 'stsaved'; return; }
   if (ok) { b.textContent = 'Saved ✓'; b.className = 'stsaved on'; _stBadgeT = setTimeout(() => { b.className = 'stsaved on idle'; }, 1800); }
   else { b.textContent = 'Not saved (browser storage is blocked)'; b.className = 'stsaved on bad'; }
+  skSaved(ok);
+}
+/* the "Saved ✓" pill that sticks next to the skills while you edit them (the header one scrolls out of sight on phones) */
+let _skT = 0;
+function skSaved(ok) {
+  const p = document.getElementById('sksaved'); if (!p) return;
+  clearTimeout(_skT);
+  if (ok === null) return;   /* still inside the 250 ms save delay: nothing to confirm yet */
+  const t = document.querySelector('.top'); if (t) document.documentElement.style.setProperty('--topH', Math.round(t.getBoundingClientRect().bottom) + 'px');
+  p.textContent = ok ? 'Saved ✓' : 'Not saved (browser storage blocked)'; p.classList.toggle('bad', !ok); p.classList.remove('show'); void p.offsetWidth; p.classList.add('show');
+  _skT = setTimeout(() => p.classList.remove('show'), ok ? 2000 : 6000);
 }
 /* gear style + PvM/PvP choice are remembered across visits too */
 function loadPrefs() { try { const o = JSON.parse(lsGet('gearprefs_v1') || '{}'); return {style: STYLES[o.style] ? o.style : null, mode: o.mode === 'pvp' || o.mode === 'pvm' ? o.mode : null}; } catch (e) { return {style: null, mode: null}; } }
@@ -646,7 +657,7 @@ async function charView(sub) {
       <div class="chn"><span class="chl">Skills at 99+</span><b class="chv" id="n99">0</b><span class="chm" id="nmx">0 maxed</span></div>
       <div class="chn"><span class="chl">Quests done</span><b class="chv" id="nq">–</b><span class="chm" id="nqm">tracked here</span></div></div>
     <div class="chpriv"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 7.5h9V14h-9zM5.2 7.5V5.2a2.8 2.8 0 015.6 0v2.3"/></svg><span>Private: saved automatically in this browser on this device only, never sent anywhere. Each device keeps its own levels.${STATS_SAVED ? '' : ' <b>Nothing saved yet:</b> tap + or type a level to start.'}</span></div></section>
-  <section class="panel chsk"><h2>Skills</h2>
+  <section class="panel chsk"><h2>Skills</h2><div class="sksv"><span id="sksaved" class="sksaved" role="status" aria-live="polite"></span></div>
     <div class="chtools"><button type="button" class="btn ghost" data-all="1">All 1</button><button type="button" class="btn ghost" data-all="99">All 99</button><button type="button" class="btn ghost" data-all="max">All max</button><button type="button" class="btn ghost" data-all="start" title="Every skill 1, Constitution 10 (the RS3 starting levels)">Starting levels</button><button type="button" class="btn" id="chundo" hidden>Undo</button></div>
     <div class="skgrid">${SKORDER.map(tile).join('')}</div>
     <div class="sktot"><span title="Total level">Total level <b id="tot2">${totalLevel(S)}</b></span><span title="Combat level (wiki formula)">Combat <b id="cmb2">${combatLevel(S)}</b></span></div>
