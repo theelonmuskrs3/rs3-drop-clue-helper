@@ -96,6 +96,7 @@ async function route() {
   setTab(tab); document.body.classList.toggle('intrain', tab === 'train' || tab === 'money');
   try {
     if (tab === 'items') await itemsView(arg);
+    else if (tab === 'char') await charView(arg);
     else if (tab === 'clues') await cluesView(arg);
     else if (tab === 'about') await aboutView();
     else if (tab === 'quests') await questsView(arg);
@@ -303,7 +304,7 @@ function priceTag(D, n) {
 function rarTag(r) { return r == null ? '' : `<span class="rtag r${r}">${RANK[r]}</span>`; }
 function subnav(on) {
   const b = (h, t, k) => `<a class="btn sub ${on === k ? 'on' : ''}" href="${h}">${t}</a>`;
-  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~stats', 'My stats → gear', 'stats')}${b('#items/~sets', 'Best sets (wiki)', 'sets')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}</div>`;
+  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}<a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
 }
 
 /* ----- stats storage ----- */
@@ -319,7 +320,7 @@ function cleanStats(o) {
     if (!/^[A-Za-z' ]{2,24}$/.test(k) || k === '__proto__') continue;
     const x = typeof v === 'number' ? v : typeof v === 'string' && /^\s*\d{1,4}\s*$/.test(v) ? +v : NaN;
     if (!Number.isFinite(x)) continue;
-    out[k] = Math.max(1, Math.min(skMax(k), Math.floor(x))); n++;
+    out[k] = Math.max(k === 'Constitution' ? 10 : 1, Math.min(skMax(k), Math.floor(x))); n++;
   }
   return n ? out : null;
 }
@@ -365,7 +366,7 @@ function welcomeBanner() {
   if (STATS_SAVED || dismissed) { if (b) b.remove(); return; }
   if (b) return;
   b = document.createElement('div'); b.id = 'welcome'; b.className = 'welcome'; b.setAttribute('role', 'region'); b.setAttribute('aria-label', 'Welcome');
-  b.innerHTML = '<span><b>Welcome!</b> Enter your own skill levels so the gear and quest helpers fit <i>your</i> account. They are saved only on this device; nothing is sent anywhere.</span><a class="btn" href="#items/~stats">Enter my levels</a><button class="btn ghost" type="button" id="welx" aria-label="Dismiss">Later</button>';
+  b.innerHTML = '<span><b>Welcome!</b> Enter your own skill levels so the gear and quest helpers fit <i>your</i> account. They are saved only on this device; nothing is sent anywhere.</span><a class="btn" href="#char">Enter my levels</a><button class="btn ghost" type="button" id="welx" aria-label="Dismiss">Later</button>';
   const m = document.getElementById('view'); m.parentNode.insertBefore(b, m);
   document.getElementById('welx').onclick = () => { try { localStorage.setItem('dch-welcome', '1'); } catch (e) {} b.remove(); };
 }
@@ -464,29 +465,18 @@ function bestSet(D, S, st, mode, opt) {
   }
   return out;
 }
-function statInputs(S, extra) {
-  const order = SKORDER.length ? SKORDER : [...MAIN_SKILLS, ...extra];
-  const f = k => `<label class="sk" title="${k} (max ${skMax(k)})">${SKICONS[k] ? `<img src="${esc(SKICONS[k])}" alt="" width="27" height="27">` : `<span>${k.slice(0, 3)}</span>`}<input type="number" inputmode="numeric" min="1" max="${skMax(k)}" aria-label="${k} level" title="${k}" data-sk="${k}" value="${lv(S, k)}"></label>`;
-  return `<div class="skgrid">${order.map(f).join('')}</div>
-    <div class="sktot"><span title="Total level">Total level <b id="tot">${totalLevel(S)}</b></span><span title="Combat level (wiki formula)">Combat <b id="cmb">${combatLevel(S)}</b></span></div>
-    <div class="row" style="margin-top:8px"><button class="btn ghost" data-all="1">All 1</button><button class="btn ghost" data-all="max">All max</button><button class="btn ghost" data-all="start" title="Every skill 1, Constitution 10 (the RS3 starting levels)">Reset to starting levels</button><span id="stsaved" class="stsaved on idle" aria-live="polite">Saved ✓</span>
-    <span class="note">Saved automatically on this device only. Max level per skill is from each skill's RS3 wiki page.</span></div>`;
-}
 function gearRow(D, g, st, extra = '') {
   return `<tr><td><a class="item" href="#items/${encodeURIComponent(g.n)}">${icon(g.n)}<span>${esc(g.n)}</span></a>${g.dung ? ' <span class="tag">Daemonheim</span>' : ''}${g.rst && g.rst !== 'dungeoneering' ? ` <span class="tag">${esc(RST_LABEL[g.rst] || g.rst)}</span>` : ''}${g.type ? ` <span class="tag">${esc(g.type)}</span>` : ''}</td>
     <td>${esc(SLOT_LABEL[g.slot] || g.slot || '')}</td><td class="num">${g.tier ?? esc(g.tier_text || '')}</td><td>${esc(keyStat(g, st))}</td><td>${esc(reqText(g))}</td><td class="num">${priceTag(D, g.n)}</td>${extra}</tr>`;
 }
-async function statsView() {
-  const D = await itemData();
-  const S = loadStats();
+/* Character tab: 'Best set for my stats' + 'All gear I can wear' (moved here from the Items tab). S is the Character tab's live levels object; the returned draw() re-runs both when a level changes. */
+function gearHub(D, S, mount) {
   const pf = loadPrefs();
   const opt = sjson(sessionStorage, 'gearopt', {style: 'melee', mode: 'pvm', slot: '', sort: 'tier', hideDung: true, hideRec: true, hideRst: true, trade: false, more: 0});
   if (pf.style) opt.style = pf.style; if (pf.mode) opt.mode = pf.mode;
-  const extraSk = [...new Set(D.gd.gear.flatMap(g => Object.keys(g.req || {})))].filter(k => !MAIN_SKILLS.includes(k)).sort();
-  view.innerHTML = `${subnav('stats')}<div class="panel"><h2>Your levels</h2>${statInputs(S, extraSk)}</div>
-    <div class="panel"><h2>Best set for your stats</h2><div class="chips" id="sty">${Object.entries(STYLES).map(([k, v]) => `<button data-v="${k}">${v}</button>`).join('')}</div>
+  mount.innerHTML = `<div class="chbox"><h3>Best set for your stats</h3><div class="chips" id="sty">${Object.entries(STYLES).map(([k, v]) => `<button data-v="${k}">${v}</button>`).join('')}</div>
     <div class="chips" id="mode"><button data-v="pvm">PvM</button><button data-v="pvp">PvP</button></div><div id="best"></div></div>
-    <div class="panel"><h2>All gear you can wear</h2><div class="row">
+    <div class="chbox"><h3>All gear you can wear</h3><div class="row">
       <select id="slot"><option value="">Every slot</option>${SLOT_ORDER.map(s => `<option value="${s}">${SLOT_LABEL[s]}</option>`).join('')}</select>
       <select id="sort"><option value="tier">Tier, high → low</option><option value="dmg">Damage / style bonus</option><option value="arm">Armour</option><option value="price">GE price, high → low</option><option value="pricel">GE price, low → high</option><option value="name">Name A–Z</option></select></div>
       <div class="row" style="margin-top:6px"><label class="chk"><input type="checkbox" id="hd"> Hide Daemonheim-only gear</label><label class="chk"><input type="checkbox" id="hs"> Hide minigame/quest-only and removed gear</label><label class="chk"><input type="checkbox" id="hr"> Hide recolours</label><label class="chk"><input type="checkbox" id="tr"> On the GE only</label></div>
@@ -529,41 +519,37 @@ async function statsView() {
   $('#hr').onchange = e => { opt.hideRec = e.target.checked; draw(); };
   $('#hs').onchange = e => { opt.hideRst = e.target.checked; draw(); };
   $('#tr').onchange = e => { opt.trade = e.target.checked; draw(); };
-  const totals = () => { $('#tot').textContent = totalLevel(S); $('#cmb').textContent = combatLevel(S); };
-  view.querySelectorAll('input[data-sk]').forEach(i => i.oninput = () => { const k = i.dataset.sk, v = Math.max(1, Math.min(skMax(k), parseInt(i.value, 10) || 1)); S[k] = v; saveStats(S); totals(); clearTimeout(i._t); i._t = setTimeout(draw, 250); });
-  view.querySelectorAll('input[data-sk]').forEach(i => i.onchange = () => { const k = i.dataset.sk; if (S[k] != null) i.value = S[k]; statsFlush(); });
-  { const b = $('#stsaved'); if (b) b.textContent = STATS_SAVED ? 'Saved ✓' : 'Auto-save on'; }
-  view.querySelectorAll('button[data-all]').forEach(b => b.onclick = () => { const a = b.dataset.all; if (a === 'start' && !confirm('Reset all your levels to the starting levels (every skill 1, Constitution 10)? This replaces the levels saved on this device.')) return; view.querySelectorAll('input[data-sk]').forEach(i => { const k = i.dataset.sk, v = a === 'max' ? skMax(k) : a === 'start' ? (k === 'Constitution' ? 10 : 1) : +a; i.value = v; S[k] = v; }); saveStats(S); statsFlush(); totals(); draw(); });
   draw();
+  return draw;
 }
-async function setsView() {
-  const D = await itemData(); const S = loadStats();
+function wikiSetsHub(D, S, mount) {
   const opt = sjson(sessionStorage, 'setopt', {style: 'melee', type: ''}); { const pf = loadPrefs(); if (pf.style) opt.style = pf.style; }
-  view.innerHTML = `${subnav('sets')}<div class="panel"><h2>Best sets by style and tier</h2>
-    <div class="chips" id="sty">${Object.entries(STYLES).map(([k, v]) => `<button data-v="${k}">${v}</button>`).join('')}</div><div id="out"></div></div>`;
+  mount.innerHTML = `<div class="chbox"><h3>Best sets by style and tier</h3>
+    <div class="chips" id="wsty">${Object.entries(STYLES).map(([k, v]) => `<button data-v="${k}">${v}</button>`).join('')}</div><div id="wsout"></div></div>`;
   const draw = () => {
     sessionStorage.setopt = JSON.stringify(opt); { const pf = loadPrefs(); savePrefs({style: opt.style, mode: pf.mode || 'pvm'}); }
-    document.querySelectorAll('#sty button').forEach(b => b.classList.toggle('on', b.dataset.v === opt.style));
+    document.querySelectorAll('#wsty button').forEach(b => b.classList.toggle('on', b.dataset.v === opt.style));
     const rec = D.gd.recommended[opt.style];
     const tabs = {}; (rec ? rec.rows : []).forEach(r => { (tabs[r.sec + ' · ' + r.tab] ??= []).push(r); });
     const ok = n => { const g = D.gear[n]; return g ? reqMet(g, S) : null; };
     const types = ['Power', 'PvP', 'Tank', 'Hybrid', 'All'];
     const sets = D.gd.armour_sets.filter(s => s.styles.includes(STYLES[opt.style]) && (!opt.type || s.type === opt.type)).sort((a, b) => (b.level ?? 0) - (a.level ?? 0));
-    $('#out').innerHTML = `<h3>Wiki recommended PvM equipment</h3><div class="note">From <a href="${WIKI(rec.page)}" target="_blank" rel="noopener noreferrer">${esc(rec.page)}</a>, in the wiki's order (lowest tier first). ✓ = you meet the item's requirements with your saved levels; ✗ = you don't yet; ? = the item page has no stats in the copy.</div>
+    $('#wsout').innerHTML = `<h3>Wiki recommended PvM equipment</h3><div class="note">From <a href="${WIKI(rec.page)}" target="_blank" rel="noopener noreferrer">${esc(rec.page)}</a>, in the wiki's order (lowest tier first). ✓ = you meet the item's requirements with your saved levels; ✗ = you don't yet; ? = the item page has no stats in the copy.</div>
       ${Object.entries(tabs).map(([t, rows]) => `<details ${/Weapons|Armour/.test(t) ? 'open' : ''}><summary>${esc(t)} <span class="note">(${rows.length})</span></summary><div style="overflow-x:auto"><table><thead><tr><th>Tier</th><th>Items</th><th>Price</th><th>Notes (wiki)</th></tr></thead><tbody>
         ${rows.map(r => `<tr><td class="num">${r.tier ?? (r.style_bonus != null ? `bonus ${r.style_bonus}` : '')}${r.tier_note ? '*' : ''}</td>
           <td>${r.items.map(n => { const o = ok(n); return `<div><a class="item" href="#items/${encodeURIComponent(n)}">${icon(n)}<span>${esc(n)}</span></a> ${o == null ? '<span class="note">?</span>' : o ? '<span class="ok">✓</span>' : '<span class="no">✗</span>'}</div>`; }).join('')}</td>
           <td class="num">${r.items.map(n => `<div>${priceTag(D, n)}</div>`).join('')}</td><td class="note">${esc(r.note).replace(/\n/g, '<br>')}</td></tr>`).join('')}</tbody></table></div></details>`).join('')}
-      <h3 style="margin-top:14px">Armour sets by type (wiki Armour page)</h3><div class="chips" id="typ"><button data-v="">All types</button>${types.map(t => `<button data-v="${t}">${t}</button>`).join('')}</div>
+      <h3 style="margin-top:14px">Armour sets by type (wiki Armour page)</h3><div class="chips" id="wstyp"><button data-v="">All types</button>${types.map(t => `<button data-v="${t}">${t}</button>`).join('')}</div>
       <div class="note" style="margin:6px 0">${esc((D.gd.pvp_quotes.find(x => /^In general players should choose/.test(x.text)) || {}).text || '')}</div>
       <div style="overflow-x:auto"><table><thead><tr><th>Set</th><th>Level</th><th>Type</th><th>Styles</th><th>You</th></tr></thead><tbody>
       ${sets.map(s => `<tr><td><a href="${WIKI(s.set)}" target="_blank" rel="noopener noreferrer">${esc(s.set)}</a>${s.note ? ` <span class="note">${esc(s.note)}</span>` : ''}</td><td class="num">${s.level ?? ''}</td><td>${esc(s.type)}</td><td>${esc(s.styles.join(', '))}</td>
         <td>${s.level == null ? '' : lv(S, 'Defence') >= s.level ? '<span class="ok">✓</span>' : '<span class="no">✗</span>'}</td></tr>`).join('')}</tbody></table></div>
       <div class="note">“You” compares the set's level with your saved Defence level.</div>`;
-    document.querySelectorAll('#typ button').forEach(b => { b.classList.toggle('on', b.dataset.v === opt.type); b.onclick = () => { opt.type = b.dataset.v; draw(); }; });
+    document.querySelectorAll('#wstyp button').forEach(b => { b.classList.toggle('on', b.dataset.v === opt.type); b.onclick = () => { opt.type = b.dataset.v; draw(); }; });
   };
-  document.querySelectorAll('#sty button').forEach(b => b.onclick = () => { opt.style = b.dataset.v; draw(); });
+  document.querySelectorAll('#wsty button').forEach(b => b.onclick = () => { opt.style = b.dataset.v; draw(); });
   draw();
+  return draw;
 }
 function statTable(g) {
   const F = [['cls', 'Class'], ['slot', 'Slot'], ['tier', 'Tier'], ['type', 'Type'], ['damage', 'Damage'], ['accuracy', 'Accuracy'], ['style', 'Attack style'], ['speed', 'Speed'], ['attack_range', 'Range'],
@@ -590,14 +576,14 @@ function itemReqBlock(g, d, page) {
   const lvl = k => have ? lv(have, k) : null;
   if (g) for (const [k, v] of Object.entries(g.req || {})) {
     const L = lvl(k), cls = L == null ? '' : L >= v ? ' ok' : ' no';
-    ch.push(`<span class="tag rq${cls}" title="${L == null ? 'Save your levels in My stats to check this' : `Your ${esc(k)}: ${L}`}">${L == null ? '' : L >= v ? '✓ ' : '✗ '}${v} ${esc(k)}</span>`);
+    ch.push(`<span class="tag rq${cls}" title="${L == null ? 'Save your levels in the Character tab to check this' : `Your ${esc(k)}: ${L}`}">${L == null ? '' : L >= v ? '✓ ' : '✗ '}${v} ${esc(k)}</span>`);
   }
   if (g && g.req_other) ch.push(`<span class="tag rq">${esc(g.req_other)}</span>`);
   const qs = d && d.rqq ? d.rqq : [];
   for (const q of qs) { const dn = qIsDone(q); ch.push(`<a class="tag rq${dn ? ' ok' : ''}" href="#quests/${encodeURIComponent(q)}">${dn ? '✓ ' : ''}Quest: ${esc(q)}</a>`); }
   const txt = d && d.rq ? `<div class="note rqt">From the wiki (<a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">${esc(page)}</a>): “${esc(d.rq)}”</div>` : '';
   if (!ch.length && !txt) return g ? '<h3>Requirements</h3><div class="note">The wiki lists no skill requirement for this item.</div>' : '';
-  return `<h3>Requirements</h3><div class="rqrow">${ch.join('')}</div>${have ? '' : (ch.some(c => c.includes('rq"') || c.includes('rq ')) && g && Object.keys(g.req || {}).length ? '<div class="note">Save your levels in My stats to see ✓ / ✗ for each skill.</div>' : '')}${txt}`;
+  return `<h3>Requirements</h3><div class="rqrow">${ch.join('')}</div>${have ? '' : (ch.some(c => c.includes('rq"') || c.includes('rq ')) && g && Object.keys(g.req || {}).length ? '<div class="note">Save your levels in the Character tab to see ✓ / ✗ for each skill.</div>' : '')}${txt}`;
 }
 async function itemDetail(D, name) {
   const i = D.row[name] ?? D.byPage[name]; if (i == null) return null;
@@ -622,9 +608,229 @@ function obtainNote(d) {
   if (d.k === 'override') out.push('Cosmetic override (wardrobe appearance), not a bank item.');
   return out.length ? `<div class="note" style="margin-top:6px">${out.map(esc).join(' ')}</div>` : '';
 }
+/* ---------- Character tab: my levels (moved here from Items → My stats), total/combat level, "what can I do now" ----------
+   Storage is unchanged: same localStorage keys (mystats_v2 + _bak), per device, never sent anywhere. Skill groups are the wiki's Skills page
+   ("Skill types": Combat, Artisan, Gathering, Support; Invention is the elite skill). The XP numbers are the wiki's experience formula
+   (level 99 = 13,034,431 xp, 110 = 38,737,661, 120 = 104,273,167 on the wiki's Experience page); Invention has its own curve, so it gets no XP bar. */
+const CH_GROUPS = [['Combat', ['Attack', 'Strength', 'Defence', 'Constitution', 'Ranged', 'Prayer', 'Magic', 'Necromancy', 'Summoning']],
+  ['Gathering', ['Mining', 'Woodcutting', 'Fishing', 'Hunter', 'Farming', 'Divination', 'Archaeology']],
+  ['Artisan', ['Smithing', 'Crafting', 'Fletching', 'Herblore', 'Cooking', 'Firemaking', 'Runecrafting', 'Construction']],
+  ['Support', ['Agility', 'Thieving', 'Slayer', 'Dungeoneering']], ['Elite', ['Invention']]];
+const xpAt = L => { let t = 0; for (let i = 1; i < L; i++) t += Math.floor(i + 300 * Math.pow(2, i / 7)); return Math.floor(t / 4); };
+const skMin = k => k === 'Constitution' ? 10 : 1;
+function chGo(kind) {
+  const S = loadStats();
+  if (kind === 'wear' || kind === 'sets') { try { sessionStorage.gfopt = JSON.stringify({...GF_DEF, wear: true, view: kind === 'sets' ? 'sets' : 'items'}); sessionStorage.removeItem('iopt'); sessionStorage.removeItem('iq'); } catch (e) {} location.hash = '#items'; }
+  else if (kind === 'train') { TR.fit = true; location.hash = '#train'; }
+  else if (kind === 'money') { MM.fit = 'ok'; location.hash = '#money'; }
+  else if (kind === 'quest') { try { sessionStorage.qf = JSON.stringify({q: '', kind: 'quest', mem: '', diff: '', st: 'todo'}); } catch (e) {} location.hash = '#quests'; }
+  return S;
+}
+const CH_ICO = {
+  wear: '<path d="M8 1.5l5.6 3.25v6.5L8 14.5l-5.6-3.25v-6.5z"/><path d="M8 5v6M5.4 6.5h5.2"/>',
+  sets: '<path d="M2.5 3.5h11l-1 3.2-2 .8V14h-5V7.5l-2-.8z"/>',
+  train: '<path d="M2 13.5h12M3 10.5l3.2-3.2 2.4 2.2L13 4.8M9.8 4.5H13v3.2"/>',
+  money: '<circle cx="8" cy="8" r="6.3"/><path d="M8 4v8M10.2 6c-.4-1-4.2-1.2-4.2.9 0 2.1 4.2 1 4.2 3.1 0 2-3.800 1.900-4.300.6"/>',
+  quest: '<path d="M8 1.5l5.5 2v4c0 3.4-2.4 5.9-5.5 7-3.1-1.1-5.5-3.6-5.5-7v-4z"/><path d="M5.6 8l1.7 1.7 3.2-3.4"/>'};
+async function charView(sub) {
+  const S = loadStats(), BASE = {...S};
+  const narrow = window.matchMedia('(max-width:700px)').matches;
+  let undo = null;
+  const skIcon = k => SKICONS[k] ? `<img class="sk2i" src="${esc(SKICONS[k])}" alt="" width="30" height="30" decoding="async">` : `<span class="sk2i sk2ph">${esc(k.slice(0, 3))}</span>`;
+  const tile = k => `<div class="sk2" data-k="${esc(k)}"><div class="sk2r">${skIcon(k)}<input type="number" inputmode="numeric" min="${skMin(k)}" max="${skMax(k)}" aria-label="${esc(k)} level (${skMin(k)} to ${skMax(k)})" data-sk="${esc(k)}" value="${lv(S, k)}"></div>
+    <div class="sk2n">${esc(k)}</div>
+    <div class="sk2c"><button type="button" class="sk2b" data-d="-1" aria-label="Lower ${esc(k)} by 1">−</button><button type="button" class="sk2b" data-d="1" aria-label="Raise ${esc(k)} by 1">+</button></div>
+    <div class="sk2p"><i></i></div></div>`;
+  const ordIdx = k => { const i = SKORDER.indexOf(k); return i < 0 ? 99 : i; };
+  const listed = new Set(CH_GROUPS.flatMap(g => g[1]));
+  const groups = CH_GROUPS.map(([n, ks]) => [n, ks.filter(k => SKORDER.includes(k)).sort((a, b) => ordIdx(a) - ordIdx(b))]);
+  const rest = SKORDER.filter(k => !listed.has(k)); if (rest.length) groups.push(['Other', rest]);
+  const maxTot = SKORDER.reduce((a, k) => a + skMax(k), 0);
+  const tiles = [['wear', 'Gear I can wear', 'Items filtered to your levels'], ['sets', 'Full sets I can wear', 'Whole armour sets that fit'], ['train', 'Training that fits me', 'Training guides for your levels'], ['money', 'Money making that fits', 'Methods that fit your levels'], ['quest', 'Quests to do', 'Quests you have not finished']];
+  view.innerHTML = `<section class="panel chhero"><div class="chhead"><div class="chdds" aria-hidden="true"><span class="chglow"></span><img src="brand/dds.webp" width="64" height="58" alt="" decoding="async"></div>
+      <div class="chtitle"><h2>My Character</h2><div class="chsub">Your levels fit the gear, money, training and quest helpers to <i>your</i> account.</div></div><span id="stsaved" class="stsaved on idle" aria-live="polite">Saved ✓</span></div>
+    <div class="chbig"><div class="chn tot"><span class="chl">Total level</span><b class="chv" id="tot">${totalLevel(S)}</b><span class="chm">of ${maxTot.toLocaleString()}</span></div>
+      <div class="chn cmb"><span class="chl">Combat level</span><b class="chv" id="cmb">${combatLevel(S)}</b><span class="chm">wiki formula</span></div>
+      <div class="chn"><span class="chl">Skills at 99+</span><b class="chv" id="n99">0</b><span class="chm" id="nmx">0 maxed</span></div>
+      <div class="chn"><span class="chl">Quests done</span><b class="chv" id="nq">–</b><span class="chm" id="nqm">tracked here</span></div></div>
+    <div class="chpriv"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 7.5h9V14h-9zM5.2 7.5V5.2a2.8 2.8 0 015.6 0v2.3"/></svg><span>Private: saved automatically in this browser on this device only, never sent anywhere. Each device keeps its own levels.${STATS_SAVED ? '' : ' <b>Nothing saved yet:</b> tap + or type a level to start.'}</span></div></section>
+  <section class="panel chsk"><h2>Skills</h2>
+    <div class="chtools"><button type="button" class="btn ghost" data-all="1">All 1</button><button type="button" class="btn ghost" data-all="99">All 99</button><button type="button" class="btn ghost" data-all="max">All max</button><button type="button" class="btn ghost" data-all="start" title="Every skill 1, Constitution 10 (the RS3 starting levels)">Starting levels</button><button type="button" class="btn" id="chundo" hidden>Undo</button></div>
+    ${groups.map(([n, ks], gi) => `<details class="chgrp" data-g="${esc(n)}"${gi === 0 || !narrow ? ' open' : ''}><summary><b>${esc(n)}</b><span class="cnt">${ks.length}</span><span class="chgs" data-gs="${esc(n)}"></span></summary><div class="chgrid">${ks.map(tile).join('')}</div></details>`).join('')}
+    <div class="note chnote">Each skill's top level is from its RS3 wiki page. The bar shows how far your level is toward 99 (then toward the skill's top level) on the wiki's experience table; hover a skill for the XP.</div></section>
+  <section class="panel chnow"><h2>What can I do now</h2><div class="chtiles">${tiles.map(([k, t, d]) => `<button type="button" class="chgo" data-go="${k}"><svg viewBox="0 0 16 16" aria-hidden="true">${CH_ICO[k]}</svg><span class="chgt"><b>${t}</b><small>${d}</small></span><span class="chgc" id="chgc-${k}"></span></button>`).join('')}</div>
+    <div class="note chnote">These open the other tabs already filtered to your saved levels. ${STATS_SAVED ? '' : 'Until you save your levels they use every skill at 1 (Constitution 10).'}</div></section>
+  <section class="panel chgear"><h2>Gear for my levels</h2>
+    <details class="chsec" id="chg1"><summary><b>Best set &amp; all gear I can wear</b><span class="note">picked from the wiki's recommended tables</span></summary><div id="chgm" class="chmount"><div class="note">Opening…</div></div></details>
+    <details class="chsec" id="chg2"${sub === 'sets' ? ' open' : ''}><summary><b>Wiki recommended sets</b><span class="note">by style and tier</span></summary><div id="chwm" class="chmount"><div class="note">Opening…</div></div></details></section>`;
+  const grid = k => document.querySelector(`.sk2[data-k="${CSS.escape(k)}"]`);
+  const pulse = (el, cls = 'pulse') => { if (!el) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); clearTimeout(el._pt); el._pt = setTimeout(() => el.classList.remove(cls), 600); };
+  const barOf = (k, L) => {
+    const M = skMax(k), goal = L < 99 ? 99 : M;
+    if (k === 'Invention') return {p: Math.min(1, L / goal), t: `${k} level ${L}. Invention has its own XP curve, so the bar is level ÷ ${goal}.`};
+    const x = xpAt(L), g = xpAt(goal);
+    return {p: Math.min(1, x / g), t: `${k} level ${L} starts at ${x.toLocaleString()} XP (wiki XP table). Level ${goal} = ${g.toLocaleString()} XP.${L >= M ? ' Top level reached.' : ''}`};
+  };
+  const paint = k => {
+    const t = grid(k); if (!t) return; const L = lv(S, k), M = skMax(k), b = barOf(k, L);
+    t.classList.toggle('l99', L >= 99); t.classList.toggle('lmax', L >= M);
+    t.querySelector('.sk2p').style.setProperty('--p', (b.p * 100).toFixed(1) + '%'); t.title = b.t;
+    const inp = t.querySelector('input'); if (document.activeElement !== inp) inp.value = L;
+    t.querySelector('[data-d="-1"]').disabled = L <= skMin(k); t.querySelector('[data-d="1"]').disabled = L >= M;
+  };
+  let questN = null;
+  const hero = (bump) => {
+    const set = (id, v) => { const e = document.getElementById(id); if (e && e.textContent !== String(v)) { e.textContent = v; if (bump) pulse(e.parentNode, 'bump'); } };
+    set('tot', totalLevel(S)); set('cmb', combatLevel(S));
+    const n99 = SKORDER.filter(k => lv(S, k) >= 99).length, nmx = SKORDER.filter(k => lv(S, k) >= skMax(k)).length;
+    set('n99', n99); const m = document.getElementById('nmx'); if (m) m.textContent = `${nmx} at top level`;
+    for (const [n, ks] of groups) { const e = document.querySelector(`[data-gs="${CSS.escape(n)}"]`); if (e) e.textContent = `Σ ${ks.reduce((a, k) => a + lv(S, k), 0).toLocaleString()}`; }
+    document.querySelector('.chhero').classList.toggle('chmaxed', nmx === SKORDER.length && nmx > 0);
+  };
+  let hubT = 0, hubs = [], cntT = 0;
+  const later = () => { clearTimeout(hubT); hubT = setTimeout(() => { hubs.forEach(f => f()); }, 250); clearTimeout(cntT); cntT = setTimeout(fillCounts, 300); };
+  const setLv = (k, v, up) => {
+    v = Math.max(skMin(k), Math.min(skMax(k), Math.floor(v))); if (!Number.isFinite(v) || v === S[k]) return false;
+    const was = lv(S, k); S[k] = v; saveStats(S); paint(k); hero(true); later();
+    if (up === undefined ? v > was : up) pulse(grid(k));
+    return true;
+  };
+  const applyAll = fn => { undo = {...S}; for (const k of SKORDER) S[k] = Math.max(skMin(k), Math.min(skMax(k), fn(k))); saveStats(S); statsFlush(); SKORDER.forEach(paint); hero(true); later(); const u = document.getElementById('chundo'); u.hidden = false; };
+  view.querySelectorAll('.sk2').forEach(t => {
+    const k = t.dataset.k, inp = t.querySelector('input');
+    inp.oninput = () => { const v = parseInt(inp.value, 10); if (Number.isFinite(v)) setLv(k, v); };
+    inp.onchange = () => { const v = parseInt(inp.value, 10); setLv(k, Number.isFinite(v) ? v : lv(S, k)); inp.value = lv(S, k); statsFlush(); };
+    inp.onfocus = () => { try { inp.select(); } catch (e) {} };
+    t.querySelectorAll('.sk2b').forEach(b => {
+      let h = 0, iv = 0; const d = +b.dataset.d, step = () => setLv(k, lv(S, k) + d, d > 0);
+      const stop = () => { clearTimeout(h); clearInterval(iv); h = iv = 0; statsFlush(); };
+      b.onpointerdown = e => { if (e.button) return; step(); h = setTimeout(() => { iv = setInterval(() => { if (!step()) stop(); }, 85); }, 420); };
+      ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => b.addEventListener(ev, () => { if (h || iv) stop(); }));
+      b.onclick = e => { if (e.detail === 0) { step(); statsFlush(); } };   /* keyboard activation only; mouse/touch already stepped on pointerdown */
+    });
+  });
+  view.querySelectorAll('button[data-all]').forEach(b => b.onclick = () => { const a = b.dataset.all; applyAll(k => a === 'max' ? skMax(k) : a === 'start' ? skMin(k) === 10 ? 10 : 1 : Math.min(+a, skMax(k))); });
+  document.getElementById('chundo').onclick = () => { if (!undo) return; const u = undo; undo = null; for (const k of SKORDER) S[k] = u[k]; saveStats(S); statsFlush(); SKORDER.forEach(paint); hero(true); later(); document.getElementById('chundo').hidden = true; };
+  view.querySelectorAll('.chgo').forEach(b => b.onclick = () => { statsFlush(); chGo(b.dataset.go); });
+  SKORDER.forEach(paint); hero(false);
+  const sb = document.getElementById('stsaved'); if (sb) { sb.textContent = STATS_SAVED ? 'Saved ✓' : 'Auto-save on'; }
+  /* the wiki sets / gear hubs render only when opened (they are large) */
+  let D = null;
+  const lazy = (id, mountId, build) => { const d = document.getElementById(id); let done = false; const go = async () => { if (done || !d.open) return; done = true; D = D || await itemData(); hubs.push(build(D, S, document.getElementById(mountId))); }; d.addEventListener('toggle', go); go(); };
+  lazy('chg1', 'chgm', gearHub); lazy('chg2', 'chwm', wikiSetsHub);
+  async function fillCounts() {
+    try {
+      D = D || await itemData();
+      const c = (k, t) => { const e = document.getElementById('chgc-' + k); if (e) e.textContent = t; };
+      c('wear', D.gd.gear.filter(g => reqMet(g, S)).length.toLocaleString());
+      try { const sets = await gearSets(D); const r = setsWear(sets, S); c('sets', `${r.full.length.toLocaleString()}${r.almost.length ? ` +${r.almost.length}` : ''}`); } catch (e) { c('sets', ''); }
+      if (!questN) { const qs = await get('data/quests.json'); questN = qs.filter(q => q[1] === 'quest'); }
+      const done = questN.filter(q => qIsDone(q[0])).length;
+      document.getElementById('nq').textContent = done; document.getElementById('nqm').textContent = `of ${questN.length} quests`;
+      c('quest', (questN.length - done).toLocaleString());
+    } catch (e) {}
+  }
+  fillCounts();
+  if (sub === 'sets') { const e = document.getElementById('chg2'); if (e) e.scrollIntoView({block: 'start'}); }
+}
+
+/* ---------- Full armour sets (Items → Sets view) ----------
+   A set is exactly what the RS3 wiki groups: a row of a class page's ArmourOverviewTable (Melee/Ranged/Magic/Necromancy/Hybrid armour) or a Grand Exchange
+   "armour set" item (ItemExchange page, its Set contents list); the two are merged only when their piece lists are identical. Nothing is paired by name.
+   "Torva armour#80"-style piece names: the wiki row points at one tier variant of a page; it counts as a known piece only when the gear data holds that exact variant. */
+let GSETS = null;
+const SET_SLOTS = ['head', 'body', 'legs', 'hands', 'feet', 'cape', 'neck', 'ring', 'ammo', 'main', '2h', 'off', 'offw', 'pocket', 'aura'];
+async function gearSets(D) {
+  if (GSETS) return GSETS;
+  const J = await get('data/gsets.json');
+  const base = n => n.replace(/#.*$/, '').trim(), sfx = n => { const m = n.match(/#(.*)$/); return m ? m[1] : undefined; };
+  const mk = raw => {
+    const n = base(raw), v = sfx(raw), g = D.gear[n] || null, exact = !!g && (v === undefined || String(g.v) === v);
+    const tr = exact || v === undefined ? tradeOf(D, n) : false;
+    return {n, v, g: exact ? g : null, gi: exact ? gearInfo(D, n) : null, variant: v !== undefined && !exact, known: D.row[n] != null || !!g, price: exact || v === undefined ? priceOf(D, n) : null, tr};
+  };
+  const uniq = ps => { const s = new Set(); return ps.filter(p => { const k = p.n + '#' + (p.v ?? ''); if (s.has(k)) return false; s.add(k); return true; }); };
+  const keyOf = ps => ps.map(p => p.n + (p.variant ? '#' + p.v : '')).sort().join('|');
+  const out = [], byKey = new Map();
+  const finish = s => {
+    s.ps = uniq(s.ps).sort((a, b) => SET_SLOTS.indexOf(a.g ? a.g.slot : 'zz') - SET_SLOTS.indexOf(b.g ? b.g.slot : 'zz'));
+    const rs = s.ps.filter(p => p.g); if (!rs.length) return null;
+    s.slots = new Set(rs.map(p => GF_SLOTKEY[p.g.slot]).filter(Boolean)); s.nslot = s.slots.size;
+    s.req = {}; for (const p of rs) for (const [k, v] of Object.entries(p.g.req || {})) s.req[k] = Math.max(s.req[k] || 0, v);
+    const ts = rs.map(p => p.g.tier).filter(t => t != null);
+    if (s.t == null) s.t = ts.length ? Math.max(...ts) : null;
+    s.miss = s.ps.length - rs.length;
+    s.sum = s.ps.every(p => p.tr === true && p.price != null) ? s.ps.reduce((a, p) => a + p.price, 0) : null;
+    s.gePrice = s.geN ? priceOf(D, s.geN) : null;
+    s.qn = norm(s.n + ' ' + s.ps.map(p => p.n).join(' '));
+    return s;
+  };
+  for (const r of J.cls) {
+    const m = r.n.match(/^(.*?)#(.*)$/), lab = m ? m[2].trim() : '';
+    const s = {n: m ? m[1].trim() : r.n, lab, c: r.c, sec: r.sec, note: r.note, page: r.page, ps: r.p.map(mk), geN: null, src: 'class', t: lab && /\d/.test(lab) ? parseInt(lab.replace(/\D/g, ''), 10) : null};
+    if (s.t === 1 && /^\d+$/.test(lab)) s.t = null;
+    const f = finish(s); if (!f) continue; out.push(f);
+    if (!s.ps.some(p => p.variant)) { const k = keyOf(s.ps); if (!byKey.has(k)) byKey.set(k, f); }
+  }
+  for (const e of J.ge) {
+    const ps = e.p.map(mk), k = keyOf(ps), hit = byKey.get(k);
+    if (hit && !hit.geN) { hit.geN = e.n; hit.gePrice = priceOf(D, e.n); continue; }
+    const s = {n: e.n.replace(/ set\b/i, ' set'), lab: '', c: 'none', sec: '', note: '', page: '', ps, geN: e.n, src: 'ge', t: null};
+    const cls = new Set(ps.map(p => p.gi && p.gi.c).filter(c => c && c !== 'none' && c !== 'unc'));
+    s.c = cls.size === 1 ? [...cls][0] : cls.size > 1 ? 'mixed' : ps.some(p => p.gi && p.gi.c === 'none') ? 'none' : 'unc';
+    const f = finish(s); if (f) out.push(f);
+  }
+  /* two wiki entries may share a name but list different pieces (class page vs GE set item): label which is which so they never look like duplicates */
+  const cnt = {}; out.forEach(s => { const k = s.n.toLowerCase(); cnt[k] = (cnt[k] || 0) + 1; });
+  out.forEach(s => { if (cnt[s.n.toLowerCase()] > 1) s.n += s.src === 'ge' ? ' (GE set item)' : ' (class page)'; });
+  return GSETS = out;
+}
+/* one set against my levels: full = every known piece wearable; almost = nothing is more than 5 levels away */
+function setWear(s, S) {
+  const def = {}; let full = true;
+  for (const p of s.ps) { if (!p.g) continue; if (!reqMet(p.g, S)) full = false; for (const [k, v] of Object.entries(p.g.req || {})) { const d = v - lv(S, k); if (d > 0) def[k] = Math.max(def[k] || 0, d); } }
+  const mx = Math.max(0, ...Object.values(def));
+  return {full, almost: !full && mx <= 5, def};
+}
+function setsWear(sets, S) { const r = {full: [], almost: []}; for (const s of sets) { const w = setWear(s, S); if (w.full) r.full.push(s); else if (w.almost) r.almost.push(s); } return r; }
+function setPass(s, f, S, x, skip) {   /* x = {nq, dragon, best, rar} */
+  if (skip !== 'c' && f.cls && s.c !== f.cls) return false;
+  if (skip !== 's' && f.slot && !GF_SLOTSET[f.slot].some(sl => s.ps.some(p => p.g && p.g.slot === sl))) return false;
+  if (skip !== 't' && (f.tmin || f.tmax)) { if (s.t == null || (f.tmin && s.t < +f.tmin) || (f.tmax && s.t > +f.tmax)) return false; }
+  if (skip !== 'w' && f.wear) { const w = setWear(s, S); if (!w.full && !w.almost) return false; }
+  if (x.nq && !x.nq.split(' ').every(t => s.qn.includes(t))) return false;
+  if (x.dragon && !s.ps.some(p => x.dragon.has(p.n))) return false;
+  if (x.rar !== '' && !s.ps.some(p => x.best[p.n] && x.best[p.n][0] === +x.rar)) return false;
+  return true;
+}
+const gpp = n => n != null ? Math.round(n).toLocaleString() + " gp" : "";
+function setCard(D, s, S) {
+  const w = setWear(s, S), cl = GF_CLS.find(c => c[0] === s.c), cname = cl ? cl[1] : s.c === 'mixed' ? 'Mixed' : cap(s.c);
+  const reqs = Object.entries(s.req).sort((a, b) => b[1] - a[1]).map(([k, v]) => { const ok = lv(S, k) >= v; return `<span class="gsq ${ok ? 'ok' : 'no'}">${SKICONS[k] ? `<img src="${esc(SKICONS[k])}" alt="" width="16" height="16">` : ''}${esc(k)} ${v} ${ok ? '✓' : '✗ you ' + lv(S, k)}</span>`; }).join('');
+  const label = s.lab ? `${s.n} · ${/^\d+$/.test(s.lab) ? 'tier ' + s.lab : s.lab.toLowerCase()}` : s.n;
+  const pics = s.ps.map(p => p.known ? `<a class="gsp" href="#items/${encodeURIComponent(p.n)}" title="${esc(p.n)}${p.g ? ' · ' + (SLOT_LABEL[p.g.slot] || '') : ''}">${icon(p.n)}</a>` : `<span class="gsp gsp0" title="${esc(p.n)} (not in the wiki item data)">?</span>`).join('');
+  const rows = s.ps.map(p => {
+    const rq = p.g ? Object.entries(p.g.req || {}).map(([k, v]) => `<span class="${lv(S, k) >= v ? 'ok' : 'no'}">${esc(k)} ${v}</span>`).join(' ') : '';
+    const pr = p.g ? (p.tr === true && p.price != null ? gpp(p.price) : p.tr === false ? 'untradeable' : '') : '';
+    return `<div class="gsr"><a class="item" href="${p.known ? '#items/' + encodeURIComponent(p.n) : WIKI(p.n)}"${p.known ? '' : ' target="_blank" rel="noopener noreferrer"'}>${icon(p.n)}<span>${esc(p.n)}</span></a>
+      <span class="gsl">${p.g ? esc(SLOT_LABEL[p.g.slot] || '') : ''}${p.g && p.g.tier != null ? ` · T${p.g.tier}` : ''}</span><span class="gsc">${rq}</span><span class="gsg">${pr}</span>
+      ${p.known ? `<a class="gsw" href="#items/${encodeURIComponent(p.n)}">Where to get it ›</a>` : '<span class="note">not in the wiki gear data</span>'}
+      ${p.variant ? '<span class="note gsv">this tier variant is not in the gear data: check the item page</span>' : ''}</div>`;
+  }).join('');
+  const pr = [s.sum != null ? `<span title="Sum of each piece's Grand Exchange price">Pieces total <b>${gpp(s.sum)}</b></span>` : `<span class="note">${s.ps.some(p => p.tr === false) ? 'Not all pieces are tradeable' : 'No full GE price'}</span>`,
+    s.gePrice != null ? `<span title="The set item on the Grand Exchange: ${esc(s.geN)}">GE set <b>${gpp(s.gePrice)}</b></span>` : ''].filter(Boolean).join('');
+  const state = w.full ? '<span class="tag fit">Wearable now</span>' : w.almost ? `<span class="tag warn">Almost: ${Object.entries(w.def).map(([k, d]) => `${esc(k)} +${d}`).join(', ')}</span>` : '';
+  return `<article class="gset${w.full ? ' gfull' : ''}"><div class="gsh"><div class="gsn"><b>${esc(label)}</b> <span class="tag">${esc(cname)}</span>${s.t != null ? ` <span class="tag">T${s.t}</span>` : ''} ${state}</div><div class="gsm">${pr}</div></div>
+    <div class="gspics">${pics}<span class="gsk">${[...s.slots].map(k => (GF_SLOT.find(x => x[0] === k) || [])[1]).filter(Boolean).join(' · ')} <i>(${s.nslot} of ${s.ps.length} pieces)</i></span></div>
+    <div class="gsrq">${reqs || '<span class="note">No level requirements listed</span>'}</div>
+    ${s.miss ? `<div class="gsmiss">⚠ ${s.miss} piece${s.miss === 1 ? '' : 's'} not in the wiki gear data (stats, requirements and price unknown): ${s.ps.filter(p => !p.g).map(p => esc(p.n)).join(', ')}</div>` : ''}
+    <details class="gsd"><summary>${s.ps.length} pieces and where to get them</summary>${rows}${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}
+    <div class="note">Source: ${s.src === 'class' ? `<a href="${WIKI(s.page)}" target="_blank" rel="noopener noreferrer">wiki ${esc(s.page)}</a>${s.geN ? ` + <a class="item" href="#items/${encodeURIComponent(s.geN)}">${esc(s.geN)}</a> (GE set)` : ''}` : `<a href="#items/${encodeURIComponent(s.geN)}">${esc(s.geN)}</a> (Grand Exchange set item)`}</div></details></article>`;
+}
+
 async function itemsView(name) {
-  if (name === '~stats') return statsView();
-  if (name === '~sets') return setsView();
+  if (name === '~stats') { location.replace('#char'); return; }
+  if (name === '~sets') { location.replace('#char/sets'); return; }
   if (name === '~obtain' || name === '~dragon') return obtainView(name === '~dragon' ? 'dragon' : null);
   if (name === '~disc') return discView();
   if (name === '~all') return allView();
@@ -657,8 +863,9 @@ async function itemsView(name) {
   const st = D.ia.stats || {};
   view.innerHTML = `${subnav('search')}<div class="panel"><h2>Find any item</h2>${searchBox('q', 'e.g. red partyhat, santa hat, abyssal whip…', o.q)}
     ${gfHTML(gf, !!dragonSet)}
+    <div class="chips gvt" id="gvt" role="group" aria-label="Show items or full armour sets"><button type="button" data-v="items">Items <span class="cnt"></span></button><button type="button" data-v="sets">Sets <span class="cnt">…</span></button></div>
     <div class="chips" id="rar"><button data-v="">Any rarity</button>${RANK.map((r, i) => `<button data-v="${i}" class="r${i}">${r}</button>`).join('')}</div>
-    <div class="row" style="margin-top:8px"><select id="show"><option value="all">All items</option><option value="drop">Dropped by something</option><option value="gear">Equipment (with stats)</option><option value="ge">On the Grand Exchange</option></select>
+    <div class="row" id="isel" style="margin-top:8px"><select id="show"><option value="all">All items</option><option value="drop">Dropped by something</option><option value="gear">Equipment (with stats)</option><option value="ge">On the Grand Exchange</option></select>
     <select id="tr"><option value="">Tradeable or not</option><option value="trade">Tradeable</option><option value="untr">Untradeable</option></select>
     <select id="mem"><option value="">Members &amp; free</option><option value="mem">Members</option><option value="f2p">Free-to-play</option></select>
     <select id="fl"><option value="">Any kind</option><option value="items">Items only (no cosmetic overrides)</option><option value="equip">Equipable</option><option value="quest">Quest items</option><option value="holiday">Holiday items (wiki category)</option><option value="disc">Discontinued / not currently obtainable</option><option value="limited">Limited time (wiki restriction)</option><option value="mtx">Treasure Hunter</option><option value="override">Cosmetic overrides</option></select>
@@ -703,8 +910,38 @@ async function itemsView(name) {
     const nDr = dragonSet ? hits.filter(([, n]) => dragonSet.has(n)).length : 0;
     if (gf.dragon && dragonSet) hits = hits.filter(([, n]) => dragonSet.has(n));
     const gi = n => gearInfo(D, n);
-    gfRefresh(hits.map(([, n]) => gi(n)), nDr);
+    const sv = gf.view === 'sets';
+    if (!sv) gfRefresh(hits.map(([, n]) => gi(n)), nDr);
     if (gfActive(gf)) hits = hits.filter(([, n]) => gfPass(gi(n), gf, GS));
+    /* Sets view: whole armour sets, same class / slot / tier / wearable / dragon / rarity / search filters */
+    const gvb = (v, t) => { const e = document.querySelector(`#gvt [data-v="${v}"] .cnt`); if (e) e.textContent = t; };
+    document.querySelectorAll('#gvt button').forEach(b => b.classList.toggle('on', b.dataset.v === (sv ? 'sets' : 'items')));
+    $('#isel').hidden = sv; document.getElementById('res').classList.toggle('gsets', sv);
+    gvb('items', hits.length.toLocaleString());
+    let sres = null;
+    if (SETS) {
+      const xx = {nq, dragon: gf.dragon && dragonSet ? dragonSet : null, best, rar: o.rar};
+      const cc = {}, sc = {}; let wc = 0;
+      for (const s of SETS) {
+        if (setPass(s, gf, GS, xx, 'c')) cc[s.c] = (cc[s.c] || 0) + 1;
+        if (setPass(s, gf, GS, xx, 's')) for (const sl of s.slots) sc[sl] = (sc[sl] || 0) + 1;
+        if (setPass(s, {...gf, wear: false}, GS, xx, 'w')) { const w = setWear(s, GS); if (w.full || w.almost) wc++; }
+      }
+      const list = SETS.filter(s => setPass(s, gf, GS, xx));
+      sres = {list, counts: {cc, sc, wc}};
+      gvb('sets', list.length.toLocaleString());
+    }
+    if (sv) {
+      if (!sres) { out.innerHTML = '<div class="note">Loading full sets…</div>'; return; }
+      gfRefresh([], nDr, sres.counts);
+      const L = sres.list.map(s => [s, setWear(s, GS)]);
+      const price = s => s.gePrice ?? s.sum ?? -1;
+      L.sort((a, b) => (gf.wear ? (b[1].full - a[1].full) : 0) || (b[0].t ?? -1) - (a[0].t ?? -1) || price(b[0]) - price(a[0]) || a[0].n.localeCompare(b[0].n));
+      const nf = L.filter(x => x[1].full).length, na = L.filter(x => x[1].almost).length, n1 = L.length;
+      out.innerHTML = `<div class="note">${n1.toLocaleString()} full set${n1 === 1 ? '' : 's'}${gf.wear ? `: ${nf} wearable now, ${na} almost there (within 5 levels)` : ''}${n1 > lim ? `, showing ${lim}` : ''}. Pieces are grouped the way the RS3 wiki's class pages and Grand Exchange set items list them; sorted by tier, then price. The Rarity filter, search and Dragon chip apply to a set's pieces.${nq || gfActive(gf) || o.rar !== '' || gf.dragon ? '' : ' Pick a class or tier to narrow it down.'}</div>` + (n1 ? '' : '<div class="note">No full set matches these filters. Try another class, a wider tier range, or turn off “Wearable with my stats”.</div>') + L.slice(0, lim).map(([s]) => setCard(D, s, GS)).join('') + (n1 > lim ? '<div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="more">Show more sets</button></div>' : '');
+      const m = $('#more'); if (m) m.onclick = () => { lim += 24; draw(); };
+      return;
+    }
     const P = n => priceOf(D, n), B = n => best[n] ? best[n][1] : null;
     const so = {match: (a, b) => b[0] - a[0] || a[1].localeCompare(b[1]), name: (a, b) => a[1].localeCompare(b[1]), price: (a, b) => (P(b[1]) ?? -1) - (P(a[1]) ?? -1),
       pricel: (a, b) => (P(a[1]) ?? 1e15) - (P(b[1]) ?? 1e15), common: (a, b) => (B(b[1]) ?? -1) - (B(a[1]) ?? -1), rare: (a, b) => (B(a[1]) ?? 9) - (B(b[1]) ?? 9),
@@ -724,6 +961,8 @@ async function itemsView(name) {
   };
   const redraw = () => { lim = 24; draw(); };
   const gfRefresh = gfBind(D, gf, GS, redraw);
+  let SETS = null; gearSets(D).then(x => { SETS = x; if (document.body.contains(out)) draw(); }).catch(() => { gf.view = 'items'; });
+  document.querySelectorAll('#gvt button').forEach(b => b.onclick = () => { gf.view = b.dataset.v; try { sessionStorage.gfopt = JSON.stringify(gf); } catch (e) {} redraw(); });
   let tmr = null;
   q.oninput = () => { clearTimeout(tmr); tmr = setTimeout(redraw, 150); };
   document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; redraw(); });
@@ -740,7 +979,7 @@ const GF_SLOT = [['head', 'Head', ['head']], ['body', 'Body', ['body']], ['legs'
   ['pocket', 'Pocket', ['pocket']], ['aura', 'Aura', ['aura']]];
 const GF_SLOTSET = Object.fromEntries(GF_SLOT.map(([k, , ss]) => [k, ss])), GF_SLOTKEY = {}; GF_SLOT.forEach(([k, , ss]) => ss.forEach(x => { GF_SLOTKEY[x] = k; }));
 const GF_TIERS = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 92, 95, 99];
-const GF_DEF = {cls: '', slot: '', tmin: '', tmax: '', wear: false, dragon: false};
+const GF_DEF = {cls: '', slot: '', tmin: '', tmax: '', wear: false, dragon: false, view: 'items', showz: false};
 function gearInfo(D, n, pg) {
   let v = D.gi.get(n); if (v !== undefined) return v;
   const g = D.gear[n] || (pg ? D.gear[pg] : null) || (() => { const r = rowOf(D, n); return r && r[4] ? D.gear[r[4]] : null; })();
@@ -765,7 +1004,7 @@ function gfHTML(f, withDragon) {
   return `<div class="gfq">${withDragon ? '<div class="chips gfc" id="gfset"><button type="button" id="gfd" class="drgchip" title="Dragon gear: the RS3 wiki items of the Dragon category">Dragon gear <span class="cnt"></span></button></div>' : ''}
     <details class="gfp" id="gfp"${gfActive(f) ? ' open' : ''}><summary><span>Gear filter</span><span class="gfs" id="gfs"></span></summary>
     <div class="gfl">Class</div><div class="chips gfc" id="gfc">${GF_CLS.map(([k, l]) => `<button type="button" data-k="${k}">${l} <span class="cnt"></span></button>`).join('')}</div>
-    <div class="gfl">Slot</div><div class="chips gfc" id="gfsl">${GF_SLOT.map(([k, l]) => `<button type="button" data-k="${k}">${l} <span class="cnt"></span></button>`).join('')}</div>
+    <div class="gfl">Slot</div><div class="chips gfc gfsl" id="gfsl">${GF_SLOT.map(([k, l]) => `<button type="button" data-k="${k}">${l} <span class="cnt"></span></button>`).join('')}</div><button type="button" class="gfz" id="gfz" hidden></button>
     <div class="gfr"><label>Tier ${tier('gtmin')} to ${tier('gtmax')}</label><label class="gfw"><input type="checkbox" id="gfw"> Wearable with my stats <span class="cnt" id="gfwc"></span></label><button type="button" class="btn ghost" id="gfx">Clear gear filter</button></div>
     <div class="note gfn" id="gfn"></div></details></div>`;
 }
@@ -781,16 +1020,20 @@ function gfBind(D, f, S, onChange, dragonSet) {
   $('#gfw').onchange = e => { f.wear = e.target.checked; save(); onChange(); };
   $('#gfx').onclick = () => { f.cls = f.slot = f.tmin = f.tmax = ''; f.wear = false; $('#gtmin').value = $('#gtmax').value = ''; $('#gfw').checked = false; save(); onChange(); };
   const gd = $('#gfd'); if (gd) gd.onclick = () => { f.dragon = !f.dragon; save(); onChange(); };
-  return (infos, nDragon) => {
-    const cc = {}, sc = {}; let wc = 0;
-    for (const v of infos) {
+  const gz = $('#gfz'); if (gz) gz.onclick = () => { f.showz = !f.showz; save(); gzPaint(); };
+  const gzPaint = () => { const sl = $('#gfsl'); const z = sl.querySelectorAll('button.zero').length; sl.classList.toggle('hz', !f.showz); if (gz) { gz.hidden = !z; gz.textContent = f.showz ? 'Hide empty slots' : `Show ${z} empty slot${z === 1 ? '' : 's'}`; gz.setAttribute('aria-expanded', f.showz ? 'true' : 'false'); } };
+  return (infos, nDragon, custom) => {
+    let cc = {}, sc = {}, wc = 0;
+    if (custom) ({cc, sc, wc} = custom);
+    else for (const v of infos) {
       if (!v) continue;
       if (gfPass(v, f, S, 'c')) cc[v.c] = (cc[v.c] || 0) + 1;
       if (v.s && gfPass(v, f, S, 's')) { const k = GF_SLOTKEY[v.s]; if (k) sc[k] = (sc[k] || 0) + 1; }
       if (v.g && reqMet(v.g, S) && gfPass(v, f, S, 'w')) wc++;
     }
     $$('#gfc button').forEach(b => { b.classList.toggle('on', f.cls === b.dataset.k); b.querySelector('.cnt').textContent = (cc[b.dataset.k] || 0).toLocaleString(); });
-    $$('#gfsl button').forEach(b => { b.classList.toggle('on', f.slot === b.dataset.k); b.querySelector('.cnt').textContent = (sc[b.dataset.k] || 0).toLocaleString(); });
+    $$('#gfsl button').forEach(b => { b.classList.toggle('on', f.slot === b.dataset.k); b.classList.toggle('zero', !sc[b.dataset.k] && f.slot !== b.dataset.k); b.querySelector('.cnt').textContent = (sc[b.dataset.k] || 0).toLocaleString(); });
+    gzPaint();
     $('#gfwc').textContent = wc.toLocaleString();
     if (gd) { gd.classList.toggle('on', !!f.dragon); gd.querySelector('.cnt').textContent = (nDragon || 0).toLocaleString(); }
     const parts = [f.dragon ? 'Dragon gear' : '', f.cls ? (GF_CLS.find(c => c[0] === f.cls) || [])[1] : '', f.slot ? (GF_SLOT.find(c => c[0] === f.slot) || [])[1] : '',
@@ -1170,11 +1413,13 @@ async function hansRow() {
   const h = await get('data/hans.json').catch(() => null);
   return h ? [h.title, 'tasks', '', 'Event', h.length, 0, h.icon, h.steps.length, 'wiki', 0, 'hans', 0] : null;
 }
+const qState = q => { const n = q[7], p = n ? qProg(q[10]).size : 0; return qIsDone(q[0]) || (n && p >= n) ? 'done' : p ? 'prog' : 'none'; };
+const qStat = (q, f) => !f || (f === 'todo' ? qState(q) !== 'done' : qState(q) === f);
 async function questsView(name) {
   let qs = await get('data/quests.json');
   const hr = await hansRow(); if (hr) qs = [hr, ...qs];
   if (name) return questDetail(name, qs);
-  const st = sjson(sessionStorage, 'qf', {q: '', kind: '', mem: '', diff: ''});
+  const st = sjson(sessionStorage, 'qf', {q: '', kind: '', mem: '', diff: '', st: ''});
   const diffs = [...new Set(qs.map(q => q[3]).filter(Boolean))].sort((a, b) => ['Novice', 'Intermediate', 'Experienced', 'Master', 'Grandmaster', 'Special'].indexOf(a) - ['Novice', 'Intermediate', 'Experienced', 'Master', 'Grandmaster', 'Special'].indexOf(b));
   const opt = (v, l, cur) => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(l)}</option>`;
   view.innerHTML = `<div class="panel"><h2>Quest helper</h2>${searchBox('q', 'Search quests…', st.q)}
@@ -1182,11 +1427,12 @@ async function questsView(name) {
       <select id="kind">${opt('', 'Quests & miniquests', st.kind)}${opt('quest', 'Quests', st.kind)}${opt('miniquest', 'Miniquests', st.kind)}${opt('tasks', 'Anniversary task list', st.kind)}</select>
       <select id="mem">${opt('', 'Free & members', st.mem)}${opt('No', 'Free-to-play', st.mem)}${opt('Yes', 'Members', st.mem)}</select>
       <select id="diff">${opt('', 'Any difficulty', st.diff)}${diffs.map(d => opt(d, d, st.diff)).join('')}</select>
+      <select id="qst">${opt('', 'Any status', st.st)}${opt('todo', 'Not finished', st.st)}${opt('prog', 'In progress', st.st)}${opt('done', 'Finished', st.st)}</select>
       <span class="note" id="cnt"></span></div></div><div class="panel"><div class="hint" style="margin-bottom:6px">Green = complete, yellow = in progress, red = not started (tracked on this device).</div><div id="res" class="list" style="margin-top:0"></div></div>`;
   const draw = () => {
-    const s = {q: $('#q').value, kind: $('#kind').value, mem: $('#mem').value, diff: $('#diff').value}; sessionStorage.qf = JSON.stringify(s);
+    const s = {q: $('#q').value, kind: $('#kind').value, mem: $('#mem').value, diff: $('#diff').value, st: $('#qst').value}; sessionStorage.qf = JSON.stringify(s);
     const nq = norm(s.q);
-    let hits = qs.filter(q => (!s.kind || q[1] === s.kind) && (!s.mem || q[2] === s.mem) && (!s.diff || q[3] === s.diff));
+    let hits = qs.filter(q => (!s.kind || q[1] === s.kind) && (!s.mem || q[2] === s.mem) && (!s.diff || q[3] === s.diff) && qStat(q, s.st));
     hits = nq ? hits.map(q => [score(q[0], nq), q]).filter(x => x[0] >= 0).sort((a, b) => b[0] - a[0]).map(x => x[1]) : hits;
     $('#cnt').textContent = `${hits.length} of ${qs.length}`;
     $('#res').innerHTML = hits.map(q => {
@@ -1196,7 +1442,7 @@ async function questsView(name) {
       return `<a class="hit" href="#quests/${encodeURIComponent(q[0])}">${qIcon(q[6])}<span class="${cls}">${esc(q[0])}${q[1] === 'miniquest' ? ' <span class="tag">miniquest</span>' : ''}</span><span class="meta">${meta}</span></a>`;
     }).join('');
   };
-  $('#q').oninput = draw; ['#kind', '#mem', '#diff'].forEach(id => $(id).onchange = draw); draw(); $('#q').focus();
+  $('#q').oninput = draw; ['#kind', '#mem', '#diff', '#qst'].forEach(id => $(id).onchange = draw); draw(); $('#q').focus();
 }
 async function questDetail(name, qs) {
   const row = qs.find(q => q[0] === name);
@@ -1430,7 +1676,7 @@ async function trainSkill(T, sk, gk) {
   const gtab = D.g.length > 1 ? `<div class="chips" id="trg">${D.g.map((g, i) => `<button data-i="${i}"${i === gi ? ' class="on"' : ''}>${esc(g.t.replace(/ training$/i, ''))}<span class="cnt">${g.c.length}</span></button>`).join('')}</div>` : '';
   view.innerHTML = `<div class="trbar" id="trbar"><a class="btn mini ghost" href="#train">← Skills</a><b class="trbn">${esc(sk.n)}</b><select id="trjump" aria-label="Jump to a level range or section"><option value="">Jump to…</option></select><button type="button" class="btn mini ghost" id="trtop" aria-label="Back to top">↑ Top</button></div>
     <div class="panel trpanel"><div class="trhead">${SKICONS[sk.n] ? `<img src="${esc(SKICONS[sk.n])}" alt="" width="40" height="40">` : ''}<div><h2>${esc(sk.n)} training</h2>
-      <div class="note">Your level on this device: <b>${lvl}</b>${stats[sk.n] ? '' : ' (not saved yet)'} · <a href="#items/~stats">edit my levels</a></div></div></div>
+      <div class="note">Your level on this device: <b>${lvl}</b>${stats[sk.n] ? '' : ' (not saved yet)'} · <a href="#char">edit my levels</a></div></div></div>
     <div class="note">From <span id="trsrc"></span>.</div>${gtab}
     <details class="trhow"><summary>How to read these sections</summary><div class="note">Tap a section to open it. Items are the ones the wiki links in that section; prices are Grand Exchange prices in this app, and tapping an item shows where to get it. ✓/✗ compares a requirement with the levels saved on this device. Costs and xp/hr are quoted from the wiki text; rates vary with boosts and play style.</div></details></div>
     <div class="panel" id="trcalc"></div>
@@ -1618,7 +1864,7 @@ async function mmFill(card, r, S) {
   const wnote = `<div class="note">“Per the wiki” is the wiki's own profit formula (its Money making guide module) applied to its Grand Exchange data of ${esc(MM_GE)}${dateNote ? ', ' + esc(dateNote) : ''}. The separate estimate re-prices the same hourly quantities with this app's own Grand Exchange prices; the two normally agree and differ where the wiki uses fixed values or an item has no price here. Live wiki pages use today's prices, so their figures drift from these.</div>`;
   /* requirements */
   const ph = trPhone();
-  const reqs = m.rq.length ? `<div class="secreq mmreqs">${mmReqChips(m, S)}</div>${STATS_SAVED ? '' : '<div class="note">Save your levels (Items → my levels) to see ✓/✗ against them.</div>'}` : '<div class="note">The wiki lists no requirements for this method.</div>';
+  const reqs = m.rq.length ? `<div class="secreq mmreqs">${mmReqChips(m, S)}</div>${STATS_SAVED ? '' : '<div class="note">Save your levels (<a href="#char">Character tab</a>) to see ✓/✗ against them.</div>'}` : '<div class="note">The wiki lists no requirements for this method.</div>';
   /* xp */
   const xp = m.xp.length ? `<div class="kv">${m.xp.map(x => `<b><a href="#train/${encodeURIComponent(x.s)}">${esc(x.s)}</a></b><span>${x.h.toLocaleString()} xp/hr${x.pk ? ` <i>(${x.x} per kill)</i>` : ''}${x.nt ? ` <i>${esc(x.nt)}</i>` : ''}</span>`).join('')}</div>` : '';
   const items = (m.it || []).map(([n, ic]) => `<a class="trit" href="#items/${encodeURIComponent(n)}">${ic ? `<img class="ico" loading="lazy" src="${esc(ic)}" alt="">` : PH('✦', 28)}<span>${esc(n)}</span>${priceOf(D, n) ? `<b class="gp">${gp(priceOf(D, n))}</b>` : ''}</a>`).join('');
@@ -1675,7 +1921,7 @@ async function moneyView(arg) {
       <label>Sort<select id="mmsort"><option value="profit">Profit/hr (wiki)</option><option value="level"${MM.sort === 'level' ? ' selected' : ''}>Level needed</option><option value="name"${MM.sort === 'name' ? ' selected' : ''}>Name</option></select></label></div>
     <div class="mmrng"><label for="mmmin">Min profit/hr (wiki): <b id="mmminv">${MM.minp ? mmGp(MM.minp) : 'any'}</b></label><input id="mmmin" type="range" min="0" max="${MM_MIN.length - 1}" step="1" value="${Math.max(0, MM_MIN.indexOf(MM.minp))}"></div>
     <div class="chips" id="mmf"><button data-v="afk"${MM.afk ? ' class="on"' : ''}>AFK / low effort</button><button data-v="cmb"${MM.cmb ? ' class="on"' : ''}>Needs combat</button><button data-v="norec"${MM.norec ? ' class="on"' : ''}>Hide timed recurring</button><button data-v="ob"${MM.ob ? ' class="on"' : ''}>Show not-profitable methods</button></div>
-    ${STATS_SAVED ? '' : '<div class="note">Tip: save your levels (Items → my levels) to use “Fits my levels” and to see ✓/✗ on requirements. They stay on this device.</div>'}
+    ${STATS_SAVED ? '' : '<div class="note">Tip: save your levels (<a href="#char">Character tab</a>) to use “Fits my levels” and to see ✓/✗ on requirements. They stay on this device.</div>'}
     <div id="mmres"></div></div>
     <div class="panel"><h3>Sources</h3><div class="note">All text, numbers and pictures come from these RS3 wiki pages (CC BY-NC-SA 3.0, <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener noreferrer">licence</a>). Nothing is written by this app. Each method has its own “Source: RS3 Wiki” link.</div>
       <details class="thv"><summary>${st.pages} guide pages + ${st.list_pages} index pages</summary><ul class="trsrc">${X.src.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(t.replace('Money making guide/', ''))} ↗</a></li>`).join('')}<li><a href="${WIKI('Money making guide')}" target="_blank" rel="noopener noreferrer">Money making guide (index) ↗</a></li><li><a href="${WIKI('Money making')}" target="_blank" rel="noopener noreferrer">Money making ↗</a></li></ul></details></div>
@@ -1872,15 +2118,80 @@ async function detectLauncher() {
     const j = await r.json(); if (!j.launcher) return;
     LAUNCHER = j; document.documentElement.classList.add('nx-launcher'); const dl = $('#nx-dl'); if (dl) dl.hidden = true; const ib = $('#nx-install'); if (ib) ib.hidden = true; const b = $('#updbtn'); b.hidden = false; b.onclick = checkUpdates;
     const p = document.getElementById('updpanel');
-    if (p) { p.hidden = false; $('#updver').textContent = 'Installed version: ' + (j.current || 'unknown'); $('#updcheck').onclick = checkUpdates; }
+    if (p) { p.hidden = false; $('#updver').textContent = 'Installed version: ' + (j.current || 'unknown'); $('#updcheck').onclick = checkUpdates; launcherNote().then(h => { if (h && !p.querySelector('.patchlnc')) p.insertAdjacentHTML('beforeend', h); }); }
   } catch (e) {}
 }
+
+/* ---------- "New patch available" prompt ----------
+   Windows program: a few seconds after launch it asks the launcher (/__update/check) and, if the live app has changed files, shows this card.
+   Installed web app / browser: the service worker already serves fresh files on the next load, so the card only appears when this open session is older than the live app (update.json version differs) and offers a reload.
+   Nothing is ever applied without a click on "Update now"; "Later" hides it for this session and the ⟳ Updates button stays. After an update the app shows a one-time "what's new" card (whatsnew.json is shipped with the app, so it is the installed version's own notes). */
+const semv = v => String(v || '0').split('.').map(x => parseInt(x, 10) || 0);
+const semGt = (a, b) => { const x = semv(a), y = semv(b); for (let i = 0; i < 3; i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); } return false; };
+const fetchJ = async u => { try { const r = await fetch(u, {cache: 'no-store'}); return r.ok ? await r.json() : null; } catch (e) { return null; } };
+const patchNotes = n => n && n.items && n.items.length ? `<ul class="patchl">${n.items.slice(0, 6).map(i => `<li>${esc(i)}</li>`).join('')}</ul>` : '';
+function patchCard(o) {
+  const d = updDialog(`<div class="patchhd"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.8 4.2L14 7l-4.2 1.8L8 13l-1.8-4.2L2 7l4.2-1.8z"/></svg><span>${esc(o.kicker || 'New patch available')}</span></div>
+    <h3>${esc(o.title)}</h3><div class="updmsg">${o.msg}</div>${o.notes || ''}${o.extra || ''}
+    <div class="row">${o.now ? `<button class="btn" id="patchnow">${esc(o.nowLabel || 'Update now')}</button>` : ''}<button class="btn ghost" id="patchlater">${esc(o.laterLabel || 'Later')}</button></div>`);
+  d.querySelector('.box').classList.add('patch');
+  const b = d.querySelector('.box'); b.setAttribute('role', 'dialog'); b.setAttribute('aria-modal', 'true');
+  $('#patchlater').onclick = () => { d.hidden = true; d.querySelector('.box').classList.remove('patch'); o.onLater && o.onLater(); };
+  if (o.now) $('#patchnow').onclick = () => { d.querySelector('.box').classList.remove('patch'); o.now(); };
+  return d;
+}
+async function reloadFresh() {
+  try { for (const g of await navigator.serviceWorker?.getRegistrations?.() || []) await g.unregister(); } catch (e) {}
+  try { for (const k of await caches.keys()) if (k.startsWith('dch-')) await caches.delete(k); } catch (e) {}
+  location.reload();
+}
+const dlgOpen = () => { const d = document.getElementById('upddlg'); return d && !d.hidden; };
+/* Windows program: optional newer launcher notice, from launcher.json that ships with the app (never replaces anything by itself) */
+async function launcherNote() {
+  if (!LAUNCHER) return '';
+  const L = await fetchJ('launcher.json');
+  if (!L || !L.latest || !semGt(L.latest, LAUNCHER.launcher_version)) return '';
+  const url = /^https:\/\/github\.com\/theelonmuskrs3\/rs3-drop-clue-helper\//.test(L.url || '') ? L.url : '';
+  return `<div class="note patchlnc">A newer Windows program (v${esc(L.latest)}, you have v${esc(LAUNCHER.launcher_version || '?')}) is available. Optional: the app itself updates without it.${url ? ` <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Download it</a>` : ''}</div>`;
+}
+let PATCH_BOOT = null;
+async function exePatchCheck() {
+  if (!LAUNCHER || dlgOpen()) return;
+  let r; try { r = await (await fetch('/__update/check', {cache: 'no-store'})).json(); } catch (e) { return; }
+  if (!r || r.error || r.up_to_date) return;
+  const b = $('#updbtn'); if (b) b.classList.add('has');
+  if (sessionStorage.patchLater === r.latest) return;
+  const n = r.changed_count + (r.removed_count || 0);
+  patchCard({title: 'A new patch is ready', msg: `New version <b>${esc(r.latest)}</b>${r.current && r.current !== r.latest ? ` (you have ${esc(r.current)})` : ''}. <b>${n.toLocaleString()} file${n === 1 ? '' : 's'}, ${mb(r.bytes)}</b> to download. Only changed files are fetched and each one is verified before it replaces the old one.`,
+    notes: '<div class="note">What changed is shown on the next start, after the update is installed.</div>', extra: await launcherNote(), now: applyUpdate, onLater: () => { try { sessionStorage.patchLater = r.latest; } catch (e) {} }});
+}
+async function webPatchWatch() {
+  if (LAUNCHER) return;
+  const live = async () => { const u = await fetchJ('update.json'); return u && u.version; };
+  PATCH_BOOT = await live(); if (!PATCH_BOOT) return;
+  const chk = async () => {
+    if (document.hidden || dlgOpen()) return;
+    const v = await live(); if (!v || v === PATCH_BOOT || sessionStorage.patchLater === v) return;
+    const n = await fetchJ('whatsnew.json');
+    patchCard({title: 'A newer version is ready', msg: 'This window is running an older version. Reload to use the newest one; your saved levels and settings stay on this device.', notes: patchNotes(n), now: reloadFresh, nowLabel: 'Update now', onLater: () => { try { sessionStorage.patchLater = v; } catch (e) {} }});
+  };
+  document.addEventListener('visibilitychange', chk); setInterval(chk, 20 * 60 * 1000);
+}
+async function whatsNewOnce() {
+  const n = await fetchJ('whatsnew.json'); if (!n || !n.id) return;
+  let seen = null; try { seen = localStorage.getItem('dch_wn_seen'); } catch (e) {}
+  const mark = () => { try { localStorage.setItem('dch_wn_seen', n.id); } catch (e) {} };
+  if (!seen) { mark(); return; }            // first run on this device: nothing to compare with
+  if (seen === n.id) return;
+  patchCard({kicker: 'Updated', title: n.title || 'What\u2019s new', msg: `${n.date ? `<span class="note">${esc(n.date)}</span>` : ''}`, notes: patchNotes(n), laterLabel: 'Got it', onLater: mark});
+}
+async function patchBoot() { await whatsNewOnce(); webPatchWatch(); if (LAUNCHER) setTimeout(exePatchCheck, 4000); }
 
 /* ---------- boot ---------- */
 (async () => {
   try { const ic = await get('data/icons.json'); ICONS = ic.items || ic; EMOTES = ic.emotes || {}; GICONS = ic.gear || {}; SKICONS = ic.skills || {}; SKORDER = ic.skill_order || []; SKMAX = ic.skill_max || {}; SRCPICS = ic.sources || {}; } catch (e) { ICONS = {}; }
   loadStats(); welcomeBanner();
-  route(); detectLauncher();
+  route(); detectLauncher().then(patchBoot, patchBoot);
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
 
