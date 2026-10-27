@@ -2053,7 +2053,7 @@ function updDialog(html) {
   let d = document.getElementById('upddlg');
   if (!d) { d = document.createElement('div'); d.id = 'upddlg'; d.innerHTML = '<div class="box"></div>'; document.body.appendChild(d);
     d.addEventListener('click', e => { if (e.target === d && !d.dataset.busy) d.hidden = true; }); }
-  d.hidden = false; d.querySelector('.box').innerHTML = html; return d;
+  d.hidden = false; const bx = d.querySelector('.box'); bx.className = 'box'; bx.innerHTML = html; return d;
 }
 /* Update progress UI: only a version (optional), a black/red bar and the percentage. No file counts, no sizes.
    The percentage is computed from real work (bytes / files done) and is held at 99% until the update is fully applied. */
@@ -2114,6 +2114,7 @@ async function applyUpdate(ver) {
   // drop the old service worker and its caches so every new file is used
   try { for (const g of await navigator.serviceWorker?.getRegistrations?.() || []) await g.unregister(); } catch (e) {}
   try { for (const k of await caches.keys()) if (k.startsWith('dch-')) await caches.delete(k); } catch (e) {}
+  try { localStorage.setItem('dch_updated', '1'); } catch (e) {}
   ui.set(100, true); ui.note('Updated. Restarting…');
   setTimeout(() => location.reload(), 1100);
 }
@@ -2131,11 +2132,10 @@ async function detectLauncher() {
 /* ---------- "New patch available" prompt ----------
    Windows program: a few seconds after launch it asks the launcher (/__update/check) and, if the live app has changed files, shows this card.
    Installed web app / browser: the service worker already serves fresh files on the next load, so the card only appears when this open session is older than the live app (update.json version differs) and offers a reload.
-   Nothing is ever applied without a click on "Update now"; "Later" hides it for this session and the ⟳ Updates button stays. After an update the app shows a one-time "what's new" card (whatsnew.json is shipped with the app, so it is the installed version's own notes). */
+   Nothing is ever applied without a click on "Update now"; "Later" hides it for this session and the ⟳ Updates button stays. After an update the app shows one simple "Updated!" card (flag dch_updated), never patch notes. */
 const semv = v => String(v || '0').split('.').map(x => parseInt(x, 10) || 0);
 const semGt = (a, b) => { const x = semv(a), y = semv(b); for (let i = 0; i < 3; i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); } return false; };
 const fetchJ = async u => { try { const r = await fetch(u, {cache: 'no-store'}); return r.ok ? await r.json() : null; } catch (e) { return null; } };
-const patchNotes = n => n && n.items && n.items.length ? `<ul class="patchl">${n.items.slice(0, 6).map(i => `<li>${esc(i)}</li>`).join('')}</ul>` : '';
 function patchCard(o) {
   const d = updDialog(`<div class="patchhd"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.8 4.2L14 7l-4.2 1.8L8 13l-1.8-4.2L2 7l4.2-1.8z"/></svg><span>${esc(o.kicker || 'New patch available')}</span></div>
     <h3>${esc(o.title)}</h3><div class="updmsg">${o.msg}</div>${o.notes || ''}${o.extra || ''}
@@ -2164,6 +2164,7 @@ async function reloadFresh(ver) {
     $('#updclose').onclick = () => { document.getElementById('upddlg').hidden = true; }; return; }
   try { for (const g of await navigator.serviceWorker?.getRegistrations?.() || []) await g.unregister(); } catch (e) {}
   try { for (const k of await caches.keys()) if (k.startsWith('dch-') && k !== keep) await caches.delete(k); } catch (e) {}
+  try { localStorage.setItem('dch_updated', '1'); } catch (e) {}
   ui.set(100, true); ui.note('Updated. Restarting…');
   setTimeout(() => location.reload(), 1100);
 }
@@ -2184,7 +2185,7 @@ async function exePatchCheck() {
   const b = $('#updbtn'); if (b) b.classList.add('has');
   if (sessionStorage.patchLater === r.latest) return;
   patchCard({title: 'A new patch is ready', msg: `New version <b>${esc(r.latest)}</b>${r.current && r.current !== r.latest ? ` (you have ${esc(r.current)})` : ''}. Your saved levels and settings are kept.`,
-    notes: '<div class="note">What changed is shown on the next start, after the update is installed.</div>', extra: await launcherNote(), now: () => applyUpdate(r.latest), onLater: () => { try { sessionStorage.patchLater = r.latest; } catch (e) {} }});
+    extra: await launcherNote(), now: () => applyUpdate(r.latest), onLater: () => { try { sessionStorage.patchLater = r.latest; } catch (e) {} }});
 }
 async function webPatchWatch() {
   if (LAUNCHER) return;
@@ -2193,20 +2194,20 @@ async function webPatchWatch() {
   const chk = async () => {
     if (document.hidden || dlgOpen()) return;
     const v = await live(); if (!v || v === PATCH_BOOT || sessionStorage.patchLater === v) return;
-    const n = await fetchJ('whatsnew.json');
-    patchCard({title: 'A newer version is ready', msg: 'This window is running an older version. Reload to use the newest one; your saved levels and settings stay on this device.', notes: patchNotes(n), now: () => reloadFresh(v), nowLabel: 'Update now', onLater: () => { try { sessionStorage.patchLater = v; } catch (e) {} }});
+    patchCard({title: 'A newer version is ready', msg: 'This window is running an older version. Reload to use the newest one; your saved levels and settings stay on this device.', now: () => reloadFresh(v), nowLabel: 'Update now', onLater: () => { try { sessionStorage.patchLater = v; } catch (e) {} }});
   };
   document.addEventListener('visibilitychange', chk); setInterval(chk, 20 * 60 * 1000);
 }
-async function whatsNewOnce() {
-  const n = await fetchJ('whatsnew.json'); if (!n || !n.id) return;
-  let seen = null; try { seen = localStorage.getItem('dch_wn_seen'); } catch (e) {}
-  const mark = () => { try { localStorage.setItem('dch_wn_seen', n.id); } catch (e) {} };
-  if (!seen) { mark(); return; }            // first run on this device: nothing to compare with
-  if (seen === n.id) return;
-  patchCard({kicker: 'Updated', title: n.title || 'What\u2019s new', msg: `${n.date ? `<span class="note">${esc(n.date)}</span>` : ''}`, notes: patchNotes(n), laterLabel: 'Got it', onLater: mark});
+/* After an update the user clicked has been fully applied (flag set just before the reload), show one simple "Updated!" card, once. Never on a first install, never with version text or notes. */
+function updatedCard() {
+  let on = false; try { on = localStorage.getItem('dch_updated') === '1'; localStorage.removeItem('dch_updated'); localStorage.removeItem('dch_wn_seen'); } catch (e) {}
+  if (!on) return;
+  const d = updDialog(`<div class="updone"><div class="uphat"><svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" focusable="false"><defs><linearGradient id="phg" x1="0" x2="1"><stop offset="0" stop-color="#8d0f22"/><stop offset=".45" stop-color="#ff3b52"/><stop offset="1" stop-color="#7a0a1b"/></linearGradient></defs><path d="M32 9L14 52h36z" fill="url(#phg)" stroke="#000" stroke-width="2" stroke-linejoin="round"/><path d="M26.2 22.5l18.6 14.2M21.6 33.4l24.4 18.6M30 15.5l5 3.7" stroke="#f2c66d" stroke-width="3.2" stroke-linecap="round" fill="none"/><ellipse cx="32" cy="52.5" rx="19" ry="4.6" fill="#f2c66d" stroke="#000" stroke-width="2"/><circle cx="32" cy="8.5" r="5.5" fill="#ffb000" stroke="#000" stroke-width="2"/><path d="M12 14l3 3M52 12l-3 3M8 30l4 1M56 28l-4 1" stroke="#ff5a6e" stroke-width="2.2" stroke-linecap="round"/></svg></div><h3>Updated!</h3><div class="updmsg">You\u2019re all set.</div><div class="row"><button class="btn" id="updgot">Got it</button></div></div>`);
+  const b = d.querySelector('.box'); b.classList.add('patch', 'updonebox'); b.setAttribute('role', 'dialog'); b.setAttribute('aria-modal', 'true'); b.setAttribute('aria-label', 'Updated');
+  const close = () => { d.hidden = true; b.classList.remove('patch', 'updonebox'); };
+  $('#updgot').onclick = close; $('#updgot').focus();
 }
-async function patchBoot() { await whatsNewOnce(); webPatchWatch(); if (LAUNCHER) setTimeout(exePatchCheck, 4000); }
+async function patchBoot() { updatedCard(); webPatchWatch(); if (LAUNCHER) setTimeout(exePatchCheck, 4000); }
 
 /* ---------- boot ---------- */
 (async () => {

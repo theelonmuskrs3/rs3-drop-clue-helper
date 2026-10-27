@@ -1191,3 +1191,18 @@ html[data-fx=off] #upddlg .updpct{text-shadow:none}
 #upddlg .box .note#updnote{text-align:center}
 @media (max-width:360px){#upddlg .updpct{font-size:34px}}
 .chsk>h2:first-child{border-image:linear-gradient(90deg,transparent,rgba(255,31,61,.55),transparent) 1}
+/* ===== Simple "Updated!" card (after an update): party hat on top of a black/red card ===== */
+#upddlg .box.updonebox{overflow:visible;text-align:center;padding-top:0;margin-top:46px;max-width:360px}
+#upddlg .box.updonebox::before{border-radius:3px 3px 0 0}
+.uphat{width:96px;height:96px;margin:-48px auto 8px;border-radius:50%;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 50% 35%,#3a0a10,#0b0506 70%);border:2px solid #000;box-shadow:0 0 0 2px var(--goldd),0 0 28px rgba(255,31,61,.55),inset 0 0 18px rgba(255,31,61,.25)}
+.uphat svg{width:64px;height:64px;filter:drop-shadow(0 2px 2px #000) drop-shadow(0 0 8px rgba(255,31,61,.7))}
+html[data-fx=high] .uphat svg{animation:uphatbob 2.6s ease-in-out infinite}
+@keyframes uphatbob{50%{transform:translateY(-4px) rotate(-4deg)}}
+html[data-fx=low] .uphat,html[data-fx=off] .uphat{box-shadow:0 0 0 2px var(--goldd)}
+html[data-fx=low] .uphat svg,html[data-fx=off] .uphat svg{animation:none;filter:drop-shadow(0 2px 2px #000)}
+@media (prefers-reduced-motion:reduce){.uphat svg{animation:none!important}}
+#upddlg .updonebox h3{margin:4px 0 2px;font-size:28px;letter-spacing:.06em}
+#upddlg .updonebox .updmsg{margin:4px 0 14px;color:var(--soft)}
+#upddlg .updonebox .row{justify-content:center}
+#upddlg .updonebox .row .btn{flex:0 1 200px}
+@media (max-width:360px){.uphat{width:84px;height:84px;margin-top:-42px}.uphat svg{width:58px;height:58px}}
