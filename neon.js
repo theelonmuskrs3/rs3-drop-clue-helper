@@ -93,7 +93,7 @@
   if (!coarse) {
     let mag = null;
     D.addEventListener('pointermove', e => {
-      const t = e.target.closest?.('.tabs button,.btn,.chips button');
+      const t = null; /* magnetic pull removed: hovering never moves a button or tile */
       if (mag && mag !== t) { mag.style.setProperty('--mx', '0px'); mag.style.setProperty('--my', '0px'); mag = null; }
       if (t && H.dataset.fx !== 'off') { const r = t.getBoundingClientRect();
         t.style.setProperty('--mx', ((e.clientX - r.left - r.width / 2) * .18).toFixed(1) + 'px');

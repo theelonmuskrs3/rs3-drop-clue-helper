@@ -1234,3 +1234,11 @@ html[data-fx=low] .uphat img,html[data-fx=off] .uphat img{animation:none;filter:
 @media (prefers-reduced-motion:reduce){.sksavecell .stsaved{transition:none}}
 .noimg{display:none!important}
 .secpicw:has(>.noimg){display:none}
+
+/* NOTHING moves on hover / press / focus (glow, sheen, colour, shadow only): buttons, tabs, chips, tiles, refs. No scale/translate/size/border/padding change. */
+html{scrollbar-gutter:stable}
+.btn,.btn:hover,.btn:active,.btn:focus,.btn:focus-visible,.tabs button,.tabs button:hover,.tabs button:active,.chips button,.chips button:hover,.chips button:active,.nx-hb,.nx-hb:hover,.nx-hb:active,.nx-fxbtn,.updbtn{transform:none!important}
+.btn,.tabs button,.chips button{transition-property:box-shadow,filter,background,color,text-shadow,opacity,border-color}
+.btn::after,.tabs button::before{inset:0;max-width:100%}
+@media (hover:hover){.hit:hover,.hit:focus-visible,.ref:hover{transform:none!important}.hit:hover>.ico,.hit:hover>img:first-child{transform:none!important}}
+.nx-clock{display:inline-block;width:6.6em;overflow:hidden;text-align:right;white-space:nowrap}  /* fixed clock width: the minute tick never reflows the header */
