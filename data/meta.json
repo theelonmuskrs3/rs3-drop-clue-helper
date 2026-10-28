@@ -1,5 +1,5 @@
 {
- "built": "2026-10-27 22:06 EDT",
+ "built": "2026-10-27 22:50 EDT",
  "monsters": 1481,
  "drop_entries": 21768,
  "items": 3297,
@@ -89,7 +89,7 @@
   "clues_with_picture_pct": 91.4,
   "clues_without_any_wiki_picture": 137,
   "clue_pictures_not_downloaded": 0,
-  "quests_with_icon_pct": 99.8,
+  "quests_with_icon_pct": 100.0,
   "quests_with_main_picture": 384,
   "quests_with_any_picture_pct": 97.8,
   "quest_pictures_total": 7082,
