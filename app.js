@@ -13,9 +13,16 @@ const TYPE_LABEL = {emote: 'Emote', anagram: 'Anagram', coordinate: 'Coordinate'
 const cap = s => s === 'cs_week' || s === 'cs week' ? 'CS Week' : s ? s[0].toUpperCase() + s.slice(1) : s;
 let ICONS = {}, EMOTES = {}, MTHUMB = {}, SRCPICS = {};
 
-const PH = (glyph, size = 32) => `<span class="ph" style="width:${size}px;height:${size}px" title="No picture on the RS3 wiki">${glyph}</span>`;
+/* no official picture for this one: show no picture slot at all (never a made-up placeholder). The hidden marker lets checks/img_check.py count them. */
+const PH = () => '<i class="noimg" aria-hidden="true"></i>';
+const DOSES = [' (4)', ' (3)', ' (2)', ' (1)', ' (6)', ' (5)'];
+function iconFile(item) {
+  let f = ICONS[item] || GICONS[item] || IICONS[item];
+  for (let i = 0; !f && i < DOSES.length; i++) f = ICONS[item + DOSES[i]] || GICONS[item + DOSES[i]] || IICONS[item + DOSES[i]];
+  return f;
+}
 function icon(item) {
-  const f = ICONS[item] || GICONS[item] || IICONS[item];
+  const f = iconFile(item);
   return f ? `<img class="ico" loading="lazy" src="${esc(f)}" alt="">` : PH('✦');
 }
 function mthumb(name, size = 36) {
@@ -377,17 +384,6 @@ function statsBadge(ok) {
   if (ok === null) { b.textContent = 'Saving…'; b.className = 'stsaved'; return; }
   if (ok) { b.textContent = 'Saved ✓'; b.className = 'stsaved on'; _stBadgeT = setTimeout(() => { b.className = 'stsaved on idle'; }, 1800); }
   else { b.textContent = 'Not saved (browser storage is blocked)'; b.className = 'stsaved on bad'; }
-  skSaved(ok);
-}
-/* the "Saved ✓" pill that sticks next to the skills while you edit them (the header one scrolls out of sight on phones) */
-let _skT = 0;
-function skSaved(ok) {
-  const p = document.getElementById('sksaved'); if (!p) return;
-  clearTimeout(_skT);
-  if (ok === null) return;   /* still inside the 250 ms save delay: nothing to confirm yet */
-  const t = document.querySelector('.top'); if (t) document.documentElement.style.setProperty('--topH', Math.round(t.getBoundingClientRect().bottom) + 'px');
-  p.textContent = ok ? 'Saved ✓' : 'Not saved (browser storage blocked)'; p.classList.toggle('bad', !ok); p.classList.remove('show'); void p.offsetWidth; p.classList.add('show');
-  _skT = setTimeout(() => p.classList.remove('show'), ok ? 2000 : 6000);
 }
 /* gear style + PvM/PvP choice are remembered across visits too */
 function loadPrefs() { try { const o = JSON.parse(lsGet('gearprefs_v1') || '{}'); return {style: STYLES[o.style] ? o.style : null, mode: o.mode === 'pvp' || o.mode === 'pvm' ? o.mode : null}; } catch (e) { return {style: null, mode: null}; } }
@@ -651,15 +647,15 @@ async function charView(sub) {
   const maxTot = SKORDER.reduce((a, k) => a + skMax(k), 0);
   const tiles = [['wear', 'Gear I can wear', 'Items filtered to your levels'], ['sets', 'Full sets I can wear', 'Whole armour sets that fit'], ['train', 'Training that fits me', 'Training guides for your levels'], ['money', 'Money making that fits', 'Methods that fit your levels'], ['quest', 'Quests to do', 'Quests you have not finished']];
   view.innerHTML = `<section class="panel chhero"><div class="chhead"><div class="chdds" aria-hidden="true"><span class="chglow"></span><img src="brand/dds.webp" width="64" height="58" alt="" decoding="async"></div>
-      <div class="chtitle"><h2>My Character</h2><div class="chsub">Your levels fit the gear, money, training and quest helpers to <i>your</i> account.</div></div><span id="stsaved" class="stsaved on idle" aria-live="polite">Saved ✓</span></div>
+      <div class="chtitle"><h2>My Character</h2><div class="chsub">Your levels fit the gear, money, training and quest helpers to <i>your</i> account.</div></div></div>
     <div class="chbig"><div class="chn tot"><span class="chl">Total level</span><b class="chv" id="tot">${totalLevel(S)}</b><span class="chm">of ${maxTot.toLocaleString()}</span></div>
       <div class="chn cmb"><span class="chl">Combat level</span><b class="chv" id="cmb">${combatLevel(S)}</b><span class="chm">wiki formula</span></div>
       <div class="chn"><span class="chl">Skills at 99+</span><b class="chv" id="n99">0</b><span class="chm" id="nmx">0 maxed</span></div>
       <div class="chn"><span class="chl">Quests done</span><b class="chv" id="nq">–</b><span class="chm" id="nqm">tracked here</span></div></div>
     <div class="chpriv"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 7.5h9V14h-9zM5.2 7.5V5.2a2.8 2.8 0 015.6 0v2.3"/></svg><span>Private: saved automatically in this browser on this device only, never sent anywhere. Each device keeps its own levels.${STATS_SAVED ? '' : ' <b>Nothing saved yet:</b> tap + or type a level to start.'}</span></div></section>
-  <section class="panel chsk"><h2>Skills</h2><div class="sksv"><span id="sksaved" class="sksaved" role="status" aria-live="polite"></span></div>
+  <section class="panel chsk"><h2>Skills</h2>
     <div class="chtools"><button type="button" class="btn ghost" data-all="1">All 1</button><button type="button" class="btn ghost" data-all="99">All 99</button><button type="button" class="btn ghost" data-all="max">All max</button><button type="button" class="btn ghost" data-all="start" title="Every skill 1, Constitution 10 (the RS3 starting levels)">Starting levels</button><button type="button" class="btn" id="chundo" hidden>Undo</button></div>
-    <div class="skgrid">${SKORDER.map(tile).join('')}</div>
+    <div class="skgrid">${SKORDER.map(tile).join('')}<div class="sksavecell"><span id="stsaved" class="stsaved on idle" role="status" aria-live="polite">${STATS_SAVED ? 'Saved ✓' : 'Auto-save on'}</span></div></div>
     <div class="sktot"><span title="Total level">Total level <b id="tot2">${totalLevel(S)}</b></span><span title="Combat level (wiki formula)">Combat <b id="cmb2">${combatLevel(S)}</b></span></div>
     <div class="note chnote">Each skill's top level is from its RS3 wiki page. Type a level in a skill; hover it to see the wiki XP for that level.</div></section>
   <section class="panel chnow"><h2>What can I do now</h2><div class="chtiles">${tiles.map(([k, t, d]) => `<button type="button" class="chgo" data-go="${k}"><svg viewBox="0 0 16 16" aria-hidden="true">${CH_ICO[k]}</svg><span class="chgt"><b>${t}</b><small>${d}</small></span><span class="chgc" id="chgc-${k}"></span></button>`).join('')}</div>
@@ -1401,7 +1397,7 @@ const qIsDone = t => localStorage.getItem(QDONE(t)) === '1';
 function qIcon(f, size = 36) { return f ? `<img class="ico" style="width:${size}px;height:${size}px" loading="lazy" src="${esc(f)}" alt="">` : PH('❖', size); }
 function bulletList(lst, withPics) {
   if (!lst || !lst.length) return '';
-  return `<ul class="blist${withPics ? " pics" : ""}">${lst.map(r => `<li style="margin-left:${Math.max(0, r.d - 1) * 18}px">${withPics ? `<span class="item">${r.i ? `<img class="ico" loading="lazy" src="${esc(r.i)}" alt="">` : PH('✦')}<span>${esc(r.t)}</span></span>` : esc(r.t)}</li>`).join('')}</ul>`;
+  return `<ul class="blist${withPics ? " pics" : ""}">${lst.map(r => `<li style="margin-left:${Math.max(0, r.d - 1) * 18}px">${withPics ? `<span class="item">${r.i ? `<img class="ico" loading="lazy" src="${esc(r.i)}" alt="">` : ''}<span>${esc(r.t)}</span></span>` : esc(r.t)}</li>`).join('')}</ul>`;
 }
 async function hansRow() {
   const h = await get('data/hans.json').catch(() => null);

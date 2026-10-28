@@ -1,11 +1,11 @@
 {
- "built": "2026-10-27 18:39 EDT",
+ "built": "2026-10-27 22:06 EDT",
  "monsters": 1481,
  "drop_entries": 21768,
  "items": 3297,
  "icons": 4609,
- "icons_missing": 26,
- "monster_images_missing": 2,
+ "icons_missing": 15,
+ "monster_images_missing": 1,
  "map_clue_images_missing": 0,
  "clues": 1595,
  "clue_counts": {
@@ -57,18 +57,10 @@
  ],
  "icons_variant": 43,
  "icons_missing_names": [
-  "Alchable",
-  "Blackjack",
   "Calculator:Archaeology/Artefacts",
-  "Chronicles of Bilrach",
   "Desert clothing",
-  "Ensoul trumpet",
   "Fish",
   "Hatchets",
-  "Lesser communion",
-  "Lesser ensoul material",
-  "Memoriam crystal",
-  "Memory",
   "Nothing equipped",
   "Nothing equipped in feet slot",
   "Nothing equipped in legs slot",
@@ -78,14 +70,10 @@
   "Nothing equipped.",
   "Power Planter I",
   "Protection prayers",
-  "Raw fish",
   "Spears",
-  "Sword",
-  "Weight-reducing clothing",
-  "Weight-reducing equipment"
+  "Sword"
  ],
  "monster_images_missing_names": [
-  "Ghost troll brute",
   "Zamorakian scout"
  ],
  "spawn_maps": {
@@ -94,7 +82,7 @@
  },
  "qpic_not_on_wiki": 268,
  "coverage": {
-  "monsters_with_picture_pct": 99.8,
+  "monsters_with_picture_pct": 99.9,
   "drop_rows_with_icon_pct": 100.0,
   "distinct_items_with_icon_pct": 99.4,
   "clue_required_items_with_icon_pct": 96.0,
@@ -119,7 +107,7 @@
   "quest_pictures_not_downloaded": 314,
   "quest_pictures_skipped_tiny": 126,
   "quest_pictures_mb": 111.3,
-  "quest_item_lines_with_picture_pct": 99.5,
+  "quest_item_lines_with_picture_pct": 99.7,
   "emotes_with_icon_pct": 90.9,
   "emote_icons_missing": [
    "Bow, Curtsy",
@@ -176,7 +164,7 @@
  },
  "all_items": {
   "rows": 38722,
-  "with_icon": 38245,
+  "with_icon": 38721,
   "with_ge_price": 7356,
   "extract": {
    "pages_with_infobox_item_or_skin": 31859,
@@ -279,7 +267,7 @@
   "with_req_parsed": 746,
   "with_any_req": 849,
   "with_maps": 24,
-  "with_pic": 832,
+  "with_pic": 878,
   "with_inputs_or_outputs": 876,
   "obsolete": 187,
   "partly": 134,
