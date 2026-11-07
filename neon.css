@@ -1253,3 +1253,10 @@ html{scrollbar-gutter:stable}
 .ge-status{min-height:2.8em}
 .ge-frame{display:block;width:100%;max-width:100%;min-width:0;height:75vh;height:75dvh;min-height:480px;border:1px solid var(--edge2);border-radius:6px;background:#0b0b0b;box-sizing:border-box}
 @media(max-width:420px){.ge-heading{align-items:flex-start}.ge-source{width:100%;text-align:center}.ge-frame{height:80vh;height:80dvh;min-height:440px}}
+
+/* Live prices: text-only updates; no hover/press transforms or global selectors. */
+.live-price-banner{padding:10px 12px;margin:0 0 12px;border:1px solid var(--edge2);border-radius:6px;background:#10090a;color:var(--muted);font-size:12px;line-height:1.5;min-width:0;overflow-wrap:anywhere}
+.live-price-banner b{color:var(--text)}
+.live-price{display:inline-block;max-width:100%;white-space:normal;overflow-wrap:anywhere;vertical-align:top}
+.price-age{display:block;font-size:11px;line-height:1.4;color:var(--muted);font-weight:400;white-space:normal;overflow-wrap:anywhere}
+@media(max-width:420px){.live-price-banner{padding:8px;font-size:11px}.live-price{font-size:12px}.price-age{font-size:10px}}
