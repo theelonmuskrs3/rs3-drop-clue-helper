@@ -6,8 +6,6 @@ const norm = s => String(s ?? '').toLowerCase().normalize('NFKD').replace(/[\u03
 const cache = {};
 const get = async p => cache[p] ??= fetch(p).then(r => { if (!r.ok) throw new Error(p + ' ' + r.status); return r.json(); });
 const view = $('#view');
-// Preview is opt-in on loopback only, never a production cache/storage reset.
-const GE_PREVIEW = ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname) && new URLSearchParams(location.search).get('preview') === 'ge-live';
 const LIVE = RS3Prices.createService();
 let priceUnsubscribe = null, priceDraws = [];
 const RANK = ['Always', 'Common', 'Uncommon', 'Rare', 'Very rare'];
@@ -2336,8 +2334,8 @@ async function patchBoot() { updatedCard(); webPatchWatch(); if (LAUNCHER) setTi
 (async () => {
   try { const ic = await get('data/icons.json'); ICONS = ic.items || ic; EMOTES = ic.emotes || {}; GICONS = ic.gear || {}; SKICONS = ic.skills || {}; SKORDER = ic.skill_order || []; SKMAX = ic.skill_max || {}; SRCPICS = ic.sources || {}; } catch (e) { ICONS = {}; }
   loadStats(); welcomeBanner();
-  route(); if (!GE_PREVIEW) detectLauncher().then(patchBoot, patchBoot);
-  if (!GE_PREVIEW && 'serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+  route(); detectLauncher().then(patchBoot, patchBoot);
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
 
 /* ---------- Where to get it: shops, drops, recipes, rewards, spawns, availability for every item (data/src, built from the RS3 wiki by extract_sources.py + build_sources.py) ----------

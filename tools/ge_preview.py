@@ -42,5 +42,5 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', type=int, default=8777)
     args = parser.parse_args()
-    print(f'Build {BUILD}: http://127.0.0.1:{args.port}/index.html?preview=ge-live&rev={BUILD}#items/Chronotes', flush=True)
+    print(f'Build {BUILD}: http://127.0.0.1:{args.port}/index.html?rev={BUILD}#items/Chronotes', flush=True)
     ThreadingHTTPServer(('127.0.0.1', args.port), Preview).serve_forever()

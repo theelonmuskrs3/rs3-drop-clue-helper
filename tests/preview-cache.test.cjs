@@ -13,10 +13,9 @@ async function swFetch(networkOK) {
   assert.match(await swFetch(false),/^OLD app/,'offline fallback can reproduce prior UI');
   const online=await swFetch(true);assert.match(await online.text(),/data-live-item/,'successful network serves new wiring regardless of manifest');
   const app=fs.readFileSync('app.js','utf8');
-  assert.match(app,/if \(!GE_PREVIEW && 'serviceWorker' in navigator\)/);
-  assert.match(app,/if \(!GE_PREVIEW\) detectLauncher/);
-  assert.match(app,/\['127\.0\.0\.1', 'localhost', '\[::1\]'\]/);
+  assert.doesNotMatch(app,/GE_PREVIEW/,'production has no preview bypass');
+  assert.match(app,/if \('serviceWorker' in navigator\)/);
   const css=fs.readFileSync('neon.css','utf8');
   assert.match(css,/\.nx-hbtns \.nx-dl \.nx-hbt\{white-space:normal;line-height:1\.25;overflow-wrap:normal\}/);
-  console.log('PASS SW network-first vs stale fallback reproduction; opt-in loopback preview isolation; narrow download wrapping rule');
+  console.log('PASS SW network-first vs stale fallback reproduction; production without preview bypass; narrow download wrapping rule');
 })().catch(e=>{console.error(e);process.exitCode=1});

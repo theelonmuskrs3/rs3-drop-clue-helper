@@ -1,17 +1,18 @@
 # Browser validation required before release
 
-Fresh isolated preview (do NOT reuse the earlier :8766 browser tab):
-http://127.0.0.1:8777/index.html?preview=ge-live&rev=8d34e2453f9924f2#items/Chronotes
+Production-safe isolated preview (do NOT reuse earlier browser tabs):
+http://127.0.0.1:8778/index.html?rev=ce700f374e8c4fc7#items/Chronotes
 
-Start/restart with `python3 tools/ge_preview.py --port 8777` from this checkout.
+Start/restart with `python3 tools/ge_preview.py --port 8778` from this checkout.
 The server prints a content fingerprint and sends `Cache-Control: no-store` and
 `X-DCH-Preview-Build` on every response. It ignores conditional cache requests,
-rejects sw.js, and binds only to loopback. `preview=ge-live` on loopback skips SW
-registration and release/update watchers; it has no effect on a production host.
-A NEW port is essential for isolation: this flag does not unregister a controller
-already attached to an old origin. No origin's localStorage, profiles or caches
-are cleared. This port has independent preview-only storage. If 8777 was reused
-for another build with a SW, choose a new unused port instead.
+rejects sw.js, and binds only to loopback. Production app.js has NO preview
+bypass: normal SW registration is attempted and harmlessly rejected by this
+review-only server. Production release/update behavior remains enabled.
+A NEW port is essential for isolation: this server does not unregister an
+existing controller. No origin's localStorage, profiles or caches are cleared.
+Use another unused port if this one had a previous service worker.
+Preview server/tools/tests are excluded from update manifests and Windows bundles.
 
 The prior browser report matches the pre-shared-price application: the old code
 has `Estimated from this app's GE prices` and can show identical wiki/app snapshot

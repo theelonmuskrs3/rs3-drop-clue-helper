@@ -7,7 +7,7 @@ const base = path.resolve(__dirname, '..');
 const api = require('../live-prices.js');
 const tick = () => new Promise(resolve => setTimeout(resolve, 10));
 async function screen(hash) {
-  const dom = new JSDOM(fs.readFileSync(path.join(base, 'index.html'), 'utf8'), {url:'http://127.0.0.1:8777/index.html?preview=ge-live#'+hash, runScripts:'outside-only', pretendToBeVisual:true});
+  const dom = new JSDOM(fs.readFileSync(path.join(base, 'index.html'), 'utf8'), {url:'http://127.0.0.1:8777/index.html#'+hash, runScripts:'outside-only', pretendToBeVisual:true});
   const w=dom.window, errors=[], calls=[];
   w.scrollTo=()=>{}; w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}});
   let registrations=0;
@@ -32,8 +32,7 @@ async function screen(hash) {
   w.eval(fs.readFileSync(path.join(base,'app.js'),'utf8')+'\nwindow.__priceTest={book:LIVE.book,refresh:refreshPriceView,estimate:mmEstimateHTML};');
   for(let i=0;i<200;i++){await tick(); if(w.document.querySelector('#live-price-status')?.textContent.includes('Last successful')) break;}
   assert.deepEqual(errors,[],hash+' runtime errors');
-  assert.equal(registrations,0,'opt-in loopback preview must not register a service worker');
-  assert.ok(!calls.includes('update.json'),'preview does not invoke release watcher');
+  assert.equal(registrations,1,'production keeps ordinary service-worker registration');
   assert.ok(w.document.querySelector('#live-price-status')?.textContent.includes('Last successful'),hash+' must subscribe and fetch');
   assert.equal(calls.filter(u=>u===api.BASE+'/mapping').length,1);
   assert.equal(calls.filter(u=>u===api.BASE+'/latest').length,1);
