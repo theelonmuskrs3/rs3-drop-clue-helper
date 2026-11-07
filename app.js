@@ -1,11 +1,13 @@
 'use strict';
-/* Drop & Clue Helper - unofficial fan-made RS3 companion. All data is local (data/*.json). */
+/* Unofficial RS3 companion: local wiki copy plus explicitly labeled live RS3 trade prices. */
 const $ = (s, el = document) => el.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 const norm = s => String(s ?? '').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
 const cache = {};
 const get = async p => cache[p] ??= fetch(p).then(r => { if (!r.ok) throw new Error(p + ' ' + r.status); return r.json(); });
 const view = $('#view');
+const LIVE = RS3Prices.createService();
+let priceUnsubscribe = null, priceDraws = [];
 const RANK = ['Always', 'Common', 'Uncommon', 'Rare', 'Very rare'];
 const TIERS = ['beginner', 'easy', 'medium', 'hard', 'elite', 'master', 'cs_week', 'unknown'];
 const TYPE_LABEL = {emote: 'Emote', anagram: 'Anagram', coordinate: 'Coordinate', cryptic: 'Cryptic', simple: 'Simple', map: 'Map',
@@ -97,7 +99,11 @@ function coordStr(c, plane) { return c ? `${c[0]}, ${c[1]}${plane ? ` (floor ${p
 /* ---------- tabs / routing ---------- */
 document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { location.hash = b.dataset.tab; });
 function setTab(t) { document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t)); }
+let geCleanup = null;
 async function route() {
+  if (geCleanup) { geCleanup(); geCleanup = null; }
+  if (priceUnsubscribe) { priceUnsubscribe(); priceUnsubscribe = null; }
+  priceDraws = [];
   const [tab, ...rest] = (location.hash.slice(1) || 'drops').split('/');
   let arg = ''; try { arg = rest.length ? decodeURIComponent(rest.join('/')) : ''; } catch (_) { arg = rest.join('/'); }
   setTab(tab); document.body.classList.toggle('intrain', tab === 'train' || tab === 'money');
@@ -113,6 +119,7 @@ async function route() {
     else if (tab === 'map') await mapTab(arg);
     else await dropsView(arg);
   } catch (e) { view.innerHTML = `<div class="panel">Could not load data: ${esc(e.message)}</div>`; }
+  if (['items', 'char', 'train', 'money', 'secrets'].includes(tab) && !(tab === 'items' && arg === '~ge')) bindPriceView();
   if (!(tab === 'secrets' && arg)) window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', route);
@@ -290,9 +297,51 @@ async function itemData() {
 const rowOf = (D, n) => { const i = D.row[n] ?? D.byPage[n]; return i == null ? null : D.ia.rows[i]; };
 const hasF = (D, n, k) => { const r = rowOf(D, n); return !!(r && D.FL[k] && (r[3] & D.FL[k])); };
 const dropsOf = (D, n) => D.items[n] || (() => { const r = rowOf(D, n); return r && r[4] ? D.items[r[4]] : null; })();
-function priceOf(D, n) { const v = D.pr.prices[n]; if (v != null) return v; const g = D.gear[n]; if (g && g.ge != null) return g.ge; const r = D.row[n] != null ? D.ia.rows[D.row[n]] : null; return r && r[2] != null ? r[2] : null; }
+function snapshotPriceOf(D, n) { const v = D.pr.prices[n]; if (v != null) return v; const g = D.gear[n]; if (g && g.ge != null) return g.ge; const r = D.row[n] != null ? D.ia.rows[D.row[n]] : null; return r && r[2] != null ? r[2] : null; }
+// A numeric live price never falls back to a guide snapshot. Unknown/stale sorts last.
+function priceOf(D, n, side = 'buy') { return LIVE.book.number(n, side); }
+const priceCompare = (a, b, asc = false) => a == null ? (b == null ? 0 : 1) : b == null ? -1 : asc ? a - b : b - a;
+const priceTime = ts => ts ? new Date(ts * 1000).toLocaleString('en-US', {timeZone: 'America/New_York', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit'}) + ' ET' : 'no trade timestamp';
+function quoteContents(n, side, snapshot, date) {
+  const q = LIVE.book.quote(n, side), label = side === 'buy' ? 'Buy' : 'Sell';
+  const time = priceTime(q.time);
+  const guide = snapshot != null && Number.isFinite(snapshot) ? `<small class="price-age">Guide snapshot: ${gp(snapshot)} · ${esc(date)}</small>` : '';
+  const graph = q.id && side === 'buy' ? `<a class="price-age" href="https://prices.runescape.wiki/rs/item/${q.id}" target="_blank" rel="noopener noreferrer">Source prices &amp; graph ↗</a>` : '';
+  if (q.live) return `<span class="gp" title="RuneScape Wiki Prices; ${esc(time)}">${label} ${gp(q.value)}</span><small class="price-age">Observed ${esc(time)}</small>${guide}${graph}`;
+  const observed = q.value != null ? `${label} ${gp(q.value)} · ${q.status} · ${time}` : `${label}: ${q.status === 'unmapped' ? 'no exact RS3 mapping' : 'no current quote'}`;
+  return `<span class="note">${esc(observed)}</span>${guide}${graph}`;
+}
+function livePriceTag(n, side = 'buy', snapshot = null, date = '') {
+  return `<span class="live-price" data-live-item="${esc(n)}" data-live-side="${side}"${snapshot != null ? ` data-guide="${snapshot}" data-guide-date="${esc(date)}"` : ''}>${quoteContents(n, side, snapshot, date)}</span>`;
+}
+function watchPriceDraw(fn, root) {
+  priceDraws.push(() => {
+    if (root && !root.isConnected) return;
+    const details = new Map(root ? [...root.querySelectorAll('details')].map((e, i) => [e.dataset.id || e.id || 'index:' + i, e.open]) : []);
+    fn();
+    if (root) [...root.querySelectorAll('details')].forEach((e, i) => { const key = e.dataset.id || e.id || 'index:' + i; if (details.has(key)) e.open = details.get(key); });
+  });
+}
+function refreshPriceView() {
+  for (const fn of priceDraws) fn();
+  view.querySelectorAll('[data-live-item]').forEach(e => {
+    e.innerHTML = quoteContents(e.dataset.liveItem, e.dataset.liveSide, e.hasAttribute('data-guide') ? +e.dataset.guide : null, e.dataset.guideDate || 'wiki copy');
+  });
+  view.querySelectorAll('[data-mm-estimate]').forEach(e => { const m = MM.models && MM.models[e.dataset.mmEstimate]; if (m) e.innerHTML = mmEstimateHTML(m); });
+  const status = $('#live-price-status');
+  if (status) status.textContent = LIVE.book.online === false ? 'Offline — cached observations and guide snapshots are not live; live ranking is unavailable.'
+    : LIVE.book.connected ? `Last successful price fetch: ${priceTime(LIVE.book.fetchedAt / 1000)}. Trade quotes older than 15 minutes are excluded from live totals/rankings.`
+    : 'Live source unavailable or loading — snapshots and cached observations are not ranked as live.';
+}
+function bindPriceView() {
+  view.insertAdjacentHTML('afterbegin', `<aside class="live-price-banner"><b>RuneScape Wiki Prices — trade data supplied by Jagex</b><div>Buy = observed instant-buy acquisition cost; Sell = observed instant-sell gross revenue. Estimates exclude GE tax/fees, equipment degradation and unlisted costs. Not guaranteed executable prices; liquidity/volumes are not checked. Wiki rates and prose remain snapshots.</div><div id="live-price-status" role="status"></div><a href="https://prices.runescape.wiki/rs/" target="_blank" rel="noopener noreferrer">Price source &amp; graphs ↗</a></aside>`);
+  priceUnsubscribe = LIVE.subscribe(refreshPriceView);
+  // Initial values already rendered; update tags/status but avoid resetting any inputs or open panels.
+  refreshPriceView();
+}
+
 function tradeOf(D, n) {
-  if (priceOf(D, n) != null) return true;
+  if (snapshotPriceOf(D, n) != null || LIVE.book.resolve(n) != null) return true;
   const t = D.pr.tradeable[n]; if (t != null) return !!t;
   const g = D.gear[n]; if (g && g.trade != null) return g.trade;
   const r = D.row[n] != null ? D.ia.rows[D.row[n]] : null;
@@ -302,16 +351,15 @@ function geDateET(D) {
   const d = new Date(D.pr.ts * 1000);
   return d.toLocaleString('en-US', {timeZone: 'America/New_York', day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit'}) + ' ET';
 }
-function priceTag(D, n) {
-  const v = priceOf(D, n), t = tradeOf(D, n);
-  if (v != null) return `<span class="gp">${gp(v)}</span>`;
-  if (t === false) return '<span class="untr">Untradeable</span>';
-  return '<span class="note">no GE price</span>';
+function priceTag(D, n, side = 'buy') {
+  if (tradeOf(D, n) === false) return '<span class="untr">Untradeable</span>';
+  return livePriceTag(n, side, snapshotPriceOf(D, n), geDateET(D));
 }
+
 function rarTag(r) { return r == null ? '' : `<span class="rtag r${r}">${RANK[r]}</span>`; }
 function subnav(on) {
   const b = (h, t, k) => `<a class="btn sub ${on === k ? 'on' : ''}" href="${h}">${t}</a>`;
-  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}<a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
+  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}${b('#items/~ge', 'G.E.', 'ge')}<a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
 }
 
 /* ----- stats storage ----- */
@@ -413,7 +461,7 @@ function keyStat(g, st) {
 const ruleSort = st => (a, b) => (b.tier ?? -1) - (a.tier ?? -1) || ((b.type || '').includes('power') - (a.type || '').includes('power'))
   || ((WEAPON.has(a.slot) ? (b.damage ?? 0) - (a.damage ?? 0) : (b[STYLE_BONUS[st]] ?? 0) - (a[STYLE_BONUS[st]] ?? 0))) || (b.armour ?? 0) - (a.armour ?? 0) || a.n.localeCompare(b.n);
 function usable(D, S, st, opt) {
-  return D.gd.gear.filter(g => styleOk(g, st) && reqMet(g, S) && (!opt.hideDung || !g.dung) && (!opt.hideRec || !g.recolour) && (!opt.hideRst || !RESTRICTED.has(g.rst)) && (!opt.trade || priceOf(D, g.n) != null));
+  return D.gd.gear.filter(g => styleOk(g, st) && reqMet(g, S) && (!opt.hideDung || !g.dung) && (!opt.hideRec || !g.recolour) && (!opt.hideRst || !RESTRICTED.has(g.rst)) && (!opt.trade || tradeOf(D, g.n) === true));
 }
 /* PvP damage reduction, from the wiki Armour page (Damage reduction): head/body/legs only, by required level, slot and armour type */
 const PVP_K = {head: 0.0375, body: 0.06, legs: 0.0525};
@@ -485,7 +533,7 @@ function gearHub(D, S, mount) {
     <div class="chips" id="mode"><button data-v="pvm">PvM</button><button data-v="pvp">PvP</button></div><div id="best"></div></div>
     <div class="chbox"><h3>All gear you can wear</h3><div class="row">
       <select id="slot"><option value="">Every slot</option>${SLOT_ORDER.map(s => `<option value="${s}">${SLOT_LABEL[s]}</option>`).join('')}</select>
-      <select id="sort"><option value="tier">Tier, high → low</option><option value="dmg">Damage / style bonus</option><option value="arm">Armour</option><option value="price">GE price, high → low</option><option value="pricel">GE price, low → high</option><option value="name">Name A–Z</option></select></div>
+      <select id="sort"><option value="tier">Tier, high → low</option><option value="dmg">Damage / style bonus</option><option value="arm">Armour</option><option value="price">Observed Buy, high → low</option><option value="pricel">Observed Buy, low → high</option><option value="name">Name A–Z</option></select></div>
       <div class="row" style="margin-top:6px"><label class="chk"><input type="checkbox" id="hd"> Hide Daemonheim-only gear</label><label class="chk"><input type="checkbox" id="hs"> Hide minigame/quest-only and removed gear</label><label class="chk"><input type="checkbox" id="hr"> Hide recolours</label><label class="chk"><input type="checkbox" id="tr"> On the GE only</label></div>
       <div id="all"></div></div>`;
   const setChips = () => { document.querySelectorAll('#sty button').forEach(b => b.classList.toggle('on', b.dataset.v === opt.style)); document.querySelectorAll('#mode button').forEach(b => b.classList.toggle('on', b.dataset.v === opt.mode)); };
@@ -495,21 +543,21 @@ function gearHub(D, S, mount) {
     const st = opt.style, bs = bestSet(D, S, st, opt.mode, opt);
     const recPage = D.gd.recommended[st] && D.gd.recommended[st].page;
     const q = D.gd.pvp_quotes || [];
-    const total = bs.reduce((a, x) => a + (priceOf(D, x.g.n) || 0), 0);
+    const total = LIVE.book.total(bs.map(x => ({n: x.g.n, q: 1})), 'buy');
     $('#best').innerHTML = `<div class="note" style="margin:8px 0">${opt.mode === 'pvm'
       ? `Picks come from the wiki's <a href="${WIKI(recPage)}" target="_blank" rel="noopener noreferrer">${esc(recPage)}</a> tables: for each slot, the highest-tier entry whose requirements you meet. A slot the wiki table has nothing for at your levels falls back to a stat rule (marked). Two-handed and main-hand + off-hand are shown side by side; use one or the other.`
       : `Head, body and legs: the piece with the most PvP damage reduction you can wear, worked out with the wiki's Armour page formula. Other slots: the wiki has no PvP-specific picks, so the PvM pick or the stat rule is shown, and it says so.`}</div>
       <div style="overflow-x:auto"><table><thead><tr><th>Slot</th><th>Item</th><th>Tier</th><th>Stats (wiki)</th><th>Price</th><th>Why</th></tr></thead><tbody>
       ${bs.map(x => `<tr><td>${esc(SLOT_LABEL[x.slot])}</td><td><a class="item" href="#items/${encodeURIComponent(x.g.n)}">${icon(x.g.n)}<span>${esc(x.g.n)}</span></a></td><td class="num">${x.g.tier ?? ''}</td>
         <td>${esc(keyStat(x.g, st))}</td><td class="num">${priceTag(D, x.g.n)}</td><td class="why">${esc(x.why)}${x.src ? ` <a class="note" href="${WIKI(x.src)}" target="_blank" rel="noopener noreferrer">[wiki]</a>` : ''}${x.note ? `<div class="note">${esc(x.note).replace(/\n/g, '<br>')}</div>` : ''}</td></tr>`).join('') || '<tr><td colspan="6" class="note">Nothing to show.</td></tr>'}
-      </tbody></table></div><div class="note" style="margin-top:6px">Total GE value of the listed pieces: ${gp(total)} (untradeables count as 0; both weapon options are included). Prices as of ${esc(D.pr.date)} (${esc(geDateET(D))}).</div>
+      </tbody></table></div><div class="note" style="margin-top:6px">Observed buy total of all listed alternatives: ${total.complete ? gp(total.value) : 'Incomplete — unavailable/stale/untradeable: ' + esc(total.missing.join(', '))}. Both weapon alternatives are included, not a single loadout. Picks still follow wiki tiers/stats, not a value-for-money rule.</div>
       ${opt.mode === 'pvp' ? `<div class="quotes">${q.filter(x => /PvP/.test(x.text) || x.page === 'Player versus player').map(x => `<blockquote>“${esc(x.text)}” <a href="${WIKI(x.page)}" target="_blank" rel="noopener noreferrer">— ${esc(x.page)}</a></blockquote>`).join('')}
         <div class="note">PvP-type armour sets on the wiki's Armour page: ${D.gd.armour_sets.filter(s => s.type === 'PvP' && s.styles.includes(STYLES[st])).map(s => `<a href="${WIKI(s.set)}" target="_blank" rel="noopener noreferrer">${esc(s.set)}</a> (level ${s.level})${lv(S, 'Defence') >= s.level ? ' ✓' : ''}`).join(', ') || 'none for this style'}. ✓ = your Defence is at least that level.</div></div>`
       : `<div class="quotes">${q.filter(x => x.page === 'Recommended equipment for PvM').map(x => `<blockquote>“${esc(x.text)}” <a href="${WIKI(x.page)}" target="_blank" rel="noopener noreferrer">— ${esc(x.page)}</a></blockquote>`).join('')}</div>`}`;
     let list = usable(D, S, st, opt).filter(g => !opt.slot || g.slot === opt.slot);
     const sb = STYLE_BONUS[st];
     const sorts = {tier: ruleSort(st), dmg: (a, b) => ((b.damage ?? b[sb] ?? -1) - (a.damage ?? a[sb] ?? -1)), arm: (a, b) => (b.armour ?? -1) - (a.armour ?? -1),
-      price: (a, b) => (priceOf(D, b.n) ?? -1) - (priceOf(D, a.n) ?? -1), pricel: (a, b) => (priceOf(D, a.n) ?? 1e15) - (priceOf(D, b.n) ?? 1e15), name: (a, b) => a.n.localeCompare(b.n)};
+      price: (a, b) => priceCompare(priceOf(D, a.n), priceOf(D, b.n)), pricel: (a, b) => priceCompare(priceOf(D, a.n), priceOf(D, b.n), true), name: (a, b) => a.n.localeCompare(b.n)};
     list.sort(sorts[opt.sort] || sorts.tier);
     const lim = 200 * (1 + opt.more);
     $('#all').innerHTML = `<div class="note" style="margin:6px 0">${list.length.toLocaleString()} ${STYLES[st]} items (weapons of that style plus armour/jewellery any style can wear) meet your levels. Requirements are the skill levels in each item's wiki infobox; anything else it needs (quests etc.) is listed too.</div>
@@ -526,6 +574,7 @@ function gearHub(D, S, mount) {
   $('#hr').onchange = e => { opt.hideRec = e.target.checked; draw(); };
   $('#hs').onchange = e => { opt.hideRst = e.target.checked; draw(); };
   $('#tr').onchange = e => { opt.trade = e.target.checked; draw(); };
+  watchPriceDraw(draw, mount);
   draw();
   return draw;
 }
@@ -736,8 +785,7 @@ async function gearSets(D) {
   const base = n => n.replace(/#.*$/, '').trim(), sfx = n => { const m = n.match(/#(.*)$/); return m ? m[1] : undefined; };
   const mk = raw => {
     const n = base(raw), v = sfx(raw), g = D.gear[n] || null, exact = !!g && (v === undefined || String(g.v) === v);
-    const tr = exact || v === undefined ? tradeOf(D, n) : false;
-    return {n, v, g: exact ? g : null, gi: exact ? gearInfo(D, n) : null, variant: v !== undefined && !exact, known: D.row[n] != null || !!g, price: exact || v === undefined ? priceOf(D, n) : null, tr};
+    return {n, v, g: exact ? g : null, gi: exact ? gearInfo(D, n) : null, variant: v !== undefined && !exact, known: D.row[n] != null || !!g, get price() { return exact || v === undefined ? priceOf(D, n) : null; }, get tr() { return exact || v === undefined ? tradeOf(D, n) : false; }};
   };
   const uniq = ps => { const s = new Set(); return ps.filter(p => { const k = p.n + '#' + (p.v ?? ''); if (s.has(k)) return false; s.add(k); return true; }); };
   const keyOf = ps => ps.map(p => p.n + (p.variant ? '#' + p.v : '')).sort().join('|');
@@ -750,8 +798,8 @@ async function gearSets(D) {
     const ts = rs.map(p => p.g.tier).filter(t => t != null);
     if (s.t == null) s.t = ts.length ? Math.max(...ts) : null;
     s.miss = s.ps.length - rs.length;
-    s.sum = s.ps.every(p => p.tr === true && p.price != null) ? s.ps.reduce((a, p) => a + p.price, 0) : null;
-    s.gePrice = s.geN ? priceOf(D, s.geN) : null;
+    Object.defineProperty(s, 'sum', {get: () => s.ps.every(p => p.tr === true && !p.variant) ? LIVE.book.total(s.ps.map(p => ({n: p.n, q: 1})), 'buy').value : null});
+    Object.defineProperty(s, 'gePrice', {get: () => s.geN ? priceOf(D, s.geN) : null});
     s.qn = norm(s.n + ' ' + s.ps.map(p => p.n).join(' '));
     return s;
   };
@@ -764,7 +812,7 @@ async function gearSets(D) {
   }
   for (const e of J.ge) {
     const ps = e.p.map(mk), k = keyOf(ps), hit = byKey.get(k);
-    if (hit && !hit.geN) { hit.geN = e.n; hit.gePrice = priceOf(D, e.n); continue; }
+    if (hit && !hit.geN) { hit.geN = e.n; continue; }
     const s = {n: e.n.replace(/ set\b/i, ' set'), lab: '', c: 'none', sec: '', note: '', page: '', ps, geN: e.n, src: 'ge', t: null};
     const cls = new Set(ps.map(p => p.gi && p.gi.c).filter(c => c && c !== 'none' && c !== 'unc'));
     s.c = cls.size === 1 ? [...cls][0] : cls.size > 1 ? 'mixed' : ps.some(p => p.gi && p.gi.c === 'none') ? 'none' : 'unc';
@@ -801,14 +849,14 @@ function setCard(D, s, S) {
   const pics = s.ps.map(p => p.known ? `<a class="gsp" href="#items/${encodeURIComponent(p.n)}" title="${esc(p.n)}${p.g ? ' · ' + (SLOT_LABEL[p.g.slot] || '') : ''}">${icon(p.n)}</a>` : `<span class="gsp gsp0" title="${esc(p.n)} (not in the wiki item data)">?</span>`).join('');
   const rows = s.ps.map(p => {
     const rq = p.g ? Object.entries(p.g.req || {}).map(([k, v]) => `<span class="${lv(S, k) >= v ? 'ok' : 'no'}">${esc(k)} ${v}</span>`).join(' ') : '';
-    const pr = p.g ? (p.tr === true && p.price != null ? gpp(p.price) : p.tr === false ? 'untradeable' : '') : '';
+    const pr = p.g ? (p.tr === true ? priceTag(D, p.n) : p.tr === false ? 'untradeable' : '') : '';
     return `<div class="gsr"><a class="item" href="${p.known ? '#items/' + encodeURIComponent(p.n) : WIKI(p.n)}"${p.known ? '' : ' target="_blank" rel="noopener noreferrer"'}>${icon(p.n)}<span>${esc(p.n)}</span></a>
       <span class="gsl">${p.g ? esc(SLOT_LABEL[p.g.slot] || '') : ''}${p.g && p.g.tier != null ? ` · T${p.g.tier}` : ''}</span><span class="gsc">${rq}</span><span class="gsg">${pr}</span>
       ${p.known ? `<a class="gsw" href="#items/${encodeURIComponent(p.n)}">Where to get it ›</a>` : '<span class="note">not in the wiki gear data</span>'}
       ${p.variant ? '<span class="note gsv">this tier variant is not in the gear data: check the item page</span>' : ''}</div>`;
   }).join('');
-  const pr = [s.sum != null ? `<span title="Sum of each piece's Grand Exchange price">Pieces total <b>${gpp(s.sum)}</b></span>` : `<span class="note">${s.ps.some(p => p.tr === false) ? 'Not all pieces are tradeable' : 'No full GE price'}</span>`,
-    s.gePrice != null ? `<span title="The set item on the Grand Exchange: ${esc(s.geN)}">GE set <b>${gpp(s.gePrice)}</b></span>` : ''].filter(Boolean).join('');
+  const pr = [s.sum != null ? `<span title="Sum of fresh observed buy prices">Observed buy total <b>${gpp(s.sum)}</b></span>` : `<span class="note">${s.ps.some(p => p.tr === false) ? 'Not all pieces are tradeable' : 'Incomplete buy total (missing or stale quotes)'}</span>`,
+    s.gePrice != null ? `<span title="The set item on the Grand Exchange: ${esc(s.geN)}">Set observed buy <b>${gpp(s.gePrice)}</b></span>` : ''].filter(Boolean).join('');
   const state = w.full ? '<span class="tag fit">Wearable now</span>' : w.almost ? `<span class="tag warn">Almost: ${Object.entries(w.def).map(([k, d]) => `${esc(k)} +${d}`).join(', ')}</span>` : '';
   return `<article class="gset${w.full ? ' gfull' : ''}"><div class="gsh"><div class="gsn"><b>${esc(label)}</b> <span class="tag">${esc(cname)}</span>${s.t != null ? ` <span class="tag">T${s.t}</span>` : ''} ${state}</div><div class="gsm">${pr}</div></div>
     <div class="gspics">${pics}<span class="gsk">${[...s.slots].map(k => (GF_SLOT.find(x => x[0] === k) || [])[1]).filter(Boolean).join(' · ')} <i>(${s.nslot} of ${s.ps.length} pieces)</i></span></div>
@@ -818,7 +866,36 @@ function setCard(D, s, S) {
     <div class="note">Source: ${s.src === 'class' ? `<a href="${WIKI(s.page)}" target="_blank" rel="noopener noreferrer">wiki ${esc(s.page)}</a>${s.geN ? ` + <a class="item" href="#items/${encodeURIComponent(s.geN)}">${esc(s.geN)}</a> (GE set)` : ''}` : `<a href="#items/${encodeURIComponent(s.geN)}">${esc(s.geN)}</a> (Grand Exchange set item)`}</div></details></article>`;
 }
 
+/* The source owns search, prices and graphs; never proxy or restyle its document. */
+function geView() {
+  view.innerHTML = `${subnav('ge')}<section class="panel ge-panel" aria-labelledby="ge-title">
+    <div class="ge-heading"><h2 id="ge-title">Grand Exchange</h2>
+      <a class="btn sub ge-source" href="https://prices.runescape.wiki/rs/" target="_blank" rel="noopener noreferrer">Open RuneScape Wiki Prices ↗</a></div>
+    <p class="note ge-attribution">RuneScape Wiki Prices — trade data supplied by Jagex</p>
+    <p class="note">The live source below provides its own search, graphs and price updates. Last-trade prices can be old; check the source timestamps. This is a community-operated website, not Jagex's official G.E. website.</p>
+    <p class="note ge-status" id="ge-status" role="status" aria-live="polite"></p>
+    <iframe class="ge-frame" id="ge-frame" title="RuneScape Wiki live Grand Exchange search, prices and graphs" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <p class="note">Internet required. The source may take a moment to load. If it stays blank or does not work here, use the open-source link above. Embedded content and controls belong to the source.</p>
+  </section>`;
+  const frame = $('#ge-frame'), status = $('#ge-status');
+  const update = () => {
+    const offline = navigator.onLine === false;
+    status.textContent = offline
+      ? 'Offline: live G.E. requires internet. Reconnect to load current source data; any content still visible may be out of date.'
+      : 'Online connection detected — source availability is not guaranteed. Prices and their timestamps are shown by the source.';
+    if (!offline && !frame.getAttribute('src')) frame.src = 'https://prices.runescape.wiki/rs/';
+  };
+  window.addEventListener('online', update);
+  window.addEventListener('offline', update);
+  geCleanup = () => {
+    window.removeEventListener('online', update);
+    window.removeEventListener('offline', update);
+  };
+  update();
+}
+
 async function itemsView(name) {
+  if (name === '~ge') return geView();
   if (name === '~stats') { location.replace('#char'); return; }
   if (name === '~sets') { location.replace('#char/sets'); return; }
   if (name === '~obtain' || name === '~dragon') return obtainView(name === '~dragon' ? 'dragon' : null);
@@ -826,14 +903,14 @@ async function itemsView(name) {
   if (name === '~all') return allView();
   const [D] = await Promise.all([itemData(), loadThumbs()]);
   const {items, best, gear} = D;
-  const asof = `as of ${esc(D.pr.date)} (${esc(geDateET(D))})`;
+  const asof = `as of ${esc(geDateET(D))}`;
   if (name) {
     const r = rowOf(D, name), d = await itemDetail(D, name);
     const src = dropsOf(D, name) || [], g = gear[name] || (r && r[4] ? gear[r[4]] : null), v = priceOf(D, name), t = tradeOf(D, name);
     const page = d ? d.p : g ? g.p : name;
     view.innerHTML = `<div class="row" style="margin-bottom:10px"><a class="btn ghost" href="#items">← Items</a></div>
     <div class="panel"><div class="row">${icon(name)}<h2 style="margin:0">${esc(name)}</h2>${best[name] ? rarTag(best[name][0]) : ''}${flagTags(D, name)}</div>
-    <div class="price">${v != null ? `Grand Exchange: <span class="gp">${gp(v)}</span> <span class="note">${asof}${d && d.gename ? ` · GE entry “${esc(d.gename)}”` : ''}</span>` : t === false ? '<span class="untr">Untradeable</span> <span class="note">(wiki item infobox)</span>' : `<span class="note">No Grand Exchange price in the ${esc(D.pr.date)} data.</span>`}</div>
+    <div class="price">${t === false ? '<span class="untr">Untradeable</span>' : `${priceTag(D, name, 'buy')} ${livePriceTag(name, 'sell')}<div class="note">Guide price is a separate snapshot, not either trade quote. ${d && d.gename ? `GE entry: ${esc(d.gename)}` : ''}</div>`}</div>
     ${itemReqBlock(g, d, page)}
     <div id="wtg"></div>
     ${d ? `<h3>Item info <a class="note" href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">[wiki: ${esc(page)}]</a></h3>${infoTable(d)}${obtainNote(d)}` : `<div class="note" style="margin-top:6px"><a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">Open “${esc(page)}” on the RS3 wiki</a></div>`}
@@ -859,8 +936,8 @@ async function itemsView(name) {
     <select id="tr"><option value="">Tradeable or not</option><option value="trade">Tradeable</option><option value="untr">Untradeable</option></select>
     <select id="mem"><option value="">Members &amp; free</option><option value="mem">Members</option><option value="f2p">Free-to-play</option></select>
     <select id="fl"><option value="">Any kind</option><option value="items">Items only (no cosmetic overrides)</option><option value="equip">Equipable</option><option value="quest">Quest items</option><option value="holiday">Holiday items (wiki category)</option><option value="disc">Discontinued / not currently obtainable</option><option value="limited">Limited time (wiki restriction)</option><option value="mtx">Treasure Hunter</option><option value="override">Cosmetic overrides</option></select>
-    <select id="sort"><option value="match">Best match</option><option value="name">Name A–Z</option><option value="price">GE price, high → low</option><option value="pricel">GE price, low → high</option><option value="common">Rarity, common first</option><option value="rare">Rarity, rarest first</option><option value="tier">Tier, high → low</option></select></div>
-    <div class="note" style="margin-top:6px">${D.names.length.toLocaleString()} items: every item page of the RS3 wiki copy (${(st.items || 0).toLocaleString()} item infobox entries incl. versions, ${(st.overrides || 0).toLocaleString()} cosmetic overrides), ${Object.keys(items).length.toLocaleString()} in drop tables, ${D.gd.gear.length.toLocaleString()} equipment pieces with stats, ${Object.keys(D.pr.prices).length.toLocaleString()} with a GE price. Prices ${asof}, from the wiki's GE price data.
+    <select id="sort"><option value="match">Best match</option><option value="name">Name A–Z</option><option value="price">Observed Sell, high → low</option><option value="pricel">Observed Sell, low → high</option><option value="common">Rarity, common first</option><option value="rare">Rarity, rarest first</option><option value="tier">Tier, high → low</option></select></div>
+    <div class="note" style="margin-top:6px">${D.names.length.toLocaleString()} items: every item page of the RS3 wiki copy (${(st.items || 0).toLocaleString()} item infobox entries incl. versions, ${(st.overrides || 0).toLocaleString()} cosmetic overrides), ${Object.keys(items).length.toLocaleString()} in drop tables, ${D.gd.gear.length.toLocaleString()} equipment pieces with stats, ${Object.keys(D.pr.prices).length.toLocaleString()} with an offline guide-price snapshot. Guide snapshots ${asof}. Displayed Buy/Sell quotes and live-price sorting use the separate live source; unavailable/stale quotes sort last.
     Rarity is an item's best drop chance across all its sources, banded the way the wiki colours drop tables (Always; Common ≥ 1/16; Uncommon ≥ 1/64; Rare ≥ 1/256; Very rare below that).</div><div id="res" class="list"></div></div>`;
   const q = $('#q'), out = $('#res');
   ['show', 'tr', 'mem', 'fl', 'sort'].forEach(k => { $('#' + k).value = o[k]; });
@@ -889,7 +966,7 @@ async function itemsView(name) {
     if (o.rar !== '') hits = hits.filter(([, n]) => best[n] && best[n][0] === +o.rar);
     if (o.show === 'drop') hits = hits.filter(([, n]) => dropsOf(D, n));
     else if (o.show === 'gear') hits = hits.filter(([, n]) => gear[n]);
-    else if (o.show === 'ge') hits = hits.filter(([, n]) => priceOf(D, n) != null);
+    else if (o.show === 'ge') hits = hits.filter(([, n]) => tradeOf(D, n) === true);
     if (o.tr === 'trade') hits = hits.filter(([, n]) => tradeOf(D, n) === true);
     else if (o.tr === 'untr') hits = hits.filter(([, n]) => tradeOf(D, n) === false);
     if (o.mem) hits = hits.filter(([, n]) => fl(n) & F[o.mem]);
@@ -925,27 +1002,27 @@ async function itemsView(name) {
       if (!sres) { out.innerHTML = '<div class="note">Loading full sets…</div>'; return; }
       gfRefresh([], nDr, sres.counts);
       const L = sres.list.map(s => [s, setWear(s, GS)]);
-      const price = s => s.gePrice ?? s.sum ?? -1;
-      L.sort((a, b) => (gf.wear ? (b[1].full - a[1].full) : 0) || (b[0].t ?? -1) - (a[0].t ?? -1) || price(b[0]) - price(a[0]) || a[0].n.localeCompare(b[0].n));
+      const price = s => s.gePrice ?? s.sum;
+      L.sort((a, b) => (gf.wear ? (b[1].full - a[1].full) : 0) || (b[0].t ?? -1) - (a[0].t ?? -1) || priceCompare(price(a[0]), price(b[0])) || a[0].n.localeCompare(b[0].n));
       const nf = L.filter(x => x[1].full).length, na = L.filter(x => x[1].almost).length, n1 = L.length;
       out.innerHTML = `<div class="note">${n1.toLocaleString()} full set${n1 === 1 ? '' : 's'}${gf.wear ? `: ${nf} wearable now, ${na} almost there (within 5 levels)` : ''}${n1 > lim ? `, showing ${lim}` : ''}. Pieces are grouped the way the RS3 wiki's class pages and Grand Exchange set items list them; sorted by tier, then price. The Rarity filter, search and Dragon chip apply to a set's pieces.${nq || gfActive(gf) || o.rar !== '' || gf.dragon ? '' : ' Pick a class or tier to narrow it down.'}</div>` + (n1 ? '' : '<div class="note">No full set matches these filters. Try another class, a wider tier range, or turn off “Wearable with my stats”.</div>') + L.slice(0, lim).map(([s]) => setCard(D, s, GS)).join('') + (n1 > lim ? '<div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="more">Show more sets</button></div>' : '');
       const m = $('#more'); if (m) m.onclick = () => { lim += 24; draw(); };
       return;
     }
-    const P = n => priceOf(D, n), B = n => best[n] ? best[n][1] : null;
-    const so = {match: (a, b) => b[0] - a[0] || a[1].localeCompare(b[1]), name: (a, b) => a[1].localeCompare(b[1]), price: (a, b) => (P(b[1]) ?? -1) - (P(a[1]) ?? -1),
-      pricel: (a, b) => (P(a[1]) ?? 1e15) - (P(b[1]) ?? 1e15), common: (a, b) => (B(b[1]) ?? -1) - (B(a[1]) ?? -1), rare: (a, b) => (B(a[1]) ?? 9) - (B(b[1]) ?? 9),
+    const P = n => priceOf(D, n, 'sell'), B = n => best[n] ? best[n][1] : null;
+    const so = {match: (a, b) => b[0] - a[0] || a[1].localeCompare(b[1]), name: (a, b) => a[1].localeCompare(b[1]), price: (a, b) => priceCompare(P(a[1]), P(b[1])),
+      pricel: (a, b) => priceCompare(P(a[1]), P(b[1]), true), common: (a, b) => (B(b[1]) ?? -1) - (B(a[1]) ?? -1), rare: (a, b) => (B(a[1]) ?? 9) - (B(b[1]) ?? 9),
       tier: (a, b) => ((gear[b[1]] || {}).tier ?? -1) - ((gear[a[1]] || {}).tier ?? -1)};
     const none = !nq && !gfActive(gf) && !gf.dragon && o.rar === '' && o.show === 'all' && !o.tr && !o.mem && !o.fl;
     const tierD = (a, b) => ((gear[b[1]] || {}).tier ?? -1) - ((gear[a[1]] || {}).tier ?? -1);
     /* default order with no search text: tier first when a gear filter is on, then GE price, high to low */
-    const dflt = (a, b) => (gfActive(gf) ? tierD(a, b) : 0) || (P(b[1]) ?? -1) - (P(a[1]) ?? -1) || a[1].localeCompare(b[1]);
+    const dflt = (a, b) => (gfActive(gf) ? tierD(a, b) : 0) || priceCompare(P(a[1]), P(b[1])) || a[1].localeCompare(b[1]);
     hits.sort(!nq && o.sort === 'match' ? dflt : so[o.sort] || so.match);
     const n0 = hits.length; hits = hits.slice(0, lim);
-    out.innerHTML = `<div class="note">${none ? 'No filter picked: showing the most valuable items by Grand Exchange price. Type a name, or choose a class, slot, tier or other filter, to narrow it down. ' : ''}${n0.toLocaleString()} match${n0 === 1 ? '' : 'es'}${n0 > lim ? `, showing ${lim}` : ''}.</div>` + (n0 ? '' : '<div class="obempty"><div><b>No items match.</b><div class="note">Loosen a filter, or use “Clear gear filter”.</div></div></div>') + hits.map(([, n]) => {
+    out.innerHTML = `<div class="note">${none ? 'No filter picked: sorting by fresh observed Sell quotes; stale/unavailable items are last, not live-valued. Type a name, or choose a class, slot, tier or other filter, to narrow it down. ' : ''}${n0.toLocaleString()} match${n0 === 1 ? '' : 'es'}${n0 > lim ? `, showing ${lim}` : ''}.</div>` + (n0 ? '' : '<div class="obempty"><div><b>No items match.</b><div class="note">Loosen a filter, or use “Clear gear filter”.</div></div></div>') + hits.map(([, n]) => {
       const g = gear[n], b = best[n], src = dropsOf(D, n), gv = gi(n), cl = gv && gv.c !== 'unc' && gv.c !== 'none' ? GF_CLS.find(c => c[0] === gv.c)[1] : '';
       return `<a class="hit" href="#items/${encodeURIComponent(n)}">${icon(n)}<span>${esc(n)}${g && g.tier != null ? ` <span class="tag">T${g.tier}</span>` : ''}${cl ? ` <span class="tag">${cl}</span>` : ''}${g && g.slot ? ` <span class="tag">${esc(SLOT_LABEL[g.slot] || g.slot)}</span>` : ''}${flagTags(D, n)}</span>
-        <span class="meta">${b ? rarTag(b[0]) : ''}${priceTag(D, n)}${src ? `<div>${src.length} source${src.length === 1 ? '' : 's'}</div>` : ''}</span></a>`;
+        <span class="meta">${b ? rarTag(b[0]) : ''}${priceTag(D, n, 'sell')}${src ? `<div>${src.length} source${src.length === 1 ? '' : 's'}</div>` : ''}</span></a>`;
     }).join('') + (n0 > lim ? '<div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="more">Show more</button></div>' : '');
     const m = $('#more'); if (m) m.onclick = () => { lim += 48; draw(); };
   };
@@ -957,6 +1034,7 @@ async function itemsView(name) {
   q.oninput = () => { clearTimeout(tmr); tmr = setTimeout(redraw, 150); };
   document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; redraw(); });
   ['show', 'tr', 'mem', 'fl', 'sort'].forEach(k => { $('#' + k).onchange = e => { o[k] = e.target.value; redraw(); }; });
+  watchPriceDraw(draw, out);
   draw(); q.focus();
 }
 
@@ -1075,7 +1153,7 @@ async function obtainView(cat0) {
     <select id="eq"><option value="">Equipable or not</option><option value="equip">Equipable / wearable</option></select>
     <select id="hol"><option value="">Holiday &amp; normal</option><option value="holiday">Holiday / event items only</option><option value="noh">No holiday items</option></select>
     <select id="only"><option value="">Hide quest-only &amp; minigame-only</option><option value="show">Include quest-only &amp; minigame-only</option></select>
-    <select id="sort"><option value="">Default for the mode</option><option value="price">GE price, high → low</option><option value="pricel">GE price, low → high</option><option value="name">Name A–Z</option><option value="rare">Rarest drop first</option></select></div>
+    <select id="sort"><option value="">Default for the mode</option><option value="price">Observed Sell, high → low</option><option value="pricel">Observed Sell, low → high</option><option value="name">Name A–Z</option><option value="rare">Rarest drop first</option></select></div>
     <div id="obres"></div></div>`;
   const q = $('#q'), out = $('#obres');
   ['tr', 'mem', 'eq', 'hol', 'only', 'sort'].forEach(k => { $('#' + k).value = o[k]; });
@@ -1090,7 +1168,7 @@ async function obtainView(cat0) {
     let L = [];
     for (const r of OB.rows) {
       const ir = D.ia.rows[r[0]], n = ir[0], f = ir[3], x = r[4];
-      if (o.mode === 'money' && !o.cat && ir[2] == null) continue;
+      if (o.mode === 'money' && !o.cat && priceOf(D, n, 'sell') == null) continue;
       if (o.mode === 'cool' && !o.cat && !(r[1] & COOL)) continue;
       if (o.cat && !(r[1] & B[o.cat])) continue;
       if (x.only && o.only !== 'show') continue;
@@ -1108,17 +1186,17 @@ async function obtainView(cat0) {
     const gI = L.map(([, r]) => gearInfo(D, name(r), D.ia.rows[r[0]][4]));
     gfRefresh(gI);
     if (gfActive(gf)) L = L.filter((_, i) => gfPass(gI[i], gf, GS));
-    const P = r => D.ia.rows[r[0]][2];
+    const P = r => priceOf(D, D.ia.rows[r[0]][0], 'sell');
     const sort = o.sort || (o.mode === 'money' ? 'price' : 'pic');
-    const cmp = {price: (a, b) => (P(b) ?? -1) - (P(a) ?? -1), pricel: (a, b) => (P(a) ?? 1e15) - (P(b) ?? 1e15), name: (a, b) => name(a).localeCompare(name(b)),
-      rare: (a, b) => (best(b) ?? -1) - (best(a) ?? -1) || (P(b) ?? -1) - (P(a) ?? -1),
-      pic: (a, b) => (b[4].pic ? 1 : 0) - (a[4].pic ? 1 : 0) || (P(b) ?? -1) - (P(a) ?? -1) || name(a).localeCompare(name(b))}[sort];
+    const cmp = {price: (a, b) => priceCompare(P(a), P(b)), pricel: (a, b) => priceCompare(P(a), P(b), true), name: (a, b) => name(a).localeCompare(name(b)),
+      rare: (a, b) => (best(b) ?? -1) - (best(a) ?? -1) || priceCompare(P(a), P(b)),
+      pic: (a, b) => (b[4].pic ? 1 : 0) - (a[4].pic ? 1 : 0) || priceCompare(P(a), P(b)) || name(a).localeCompare(name(b))}[sort];
     L.sort((a, b) => (nq ? b[0] - a[0] : 0) || cmp(a[1], b[1]));
     const tradeN = L.filter(([, r]) => P(r) != null).length;
     if (!L.length) {
       out.innerHTML = `<div class="obempty">${dpick.slice(0, 2).map(r => obPic(r[4], name(r), 'obhpic')).join('')}<div><b>No obtainable items match.</b><div class="note">Try another word, category or filter.</div></div></div>`; return;
     }
-    out.innerHTML = `<div class="note" style="margin:8px 0">${L.length.toLocaleString()} item${L.length === 1 ? '' : 's'} (${tradeN.toLocaleString()} with a GE price${tradeN ? `, GE ${esc(D.pr.date)}` : ''})${L.length > lim ? `, showing ${lim}` : ''}.</div>
+    out.innerHTML = `<div class="note" style="margin:8px 0">${L.length.toLocaleString()} item${L.length === 1 ? '' : 's'} (${tradeN.toLocaleString()} with fresh observed Sell quotes)${L.length > lim ? `, showing ${lim}` : ''}.</div>
       <div class="obgrid">${L.slice(0, lim).map(([, r]) => obCard(D, OB, r)).join('')}</div>${L.length > lim ? '<div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="more">Show more</button></div>' : ''}`;
     const m = $('#more'); if (m) m.onclick = () => { lim += 96; draw(); };
   };
@@ -1130,6 +1208,7 @@ async function obtainView(cat0) {
   document.querySelectorAll('#cat button').forEach(b => b.onclick = () => { o.cat = o.cat === b.dataset.v ? '' : b.dataset.v; reset(); });
   document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; reset(); });
   ['tr', 'mem', 'eq', 'hol', 'only', 'sort'].forEach(k => { $('#' + k).onchange = e => { o[k] = e.target.value; reset(); }; });
+  watchPriceDraw(draw, out);
   draw();
 }
 const OB_SRC = {lead: 'page intro'};
@@ -1147,7 +1226,7 @@ function obCard(D, OB, r) {
   if (x.rc) kv.push(['Made with', esc(x.rc) + (x.rf ? ` at ${esc(x.rf)}` : '')]);
   if (x.rq2) kv.push(['To wear', esc(x.rq2)]);
   return `<div class="obcard ${r[1] & OB.bits.dragon ? 'drg' : ''}">${obPic(x, n)}<div class="obbody"><div class="obtitle"><a href="#items/${encodeURIComponent(n)}">${esc(n)}</a>${b ? rarTag(b[0]) : ''}</div>
-    <div class="obprice">${v != null ? `<span class="gp">${gp(v)}</span>` : f & F.untr ? '<span class="untr">Untradeable</span>' : '<span class="note">no GE price</span>'}${fl ? ` <span class="note">${fl}</span>` : ''}</div>
+    <div class="obprice">${priceTag(D, n, 'sell')}${fl ? ` <span class="note">${fl}</span>` : ''}</div>
     <div class="obtags">${tags.join('')}</div>${x.why ? discNote(x) : ''}${gStat(x.g)}${how}${kv.length ? `<div class="kv obkv">${kv.map(([k, v]) => `<b>${k}</b><span>${v}</span>`).join('')}</div>` : ''}
     <div class="note"><a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">Open on the RS3 wiki ↗</a></div></div></div>`;
 }
@@ -1183,19 +1262,19 @@ async function discView() {
   const pics = OB.rows.filter(r => r[4].pic && D.ia.rows[r[0]][2] != null).sort((a, b) => D.ia.rows[b[0]][2] - D.ia.rows[a[0]][2]).slice(0, 3);
   OB.rows.forEach(r => { r[5] = relDate(r[4].rel); r[6] = relDate(r[4].rem); });
   view.innerHTML = `${subnav('disc')}<div class="panel obpanel"><div class="obhero"><div class="obhpics">${pics.map(r => obPic(r[4], name(r), 'obhpic')).join('')}</div><div><h2>Discontinued items</h2>
-    <div class="note">${OB.rows.length.toLocaleString()} items and cosmetics the RS3 wiki itself marks gone: ${gc.unob.toLocaleString()} “unobtainable”, ${gc.disc.toLocaleString()} “discontinued”, ${gc.del.toLocaleString()} deleted / removed / hidden or with a removal date. Partyhats, Santa hats, Halloween masks, holiday and event items live here. They are the entries left out of Obtainable. ${nRel.toLocaleString()} have a release date and ${nRem.toLocaleString()} a removal date on the wiki; ${nPrice.toLocaleString()} have a Grand Exchange price (${esc(D.pr.date)}). Everything shown is the wiki's own wording (${esc(OB.snap)} copy).</div></div></div>
+    <div class="note">${OB.rows.length.toLocaleString()} items and cosmetics the RS3 wiki itself marks gone: ${gc.unob.toLocaleString()} “unobtainable”, ${gc.disc.toLocaleString()} “discontinued”, ${gc.del.toLocaleString()} deleted / removed / hidden or with a removal date. Partyhats, Santa hats, Halloween masks, holiday and event items live here. They are the entries left out of Obtainable. ${nRel.toLocaleString()} have a release date and ${nRem.toLocaleString()} a removal date on the wiki; ${nPrice.toLocaleString()} have a guide-price snapshot (${esc(D.pr.date)}). Descriptions and guide snapshots use the wiki's wording (${esc(OB.snap)} copy).</div></div></div>
     ${searchBox('q', 'Search discontinued items, e.g. red partyhat, santa, h\'ween mask, easter…', o.q)}
     ${gfHTML(gf, false)}
     <div class="chips" id="cat"><button data-v="">All categories</button>${OB.cats.map(([c, l]) => `<button data-v="${c}">${esc(l)} <span class="cnt">${(cnt[c] || 0).toLocaleString()}</span></button>`).join('')}</div>
     <div class="chips" id="rar"><button data-v="">Any rarity</button>${RANK.map((r, i) => `<button data-v="${i}" class="r${i}">${r}</button>`).join('')}</div>
     <div class="row" style="margin-top:8px">
     <select id="g"><option value="">Any wiki marker</option><option value="unob">Unobtainable</option><option value="disc">Discontinued</option><option value="del">Deleted / removed / hidden</option></select>
-    <select id="pr"><option value="">With or without a GE price</option><option value="yes">Has a GE price</option><option value="no">No GE price</option></select>
+    <select id="pr"><option value="">Any Sell quote status</option><option value="yes">Fresh observed Sell quote</option><option value="no">No fresh Sell quote</option></select>
     <select id="tr"><option value="">Tradeable or not</option><option value="trade">Tradeable (GE)</option><option value="untr">Untradeable</option></select>
     <select id="mem"><option value="">Members &amp; free</option><option value="mem">Members</option><option value="f2p">Free-to-play</option></select>
     <select id="eq"><option value="">Equipable or not</option><option value="equip">Equipable / wearable</option></select>
     <select id="hol"><option value="">Holiday &amp; normal</option><option value="holiday">Holiday / event items only</option></select>
-    <select id="sort"><option value="price">GE price, high → low</option><option value="pricel">GE price, low → high</option><option value="name">Name A–Z</option><option value="rare">Rarest drop first</option><option value="reln">Released: newest first</option><option value="relo">Released: oldest first</option><option value="remn">Removed: newest first</option></select></div>
+    <select id="sort"><option value="price">Observed Sell, high → low</option><option value="pricel">Observed Sell, low → high</option><option value="name">Name A–Z</option><option value="rare">Rarest drop first</option><option value="reln">Released: newest first</option><option value="relo">Released: oldest first</option><option value="remn">Removed: newest first</option></select></div>
     <div id="obres"></div></div>`;
   const q = $('#q'), out = $('#obres');
   ['g', 'pr', 'tr', 'mem', 'eq', 'hol', 'sort'].forEach(k => { $('#' + k).value = o[k]; });
@@ -1211,8 +1290,8 @@ async function discView() {
       const ir = D.ia.rows[r[0]], n = ir[0], f = ir[3], x = r[4];
       if (o.cat && !(r[1] & B[o.cat])) continue;
       if (o.g && WGRP(x.why) !== o.g) continue;
-      if (o.pr === 'yes' && ir[2] == null) continue;
-      if (o.pr === 'no' && ir[2] != null) continue;
+      if (o.pr === 'yes' && priceOf(D, n, 'sell') == null) continue;
+      if (o.pr === 'no' && priceOf(D, n, 'sell') != null) continue;
       if (o.tr === 'trade' && !(f & F.trade || ir[2] != null)) continue;
       if (o.tr === 'untr' && !(f & F.untr)) continue;
       if (o.mem && !(f & F[o.mem])) continue;
@@ -1226,15 +1305,15 @@ async function discView() {
     const gI = L.map(([, r]) => gearInfo(D, name(r), D.ia.rows[r[0]][4]));
     gfRefresh(gI);
     if (gfActive(gf)) L = L.filter((_, i) => gfPass(gI[i], gf, GS));
-    const P = r => D.ia.rows[r[0]][2];
+    const P = r => priceOf(D, D.ia.rows[r[0]][0], 'sell');
     const tie = (a, b) => (b[4].pic ? 1 : 0) - (a[4].pic ? 1 : 0) || name(a).localeCompare(name(b));
-    const cmp = {price: (a, b) => (P(b) ?? -1) - (P(a) ?? -1) || tie(a, b), pricel: (a, b) => (P(a) ?? 1e15) - (P(b) ?? 1e15) || tie(a, b), name: (a, b) => name(a).localeCompare(name(b)),
-      rare: (a, b) => (best(b) ?? -1) - (best(a) ?? -1) || (P(b) ?? -1) - (P(a) ?? -1) || tie(a, b),
+    const cmp = {price: (a, b) => priceCompare(P(a), P(b)) || tie(a, b), pricel: (a, b) => priceCompare(P(a), P(b), true) || tie(a, b), name: (a, b) => name(a).localeCompare(name(b)),
+      rare: (a, b) => (best(b) ?? -1) - (best(a) ?? -1) || priceCompare(P(a), P(b)) || tie(a, b),
       reln: (a, b) => b[5] - a[5] || tie(a, b), relo: (a, b) => (a[5] || 9e15) - (b[5] || 9e15) || tie(a, b), remn: (a, b) => b[6] - a[6] || tie(a, b)}[o.sort] || ((a, b) => tie(a, b));
     L.sort((a, b) => (nq ? b[0] - a[0] : 0) || cmp(a[1], b[1]));
     const tradeN = L.filter(([, r]) => P(r) != null).length;
     if (!L.length) { out.innerHTML = '<div class="obempty"><div><b>No discontinued items match.</b><div class="note">Try another word or loosen a filter. To look through every item of the wiki use “Search all items”.</div></div></div>'; return; }
-    out.innerHTML = `<div class="note" style="margin:8px 0">${L.length.toLocaleString()} item${L.length === 1 ? '' : 's'} (${tradeN.toLocaleString()} with a GE price${tradeN ? `, GE ${esc(D.pr.date)}` : ''})${L.length > lim ? `, showing ${lim}` : ''}.</div>
+    out.innerHTML = `<div class="note" style="margin:8px 0">${L.length.toLocaleString()} item${L.length === 1 ? '' : 's'} (${tradeN.toLocaleString()} with fresh observed Sell quotes)${L.length > lim ? `, showing ${lim}` : ''}.</div>
       <div class="obgrid">${L.slice(0, lim).map(([, r]) => obCard(D, OB, r)).join('')}</div>${L.length > lim ? '<div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="more">Show more</button></div>' : ''}`;
     const m = $('#more'); if (m) m.onclick = () => { lim += 96; draw(); };
   };
@@ -1245,6 +1324,7 @@ async function discView() {
   document.querySelectorAll('#cat button').forEach(b => b.onclick = () => { o.cat = o.cat === b.dataset.v ? '' : b.dataset.v; reset(); });
   document.querySelectorAll('#rar button').forEach(b => b.onclick = () => { o.rar = b.dataset.v; reset(); });
   ['g', 'pr', 'tr', 'mem', 'eq', 'hol', 'sort'].forEach(k => { $('#' + k).onchange = e => { o[k] = e.target.value; reset(); }; });
+  watchPriceDraw(draw, out);
   draw();
 }
 
@@ -1307,7 +1387,7 @@ async function allView() {
     out.innerHTML = hits.slice(0, lim).map(i => {
       const r = rows[i], n = r[0], pg = r[4] || n;
       const pic = r[1] ? `<img class="ico" loading="lazy" decoding="async" src="${esc(r[1])}.webp" alt="">` : PH('✦');
-      const price = r[2] != null ? `<span class="gp">${gp(r[2])}</span>` : r[3] & F.untr ? '<span class="untr">Untradeable</span>' : '<span class="note">no GE price</span>';
+      const price = priceTag(D, r[0], 'sell');
       return `<div class="allrow"><a class="hit" href="#items/${encodeURIComponent(n)}">${pic}<span>${esc(n)}${pg !== n ? ` <span class="note">(wiki page: ${esc(pg)})</span>` : ''}${rowTags(r)}</span><span class="meta">${price}</span></a><a class="allwiki" href="${WIKI(pg)}" target="_blank" rel="noopener noreferrer" title="Open on the RS3 wiki">wiki ↗</a></div>`;
     }).join('');
     more.innerHTML = hits.length > lim ? '<div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="mb">Show more</button></div>' : '';
@@ -1540,7 +1620,7 @@ function secReward(w) {
   const src = w.ic || w.ip;
   const img = src ? `<img class="ico" loading="lazy" src="${esc(src)}" alt="">` : PH('✦', 28);
   const nm = w.i ? `<a href="#items/${encodeURIComponent(w.i)}">${esc(w.n)}</a>` : `<span>${esc(w.n)}</span>`;
-  const price = w.k !== 'item' || !w.i ? '' : w.ge != null ? `<span class="gp">${gp(w.ge)}</span>` : w.tr === 2 ? '<span class="untr">Untradeable</span>' : '<span class="note">no GE price</span>';
+  const price = w.k !== 'item' || !w.i ? '' : w.tr === 2 ? '<span class="untr">Untradeable</span>' : livePriceTag(w.i, 'sell', w.ge, '21 Oct 2026 wiki copy');
   return `<div class="wrow secrw">${img}${nm}<span class="tag">${SEC_KL[w.k] || w.k}</span>${price}</div>`;
 }
 function secMap(r, m) {
@@ -1593,7 +1673,7 @@ async function secretsView(arg) {
 }
 /* ---------- Training: RS3 wiki skill training guides, one card per recommended method (data/train.json + data/t/<Skill>.json) ---------- */
 const TR = {q: '', mem: '', cheap: false, profit: false, afk: false, fit: false, gk: {}};
-const TR_TAG = {afk: 'AFK', cheap: 'Cheap', profit: 'Profit'};
+const TR_TAG = {afk: 'AFK', cheap: 'Cheap (wiki snapshot)', profit: 'Profit (wiki snapshot)'};
 const TR_KIND = {f2p: 'Free-to-play', p2p: 'Members', both: 'Free-to-play & members'};
 const trXp = (T, sk, lv) => { const t = (sk.el ? T.xp.e : T.xp.n); return t[Math.max(1, Math.min(t.length, lv)) - 1]; };
 const trRange = c => c.lo == null ? '' : c.hi > c.lo ? `Levels ${c.lo}–${c.hi}` : `Level ${c.lo}+`;
@@ -1620,10 +1700,10 @@ function trCard(c, g, skn, lvl, T) {
   const rq = (c.rq || []).map(([s, l]) => { const h = have[s]; const ok = h != null && h >= l; return `<span class="tag ${h == null ? '' : ok ? 'ok' : 'no'}">${h != null ? (ok ? '✓ ' : '✗ ') : ''}${l} ${esc(s)}</span>`; }).join('')
     + (c.q || []).map(q => `<a class="tag" href="#quests/${encodeURIComponent(q)}">Quest: ${esc(q)}</a>`).join('');
   const its = c.it || [];
-  const items = its.map(([n, ge, ic]) => `<a class="trit" href="#items/${encodeURIComponent(n)}">${ic ? `<img class="ico" loading="lazy" src="${esc(ic)}" alt="">` : PH('✦', 28)}<span>${esc(n)}</span>${ge ? `<b class="gp">${gp(ge)}</b>` : ''}</a>`).join('');
+  const items = its.map(([n, ge, ic]) => `<a class="trit" href="#items/${encodeURIComponent(n)}">${ic ? `<img class="ico" loading="lazy" src="${esc(ic)}" alt="">` : PH('✦', 28)}<span>${esc(n)}</span>${livePriceTag(n, 'buy', ge, '21 Oct 2026 wiki copy')}</a>`).join('');
   const peek = its.slice(0, 5).map(([n, , ic]) => ic ? `<img class="ico" loading="lazy" src="${esc(ic)}" alt="">` : '').join('');
   const cn = (c.cn || []).length ? `<ul class="trcn">${c.cn.map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : '';
-  const cost1 = c.m && (c.cn || []).length ? `<span class="trcs">Cost: ${esc(c.cn[0].length > 90 ? c.cn[0].slice(0, 88) + '…' : c.cn[0])}</span>` : '';
+  const cost1 = c.m && (c.cn || []).length ? `<span class="trcs">Wiki snapshot cost: ${esc(c.cn[0].length > 90 ? c.cn[0].slice(0, 88) + '…' : c.cn[0])}</span>` : '';
   const words = c.h.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
   const stepsOpen = !ph && words < 220 ? ' open' : (ph && words < 45 ? ' open' : '');
   const rangeTxt = trRange(c);
@@ -1633,14 +1713,14 @@ function trCard(c, g, skn, lvl, T) {
       <div class="trmeta">${tags}</div>
       ${c.m ? `<div class="wsec"><h4>Requirements</h4>${rq ? `<div class="secreq">${rq}</div>` : '<div class="note">The wiki lists no skill or quest requirement for this method.</div>'}</div>` : ''}
       ${items ? `<details class="trsub"${!ph && its.length <= 8 ? ' open' : ''}><summary>Items &amp; prices <span class="cnt">${its.length}</span><span class="trpeek">${peek}</span></summary><div class="tritems">${items}</div></details>` : ''}
-      ${c.m && (cn || c.xph) ? `<div class="wsec"><h4>Costs &amp; experience</h4>${c.xph ? `<div class="note">Experience stated on the wiki: ${c.xph[1] > c.xph[0] ? c.xph[0].toLocaleString() + ' to ' + c.xph[1].toLocaleString() : c.xph[0].toLocaleString()} xp per hour.</div>` : ''}${cn}</div>` : ''}
+      ${c.m && (cn || c.xph) ? `<div class="wsec"><h4>Wiki snapshot costs &amp; experience</h4><div class="note">No structured recipe quantities/yields here: total cost and profit cannot be safely repriced. Check the live item acquisition prices; wiki cost prose and XP are unchanged.</div>${c.xph ? `<div class="note">Experience stated on the wiki: ${c.xph[1] > c.xph[0] ? c.xph[0].toLocaleString() + ' to ' + c.xph[1].toLocaleString() : c.xph[0].toLocaleString()} xp per hour.</div>` : ''}${cn}</div>` : ''}
       <details class="trsub trsteps"${stepsOpen}><summary>${c.m ? 'Instructions from the wiki' : 'Wiki text'} <span class="cnt">${words} words</span></summary><div class="trbody">${c.h}</div></details>
       <div class="note trsrcl"><a href="${esc(trWiki(g, c))}" target="_blank" rel="noopener noreferrer">${esc(g.t)} on the RS3 wiki ↗</a>${c.pt ? ' · part of this section is a live wiki table, not shown here' : ''}</div></div></details>`;
 }
 function trFilters(id) {
   const on = (k, v) => ' class="on"';
   return `<div class="chips" id="${id}m"><button data-v=""${!TR.mem ? ' class="on"' : ''}>All</button><button data-v="f2p"${TR.mem === 'f2p' ? ' class="on"' : ''}>Free-to-play</button><button data-v="p2p"${TR.mem === 'p2p' ? ' class="on"' : ''}>Members</button></div>
-    <div class="chips" id="${id}f"><button data-v="cheap"${TR.cheap ? ' class="on"' : ''}>Cheap</button><button data-v="profit"${TR.profit ? ' class="on"' : ''}>Profitable</button><button data-v="afk"${TR.afk ? ' class="on"' : ''}>AFK</button><button data-v="fit"${TR.fit ? ' class="on"' : ''}>Fits my level</button></div>
+    <div class="chips" id="${id}f"><button data-v="cheap"${TR.cheap ? ' class="on"' : ''}>Cheap (wiki snapshot)</button><button data-v="profit"${TR.profit ? ' class="on"' : ''}>Profitable (wiki snapshot)</button><button data-v="afk"${TR.afk ? ' class="on"' : ''}>AFK</button><button data-v="fit"${TR.fit ? ' class="on"' : ''}>Fits my level</button></div>
     <div class="note">Cheap, Profitable and AFK match the wiki's own words in that method's text. They are hints, not a ranking.</div>`;
 }
 function trBindFilters(id, draw) {
@@ -1685,7 +1765,7 @@ async function trainSkill(T, sk, gk) {
     <div class="panel trpanel"><div class="trhead">${SKICONS[sk.n] ? `<img src="${esc(SKICONS[sk.n])}" alt="" width="40" height="40">` : ''}<div><h2>${esc(sk.n)} training</h2>
       <div class="note">Your level on this device: <b>${lvl}</b>${stats[sk.n] ? '' : ' (not saved yet)'} · <a href="#char">edit my levels</a></div></div></div>
     <div class="note">From <span id="trsrc"></span>.</div>${gtab}
-    <details class="trhow"><summary>How to read these sections</summary><div class="note">Tap a section to open it. Items are the ones the wiki links in that section; prices are Grand Exchange prices in this app, and tapping an item shows where to get it. ✓/✗ compares a requirement with the levels saved on this device. Costs and xp/hr are quoted from the wiki text; rates vary with boosts and play style.</div></details></div>
+    <details class="trhow"><summary>How to read these sections</summary><div class="note">Tap a section to open it. Items are the ones the wiki links in that section; prices are Grand Exchange prices in this app, and tapping an item shows where to get it. ✓/✗ compares a requirement with the levels saved on this device. Costs and xp/hr are snapshots quoted from the wiki text; no verified recipe quantities are available to recompute training totals. Item prices use fresh observed Buy quotes when available; rates vary with boosts and play style.</div></details></div>
     <div class="panel" id="trcalc"></div>
     <div class="panel trpanel"><div class="row"><input id="trq2" type="search" placeholder="Search this guide…" value="${esc(TR.q)}" autocomplete="off" autocapitalize="off" spellcheck="false"></div>${trFilters('trs')}<div id="trout"></div></div>
     <button type="button" class="trtopb" id="trtopb" aria-label="Back to top">↑</button>`;
@@ -1746,7 +1826,7 @@ const MM = {q: '', c: '', sk: '', mem: '', fit: '', sort: 'profit', minp: 0, afk
 const MM_CATS = [['', 'All'], ['pvm', 'PvM & bossing'], ['slay', 'Slayer'], ['mini', 'Minigames'], ['gath', 'Gathering'], ['proc', 'Processing & crafting'], ['coll', 'Collecting'], ['merch', 'Merching'], ['rec', 'Recurring'], ['oth', 'Other']];
 const MM_SK = ['Attack','Defence','Strength','Constitution','Ranged','Prayer','Magic','Cooking','Woodcutting','Fletching','Fishing','Firemaking','Crafting','Smithing','Mining','Herblore','Agility','Thieving','Slayer','Farming','Runecrafting','Hunter','Construction','Summoning','Dungeoneering','Divination','Invention','Archaeology','Necromancy'];
 const MM_MIN = [0, 50e3, 100e3, 250e3, 500e3, 1e6, 2e6, 5e6];
-const MM_TAG = {afk: 'AFK / low effort', cmb: 'Needs combat', slay: 'Slayer', mini: 'Minigame', merch: 'Merching', rec: 'Recurring', ob: 'Not profitable now', pp: 'Partly parsed', nd: 'No steps on wiki', free: 'Free-form page'};
+const MM_TAG = {afk: 'AFK / low effort', cmb: 'Needs combat', slay: 'Slayer', mini: 'Minigame', merch: 'Merching', rec: 'Recurring', ob: 'Wiki snapshot non-profitable / obsolete', pp: 'Partly parsed', nd: 'No steps on wiki', free: 'Free-form page'};
 const MM_SUBS = {high: 'High-level combat', mid: 'Mid-level combat', low: 'Low-level combat', boss: 'Boss'};
 const MM_INT = ['', 'Low intensity', 'Moderate intensity', 'High intensity'];
 const mmCats = r => { const o = []; if (r.g === 'pvm') o.push('pvm'); else if (r.g !== 'oth' || true) o.push(r.g); if (r.tg.includes('slay')) o.push('slay'); if (r.tg.includes('mini')) o.push('mini'); if (r.tg.includes('merch')) o.push('merch'); return o; };
@@ -1765,16 +1845,28 @@ function mmReqLine(r, S) {
   if ((r.qq || []).length) parts.push(r.qq.length + (r.qq.length > 1 ? ' quests' : ' quest'));
   return parts.length ? 'Needs ' + parts.join(', ') : 'No skill or quest requirement stated';
 }
+function mmLive(r) { return LIVE.book.estimate(MM.models && MM.models[r.id]); }
+async function mmLoadModels(X) {
+  if (MM.models) return;
+  const models = {};
+  // Local shards only; remote prices use one shared bulk /latest request.
+  await Promise.all([...new Set(X.rows.map(r => r.sh))].map(async i => {
+    try { const sh = await mmShard(i); for (const [id, hit] of Object.entries(sh)) models[id] = hit[0]; } catch (_) { /* Missing shard is incomplete, never zero. */ }
+  }));
+  MM.models = models;
+}
+
 function mmOk(r, nq, S) {
   if (MM.c && !mmCats(r).includes(MM.c)) return false;
   if (MM.mem === 'f2p' && r.mem) return false;
   if (MM.mem === 'p2p' && !r.mem) return false;
-  if (!MM.ob && r.tg.includes('ob') && !nq) return false;
+  const live = mmLive(r);
+  if (!MM.ob && !nq && (live.complete ? live.profit <= 0 : r.tg.includes('ob'))) return false;
   if (MM.afk && !r.tg.includes('afk')) return false;
   if (MM.cmb && !r.tg.includes('cmb')) return false;
   if (MM.norec && r.at) return false;
   if (MM.sk && !(r.xs || []).includes(MM.sk) && !(r.rl || []).some(x => x[0] === MM.sk)) return false;
-  if (MM.minp && !(r.pw != null && r.pw >= MM.minp)) return false;
+  if (MM.minp && !(live.complete && live.profit >= MM.minp)) return false;
   if (MM.fit) { const f = mmFit(r, S); if (MM.fit === 'ok' && f !== 'ok') return false; if (MM.fit === 'close' && f !== 'ok' && f !== 'close') return false; if (MM.fit === 'no' && f !== 'no') return false; }
   if (nq) { const h = norm(r.t + ' ' + r.pg + ' ' + (r.xs || []).join(' ') + ' ' + (r.rl || []).map(x => x[0]).join(' ') + ' ' + (r.qq || []).join(' ') + ' ' + (r.io || []).join(' ') + ' ' + r.tg.map(t => MM_TAG[t] || '').join(' ')); if (!nq.split(' ').every(t => h.includes(t))) return false; }
   return true;
@@ -1784,15 +1876,17 @@ function mmSort(rows) {
   rows.sort((a, b) => {
     if (k === 'name') return a.t.localeCompare(b.t);
     if (k === 'level') return mmLvl(a) - mmLvl(b) || a.t.localeCompare(b.t);
-    const x = a.pw == null ? -Infinity : a.pw, y = b.pw == null ? -Infinity : b.pw;
-    return (y - x) || a.t.localeCompare(b.t);
+    return priceCompare(mmLive(a).profit, mmLive(b).profit) || a.t.localeCompare(b.t);
   });
   return rows;
 }
 function mmProfitTxt(r) {
-  if (r.pw == null) return '<span class="mmp mmnone">Profit: not stated</span>';
-  return `<span class="mmp${r.pw < 0 ? ' mmneg' : ''}">${mmGp(r.pw)}<i>${r.at ? '/hr of activity · wiki' : '/hr · wiki'}</i></span>${r.at && r.rt ? `<span class="mmrt"> · every ${esc(r.rt)}</span>` : ''}`;
+  const e = mmLive(r);
+  const live = e.complete ? `<span class="mmp${e.profit < 0 ? ' mmneg' : ''}">${mmGp(e.profit)}<i>/hr${r.at ? ' of activity' : ''} · live gross estimate (tax/fees excluded)</i></span>` : '<span class="mmnone">Live estimate incomplete / unavailable — not live-ranked</span>';
+  const snap = r.pw == null ? '' : `<small class="price-age">Wiki guide snapshot ${esc(MM_GE)}: ${mmGp(r.pw)}/hr${r.at ? ' of activity' : ''}</small>`;
+  return live + snap;
 }
+
 function mmCard(r, S, open) {
   const f = mmFit(r, S);
   const kind = r.mem ? 'Members' : 'Free-to-play';
@@ -1808,20 +1902,22 @@ async function mmShard(i) {
   if (!MM.shards[i]) MM.shards[i] = get(`data/mm/${i}.json`).then(d => { const o = {}; for (const p of d.p) for (const m of p.m) o[m.id] = [m, p.pre]; return o; });
   return MM.shards[i];
 }
-/* the app's own price for one line (Grand Exchange price in this app) */
-function mmLinePrice(D, l) {
-  if (l.n === 'Coins') return [1, false];
-  if (l.v != null) return [l.v, false];
-  const p = priceOf(D, l.n); if (p == null) return [null, true];
-  return [p > 49 && l.n !== 'Bond' ? p - Math.floor(p / 50) : p, false];
+/* Verified quantities: observed high for supplies, low for output; no assumed tax. */
+function mmLinePrice(D, l, side = 'sell') {
+  if (l.n === 'Coins' || l.n === 'coins') return [1, false];
+  if (l.v != null || l.cv) return [null, true];
+  const p = priceOf(D, l.n, side); return [p, p == null];
 }
 function mmEstimate(D, m) {
-  let out = 0, inn = 0, miss = [];
-  for (const l of m.out) { const [p, mi] = mmLinePrice(D, l); if (mi) miss.push(l.n); else out += l.q * p; }
-  for (const l of m.inp) { let p; if (l.n === 'Coins') p = 1; else if (l.v != null) p = l.v; else { p = priceOf(D, l.n); if (p == null) { miss.push(l.n); continue; } } inn += l.q * p; }
-  let h = out - inn;
-  return {h, out, inn, miss};
+  const e = LIVE.book.estimate(m);
+  return {...e, h: e.profit, out: e.revenue, inn: e.cost, miss: e.missing};
 }
+function mmEstimateHTML(m) {
+  const e = LIVE.book.estimate(m);
+  if (!e.complete) return `<b>Live estimate incomplete / unavailable</b><span class="note">No total or profit is fabricated. Missing/stale/unverified: ${esc(e.missing.slice(0, 8).join(', '))}${e.missing.length > 8 ? '…' : ''}. Excluded from live-profit filters and ranked after complete estimates.</span>`;
+  return `<b>Gross live-price estimate (tax/fees excluded)</b><span>Supplies at observed Buy: ${mmGp(e.cost)}/hr · Outputs at observed Sell: ${mmGp(e.revenue)}/hr · Difference: <b class="gp">${mmGp(e.profit)}</b>/hr${m.at ? ' of activity (not passive income per clock hour)' : ''}. Wiki quantities/rates are assumptions; actual yields and prices vary.</span><small class="price-age">Source fetched ${esc(priceTime(LIVE.book.fetchedAt / 1000))}; individual trade times below.</small>`;
+}
+
 function mmReqChips(m, S) {
   const have = STATS_SAVED && S ? S : null;
   const chip = (e) => {
@@ -1842,39 +1938,38 @@ function mmReqChips(m, S) {
   };
   return m.rq.map((e, i) => { const o = e.alt && m.rq[i - 1] && m.rq[i - 1].alt && !(e.k === 'o' && /^or /.test(e.h || '')) ? '<span class="mmor">or</span>' : ''; return o + chip(e); }).join('');
 }
-function mmLines(D, lines, title, noteExtra) {
+function mmLines(D, lines, title, noteExtra, side = 'sell') {
   if (!lines.length) return '';
   const rows = lines.map(l => {
-    const [p, mi] = mmLinePrice(D, l);
+    const [p, mi] = mmLinePrice(D, l, side);
     const ic = l.ic ? `<img class="ico" loading="lazy" src="${esc(l.ic)}" alt="">` : '';
     const nm = l.a ? `<a class="ti" href="#items/${encodeURIComponent(l.n)}">${esc(l.n)}</a>` : esc(l.n);
     const q = l.q >= 100 ? Math.round(l.q).toLocaleString() : +(+l.q).toFixed(2);
-    const price = l.n === 'Coins' ? '1' : l.v != null ? `${Math.round(l.v).toLocaleString()} <i>wiki value</i>` : mi ? '<i>no price</i>' : Math.round(p).toLocaleString();
-    return `<tr><td>${ic}${nm}${l.nt ? ` <i>${esc(l.nt)}</i>` : ''}${l.cv ? ' <i title="The wiki prices this with a calculation this app does not reproduce; the app price is used in the estimate.">(wiki calc)</i>' : ''}</td><td class="r">${q}</td><td class="r">${price}</td></tr>`;
+    const price = l.n === 'Coins' || l.n === 'coins' ? '1 gp (coin denomination)' : l.v != null ? `${Math.round(l.v).toLocaleString()} <i>wiki fixed-value snapshot; not live</i>` : l.cv ? '<i>Unverified wiki formula — not repriced</i>' : livePriceTag(l.n, side);
+    return `<tr><td>${ic}${nm}${l.nt ? ` <i>${esc(l.nt)}</i>` : ''}${l.cv ? ' <i title="Unverified wiki calculation; excluded from live estimates.">(wiki calc)</i>' : ''}</td><td class="r">${q}</td><td class="r">${price}</td></tr>`;
   }).join('');
-  return `<details class="trsub mmln"${lines.length <= 6 ? ' open' : ''}><summary>${title} <span class="cnt">${lines.length}</span></summary><div class="tscroll"><table class="tt"><thead><tr><th>Item</th><th>Per hour</th><th>Price each</th></tr></thead><tbody>${rows}</tbody></table></div>${noteExtra || ''}</details>`;
+  return `<details class="trsub mmln"${lines.length <= 6 ? ' open' : ''}><summary>${title} <span class="cnt">${lines.length}</span></summary><div class="tscroll"><table class="tt"><thead><tr><th>Item</th><th>Wiki quantity (per run for recurring)</th><th>Observed price each</th></tr></thead><tbody>${rows}</tbody></table></div>${noteExtra || ''}</details>`;
 }
 async function mmFill(card, r, S) {
   const box = card.querySelector('.mmdet'); if (box.dataset.done) return; box.dataset.done = '1';
   const [sh, D] = await Promise.all([mmShard(r.sh), itemData()]);
   const hit = sh[r.id]; if (!hit) { box.innerHTML = '<div class="note">This method is missing from the data bundle.</div>'; return; }
   const [m, lead] = hit;
-  const est = mmEstimate(D, m), perk = m.pk != null;
+  const perk = m.pk != null;
   const dateNote = m.ts ? `guide last edited ${m.ts}` : '';
   /* profit blocks: wiki figure and app estimate stay separate */
   let wiki = '';
-  if (m.pw == null) wiki = `<div class="mmfig"><b>Profit per hour <i>(per the wiki)</i></b><span class="mmnone">Not stated — this guide's profit depends on a live wiki calculation that cannot be reproduced offline.</span></div>`;
-  else if (m.run != null) wiki = `<div class="mmfig"><b>Profit per hour <i>(per the wiki)</i></b><span><b class="gp">${mmGp(m.pw)}</b></span></div><div class="mmfig"><b>Each time you do it</b><span>${mmGp(m.run)} every ${esc(m.rt || '?')}, ${m.at} min of activity</span></div>`;
-  else wiki = `<div class="mmfig"><b>Profit per hour <i>(per the wiki)</i></b><span><b class="gp">${mmGp(m.pw)}</b></span></div>${perk ? `<div class="mmfig"><b>Profit per kill</b><span>${mmGp(m.pk)}${m.kph ? ` · ${m.kph} ${esc(m.kn || 'kills')}/hr` : ''}</span></div>` : ''}`;
-  const estOk = (m.out.length || m.inp.length) && !est.miss.length;
-  const estBlk = !(m.out.length || m.inp.length) ? '' : `<div class="mmfig mmest"><b>Estimated from this app's GE prices</b><span><b class="gp">${mmGp(m.run != null && m.at ? est.h * 60 / m.at : est.h)}</b>/hr${est.miss.length ? ` <i>(no app price for ${esc(est.miss.slice(0, 3).join(', '))}${est.miss.length > 3 ? ' +' + (est.miss.length - 3) : ''}, counted as 0)</i>` : ''}</span></div>`;
-  const wnote = `<div class="note">“Per the wiki” is the wiki's own profit formula (its Money making guide module) applied to its Grand Exchange data of ${esc(MM_GE)}${dateNote ? ', ' + esc(dateNote) : ''}. The separate estimate re-prices the same hourly quantities with this app's own Grand Exchange prices; the two normally agree and differ where the wiki uses fixed values or an item has no price here. Live wiki pages use today's prices, so their figures drift from these.</div>`;
+  if (m.pw == null) wiki = `<div class="mmfig"><b>Profit per hour <i>(wiki guide snapshot ${esc(MM_GE)})</i></b><span class="mmnone">Not stated — this guide's profit depends on a live wiki calculation that cannot be reproduced offline.</span></div>`;
+  else if (m.run != null) wiki = `<div class="mmfig"><b>Profit per hour <i>(wiki guide snapshot ${esc(MM_GE)})</i></b><span><b class="gp">${mmGp(m.pw)}</b></span></div><div class="mmfig"><b>Each time you do it</b><span>${mmGp(m.run)} every ${esc(m.rt || '?')}, ${m.at} min of activity</span></div>`;
+  else wiki = `<div class="mmfig"><b>Profit per hour <i>(wiki guide snapshot ${esc(MM_GE)})</i></b><span><b class="gp">${mmGp(m.pw)}</b></span></div>${perk ? `<div class="mmfig"><b>Profit per kill</b><span>${mmGp(m.pk)}${m.kph ? ` · ${m.kph} ${esc(m.kn || 'kills')}/hr` : ''}</span></div>` : ''}`;
+  const estBlk = `<div class="mmfig mmest" data-mm-estimate="${esc(m.id)}">${mmEstimateHTML(m)}</div>`;
+  const wnote = `<div class="note">Wiki figures and prose are guide snapshots (${esc(MM_GE)}${dateNote ? ', ' + esc(dateNote) : ''}), not live quotes. Gross live estimates require complete structured quantities/rates, observed Buy for supplies and Sell for revenue. Missing/stale quotes, unresolved formulas/fixed values and partly parsed methods are not live-ranked. GE tax/fees and unlisted costs are excluded, not assumed zero.</div>`;
   /* requirements */
   const ph = trPhone();
   const reqs = m.rq.length ? `<div class="secreq mmreqs">${mmReqChips(m, S)}</div>${STATS_SAVED ? '' : '<div class="note">Save your levels (<a href="#char">Character tab</a>) to see ✓/✗ against them.</div>'}` : '<div class="note">The wiki lists no requirements for this method.</div>';
   /* xp */
   const xp = m.xp.length ? `<div class="kv">${m.xp.map(x => `<b><a href="#train/${encodeURIComponent(x.s)}">${esc(x.s)}</a></b><span>${x.h.toLocaleString()} xp/hr${x.pk ? ` <i>(${x.x} per kill)</i>` : ''}${x.nt ? ` <i>${esc(x.nt)}</i>` : ''}</span>`).join('')}</div>` : '';
-  const items = (m.it || []).map(([n, ic]) => `<a class="trit" href="#items/${encodeURIComponent(n)}">${ic ? `<img class="ico" loading="lazy" src="${esc(ic)}" alt="">` : PH('✦', 28)}<span>${esc(n)}</span>${priceOf(D, n) ? `<b class="gp">${gp(priceOf(D, n))}</b>` : ''}</a>`).join('');
+  const items = (m.it || []).map(([n, ic]) => `<a class="trit" href="#items/${encodeURIComponent(n)}">${ic ? `<img class="ico" loading="lazy" src="${esc(ic)}" alt="">` : PH('✦', 28)}<span>${esc(n)}</span>${priceTag(D, n)}</a>`).join('');
   const pics = (m.pic || []);
   const hero = pics[0] ? `<img class="mmhero" loading="lazy" src="${esc(pics[0])}" alt="">` : '';
   const more = pics.length > 1 ? `<details class="trsub"><summary>More pictures <span class="cnt">${pics.length - 1}</span></summary><div class="mmpics">${pics.slice(1).map(p => `<img loading="lazy" src="${esc(p)}" alt="">`).join('')}</div></details>` : '';
@@ -1893,7 +1988,7 @@ async function mmFill(card, r, S) {
     <div class="wsec"><h4>Requirements</h4>${reqs}${m.in ? '' : ''}</div>
     ${m.iy ? `<div class="note">${MM_INT[m.iy]} (wiki)${m.sub ? ' · ' + MM_SUBS[m.sub] : ''}${m.mem ? '' : ' · free-to-play'}</div>` : ''}
     ${xp ? `<div class="wsec"><h4>Experience</h4>${xp}</div>` : ''}${ob}
-    ${mmLines(D, m.inp, 'Supplies used', '')}${mmLines(D, m.out, 'What you get', '')}
+    ${mmLines(D, m.inp, 'Supplies used (Buy)', '', 'buy')}${mmLines(D, m.out, 'What you get (Sell)', '', 'sell')}
     ${items ? `<details class="trsub"><summary>Items mentioned <span class="cnt">${(m.it || []).length}</span></summary><div class="tritems">${items}</div></details>` : ''}
     ${steps}${more}${tg}
     ${rel.length ? `<details class="trsub"><summary>Related in this app <span class="cnt">${rel.length}</span></summary><div class="chips mmrel">${rel.join('')}</div></details>` : ''}
@@ -1906,8 +2001,9 @@ function mmBindCards(root, rows, S) {
   root.querySelectorAll('details.mmcard').forEach(c => { const go = () => { if (c.open) mmFill(c, by[c.dataset.id], S).catch(e => { c.querySelector('.mmdet').innerHTML = `<div class="note">Could not load: ${esc(e.message)}</div>`; delete c.querySelector('.mmdet').dataset.done; }); }; c.addEventListener('toggle', go); if (c.open) go(); });
 }
 async function moneyView(arg) {
-  if (!MM.idx) { const d = await get('data/money.json'); MM.idx = d; MM_GE = d.ge_date; }
+  if (!MM.idx) { const d = await get('data/money.json'); MM.idx = d; MM_GE = Number.isNaN(Date.parse(d.ge_date)) ? d.ge_date : priceTime(Date.parse(d.ge_date) / 1000); }
   const X = MM.idx, S = loadStats() || {};
+  await mmLoadModels(X);
   if (arg) {
     const r = X.rows.find(x => x.id === arg);
     if (!r) { view.innerHTML = `<div class="panel"><a class="btn mini ghost" href="#money">← Money</a><div class="obempty"><div><b>That money-making method is not in the guide list.</b></div></div></div>`; return; }
@@ -1919,18 +2015,18 @@ async function moneyView(arg) {
   const cnt = {}; for (const c of MM_CATS) cnt[c[0]] = c[0] ? X.rows.filter(r => !r.tg.includes('ob') && mmCats(r).includes(c[0])).length : X.rows.filter(r => !r.tg.includes('ob')).length;
   view.innerHTML = `<div class="trbar" id="mmbar"><b class="trbn">Money</b><select id="mmcatj" aria-label="Category">${MM_CATS.map(c => `<option value="${c[0]}"${MM.c === c[0] ? ' selected' : ''}>${esc(c[1])} (${cnt[c[0]]})</option>`).join('')}</select><button type="button" class="btn mini ghost" id="trtop" aria-label="Back to top">↑ Top</button></div>
     <div class="panel"><h2>Money making</h2>
-    <div class="note">Every money-making guide on the RS3 wiki: ${st.methods.toLocaleString()} methods from ${st.pages} guide pages. Profit is “per the wiki” (its own formula on its Grand Exchange data of ${esc(X.ge_date)}); a separate estimate from this app's prices is inside each method. Methods with no profit figure are listed last as “not stated”.</div>
+    <div class="note">Every money-making guide on the RS3 wiki: ${st.methods.toLocaleString()} methods from ${st.pages} guide pages. Default sorting and minimum profit use complete fresh gross live-price estimates only (Buy supplies, Sell outputs; tax/fees excluded). Unverified/stale methods rank last and fail live-profit filters. Wiki figures (${esc(X.ge_date)}) remain guide snapshots; not every method can be recomputed.</div>
     ${searchBox('mmq', 'Search methods, e.g. dragons, herbs, AFK', MM.q)}
     <div class="chips" id="mmc">${MM_CATS.map(c => `<button data-v="${c[0]}"${MM.c === c[0] ? ' class="on"' : ''}>${esc(c[1])}<span class="cnt">${cnt[c[0]]}</span></button>`).join('')}</div>
     <div class="mmsel"><label>Skill<select id="mmsk"><option value="">Any skill</option>${skills.map(s => `<option${MM.sk === s ? ' selected' : ''}>${esc(s)}</option>`).join('')}</select></label>
       <label>Access<select id="mmmem"><option value="">F2P &amp; members</option><option value="f2p"${MM.mem === 'f2p' ? ' selected' : ''}>Free-to-play only</option><option value="p2p"${MM.mem === 'p2p' ? ' selected' : ''}>Members only</option></select></label>
       <label>My levels<select id="mmfit"><option value="">Any</option><option value="ok"${MM.fit === 'ok' ? ' selected' : ''}>Fits my levels</option><option value="close"${MM.fit === 'close' ? ' selected' : ''}>Fits or close (within 5)</option><option value="no"${MM.fit === 'no' ? ' selected' : ''}>Can't do yet</option></select></label>
-      <label>Sort<select id="mmsort"><option value="profit">Profit/hr (wiki)</option><option value="level"${MM.sort === 'level' ? ' selected' : ''}>Level needed</option><option value="name"${MM.sort === 'name' ? ' selected' : ''}>Name</option></select></label></div>
-    <div class="mmrng"><label for="mmmin">Min profit/hr (wiki): <b id="mmminv">${MM.minp ? mmGp(MM.minp) : 'any'}</b></label><input id="mmmin" type="range" min="0" max="${MM_MIN.length - 1}" step="1" value="${Math.max(0, MM_MIN.indexOf(MM.minp))}"></div>
-    <div class="chips" id="mmf"><button data-v="afk"${MM.afk ? ' class="on"' : ''}>AFK / low effort</button><button data-v="cmb"${MM.cmb ? ' class="on"' : ''}>Needs combat</button><button data-v="norec"${MM.norec ? ' class="on"' : ''}>Hide timed recurring</button><button data-v="ob"${MM.ob ? ' class="on"' : ''}>Show not-profitable methods</button></div>
+      <label>Sort<select id="mmsort"><option value="profit">Gross profit/hr (fresh live estimate)</option><option value="level"${MM.sort === 'level' ? ' selected' : ''}>Level needed</option><option value="name"${MM.sort === 'name' ? ' selected' : ''}>Name</option></select></label></div>
+    <div class="mmrng"><label for="mmmin">Min gross profit/hr (fresh live): <b id="mmminv">${MM.minp ? mmGp(MM.minp) : 'any'}</b></label><input id="mmmin" type="range" min="0" max="${MM_MIN.length - 1}" step="1" value="${Math.max(0, MM_MIN.indexOf(MM.minp))}"></div>
+    <div class="chips" id="mmf"><button data-v="afk"${MM.afk ? ' class="on"' : ''}>AFK / low effort</button><button data-v="cmb"${MM.cmb ? ' class="on"' : ''}>Needs combat</button><button data-v="norec"${MM.norec ? ' class="on"' : ''}>Hide timed recurring</button><button data-v="ob"${MM.ob ? ' class="on"' : ''}>Show non-positive / wiki-obsolete methods</button></div>
     ${STATS_SAVED ? '' : '<div class="note">Tip: save your levels (<a href="#char">Character tab</a>) to use “Fits my levels” and to see ✓/✗ on requirements. They stay on this device.</div>'}
     <div id="mmres"></div></div>
-    <div class="panel"><h3>Sources</h3><div class="note">All text, numbers and pictures come from these RS3 wiki pages (CC BY-NC-SA 3.0, <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener noreferrer">licence</a>). Nothing is written by this app. Each method has its own “Source: RS3 Wiki” link.</div>
+    <div class="panel"><h3>Sources</h3><div class="note">All text, numbers and pictures come from these RS3 wiki pages (CC BY-NC-SA 3.0, <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener noreferrer">licence</a>). Guide text and pictures are unchanged; this app separately calculates labeled gross live-price estimates where supported. Each method has its own “Source: RS3 Wiki” link.</div>
       <details class="thv"><summary>${st.pages} guide pages + ${st.list_pages} index pages</summary><ul class="trsrc">${X.src.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(t.replace('Money making guide/', ''))} ↗</a></li>`).join('')}<li><a href="${WIKI('Money making guide')}" target="_blank" rel="noopener noreferrer">Money making guide (index) ↗</a></li><li><a href="${WIKI('Money making')}" target="_blank" rel="noopener noreferrer">Money making ↗</a></li></ul></details></div>
     <button type="button" class="trtopb" id="trtopb" aria-label="Back to top">↑</button>`;
   const out = $('#mmres'), q = $('#mmq'); let tmr = null;
@@ -1940,7 +2036,7 @@ async function moneyView(arg) {
     const rows = mmSort(X.rows.filter(r => mmOk(r, nq, S)));
     const show = rows.slice(0, MM.n);
     const hidden = X.rows.filter(r => r.tg.includes('ob')).length;
-    out.innerHTML = `<div class="note trcount">${rows.length.toLocaleString()} of ${X.rows.length.toLocaleString()} methods${MM.ob || nq ? '' : ` (${hidden} not-profitable ones hidden)`}.${rows.some(r => r.pw == null) && MM.sort === 'profit' ? ' Methods with no wiki profit figure are last.' : ''}</div>
+    out.innerHTML = `<div class="note trcount">${rows.length.toLocaleString()} of ${X.rows.length.toLocaleString()} methods${MM.ob || nq ? '' : ` (${hidden} not-profitable ones hidden)`}.${MM.sort === 'profit' ? ' Only complete fresh gross estimates are live-ranked; incomplete methods are last.' : ''}</div>
       ${show.length ? `<div class="mmlist">${show.map(r => mmCard(r, S, false)).join('')}</div>` : '<div class="obempty"><div><b>No method matches.</b><div class="note">Clear a filter, lower the minimum profit, or change the search.</div></div></div>'}
       ${rows.length > show.length ? `<div class="mmmore"><button type="button" class="btn" id="mmmore">Show ${Math.min(20, rows.length - show.length)} more <span class="cnt">${rows.length - show.length} left</span></button></div>` : ''}`;
     mmBindCards(out, show, S);
@@ -1958,6 +2054,7 @@ async function moneyView(arg) {
   $('#mmmin').oninput = e => { MM.minp = MM_MIN[+e.target.value]; $('#mmminv').textContent = MM.minp ? mmGp(MM.minp) : 'any'; draw(); };
   document.querySelectorAll('#mmf button').forEach(b => b.onclick = () => { MM[b.dataset.v] = !MM[b.dataset.v]; b.classList.toggle('on', MM[b.dataset.v]); draw(); });
   $('#trtop').onclick = $('#trtopb').onclick = () => window.scrollTo(0, 0);
+  watchPriceDraw(() => draw(true), out);
   draw();
 }
 async function aboutView() {
@@ -1977,11 +2074,11 @@ async function aboutView() {
     ${m.secrets ? `<b>Easter Eggs</b><span>${m.secrets.entries} easter eggs and hidden interactions still possible today · ${m.secrets.with_reward} give a reward · ${m.secrets.with_map} with map pins (${m.secrets.pins} pins) · ${m.secrets.past} ended ones listed separately</span>` : ''}
     ${m.training ? `<b>Training</b><span>${m.training.skills} skills · ${m.training.guides} wiki guides · ${m.training.cards.toLocaleString()} sections · ${m.training.cost.toLocaleString()} with costs or item prices · ${m.training.xph.toLocaleString()} with a stated xp/hour · ${m.training.maps} with map pins · ${m.training.pics.toLocaleString()} with a wiki picture</span>` : ''}
     ${m.money ? `<b>Money making</b><span>${m.money.methods.toLocaleString()} methods from ${m.money.pages.toLocaleString()} wiki guide pages (+ ${m.money.list_pages} list pages) · ${m.money.with_profit.toLocaleString()} with a wiki profit figure · ${m.money.with_req_parsed.toLocaleString()} with requirements parsed to levels · ${m.money.with_maps} with a map pin · ${m.money.with_pic.toLocaleString()} with a wiki picture · ${m.money.obsolete} marked not profitable on the wiki</span>` : ''}
-    ${m.ge ? `<b>GE prices</b><span>${m.ge.prices.toLocaleString()} items, as of ${esc(m.ge.date)} (${esc(m.ge.source)})</span>` : ''}</div>
+    ${m.ge ? `<b>Offline GE guide snapshots</b><span>${m.ge.prices.toLocaleString()} items, as of ${esc(m.ge.date)} (${esc(m.ge.source)})</span>` : ''}</div>
     <div class="note" style="margin-top:8px">Rarity bands follow the wiki's drop tables (Module:DropsLine): Always, Common ≥ 1/16, Uncommon ≥ 1/64, Rare ≥ 1/256, Very rare below that.</div>
     <table style="margin-top:10px"><thead><tr><th>Tier</th><th>Clue types</th></tr></thead><tbody>${cc}</tbody></table></div>
   <div class="panel"><h2>Known gaps</h2><ul>
-    ${m.money ? `<li>Money making: every guide page in Category:Money making guides is included, built only from the wiki. Profits shown “per the wiki” use the wiki's own formula on its Grand Exchange data (${esc((m.ge && m.ge.date) || '')}); the estimate inside each method uses this app's prices and can differ. ${m.money.partly} guides have free-form layouts and are tagged “Partly parsed”; ${m.money.unresolved_templates} wiki templates could not be expanded and are shown as plain text; ${m.money.ge_missing_methods} methods use items with no GE price here; ${m.money.profit_not_stated} methods state no profit. “Find on map” appears only where the wiki gives coordinates (${m.money.with_maps} methods). Recurring methods (timed) show the wiki's per-hour-of-activity figure.</li>` : ''}
+    ${m.money ? `<li>Money making: every guide page in Category:Money making guides is included, built only from the wiki. Profits shown “per the wiki” use the wiki's own formula on its Grand Exchange data (${esc((m.ge && m.ge.date) || '')}); fresh gross estimates and live ranking are available only for complete structured formulas, using observed instant-buy supply costs and instant-sell revenue, excluding GE tax/fees and unlisted costs; stale/incomplete methods are not live-ranked. Training cost prose remains a snapshot without verified quantities/yields. ${m.money.partly} guides have free-form layouts and are tagged “Partly parsed”; ${m.money.unresolved_templates} wiki templates could not be expanded and are shown as plain text; ${m.money.ge_missing_methods} methods use items with no GE price here; ${m.money.profit_not_stated} methods state no profit. “Find on map” appears only where the wiki gives coordinates (${m.money.with_maps} methods). Recurring methods (timed) show the wiki's per-hour-of-activity figure.</li>` : ''}
     <li>Pictures come from the wiki pages themselves: ${(m.coverage.quest_pictures_total || 0).toLocaleString()} quest pictures (steps, start NPCs and places) and location maps, entrances and teleports for monsters. A step the wiki shows no picture for gets the place or NPC picture it mentions, where the wiki has one. ${m.qpic_not_on_wiki ? `${m.qpic_not_on_wiki.toLocaleString()} picture names that quest pages mention do not exist as files on the wiki itself (mostly NPC chatheads), so nothing can be shown for those.` : ''}</li>
     <li>${m.spawn_maps ? `${m.spawn_maps.with_tiles.toLocaleString()} of ${m.spawn_maps.with_coords.toLocaleString()} monster spawn locations open an interactive map (drag, zoom, floors) built from the wiki's own map tiles, with the wiki's spawn point marked.` : ''} The wiki gives one spawn coordinate per place, so the other map layers the wiki can show (extra markers, routes, filters) are not reproduced, and the location pictures still show the wiki's red spawn dots.</li>
     ${m.icons_missing_names && m.icons_missing_names.length ? `<li>${m.icons_missing_names.length.toLocaleString()} item names have no icon because they are not single wiki items (for example “Nothing equipped…” rows), and ${m.icons_variant.toLocaleString()} names use the first variant icon of their wiki disambiguation page.${m.monster_images_missing_names && m.monster_images_missing_names.length ? ` The wiki has no picture for ${m.monster_images_missing_names.map(esc).join(' and ')}.` : ''}</li>` : ''}
@@ -2281,7 +2378,7 @@ function shopCard(s) {
     <b>Shop</b><span>${sid != null ? `<a href="#map/${sid}">${esc(shop)}</a>` : esc(shop)}</span>
     <b>Location</b><span>${loc ? esc(loc) : '<span class="note">not stated</span>'}</span>
     <b>Stock</b><span>${stock !== '' && stock != null ? esc(stock) : '<span class="note">not stated</span>'}</span>
-    <b>Sold at</b><span>${money(sell, cur)}</span><b>Bought at</b><span>${money(buy, cur)}</span>
+    <b>Shop sells at (wiki snapshot)</b><span>${money(sell, cur)}</span><b>Shop buys at (wiki snapshot)</b><span>${money(buy, cur)}</span>
     ${pin ? `<b>Wiki coordinates</b><span>${coordStr([pin[1], pin[2]], pin[3])}${pin[0] !== 28 ? ` · map ${pin[0]}` : ''}</span>` : ''}</div>
     <div class="row wacts">${sid != null ? `<a class="btn mini" href="#map/${sid}">Open in Map tab</a>` : ''}${pinO ? mmBtn(pinO) : ''}${!sid && !pinO ? '<span class="note">The wiki gives no map location for this shop.</span>' : ''}</div></div>`;
 }
@@ -2334,7 +2431,7 @@ function fold(names, n = 10) {
 function glance(S, drops, SM) {
   const L = [];
   const shops = (S.s || []).filter(s => !s[8]);
-  if (shops.length) { const u = []; const seen = new Set(); for (const s of shops) { const k = s[0]; if (seen.has(k)) continue; seen.add(k); u.push(`${esc(s[0])}${s[4] != null ? ` (${s[4].toLocaleString()} ${esc(s[6] || 'gp')})` : ''}`); } L.push(['Buy', `${seen.size} shop${seen.size === 1 ? '' : 's'}: ${fold(u)}`]); }
+  if (shops.length) { const u = []; const seen = new Set(); for (const s of shops) { const k = s[0]; if (seen.has(k)) continue; seen.add(k); u.push(`${esc(s[0])}${s[4] != null ? ` (${s[4].toLocaleString()} ${esc(s[6] || 'gp')})` : ''}`); } L.push(['Buy (shop snapshot)', `${seen.size} shop${seen.size === 1 ? '' : 's'}: ${fold(u)}`]); }
   if (S.r && S.r.length) L.push(['Craft', `${S.r.length} recipe${S.r.length === 1 ? '' : 's'}: ${fold(S.r.map(r => { const sk = r[2] && r[2][0]; return `${esc(r[0] || 'Creation')}${sk ? ` (${esc(sk[0])} ${esc(sk[1])})` : ''}`; }), 6)}`]);
   if (drops && drops.length) L.push(['Drop', `${drops.length.toLocaleString()} source${drops.length === 1 ? '' : 's'}: ${fold([...new Set(drops.map(d => esc(d[0])))], 10)}`]);
   if (S.v && S.v.length) { const u = [...new Set(S.v.map(v => v[0]))]; L.push(['Thieve', `${u.length} source${u.length === 1 ? '' : 's'}: ${fold(u.map(esc))}`]); }
