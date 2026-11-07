@@ -8,3 +8,24 @@ The data and images come from an offline copy of the RuneScape Wiki (runescape.w
   `../plugin/drop_clue_helper/build_all.sh` re-extracts everything from the wiki copy first, then rebuilds the app.
 - The service worker is network-first. It is always fresh when online, and on install it caches every file in `precache.json` for full offline use.
 - Progress is saved per quest in `localStorage` (`qprog:<id>`, `qdone:<title>`), on each device separately.
+
+## Live G.E. (Items → G.E.)
+
+`#items/~ge` embeds https://prices.runescape.wiki/rs/ on selection only. Search,
+prices, graphs and refresh behavior are supplied by RuneScape Wiki Prices,
+using trade data supplied by Jagex; this is not Jagex's official GE website.
+The embedded site requires internet and is not part of the offline cache.
+A permanent external link is provided if embedding fails or is later restricted.
+No cross-origin content is proxied or modified. The app's CSP permits framing
+only this additional origin; its script/connect/image permissions are unchanged.
+
+Static regression: `node tests/ge-static.test.cjs`.
+Before release, browser-test the actual source search → item → graphs at
+320, 390, 800 and 1280 px; verify offline messaging and unchanged Character
+Saved check, hover, item icons/requirements, credits and poison effects.
+Do not infer iframe rendering success from its load event.
+
+Release note: this feature branch intentionally does not publish a release or
+regenerate launcher bundle/update manifests. Refresh release manifests and
+precache version through the existing release process only after browser
+validation; the current production release artifacts remain unchanged.

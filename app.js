@@ -97,7 +97,9 @@ function coordStr(c, plane) { return c ? `${c[0]}, ${c[1]}${plane ? ` (floor ${p
 /* ---------- tabs / routing ---------- */
 document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { location.hash = b.dataset.tab; });
 function setTab(t) { document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t)); }
+let geCleanup = null;
 async function route() {
+  if (geCleanup) { geCleanup(); geCleanup = null; }
   const [tab, ...rest] = (location.hash.slice(1) || 'drops').split('/');
   let arg = ''; try { arg = rest.length ? decodeURIComponent(rest.join('/')) : ''; } catch (_) { arg = rest.join('/'); }
   setTab(tab); document.body.classList.toggle('intrain', tab === 'train' || tab === 'money');
@@ -311,7 +313,7 @@ function priceTag(D, n) {
 function rarTag(r) { return r == null ? '' : `<span class="rtag r${r}">${RANK[r]}</span>`; }
 function subnav(on) {
   const b = (h, t, k) => `<a class="btn sub ${on === k ? 'on' : ''}" href="${h}">${t}</a>`;
-  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}<a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
+  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}${b('#items/~ge', 'G.E.', 'ge')}<a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
 }
 
 /* ----- stats storage ----- */
@@ -818,7 +820,36 @@ function setCard(D, s, S) {
     <div class="note">Source: ${s.src === 'class' ? `<a href="${WIKI(s.page)}" target="_blank" rel="noopener noreferrer">wiki ${esc(s.page)}</a>${s.geN ? ` + <a class="item" href="#items/${encodeURIComponent(s.geN)}">${esc(s.geN)}</a> (GE set)` : ''}` : `<a href="#items/${encodeURIComponent(s.geN)}">${esc(s.geN)}</a> (Grand Exchange set item)`}</div></details></article>`;
 }
 
+/* The source owns search, prices and graphs; never proxy or restyle its document. */
+function geView() {
+  view.innerHTML = `${subnav('ge')}<section class="panel ge-panel" aria-labelledby="ge-title">
+    <div class="ge-heading"><h2 id="ge-title">Grand Exchange</h2>
+      <a class="btn sub ge-source" href="https://prices.runescape.wiki/rs/" target="_blank" rel="noopener noreferrer">Open RuneScape Wiki Prices ↗</a></div>
+    <p class="note ge-attribution">RuneScape Wiki Prices — trade data supplied by Jagex</p>
+    <p class="note">The live source below provides its own search, graphs and price updates. Last-trade prices can be old; check the source timestamps. This is a community-operated website, not Jagex's official G.E. website.</p>
+    <p class="note ge-status" id="ge-status" role="status" aria-live="polite"></p>
+    <iframe class="ge-frame" id="ge-frame" title="RuneScape Wiki live Grand Exchange search, prices and graphs" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <p class="note">Internet required. The source may take a moment to load. If it stays blank or does not work here, use the open-source link above. Embedded content and controls belong to the source.</p>
+  </section>`;
+  const frame = $('#ge-frame'), status = $('#ge-status');
+  const update = () => {
+    const offline = navigator.onLine === false;
+    status.textContent = offline
+      ? 'Offline: live G.E. requires internet. Reconnect to load current source data; any content still visible may be out of date.'
+      : 'Online connection detected — source availability is not guaranteed. Prices and their timestamps are shown by the source.';
+    if (!offline && !frame.getAttribute('src')) frame.src = 'https://prices.runescape.wiki/rs/';
+  };
+  window.addEventListener('online', update);
+  window.addEventListener('offline', update);
+  geCleanup = () => {
+    window.removeEventListener('online', update);
+    window.removeEventListener('offline', update);
+  };
+  update();
+}
+
 async function itemsView(name) {
+  if (name === '~ge') return geView();
   if (name === '~stats') { location.replace('#char'); return; }
   if (name === '~sets') { location.replace('#char/sets'); return; }
   if (name === '~obtain' || name === '~dragon') return obtainView(name === '~dragon' ? 'dragon' : null);
