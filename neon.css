@@ -1260,3 +1260,9 @@ html{scrollbar-gutter:stable}
 .live-price{display:inline-block;max-width:100%;white-space:normal;overflow-wrap:anywhere;vertical-align:top}
 .price-age{display:block;font-size:11px;line-height:1.4;color:var(--muted);font-weight:400;white-space:normal;overflow-wrap:anywhere}
 @media(max-width:420px){.live-price-banner{padding:8px;font-size:11px}.live-price{font-size:12px}.price-age{font-size:10px}}
+
+/* Only the long download label may wrap at phone widths; no transforms or grid changes. */
+@media (max-width:420px){
+  .nx-hbtns .nx-dl{min-width:0}
+  .nx-hbtns .nx-dl .nx-hbt{white-space:normal;line-height:1.25;overflow-wrap:normal}
+}

@@ -6,6 +6,8 @@ const norm = s => String(s ?? '').toLowerCase().normalize('NFKD').replace(/[\u03
 const cache = {};
 const get = async p => cache[p] ??= fetch(p).then(r => { if (!r.ok) throw new Error(p + ' ' + r.status); return r.json(); });
 const view = $('#view');
+// Preview is opt-in on loopback only, never a production cache/storage reset.
+const GE_PREVIEW = ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname) && new URLSearchParams(location.search).get('preview') === 'ge-live';
 const LIVE = RS3Prices.createService();
 let priceUnsubscribe = null, priceDraws = [];
 const RANK = ['Always', 'Common', 'Uncommon', 'Rare', 'Very rare'];
@@ -305,9 +307,11 @@ const priceTime = ts => ts ? new Date(ts * 1000).toLocaleString('en-US', {timeZo
 function quoteContents(n, side, snapshot, date) {
   const q = LIVE.book.quote(n, side), label = side === 'buy' ? 'Buy' : 'Sell';
   const time = priceTime(q.time);
-  if (q.live) return `<span class="gp" title="RuneScape Wiki Prices; ${esc(time)}">${label} ${gp(q.value)}</span><small class="price-age">${esc(time)}</small>`;
+  const guide = snapshot != null && Number.isFinite(snapshot) ? `<small class="price-age">Guide snapshot: ${gp(snapshot)} · ${esc(date)}</small>` : '';
+  const graph = q.id && side === 'buy' ? `<a class="price-age" href="https://prices.runescape.wiki/rs/item/${q.id}" target="_blank" rel="noopener noreferrer">Source prices &amp; graph ↗</a>` : '';
+  if (q.live) return `<span class="gp" title="RuneScape Wiki Prices; ${esc(time)}">${label} ${gp(q.value)}</span><small class="price-age">Observed ${esc(time)}</small>${guide}${graph}`;
   const observed = q.value != null ? `${label} ${gp(q.value)} · ${q.status} · ${time}` : `${label}: ${q.status === 'unmapped' ? 'no exact RS3 mapping' : 'no current quote'}`;
-  return `<span class="note">${esc(observed)}</span>${snapshot != null && Number.isFinite(snapshot) ? `<small class="price-age">Guide snapshot: ${gp(snapshot)} · ${esc(date)}</small>` : ''}`;
+  return `<span class="note">${esc(observed)}</span>${guide}${graph}`;
 }
 function livePriceTag(n, side = 'buy', snapshot = null, date = '') {
   return `<span class="live-price" data-live-item="${esc(n)}" data-live-side="${side}"${snapshot != null ? ` data-guide="${snapshot}" data-guide-date="${esc(date)}"` : ''}>${quoteContents(n, side, snapshot, date)}</span>`;
@@ -1913,7 +1917,7 @@ function mmEstimate(D, m) {
 function mmEstimateHTML(m) {
   const e = LIVE.book.estimate(m);
   if (!e.complete) return `<b>Live estimate incomplete / unavailable</b><span class="note">No total or profit is fabricated. Missing/stale/unverified: ${esc(e.missing.slice(0, 8).join(', '))}${e.missing.length > 8 ? '…' : ''}. Excluded from live-profit filters and ranked after complete estimates.</span>`;
-  return `<b>Gross live-price estimate (tax/fees excluded)</b><span>Supplies at observed Buy: ${mmGp(e.cost)}/hr · Outputs at observed Sell: ${mmGp(e.revenue)}/hr · Difference: <b class="gp">${mmGp(e.profit)}</b>/hr${m.at ? ' of activity (not passive income per clock hour)' : ''}. Wiki quantities/rates are assumptions; actual yields and prices vary.</span>`;
+  return `<b>Gross live-price estimate (tax/fees excluded)</b><span>Supplies at observed Buy: ${mmGp(e.cost)}/hr · Outputs at observed Sell: ${mmGp(e.revenue)}/hr · Difference: <b class="gp">${mmGp(e.profit)}</b>/hr${m.at ? ' of activity (not passive income per clock hour)' : ''}. Wiki quantities/rates are assumptions; actual yields and prices vary.</span><small class="price-age">Source fetched ${esc(priceTime(LIVE.book.fetchedAt / 1000))}; individual trade times below.</small>`;
 }
 
 function mmReqChips(m, S) {
@@ -2332,8 +2336,8 @@ async function patchBoot() { updatedCard(); webPatchWatch(); if (LAUNCHER) setTi
 (async () => {
   try { const ic = await get('data/icons.json'); ICONS = ic.items || ic; EMOTES = ic.emotes || {}; GICONS = ic.gear || {}; SKICONS = ic.skills || {}; SKORDER = ic.skill_order || []; SKMAX = ic.skill_max || {}; SRCPICS = ic.sources || {}; } catch (e) { ICONS = {}; }
   loadStats(); welcomeBanner();
-  route(); detectLauncher().then(patchBoot, patchBoot);
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+  route(); if (!GE_PREVIEW) detectLauncher().then(patchBoot, patchBoot);
+  if (!GE_PREVIEW && 'serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
 
 /* ---------- Where to get it: shops, drops, recipes, rewards, spawns, availability for every item (data/src, built from the RS3 wiki by extract_sources.py + build_sources.py) ----------
