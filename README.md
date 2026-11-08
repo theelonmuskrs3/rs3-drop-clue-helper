@@ -50,7 +50,7 @@ was verified); app levels, quest progress and settings are not sent.
 - Item lists/details, gear acquisition values/totals, sets, obtainable and
   discontinued views, Training item links, Money line items and reward items
   share the service. No missing item is silently priced at zero.
-- Money default ranking/minimum filters use complete fresh **gross** estimates
+- Money default ranking/minimum filters use complete fresh **net** estimates
   only, from structured parsed wiki quantities/yields/rates. Partial/free-form,
   unresolved fixed-value/formula and stale/missing methods remain snapshots or
   incomplete, never fabricated profit. Coins use their exact 1-gp denomination.
@@ -62,8 +62,8 @@ was verified); app levels, quest progress and settings are not sent.
   total-cost or profit recommendations. Gear best-set picks remain wiki
   tier/stat rules; their acquisition values and price sorts update.
 - Shop prices, intrinsic value/alchemy and quoted wiki prose are not GE trade
-  quotes and are not blindly rewritten. Unlisted/degradation costs and GE
-  tax/fees are explicitly excluded. Liquidity/executability is not guaranteed.
+  quotes and are not blindly rewritten. Estimated per-item GE selling tax is
+  deducted once; degradation, other fees and unlisted costs remain excluded. Liquidity/executability is not guaranteed.
 
 Tests: `node tests/ge-static.test.cjs`, `node tests/live-prices.test.cjs`.
 The latter uses deterministic fixtures (not browser automation) for exact
@@ -74,3 +74,29 @@ Browser release checklist: `tests/LIVE_PRICE_BROWSER_CHECKLIST.md`.
 Values/totals beyond JavaScript's safe numeric range are unavailable rather
 than displayed with invented precision. The new `live-prices.js` must be included
 when release precache/update manifests are regenerated.
+
+### Selling-tax estimate and mobile monetary layout
+RS3 sources checked 7 Nov 2026:
+- https://runescape.wiki/w/Grand_Exchange#Trade_tariff documents seller-only 2%,
+  rounded down **per item**, with items below 50 gp and Bonds exempt.
+- https://runescape.wiki/w/Bond verifies tradeable Bond ID **29492** and exemption.
+  No OSRS-style tax cap is assumed; the cited RS3 rule does not specify one.
+
+For each fresh Sell/low observation `p`, estimated tax is `floor(p / 50)` gp
+(or 0 for exact RS3 Bond ID 29492). Net proceeds are `p - tax`. Supplies use
+Buy/high without a buyer tax. Tax is calculated before multiplying by verified
+output quantities/activity rates. Coins are a denomination/reward, not a GE sale.
+Money shows gross sales, numeric estimated tax, net sales, gross profit and net
+profit separately; default ranking and minimum-profit filters use **net** profit.
+Missing/stale/offline quotes never yield a live tax/net total. Tax is estimated
+from observed prices, not a guaranteed actual trade result. Buy totals for gear
+and sets are unchanged; Training prose stays a snapshot without verified recipes.
+
+Live estimates are full-width semantic sections, not the two-column wiki figure
+grid. Source-fetch times are full-width paragraphs. Shared quotes wrap by words,
+and exact source graph anchors are kept on item detail (not nested inside linked
+Training/item cards). The embedded source's cross-origin styling is unchanged.
+
+Regression additions: `node tests/selling-tax-layout.test.cjs` and
+`NODE_PATH=/workspace/ge-dom-tests/node_modules node tests/live-price-dom.test.cjs`.
+These are arithmetic/DOM/CSS-structure tests, **not visual browser validation**.

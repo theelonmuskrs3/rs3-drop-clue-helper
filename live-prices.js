@@ -1,11 +1,15 @@
 /* RS3 only. Community RuneScape Wiki Prices API; trade data supplied by Jagex.
- * Shared bulk polling, exact official mapping, explicit freshness and gross (pre-tax) estimates.
+ * Shared bulk polling, exact official mapping, explicit freshness and gross/net selling-tax estimates.
  * No credentials, trades, skill storage or cross-origin iframe access.
  */
 (function (root) {
   'use strict';
   const BASE = 'https://prices.runescape.wiki/api/v2/rs';
   const POLL_MS = 60000, TRADE_MAX_AGE_MS = 15 * 60000, FETCH_MAX_AGE_MS = 2 * 60000;
+  // RS3 Wiki Grand Exchange#Trade_tariff: floor(2% per sold item), Bond exempt.
+  // No OSRS-style cap is assumed. Rechecked 2026-11-07.
+  const BOND_ID = 29492;
+  const sellingTax = (price, id) => money(price) ? (id === BOND_ID ? 0 : Math.floor(price / 50)) : null;
   const CACHE_KEY = 'dch_rs3_ge_cache_v1';
   const finite = n => typeof n === 'number' && Number.isFinite(n);
   const money = n => finite(n) && n >= 0 && n <= Number.MAX_SAFE_INTEGER;
@@ -60,6 +64,11 @@
       else if (!this.fetchedAt || now - this.fetchedAt > FETCH_MAX_AGE_MS || now < this.fetchedAt - 60000 || now - time * 1000 > TRADE_MAX_AGE_MS || time * 1000 > now + 60000) status = 'stale';
       return {id, side, value, time, status, live: status === 'live', fetchedAt: this.fetchedAt};
     }
+    sale(item, now) {
+      const q = this.quote(item, 'sell', now);
+      const tax = q.live ? sellingTax(q.value, q.id) : null;
+      return {...q, tax, net: tax == null ? null : q.value - tax};
+    }
     number(item, side = 'buy', now) { const q = this.quote(item, side, now); return q.live ? q.value : null; }
     total(lines, side, now) {
       if (!Array.isArray(lines)) return {value: null, complete: false, missing: ['Unverified quantities']};
@@ -75,7 +84,7 @@
       return {value: missing.length ? null : value, complete: !missing.length, missing: [...new Set(missing)]};
     }
     estimate(m, now) {
-      const fail = reason => ({complete: false, profit: null, cost: null, revenue: null, missing: [reason]});
+      const fail = reason => ({complete: false, profit: null, grossProfit: null, tax: null, netRevenue: null, cost: null, revenue: null, missing: [reason]});
       now = now === undefined ? Date.now() : now;
       if (!this.online || !this.connected || !this.fetchedAt || now - this.fetchedAt > FETCH_MAX_AGE_MS || now < this.fetchedAt - 60000) return fail('Fresh live source unavailable');
       if (!m || m.wf !== 'c' || (m.tg || []).some(t => ['pp', 'free'].includes(t)) || !Array.isArray(m.inp) || !Array.isArray(m.out) || !m.out.length) return fail('No complete structured wiki formula');
@@ -88,9 +97,14 @@
       }
       const cost = this.total(m.inp, 'buy', now), revenue = this.total(m.out, 'sell', now);
       const missing = [...new Set(cost.missing.concat(revenue.missing))];
-      const profit = missing.length ? null : (revenue.value - cost.value) * factor;
-      if (profit != null && (!Number.isFinite(profit) || Math.abs(profit) > Number.MAX_SAFE_INTEGER || cost.value * factor > Number.MAX_SAFE_INTEGER || revenue.value * factor > Number.MAX_SAFE_INTEGER)) return fail('Estimate exceeds safe numeric range');
-      return {complete: !missing.length, profit, cost: cost.complete ? cost.value * factor : null, revenue: revenue.complete ? revenue.value * factor : null, missing};
+      if (missing.length) return {...fail(missing[0]), missing};
+      // Per-unit floor before quantity and per-run/hour rate scaling; coins are
+      // denomination, not a GE sale. Fixed/NPC values already fail total().
+      const tax = m.out.reduce((sum, l) => sum + (l.n === 'Coins' || l.n === 'coins' ? 0 : this.sale(l.id ?? l.n, now).tax * l.q), 0) * factor;
+      const inn = cost.value * factor, gross = revenue.value * factor;
+      const netRevenue = gross - tax, grossProfit = gross - inn, profit = netRevenue - inn;
+      if ([inn, gross, tax, netRevenue, grossProfit, profit].some(n => !Number.isFinite(n) || Math.abs(n) > Number.MAX_SAFE_INTEGER)) return fail('Estimate exceeds safe numeric range');
+      return {complete: true, profit, grossProfit, tax, netRevenue, cost: inn, revenue: gross, missing: []};
     }
   }
   function createService(env = {}) {
@@ -148,7 +162,7 @@
       return () => { listeners.delete(f); if (!listeners.size) stop(); };
     }, constants: {POLL_MS, TRADE_MAX_AGE_MS, FETCH_MAX_AGE_MS}};
   }
-  const api = {PriceBook, createService, BASE, POLL_MS, TRADE_MAX_AGE_MS, FETCH_MAX_AGE_MS};
+  const api = {PriceBook, createService, BASE, POLL_MS, TRADE_MAX_AGE_MS, FETCH_MAX_AGE_MS, sellingTax, BOND_ID};
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.RS3Prices = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

@@ -1266,3 +1266,23 @@ html{scrollbar-gutter:stable}
   .nx-hbtns .nx-dl{min-width:0}
   .nx-hbtns .nx-dl .nx-hbt{white-space:normal;line-height:1.25;overflow-wrap:normal}
 }
+
+/* Shared monetary content must not inherit a narrow label/value grid or break-all. */
+.mmest{display:block;min-width:0;width:100%;padding:10px 0;border-top:1px dashed #6b1420;white-space:normal;word-break:normal;overflow-wrap:break-word}
+.mmest h5{margin:0 0 7px;font-size:14px;line-height:1.4;color:var(--soft)}
+.mmest p{margin:7px 0;min-width:0;text-align:left}
+.estimate-metrics{display:block;margin:0;min-width:0;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums}
+.estimate-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:8px;padding:3px 0;min-width:0}
+.estimate-row dt,.estimate-row dd{min-width:0;margin:0;white-space:normal;word-break:normal;overflow-wrap:break-word}
+.estimate-row dd{text-align:right;color:var(--gold)}
+.estimate-profit{border-top:1px solid var(--edge2);font-weight:700}
+.mmest .estimate-source{display:block;width:100%;max-width:100%;white-space:normal;word-break:normal;overflow-wrap:break-word;text-align:left;letter-spacing:normal}
+.live-price,.live-price .gp,.live-price .price-age,.live-price .price-tax,.live-price .note{min-width:0;max-width:100%;white-space:normal;word-break:normal;overflow-wrap:break-word;letter-spacing:normal}
+.price-tax{display:block;font-size:11px;line-height:1.4;color:var(--text);font-weight:400}
+.trit{min-width:0;flex-wrap:wrap}
+.trit>.live-price{flex:1 1 100%;display:block;text-align:left}
+@media(max-width:650px){
+  .mmfig{grid-template-columns:minmax(0,1fr)}
+  .mmfig>span{text-align:left;word-break:normal;overflow-wrap:break-word}
+  .trit>.live-price{grid-column:2 / -1}
+}
