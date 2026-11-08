@@ -11,16 +11,24 @@ assert.ok(ge.startsWith('function geView()'));
 const nav = extract('function subnav(on) {', '\n/* ----- stats');
 const handlers = new Map();
 let loads = 0;
-const frame = {getAttribute: () => frame.url, set src(v) { frame.url = v; loads++; }};
-const status = {};
+const frame = {style:{},getAttribute: () => frame.url, set src(v) { frame.url = v; loads++; }};
+const status = {},host={clientWidth:320,style:{},dataset:{}},note={};
+const button=()=>({setAttribute(){},classList:{toggle(){}}});const fitButton=button(),readableButton=button();
 const context = {view: {}, navigator: {onLine: true}, geCleanup: null,
-  $: id => id === '#ge-frame' ? frame : status,
-  window: {addEventListener: (n, f) => handlers.set(n, f), removeEventListener: n => handlers.delete(n)}};
+  $: id => ({'#ge-frame':frame,'#ge-status':status,'#ge-viewport':host,'#ge-fit-note':note,'#ge-fit':fitButton,'#ge-readable':readableButton})[id],
+  window: {innerHeight:900,addEventListener: (n, f) => handlers.set(n, f), removeEventListener: n => handlers.delete(n)}};
 vm.createContext(context);
 vm.runInContext(nav + '\n' + ge, context);
 assert.equal(loads, 0, 'no source requests before selecting G.E.');
 vm.runInContext('geView()', context);
 assert.equal(loads, 1);
+for(const width of [320,390,800,1280]){
+ host.clientWidth=width;handlers.get('resize')();
+ const scale=Number(host.dataset.sourceScale),source=Number(host.dataset.sourceWidth);
+ assert.equal(source,Math.max(1024,width));assert.equal(source*scale,width,'entire iframe viewport fits, not offset/cropped');
+ assert.ok(Math.abs(parseFloat(frame.style.height)*scale-parseFloat(host.style.height))<1.01,'height compensated for scale');
+}
+readableButton.onclick();assert.equal(host.dataset.sourceScale,1);fitButton.onclick();
 assert.equal(frame.url, 'https://prices.runescape.wiki/rs/');
 assert.match(context.view.innerHTML, /RuneScape Wiki Prices — trade data supplied by Jagex/);
 assert.match(context.view.innerHTML, /href="https:\/\/prices.runescape.wiki\/rs\/" target="_blank" rel="noopener noreferrer"/);
@@ -48,6 +56,8 @@ const isolatedCSS = css.slice(css.indexOf('/* Isolated Items G.E. wrapper.'));
 assert.match(isolatedCSS, /\.ge-frame\{[^}]*width:100%/);
 assert.match(isolatedCSS, /min-width:0/);
 assert.match(isolatedCSS, /@media\(max-width:420px\)/);
-assert.doesNotMatch(isolatedCSS.replace(/\/\*[\s\S]*?\*\//g, ''), /transform|translate|scale|:hover/);
+assert.match(isolatedCSS,/transform-origin:top left/);
+assert.doesNotMatch(ge,/srcdoc|document\.write/);
+assert.match(ge,/Math\.max\(1024, width\)/);
 assert.match(fs.readFileSync('sw.js', 'utf8'), /new URL\(req.url\).origin !== location.origin\) return/);
 console.log('PASS: G.E. lazy loading, offline/reconnect, cleanup, attribution, direct link, Items route, scoped CSP, isolated styles, unchanged cross-origin cache policy');

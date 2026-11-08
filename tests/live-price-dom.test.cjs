@@ -17,8 +17,8 @@ async function screen(hash) {
   w.fetch=async (url, opts) => {
     url=String(url); calls.push(url);
     if(url.startsWith(api.BASE)) {
-      const mapping=[{id:49430,name:'Chronotes'},{id:1,name:'Input'},{id:2,name:'Output'}];
-      const json=url.endsWith('/mapping')?mapping:{data:{49430:{high:333,low:311,highTime:Date.now()/1000,lowTime:Date.now()/1000},1:{high:120,low:90,highTime:Date.now()/1000,lowTime:Date.now()/1000},2:{high:250,low:200,highTime:Date.now()/1000,lowTime:Date.now()/1000}}};
+      const mapping=[{id:49430,name:'Chronotes'},{id:1,name:'Input'},{id:2,name:'Output'},{id:1001,name:'Incandescent energy'},{id:1002,name:'Rocktail'},{id:1003,name:'Portent of restoration X'}];
+      const json=url.endsWith('/mapping')?mapping:{data:{49430:{high:333,low:311,highTime:Date.now()/1000,lowTime:Date.now()/1000},1:{high:120,low:90,highTime:Date.now()/1000,lowTime:Date.now()/1000},2:{high:250,low:200,highTime:Date.now()/1000,lowTime:Date.now()/1000},1001:{high:100,low:90,highTime:Date.now()/1000,lowTime:Date.now()/1000},1002:{high:200,low:190,highTime:Date.now()/1000,lowTime:Date.now()/1000},1003:{high:11000,low:10000,highTime:Date.now()/1000,lowTime:Date.now()/1000}}};
       return {ok:true,json:async()=>json};
     }
     const file=path.resolve(base,url.split('?')[0]);
@@ -41,37 +41,47 @@ async function screen(hash) {
 (async()=>{
   let {dom,w}=await screen('items/Chronotes');
   let text=w.document.querySelector('#view').textContent;
-  assert.match(text,/Buy 333 gp/); assert.match(text,/Sell 311 gp/); assert.match(text,/ET/);
+  assert.match(text,/Buy 333 gp/); assert.match(text,/Sell 311 gp/);assert.match(text,/Est. 2% tax 6 gp · Net 305 gp/); assert.match(text,/ET/);
   assert.ok(w.document.querySelector('[data-live-item="Chronotes"]'));
   assert.match(text,/Guide snapshot: 294 gp/,'dated guide remains separate even when observations exist');
   assert.equal(w.document.querySelector('a[href="https://prices.runescape.wiki/rs/item/49430"]').textContent,'Source prices & graph ↗');
   w.__priceTest.book.online=false;w.__priceTest.refresh();
   text=w.document.querySelector('#view').textContent;assert.match(text,/offline/);assert.doesNotMatch(text,/Buy 0 gp/);
   w.__priceTest.book.online=true;w.__priceTest.book.fetchedAt=Date.now()-180000;w.__priceTest.refresh();
-  text=w.document.querySelector('#view').textContent; assert.match(text,/stale/);assert.match(text,/Guide snapshot: 294 gp/);
+  text=w.document.querySelector('#view').textContent; assert.match(text,/stale/);assert.match(text,/Guide snapshot: 294 gp/);assert.equal(w.document.querySelectorAll('.price-tax').length,0,'stale never gets a live tax/net amount');
   w.__priceTest.book.fetchedAt=Date.now();w.__priceTest.refresh();
   console.log('Chronotes: live Buy/Sell, ET timestamps, separate snapshot, exact graph, offline/stale labels'); dom.window.close();
   ({dom,w}=await screen('train/Herblore'));
   text=w.document.querySelector('#view').textContent;
-  assert.match(text,/wiki snapshot/i); assert.ok(w.document.querySelector('[data-live-item]'),'Training must render real shared quote tags');
+  assert.match(text,/wiki snapshot/i); assert.ok(w.document.querySelector('[data-live-item]'),'Training must render real shared quote tags');assert.equal(w.document.querySelectorAll('.trit a').length,0,'no nested source anchors in linked training cards');assert.equal(w.document.querySelectorAll('.trit .price-tax').length,0,'no selling tax on acquisition costs');
   console.log('Training shared quote tags:',w.document.querySelectorAll('[data-live-item]').length);dom.window.close();
   ({dom,w}=await screen('money'));
   const rows=JSON.parse(fs.readFileSync(path.join(base,'data/money.json'))).rows;
-  for(const search of ['Optimised hide tanner','Amascut']){
+  for(const search of ['Optimised hide tanner','Amascut','Making portents of restoration X']){
     const r=rows.find(r=>r.t.includes(search)); assert.ok(r,search);
     w.location.hash='money/'+r.id;
     for(let i=0;i<200;i++){await tick(); if(w.document.querySelector('.mmest') && w.document.querySelector('.mmcard')?.dataset.id===r.id)break;}
     text=w.document.querySelector('#view').textContent;
-    assert.match(text,/wiki guide snapshot/);assert.match(text,/Live estimate incomplete \/ unavailable/);
+    assert.match(text,/wiki guide snapshot/);
+    const estimate=w.document.querySelector('.mmest');
+    assert.equal(estimate.tagName,'SECTION');assert.ok(!estimate.classList.contains('mmfig'),'estimate never inherits two-column label layout');
+    if(search==='Making portents of restoration X'){
+      assert.match(estimate.textContent,/Profit net5,346,000 gp/);assert.match(estimate.textContent,/Est. 2% tax297,000 gp/);
+      assert.equal(estimate.querySelector('.estimate-source').parentElement,estimate,'timestamp is a full-width section child, not a metric-grid cell');
+      assert.equal(estimate.querySelectorAll('.estimate-row').length,6);
+      assert.equal(estimate.querySelectorAll('.estimate-row small').length,0);
+      const table=w.document.querySelector('.mmln table');assert.ok(table.classList.contains('rtable'),'async table enhancement runs');assert.ok(table.querySelector('th[aria-describedby]').textContent==='Quantity');assert.equal(table.querySelector('tbody td').dataset.cellLabel,'Item');
+      assert.ok(estimate.querySelector('h5'));
+    }else assert.match(text,/Live estimate incomplete \/ unavailable/);
     assert.doesNotMatch(text,/App estimate.*541,382,400/);
     console.log(search+':',w.document.querySelector('.mmest').textContent);
   }
   // Render the actual app estimate implementation against a complete structured recipe.
   const html=w.__priceTest.estimate({wf:'c',tg:[],inp:[{n:'Input',q:2}],out:[{n:'Output',q:3}]});
-  assert.match(html,/240 gp/);assert.match(html,/600 gp/);assert.match(html,/360 gp/);
+  assert.match(html,/240 gp/);assert.match(html,/600 gp/);assert.match(html,/360 gp/); assert.match(html,/348 gp/);assert.match(html,/12 gp/);
   assert.match(html,/Source fetched/);assert.match(html,/ET/);
   w.__priceTest.book.data[2].low=null;
   const missing=w.__priceTest.estimate({wf:'c',tg:[],inp:[{n:'Input',q:2}],out:[{n:'Output',q:3}]});
-  assert.match(missing,/incomplete \/ unavailable/);assert.doesNotMatch(missing,/360 gp/);
+  assert.match(missing,/incomplete \/ unavailable/);assert.doesNotMatch(missing,/360 gp/);assert.doesNotMatch(missing,/348 gp/);
   dom.window.close(); console.log('PASS full app DOM routes, actual data, real service subscriptions/rendering');
 })().catch(e=>{console.error(e);process.exit(1)});
