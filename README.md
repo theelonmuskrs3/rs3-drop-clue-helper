@@ -100,3 +100,22 @@ Training/item cards). The embedded source's cross-origin styling is unchanged.
 Regression additions: `node tests/selling-tax-layout.test.cjs` and
 `NODE_PATH=/workspace/ge-dom-tests/node_modules node tests/live-price-dom.test.cjs`.
 These are arithmetic/DOM/CSS-structure tests, **not visual browser validation**.
+
+### Responsive app tables and source overview
+All app-owned tables (including asynchronous Money and wiki Training HTML) receive
+real header associations and labelled card presentation below 600px; tables with
+5+ columns use readable cards at narrow-PC widths, and 8+ columns use cards even
+on wide PCs. The original nodes, links, sorting handlers, colspan and rowspan are
+retained; no cell content is truncated. Quantity headings are short, with the
+wiki per-hour/per-recurring-run meaning retained as accessible detail text.
+No new canvas rule or poison-effect geometry is changed.
+
+The external G.E. site cannot be restyled from this app. Per the user's request,
+Fit overview uses ordinary parent-side scaling of a left-anchored 1024px native
+source viewport into the available width, with height compensation. It does not
+inject, proxy, read or alter cross-origin content. Readable size restores normal
+source text; on phones Fit overview necessarily makes text small. Native source
+tables may still scroll if they overflow their own 1024px viewport. Parent visual
+validation must check the actual **Items with highest daily volume** table,
+including left item names and rightmost prices—not just outer iframe bounds.
+No complete-fit/legibility claim is made from arithmetic-only scaling tests.

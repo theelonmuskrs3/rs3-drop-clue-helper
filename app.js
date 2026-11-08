@@ -96,6 +96,77 @@ async function mountImap(b) {
 document.addEventListener('click', e => { const b = e.target.closest('[data-imap]'); if (b) mountImap(b); });
 function coordStr(c, plane) { return c ? `${c[0]}, ${c[1]}${plane ? ` (floor ${plane})` : ''}` : ''; }
 
+/* Responsive presentation for every app-owned table, including async wiki HTML.
+ * Keep original nodes/content/events, colspan/rowspan and real header associations.
+ * Phone cards label each value; desktop remains a table. Never touch iframe DOM.
+ */
+let responsiveTableId = 0;
+function prepareAppTable(table) {
+  if (!view.contains(table)) return;
+  table.classList.add('rtable');
+  const rows = [...table.rows].filter(r => r.closest('table') === table);
+  const top = [];
+  for (const row of rows) {
+    if ((table.tHead && row.parentElement === table.tHead) || (!table.tHead && row.cells.length && [...row.cells].every(c => c.tagName === 'TH'))) top.push(row);
+    else break;
+  }
+  const grid = [], headers = [];
+  let columns = 0;
+  top.forEach((row, ri) => {
+    row.classList.add('rtable-head');
+    grid[ri] ||= []; let ci = 0;
+    for (const cell of row.cells) {
+      while (grid[ri][ci]) ci++;
+      if (!cell.id) cell.id = 'rtable-h-' + (++responsiveTableId);
+      if (!cell.hasAttribute('scope')) cell.scope = 'col';
+      for (let y = ri; y < ri + cell.rowSpan; y++) {
+        grid[y] ||= [];
+        for (let x = ci; x < ci + cell.colSpan; x++) grid[y][x] = cell;
+      }
+      ci += cell.colSpan; columns = Math.max(columns, ci);
+    }
+  });
+  for (let ci = 0; ci < columns; ci++) headers[ci] = [...new Set(grid.flatMap(r => r[ci] ? [r[ci]] : []))];
+  const occupied = [];
+  rows.filter(r => !top.includes(r)).forEach((row, ri) => {
+    occupied[ri] ||= []; let ci = 0;
+    for (const cell of row.cells) {
+      while (occupied[ri][ci]) ci++;
+      const hs = [...new Set(headers.slice(ci, ci + cell.colSpan).flat())];
+      const label = hs.map(h => (h.dataset.shortLabel || h.textContent).trim().replace(/\s+/g, ' ')).filter(Boolean).join(' / ');
+      if (cell.dataset.cellLabel !== label) cell.dataset.cellLabel = label;
+      if (hs.length && !cell.hasAttribute('headers')) cell.setAttribute('headers', hs.map(h => h.id).join(' '));
+      if (cell.tagName === 'TH' && !cell.hasAttribute('scope')) cell.scope = 'row';
+      cell.classList.toggle('rtable-span', cell.colSpan > 1);
+      if (cell.rowSpan > 1) cell.dataset.rowSpanNote = 'Applies to ' + cell.rowSpan + ' rows';
+      for (let y = ri; y < ri + cell.rowSpan; y++) {
+        occupied[y] ||= [];
+        for (let x = ci; x < ci + cell.colSpan; x++) occupied[y][x] = cell;
+      }
+      ci += cell.colSpan; columns = Math.max(columns, ci);
+    }
+  });
+  table.classList.toggle('rtable-wide', columns >= 5);
+  table.classList.toggle('rtable-many', columns >= 8);
+  table.classList.toggle('rtable-sortable', !!table.querySelector('th[data-k], th button, th a'));
+  if (table.parentElement && table.parentElement.children.length === 1) table.parentElement.classList.add('rtable-wrap');
+}
+function prepareAppTables(root = view) { root.querySelectorAll('table').forEach(prepareAppTable); }
+const responsiveTables = new MutationObserver(records => {
+  const tables = new Set();
+  for (const record of records) {
+    if (record.target.nodeType === 1 && record.target.matches('table,thead,tbody,tfoot,tr')) {
+      const t = record.target.closest('table'); if (t) tables.add(t);
+    }
+    for (const node of record.addedNodes) if (node.nodeType === 1) {
+      if (node.matches('table')) tables.add(node);
+      node.querySelectorAll('table').forEach(t => tables.add(t));
+    }
+  }
+  tables.forEach(prepareAppTable);
+});
+responsiveTables.observe(view, {childList:true, subtree:true});
+
 /* ---------- tabs / routing ---------- */
 document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { location.hash = b.dataset.tab; });
 function setTab(t) { document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t)); }
@@ -120,6 +191,7 @@ async function route() {
     else await dropsView(arg);
   } catch (e) { view.innerHTML = `<div class="panel">Could not load data: ${esc(e.message)}</div>`; }
   if (['items', 'char', 'train', 'money', 'secrets'].includes(tab) && !(tab === 'items' && arg === '~ge')) bindPriceView();
+  prepareAppTables();
   if (!(tab === 'secrets' && arg)) window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', route);
@@ -876,10 +948,39 @@ function geView() {
     <p class="note ge-attribution">RuneScape Wiki Prices — trade data supplied by Jagex</p>
     <p class="note">The live source below provides its own search, graphs and price updates. Last-trade prices can be old; check the source timestamps. This is a community-operated website, not Jagex's official G.E. website.</p>
     <p class="note ge-status" id="ge-status" role="status" aria-live="polite"></p>
-    <iframe class="ge-frame" id="ge-frame" title="RuneScape Wiki live Grand Exchange search, prices and graphs" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <div class="row ge-view-controls"><button class="btn sub on" id="ge-fit" type="button" aria-pressed="true">Fit overview</button><button class="btn sub" id="ge-readable" type="button" aria-pressed="false">Readable size</button></div>
+    <p class="note" id="ge-fit-note" role="status"></p>
+    <div class="ge-viewport" id="ge-viewport"><iframe class="ge-frame" id="ge-frame" title="RuneScape Wiki live Grand Exchange search, prices and graphs" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
     <p class="note">Internet required. The source may take a moment to load. If it stays blank or does not work here, use the open-source link above. Embedded content and controls belong to the source.</p>
   </section>`;
-  const frame = $('#ge-frame'), status = $('#ge-status');
+  const frame = $('#ge-frame'), status = $('#ge-status'), host = $('#ge-viewport');
+  let fit = true;
+  const layout = () => {
+    if (host.isConnected === false) return;
+    const width = host.clientWidth || host.getBoundingClientRect().width;
+    if (!width) return;
+    // Ordinary parent-side iframe scaling, left anchored. Never inspect/inject the
+    // source document. Fit scales its native 1024px viewport, not a cropped table.
+    const sourceWidth = fit ? Math.max(1024, width) : width;
+    const scale = width / sourceWidth;
+    const height = Math.max(440, Math.min(900, Math.round(window.innerHeight * .78)));
+    frame.style.width = sourceWidth + 'px';
+    frame.style.height = Math.ceil(height / scale) + 'px';
+    frame.style.transform = `scale(${scale})`;
+    host.style.height = Math.ceil(Math.ceil(height / scale) * scale) + 'px';
+    host.dataset.sourceWidth = sourceWidth; host.dataset.sourceScale = scale;
+    $('#ge-fit-note').textContent = fit
+      ? `Source overview: ${Math.round(scale * 100)}% size. The full source viewport is scaled without app-side cropping; text may be small. Source tables can still have their own scrolling. Use Readable size or open the source for normal text.`
+      : 'Normal source text size. The source may require its own horizontal scrolling; Fit overview scales the full source viewport down.';
+    $('#ge-fit').setAttribute('aria-pressed', String(fit)); $('#ge-readable').setAttribute('aria-pressed', String(!fit));
+    $('#ge-fit').classList.toggle('on', fit); $('#ge-readable').classList.toggle('on', !fit);
+  };
+  $('#ge-fit').onclick = () => { fit = true; layout(); };
+  $('#ge-readable').onclick = () => { fit = false; layout(); };
+  const resize = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(layout);
+  if (resize) resize.observe(host);
+  window.addEventListener('resize', layout);
+  layout();
   const update = () => {
     const offline = navigator.onLine === false;
     status.textContent = offline
@@ -892,6 +993,7 @@ function geView() {
   geCleanup = () => {
     window.removeEventListener('online', update);
     window.removeEventListener('offline', update);
+    window.removeEventListener('resize', layout); if (resize) resize.disconnect();
   };
   update();
 }
@@ -1943,6 +2045,7 @@ function mmReqChips(m, S) {
 }
 function mmLines(D, lines, title, noteExtra, side = 'sell') {
   if (!lines.length) return '';
+  const noteId = 'mm-quantity-' + (++responsiveTableId);
   const rows = lines.map(l => {
     const [p, mi] = mmLinePrice(D, l, side);
     const ic = l.ic ? `<img class="ico" loading="lazy" src="${esc(l.ic)}" alt="">` : '';
@@ -1951,7 +2054,7 @@ function mmLines(D, lines, title, noteExtra, side = 'sell') {
     const price = l.n === 'Coins' || l.n === 'coins' ? '1 gp (coin denomination)' : l.v != null ? `${Math.round(l.v).toLocaleString()} <i>wiki fixed-value snapshot; not live</i>` : l.cv ? '<i>Unverified wiki formula — not repriced</i>' : livePriceTag(l.n, side);
     return `<tr><td>${ic}${nm}${l.nt ? ` <i>${esc(l.nt)}</i>` : ''}${l.cv ? ' <i title="Unverified wiki calculation; excluded from live estimates.">(wiki calc)</i>' : ''}</td><td class="r">${q}</td><td class="r">${price}</td></tr>`;
   }).join('');
-  return `<details class="trsub mmln"${lines.length <= 6 ? ' open' : ''}><summary>${title} <span class="cnt">${lines.length}</span></summary><div class="tscroll"><table class="tt"><thead><tr><th>Item</th><th>Wiki quantity (per run for recurring)</th><th>Observed price each</th></tr></thead><tbody>${rows}</tbody></table></div>${noteExtra || ''}</details>`;
+  return `<details class="trsub mmln"${lines.length <= 6 ? ' open' : ''}><summary>${title} <span class="cnt">${lines.length}</span></summary><p class="note mm-quantity-note" id="${noteId}">Wiki units per hour; per run for recurring methods.</p><div class="tscroll"><table class="tt"><thead><tr><th>Item</th><th scope="col" aria-describedby="${noteId}">Quantity</th><th scope="col">Price each</th></tr></thead><tbody>${rows}</tbody></table></div>${noteExtra || ''}</details>`;
 }
 async function mmFill(card, r, S) {
   const box = card.querySelector('.mmdet'); if (box.dataset.done) return; box.dataset.done = '1';

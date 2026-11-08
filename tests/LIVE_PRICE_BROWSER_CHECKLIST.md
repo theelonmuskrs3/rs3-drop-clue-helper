@@ -1,9 +1,9 @@
 # Browser validation required before release
 
 Production-safe isolated preview (do NOT reuse earlier browser tabs):
-http://127.0.0.1:8779/index.html?rev=7d28b9ddb95d20fb#money/making-portents-of-restoration-x
+http://127.0.0.1:8780/index.html?rev=0671ead84eacc6e7#money/making-portents-of-restoration-x
 
-Start/restart with `python3 tools/ge_preview.py --port 8779` from this checkout.
+Start/restart with `python3 tools/ge_preview.py --port 8780` from this checkout.
 The server prints a content fingerprint and sends `Cache-Control: no-store` and
 `X-DCH-Preview-Build` on every response. It ignores conditional cache requests,
 rejects sw.js, and binds only to loopback. Production app.js has NO preview
@@ -110,3 +110,23 @@ At 320, 390, 800 and 1280 px:
 - Verify offline/stale/missing never displays a fabricated tax/net total.
 - Recheck stationary hover, poison credit, skills/Saved, images and quest pins.
 Cross-origin G.E. embed is unchanged and must not be restyled by our CSS.
+
+## Expanded table/source validation for PR2
+At 320/390/800/1280 widths, check Money Supplies/Outputs (Quantity heading and
+per-hour/run note), Training Attack/p2p → Common equipment, accessories, and
+setups → Instructions (6–8 column wiki equipment tables), Herblore tables, Items
+Dragon scimitar drops/sources, Character gear/sets and Quest panels. Tables must
+have readable row/card labels, untruncated links/values, no horizontal overflow,
+no character-per-line names, retained sort controls, and correct rowspan notes.
+
+G.E. → Fit overview: specifically inspect **Items with highest daily volume**.
+All leftmost item-name characters AND rightmost price/volume headings and values
+must be present. Measure iframe rect.left >= wrapper.left, rect.right <= wrapper.right
+(with 1px tolerance), and wrapper height matching scaled iframe height. Confirm
+source search/table/graph controls remain usable. Read the displayed zoom percent
+and assess actual text legibility: a mathematical fit does not prove readability.
+Toggle Readable size and back; resize all four widths; navigate away/back to check
+cleanup. Do NOT pass a clipped left edge, hidden prices, or merely the item graph.
+If the 1024px source itself overflows, report it rather than hide its scrollbar or
+claim fit. At phone widths scaling may be too small; retain that honest limitation
+and get a user decision before replacing their chosen source embed with custom charts.

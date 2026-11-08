@@ -70,6 +70,7 @@ async function screen(hash) {
       assert.equal(estimate.querySelector('.estimate-source').parentElement,estimate,'timestamp is a full-width section child, not a metric-grid cell');
       assert.equal(estimate.querySelectorAll('.estimate-row').length,6);
       assert.equal(estimate.querySelectorAll('.estimate-row small').length,0);
+      const table=w.document.querySelector('.mmln table');assert.ok(table.classList.contains('rtable'),'async table enhancement runs');assert.ok(table.querySelector('th[aria-describedby]').textContent==='Quantity');assert.equal(table.querySelector('tbody td').dataset.cellLabel,'Item');
       assert.ok(estimate.querySelector('h5'));
     }else assert.match(text,/Live estimate incomplete \/ unavailable/);
     assert.doesNotMatch(text,/App estimate.*541,382,400/);

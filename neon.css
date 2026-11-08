@@ -1286,3 +1286,58 @@ html{scrollbar-gutter:stable}
   .mmfig>span{text-align:left;word-break:normal;overflow-wrap:break-word}
   .trit>.live-price{grid-column:2 / -1}
 }
+
+/* App-owned tables: readable wrapping on desktop; labelled cards when space is tight.
+   Scoped to #view/table only. Never change canvas geometry or cross-origin iframe DOM. */
+#view table.rtable{width:100%;min-width:0;max-width:100%;table-layout:fixed;box-sizing:border-box}
+#view .rtable th,#view .rtable td{min-width:0;max-width:none;white-space:normal;word-break:normal;overflow-wrap:break-word;position:static;box-sizing:border-box}
+#view .rtable .gp,#view .rtable .num{white-space:normal;overflow-wrap:break-word}
+#view .rtable .item{min-width:0;max-width:100%;flex-wrap:wrap}
+#view .rtable .live-price{max-width:100%;min-width:0}
+#view .rtable-wrap{min-width:0;max-width:100%;overflow:visible!important;max-height:none!important}
+#view .rtable .rtable-head th{letter-spacing:.03em;text-transform:none;line-height:1.35}
+@media(max-width:600px){
+  #view .rtable,#view .rtable>thead,#view .rtable>tbody,#view .rtable>tfoot{display:block;width:100%;min-width:0}
+  #view .rtable tr:not(.rtable-head){display:grid;grid-template-columns:minmax(0,1fr);gap:0 12px;margin:8px 0;padding:6px 9px;border:1px solid var(--edge2);border-radius:5px;background:var(--row);min-width:0}
+  #view .rtable tr:not(.rtable-head)>td,#view .rtable tr:not(.rtable-head)>th{display:block;width:100%;min-width:0;border:0;border-radius:0;padding:5px 0;text-align:left;box-shadow:none;background:none}
+  #view .rtable [data-cell-label]:not([data-cell-label=""])::before{content:attr(data-cell-label);display:block;margin:0 0 2px;font:600 11px/1.4 var(--ui);letter-spacing:.02em;color:var(--muted);white-space:normal;word-break:normal;overflow-wrap:break-word}
+  #view .rtable [data-row-span-note]::after{content:attr(data-row-span-note);display:block;color:var(--muted);font-size:11px}
+  #view .rtable .rtable-span{grid-column:1 / -1}
+  #view .rtable .hide-sm{display:block}
+  #view .rtable .rtable-head{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:normal}
+  #view .rtable.rtable-sortable .rtable-head{position:static;display:flex;flex-wrap:wrap;gap:6px;width:auto;height:auto;overflow:visible;clip-path:none}
+  #view .rtable.rtable-sortable .rtable-head th{display:block;flex:0 1 auto;max-width:100%;padding:5px 8px;border:1px solid var(--edge2);border-radius:4px;background:var(--ctrl)}
+}
+@media(min-width:601px) and (max-width:1000px){
+  #view .rtable-wide,#view .rtable-wide>thead,#view .rtable-wide>tbody,#view .rtable-wide>tfoot{display:block;width:100%;min-width:0}
+  #view .rtable-wide tr:not(.rtable-head){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px;margin:8px 0;padding:6px 9px;border:1px solid var(--edge2);border-radius:5px;background:var(--row);min-width:0}
+  #view .rtable-wide tr:not(.rtable-head)>td,#view .rtable-wide tr:not(.rtable-head)>th{display:block;width:100%;min-width:0;border:0;border-radius:0;padding:5px 0;text-align:left;box-shadow:none;background:none}
+  #view .rtable-wide [data-cell-label]:not([data-cell-label=""])::before{content:attr(data-cell-label);display:block;margin:0 0 2px;font:600 11px/1.4 var(--ui);letter-spacing:.02em;color:var(--muted);white-space:normal;word-break:normal;overflow-wrap:break-word}
+  #view .rtable-wide [data-row-span-note]::after{content:attr(data-row-span-note);display:block;color:var(--muted);font-size:11px}
+  #view .rtable-wide .rtable-span{grid-column:1 / -1}
+  #view .rtable-wide .hide-sm{display:block}
+  #view .rtable-wide .rtable-head{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:normal}
+  #view .rtable-wide.rtable-sortable .rtable-head{position:static;display:flex;flex-wrap:wrap;gap:6px;width:auto;height:auto;overflow:visible;clip-path:none}
+  #view .rtable-wide.rtable-sortable .rtable-head th{display:block;flex:0 1 auto;max-width:100%;padding:5px 8px;border:1px solid var(--edge2);border-radius:4px;background:var(--ctrl)}
+}
+
+/* The complete source viewport is scaled into these exact bounds, never centred
+   offscreen/cropped as a substitute for fitting. Native internal scrolling remains. */
+.ge-viewport{position:relative;width:100%;max-width:100%;min-width:0;overflow:hidden}
+.ge-viewport .ge-frame{position:absolute;left:0;top:0;max-width:none;min-width:0;min-height:0;margin:0;transform-origin:top left;border-radius:0}
+.ge-view-controls{flex-wrap:wrap;gap:8px}
+@media(min-width:1001px){
+  #view .rtable-many,#view .rtable-many>thead,#view .rtable-many>tbody,#view .rtable-many>tfoot{display:block;width:100%;min-width:0}
+  #view .rtable-many tr:not(.rtable-head){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 12px;margin:8px 0;padding:6px 9px;border:1px solid var(--edge2);border-radius:5px;background:var(--row);min-width:0}
+  #view .rtable-many tr:not(.rtable-head)>td,#view .rtable-many tr:not(.rtable-head)>th{display:block;width:100%;min-width:0;border:0;border-radius:0;padding:5px 0;text-align:left;box-shadow:none;background:none}
+  #view .rtable-many [data-cell-label]:not([data-cell-label=""])::before{content:attr(data-cell-label);display:block;margin:0 0 2px;font:600 11px/1.4 var(--ui);letter-spacing:.02em;color:var(--muted);white-space:normal;word-break:normal;overflow-wrap:break-word}
+  #view .rtable-many [data-row-span-note]::after{content:attr(data-row-span-note);display:block;color:var(--muted);font-size:11px}
+  #view .rtable-many .rtable-span{grid-column:1 / -1}
+  #view .rtable-many .hide-sm{display:block}
+  #view .rtable-many .rtable-head{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:normal}
+  #view .rtable-many.rtable-sortable .rtable-head{position:static;display:flex;flex-wrap:wrap;gap:6px;width:auto;height:auto;overflow:visible;clip-path:none}
+  #view .rtable-many.rtable-sortable .rtable-head th{display:block;flex:0 1 auto;max-width:100%;padding:5px 8px;border:1px solid var(--edge2);border-radius:4px;background:var(--ctrl)}
+}
+
+#view .rtable caption{max-width:100%;white-space:normal;word-break:normal;overflow-wrap:break-word}
+@media(min-width:601px){#view .rtable:not(.rtable-wide) .hide-sm{display:table-cell}}
