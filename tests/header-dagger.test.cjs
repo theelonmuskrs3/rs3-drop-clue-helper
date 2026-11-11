@@ -1,0 +1,39 @@
+// Main header dagger: HD copy of the Wiki's own picture, poison beads anchored on the blade inside the swaying rig, seamless staggered
+// loop (bead + falling drop), gravity fall, Low/Off/reduced-motion respected, fits the current header box.
+// node tests/header-dagger.test.cjs   (pixel anchor check: python3 tests/header_dagger_anchor_check.py)
+const fs = require('node:fs'), path = require('node:path'), assert = require('node:assert/strict');
+const base = path.resolve(__dirname, '..'), css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'), html = fs.readFileSync(path.join(base, 'index.html'), 'utf8');
+const img = fs.readFileSync(path.join(base, 'brand/dds.webp')); assert.equal(img.toString('ascii', 8, 12), 'WEBP'); assert.ok(img.length < 40e3);
+// markup: picture + 4 drips all inside the rig (so they move with the dagger)
+const rig = html.match(/<span class="dds-rig">([\s\S]*?)<\/span><\/span>\s*<span class="dds-pool">/); assert.ok(rig, 'rig wraps picture and drips');
+assert.match(rig[1], /<img class="dds-img" src="brand\/dds\.webp" width="320" height="288"/);
+assert.equal((rig[1].match(/class="dds-drip d\d/g) || []).length, 4);
+assert.equal((html.match(/brand\/dds\.webp/g) || []).length, 2, 'title bar + header');
+assert.match(css, /\.nx-dds \.dds-rig\{position:absolute;inset:0;[^}]*animation:ddsSway/); assert.doesNotMatch(css, /\.nx-dds \.dds-img\{[^}]*animation/, 'sway on the rig, not the picture alone');
+// fits the current header box: picture letterboxing < 1px at both sizes, so % anchors land on the blade
+for (const [w, h] of [[72, 65], [46, 42]]) { const r = 320 / 288, fw = Math.min(w, h * r), fh = fw / r; assert.ok(Math.abs(w - fw) / 2 < 1 && Math.abs(h - fh) / 2 < 1, `letterbox ${w}x${h}`); }
+assert.match(css, /\.nx-dds\{position:relative;flex:none;width:72px;height:65px;/); assert.match(css, /@media \(max-width:760px\)\{\.nx-dds\{width:46px;height:42px\}/);
+// keyframes
+const kf = n => { const m = css.match(new RegExp('@keyframes ' + n + '\\{([\\s\\S]*?)\\}\\}')); assert.ok(m, n); const o = {};
+  for (const [, ks, body] of (m[1] + '}').matchAll(/([\d.,%]+)\{([^}]*)\}/g)) for (const k of ks.split(',')) o[parseFloat(k)] = body; return o; };
+const bead = kf('ddsBead'), fall = kf('ddsFall');
+assert.equal(bead[0], bead[100], 'bead loop: end state = start state');
+for (const k of [0, 65.9, 100]) assert.match(fall[k], /opacity:0/, 'drop invisible at ' + k + '% (no visible reset)');
+assert.match(fall[66], /opacity:1/, 'drop appears when the neck breaks');
+assert.match(bead[64], /scale\(\.62,1\.8\)/, 'neck: thinnest and longest just before detaching'); assert.match(bead[67], /scale\(\.4,\.38\)/, 'snaps back as the drop leaves');
+// gravity: distance per equal time step grows (accelerating), from the bead down to --fall
+const ys = [[72, .03], [80, .17], [88, .42], [96, .78]]; for (const [k, f] of ys) assert.match(fall[k], new RegExp('var\\(--fall\\) \\* ' + String(f).replace('0.', '\\.')));
+const v = [[66, .0], ...ys, [100, 1]]; for (let i = 2; i < v.length; i++) { const a = (v[i - 1][1] - v[i - 2][1]) / (v[i - 1][0] - v[i - 2][0]), b = (v[i][1] - v[i - 1][1]) / (v[i][0] - v[i - 1][0]); assert.ok(b > a, 'accelerating at ' + v[i][0]); }
+for (const [k, f] of ys) assert.ok(Math.abs(f - ((k - 66) / 34) ** 2) < .01, 'free fall y = t² at ' + k);
+// stagger: unequal durations, negative delays (already mid-cycle on load), not in lockstep
+const ds = ['d1', 'd2', 'd3', 'd4'].map(d => css.match(new RegExp('\\.nx-dds \\.' + d + '\\{[^}]*--dur:([\\d.]+)s;--del:(-[\\d.]+)s')));
+assert.ok(ds.every(Boolean), 'each drip has its own duration and a negative delay');
+const dur = ds.map(m => +m[1]), del = ds.map(m => +m[2]); assert.equal(new Set(dur).size, 4);
+const ph = dur.map((t, i) => ((-del[i] % t) / t)); for (let i = 0; i < 4; i++) for (let j = i + 1; j < 4; j++) assert.ok(Math.abs(ph[i] - ph[j]) > .08, 'start phases differ');
+assert.match(css, /\.nx-dds \.dds-drip\.bead::after\{display:none\}/, 'tip bead only beads');
+// Off and reduced motion: still picture, static beads, no falling drops; Low: two slower drips
+assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.nx-dds \.dds-drip::after,\.nx-dds \.dds-pool\{display:none\}\.nx-dds \.dds-rig,\.nx-dds \.dds-glow,\.nx-dds \.dds-drip::before\{animation:none!important\}/);
+assert.match(css, /html\[data-fx=off\] \.nx-dds \.dds-drip::after,html\[data-fx=off\] \.nx-dds \.dds-pool\{display:none\}/);
+assert.match(css, /html\[data-fx=low\] \.nx-dds \.d3,html\[data-fx=low\] \.nx-dds \.d4\{display:none\}/); assert.match(css, /html\[data-fx=low\] \.nx-dds \.dds-rig\{animation:none\}/);
+assert.doesNotMatch(css, /ddsDrip/);
+console.log('PASS header dagger: HD Wiki picture, 4 drips in the rig, seamless bead/drop loop, gravity fall, staggered negative phases', ph.map(p => p.toFixed(2)).join('/'), ', Low/Off/reduced motion, fits 72x65 and 46x42');
