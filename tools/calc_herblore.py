@@ -101,8 +101,15 @@ def num(s):
     if s in ('-', ''): return None
     return float(s)
 
-def parse_table(html):
+DISPLAY_DEFAULTS = {'show_item_image': 'true', 'show_currency_image': 'true', 'show_production_time': 'false', 'show_cost': 'true', 'show_profit': 'true',
+                    'step_mode': 'Hidden', 'mat_mode': 'Quantity', 'product_mode': 'Hidden'}   # the module's defaults for display fields not sent
+
+def parse_table(html, opts=None):
+    """Read the Wiki result table. opts: the display arguments the render used (missing ones take the module defaults);
+    column presence follows the table header, cell layout follows the display modes (Item / Quantity / Price, item images)."""
     from bs4 import BeautifulSoup
+    o = dict(DISPLAY_DEFAULTS); o.update({k: v for k, v in (opts or RENDER).items() if k in DISPLAY_DEFAULTS})
+    img = o['show_item_image'] == 'true'
     soup = BeautifulSoup(html, 'html.parser')
     msg = soup.find('p').get_text()
     tbl = soup.find('table', class_='wikitable')
@@ -113,26 +120,32 @@ def parse_table(html):
         tds = tr.find_all('td', recursive=False); i = 0
         def nxt():
             nonlocal i; t = tds[i]; i += 1; return t
-        def group(ncols):
+        def item(cells, mode):   # one rendered item row -> [name, qty, cost] (qty/cost None when that mode does not show them)
+            cells = cells[1:] if img else cells
+            name = cells[0].get_text(); qty = num(cells[1].get_text()) if mode in ('Quantity', 'Price') else None
+            cost = num(cells[2].get_text()) if mode == 'Price' else None
+            return [name, qty, cost]
+        def group(mode):
+            ncols = (2 if img else 1) + (1 if mode in ('Quantity', 'Price') else 0) + (1 if mode == 'Price' else 0)
             t = tds[i]
             if t.find('table'):
-                nxt(); items = []
-                for itr in t.find('table').find_all('tr'):
-                    c = itr.find_all('td'); items.append([x.get_text() for x in c[:ncols]])
-                return items
+                nxt(); return [item(itr.find_all('td'), mode) for itr in t.find('table').find_all('tr')]
             if t.has_attr('colspan'):
                 nxt(); return []
-            return [[nxt().get_text() for _ in range(ncols)]]
+            return [item([nxt() for _ in range(ncols)], mode)]
         r = {}
         lv = nxt(); r['level'] = int(lv.get_text()); r['colour'] = [c for c in lv.get('class', []) if c.startswith('table-bg')]
-        rc = nxt(); r['sort'] = rc.get('data-sort-value'); r['recipe'] = rc.get_text('|')
+        if img: pic = nxt()
+        rc = nxt(); r['sort'] = rc.get('data-sort-value') or (pic.get('data-sort-value') if img else None); r['recipe'] = rc.get_text('|')
         x = nxt(); r['xp'] = float(x['data-sort-value']); r['xpText'] = x.get_text()
         n = nxt(); r['number'] = int(n.get('data-sort-value') or 0)
-        tm = nxt(); r['ticks'] = int(tm.get('data-sort-value') or 0); r['timeText'] = tm.get_text()
-        if 'Steps' in head: r['steps'] = [[a, num(b)] for a, b in group(2)]
-        r['mats'] = [[a, num(b), num(c)] for a, b, c in group(3)]
-        r['matTotal'] = num(nxt().get_text()); r['costPerXp'] = num(nxt().get_text())
-        if 'Products' in head: r['products'] = [[a, num(b), num(c)] for a, b, c in group(3)]
+        if 'Time' in head: tm = nxt(); r['ticks'] = int(tm.get('data-sort-value') or 0); r['timeText'] = tm.get_text()
+        if 'Steps' in head:
+            if o['step_mode'] == 'Total': r['stepsTotal'] = int(nxt().get_text())
+            else: r['steps'] = [[a, q] for a, q, _ in group(o['step_mode'])]
+        if 'Materials' in head: r['mats'] = group(o['mat_mode'])
+        if 'Total cost' in head: r['matTotal'] = num(nxt().get_text()); r['costPerXp'] = num(nxt().get_text())
+        if 'Products' in head: r['products'] = group(o['product_mode'])
         if 'Total value' in head:
             r['prodTotal'] = num(nxt().get_text()); r['profit'] = num(nxt().get_text()); r['profitPerXp'] = num(nxt().get_text())
         assert i == len(tds), (r, i, len(tds))
@@ -165,14 +178,14 @@ def golden():
             sub = F.submission()
             text = '{{Calculator:Herblore/Template' + ''.join('|%s=%s' % kv for kv in sub) + '}}'
             j = api({'action': 'parse', 'prop': 'text', 'contentmodel': 'wikitext', 'disablelimitreport': '1', 'text': text}, post=True)
-            msg, head, rows = parse_table(j['parse']['text'])
+            msg, head, rows = parse_table(j['parse']['text'], dict(sub))
             fout.append({'name': c['name'], 'submission': sub, 'message': msg, 'head': head, 'rows': rows})
             print(c['name'], len(rows), 'rows (form submission)', file=sys.stderr)
             time.sleep(1)
         for c in cases:
             args = dict(defaults); args.update(c['args']); args.update(RENDER)
             html = render(args)
-            msg, head, rows = parse_table(html)
+            msg, head, rows = parse_table(html, args)
             out.append({'name': c['name'], 'args': c['args'], 'message': msg, 'head': head, 'rows': rows})
             print(c['name'], len(rows), 'rows', file=sys.stderr)
             time.sleep(1)
