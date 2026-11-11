@@ -42,7 +42,7 @@ assert.equal(F.methods.length, 134); assert.equal(new Set(F.methods.map(m => m.i
     Object.defineProperty(w.navigator, 'serviceWorker', {value: {register(){ return Promise.resolve(); }}});
     for (const [k, v] of Object.entries(store)) w.localStorage.setItem(k, v);
     w.AbortController = AbortController; w.TextEncoder = TextEncoder; w.RS3Prices = P;
-    const latest = {}; mapping.forEach(m => { latest[m.id] = {high: F.guide[m.name], low: F.guide[m.name], highTime: now - 60, lowTime: now - 60}; });
+    const latest = {}; mapping.forEach(m => { latest[m.id] = {high: Math.round(F.guide[m.name] * 1.1), low: Math.round(F.guide[m.name] * 0.9), highTime: now - 60, lowTime: now - 60}; });
     let guideCalls = 0;
     w.fetch = async url => { url = String(url);
       if (url.startsWith(P.BASE)) return {ok: true, json: async () => url.endsWith('/mapping') ? mapping : {data: latest}};
@@ -84,8 +84,21 @@ assert.equal(F.methods.length, 134); assert.equal(new Set(F.methods.map(m => m.i
   for (const m of F.methods) assert.equal(Math.sign(Math.round(w.__t.mmLive(w.__t.MM.idx.rows.find(r => r.id === m.id)).value)), Math.sign(m.wiki), 'guide mode ' + m.id);
   const gk = kinds(d.querySelector('#mmcount').textContent); assert.equal(gk[2] + gk[3] + gk[4] + gk[5], 878);
   assert.ok([...d.querySelectorAll('.mmcard .price-age')].some(x => /^GE guide prices \(as the Wiki\), /.test(x.textContent)), 'guide-mode estimates labelled');
+  // back to Latest trades: identical to before (guide prices loaded must never replace an available trade), choice stays live
+  const liveK = [pos, neg, zero, none];
+  sel.value = 'live'; sel.dispatchEvent(new w.Event('change'));
+  for (let i = 0; i < 50; i++) await tick();
+  assert.deepEqual(kinds(d.querySelector('#mmcount').textContent).slice(2), liveK, 'live counts unchanged after guide prices loaded');
+  assert.notDeepEqual(gk.slice(2), liveK, 'fixture: guide basis differs from trades');
+  assert.equal(w.localStorage.getItem('dch_mm_price_src_v1'), 'live');
+  const vm2 = w.__t.MM.idx.rows.map(r => w.__t.mmLive(r)).filter(e => e.basis === 'est'); assert.ok(vm2.length > 0 && vm2.every(e => e.nG === 0), 'no G price used where every item has a trade');
+  // live -> guide -> live before the guide fetch finishes: the late fetch must not flip the choice
+  sel.value = 'guide'; sel.dispatchEvent(new w.Event('change')); sel.value = 'live'; sel.dispatchEvent(new w.Event('change'));
+  for (let i = 0; i < 50; i++) await tick();
+  assert.equal(sel.value, 'live'); assert.equal(w.__t.MM.src, 'live'); assert.deepEqual(kinds(d.querySelector('#mmcount').textContent).slice(2), liveK);
+  sel.value = 'guide'; sel.dispatchEvent(new w.Event('change')); for (let i = 0; i < 50; i++) await tick();
   store.dch_mm_price_src_v1 = w.localStorage.getItem('dch_mm_price_src_v1'); assert.equal(store.dch_mm_price_src_v1, 'guide');
   dom.window.close();
   ({dom, w, d} = await screen()); assert.equal(d.querySelector('#mmsrc').value, 'guide'); dom.window.close();
-  console.log(`B: default lists 878/878 (${pos} profit, ${neg} loss, ${zero} break even, ${none} no single figure on the fixture prices); Only profitable -> ${pos}; sort profit > loss > none; GE guide mode ${gk.slice(2).join('/')} and persists`);
+  console.log(`B: live counts stable after guide fetch and toggles; default lists 878/878 (${pos} profit, ${neg} loss, ${zero} break even, ${none} no single figure on the fixture prices); Only profitable -> ${pos}; sort profit > loss > none; GE guide mode ${gk.slice(2).join('/')} and persists`);
 })().catch(e => { console.error(e); process.exit(1); });
