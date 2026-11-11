@@ -1255,11 +1255,14 @@ html{scrollbar-gutter:stable}
 @media(max-width:420px){.ge-heading{align-items:flex-start}.ge-source{width:100%;text-align:center}.ge-frame{height:80vh;height:80dvh;min-height:440px}}
 
 /* Live prices: text-only updates; no hover/press transforms or global selectors. */
-.live-price-banner{padding:10px 12px;margin:0 0 12px;border:1px solid var(--edge2);border-radius:6px;background:#10090a;color:var(--muted);font-size:12px;line-height:1.5;min-width:0;overflow-wrap:anywhere}
-.live-price-banner b{color:var(--text)}
+/* Circled source/explanatory copy lives in a collapsed Details & sources section. */
+.src-info{margin:0 0 8px;color:var(--muted);font-size:12px;line-height:1.5;min-width:0;overflow-wrap:anywhere}
+.src-info>summary{cursor:pointer;color:var(--muted);font-size:.9em;margin:4px 0}
+.src-info b{color:var(--text)}
+.live-price-banner{margin:0 0 12px}
 .live-price{display:inline-block;max-width:100%;white-space:normal;overflow-wrap:anywhere;vertical-align:top}
 .price-age{display:block;font-size:11px;line-height:1.4;color:var(--muted);font-weight:400;white-space:normal;overflow-wrap:anywhere}
-@media(max-width:420px){.live-price-banner{padding:8px;font-size:11px}.live-price{font-size:12px}.price-age{font-size:10px}}
+@media(max-width:420px){.src-info,.live-price-banner{font-size:11px}.live-price{font-size:12px}.price-age{font-size:10px}}
 
 /* Only the long download label may wrap at phone widths; no transforms or grid changes. */
 @media (max-width:420px){
