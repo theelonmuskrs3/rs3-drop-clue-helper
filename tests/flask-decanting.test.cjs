@@ -113,11 +113,21 @@ async function screen(hash, store = {}, feed = 'full') {
 const cellsOf = d => [...d.querySelectorAll('#fd-table tbody tr:not(.fd-detail)')].map(tr => [...tr.querySelectorAll('td')]);
 const val = td => { const t = td.textContent.trim(); return t === '—' ? null : (t.startsWith('−') ? -1 : 1) * Number(t.replace(/[−,]/g, '')); };
 (async () => {
+  // Flask decanting uses ONLY the Wiki guide prices (owner 11 Nov 2026). The trade feed is deliberately different from the guide
+  // prices ('full' feed: 30,000/29,000 flasks, 1,000/900 vials; 'varied': random), so any trade price leaking in is caught.
+  const GG = () => ({prices: goldenGuide()});
+  const exp = (c, sell, vial, fl, gross) => c.flasks * sell - c.vials * vial - c.flasks * fl - (gross ? 0 : c.flasks * Math.floor(sell / 50));
+  const wikiCheck = (d, gross) => { const names = [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask), rows = cellsOf(d); let n = 0;
+    names.forEach((f, ri) => { const r = D.rows.find(x => x.flask === f), g = FX.rows.find(x => x.flask === f);
+      D.columns.forEach((c, i) => { const sell = FX.guide[r.f6.n], want = gross ? g.values[i] : g.values[i] - c.flasks * Math.floor(sell / 50);
+        assert.equal(val(rows[ri][i]), want, `${f} ${c.key} ${gross ? 'gross' : 'net'}`); n++; }); });
+    return n; };
+  const waitGuide = async d => { for (let i = 0; i < 100 && !/as of|unavailable/.test(d.querySelector('#fd-flask').textContent); i++) await tick(); };
+  GUIDE_MOCK = GG();
   let {dom, w, d} = await screen('calculators/flask-decanting', {mystats_v2: '{"Attack":99}'});
+  await waitGuide(d);
   assert.equal(d.querySelector('.tabs button.on').dataset.tab, 'calculators');
-  assert.ok(d.querySelector('.live-price-banner'), 'shared live-price banner and status');
   assert.equal(d.querySelectorAll('#view iframe').length, 0);
-  // one compact Wiki-style table at every width: never turned into phone cards, scrolls inside its own box
   const tb = d.querySelector('#fd-table table'); assert.ok(tb.classList.contains('fd-wtable')); assert.ok(!tb.classList.contains('rtable'), 'not a phone-card table');
   assert.ok(d.querySelector('#fd-table').classList.contains('fd-scroll'));
   { const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'); assert.match(css, /\.fd-scroll\{overflow-x:auto/); assert.match(css, /\.fd-wtable\{[^}]*min-width:600px/); }
@@ -125,200 +135,85 @@ const val = td => { const t = td.textContent.trim(); return t === '—' ? null :
   assert.deepEqual([...d.querySelectorAll('#fd-table thead th')].map(t => t.textContent.replace(/[⇅▲▼]/g, '')), ['Flask', ...D.columns.map(c => c.label)]);
   assert.equal(d.querySelectorAll('#fd-table thead button.fd-sort').length, 5, 'every column header sorts');
   assert.ok([...d.querySelectorAll('#fd-table tbody tr th button.fd-name')].every(b => b.querySelector('img.calc-ico[src^="icons/"]')), 'potion picture + name first column');
-  assert.equal(d.querySelectorAll('.calc-unavail').length, 0, 'no Unavailable panels'); assert.doesNotMatch(d.querySelector('#fd-table').textContent, /Unavailable/);
-  // every one of the 344 cells is a number from the same prices: net = flasks x (sell - floor(sell/50)) - vials x buy - flasks x flask buy
-  const exp = (c, sell, vial, fl, gross) => c.flasks * sell - c.vials * vial - c.flasks * fl - (gross ? 0 : c.flasks * Math.floor(sell / 50));
-  { const cs = cellsOf(d); let n = 0; cs.forEach(r => r.forEach((td, i) => { assert.equal(val(td), exp(D.columns[i], 29000, 1000, 1000)); n++; })); assert.equal(n, 344); }
-  assert.equal(cellsOf(d)[0][0].textContent, '21,420'); assert.equal(cellsOf(d)[0][2].textContent, '50,840');
-  assert.ok(cellsOf(d).flat().every(td => td.querySelector('span.gpc')), 'coins icon on every profit cell (CSS, not read out)');
-  // explanations are in one collapsed "Details & sources" section under the table; controls and table stay up front
-  { const info = d.querySelector('details#fd-info'); assert.ok(info); assert.equal(info.open, false, 'collapsed by default'); assert.equal(info.querySelector('summary').textContent, 'Details & sources');
-    const sec = d.querySelector('section.calc-native-panel'), kids = [...sec.children];
-    assert.equal(d.querySelectorAll('section.calc-native-panel details').length, 1, 'one disclosure (How it is worked out is inside it)');
-    for (const id of ['fd-status', 'fd-flask', 'fd-show-help', 'fd-src-what', 'fd-src-help']) assert.ok(info.contains(d.getElementById(id)), id + ' inside the closed Details');
-    assert.match(info.textContent, /How it is worked out/); assert.match(info.textContent, /Profit or loss from buying potions/); assert.match(info.textContent, /CC BY-NC-SA 3\.0/);
-    assert.ok(kids.indexOf(d.querySelector('#fd-table')) < kids.indexOf(info), 'Details below the table');
-    for (const id of ['fd-q', 'fd-show', 'fd-src', 'fd-count', 'fd-table']) assert.ok(!info.contains(d.getElementById(id)), id + ' up front');
-    assert.deepEqual(kids.filter(e => e.matches('p.note') && !e.hidden && e.id !== 'fd-count').map(e => e.id + ':' + e.textContent), [], 'no prose paragraphs outside Details');
-    assert.equal(d.querySelector('#fd-count').textContent, '86 potions'); assert.equal(d.querySelector('#fd-alert').hidden, true, 'no alert when prices are fine');
-    assert.match(d.querySelector('#fd-flask').textContent, /Empty potion flask: Buy 1,000 gp/); assert.match(d.querySelector('#fd-status').textContent, /^86 of 86 potions · net profit/);
-    info.open = true; assert.equal(cellsOf(d)[0][0].textContent, '21,420', 'opening Details does not change the table'); }
-  assert.match(cellsOf(d)[0][0].title, /Gross 22,000 gp · tax 580 gp · net 21,420 gp/);
-  { const s = d.querySelector('#fd-show'); assert.deepEqual([...s.options].map(o => o.textContent), ['Net profit', 'Gross profit']); assert.equal(s.getAttribute('aria-describedby'), 'fd-show-help'); assert.equal(d.querySelector('#fd-show-help').textContent, 'Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.'); }
+  // no price choice: one compact label up front; Net by default = Wiki gross - per-flask tax, all 344 cells
+  assert.equal(d.querySelector('select#fd-src'), null, 'no price dropdown'); assert.equal(d.querySelector('#fd-src').textContent, 'Wiki guide prices');
+  assert.equal(d.querySelector('#fd-show').value, 'net'); assert.equal(wikiCheck(d, false), 344, '344 net cells from guide prices only');
+  assert.ok(cellsOf(d).flat().every(td => td.querySelector('span.gpc')), 'coins icon on every profit cell');
+  assert.equal(d.querySelectorAll('#fd-table td.fd-g').length, 0); assert.equal(d.querySelectorAll('#fd-table td.fd-unk').length, 0);
   d.querySelector('#fd-show').value = 'gross'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
-  assert.equal(cellsOf(d)[0][0].textContent, '22,000'); assert.match(d.querySelector('#fd-status').textContent, /gross profit \(before tax\)/); assert.equal(d.querySelector('#fd-count').textContent, '86 potions');
+  assert.equal(wikiCheck(d, true), 344, 'Gross = the Wiki calculator, 344/344'); assert.equal(w.localStorage.getItem('dch_calc_fd_show_v1'), 'gross');
   d.querySelector('#fd-show').value = 'net'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
-  const q = d.querySelector('#fd-q'); q.value = 'super restore'; q.dispatchEvent(new w.Event('input'));
-  assert.equal(cellsOf(d).length, 1); assert.equal(d.querySelector('#fd-count').textContent, '1 of 86 potions'); assert.match(d.querySelector('#fd-status').textContent, /^1 of 86/);
-  q.value = ''; q.dispatchEvent(new w.Event('input'));
-  // tap a potion name: one compact row with the prices used and their trade times
+  // Details: collapsed, below the table, says Wiki guide prices with their daily as-of time; no "latest trade" wording
+  { const info = d.querySelector('details#fd-info'); assert.equal(info.open, false); assert.equal(info.querySelector('summary').textContent, 'Details & sources');
+    const sec = d.querySelector('section.calc-native-panel'), kids = [...sec.children];
+    for (const id of ['fd-status', 'fd-flask', 'fd-show-help', 'fd-src-what', 'fd-src-help']) assert.ok(info.contains(d.getElementById(id)), id + ' inside the closed Details');
+    for (const id of ['fd-q', 'fd-show', 'fd-src', 'fd-count', 'fd-table']) assert.ok(!info.contains(d.getElementById(id)), id + ' up front');
+    assert.ok(kids.indexOf(d.querySelector('#fd-table')) < kids.indexOf(info), 'Details below the table');
+    assert.deepEqual(kids.filter(e => e.matches('p.note') && !e.hidden && e.id !== 'fd-count').map(e => e.id), [], 'no prose outside Details');
+    assert.match(d.querySelector('#fd-src-what').textContent, /^Wiki guide prices: Jagex's official Grand Exchange guide price for every item, updated once a day/);
+    assert.match(d.querySelector('#fd-flask').textContent, new RegExp('Empty potion flask: Buy ' + FX.guide['Potion flask'].toLocaleString('en-US') + ' gp \\(GE guide price, Nov 11, 2026, 2:14 AM ET\\)\\. GE guide prices \\(Jagex, via api\\.weirdgloop\\.org\\): as of Nov 11, 2026, 2:14 AM ET\\.'));
+    assert.match(d.querySelector('#fd-status').textContent, /^86 of 86 potions · net profit .* · GE guide prices \(as the Wiki\)$/);
+    assert.doesNotMatch(info.textContent, /latest recorded trade|Items prices|marked G/); assert.match(info.textContent, /How it is worked out/); assert.match(info.textContent, /CC BY-NC-SA 3\.0/);
+    assert.equal(d.querySelector('#fd-count').textContent, '86 potions'); assert.equal(d.querySelector('#fd-alert').hidden, true); }
+  // tap a potion: prices used, each labelled GE guide price with its date (no trade ages)
   d.querySelector('#fd-table button.fd-name').click();
-  { const det = d.querySelector('#fd-table tr.fd-detail'); assert.ok(det); assert.equal(d.querySelector('#fd-table button.fd-name').getAttribute('aria-expanded'), 'true');
-    assert.match(det.textContent, /Sell 1 × Aggression flask \(6\): 29,000 gp \(est\. tax 580 gp each\)/); assert.match(det.textContent, /Buy 1 × Potion flask: 1,000 gp/); assert.match(det.textContent, /min ago/); }
-  d.querySelector('#fd-table button.fd-name').click(); assert.equal(d.querySelectorAll('#fd-table tr.fd-detail').length, 0);
-  // favourite from the native page, independent key, stats untouched
-  const star = d.querySelector('#fd-star'); assert.equal(star.getAttribute('aria-pressed'), 'false'); star.click();
-  assert.equal(star.getAttribute('aria-pressed'), 'true'); assert.deepEqual(JSON.parse(w.localStorage.getItem(C.FAV_KEY)).map(f => f.path), [D.path]);
-  assert.equal(w.localStorage.getItem('mystats_v2'), '{"Attack":99}');
+  { const det = d.querySelector('#fd-table tr.fd-detail').textContent, r0 = D.rows.find(r => r.flask === d.querySelector('#fd-table button.fd-name').dataset.flask);
+    assert.match(det, new RegExp('Sell 1 × ' + r0.f6.n.replace(/[()]/g, '\\$&') + ': ' + FX.guide[r0.f6.n].toLocaleString('en-US') + ' gp \\(est\\. tax')); assert.match(det, /GE guide price, Nov 11, 2026, 2:14 AM ET/); assert.doesNotMatch(det, /last trade|min ago/); }
+  d.querySelector('#fd-table button.fd-name').click();
+  // requests: only the calculator's own 431 item IDs, at most 100 per request; cached
+  { const asked = GUIDE_MOCK.calls.flatMap(u => u.slice(GUIDE_URL.length).split('|')); assert.ok(GUIDE_MOCK.calls.every(u => u.slice(GUIDE_URL.length).split('|').length <= 100));
+    assert.equal(new Set(asked).size, Object.keys(byName).length); }
+  // header sort + favourites unchanged
+  { const col = 2, sb = () => d.querySelectorAll('#fd-table thead button.fd-sort')[col + 1];
+    sb().click(); let v = cellsOf(d).map(r => val(r[col])); assert.deepEqual(v, [...v].sort((a, b) => b - a));
+    sb().click(); v = cellsOf(d).map(r => val(r[col])); assert.deepEqual(v, [...v].sort((a, b) => a - b));
+    const nameB = () => d.querySelectorAll('#fd-table thead button.fd-sort')[0], nmz = () => [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask), az = [...nmz()].sort((a, b) => a.localeCompare(b));
+    nameB().click(); assert.deepEqual(nmz(), az); nameB().click(); assert.deepEqual(nmz(), [...az].reverse()); nameB().click(); assert.deepEqual(nmz(), az); }
+  { const star = d.querySelector('#fd-star'); star.click(); assert.deepEqual(JSON.parse(w.localStorage.getItem(C.FAV_KEY)).map(f => f.path), [D.path]); assert.equal(w.localStorage.getItem('mystats_v2'), '{"Attack":99}'); }
   for (const a of d.querySelectorAll('#view a[target="_blank"]')) assert.equal(a.rel, 'noopener noreferrer');
-  const favs = w.localStorage.getItem(C.FAV_KEY); dom.window.close();
-  // decanting-only (owner decision 2026-11-11): #calculators is this calculator; its favourite survives the stale-favourite prune
-  ({dom, w, d} = await screen('calculators', {[C.FAV_KEY]: favs}));
-  for (let i = 0; i < 50 && !d.querySelector('#fd-table tbody tr'); i++) await tick();
-  assert.equal(w.location.hash, '#calculators/flask-decanting'); assert.deepEqual(C.NATIVE.map(n => n.slug), ['flask-decanting']);
-  assert.equal(cellsOf(d).length, 86); assert.equal(d.querySelector('#view a[href="#calculators"]'), null, 'no "All calculators" link');
-  assert.equal(d.querySelectorAll('#calc-native, #calc-upcoming').length, 0); assert.equal(d.querySelector('#fd-star').getAttribute('aria-pressed'), 'true');
-  assert.equal(w.localStorage.getItem(C.FAV_KEY), favs);
-  dom.window.close();
-  // THE USER'S CASE: every trade 11 hours old (normal on the live API). Same as the Items tab: the prices are shown with their
-  // age, not rejected, so all 344 cells are numbers; the Items tab's own quote for the same item shows the same price.
-  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'stale'));
-  { let n = 0; cellsOf(d).forEach(r => r.forEach((td, i) => { assert.equal(val(td), exp(D.columns[i], 29000, 1000, 1000)); n++; })); assert.equal(n, 344, '344 numeric cells with 11-hour-old prices');
-    assert.doesNotMatch(d.querySelector('#fd-table').textContent, /Unavailable|stale/i);
-    assert.match(d.querySelector('#fd-flask').textContent, /Empty potion flask: Buy 1,000 gp \(last trade 11 h ago\)/);
-    assert.match(cellsOf(d)[0][0].title, /oldest price 11 h ago/);
-    const r0 = D.rows[0]; assert.match(w.__t.quoteContents(r0.f6.n, 'sell').replace(/<[^>]+>/g, ''), /Sell 29,000 gp · stale/, 'Items tab shows this same 11-hour-old quote'); }
-  dom.window.close();
-  // varied prices per item and trade times hours/days old: every cell equals the formula on the Items tab's quote values
-  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'varied'));
-  { const book = w.__t.book, P = (it, side) => book.quote(it.id, side).value; let n = 0;
-    const rows = cellsOf(d), names = [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask);
-    names.forEach((f, ri) => { const r = D.rows.find(x => x.flask === f); D.columns.forEach((c, i) => {
-      const sell = P(r.f6, 'sell'), e = c.flasks * (sell - Math.floor(sell / 50)) - c.vials * P(r['v' + c.dose], 'buy') - c.flasks * P(D.flask, 'buy');
-      assert.equal(val(rows[ri][i]), e, f + ' ' + c.key); n++; }); });
-    assert.equal(n, 344);
-    // header sort: best first, then lowest first, then back to potion name; ties/unknown last
-    const col = 2, sb = () => d.querySelectorAll('#fd-table thead button.fd-sort')[col + 1];
-    sb().click(); let v = cellsOf(d).map(r => val(r[col])); assert.deepEqual(v, [...v].sort((a, b) => b - a)); assert.equal(d.querySelectorAll('#fd-table thead th')[col + 1].getAttribute('aria-sort'), 'descending');
-    sb().click(); v = cellsOf(d).map(r => val(r[col])); assert.deepEqual(v, [...v].sort((a, b) => a - b)); assert.equal(d.querySelectorAll('#fd-table thead th')[col + 1].getAttribute('aria-sort'), 'ascending');
-    assert.deepEqual(JSON.parse(w.localStorage.getItem('dch_calc_fd_sort_v1')), {k: D.columns[col].key, d: 'asc'});
-    // Flask (name) header: A to Z, then Z to A, then A to Z again; aria-sort and the arrow follow the actual row order (8799 browser bug)
-    const nameB = () => d.querySelectorAll('#fd-table thead button.fd-sort')[0], nameTh = () => d.querySelectorAll('#fd-table thead th')[0];
-    const nmz = () => [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask), az = [...nmz()].sort((a, b) => a.localeCompare(b));
-    nameB().click(); assert.deepEqual(nmz(), az); assert.equal(nameTh().getAttribute('aria-sort'), 'ascending'); assert.match(nameB().textContent, /▲/);
-    nameB().click(); assert.deepEqual(nmz(), [...az].reverse()); assert.equal(nmz()[0], az[az.length - 1]); assert.equal(nameTh().getAttribute('aria-sort'), 'descending'); assert.match(nameB().textContent, /▼/);
-    assert.deepEqual(JSON.parse(w.localStorage.getItem('dch_calc_fd_sort_v1')), {k: '', d: 'desc'});
-    nameB().click(); assert.deepEqual(nmz(), az); assert.equal(nmz()[0], 'Aggression flask'); assert.equal(nameTh().getAttribute('aria-sort'), 'ascending'); }
-  dom.window.close();
-  // saved Z to A order is restored on reload
-  ({dom, w, d} = await screen('calculators/flask-decanting', {dch_calc_fd_sort_v1: JSON.stringify({k: '', d: 'desc'})}));
-  { const nm = [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask); assert.deepEqual(nm, [...nm].sort((a, b) => b.localeCompare(a)));
-    assert.equal(d.querySelectorAll('#fd-table thead th')[0].getAttribute('aria-sort'), 'descending'); }
-  // default (nothing saved): A to Z, and the Flask header says ascending
-  { const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8');
-    assert.match(css, /\.fd-wtable th\{opacity:1\}/, 'pinned cells not see-through'); assert.match(css, /\.fd-wtable tbody th\{[^}]*position:sticky;left:0;background:#[0-9a-f]{6};/); assert.match(css, /\.fd-wtable thead th\{[^}]*background:#[0-9a-f]{6};/); }
-  dom.window.close();
-  // a refresh keeps an opened price row open and shows the new quote
-  ({dom, w, d} = await screen('calculators/flask-decanting'));
-  { const SA = D.rows.find(r => r.flask === 'Super antifire flask');
-    [...d.querySelectorAll('#fd-table button.fd-name')].find(b => b.dataset.flask === SA.flask).click();
-    const ts = Date.now() / 1000 - 5, data = JSON.parse(JSON.stringify(w.__t.book.data));
-    data[SA.f6.id] = {high: 46000, low: 45221, highTime: ts, lowTime: ts};
-    w.__t.book.setLatest({data}, Date.now()); w.__t.refresh();
-    const det = d.querySelector('#fd-table tr.fd-detail'); assert.ok(det, 'still open after price refresh');
-    assert.match(det.textContent, /Sell 1 × Super antifire flask \(6\): 45,221 gp \(est\. tax 904 gp each\)/, 'updated quote shown'); }
-  dom.window.close();
-  // an item with no recorded trade price: only the cells that need it are unknown (—), never 0; others stay numbers
-  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'partial'));
-  { const rows = cellsOf(d), i0 = [...d.querySelectorAll('#fd-table tbody button.fd-name')].findIndex(b => b.dataset.flask === D.rows[0].flask);
-    assert.equal(rows[i0][0].textContent, '—'); assert.match(rows[i0][0].title, /No price: Aggression potion \(1\)/);
-    assert.ok(rows[i0].slice(1).every(td => val(td) != null)); assert.equal(rows.flat().filter(td => td.textContent === '—').length, 1); }
-  dom.window.close();
-  // GE guide fallback: an item with no recorded trade gets its GE guide price, marked G; trade prices stay primary
-  GUIDE_MOCK = {prices: goldenGuide()};
-  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'partial'));
-  d.querySelector('#fd-info').open = true;   // Details opened before the guide prices arrive: its text still updates
-  for (let i = 0; i < 50 && !d.querySelector('#fd-table td.fd-g'); i++) await tick();
-  assert.equal(d.querySelector('#fd-info').open, true); assert.equal(d.querySelector('#fd-count').textContent, '86 potions · G = GE guide price');
-  { const r0 = D.rows[0], rows = cellsOf(d), i0 = [...d.querySelectorAll('#fd-table tbody button.fd-name')].findIndex(b => b.dataset.flask === r0.flask);
-    const gv = FX.guide[r0.v1.n], c = D.columns[0];
-    assert.equal(val(rows[i0][0]), c.flasks * (29000 - 580) - c.vials * gv - c.flasks * 1000, 'guide price for the vial only; trade prices for flask (6) and empty flask');
-    assert.ok(rows[i0][0].classList.contains('fd-g')); assert.match(rows[i0][0].title, /GE guide price used for Aggression potion \(1\)/);
-    assert.equal(d.querySelectorAll('#fd-table td.fd-g').length, 1, 'only the result that needed it is marked'); assert.equal(d.querySelectorAll('#fd-table td.fd-unk').length, 0);
-    assert.match(d.querySelector('#fd-src-help').textContent, /^G: 1 result uses a GE guide price for an item with no recorded trade\.$/);
-    assert.match(d.querySelector('#fd-flask').textContent, /GE guide prices \(Jagex, via api\.weirdgloop\.org\): as of Nov 11, 2026, 2:14 AM ET\./);
-    [...d.querySelectorAll('#fd-table button.fd-name')][i0].click();
-    assert.match(d.querySelector('#fd-table tr.fd-detail').textContent, new RegExp('Buy 1 × Aggression potion \\(1\\): ' + gv.toLocaleString('en-US') + ' gp GE guide price, Nov 11, 2026, 2:14 AM ET'));
-    assert.match(d.querySelector('#fd-table tr.fd-detail').textContent, /Aggression potion \(2\): 1,000 gp last trade/);
-    // requests: only the calculator's own 431 item IDs, at most 100 per request
-    const asked = GUIDE_MOCK.calls.flatMap(u => u.slice(GUIDE_URL.length).split('|')); assert.ok(GUIDE_MOCK.calls.every(u => u.slice(GUIDE_URL.length).split('|').length <= 100));
-    assert.equal(new Set(asked).size, Object.keys(byName).length); assert.ok(asked.every(id => Object.values(byName).includes(+id)));
-    const cache = JSON.parse(w.localStorage.getItem('dch_ge_guide_cache_v1')); assert.equal(cache.prices[r0.v1.id].price, gv); assert.equal(cache.prices[r0.v1.id].timestamp, '2026-11-11T07:14:05.000Z'); }
-  // "Prices: GE guide (as the Wiki)": every item at its guide price; Gross profit = the Wiki calculator's own rendered numbers, all 344
-  { const src = d.querySelector('#fd-src'); assert.deepEqual([...src.options].map(o => o.textContent), ['Items prices', 'Wiki guide prices']);
-    assert.equal(d.querySelector('label[for="fd-src"]').textContent, 'Prices'); assert.equal(src.getAttribute('aria-describedby'), 'fd-src-what fd-src-help');
-    assert.equal(d.querySelector('#fd-src-what').textContent, 'Items prices: latest Grand Exchange trades, as on the Items tab (an item with no trade uses its GE guide price, marked G). Wiki guide prices: Jagex GE guide prices for every item, as the Wiki calculator uses.');
-    src.value = 'guide'; src.dispatchEvent(new w.Event('change')); assert.equal(w.localStorage.getItem('dch_calc_fd_src_v1'), 'guide');
-    d.querySelectorAll('#fd-table thead button.fd-sort')[0].click(); if (d.querySelectorAll('#fd-table thead th')[0].getAttribute('aria-sort') !== 'ascending') d.querySelectorAll('#fd-table thead button.fd-sort')[0].click();
-    d.querySelector('#fd-show').value = 'gross'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
-    const names = [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask), rows = cellsOf(d); let n = 0;
-    names.forEach((f, ri) => { const g = FX.rows.find(x => x.flask === f); g.values.forEach((v, i) => { assert.equal(val(rows[ri][i]), v, 'Wiki cell ' + f + ' ' + i); n++; }); });
-    assert.equal(n, 344, '344/344 equal the Wiki-rendered cells');
-    assert.equal(d.querySelectorAll('#fd-table td.fd-g').length, 0, 'no G marks when every price is a guide price');
-    assert.match(d.querySelector('#fd-status').textContent, /GE guide prices \(as the Wiki\)/); assert.equal(d.querySelector('#fd-count').textContent, '86 potions'); assert.match(d.querySelector('#fd-src-help').textContent, /the Wiki shows gross profit/);
-    d.querySelector('#fd-show').value = 'net'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
-    const ag = FX.guide['Aggression flask (6)']; assert.equal(val(cellsOf(d)[names.indexOf('Aggression flask')][0]), FX.rows[0].values[0] - Math.floor(ag / 50), 'net = Wiki gross - per-flask tax'); }
   const savedGuide = w.localStorage.getItem('dch_ge_guide_cache_v1'); dom.window.close();
-  // reload keeps Gross and Wiki guide prices (8801 browser bug: Gross came back as Net); default stays Net / Items prices
-  { const st = {dch_ge_guide_cache_v1: savedGuide, dch_calc_fd_src_v1: 'guide', dch_calc_fd_show_v1: 'gross'};
-    GUIDE_MOCK = {prices: goldenGuide()};
-    ({dom, w, d} = await screen('calculators/flask-decanting', st));
-    assert.equal(d.querySelector('#fd-show').value, 'gross'); assert.equal(d.querySelector('#fd-src').value, 'guide');
-    const i0 = [...d.querySelectorAll('#fd-table tbody button.fd-name')].findIndex(b => b.dataset.flask === FX.rows[0].flask);
-    assert.equal(val(cellsOf(d)[i0][0]), FX.rows[0].values[0], 'reloaded Gross + Wiki guide = Wiki cell');
-    d.querySelector('#fd-show').value = 'net'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change')); assert.equal(w.localStorage.getItem('dch_calc_fd_show_v1'), 'net'); dom.window.close();
-    ({dom, w, d} = await screen('calculators/flask-decanting', {dch_calc_fd_show_v1: 'net', dch_calc_fd_src_v1: 'guide', dch_ge_guide_cache_v1: savedGuide}));
-    assert.equal(d.querySelector('#fd-show').value, 'net'); assert.equal(d.querySelector('#fd-src').value, 'guide'); dom.window.close();
-    ({dom, w, d} = await screen('calculators/flask-decanting', {dch_calc_fd_show_v1: 'bogus', dch_calc_fd_src_v1: 'bogus'}));
-    assert.equal(d.querySelector('#fd-show').value, 'net'); assert.equal(d.querySelector('#fd-src').value, 'live', 'unknown stored values fall back to the defaults'); dom.window.close();
-    ({dom, w, d} = await screen('calculators/flask-decanting'));
-    assert.equal(d.querySelector('#fd-show').value, 'net'); assert.equal(d.querySelector('#fd-src').value, 'live', 'defaults unchanged'); dom.window.close(); }
-  { const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'); assert.match(css, /#fd-src,#fd-show\{max-width:100%;min-width:0\}/); }
-  // saved guide copy is used (and said so) when a refresh fails
-  { const cached = savedGuide; const old = JSON.parse(cached); old.fetchedAt = Date.now() - 5 * 3600e3;
-    GUIDE_MOCK = {fail: 503};
-    ({dom, w, d} = await screen('calculators/flask-decanting', {dch_ge_guide_cache_v1: JSON.stringify(old)}, 'partial'));
-    for (let i = 0; i < 50 && !/refresh failed/.test(d.querySelector('#fd-flask').textContent); i++) await tick();
-    assert.match(d.querySelector('#fd-flask').textContent, /as of Nov 11, 2026, 2:14 AM ET \(saved copy; refresh failed\)/);
-    assert.equal(d.querySelectorAll('#fd-table td.fd-g').length, 1); assert.equal(d.querySelectorAll('#fd-table td.fd-unk').length, 0);
-    assert.equal(d.querySelector('#fd-alert').hidden, false); assert.equal(d.querySelector('#fd-alert').textContent, 'GE guide prices could not be refreshed (using saved copy).'); dom.window.close(); }
-  // guide source down and nothing saved: the gap stays — (never 0), and the page says the guide prices are unavailable
-  GUIDE_MOCK = {fail: 503};
-  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'partial'));
-  for (let i = 0; i < 50 && !/unavailable/.test(d.querySelector('#fd-flask').textContent); i++) await tick();
-  assert.match(d.querySelector('#fd-flask').textContent, /GE guide prices unavailable \(HTTP 503\)/); assert.equal(d.querySelectorAll('#fd-table td.fd-unk').length, 1); assert.equal(d.querySelectorAll('#fd-table td.fd-g').length, 0);
-  assert.equal(d.querySelector('#fd-alert').textContent, 'GE guide prices could not be loaded.'); assert.equal(d.querySelector('#fd-alert').hidden, false);
+  // LEGACY saved "Items prices" choice (and varied, very different trade prices): ignored, still guide prices; the old key is left alone
+  GUIDE_MOCK = GG();
+  ({dom, w, d} = await screen('calculators/flask-decanting', {dch_calc_fd_src_v1: 'live', dch_calc_fd_show_v1: 'gross'}, 'varied')); await waitGuide(d);
+  assert.equal(d.querySelector('#fd-show').value, 'gross', 'Net/Gross choice kept'); assert.equal(wikiCheck(d, true), 344, 'legacy live choice ignored: 344 Wiki cells');
+  assert.equal(w.localStorage.getItem('dch_calc_fd_src_v1'), 'live', 'old key not deleted'); assert.equal(d.querySelectorAll('#fd-table td.fd-g').length, 0); dom.window.close();
+  ({dom, w, d} = await screen('calculators/flask-decanting', {dch_calc_fd_src_v1: 'guide', dch_calc_fd_show_v1: 'bogus'})); await waitGuide(d);
+  assert.equal(d.querySelector('#fd-show').value, 'net'); assert.equal(wikiCheck(d, false), 344); dom.window.close();
+  // one item with no guide price: only its cell is —, never 0 (and no trade price substituted)
+  GUIDE_MOCK = {prices: {...goldenGuide(), [D.rows[0].v1.id]: undefined}};
+  ({dom, w, d} = await screen('calculators/flask-decanting')); await waitGuide(d);
+  { const rows = cellsOf(d), i0 = [...d.querySelectorAll('#fd-table tbody button.fd-name')].findIndex(b => b.dataset.flask === D.rows[0].flask);
+    assert.equal(rows[i0][0].textContent, '—'); assert.match(rows[i0][0].title, /No price: Aggression potion \(1\)/); assert.equal(d.querySelectorAll('#fd-table td.fd-unk').length, 1); }
   dom.window.close();
-  // bad guide data is never used: price 0, negative, fractional, text, or an answer for a different ID
+  // bad guide data is never used: 0, negative, fractional, text, null, or an answer for another ID
   for (const bad of [0, -5, 12.5, '900', null]) {
     GUIDE_MOCK = {prices: {...goldenGuide(), [D.rows[0].v1.id]: bad}};
-    ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'partial'));
-    for (let i = 0; i < 50 && !/as of/.test(d.querySelector('#fd-flask').textContent); i++) await tick();
+    ({dom, w, d} = await screen('calculators/flask-decanting')); await waitGuide(d);
     assert.equal(d.querySelectorAll('#fd-table td.fd-unk').length, 1, 'bad guide price ' + bad + ' not used'); dom.window.close(); }
   GUIDE_MOCK = {prices: goldenGuide(), wrongId: true};
-  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'partial'));
-  for (let i = 0; i < 30; i++) await tick();
-  assert.equal(d.querySelectorAll('#fd-table td.fd-unk').length, 1, 'an answer labelled with another ID is not used'); dom.window.close();
-  // trade price present: never replaced by a guide price (fresh or 11 hours old)
-  GUIDE_MOCK = {prices: goldenGuide()};
-  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'stale'));
-  for (let i = 0; i < 50 && !/as of/.test(d.querySelector('#fd-flask').textContent); i++) await tick();
-  { let n = 0; cellsOf(d).forEach(r => r.forEach((td, i) => { assert.equal(val(td), exp(D.columns[i], 29000, 1000, 1000)); n++; })); assert.equal(n, 344); assert.equal(d.querySelectorAll('#fd-table td.fd-g').length, 0); }
-  dom.window.close();
-  { const html = fs.readFileSync(path.join(base, 'index.html'), 'utf8'); assert.match(html, /connect-src 'self' https:\/\/prices\.runescape\.wiki https:\/\/api\.weirdgloop\.org;/); }
-  GUIDE_MOCK = null;
-  // missing empty-flask price: every result unknown (—), never 0, one short line instead of repeated panels
-  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'noflask'));
-  assert.match(d.querySelector('#fd-flask').textContent, /Empty potion flask: no recorded trade price yet/);
-  { const tds = cellsOf(d).flat(); assert.equal(tds.length, 344); assert.ok(tds.every(td => td.textContent === '—' && /Potion flask/.test(td.title))); }
-  dom.window.close();
-  // before the price list arrives: unknown (—), never 0
-  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'hang'));
-  { const tds = cellsOf(d).flat(); assert.equal(tds.length, 344); assert.ok(tds.every(td => td.textContent === '—')); assert.match(d.querySelector('#fd-flask').textContent, /Loading prices/); assert.equal(d.querySelector('#fd-alert').textContent, 'Loading prices…'); }
-  dom.window.close();
-  // unknown slug goes to Flask decanting (the only calculator)
+  ({dom, w, d} = await screen('calculators/flask-decanting')); for (let i = 0; i < 30; i++) await tick();
+  assert.equal(d.querySelectorAll('#fd-table td.fd-unk').length, 344, 'answers labelled with another ID are not used'); dom.window.close();
+  // refresh fails: the saved copy is used and said so; nothing saved: all —, never 0, alert
+  { const old = JSON.parse(savedGuide); old.fetchedAt = Date.now() - 5 * 3600e3; GUIDE_MOCK = {fail: 503};
+    ({dom, w, d} = await screen('calculators/flask-decanting', {dch_ge_guide_cache_v1: JSON.stringify(old)}));
+    for (let i = 0; i < 50 && !/refresh failed/.test(d.querySelector('#fd-flask').textContent); i++) await tick();
+    assert.match(d.querySelector('#fd-flask').textContent, /as of Nov 11, 2026, 2:14 AM ET \(saved copy; refresh failed\)/); assert.equal(wikiCheck(d, false), 344);
+    assert.equal(d.querySelector('#fd-alert').textContent, 'GE guide prices could not be refreshed (using saved copy).'); dom.window.close(); }
+  GUIDE_MOCK = {fail: 503};
+  ({dom, w, d} = await screen('calculators/flask-decanting')); await waitGuide(d);
+  assert.match(d.querySelector('#fd-flask').textContent, /GE guide prices unavailable \(HTTP 503\)/);
+  { const tds = cellsOf(d).flat(); assert.equal(tds.length, 344); assert.ok(tds.every(td => td.textContent === '—'), 'never 0, no trade fallback'); }
+  assert.equal(d.querySelector('#fd-alert').textContent, 'GE guide prices could not be loaded.'); dom.window.close();
+  { const html = fs.readFileSync(path.join(base, 'index.html'), 'utf8'); assert.match(html, /connect-src 'self' https:\/\/prices\.runescape\.wiki https:\/\/api\.weirdgloop\.org;/);
+    const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'); assert.match(css, /#fd-src,#fd-show\{max-width:100%;min-width:0\}/); }
+  // decanting-only route + unknown slug unchanged
+  GUIDE_MOCK = GG();
+  ({dom, w, d} = await screen('calculators'));
+  for (let i = 0; i < 50 && !d.querySelector('#fd-table tbody tr'); i++) await tick();
+  assert.equal(w.location.hash, '#calculators/flask-decanting'); assert.deepEqual(C.NATIVE.map(n => n.slug), ['flask-decanting']); assert.equal(cellsOf(d).length, 86); dom.window.close();
   ({dom, w, d} = await screen('calculators/not-a-calc'));
   for (let i = 0; i < 50 && !d.querySelector('#fd-title'); i++) await tick();
-  assert.equal(w.location.hash, '#calculators/flask-decanting'); assert.ok(d.querySelector('#fd-title')); dom.window.close();
-  console.log('PASS flask decanting: 344/344 Wiki golden cells, dose conservation, exact IDs, per-flask floor tax; screen: Items-tab prices incl. 11-hour-old trades -> 344/344 numeric cells (fresh, stale, varied), GE guide fallback (marked G, cache, failure, bad data, ID check) + GE guide mode = 344/344 Wiki-rendered cells, partial/no-flask/loading unknown (—) never 0, Wiki-style table (no phone cards), header sort, price rows, net/gross, favourites, decanting-only #calculators');
+  assert.equal(w.location.hash, '#calculators/flask-decanting'); dom.window.close();
+  void exp;
+  console.log('PASS flask decanting: 344/344 Wiki golden cells, dose conservation, exact IDs, per-flask floor tax; screen: Wiki guide prices only (no dropdown, legacy saved Items choice ignored, trade feed never used) -> Gross 344/344 = Wiki, Net = Wiki - per-flask tax; Net/Gross persists; gaps — never 0; bad/foreign guide data rejected; saved-copy and failure states');
 })().catch(e => { console.error(e); process.exit(1); });

@@ -1087,23 +1087,23 @@ async function flaskDecantView(n) {
       <a class="btn sub calc-source" href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Wiki calculator ↗</a></div></div>
     <div class="row calc-filters">
       <input id="fd-q" type="search" placeholder="Search potions" aria-label="Search potions" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <select id="fd-show" aria-label="Show" aria-describedby="fd-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><label class="fd-src-l" for="fd-src">Prices</label><select id="fd-src" aria-describedby="fd-src-what fd-src-help"><option value="live">Items prices</option><option value="guide">Wiki guide prices</option></select></div>
+      <select id="fd-show" aria-label="Show" aria-describedby="fd-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><span class="fd-src-l" id="fd-src" aria-describedby="fd-src-what fd-src-help">Wiki guide prices</span></div>
     <p class="note fd-alert" id="fd-alert" role="alert" hidden></p>
     <p class="note fd-count" id="fd-count" role="status" aria-live="polite"></p>
     <div id="fd-table" class="fd-scroll"></div>
     <details class="calc-assume-d fd-info" id="fd-info"><summary>Details &amp; sources</summary>
-    <p class="note">Profit or loss from buying potions in vials and empty potion flasks, decanting them into six-dose flasks and selling the flasks. Same potions and decanting options as the RuneScape Wiki <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Flask decanting</a> calculator (revision ${esc(D.source.pageRevision)}). Prices are the same Grand Exchange prices as the Items tab.</p>
+    <p class="note">Profit or loss from buying potions in vials and empty potion flasks, decanting them into six-dose flasks and selling the flasks. Same potions and decanting options as the RuneScape Wiki <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Flask decanting</a> calculator (revision ${esc(D.source.pageRevision)}). Prices: Jagex's official Grand Exchange guide prices (updated once a day), the prices the Wiki calculator uses.</p>
     <p class="note" id="fd-status"></p>
     <p class="note" id="fd-flask"></p>
     <p class="note" id="fd-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</p>
-    <p class="note" id="fd-src-what">Items prices: latest Grand Exchange trades, as on the Items tab (an item with no trade uses its GE guide price, marked G). Wiki guide prices: Jagex GE guide prices for every item, as the Wiki calculator uses.</p>
+    <p class="note" id="fd-src-what">Wiki guide prices: Jagex's official Grand Exchange guide price for every item, updated once a day, as the Wiki calculator uses (not the Items tab's latest trades). The time they are as of is shown below.</p>
     <p class="note" id="fd-src-help"></p>
     <p class="note">Formula and potion list: RuneScape Wiki, <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Calculator:Herblore/Flask decanting</a> and its row template (revisions ${esc(D.source.pageRevision)} / ${esc(D.source.rowTemplateRevision)}), CC BY-NC-SA 3.0. Item IDs: Module:GEIDs (revision ${esc(D.source.itemIdsRevision)}).</p>
     <h3 class="fd-info-h">How it is worked out</h3><ul class="note calc-assume">
-      <li>Prices: RuneScape Wiki Prices API (trade data supplied by Jagex), the same feed and numbers as the Items tab: each item's latest recorded trade. Vials and empty potion flasks at the Buy (high) price; six-dose flasks at the Sell (low) price.</li>
+      <li>Prices: each item's official Grand Exchange guide price (Jagex, via api.weirdgloop.org: the same values as the Wiki's Module:GEPrices), for vials, empty potion flasks and six-dose flasks alike. Gross profit matches the Wiki calculator.</li>
       <li>Net profit deducts the estimated 2% Grand Exchange tax on each flask sold, rounded down per flask. There is no tax on buying. Gross profit is before tax.</li>
       <li>Each result is for one decanting batch: 6 (1)s or 3 (2)s make 1 flask; 4 (3)s or 3 (4)s make 2 flasks. Leftover empty vials are not counted, as on the Wiki.</li>
-      <li>If an item has no recorded trade, its official Grand Exchange guide price (Jagex) is used instead — the price the Wiki's calculator uses — and the result is marked <b>G</b>. Choose "Wiki guide prices" to price every item that way; Gross profit then matches the Wiki calculator. An item with neither price shows —; it is never treated as 0.</li>
+      <li>An item with no guide price shows —; it is never treated as 0. Guide prices change once a day, so they can lag fast market moves; they are not guaranteed offers.</li>
       <li>Tap a potion name to see the prices used and where each came from.</li>
       <li>Potion flasks can be hard to buy on the Grand Exchange, and potion prices right after an update may not buy or sell at market price (Wiki note).</li></ul></details>
   </section>`;
@@ -1112,15 +1112,16 @@ async function flaskDecantView(n) {
     star.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${label} ${on ? 'from' : 'to'} favourites`); star.title = on ? 'Remove from favourites' : 'Save to favourites'; };
   star.onclick = () => { RS3Calc.toggle(CALC_LS, {path: D.path, label}); drawStar(); };
   drawStar();
-  const q = $('#fd-q'), show = $('#fd-show'), srcSel = $('#fd-src');
-  try { if (CALC_LS.getItem(FD_SRC_KEY) === 'guide') srcSel.value = 'guide'; if (CALC_LS.getItem(FD_SHOW_KEY) === 'gross') show.value = 'gross'; } catch (e) {}
+  const q = $('#fd-q'), show = $('#fd-show');
+  // Wiki guide prices only (owner 11 Nov 2026); an old saved "Items prices" choice (FD_SRC_KEY) is ignored, not deleted
+  try { if (CALC_LS.getItem(FD_SHOW_KEY) === 'gross') show.value = 'gross'; } catch (e) {}
   let sortKey = '', sortDir = 'asc';   // default: potion name A to Z
   try { const s = JSON.parse(CALC_LS.getItem(FD_SORT_KEY) || 'null'); if (s && (s.k === '' || cols.some(c => c.key === s.k)) && ['asc', 'desc'].includes(s.d)) { sortKey = s.k; sortDir = s.d; } } catch (e) {}
   const open = new Set();
   const num = v => (v < 0 ? '−' : '') + Math.abs(v).toLocaleString('en-GB');
   const priceLi = l => `<li>${liIco(l.n)}${l.side === 'sell' ? 'Sell' : 'Buy'} ${l.q} × ${esc(l.n)}: ${l.p.value == null ? `<span class="fd-unk">no recorded trade or guide price</span>` : `${gpH(l.p.value)}${l.side === 'sell' ? ` (est. tax ${gpH(RS3Prices.sellingTax(l.p.value, l.id))} each)` : ''} <small class="fd-age${l.p.src === 'guide' ? ' fd-gsrc' : ''}">${esc(fdWhen(l.p))}</small>`}</li>`;
   const draw = () => {
-    const mode = srcSel.value === 'guide' ? 'guide' : 'live', fq = fdPrice(D.flask, 'buy', mode), book = LIVE.book;
+    const mode = 'guide', fq = fdPrice(D.flask, 'buy', mode), book = LIVE.book;
     const fetched = book.fetchedAt ? priceTime(book.fetchedAt / 1000) : null;
     const gts = Object.values(GUIDE.prices).map(g => Date.parse(g.timestamp)).filter(Number.isFinite), gAsOf = gts.length ? priceTime(Math.max(...gts) / 1000) : null;
     const gLine = GUIDE.loading && !gts.length ? 'GE guide prices loading…' : gAsOf ? `GE guide prices (Jagex, via api.weirdgloop.org): as of ${gAsOf}${GUIDE.error ? ' (saved copy; refresh failed)' : ''}.` : `GE guide prices unavailable${GUIDE.error ? ' (' + GUIDE.error + ')' : ''}.`;
@@ -1157,7 +1158,6 @@ async function flaskDecantView(n) {
     if (nb) { const f = nb.dataset.flask; open.has(f) ? open.delete(f) : open.add(f); draw(); const b = [...document.querySelectorAll('#fd-table button.fd-name')].find(x => x.dataset.flask === f); if (b) b.focus(); }
   });
   q.addEventListener('input', draw); show.onchange = () => { try { CALC_LS.setItem(FD_SHOW_KEY, show.value); } catch (e) {} draw(); };
-  srcSel.onchange = () => { try { CALC_LS.setItem(FD_SRC_KEY, srcSel.value); } catch (e) {} draw(); };
   priceDraws.push(draw);
   draw();
   const ids = [D.flask.id, ...D.rows.flatMap(r => [r.f6.id, r.v1.id, r.v2.id, r.v3.id, r.v4.id])];
