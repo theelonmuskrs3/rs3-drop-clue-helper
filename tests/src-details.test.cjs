@@ -21,7 +21,7 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 10));
   assert.match(appSrc, /<details class="calc-assume-d fd-info" id="fd-info"><summary>Details &amp; sources<\/summary>/);
   assert.doesNotMatch(appSrc, /id="(live-price-info|ge-info|items-src-info|mm-src-info|fd-info)"[^>]*\sopen/);
   assert.match(appSrc, /Every skill's training guide from the RS3 wiki/);
-  assert.match(appSrc, /Private: saved automatically in this browser on this device only/);
+  assert.match(appSrc, /Private: levels and quest ticks are saved in this browser on this device only/);
   assert.match(cssSrc, /\.src-info>summary\{cursor:pointer/);
 }
 
@@ -129,8 +129,8 @@ function closedInfo(el, label) {
   assert.match(d.querySelector('#live-price-status').textContent, /Last successful price fetch:|Live source unavailable or loading|Offline/);
   const hero = d.querySelector('.chhero');
   assert.ok(hero && !banner.contains(hero), 'Character heading stays visible outside the banner details');
-  assert.match(hero.textContent, /Private: saved automatically in this browser on this device only|Your levels fit the gear/);
-  assert.doesNotMatch(banner.textContent, /Private: saved automatically|My Character/);
+  assert.match(hero.textContent, /Private: levels and quest ticks are saved in this browser on this device only|Your levels fit the gear/);
+  assert.doesNotMatch(banner.textContent, /Private: levels and quest ticks|Private: saved automatically|My Character/);
   assert.ok(d.querySelector('.skgrid') && !banner.contains(d.querySelector('.skgrid')), 'level inputs stay visible');
   const before = d.querySelector('#live-price-status').textContent;
   w.__t.book.online = false; w.__t.refresh();

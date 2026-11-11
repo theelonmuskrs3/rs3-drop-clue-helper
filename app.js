@@ -768,6 +768,49 @@ const CH_ICO = {
   train: '<path d="M2 13.5h12M3 10.5l3.2-3.2 2.4 2.2L13 4.8M9.8 4.5H13v3.2"/>',
   money: '<circle cx="8" cy="8" r="6.3"/><path d="M8 4v8M10.2 6c-.4-1-4.2-1.2-4.2.9 0 2.1 4.2 1 4.2 3.1 0 2-3.800 1.900-4.300.6"/>',
   quest: '<path d="M8 1.5l5.5 2v4c0 3.4-2.4 5.9-5.5 7-3.1-1.1-5.5-3.6-5.5-7v-4z"/><path d="M5.6 8l1.7 1.7 3.2-3.4"/>'};
+/* ----- account import (PR #20): official Player Data via the lookup service; applied all-or-nothing, only on success ----- */
+const ACCT_KEY = 'dch_account_v1';
+const ACCT = () => { try { const o = JSON.parse(lsGet(ACCT_KEY) || 'null'); return o && typeof o.name === 'string' ? o : null; } catch (e) { return null; } };
+/* lookup service base URL: <meta name="dch-player-api"> (the public Worker, used by the website and the Windows app alike); empty = import off */
+const PLAYER_API = () => { const m = document.querySelector('meta[name="dch-player-api"]'), c = m && m.content.trim();
+  if (c && /^https:\/\/[a-z0-9.-]+(\/[A-Za-z0-9._\/-]*)?$/.test(c)) return c.replace(/\/$/, '');
+  return null; };
+function acctNote() {
+  const a = ACCT(); if (PLAYER_API() == null) return 'Import is not switched on in this version yet.';
+  if (!a) return 'Official data updates when you log out or hop worlds and can be up to 10 minutes behind (not live).';
+  const q = a.quests ? ` ${a.completed} quests completed officially, ${a.qp}/${a.qpMax} QP.` : ' Quests not available from the HiScores fallback.';
+  return `Imported ${a.name} from ${a.source === 'hiscores' ? 'the official HiScores' : 'official Player Data'} ${new Date(a.at).toLocaleString()}.${q} Not live: updates on logout or world hop, up to 10 min behind.`;
+}
+const ACCT_ERR = {invalid_name: 'That is not a valid RuneScape name (1-12 letters, numbers, spaces, - or _).', not_found: 'No player with that name on the official RuneScape APIs (or the account is not ranked).',
+  upstream_unavailable: 'The official RuneScape APIs did not answer. Nothing was changed; try again in a few minutes.', rate_limited: 'Too many lookups. Nothing was changed; wait a minute.',
+  no_levels: 'No levels came back for that name. Nothing was changed.', bad_response: 'The lookup answer was not valid. Nothing was changed.', network: 'Could not reach the lookup service. Nothing was changed.'};
+async function acctImport(raw, done) {
+  const st = document.getElementById('chimps'), b = document.getElementById('chimpb'), say = t => { if (st) st.textContent = t; };
+  const base = PLAYER_API(), name = DCHImport.normName(raw || '');
+  if (base == null) return say(acctNote());
+  if (!name) return say(ACCT_ERR.invalid_name);
+  if (b) b.disabled = true; say('Looking up ' + name + '…');
+  let resp = null;
+  try { const ac = new AbortController(), t = setTimeout(() => ac.abort(), 15000);
+    const r = await fetch(`${base}/v1/player?rsn=${encodeURIComponent(name)}`, {signal: ac.signal, credentials: 'omit', cache: 'no-store'}); clearTimeout(t);
+    resp = await r.json().catch(() => null); }
+  catch (e) { if (b) b.disabled = false; return say(ACCT_ERR.network); }
+  if (b) b.disabled = false;
+  const qs = await get('data/quests.json').catch(() => []);
+  const cur = loadStats(), p = DCHImport.plan(resp, cur, SKORDER, k => [k === 'Constitution' ? 10 : 1, skMax(k)], qs);
+  if (!p.ok) return say(ACCT_ERR[p.error] || ACCT_ERR.bad_response);   // error / private / unranked: saved levels, ticks and name untouched
+  /* apply all at once; if storage refuses part way, put every touched key back */
+  const keys = [STATS_KEY, STATS_KEY + '_bak', ACCT_KEY, ...(p.quests ? p.quests.done.map(QDONE) : [])], old = keys.map(k => [k, lsGet(k)]);
+  try {
+    const j = JSON.stringify({v: 2, t: Date.now(), levels: p.levels});
+    localStorage.setItem(STATS_KEY, j); localStorage.setItem(STATS_KEY + '_bak', j);
+    if (p.quests) for (const t of p.quests.done) localStorage.setItem(QDONE(t), '1');   // only official completions are ticked; nothing is unticked
+    localStorage.setItem(ACCT_KEY, JSON.stringify({name: p.name, at: Date.now(), source: p.source, fetchedAt: p.fetchedAt, quests: !!p.quests,
+      qp: p.quests ? p.quests.qp : null, qpMax: p.quests ? p.quests.qpMax : null, completed: p.quests ? p.quests.completed : null, unmatched: p.quests ? p.quests.unmatched.length : null}));
+    STATS_SAVED = true; _stDirty = null;
+  } catch (e) { for (const [k, v] of old) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (x) {} } return say('This browser would not save the import. Nothing was changed.'); }
+  done && done();
+}
 async function charView(sub) {
   const S = loadStats(), BASE = {...S};
   let undo = null;
@@ -776,12 +819,13 @@ async function charView(sub) {
   const maxTot = SKORDER.reduce((a, k) => a + skMax(k), 0);
   const tiles = [['wear', 'Gear I can wear', 'Items filtered to your levels'], ['sets', 'Full sets I can wear', 'Whole armour sets that fit'], ['train', 'Training that fits me', 'Training guides for your levels'], ['money', 'Money making that fits', 'Methods that fit your levels'], ['quest', 'Quests to do', 'Quests you have not finished']];
   view.innerHTML = `<section class="panel chhero"><div class="chhead"><div class="chdds"><span class="chglow" aria-hidden="true"></span><img class="chwom" src="brand/wise-old-man-portrait.webp" width="305" height="512" alt="Wise Old Man with a white beard, round dark goggles and gold teeth, in a red partyhat and a red cape over a green robe, wearing a gold Cuban link chain and a gold ring, holding a poisoned Dragon dagger pointing down (custom illustration chosen by the user, not an official Jagex render)" decoding="async"></div>
-      <div class="chtitle"><h2>My Character</h2><div class="chsub">Your levels fit the gear, money, training and quest helpers to <i>your</i> account.</div></div></div>
+      <div class="chtitle"><h2 id="chname">${esc(ACCT() ? ACCT().name : 'My Character')}</h2><div class="chsub">Your levels fit the gear, money, training and quest helpers to <i>your</i> account.</div></div></div>
     <div class="chbig"><div class="chn tot"><span class="chl">Total level</span><b class="chv" id="tot">${totalLevel(S)}</b><span class="chm">of ${maxTot.toLocaleString()}</span></div>
       <div class="chn cmb"><span class="chl">Combat level</span><b class="chv" id="cmb">${combatLevel(S)}</b><span class="chm">wiki formula</span></div>
       <div class="chn"><span class="chl">Skills at 99+</span><b class="chv" id="n99">0</b><span class="chm" id="nmx">0 maxed</span></div>
       <div class="chn"><span class="chl">Quests done</span><b class="chv" id="nq">–</b><span class="chm" id="nqm">tracked here</span></div></div>
-    <div class="chpriv"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 7.5h9V14h-9zM5.2 7.5V5.2a2.8 2.8 0 015.6 0v2.3"/></svg><span>Private: saved automatically in this browser on this device only, never sent anywhere. Each device keeps its own levels.${STATS_SAVED ? '' : ' <b>Nothing saved yet:</b> tap + or type a level to start.'}</span></div></section>
+    <div class="chpriv"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 7.5h9V14h-9zM5.2 7.5V5.2a2.8 2.8 0 015.6 0v2.3"/></svg><span>Private: levels and quest ticks are saved in this browser on this device only. Import sends only the RuneScape name you type to the lookup service, which asks Jagex's official Player Data API (HiScores if that is down); nothing else leaves this device.${STATS_SAVED ? '' : ' <b>Nothing saved yet:</b> import, tap + or type a level to start.'}</span></div>
+    <form class="chimp" id="chimp" autocomplete="off"><input id="chrsn" maxlength="12" spellcheck="false" placeholder="RuneScape name" aria-label="RuneScape name" value="${esc(ACCT() ? ACCT().name : '')}"><button type="submit" class="btn" id="chimpb"${PLAYER_API() == null ? ' disabled' : ''}>Import levels &amp; quests</button><span class="chimps" id="chimps" role="status" aria-live="polite">${esc(acctNote())}</span></form></section>
   <section class="panel chsk"><h2>Skills</h2>
     <div class="chtools"><button type="button" class="btn ghost" data-all="1">All 1</button><button type="button" class="btn ghost" data-all="99">All 99</button><button type="button" class="btn ghost" data-all="max">All max</button><button type="button" class="btn ghost" data-all="start" title="Every skill 1, Constitution 10 (the RS3 starting levels)">Starting levels</button><button type="button" class="btn" id="chundo" hidden>Undo</button></div>
     <div class="skgrid">${SKORDER.map(tile).join('')}<div class="sksavecell"><span id="stsaved" class="stsaved on idle" role="status" aria-live="polite">${STATS_SAVED ? 'Saved ✓' : 'Auto-save on'}</span></div></div>
@@ -845,11 +889,12 @@ async function charView(sub) {
       try { const sets = await gearSets(D); const r = setsWear(sets, S); c('sets', `${r.full.length.toLocaleString()}${r.almost.length ? ` +${r.almost.length}` : ''}`); } catch (e) { c('sets', ''); }
       if (!questN) { const qs = await get('data/quests.json'); questN = qs.filter(q => q[1] === 'quest'); }
       const done = questN.filter(q => qIsDone(q[0])).length;
-      document.getElementById('nq').textContent = done; document.getElementById('nqm').textContent = `of ${questN.length} quests`;
+      document.getElementById('nq').textContent = done; document.getElementById('nqm').textContent = `of ${questN.length} quests${ACCT() && ACCT().qp != null ? ` · ${ACCT().qp} QP` : ''}`;
       c('quest', (questN.length - done).toLocaleString());
     } catch (e) {}
   }
   fillCounts();
+  const fm = document.getElementById('chimp'); if (fm) fm.onsubmit = ev => { ev.preventDefault(); acctImport(document.getElementById('chrsn').value, () => charView(sub)); };
   if (sub === 'sets') { const e = document.getElementById('chg2'); if (e) e.scrollIntoView({block: 'start'}); }
 }
 

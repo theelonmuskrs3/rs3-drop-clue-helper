@@ -10,6 +10,12 @@ assert.ok(hero.includes('<img class="chwom" src="brand/wise-old-man-portrait.web
 assert.ok(!hero.includes('brand/dds.webp'), 'Character header no longer uses the dagger');
 assert.equal((html.match(/brand\/dds\.webp/g) || []).length, 2, 'title bar + splash keep the dagger');
 assert.ok(!/class="chdds" aria-hidden/.test(app), 'picture is not hidden from screen readers');
-assert.match(css, /\.chdds img\.chwom\{width:54px;height:54px;object-fit:contain\}/); assert.match(css, /@media \(max-width:699px\)\{\.chdds img\.chwom\{width:44px;height:44px\}\}/);
-assert.match(css, /\.chdds\{position:relative;flex:none;width:58px;height:54px;/, 'header slot size unchanged');
-console.log('PASS Character header: Wise Old Man picture (alt, scoped size), dagger kept in title bar and splash');
+// PR #20 (t339u): portrait gets a tall column beside title + cards + privacy note; whole figure (contain, never cropped); compact cards
+assert.match(css, /\.chhero\{display:grid;grid-template-columns:auto minmax\(0,1fr\);/); assert.match(css, /\.chhero \.chhead\{display:contents\}/);
+assert.match(css, /\.chhero \.chdds\{grid-column:1;grid-row:1\/span 3;align-self:center;width:92px;height:154px\}/);
+assert.match(css, /\.chdds img\.chwom\{width:100%;height:100%;object-fit:contain;/);
+assert.match(css, /\.chhero \.chdds\{grid-row:1\/span 2;width:70px;height:118px\}/); assert.match(css, /@media \(max-width:359px\)\{\.chhero \.chdds\{width:60px;height:101px\}/);
+for (const [w, h] of [[92, 154], [70, 118], [60, 101]]) { const fw = Math.min(w, h * 305 / 512), fh = fw * 512 / 305; assert.ok(fh <= h + .5 && fw <= w + .5 && fh > 2.5 * 54 * (w / 92) * .6, `portrait fits ${w}x${h} uncropped`); }
+assert.match(css, /\.chhero \.chn\{padding:5px 4px 5px;/); assert.match(css, /\.chhero \.chv\{font-size:21px\}\.chhero \.chn\.tot \.chv,\.chhero \.chn\.cmb \.chv\{font-size:25px\}/);
+assert.match(css, /\.chdds\{position:relative;flex:none;width:58px;height:54px;/, 'base slot rule kept (overridden inside .chhero only)');
+console.log('PASS Character header: chosen portrait (alt), tall uncropped column, compact cards, dagger kept in title bar and splash');

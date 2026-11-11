@@ -1572,5 +1572,32 @@ th[aria-sort=ascending] .fd-arrow,th[aria-sort=descending] .fd-arrow{color:var(-
 .top-h .note{font-weight:400}
 
 /* Character tab header: Wise Old Man picture (square), sized to the old dagger slot so the header layout is unchanged */
-.chdds img.chwom{width:54px;height:54px;object-fit:contain}
-@media (max-width:699px){.chdds img.chwom{width:44px;height:44px}}
+/* Character header (PR #20, user t339u): the chosen portrait gets its own tall column beside the title, the 4 summary cards and the
+   privacy note (whole figure incl. the downward poisoned dagger, never cropped: object-fit contain); summary cards made compact */
+.chhero{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;align-items:start}
+.chhero .chhead{display:contents}
+.chhero .chdds{grid-column:1;grid-row:1/span 3;align-self:center;width:92px;height:154px}
+.chdds img.chwom{width:100%;height:100%;object-fit:contain;object-position:50% 50%}
+.chhero .chglow{inset:6% -14%}
+.chhero .chtitle{grid-column:2;grid-row:1;align-self:end}
+.chhero .chbig{grid-column:2;grid-row:2;gap:6px;margin-top:8px}
+.chhero .chpriv{grid-column:2;grid-row:3;margin-top:8px;font-size:12px}
+.chhero .chn{padding:5px 4px 5px;border-radius:8px;gap:0}
+.chhero .chl{font-size:9px;letter-spacing:.12em}
+.chhero .chv{font-size:21px}.chhero .chn.tot .chv,.chhero .chn.cmb .chv{font-size:25px}
+.chhero .chm{font-size:10px}
+@media (max-width:699px){
+  .chhero{column-gap:10px}
+  .chhero .chdds{grid-row:1/span 2;width:70px;height:118px}
+  .chhero .chpriv{grid-column:1/-1}
+  .chhero .chbig{gap:5px}
+  .chhero .chv{font-size:18px}.chhero .chn.tot .chv,.chhero .chn.cmb .chv{font-size:21px}
+  .chhero .chl{font-size:8.5px;letter-spacing:.08em}
+}
+@media (max-width:359px){.chhero .chdds{width:60px;height:101px}.chhero .chtitle h2{font-size:16px}}
+/* account import row (PR #20) */
+.chhero .chimp{grid-column:2;grid-row:4;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:8px;position:relative;z-index:1}
+.chimp input{flex:0 1 170px;min-width:0;padding:7px 9px;border:1px solid #4a1d24;border-radius:8px;background:rgba(10,4,6,.85);color:#fff;font:600 13px var(--body)}
+.chimp .btn{padding:7px 11px;font-size:12px}.chimp .btn[disabled]{opacity:.55;cursor:not-allowed}
+.chimps{flex:1 1 100%;font-size:11.5px;color:var(--soft);line-height:1.35}
+@media (max-width:699px){.chhero .chimp{grid-column:1/-1;grid-row:auto}.chimp input{flex:1 1 120px}}
