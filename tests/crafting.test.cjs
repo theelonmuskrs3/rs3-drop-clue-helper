@@ -80,6 +80,8 @@ const cells = tr => [...tr.querySelectorAll('td')].map(t => t.textContent);
     assert.equal(td[4], (1000 * r.needed).toLocaleString('en-GB') + ' gp'); assert.equal(td[5], (900 * r.needed).toLocaleString('en-GB') + ' gp');
     assert.match(td[6], new RegExp('^−' + ((1000 - 900 + 18) * r.needed).toLocaleString('en-GB') + ' gptax ' + (18 * r.needed).toLocaleString('en-GB') + ' gp'));
     assert.ok(row(d, 'Empty pot').querySelector('.calc-val.loss')); assert.ok(row(d, 'Empty pot').querySelector('th img.calc-ico[src^="icons/"]')); }
+  // short Net/Gross choice (no clipped option text) with the tax meaning visible next to it (shared skill UI)
+  { const s = d.querySelector('#cr-show'); assert.deepEqual([...s.options].map(o => o.textContent), ['Net profit', 'Gross profit']); assert.equal(s.getAttribute('aria-describedby'), 'cr-show-help'); assert.equal(d.querySelector('#cr-show-help').textContent, 'Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.'); }
   // Amulet of offerings: +3% after the other boosts
   set(d, w, 'amuletOfOfferings', 'Yes'); { const r = run({amuletOfOfferings: 'Yes'}); assert.equal(cells(row(d, 'Empty pot'))[1], String(r.unitExp)); assert.equal(cells(row(d, 'Empty pot'))[2], r.needed.toLocaleString('en-GB')); }
   set(d, w, 'amuletOfOfferings', 'No');

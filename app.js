@@ -1038,7 +1038,7 @@ async function flaskDecantView(n) {
     <p class="note" id="fd-flask" role="status"></p>
     <div class="row calc-filters">
       <input id="fd-q" type="search" placeholder="Search potions" aria-label="Search potions" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <select id="fd-show" aria-label="Show"><option value="net">Net profit (after est. tax)</option><option value="gross">Gross profit (before tax)</option></select>
+      <select id="fd-show" aria-label="Show" aria-describedby="fd-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><small class="calc-sub calc-show-help" id="fd-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</small>
       <select id="fd-sort" aria-label="Sort"><option value="">Sort: potion name</option>${cols.map(c => `<option value="${esc(c.key)}">Sort: best ${esc(c.label.replace('Decanting ', ''))}</option>`).join('')}</select></div>
     <p class="note" id="fd-count" role="status" aria-live="polite"></p>
     <div id="fd-table"></div>
@@ -1218,7 +1218,7 @@ async function herbloreView(n) {
     <p class="hb-msg" id="hb-msg" role="status"></p>
     <div class="row calc-filters">
       <input id="hb-q" type="search" placeholder="Search recipes or ingredients" aria-label="Search recipes or ingredients" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <select id="hb-show" aria-label="Profit shown"><option value="net">Net profit (after est. tax)</option><option value="gross">Gross profit (before tax)</option></select>
+      <select id="hb-show" aria-label="Profit shown" aria-describedby="hb-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><small class="calc-sub calc-show-help" id="hb-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</small>
       <select id="hb-sort" aria-label="Sort"><option value="">Sort: level (as on the Wiki)</option><option value="profit">Sort: most profit</option><option value="pxp">Sort: best profit/XP</option><option value="cxp">Sort: lowest cost/XP</option><option value="xp">Sort: most XP each</option><option value="num">Sort: fewest actions</option></select></div>
     <p class="note" id="hb-count" role="status" aria-live="polite"></p>
     <div id="hb-table"></div>
@@ -1385,7 +1385,7 @@ async function skillView(n, K) {
     <p class="hb-msg" id="${P}-msg" role="status"></p>
     <div class="row calc-filters">
       <input id="${P}-q" type="search" placeholder="Search recipes or ingredients" aria-label="Search recipes or ingredients" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <select id="${P}-show" aria-label="Profit shown"><option value="net">Net profit (after est. tax)</option><option value="gross">Gross profit (before tax)</option></select>
+      <select id="${P}-show" aria-label="Profit shown" aria-describedby="${P}-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><small class="calc-sub calc-show-help" id="${P}-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</small>
       <select id="${P}-sort" aria-label="Sort"><option value="">Sort: as on the Wiki</option><option value="profit">Sort: most profit</option><option value="pxp">Sort: best profit/XP</option><option value="xp">Sort: most XP each</option><option value="num">Sort: fewest actions</option></select></div>
     <p class="note" id="${P}-count" role="status" aria-live="polite"></p>
     <div id="${P}-table"></div>

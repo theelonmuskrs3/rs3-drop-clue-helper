@@ -219,6 +219,8 @@ const set = (d, w, k, v) => { const el = d.querySelector('#hb-' + k); assert.ok(
   set(d, w, 'category_choice', 'Single');
 
   // gross/net, search, sort
+  // short Net/Gross choice (no clipped option text) with the tax meaning visible next to it
+  { const s = d.querySelector('#hb-show'); assert.deepEqual([...s.options].map(o => o.textContent), ['Net profit', 'Gross profit']); assert.equal(s.getAttribute('aria-describedby'), 'hb-show-help'); assert.equal(d.querySelector('#hb-show-help').textContent, 'Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.'); }
   set(d, w, 'show', 'gross'); d.querySelector('#hb-show').value = 'gross'; d.querySelector('#hb-show').dispatchEvent(new w.Event('change'));
   assert.equal([...d.querySelectorAll('#hb-table thead th')][8].textContent, 'Gross profit');
   const q = d.querySelector('#hb-q'); q.value = 'super antifire'; q.dispatchEvent(new w.Event('input'));

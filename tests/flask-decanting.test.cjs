@@ -107,6 +107,7 @@ async function screen(hash, store = {}, feed = 'full') {
   assert.match(firstCells[0].textContent, new RegExp((29000 - 580 - 7000).toLocaleString()));
   assert.match(firstCells[0].textContent, /gross 22,000 gp · tax 580 gp/);
   assert.match(firstCells[2].textContent, new RegExp((58000 - 1160 - 6000).toLocaleString()));
+  { const s = d.querySelector('#fd-show'); assert.deepEqual([...s.options].map(o => o.textContent), ['Net profit', 'Gross profit']); assert.equal(s.getAttribute('aria-describedby'), 'fd-show-help'); assert.equal(d.querySelector('#fd-show-help').textContent, 'Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.'); }
   d.querySelector('#fd-show').value = 'gross'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
   assert.match(d.querySelectorAll('#fd-table tbody tr')[0].querySelector('td').textContent, /^22,000 gp/);
   const q = d.querySelector('#fd-q'); q.value = 'super restore'; q.dispatchEvent(new w.Event('input'));
