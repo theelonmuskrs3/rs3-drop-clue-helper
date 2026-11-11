@@ -87,7 +87,9 @@ async function screen(hash, store = {}, feed = 'full') {
     catch { return {ok: false, status: 404, json: async () => ({})}; }
   };
   w.addEventListener('error', e => errors.push(e.error));
-  for (const f of ['live-prices.js', 'calculators.js', 'map.js', 'app.js']) w.eval(fs.readFileSync(path.join(base, f), 'utf8'));
+  for (const f of ['live-prices.js', 'calculators.js', 'map.js']) w.eval(fs.readFileSync(path.join(base, f), 'utf8'));
+  // Same hook as live-price-dom.test.cjs: expose the app's own book and registered refresh callback to the test.
+  w.eval(fs.readFileSync(path.join(base, 'app.js'), 'utf8') + '\nwindow.__t = {book: LIVE.book, refresh: refreshPriceView};');
   for (let i = 0; i < (feed === 'hang' ? 30 : 200); i++) { await tick(); if (w.document.querySelector('#live-price-status')?.textContent.includes('Last successful') && w.document.querySelector('#fd-table table')) break; }
   await tick();
   assert.deepEqual(errors, [], hash + ' runtime errors');
@@ -132,6 +134,24 @@ async function screen(hash, store = {}, feed = 'full') {
   const tds = [...d.querySelectorAll('#fd-table tbody td')]; assert.equal(tds.length, 344);
   assert.ok(tds.every(td => /^Unavailable/.test(td.textContent) && /Potion flask/.test(td.textContent)));
   assert.ok(!tds.some(td => /\b0 gp/.test(td.textContent)));
+  dom.window.close();
+  // "Prices used" stays open across the registered live-price refresh (bindPriceView -> LIVE.subscribe(refreshPriceView) -> priceDraws), filter and sort
+  ({dom, w, d} = await screen('calculators/flask-decanting'));
+  { const SA = D.rows.find(r => r.flask === 'Super antifire flask');
+    const det = () => d.querySelector('#fd-table details[data-flask="Super antifire flask"]');
+    det().open = true;
+    assert.match(det().textContent, /Super antifire flask \(6\) — Sell 29,000 gp/);
+    const ts = Date.now() / 1000 - 5, data = JSON.parse(JSON.stringify(w.__t.book.data));
+    data[SA.f6.id] = {high: 46000, low: 45221, highTime: ts, lowTime: ts};
+    w.__t.book.setLatest({data}, Date.now());
+    w.__t.refresh();
+    assert.ok(det() && det().open, 'details still open after price refresh (table was rebuilt)');
+    assert.match(det().textContent, /Super antifire flask \(6\) — Sell 45,221 gp · est\. tax 904 gp · net 44,317 gp/, 'updated quote shown');
+    const q = d.querySelector('#fd-q'); q.value = 'antifire'; q.dispatchEvent(new w.Event('input'));
+    assert.match(d.querySelector('#fd-count').textContent, /^2 of 86/); assert.ok(det().open, 'open after filter');
+    const so = d.querySelector('#fd-sort'); so.value = 'd3'; so.dispatchEvent(new w.Event('change'));
+    assert.ok(det().open, 'open after sort');
+    assert.equal(d.querySelectorAll('#fd-table details[open]').length, 1, 'only the opened row is open'); }
   dom.window.close();
   // before the price list arrives: 'loading', not 'not found', and never 0
   ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'hang'));
