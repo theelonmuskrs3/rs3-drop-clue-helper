@@ -225,8 +225,8 @@ const set = (d, w, k, v) => { const el = d.querySelector('#hb-' + k); assert.ok(
   dom.window.close();
   // directory: Herblore In app, favourite opens the native route; Flask decanting unchanged
   ({dom, w, d} = await screen('calculators', {[C.FAV_KEY]: favs}));
-  { const nat = [...d.querySelectorAll('#calc-list a.calc-native')].map(a => a.getAttribute('href')).sort(); assert.deepEqual(nat, ['#calculators/flask-decanting', '#calculators/herblore']);
-    const total = d.querySelectorAll('#calc-list .calc-item').length; assert.equal(d.querySelectorAll('#calc-list .calc-in-app').length, 2); assert.equal(d.querySelectorAll('#calc-list .calc-wiki-only').length, total - 2);
+  { const nat = [...d.querySelectorAll('#calc-list a.calc-native')].map(a => a.getAttribute('href')).sort(); assert.deepEqual(nat, ['#calculators/cooking', '#calculators/flask-decanting', '#calculators/herblore']);
+    const total = d.querySelectorAll('#calc-list .calc-item').length; assert.equal(d.querySelectorAll('#calc-list .calc-in-app').length, 3); assert.equal(d.querySelectorAll('#calc-list .calc-wiki-only').length, total - 3);
     assert.equal(d.querySelector('#calc-fav-list a.calc-native').getAttribute('href'), '#calculators/herblore'); }
   dom.window.close();
   // missing and stale prices: that recipe unavailable, never 0

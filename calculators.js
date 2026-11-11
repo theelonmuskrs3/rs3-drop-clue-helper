@@ -69,7 +69,8 @@
 
   /* Native (in-app) calculators: exact Wiki path -> app route. Only calculators whose formulas are verified against Wiki output. */
   const NATIVE = [{slug: 'flask-decanting', path: '/w/Calculator:Herblore/Flask_decanting', data: 'data/calc/flask-decanting.json'},
-    {slug: 'herblore', path: '/w/Calculator:Herblore', data: 'data/calc/herblore.json'}];
+    {slug: 'herblore', path: '/w/Calculator:Herblore', data: 'data/calc/herblore.json'},
+    {slug: 'cooking', path: '/w/Calculator:Cooking', data: 'data/calc/cooking.json'}];
   const nativeFor = path => NATIVE.find(n => n.path === path) || null;
   const nativeBySlug = slug => NATIVE.find(n => n.slug === slug) || null;
 
