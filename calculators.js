@@ -72,7 +72,8 @@
     {slug: 'herblore', path: '/w/Calculator:Herblore', data: 'data/calc/herblore.json'},
     {slug: 'cooking', path: '/w/Calculator:Cooking', data: 'data/calc/cooking.json'},
     {slug: 'fletching', path: '/w/Calculator:Fletching', data: 'data/calc/fletching.json'},
-    {slug: 'crafting', path: '/w/Calculator:Crafting', data: 'data/calc/crafting.json'}];
+    {slug: 'crafting', path: '/w/Calculator:Crafting', data: 'data/calc/crafting.json'},
+    {slug: 'firemaking', path: '/w/Calculator:Firemaking', data: 'data/calc/firemaking.json'}];
   const nativeFor = path => NATIVE.find(n => n.path === path) || null;
   const nativeBySlug = slug => NATIVE.find(n => n.slug === slug) || null;
 
@@ -572,9 +573,11 @@
        skillCalcCost(row, linePrice) -> the Wiki's per-action and total cost / product / profit arithmetic with any price
          source (Wiki guide prices in tests, live prices in the app); null (never 0) when a needed price is unavailable.
   --------------------------------------------------------------------------------------------- */
-  const SC_VALIDATED = ['Cooking', 'Fletching', 'Crafting'];
+  const SC_VALIDATED = ['Cooking', 'Fletching', 'Crafting', 'Firemaking'];
   // options the Wiki module reads that are validated against Wiki goldens, per skill (others are refused)
-  const SC_OPTS = {Fletching: ['dxp', 'portable', 'workroom', 'brooch'], Crafting: ['portable', 'brooch', 'amuletOfOfferings']};
+  const SC_OPTS = {Fletching: ['dxp', 'portable', 'workroom', 'brooch'], Crafting: ['portable', 'brooch', 'amuletOfOfferings'], Firemaking: ['portable']};
+  // Module:Skill calc noValue `exceptions`: these sub-categories (as "disp" or "skill-disp") take elts[skill .. '-' .. disp]
+  const SC_ELT_EXCEPTIONS = ['Agility-Other', 'Divination-Boons', 'Divination-Dungeoneering', 'Divination-Hall of Memories', 'Divination-Hall of Memories (2 tick)', 'Divination-Memory-storage bots', 'Divination-Other', 'Farming-Curing Animals', 'Farming-Raising Animals', 'Farming-Manure', 'Farming-Testing', 'Firemaking-Barbarian', 'Firemaking-Char', 'Firemaking-Other', 'Firemaking-Incense Sticks (scratch + ashing)', 'Prayer-Incense sticks', 'Fishing-Dungeoneering', 'Flatpacks', 'Forging', 'Invention-Manufacturing', 'Invention-Manufacturing - Ancient', 'Masters', 'Milestones', 'Mining-Gems', 'Multiples', 'Rooms', 'Runespan - Free', 'Runespan - Members', 'Scrolls', 'Summoning-Pets', 'Summoning-Dungeoneering - Pouches', 'Slayer-Assignments', 'Tiaras', 'Thieving-Sorceress Garden', 'Thieving-Safes', 'Woodcutting-Dungeoneering', 'Woodcutting-Other'];
   /* Module:Yesno */
   function scYn(arg, def) {
     if (arg == null) return def;
@@ -710,7 +713,8 @@
     if (disp === 'Silverhawk Feathers' || disp === 'Wilderness Agility Course') scUnsupported('sub-category ' + disp);
     const src = scItems(D, disp); if (!src) scFail('Unknown sub-category "' + disp + '" (the Wiki module errors).');
     let elts = D.elts[skill];
-    if (disp === 'Urns') elts = D.elts.Urns;
+    if (scFind(SC_ELT_EXCEPTIONS, disp) || scFind(SC_ELT_EXCEPTIONS, skill + '-' + disp)) elts = D.elts[skill + '-' + disp];
+    else if (disp === 'Urns') elts = D.elts.Urns;
     else if (skill === 'Cooking' && disp === 'Dungeoneering') elts = D.elts['Cooking-Dungeoneering'];
     else if (scDungPat(disp)) elts = D.elts['Dungeons-Materials'];
     const allowsUrns = disp !== 'Urns';
@@ -728,12 +732,18 @@
     if (urn) { const i = headers.indexOf('# needed'); if (i >= 0) { headers.splice(i + 1, 0, '# urns'); urnColumn = i + 1; } }
     // eltGenerator.generate_ProfitLoss puts the members icon at targetElt with table.insert; when targetElt is past the end of the
     // row (Crafting "Dungeoneering Armour": 6 cells, targetElt 11) Lua stores it after a hole and the Wiki row ends without it.
+    // eltGenerator table family: Firemaking outside incense is generate_NoProfitLoss (cost columns only: unit cost, total cost,
+    // cost per XP; the members cell is always last); everything validated so far is generate_ProfitLoss
+    const layout = skill === 'Firemaking' && !String(disp).includes('Incense') ? 'NoProfitLoss' : 'ProfitLoss';
     const dungRow = scDungPat(disp), eltsLen = disp === 'Urns' ? 5 : 6 + (!(skill === 'Cooking' && disp === 'Dungeoneering') && !dungRow ? 4 : 0);
     let targetElt = 11;
     if (skill === 'Cooking' && (disp === 'Dungeoneering' || disp === 'Urns')) targetElt = disp === 'Dungeoneering' ? 7 : 6;
     else if (['Cooking', 'Fletching', 'Herblore', 'Hunter', 'Summoning'].includes(skill) && dungRow) targetElt = disp === 'Dungeoneering - Pouches' ? 8 : 7;
-    else if (!['Cooking', 'Fletching', 'Crafting'].includes(skill)) scUnsupported('the column layout of ' + skill);
-    const memberCell = targetElt <= eltsLen + 1;
+    else if (!['Cooking', 'Fletching', 'Crafting', 'Firemaking'].includes(skill)) scUnsupported('the column layout of ' + skill);
+    const memberCell = layout === 'NoProfitLoss' || targetElt <= eltsLen + 1;
+    // generate_NoProfitLoss: no materials cell for Char; no cost cells for Barbarian and Other; Daemonheim shows the item's own
+    // value as its cost (cost = productCost: rusty coins for the branches)
+    const nplMaterials = layout === 'NoProfitLoss' && disp !== 'Char', nplCost = layout === 'NoProfitLoss' && disp !== 'Char' && !(skill === 'Firemaking' && (disp === 'Barbarian' || disp === 'Other'));
     const rows = src.sorted.map((v, idx) => {
       const mcount = v.mcount != null ? v.mcount : 1;   // Lua: 0 is a real count (the Wiki then prices no ingredient)
       let matLines = [], matPriced = false;
@@ -761,19 +771,22 @@
       const listed = [];
       // unpriced: 'untradeable' (mtrade 0: the Wiki prices none of the ingredients) or 'wiki' (past the recipe's mcount: the Wiki
       // leaves that ingredient out of the cost even though it may trade); either way the Wiki counts 0 and the total is partial
-      if (v.material && !v.currency) for (let i = 0; i + 1 < v.material.length; i += 2) { const priced = matPriced && i / 2 < mcount;
+      // generate_NoProfitLoss lists materials with createList (qty, name pairs) even for alternative-currency rows (Daemonheim)
+      if (v.material && (!v.currency || layout === 'NoProfitLoss')) for (let i = 0; i + 1 < v.material.length; i += 2) { const priced = matPriced && i / 2 < mcount;
         listed.push({name: String(v.material[i + 1]), qty: scNum(v.material[i]), priced, unpriced: priced ? null : !matPriced ? 'untradeable' : 'wiki'}); }
       // alternative-currency rows (eltGenerator expandedList): [qty, currency cost, "image,link" or name, ...]; the shown name is the link part
-      if (v.material && v.currency) for (let i = 0; i < v.material.length; i++) if (typeof v.material[i] === 'string') { const parts = v.material[i].split(','); listed.push({name: parts.length > 1 ? parts[1] : parts[0], image: parts[0], qty: scNum(v.material[i - 2]), priced: false}); }
-      return {idx, item: v, name: v.name, title: v.title || null, level: v.level == null ? null : scRound(v.level, 0), reqLevel: reqLv, cls,
+      if (v.material && v.currency && layout !== 'NoProfitLoss') for (let i = 0; i < v.material.length; i++) if (typeof v.material[i] === 'string') { const parts = v.material[i].split(','); listed.push({name: parts.length > 1 ? parts[1] : parts[0], image: parts[0], qty: scNum(v.material[i - 2]), priced: false}); }
+      // sLink/eLink (setImgLnk): plain text the Wiki shows before/after the name link
+      return {idx, item: v, name: v.name, title: v.title || null, sLink: v.sLink || null, eLink: v.eLink || null, level: v.level == null ? null : scRound(v.level, 0), reqLevel: reqLv, cls,
         baseXp: v.xp, unitExp, needed, urnsNeeded, urnColumn: urnColumn != null, members: v.members === 0 || v.members === true,
         matLines, listed, matPriced, product, brewing, matReduction, multiplier: v.multiplier || null, currency: v.currency || null, value: v.value != null ? v.value : null, materialCost: v.materialCost != null ? v.materialCost : null,
-        costCols: !(skill === 'Cooking' && disp === 'Dungeoneering') && !scDungPat(disp), urnRow: disp === 'Urns', memberCell,
+        costCols: layout === 'NoProfitLoss' ? nplCost : !(skill === 'Cooking' && disp === 'Dungeoneering') && !scDungPat(disp), urnRow: disp === 'Urns', memberCell,
+        layout, materialsCol: layout === 'NoProfitLoss' ? nplMaterials : true, costFromProduct: layout === 'NoProfitLoss' && disp === 'Daemonheim',
         // eltGenerator builds {images, links, numbers(T.level), ...}: with no level the Lua list ends at the nil, so the Wiki row shows
         // only the picture and name (urns in "All"). The app shows no values for such rows rather than inventing them.
         truncated: disp !== 'Urns' && v.level == null};
     });
-    return {skill, disp, headers, urn, urnColumn, pctBoost: pct, flatBoost: flat, bonusXp, actualRemaining: actual, remaining, currLv, currXp, goalLv, goalXp, rows};
+    return {skill, disp, layout, headers, urn, urnColumn, pctBoost: pct, flatBoost: flat, bonusXp, actualRemaining: actual, remaining, currLv, currXp, goalLv, goalXp, rows};
   }
   /* Per-action and total money for one row, in the Wiki's order: raw cost = sum floor(price x qty) over the priced
      ingredients; product = floor(price) per product (x2 for Brewing, which makes two batches); alternative-currency rows use the
@@ -785,11 +798,15 @@
     if (row.currency) { out.prodEach = row.value; out.rawEach = row.materialCost != null ? row.materialCost : 0; }
     else {
       for (const l of row.matLines) { const p = linePrice(l.name, 'mat'); if (p == null) { out.missing.push(l.name); continue; } out.rawEach += Math.floor(p * l.qty); }
-      if (row.product) { const p = linePrice(row.product.name, 'product'); if (p == null) out.missing.push(row.product.name); else out.prodEach = Math.floor(Math.floor(p) * (row.product.units || 1) * 1 * 1); }
+      // NoProfitLoss tables never show the product's value except as Daemonheim's cost, so it is not looked up (nor required) otherwise
+      if (row.product && !(row.layout === 'NoProfitLoss' && !row.costFromProduct)) { const p = linePrice(row.product.name, 'product'); if (p == null) out.missing.push(row.product.name); else out.prodEach = Math.floor(Math.floor(p) * (row.product.units || 1) * 1 * 1); }
       if (row.matReduction) out.rawEach = out.rawEach * (1 - row.matReduction);   // not rounded, as on the Wiki
       if (row.brewing) out.prodEach *= 2;
     }
-    if (out.missing.length) { out.rawEach = out.prodEach = out.raw = out.prod = out.profit = out.profitPerXp = out.profitEach = null; return out; }
+    if (out.missing.length) { out.rawEach = out.prodEach = out.raw = out.prod = out.profit = out.profitPerXp = out.profitEach = null; if (row.layout === 'NoProfitLoss') out.costEach = out.costTotal = out.costPerXp = null; return out; }
+    // generate_NoProfitLoss (Firemaking): unit cost = ingredient cost per action (Daemonheim: the item's own value), then x actions
+    // and / XP each; there is no product or profit column
+    if (row.layout === 'NoProfitLoss') { out.costEach = row.costFromProduct ? out.prodEach : out.rawEach; out.costTotal = out.costEach * row.needed; out.costPerXp = row.unitExp !== 0 ? out.costEach / row.unitExp : null; }
     out.profitEach = out.prodEach - out.rawEach;
     out.raw = out.rawEach * row.needed; out.prod = out.prodEach * row.needed; out.profit = out.profitEach * row.needed;
     out.profitPerXp = row.unitExp !== 0 ? out.profitEach / row.unitExp : null;
@@ -814,7 +831,7 @@
       st.disabled[p.name] = false;
       if (p.type === 'select') { const opts = p.range.split(/\s*,\s*/); const v = opts.includes(p.def) ? p.def : opts[0]; st.value[p.name] = v; st.togs[p.name] = scToggles(p.rawtogs, v); }
       else if (p.type === 'check') { const r = p.range ? p.range.split(/\s*,\s*/) : null; st.value[p.name] = p.def === 'true' || (r != null && p.def === r[0]); st.togs[p.name] = scToggles(p.rawtogs, 'true'); }
-      else if (p.type === 'int') { st.value[p.name] = p.def || '0'; st.togs[p.name] = scToggles(p.rawtogs, 'not0'); }
+      else if (p.type === 'int' || p.type === 'number') { st.value[p.name] = p.def || '0'; st.togs[p.name] = scToggles(p.rawtogs, 'not0'); }
       else if (p.type === 'hs' || p.type === 'hidden' || p.type === 'fixed') st.value[p.name] = p.def;
       else scUnsupported('form field type "' + p.type + '"');
     }
@@ -848,7 +865,21 @@
     return `To train ${res.skill} from ${f(res.currXp)} experience (level ${res.currLv}) to ${f(res.goalXp)} experience (level ${res.goalLv}), ${f(res.remaining)} experience is required.`
       + (res.bonusXp > 0 ? ` (${f(res.bonusXp)} bonus XP available; ${f(res.actualRemaining)} XP to the goal in total.)` : '');
   }
+  /* The number widget (genRange type 'number': min-max, step default 0.01) and checkNumberValidity: n = +value must be finite,
+     a multiple of the step (within 1e-12) and within min..max; an empty field is valid (not required) and sends nothing. */
+  function scNumberRange(p) {
+    const tmp = String(p.range || '').split(/\s*,\s*/), rng = tmp[0].split(/\s*-\s*/);
+    if (rng.length !== 2) scUnsupported('number range "' + p.range + '"');
+    const pf = x => parseFloat(x), min = isNaN(pf(rng[0])) ? 0 : pf(rng[0]), max = isNaN(pf(rng[1])) ? Infinity : pf(rng[1]);
+    const step = isNaN(pf(tmp[1])) ? 0.01 : pf(tmp[1]);
+    return [min, max, step];
+  }
   function skillFieldError(p, raw) {
+    if (p.type === 'number') {
+      const [min, max, step] = scNumberRange(p), v = String(raw), n = +v;
+      const ok = v === '' || (Number.isFinite(n) && !(step && Math.abs(Math.round(n / step) - (n / step)) > 1e-12) && !(n < min || n > max));
+      return ok ? null : 'Invalid number provided. Must be between ' + min + ' and ' + max + ' and a multiple of ' + step;
+    }
     if (p.type !== 'int') return null;
     const s = String(raw).split(',').join('');
     const [lo, hi] = (() => { const m = /^(\d+)\s*-\s*(\d+)$/.exec(p.range.split(/\s*,\s*/)[0] || ''); return m ? [Number(m[1]), Number(m[2])] : [0, Infinity]; })();
@@ -864,6 +895,7 @@
       if (p.type === 'hidden' || p.type === 'fixed') v = p.def;   // gadget submitForm: fixed and hidden send their default
       else if (p.type === 'check') { v = st.value[p.name]; if (p.range) v = p.range.split(',')[v ? 0 : 1]; else v = String(v); }
       else if (p.type === 'int') { v = String(st.value[p.name]).split(',').join(''); const e = skillFieldError(p, st.value[p.name]); if (e) errors.push(p.label + ': ' + e); }
+      else if (p.type === 'number') { v = String(st.value[p.name]); const e = skillFieldError(p, v); if (e) errors.push(p.label + ': ' + e); }   // sent as typed (no comma stripping)
       else v = String(st.value[p.name]);
       out.push([p.name, v]);
     }

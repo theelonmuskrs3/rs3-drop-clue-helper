@@ -1,0 +1,372 @@
+[
+ {
+  "name": "All defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "All"
+  }
+ },
+ {
+  "name": "Barbarian defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Barbarian"
+  }
+ },
+ {
+  "name": "Bonfire defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Bonfire"
+  }
+ },
+ {
+  "name": "Char defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Char"
+  }
+ },
+ {
+  "name": "Cremation defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Cremation"
+  }
+ },
+ {
+  "name": "Daemonheim defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Daemonheim"
+  }
+ },
+ {
+  "name": "Fire-line defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Fire-line"
+  }
+ },
+ {
+  "name": "Incense Sticks (scratch + ashing) defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Incense Sticks (scratch + ashing)"
+  }
+ },
+ {
+  "name": "Milestones defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Milestones"
+  }
+ },
+ {
+  "name": "Standard defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Standard"
+  }
+ },
+ {
+  "name": "Other defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Other"
+  }
+ },
+ {
+  "name": "Bonfire outfit 1 piece 50-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "50",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "1",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Bonfire"
+  }
+ },
+ {
+  "name": "Bonfire outfit 2 + avatar 6 + portable 1-120",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "120",
+   "avatar": "6",
+   "outfit": "2",
+   "custom": "0",
+   "portable": "Yes",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Bonfire"
+  }
+ },
+ {
+  "name": "Standard custom 2.5 portable",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "2.5",
+   "portable": "Yes",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Standard"
+  }
+ },
+ {
+  "name": "Other all boosts (beacon bonus XP items)",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "5",
+   "outfit": "2",
+   "custom": "10",
+   "portable": "Yes",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Other"
+  }
+ },
+ {
+  "name": "Milestones XP 13034431 to 200M",
+  "args": {
+   "currToggle": "Experience",
+   "current": "13034431",
+   "goalToggle": "Experience",
+   "goal": "200000000",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Milestones"
+  }
+ },
+ {
+  "name": "Daemonheim portable avatar 3",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "3",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "Yes",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Daemonheim"
+  }
+ },
+ {
+  "name": "Incense outfit 2 custom 7.25",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "2",
+   "custom": "7.25",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Incense Sticks (scratch + ashing)"
+  }
+ },
+ {
+  "name": "Char 91-99 BXP 500000",
+  "args": {
+   "currToggle": "Level",
+   "current": "91",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "1",
+   "disp": "Char",
+   "bxpnum": "500000"
+  }
+ },
+ {
+  "name": "All BXP over half 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "1",
+   "disp": "All",
+   "bxpnum": "99000000"
+  }
+ },
+ {
+  "name": "Barbarian goal 130 (experience)",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "130",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Barbarian"
+  }
+ },
+ {
+  "name": "Cremation goal below current",
+  "args": {
+   "currToggle": "Level",
+   "current": "80",
+   "goalToggle": "Level",
+   "goal": "50",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Cremation"
+  }
+ },
+ {
+  "name": "Fire-line XP 0 to level 2 custom 1600",
+  "args": {
+   "currToggle": "Experience",
+   "current": "0",
+   "goalToggle": "Level",
+   "goal": "2",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "1600",
+   "portable": "No",
+   "skill": "Firemaking",
+   "bxp": "0",
+   "disp": "Fire-line"
+  }
+ }
+]

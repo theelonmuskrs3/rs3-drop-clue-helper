@@ -213,7 +213,7 @@ def calc_names():
         if v in H['ids']: add(v, 'herblore')
     import subprocess   # plus every name the ported engine actually puts in its rows (tools/calc_names.cjs)
     for v in json.loads(subprocess.run(['node', os.path.join(ROOT, 'tools', 'calc_names.cjs')], capture_output=True, check=True).stdout): add(v, 'herblore')
-    for slug in ('cooking', 'fletching', 'crafting'):   # native Wiki skill calculators (Module:Skill calc data files)
+    for slug in ('cooking', 'fletching', 'crafting', 'firemaking'):   # native Wiki skill calculators (Module:Skill calc data files)
         cp = os.path.join(ROOT, 'data', 'calc', slug + '.json')
         if not os.path.exists(cp): continue
         C = json.load(open(cp))

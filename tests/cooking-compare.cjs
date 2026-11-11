@@ -29,7 +29,7 @@ function compare(D, G, opt = {}) {
       if (!noMember && (w.ragged || r.truncated)) { out.cells++; if (!(w.ragged && r.truncated && w.cells.length === 2 && w.cells[1].t === (r.title || r.name))) bad(`row ${i} truncation: wiki ${w.cells.length} cells vs app truncated=${r.truncated}`); out.truncated = (out.truncated || 0) + 1; return; }
       void 0, cells = w.cells, T = h => cells[hx(h)] && cells[hx(h)].t, chk = (what, a, b) => { out.cells++; if (!(a === b || (typeof a === 'number' && typeof b === 'number' && Math.abs(a - b) <= 1e-9 * Math.max(1, Math.abs(a))))) bad(`row ${i} ${r.name} ${what}: wiki ${a} vs app ${b}`); };
       chk('class', (w.cls.find(x => x.startsWith('table-bg-')) || '').slice(9), r.cls);
-      chk('name', T('Name'), (r.title || r.name) + (r.multiplier ? ' \u00d7 ' + r.multiplier : ''));
+      chk('name', T('Name'), [r.sLink, (r.title || r.name) + (r.multiplier ? ' \u00d7 ' + r.multiplier : ''), r.eLink].filter(Boolean).join(' '));
       if (hx('Level') >= 0) chk('level', num(T('Level')), r.level);
       chk('xp', num(T('XP')), r.unitExp);
       chk('needed', num(T('# needed')), r.needed);
@@ -39,7 +39,13 @@ function compare(D, G, opt = {}) {
       // the Wiki's gePrice is 0 for a name it has no price for; opt.missingAsZero reproduces that for golden comparison only
       const k = C.skillCalcCost(r, n => (n in prices ? prices[n] : opt.missingAsZero ? 0 : null));
       const money = (h, v) => { if (hx(h) < 0 || w.ragged) return; const cell = cells[hx(h)], s = num(cell.s); chk(h, s === -1000000000 ? 0 : s, v); };
-      if (D.cats && c.args && c.args.disp === 'Urns' || (c.submission && 0)) money('Cost', k.raw);
+      // generate_NoProfitLoss (Firemaking): Unit cost, "Product cost" (the Wiki's label for unit cost x actions) and cost per XP
+      // (labelled "XP cost", or "Profit/XP" in Milestones); Barbarian/Other/Char have none of them
+      if (r.layout === 'NoProfitLoss') { out.npl = (out.npl || 0) + 1; const xpH = hx('XP cost') >= 0 ? 'XP cost' : 'Profit/XP';
+        if (r.costCols !== (hx('Unit cost') >= 0)) bad(`row ${i} cost columns: wiki ${hx('Unit cost') >= 0} vs app ${r.costCols}`);
+        if (r.materialsCol !== (hx('Materials') >= 0)) bad(`row ${i} materials column: wiki ${hx('Materials') >= 0} vs app ${r.materialsCol}`);
+        money('Unit cost', k.costEach); money('Product cost', k.costTotal); if (hx(xpH) >= 0) money(xpH, k.costEach === 0 ? 0 : k.costPerXp); }
+      else if (D.cats && c.args && c.args.disp === 'Urns' || (c.submission && 0)) money('Cost', k.raw);
       else { money('Raw cost', k.raw); money('Product cost', k.prod); money('Profit/Loss', k.profit); if (hx('Profit/XP') >= 0 && !w.ragged) { const s = num(cells[hx('Profit/XP')].s); chk('Profit/XP', s === -1000000000 ? 0 : s, k.profitPerXp == null ? null : (k.profitEach === 0 ? 0 : k.profitPerXp)); } }
       // opt.redlinks: ingredient files missing on the Wiki (File:Koi Scales.png) render as a text link next to the name link, so the
       // golden parser reads the name twice; collapse only that adjacent pair, only for the names listed by the test
