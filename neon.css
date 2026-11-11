@@ -1407,3 +1407,21 @@ html{scrollbar-gutter:stable}
 .calc-native{margin-right:6px}
 .calc-in-app{border-color:var(--gold);color:var(--gold)}
 .calc-wiki-only{opacity:.75}
+
+/* Native Herblore calculator */
+.hb-form{display:grid;gap:8px;margin:10px 0;min-width:0}
+.hb-group{border:1px solid var(--edge2);border-radius:6px;padding:6px 10px;min-width:0}
+.hb-group summary{cursor:pointer;font-weight:600;padding:4px 0}
+.hb-fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15em),1fr));gap:8px 12px;padding:6px 0 4px;min-width:0}
+.hb-field{display:flex;flex-direction:column;gap:3px;min-width:0}
+.hb-field span{font-size:.9em;color:var(--muted)}
+.hb-field select,.hb-field input{min-width:0;max-width:100%;box-sizing:border-box}
+.hb-chk{display:flex;gap:8px;align-items:center;min-height:32px;min-width:0;overflow-wrap:anywhere}
+.hb-reset{margin:4px 0 8px}
+.hb-msg{font-weight:700;font-size:1.05em;overflow-wrap:break-word}
+.hb-table td,.hb-table th{text-align:left}
+.hb-list{list-style:none;margin:0;padding:0;display:grid;gap:2px;min-width:0}
+.hb-list li{overflow-wrap:anywhere}
+.hb-qty,.hb-cost{color:var(--muted);white-space:nowrap}
+.hb-warn{color:var(--ember2)}
+.hb-lv-green{color:#7fdc8a;font-weight:700}.hb-lv-yellow{color:var(--gold);font-weight:700}.hb-lv-red{color:#ff6b6b;font-weight:700}

@@ -1,0 +1,578 @@
+{
+ "source": "Calculator:Herblore rev 37008978 form (Form calculator fields) as submitted by MediaWiki:Gadget-calc-core.js rev 37082305; emulated in tools/herblore_form.py. RuneScape Wiki, CC BY-NC-SA 3.0.",
+ "display": [
+  [
+   "show_opts",
+   "Both"
+  ],
+  [
+   "show_item_image",
+   "false"
+  ],
+  [
+   "show_currency_image",
+   "false"
+  ],
+  [
+   "show_production_time",
+   "true"
+  ],
+  [
+   "mat_mode",
+   "Price"
+  ],
+  [
+   "product_mode",
+   "Price"
+  ],
+  [
+   "step_mode",
+   "Quantity"
+  ]
+ ],
+ "cases": [
+  {
+   "name": "form-defaults",
+   "actions": [],
+   "app": {}
+  },
+  {
+   "name": "form-sections-switched-off",
+   "actions": [
+    [
+     "experience_boost",
+     "true"
+    ],
+    [
+     "wise",
+     "Wise 4"
+    ],
+    [
+     "avatar",
+     "6"
+    ],
+    [
+     "dxp",
+     "true"
+    ],
+    [
+     "bxp",
+     "true"
+    ],
+    [
+     "bxp_amount",
+     "50000"
+    ],
+    [
+     "experience_boost",
+     "false"
+    ],
+    [
+     "outfit_piece",
+     "true"
+    ],
+    [
+     "outfit",
+     "5"
+    ],
+    [
+     "modified_mask",
+     "true"
+    ],
+    [
+     "outfit_piece",
+     "false"
+    ],
+    [
+     "cost_saving",
+     "true"
+    ],
+    [
+     "portable",
+     "true"
+    ],
+    [
+     "brooch",
+     "true"
+    ],
+    [
+     "soc",
+     "true"
+    ],
+    [
+     "factory",
+     "3"
+    ],
+    [
+     "cost_saving",
+     "false"
+    ],
+    [
+     "potion_decanting",
+     "true"
+    ],
+    [
+     "product_decant_type",
+     "Profitable"
+    ],
+    [
+     "potion_decanting",
+     "false"
+    ]
+   ],
+   "app": {},
+   "note": "the app has no section switches: a Wiki section switched off equals that section at its defaults"
+  },
+  {
+   "name": "form-brooch-hidden-after-portable-off",
+   "actions": [
+    [
+     "experience_boost",
+     "true"
+    ],
+    [
+     "bik_scripture",
+     "Always activated"
+    ],
+    [
+     "cost_saving",
+     "true"
+    ],
+    [
+     "portable",
+     "true"
+    ],
+    [
+     "brooch",
+     "true"
+    ],
+    [
+     "portable",
+     "false"
+    ]
+   ],
+   "app": {
+    "bik_scripture": "Always activated",
+    "portable": "false",
+    "brooch": "true"
+   }
+  },
+  {
+   "name": "form-brooch-gadget-quirk",
+   "actions": [
+    [
+     "experience_boost",
+     "true"
+    ],
+    [
+     "bik_scripture",
+     "Always activated"
+    ],
+    [
+     "cost_saving",
+     "true"
+    ],
+    [
+     "portable",
+     "true"
+    ],
+    [
+     "brooch",
+     "true"
+    ],
+    [
+     "portable",
+     "false"
+    ],
+    [
+     "cost_saving",
+     "false"
+    ],
+    [
+     "cost_saving",
+     "true"
+    ]
+   ],
+   "app": {
+    "bik_scripture": "Always activated",
+    "portable": "false",
+    "brooch": "true"
+   },
+   "expectDifferent": true,
+   "note": "Wiki gadget quirk: switching Cost saving off/on re-enables the hidden Brooch checkbox, which is then submitted; the app follows the visible form"
+  },
+  {
+   "name": "form-bxp-hidden-after-bxp-off",
+   "actions": [
+    [
+     "experience_boost",
+     "true"
+    ],
+    [
+     "bxp",
+     "true"
+    ],
+    [
+     "bxp_amount",
+     "500000"
+    ],
+    [
+     "cinder_core",
+     "Buff and equipped"
+    ],
+    [
+     "bxp",
+     "false"
+    ]
+   ],
+   "app": {
+    "bxp": "false",
+    "bxp_amount": "500000",
+    "cinder_core": "Buff and equipped"
+   }
+  },
+  {
+   "name": "form-mask-hidden-after-outfit-none",
+   "actions": [
+    [
+     "outfit_piece",
+     "true"
+    ],
+    [
+     "outfit",
+     "5"
+    ],
+    [
+     "modified_mask",
+     "true"
+    ],
+    [
+     "outfit",
+     "None"
+    ]
+   ],
+   "app": {
+    "outfit": "None",
+    "modified_mask": "true"
+   }
+  },
+  {
+   "name": "form-factory-5-clean-herbs",
+   "actions": [
+    [
+     "category",
+     "Clean herbs"
+    ],
+    [
+     "cost_saving",
+     "true"
+    ],
+    [
+     "factory",
+     "5"
+    ]
+   ],
+   "app": {
+    "category": "Clean herbs",
+    "factory": "5"
+   }
+  },
+  {
+   "name": "form-decant-fixed-then-profitable",
+   "actions": [
+    [
+     "potion_decanting",
+     "true"
+    ],
+    [
+     "product_decant_type",
+     "Fixed"
+    ],
+    [
+     "product_decant_dose_fixed",
+     "6"
+    ],
+    [
+     "product_decant_type",
+     "Profitable"
+    ],
+    [
+     "product_decant_dose_restriction",
+     "2 or 3"
+    ]
+   ],
+   "app": {
+    "product_decant_type": "Profitable",
+    "product_decant_dose_fixed": "6",
+    "product_decant_dose_restriction": "2 or 3"
+   }
+  },
+  {
+   "name": "form-raw-most-then-potions",
+   "actions": [
+    [
+     "raw_material_replacement_mode",
+     "Most ingredients"
+    ],
+    [
+     "primal_pulp_from",
+     "Golden dragonfruit"
+    ],
+    [
+     "water_from",
+     "Humidify"
+    ],
+    [
+     "herb_potion_from",
+     "Grimy herbs"
+    ],
+    [
+     "raw_material_replacement_mode",
+     "Potions and herbs"
+    ]
+   ],
+   "app": {
+    "raw_material_replacement_mode": "Potions and herbs",
+    "primal_pulp_from": "Golden dragonfruit",
+    "water_from": "Humidify",
+    "herb_potion_from": "Grimy herbs"
+   }
+  },
+  {
+   "name": "form-current-xp-then-level",
+   "actions": [
+    [
+     "curr_toggle",
+     "Experience"
+    ],
+    [
+     "curr_xp",
+     "500000"
+    ],
+    [
+     "curr_toggle",
+     "Level"
+    ],
+    [
+     "curr_level",
+     "40"
+    ]
+   ],
+   "app": {
+    "curr_toggle": "Level",
+    "curr_xp": "500000",
+    "curr_level": "40"
+   }
+  },
+  {
+   "name": "form-filter-switched-back",
+   "actions": [
+    [
+     "raw_material_replacement_mode",
+     "Potions and herbs"
+    ],
+    [
+     "herb_potion_from",
+     "Clean herbs"
+    ],
+    [
+     "recipe_level_filter",
+     "Both"
+    ],
+    [
+     "ingredient_level_filter",
+     "Tradable"
+    ],
+    [
+     "recipe_level_filter",
+     "Original recipe"
+    ],
+    [
+     "recipe_level_start",
+     "20"
+    ]
+   ],
+   "app": {
+    "raw_material_replacement_mode": "Potions and herbs",
+    "herb_potion_from": "Clean herbs",
+    "recipe_level_filter": "Original recipe",
+    "ingredient_level_filter": "Tradable",
+    "recipe_level_start": "20"
+   }
+  },
+  {
+   "name": "form-multiple-overload-variants",
+   "actions": [
+    [
+     "category_choice",
+     "Multiple"
+    ],
+    [
+     "categories_standard",
+     "false"
+    ],
+    [
+     "categories_combinations",
+     "true"
+    ],
+    [
+     "categories_overload_variants",
+     "true"
+    ]
+   ],
+   "app": {
+    "category_choice": "Multiple",
+    "categories_standard": "false",
+    "categories_combinations": "true",
+    "categories_overload_variants": "true"
+   }
+  },
+  {
+   "name": "form-multiple-daemonheim",
+   "actions": [
+    [
+     "category_choice",
+     "Multiple"
+    ],
+    [
+     "categories_herb",
+     "true"
+    ],
+    [
+     "categories_daemonheim_herb",
+     "true"
+    ],
+    [
+     "categories_daemonheim",
+     "true"
+    ]
+   ],
+   "app": {
+    "category_choice": "Multiple",
+    "categories_herb": "true",
+    "categories_daemonheim_herb": "true",
+    "categories_daemonheim": "true"
+   }
+  },
+  {
+   "name": "spot-boosts-bxp",
+   "actions": [
+    [
+     "curr_level",
+     "30"
+    ],
+    [
+     "target_level",
+     "50"
+    ],
+    [
+     "experience_boost",
+     "true"
+    ],
+    [
+     "inspire",
+     "true"
+    ],
+    [
+     "wise",
+     "Wise 4"
+    ],
+    [
+     "avatar",
+     "6"
+    ],
+    [
+     "torsol",
+     "4"
+    ],
+    [
+     "pulse_core",
+     "Buff and equipped"
+    ],
+    [
+     "bxp",
+     "true"
+    ],
+    [
+     "bxp_amount",
+     "100000"
+    ],
+    [
+     "cinder_core",
+     "Buff and equipped"
+    ]
+   ],
+   "app": {
+    "curr_level": "30",
+    "target_level": "50",
+    "inspire": "true",
+    "wise": "Wise 4",
+    "avatar": "6",
+    "torsol": "4",
+    "pulse_core": "Buff and equipped",
+    "bxp": "true",
+    "bxp_amount": "100000",
+    "cinder_core": "Buff and equipped"
+   }
+  },
+  {
+   "name": "spot-dxp-outfit-brooch",
+   "actions": [
+    [
+     "curr_level",
+     "30"
+    ],
+    [
+     "target_level",
+     "50"
+    ],
+    [
+     "experience_boost",
+     "true"
+    ],
+    [
+     "bik_scripture",
+     "Flicking and switching every minute"
+    ],
+    [
+     "dxp",
+     "true"
+    ],
+    [
+     "outfit_piece",
+     "true"
+    ],
+    [
+     "outfit",
+     "5"
+    ],
+    [
+     "modified_mask",
+     "true"
+    ],
+    [
+     "cost_saving",
+     "true"
+    ],
+    [
+     "portable",
+     "true"
+    ],
+    [
+     "brooch",
+     "true"
+    ]
+   ],
+   "app": {
+    "curr_level": "30",
+    "target_level": "50",
+    "bik_scripture": "Flicking and switching every minute",
+    "dxp": "true",
+    "outfit": "5",
+    "modified_mask": "true",
+    "portable": "true",
+    "brooch": "true"
+   }
+  }
+ ]
+}

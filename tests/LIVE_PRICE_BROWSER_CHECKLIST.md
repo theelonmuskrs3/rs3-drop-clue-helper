@@ -166,3 +166,55 @@ Main tab and Items sub-menu link both read "Grand Exchange" (no "G.E." in naviga
 - The ☆ favourite saves the calculator. In the directory, "Open in app" appears only on "Decanting flasks for
   profit" and in Favourites; every other entry is "Wiki only — not yet in app".
 - Spot-check one or two results by hand from the prices shown, e.g. 6 (1)s: sell − floor(sell/50) − 6×vial(1) − flask.
+
+## Batch 2: native Herblore skill calculator (draft PR, no publish until these pass)
+The PR3b directory line above is superseded: "Open in app" now appears on exactly two entries, "Decanting flasks for
+profit" and the Herblore skill calculator, and everything else stays "Wiki only — not yet in app". The Flask page and the
+Grand Exchange tab must be unchanged.
+
+`#calculators/herblore` at 320/390/800/1280, on a fresh preview origin (no service worker, `X-DCH-Preview-Build` matches):
+- Defaults (level 1 → 120, Standard potions) show the same goal message and rows as the Wiki page with its defaults.
+  Spot-check 2–3 rows' XP and Number against https://runescape.wiki/w/Calculator:Herblore with the same inputs, including one with boosts
+  (e.g. Wise 4 + avatar 6 + DXP) and one with BXP.
+- Every form group opens and collapses, shows "N set" when changed, and the dependent fields appear only when their switch is
+  on (brooch after portable well, BXP amount/cinder core after BXP, preparation sub-choices after a preparation mode).
+- Inputs survive a reload; favourites are not affected by input changes; the ☆ favourite reopens `#calculators/herblore`.
+- Prices: ingredients use Buy (high), products Sell (low) with per-item est. tax; net/gross toggle; Calcvalue,
+  Dungeoneering and rusty-coin items say "Unavailable" with a reason and never 0 gp; untradeable items say so and count 0.
+- "Prices used" details stay open across a live price refresh, a search and a sort.
+- Turn on decanting (Profitable) and ingredient preparation (Most ingredients, Most profitable primal fruit): rows with a
+  missing candidate price show the warning, and the Steps column lists the intermediate items.
+- Narrow widths: cards with labels, no sideways scroll; the long Materials/Steps lists wrap.
+- Before prices arrive (or offline): "live prices loading"/unavailable, no 0 gp, no stale snapshot shown as live.
+
+### Batch 2 completion run: exact controls and Wiki golden values
+Controls are `#hb-<field>` inside accordions `details[data-g=…]`: Goal (`goal`), Recipes (`recipes`), Experience boosts
+(`xp`), Outfit pieces (`outfit`), Cost saving and extra doses (`saving`), Potion decanting (`decant`), Ingredient
+preparation (`prep`), Display (`show`), Filter recipes (`filter`). Results: `#hb-msg`, `#hb-table`, `#hb-show`
+(Net/Gross), `#hb-sort`, `#hb-q`. Start from "Reset all options" (`#hb-reset`). Expected values are the Wiki's own form
+renders (`tests/fixtures-herblore-golden.json` → `formCases`), independent of prices.
+
+1. **Boosts + BXP** (`spot-boosts-bxp`): Goal › Herblore level (`#hb-curr_level`) 30, Target level (`#hb-target_level`) 50;
+   Experience boosts › Inspire Genius (`#hb-inspire`) on, Wise perk (`#hb-wise`) Wise 4, Clan avatar bonus (%) (`#hb-avatar`) 6,
+   Torstol incense sticks potency level (`#hb-torsol`) 4, Advanced pulse core (`#hb-pulse_core`) Buff and equipped, Bonus
+   Experience (`#hb-bxp`) on → Amount of BXP (`#hb-bxp_amount`) 100000 and Cinder core (`#hb-cinder_core`) Buff and equipped
+   appear. Experience boosts summary shows "8 set". Message: "…from 13,363 experience (level 30) to 101,333 experience
+   (level 50), 87,970 experience is required." 115 rows. XP / Number: Attack potion (3) 47.4 / 495; Strength potion (3)
+   75.7 / 310; Antipoison (3) 94.7 / 248; Prayer potion (3) 165.6 / 142; Super attack (3) 189.3 / 124.
+   Turn Bonus Experience off: the two BXP fields disappear, "8 set" becomes "5 set", and the values change.
+2. **DXP + outfit + well/brooch** (`spot-dxp-outfit-brooch`): Reset; level 30 → 50; Scripture of Bik (`#hb-bik_scripture`)
+   Flicking and switching every minute; Double XP Live (`#hb-dxp`) on; Outfit pieces › Botanist's outfit pieces
+   (`#hb-outfit`) 5 → Modified botanist's mask (`#hb-modified_mask`) appears, on; Cost saving and extra doses › Portable well
+   (`#hb-portable`) on → Brooch of the Gods (`#hb-brooch`) appears, on. Tags: Experience boosts "2 set", Outfit pieces
+   "2 set", Cost saving "2 set". Display › Product display (`#hb-product_mode`) Quantity. XP / Number / product quantity:
+   Attack potion (3) 57.1 / 1,541 / 1,769.58; Strength potion (3) 91.1 / 966 / 1,109.29; Antipoison (3) 114 / 772 / 886.51;
+   Prayer potion (3) 199.2 / 442 / 507.56; Super attack (3) 227.8 / 387 / 444.41.
+   Untick the Portable well: Brooch disappears, the hidden brooch does not count (no Cost saving tag), and the results equal
+   the Wiki's with the brooch omitted.
+3. **Profitable candidate warning**: Potion decanting › Decanting product to (`#hb-product_decant_type`) Profitable.
+   Rows with any dose lacking a live (≤15 min) price show "Profitable choice undetermined (totals unavailable), no live price
+   for: …" under the recipe, and Total cost / Total value / profit say "Unavailable · Profitable choice undetermined: no price
+   for …" (never 0). Switch Net/Gross (`#hb-show`): determined rows may change dose only if the tax changes the best per-dose value.
+4. **Untradeable**: defaults (Skill subcategory `#hb-category` Standard potions): Adrenaline renewal potion (4)
+   "Prices used" says "untradeable, no market price: valued at 0 as on the Wiki (not free…)" and Total value reads
+   "excludes untradeable Adrenaline renewal potion (4) (no market price, not free)".
