@@ -1,0 +1,2242 @@
+{
+"license": "Rendered by the RuneScape Wiki (Calculator:Skill calculators/Template, Module:Skill calc, Module:Skill calc/bonusGenerator, Module:Skill calc/Cooking/data); CC BY-NC-SA 3.0",
+"note": "Wiki renders (action=parse, 2026-11-11 00:27 EST, same pinned module revisions as tests/fixtures-cooking-golden.json) proving the bonusGenerator quirk: Bonfire adds no XP on Meat, Portable Range adds 21% in Gnome Drinks, Brewing, Churning and All. Only XP and # needed are compared (prices are not part of this fixture).",
+"cases": [
+{
+"name": "Meat Bonfire",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "50",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Meat",
+"extra": "Bonfire"
+},
+"rows": [
+{
+"name": "Cooked meat",
+"xp": "23.5",
+"needed": "4,313",
+"ragged": false
+},
+{
+"name": "Cooked meat",
+"xp": "30",
+"needed": "3,378",
+"ragged": false
+},
+{
+"name": "Cooked chicken",
+"xp": "30",
+"needed": "3,378",
+"ragged": false
+},
+{
+"name": "Cooked meat",
+"xp": "30",
+"needed": "3,378",
+"ragged": false
+},
+{
+"name": "Cooked meat",
+"xp": "30",
+"needed": "3,378",
+"ragged": false
+},
+{
+"name": "Cooked meat",
+"xp": "30",
+"needed": "3,378",
+"ragged": false
+},
+{
+"name": "Cooked rabbit",
+"xp": "30",
+"needed": "3,378",
+"ragged": false
+},
+{
+"name": "Ugthanki kebab",
+"xp": "40",
+"needed": "2,534",
+"ragged": false
+},
+{
+"name": "Ugthanki kebab (Scratch)",
+"xp": "40",
+"needed": "2,534",
+"ragged": false
+},
+{
+"name": "Ugthanki meat",
+"xp": "40",
+"needed": "2,534",
+"ragged": false
+},
+{
+"name": "Roasted bird meat",
+"xp": "62",
+"needed": "1,635",
+"ragged": false
+},
+{
+"name": "Thin snail meat",
+"xp": "70",
+"needed": "1,448",
+"ragged": false
+},
+{
+"name": "Bacon",
+"xp": "68",
+"needed": "1,491",
+"ragged": false
+},
+{
+"name": "Roasted rabbit",
+"xp": "72",
+"needed": "1,408",
+"ragged": false
+},
+{
+"name": "Spider on stick",
+"xp": "80",
+"needed": "1,267",
+"ragged": false
+},
+{
+"name": "Lean snail meat",
+"xp": "80",
+"needed": "1,267",
+"ragged": false
+},
+{
+"name": "Roasted beast meat",
+"xp": "82",
+"needed": "1,236",
+"ragged": false
+},
+{
+"name": "Giant crab meat",
+"xp": "100",
+"needed": "1,014",
+"ragged": false
+},
+{
+"name": "Fat snail meat",
+"xp": "95",
+"needed": "1,067",
+"ragged": false
+},
+{
+"name": "Bacon stack",
+"xp": "88",
+"needed": "1,152",
+"ragged": false
+},
+{
+"name": "Roasted chompy",
+"xp": "140",
+"needed": "724",
+"ragged": false
+},
+{
+"name": "Cooked fishcake",
+"xp": "100",
+"needed": "1,014",
+"ragged": false
+},
+{
+"name": "Bacon pile",
+"xp": "108",
+"needed": "939",
+"ragged": false
+},
+{
+"name": "Jubbly",
+"xp": "160",
+"needed": "634",
+"ragged": false
+},
+{
+"name": "Bacon heap",
+"xp": "135",
+"needed": "751",
+"ragged": false
+},
+{
+"name": "Oomlie wrap",
+"xp": "110",
+"needed": "922",
+"ragged": false
+},
+{
+"name": "Oomlie wrap (Scratch)",
+"xp": "110",
+"needed": "922",
+"ragged": false
+},
+{
+"name": "Bacon mound",
+"xp": "158",
+"needed": "642",
+"ragged": false
+},
+{
+"name": "Bagrada rex meat",
+"xp": "150",
+"needed": "676",
+"ragged": false
+},
+{
+"name": "Scimitops meat",
+"xp": "150",
+"needed": "676",
+"ragged": false
+},
+{
+"name": "Arcane apoterrasaur meat",
+"xp": "150",
+"needed": "676",
+"ragged": false
+},
+{
+"name": "Spicati apoterrasaur meat",
+"xp": "155",
+"needed": "654",
+"ragged": false
+},
+{
+"name": "Asciatops meat",
+"xp": "160",
+"needed": "634",
+"ragged": false
+},
+{
+"name": "Corbicula rex meat",
+"xp": "170",
+"needed": "597",
+"ragged": false
+},
+{
+"name": "Pavosaurus rex meat",
+"xp": "215",
+"needed": "472",
+"ragged": false
+},
+{
+"name": "Malletops meat",
+"xp": "215",
+"needed": "472",
+"ragged": false
+},
+{
+"name": "Oculi apoterrasaur meat",
+"xp": "215",
+"needed": "472",
+"ragged": false
+},
+{
+"name": "Pekin chicken",
+"xp": "30",
+"needed": "3,378",
+"ragged": false
+},
+{
+"name": "Giant chinchompa meat",
+"xp": "420",
+"needed": "242",
+"ragged": false
+},
+{
+"name": "Giant kebbit meat",
+"xp": "420",
+"needed": "242",
+"ragged": false
+}
+]
+},
+{
+"name": "Gnome Drinks Portable Range",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "50",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Gnome Drinks",
+"extra": "Portable Range"
+},
+"rows": [
+{
+"name": "Fruit Blast",
+"xp": "60.5",
+"needed": "1,675",
+"ragged": false
+},
+{
+"name": "Pineapple Punch",
+"xp": "84.7",
+"needed": "1,197",
+"ragged": false
+},
+{
+"name": "Wizard Blizzard",
+"xp": "133.1",
+"needed": "762",
+"ragged": false
+},
+{
+"name": "Short Green Guy",
+"xp": "145.2",
+"needed": "698",
+"ragged": false
+},
+{
+"name": "Drunk Dragon",
+"xp": "193.6",
+"needed": "524",
+"ragged": false
+},
+{
+"name": "Chocolate Saturday",
+"xp": "205.7",
+"needed": "493",
+"ragged": false
+},
+{
+"name": "Blurberry Special",
+"xp": "217.8",
+"needed": "466",
+"ragged": false
+}
+]
+},
+{
+"name": "Brewing Portable Range",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "50",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Brewing",
+"extra": "Portable Range"
+},
+"rows": [
+{
+"name": "Cider (4)",
+"xp": "220.2",
+"needed": "461",
+"ragged": false
+},
+{
+"name": "Dwarven stout (4)",
+"xp": "260.2",
+"needed": "390",
+"ragged": false
+},
+{
+"name": "Nettle tea",
+"xp": "64.1",
+"needed": "1,581",
+"ragged": false
+},
+{
+"name": "Asgarnian ale (4)",
+"xp": "300.1",
+"needed": "338",
+"ragged": false
+},
+{
+"name": "Greenman's ale (4)",
+"xp": "340",
+"needed": "299",
+"ragged": false
+},
+{
+"name": "Mind bomb (4)",
+"xp": "379.9",
+"needed": "267",
+"ragged": false
+},
+{
+"name": "Jug of wine",
+"xp": "242",
+"needed": "419",
+"ragged": false
+},
+{
+"name": "Dragon bitter (4)",
+"xp": "419.9",
+"needed": "242",
+"ragged": false
+},
+{
+"name": "Moonlight mead (4)",
+"xp": "459.8",
+"needed": "221",
+"ragged": false
+},
+{
+"name": "Axeman's folly (4)",
+"xp": "499.7",
+"needed": "203",
+"ragged": false
+},
+{
+"name": "Chef's delight (4)",
+"xp": "539.7",
+"needed": "188",
+"ragged": false
+},
+{
+"name": "Slayer's respite (4)",
+"xp": "579.6",
+"needed": "175",
+"ragged": false
+},
+{
+"name": "Pigswill (4)",
+"xp": "459.8",
+"needed": "221",
+"ragged": false
+}
+]
+},
+{
+"name": "Churning Portable Range",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "50",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Churning",
+"extra": "Portable Range"
+},
+"rows": [
+{
+"name": "Pot of cream",
+"xp": "21.8",
+"needed": "4,649",
+"ragged": false
+},
+{
+"name": "Cream cheese",
+"xp": "96.8",
+"needed": "1,047",
+"ragged": false
+},
+{
+"name": "Vanilla cream cheese",
+"xp": "108.9",
+"needed": "931",
+"ragged": false
+},
+{
+"name": "Chocolate cream cheese",
+"xp": "121",
+"needed": "838",
+"ragged": false
+},
+{
+"name": "Pat of butter",
+"xp": "27.2",
+"needed": "3,726",
+"ragged": false
+},
+{
+"name": "Pat of butter (Scratch)",
+"xp": "49",
+"needed": "2,069",
+"ragged": false
+},
+{
+"name": "Strawberry cream cheese",
+"xp": "133.1",
+"needed": "762",
+"ragged": false
+},
+{
+"name": "Cheese",
+"xp": "28.4",
+"needed": "3,569",
+"ragged": false
+},
+{
+"name": "Cheese (Scratch)",
+"xp": "77.4",
+"needed": "1,310",
+"ragged": false
+},
+{
+"name": "Cheese (Semi-Scratch)",
+"xp": "55.7",
+"needed": "1,820",
+"ragged": false
+}
+]
+},
+{
+"name": "All Portable Range",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "50",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "All",
+"extra": "Portable Range"
+},
+"rows": [
+{
+"name": "Edicap potato",
+"xp": "9.3",
+"needed": "10,897",
+"ragged": false
+},
+{
+"name": "Cave potato",
+"xp": "10.9",
+"needed": "9,297",
+"ragged": false
+},
+{
+"name": "Karambwanji",
+"xp": "12.1",
+"needed": "8,375",
+"ragged": false
+},
+{
+"name": "Gissel potato",
+"xp": "15.1",
+"needed": "6,711",
+"ragged": false
+},
+{
+"name": "Heim crab",
+"xp": "26.6",
+"needed": "3,810",
+"ragged": false
+},
+{
+"name": "Cooked meat",
+"xp": "28.4",
+"needed": "3,569",
+"ragged": false
+},
+{
+"name": "Crayfish",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Shrimps",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Cooked meat",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Anchovies",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Cooked meat",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Cooked chicken",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Minnow",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Cooked rabbit",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Cooked meat",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Cooked meat",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Sardine",
+"xp": "48.4",
+"needed": "2,094",
+"ragged": false
+},
+{
+"name": "Bread",
+"xp": "48.4",
+"needed": "2,094",
+"ragged": false
+},
+{
+"name": "Ugthanki meat",
+"xp": "48.4",
+"needed": "2,094",
+"ragged": false
+},
+{
+"name": "Ugthanki kebab",
+"xp": "48.4",
+"needed": "2,094",
+"ragged": false
+},
+{
+"name": "Ugthanki kebab (Scratch)",
+"xp": "48.4",
+"needed": "2,094",
+"ragged": false
+},
+{
+"name": "Cooked karambwan",
+"xp": "229.9",
+"needed": "441",
+"ragged": false
+},
+{
+"name": "Heim crab potato",
+"xp": "37.5",
+"needed": "2,703",
+"ragged": false
+},
+{
+"name": "Herring",
+"xp": "60.5",
+"needed": "1,675",
+"ragged": false
+},
+{
+"name": "Heim crab & gissel potato",
+"xp": "50.1",
+"needed": "2,023",
+"ragged": false
+},
+{
+"name": "Heim crab & gissel potato",
+"xp": "50.1",
+"needed": "2,023",
+"ragged": false
+},
+{
+"name": "Fruit Blast",
+"xp": "60.5",
+"needed": "1,675",
+"ragged": false
+},
+{
+"name": "Baked potato",
+"xp": "18.2",
+"needed": "5,568",
+"ragged": false
+},
+{
+"name": "Pineapple Punch",
+"xp": "84.7",
+"needed": "1,197",
+"ragged": false
+},
+{
+"name": "Spicy sauce",
+"xp": "30.3",
+"needed": "3,345",
+"ragged": false
+},
+{
+"name": "Heim crab & edicap potato",
+"xp": "62.8",
+"needed": "1,614",
+"ragged": false
+},
+{
+"name": "Heim crab & edicap potato",
+"xp": "62.8",
+"needed": "1,614",
+"ragged": false
+},
+{
+"name": "Mackerel",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Red-eye",
+"xp": "49.6",
+"needed": "2,044",
+"ragged": false
+},
+{
+"name": "Redberry pie",
+"xp": "94.4",
+"needed": "1,074",
+"ragged": false
+},
+{
+"name": "Redberry pie (Scratch)",
+"xp": "94.4",
+"needed": "1,074",
+"ragged": false
+},
+{
+"name": "Toad crunchies",
+"xp": "121",
+"needed": "838",
+"ragged": false
+},
+{
+"name": "Chilli con carne",
+"xp": "30.3",
+"needed": "3,345",
+"ragged": false
+},
+{
+"name": "Roasted bird meat",
+"xp": "75",
+"needed": "1,352",
+"ragged": false
+},
+{
+"name": "Thin snail meat",
+"xp": "84.7",
+"needed": "1,197",
+"ragged": false
+},
+{
+"name": "Spicy crunchies",
+"xp": "121",
+"needed": "838",
+"ragged": false
+},
+{
+"name": "Scrambled egg",
+"xp": "60.5",
+"needed": "1,675",
+"ragged": false
+},
+{
+"name": "Red-eye potato",
+"xp": "60.5",
+"needed": "1,675",
+"ragged": false
+},
+{
+"name": "Bacon",
+"xp": "82.3",
+"needed": "1,232",
+"ragged": false
+},
+{
+"name": "Worm crunchies",
+"xp": "121",
+"needed": "838",
+"ragged": false
+},
+{
+"name": "Cider (4)",
+"xp": "220.2",
+"needed": "461",
+"ragged": false
+},
+{
+"name": "Trout",
+"xp": "84.7",
+"needed": "1,197",
+"ragged": false
+},
+{
+"name": "Red-eye & gissel potato",
+"xp": "79.6",
+"needed": "1,274",
+"ragged": false
+},
+{
+"name": "Red-eye & gissel potato",
+"xp": "79.6",
+"needed": "1,274",
+"ragged": false
+},
+{
+"name": "Roasted rabbit",
+"xp": "87.1",
+"needed": "1,164",
+"ragged": false
+},
+{
+"name": "Spider on stick",
+"xp": "96.8",
+"needed": "1,047",
+"ragged": false
+},
+{
+"name": "Chocolate chip crunchies",
+"xp": "121",
+"needed": "838",
+"ragged": false
+},
+{
+"name": "Lean snail meat",
+"xp": "96.8",
+"needed": "1,047",
+"ragged": false
+},
+{
+"name": "Cod",
+"xp": "90.8",
+"needed": "1,117",
+"ragged": false
+},
+{
+"name": "Wizard Blizzard",
+"xp": "133.1",
+"needed": "762",
+"ragged": false
+},
+{
+"name": "Red-eye & edicap potato",
+"xp": "99.6",
+"needed": "1,018",
+"ragged": false
+},
+{
+"name": "Red-eye & edicap potato",
+"xp": "99.6",
+"needed": "1,018",
+"ragged": false
+},
+{
+"name": "Dwarven stout (4)",
+"xp": "260.2",
+"needed": "390",
+"ragged": false
+},
+{
+"name": "Nettle tea",
+"xp": "64.1",
+"needed": "1,581",
+"ragged": false
+},
+{
+"name": "Dusk eel",
+"xp": "73.8",
+"needed": "1,374",
+"ragged": false
+},
+{
+"name": "Pike",
+"xp": "96.8",
+"needed": "1,047",
+"ragged": false
+},
+{
+"name": "Meat pie",
+"xp": "133.1",
+"needed": "762",
+"ragged": false
+},
+{
+"name": "Meat pie (Scratch)",
+"xp": "133.1",
+"needed": "762",
+"ragged": false
+},
+{
+"name": "Short Green Guy",
+"xp": "145.2",
+"needed": "698",
+"ragged": false
+},
+{
+"name": "Pot of cream",
+"xp": "21.8",
+"needed": "4,649",
+"ragged": false
+},
+{
+"name": "Roasted beast meat",
+"xp": "99.2",
+"needed": "1,022",
+"ragged": false
+},
+{
+"name": "Giant crab meat",
+"xp": "121",
+"needed": "838",
+"ragged": false
+},
+{
+"name": "Fat snail meat",
+"xp": "115",
+"needed": "882",
+"ragged": false
+},
+{
+"name": "Egg and tomato",
+"xp": "60.5",
+"needed": "1,675",
+"ragged": false
+},
+{
+"name": "Dusk eel potato",
+"xp": "84.7",
+"needed": "1,197",
+"ragged": false
+},
+{
+"name": "Bacon stack",
+"xp": "106.5",
+"needed": "952",
+"ragged": false
+},
+{
+"name": "Asgarnian ale (4)",
+"xp": "300.1",
+"needed": "338",
+"ragged": false
+},
+{
+"name": "Salmon",
+"xp": "108.9",
+"needed": "931",
+"ragged": false
+},
+{
+"name": "Stew",
+"xp": "141.6",
+"needed": "716",
+"ragged": false
+},
+{
+"name": "Fruit batta",
+"xp": "181.5",
+"needed": "559",
+"ragged": false
+},
+{
+"name": "Dusk eel & gissel potato",
+"xp": "111.1",
+"needed": "913",
+"ragged": false
+},
+{
+"name": "Dusk eel & gissel potato",
+"xp": "111.1",
+"needed": "913",
+"ragged": false
+},
+{
+"name": "Toad batta",
+"xp": "183.9",
+"needed": "552",
+"ragged": false
+},
+{
+"name": "Worm batta",
+"xp": "186.3",
+"needed": "544",
+"ragged": false
+},
+{
+"name": "Cooked slimy eel",
+"xp": "115",
+"needed": "882",
+"ragged": false
+},
+{
+"name": "Cooked sweetcorn",
+"xp": "125.8",
+"needed": "806",
+"ragged": false
+},
+{
+"name": "Vegetable batta",
+"xp": "188.8",
+"needed": "537",
+"ragged": false
+},
+{
+"name": "Dusk eel & edicap potato",
+"xp": "138.3",
+"needed": "733",
+"ragged": false
+},
+{
+"name": "Dusk eel & edicap potato",
+"xp": "138.3",
+"needed": "733",
+"ragged": false
+},
+{
+"name": "Mud pie",
+"xp": "154.9",
+"needed": "655",
+"ragged": false
+},
+{
+"name": "Mud pie (Scratch)",
+"xp": "154.9",
+"needed": "655",
+"ragged": false
+},
+{
+"name": "Cheese and tomato batta",
+"xp": "191.2",
+"needed": "530",
+"ragged": false
+},
+{
+"name": "Greenman's ale (4)",
+"xp": "340",
+"needed": "299",
+"ragged": false
+},
+{
+"name": "Giant flatfish",
+"xp": "99.2",
+"needed": "1,022",
+"ragged": false
+},
+{
+"name": "Tuna",
+"xp": "121",
+"needed": "838",
+"ragged": false
+},
+{
+"name": "Apple pie",
+"xp": "157.3",
+"needed": "645",
+"ragged": false
+},
+{
+"name": "Apple pie (Scratch)",
+"xp": "157.3",
+"needed": "645",
+"ragged": false
+},
+{
+"name": "Roasted chompy",
+"xp": "169.4",
+"needed": "599",
+"ragged": false
+},
+{
+"name": "Worm hole",
+"xp": "205.7",
+"needed": "493",
+"ragged": false
+},
+{
+"name": "Cooked fishcake",
+"xp": "121",
+"needed": "838",
+"ragged": false
+},
+{
+"name": "Cream cheese",
+"xp": "96.8",
+"needed": "1,047",
+"ragged": false
+},
+{
+"name": "Biscuits",
+"xp": "121",
+"needed": "838",
+"ragged": false
+},
+{
+"name": "Biscuits (Scratch)",
+"xp": "122.2",
+"needed": "830",
+"ragged": false
+},
+{
+"name": "Drunk Dragon",
+"xp": "193.6",
+"needed": "524",
+"ragged": false
+},
+{
+"name": "Cheesecake",
+"xp": "205.7",
+"needed": "493",
+"ragged": false
+},
+{
+"name": "Vanilla cheesecake",
+"xp": "217.8",
+"needed": "466",
+"ragged": false
+},
+{
+"name": "Chocolate cheesecake",
+"xp": "229.9",
+"needed": "441",
+"ragged": false
+},
+{
+"name": "Flatfish potato",
+"xp": "110.1",
+"needed": "921",
+"ragged": false
+},
+{
+"name": "Chocolate Saturday",
+"xp": "205.7",
+"needed": "493",
+"ragged": false
+},
+{
+"name": "Bacon pile",
+"xp": "130.7",
+"needed": "776",
+"ragged": false
+},
+{
+"name": "Garden pie",
+"xp": "167",
+"needed": "607",
+"ragged": false
+},
+{
+"name": "Garden pie (Scratch)",
+"xp": "167",
+"needed": "607",
+"ragged": false
+},
+{
+"name": "Mind bomb (4)",
+"xp": "379.9",
+"needed": "267",
+"ragged": false
+},
+{
+"name": "Vanilla cream cheese",
+"xp": "108.9",
+"needed": "931",
+"ragged": false
+},
+{
+"name": "Chocolate cream cheese",
+"xp": "121",
+"needed": "838",
+"ragged": false
+},
+{
+"name": "Rainbow fish",
+"xp": "133.1",
+"needed": "762",
+"ragged": false
+},
+{
+"name": "Plain pizza",
+"xp": "173",
+"needed": "586",
+"ragged": false
+},
+{
+"name": "Plain pizza (Scratch)",
+"xp": "173",
+"needed": "586",
+"ragged": false
+},
+{
+"name": "Veg ball",
+"xp": "211.8",
+"needed": "479",
+"ragged": false
+},
+{
+"name": "Jug of wine",
+"xp": "242",
+"needed": "419",
+"ragged": false
+},
+{
+"name": "Flatfish & gissel potato",
+"xp": "144.1",
+"needed": "704",
+"ragged": false
+},
+{
+"name": "Flatfish & gissel potato",
+"xp": "144.1",
+"needed": "704",
+"ragged": false
+},
+{
+"name": "Blurberry Special",
+"xp": "217.8",
+"needed": "466",
+"ragged": false
+},
+{
+"name": "Pat of butter",
+"xp": "27.2",
+"needed": "3,726",
+"ragged": false
+},
+{
+"name": "Pat of butter (Scratch)",
+"xp": "49",
+"needed": "2,069",
+"ragged": false
+},
+{
+"name": "Cave eel",
+"xp": "139.2",
+"needed": "728",
+"ragged": false
+},
+{
+"name": "Potato with butter",
+"xp": "18.2",
+"needed": "5,568",
+"ragged": false
+},
+{
+"name": "Potato with butter (Scratch)",
+"xp": "66.6",
+"needed": "1,522",
+"ragged": false
+},
+{
+"name": "Flatfish & edicap potato",
+"xp": "179",
+"needed": "567",
+"ragged": false
+},
+{
+"name": "Flatfish & edicap potato",
+"xp": "179",
+"needed": "567",
+"ragged": false
+},
+{
+"name": "Dragon bitter (4)",
+"xp": "419.9",
+"needed": "242",
+"ragged": false
+},
+{
+"name": "Short-finned eel",
+"xp": "124.6",
+"needed": "814",
+"ragged": false
+},
+{
+"name": "Lobster",
+"xp": "145.2",
+"needed": "698",
+"ragged": false
+},
+{
+"name": "Cake",
+"xp": "217.8",
+"needed": "466",
+"ragged": false
+},
+{
+"name": "Tangled toads' legs",
+"xp": "223.9",
+"needed": "453",
+"ragged": false
+},
+{
+"name": "Chilli potato",
+"xp": "18.2",
+"needed": "5,568",
+"ragged": false
+},
+{
+"name": "Chilli potato (Scratch)",
+"xp": "145.2",
+"needed": "698",
+"ragged": false
+},
+{
+"name": "Jubbly",
+"xp": "193.6",
+"needed": "524",
+"ragged": false
+},
+{
+"name": "Fried onions",
+"xp": "72.6",
+"needed": "1,396",
+"ragged": false
+},
+{
+"name": "Chocolate bomb",
+"xp": "229.9",
+"needed": "441",
+"ragged": false
+},
+{
+"name": "Short-fin potato",
+"xp": "135.5",
+"needed": "748",
+"ragged": false
+},
+{
+"name": "Bass",
+"xp": "157.3",
+"needed": "645",
+"ragged": false
+},
+{
+"name": "Bacon heap",
+"xp": "163.4",
+"needed": "621",
+"ragged": false
+},
+{
+"name": "Moonlight mead (4)",
+"xp": "459.8",
+"needed": "221",
+"ragged": false
+},
+{
+"name": "Meat pizza",
+"xp": "31.5",
+"needed": "3,217",
+"ragged": false
+},
+{
+"name": "Strawberry cream cheese",
+"xp": "133.1",
+"needed": "762",
+"ragged": false
+},
+{
+"name": "Swordfish",
+"xp": "169.4",
+"needed": "599",
+"ragged": false
+},
+{
+"name": "Meat pizza (Scratch)",
+"xp": "204.5",
+"needed": "496",
+"ragged": false
+},
+{
+"name": "Fried mushrooms",
+"xp": "72.6",
+"needed": "1,396",
+"ragged": false
+},
+{
+"name": "Short-fin & gissel potato",
+"xp": "177.1",
+"needed": "573",
+"ragged": false
+},
+{
+"name": "Short-fin & gissel potato",
+"xp": "177.1",
+"needed": "573",
+"ragged": false
+},
+{
+"name": "Potato with cheese",
+"xp": "48.4",
+"needed": "2,094",
+"ragged": false
+},
+{
+"name": "Potato with cheese (Scratch)",
+"xp": "115",
+"needed": "882",
+"ragged": false
+},
+{
+"name": "Fish pie",
+"xp": "198.4",
+"needed": "511",
+"ragged": false
+},
+{
+"name": "Fish pie (Scratch)",
+"xp": "198.4",
+"needed": "511",
+"ragged": false
+},
+{
+"name": "Strawberry cheesecake",
+"xp": "242",
+"needed": "419",
+"ragged": false
+},
+{
+"name": "Cheese",
+"xp": "28.4",
+"needed": "3,569",
+"ragged": false
+},
+{
+"name": "Cheese (Scratch)",
+"xp": "77.4",
+"needed": "1,310",
+"ragged": false
+},
+{
+"name": "Cheese (Semi-Scratch)",
+"xp": "55.7",
+"needed": "1,820",
+"ragged": false
+},
+{
+"name": "Short-fin & edicap potato",
+"xp": "219.6",
+"needed": "462",
+"ragged": false
+},
+{
+"name": "Short-fin & edicap potato",
+"xp": "219.6",
+"needed": "462",
+"ragged": false
+},
+{
+"name": "Axeman's folly (4)",
+"xp": "499.7",
+"needed": "203",
+"ragged": false
+},
+{
+"name": "Chocolate cake",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Oomlie wrap",
+"xp": "133.1",
+"needed": "762",
+"ragged": false
+},
+{
+"name": "Oomlie wrap (Scratch)",
+"xp": "133.1",
+"needed": "762",
+"ragged": false
+},
+{
+"name": "Web snipper",
+"xp": "150",
+"needed": "676",
+"ragged": false
+},
+{
+"name": "Chocolate cake (Scratch)",
+"xp": "254.1",
+"needed": "399",
+"ragged": false
+},
+{
+"name": "Egg potato",
+"xp": "54.5",
+"needed": "1,860",
+"ragged": false
+},
+{
+"name": "Egg potato (Scratch)",
+"xp": "242",
+"needed": "419",
+"ragged": false
+},
+{
+"name": "Desert sole",
+"xp": "172.4",
+"needed": "588",
+"ragged": false
+},
+{
+"name": "Lemon cheesecake",
+"xp": "254.1",
+"needed": "399",
+"ragged": false
+},
+{
+"name": "Lava eel",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Snipper potato",
+"xp": "160.9",
+"needed": "630",
+"ragged": false
+},
+{
+"name": "Bacon mound",
+"xp": "191.2",
+"needed": "530",
+"ragged": false
+},
+{
+"name": "Chef's delight (4)",
+"xp": "539.7",
+"needed": "188",
+"ragged": false
+},
+{
+"name": "Anchovy pizza",
+"xp": "47.2",
+"needed": "2,147",
+"ragged": false
+},
+{
+"name": "Anchovy pizza (Scratch)",
+"xp": "220.2",
+"needed": "461",
+"ragged": false
+},
+{
+"name": "Snipper & gissel potato",
+"xp": "210.2",
+"needed": "483",
+"ragged": false
+},
+{
+"name": "Snipper & gissel potato",
+"xp": "210.2",
+"needed": "483",
+"ragged": false
+},
+{
+"name": "Mushroom & onion",
+"xp": "145.2",
+"needed": "698",
+"ragged": false
+},
+{
+"name": "Bacon cheesecake",
+"xp": "266.2",
+"needed": "381",
+"ragged": false
+},
+{
+"name": "Pitta bread",
+"xp": "48.4",
+"needed": "2,094",
+"ragged": false
+},
+{
+"name": "Snipper & edicap potato",
+"xp": "260.3",
+"needed": "390",
+"ragged": false
+},
+{
+"name": "Snipper & edicap potato",
+"xp": "260.3",
+"needed": "390",
+"ragged": false
+},
+{
+"name": "Slayer's respite (4)",
+"xp": "579.6",
+"needed": "175",
+"ragged": false
+},
+{
+"name": "Catfish",
+"xp": "175.5",
+"needed": "578",
+"ragged": false
+},
+{
+"name": "Bouldabass",
+"xp": "176.7",
+"needed": "574",
+"ragged": false
+},
+{
+"name": "Curry",
+"xp": "338.8",
+"needed": "300",
+"ragged": false
+},
+{
+"name": "Curry",
+"xp": "338.8",
+"needed": "300",
+"ragged": false
+},
+{
+"name": "Bouldabass potato",
+"xp": "187.5",
+"needed": "541",
+"ragged": false
+},
+{
+"name": "Mushroom potato",
+"xp": "66.6",
+"needed": "1,522",
+"ragged": false
+},
+{
+"name": "Monkfish",
+"xp": "181.5",
+"needed": "559",
+"ragged": false
+},
+{
+"name": "Mushroom potato (Scratch)",
+"xp": "425.9",
+"needed": "238",
+"ragged": false
+},
+{
+"name": "Pigswill (4)",
+"xp": "459.8",
+"needed": "221",
+"ragged": false
+},
+{
+"name": "Pineapple pizza",
+"xp": "54.5",
+"needed": "1,860",
+"ragged": false
+},
+{
+"name": "Pineapple pizza (Scratch)",
+"xp": "227.5",
+"needed": "446",
+"ragged": false
+},
+{
+"name": "Ghostly sole",
+"xp": "193.6",
+"needed": "524",
+"ragged": false
+},
+{
+"name": "Bouldabass & gissel potato",
+"xp": "244.8",
+"needed": "414",
+"ragged": false
+},
+{
+"name": "Bouldabass & gissel potato",
+"xp": "244.8",
+"needed": "414",
+"ragged": false
+},
+{
+"name": "Tuna and corn",
+"xp": "246.8",
+"needed": "411",
+"ragged": false
+},
+{
+"name": "Tuna potato",
+"xp": "12.1",
+"needed": "8,375",
+"ragged": false
+},
+{
+"name": "Tuna potato (Scratch)",
+"xp": "523.9",
+"needed": "194",
+"ragged": false
+},
+{
+"name": "Tuna potato (Semi-Scratch)",
+"xp": "258.9",
+"needed": "392",
+"ragged": false
+},
+{
+"name": "Bouldabass & edicap potato",
+"xp": "302.9",
+"needed": "335",
+"ragged": false
+},
+{
+"name": "Bouldabass & edicap potato",
+"xp": "302.9",
+"needed": "335",
+"ragged": false
+},
+{
+"name": "Salve eel",
+"xp": "203.3",
+"needed": "499",
+"ragged": false
+},
+{
+"name": "Admiral pie",
+"xp": "254.1",
+"needed": "399",
+"ragged": false
+},
+{
+"name": "Admiral pie (Scratch)",
+"xp": "254.1",
+"needed": "399",
+"ragged": false
+},
+{
+"name": "Beltfish",
+"xp": "199.7",
+"needed": "508",
+"ragged": false
+},
+{
+"name": "Green blubber jellyfish",
+"xp": "199.7",
+"needed": "508",
+"ragged": false
+},
+{
+"name": "Salve eel potato",
+"xp": "214.2",
+"needed": "474",
+"ragged": false
+},
+{
+"name": "Pork pie",
+"xp": "254.1",
+"needed": "399",
+"ragged": false
+},
+{
+"name": "Pork pie (Scratch)",
+"xp": "254.1",
+"needed": "399",
+"ragged": false
+},
+{
+"name": "Pork pie (Semi-Scratch)",
+"xp": "254.1",
+"needed": "399",
+"ragged": false
+},
+{
+"name": "Bagrada rex meat",
+"xp": "181.5",
+"needed": "559",
+"ragged": false
+},
+{
+"name": "Arcane apoterrasaur meat",
+"xp": "181.5",
+"needed": "559",
+"ragged": false
+},
+{
+"name": "Scimitops meat",
+"xp": "181.5",
+"needed": "559",
+"ragged": false
+},
+{
+"name": "Salve eel & gissel potato",
+"xp": "279.4",
+"needed": "363",
+"ragged": false
+},
+{
+"name": "Salve eel & gissel potato",
+"xp": "279.4",
+"needed": "363",
+"ragged": false
+},
+{
+"name": "Salve eel & edicap potato",
+"xp": "345.5",
+"needed": "294",
+"ragged": false
+},
+{
+"name": "Salve eel & edicap potato",
+"xp": "345.5",
+"needed": "294",
+"ragged": false
+},
+{
+"name": "Blue crab",
+"xp": "231.1",
+"needed": "439",
+"ragged": false
+},
+{
+"name": "Shark",
+"xp": "254.1",
+"needed": "399",
+"ragged": false
+},
+{
+"name": "Spicati apoterrasaur meat",
+"xp": "187.5",
+"needed": "541",
+"ragged": false
+},
+{
+"name": "Asciatops meat",
+"xp": "193.6",
+"needed": "524",
+"ragged": false
+},
+{
+"name": "Corbicula rex meat",
+"xp": "205.7",
+"needed": "493",
+"ragged": false
+},
+{
+"name": "Sea turtle",
+"xp": "255.7",
+"needed": "397",
+"ragged": false
+},
+{
+"name": "Blue crab potato",
+"xp": "242",
+"needed": "419",
+"ragged": false
+},
+{
+"name": "Great maki",
+"xp": "181.5",
+"needed": "559",
+"ragged": false
+},
+{
+"name": "Great white shark",
+"xp": "256.5",
+"needed": "396",
+"ragged": false
+},
+{
+"name": "Banana pizza",
+"xp": "107.7",
+"needed": "941",
+"ragged": false
+},
+{
+"name": "Banana pizza (Scratch)",
+"xp": "280.7",
+"needed": "362",
+"ragged": false
+},
+{
+"name": "Wilder pie",
+"xp": "302.5",
+"needed": "335",
+"ragged": false
+},
+{
+"name": "Wilder pie",
+"xp": "302.5",
+"needed": "335",
+"ragged": false
+},
+{
+"name": "Wilder pie (Scratch)",
+"xp": "290.4",
+"needed": "349",
+"ragged": false
+},
+{
+"name": "Wilder pie (Semi-Scratch)",
+"xp": "290.4",
+"needed": "349",
+"ragged": false
+},
+{
+"name": "Wild pie",
+"xp": "290.4",
+"needed": "349",
+"ragged": false
+},
+{
+"name": "Wild pie (Scratch)",
+"xp": "290.4",
+"needed": "349",
+"ragged": false
+},
+{
+"name": "Giant crayfish",
+"xp": "256.5",
+"needed": "396",
+"ragged": false
+},
+{
+"name": "Blue crab & gissel potato",
+"xp": "315.6",
+"needed": "322",
+"ragged": false
+},
+{
+"name": "Blue crab & gissel potato",
+"xp": "315.6",
+"needed": "322",
+"ragged": false
+},
+{
+"name": "Cavefish",
+"xp": "258.9",
+"needed": "392",
+"ragged": false
+},
+{
+"name": "Oculi apoterrasaur meat",
+"xp": "260.2",
+"needed": "390",
+"ragged": false
+},
+{
+"name": "Pavosaurus rex meat",
+"xp": "260.2",
+"needed": "390",
+"ragged": false
+},
+{
+"name": "Malletops meat",
+"xp": "260.2",
+"needed": "390",
+"ragged": false
+},
+{
+"name": "Blue crab & edicap potato",
+"xp": "390",
+"needed": "260",
+"ragged": false
+},
+{
+"name": "Blue crab & edicap potato",
+"xp": "390",
+"needed": "260",
+"ragged": false
+},
+{
+"name": "Cave moray",
+"xp": "260.2",
+"needed": "390",
+"ragged": false
+},
+{
+"name": "Pekin chicken",
+"xp": "36.3",
+"needed": "2,792",
+"ragged": false
+},
+{
+"name": "Fish oil",
+"xp": "145.2",
+"needed": "698",
+"ragged": false
+},
+{
+"name": "Fish oil",
+"xp": "145.2",
+"needed": "698",
+"ragged": false
+},
+{
+"name": "Fish oil",
+"xp": "145.2",
+"needed": "698",
+"ragged": false
+},
+{
+"name": "Great gunkan",
+"xp": "217.8",
+"needed": "466",
+"ragged": false
+},
+{
+"name": "Manta ray",
+"xp": "261.7",
+"needed": "388",
+"ragged": false
+},
+{
+"name": "Moray potato",
+"xp": "271",
+"needed": "374",
+"ragged": false
+},
+{
+"name": "Rocktail",
+"xp": "272.3",
+"needed": "373",
+"ragged": false
+},
+{
+"name": "Rocktail soup",
+"xp": "605",
+"needed": "168",
+"ragged": false
+},
+{
+"name": "Rocktail soup (Scratch)",
+"xp": "877.3",
+"needed": "116",
+"ragged": false
+},
+{
+"name": "Arc gumbo",
+"xp": "157.3",
+"needed": "645",
+"ragged": false
+},
+{
+"name": "Tiger shark",
+"xp": "278.3",
+"needed": "365",
+"ragged": false
+},
+{
+"name": "Blue blubber jellyfish",
+"xp": "284.3",
+"needed": "357",
+"ragged": false
+},
+{
+"name": "Summer pie",
+"xp": "314.6",
+"needed": "323",
+"ragged": false
+},
+{
+"name": "Summer pie (Scratch)",
+"xp": "314.6",
+"needed": "323",
+"ragged": false
+},
+{
+"name": "Shark soup",
+"xp": "290.4",
+"needed": "349",
+"ragged": false
+},
+{
+"name": "Wobbegong oil",
+"xp": "290.4",
+"needed": "349",
+"ragged": false
+},
+{
+"name": "Moray & gissel potato",
+"xp": "353.3",
+"needed": "287",
+"ragged": false
+},
+{
+"name": "Moray & gissel potato",
+"xp": "353.3",
+"needed": "287",
+"ragged": false
+},
+{
+"name": "Sailfish",
+"xp": "326.7",
+"needed": "311",
+"ragged": false
+},
+{
+"name": "Moray & edicap potato",
+"xp": "436.4",
+"needed": "233",
+"ragged": false
+},
+{
+"name": "Moray & edicap potato",
+"xp": "436.4",
+"needed": "233",
+"ragged": false
+},
+{
+"name": "Giant kebbit meat",
+"xp": "508.2",
+"needed": "200",
+"ragged": false
+},
+{
+"name": "Giant chinchompa meat",
+"xp": "508.2",
+"needed": "200",
+"ragged": false
+},
+{
+"name": "Sailfish soup",
+"xp": "726",
+"needed": "140",
+"ragged": false
+},
+{
+"name": "Primal starter",
+"xp": "968",
+"needed": "105",
+"ragged": false
+},
+{
+"name": "Primal dessert",
+"xp": "968",
+"needed": "105",
+"ragged": false
+},
+{
+"name": "Primal main course",
+"xp": "968",
+"needed": "105",
+"ragged": false
+},
+{
+"name": "Sailfish soup (Scratch)",
+"xp": "1,052.7",
+"needed": "97",
+"ragged": false
+},
+{
+"name": "Primal feast",
+"xp": "1,210",
+"needed": "84",
+"ragged": false
+},
+{
+"name": "Cracked cooking urn",
+"xp": null,
+"needed": null,
+"ragged": true
+},
+{
+"name": "Cracked cooking urn (Urn Enhancer)",
+"xp": null,
+"needed": null,
+"ragged": true
+},
+{
+"name": "Fragile cooking urn",
+"xp": null,
+"needed": null,
+"ragged": true
+},
+{
+"name": "Primal feast (Scratch)",
+"xp": "4,114",
+"needed": "25",
+"ragged": false
+},
+{
+"name": "Fragile cooking urn (Urn Enhancer)",
+"xp": null,
+"needed": null,
+"ragged": true
+},
+{
+"name": "Plain cooking urn",
+"xp": null,
+"needed": null,
+"ragged": true
+},
+{
+"name": "Plain cooking urn (Urn Enhancer)",
+"xp": null,
+"needed": null,
+"ragged": true
+},
+{
+"name": "Strong cooking urn",
+"xp": null,
+"needed": null,
+"ragged": true
+},
+{
+"name": "Strong cooking urn (Urn Enhancer)",
+"xp": null,
+"needed": null,
+"ragged": true
+},
+{
+"name": "Decorated cooking urn",
+"xp": null,
+"needed": null,
+"ragged": true
+},
+{
+"name": "Decorated cooking urn (Urn Enhancer)",
+"xp": null,
+"needed": null,
+"ragged": true
+},
+{
+"name": "Exquisite cooking urn",
+"xp": null,
+"needed": null,
+"ragged": true
+},
+{
+"name": "Exquisite cooking urn (Urn Enhancer)",
+"xp": null,
+"needed": null,
+"ragged": true
+}
+]
+}
+]
+}

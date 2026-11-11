@@ -225,7 +225,7 @@ const set = (d, w, k, v) => { const el = d.querySelector('#hb-' + k); assert.ok(
   dom.window.close();
   // directory: Herblore In app, favourite opens the native route; Flask decanting unchanged
   ({dom, w, d} = await screen('calculators', {[C.FAV_KEY]: favs}));
-  { const nat = [...d.querySelectorAll('#calc-native a.calc-card-main')].map(a => a.getAttribute('href')).sort(); assert.deepEqual(nat, ['#calculators/flask-decanting', '#calculators/herblore']);
+  { const nat = [...d.querySelectorAll('#calc-native a.calc-card-main')].map(a => a.getAttribute('href')).sort(); assert.deepEqual(nat, ['#calculators/cooking', '#calculators/flask-decanting', '#calculators/herblore']);
     assert.equal(d.querySelectorAll('#calc-upcoming .calc-in-app').length, 0); assert.ok(d.querySelectorAll('#calc-upcoming .calc-item').length > 100);
     assert.equal(d.querySelector('#calc-fav-list a.calc-open').getAttribute('href'), '#calculators/herblore'); }
   dom.window.close();

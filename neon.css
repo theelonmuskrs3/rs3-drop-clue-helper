@@ -1342,23 +1342,35 @@ html{scrollbar-gutter:stable}
 #view .rtable caption{max-width:100%;white-space:normal;word-break:normal;overflow-wrap:break-word}
 @media(min-width:601px){#view .rtable:not(.rtable-wide) .hide-sm{display:table-cell}}
 
-/* ===== 12 main tabs (Grand Exchange + Calculators): equal grid tiles, words wrap between words, never sideways scroll ===== */
+/* ===== 10 main tabs (Easter eggs under Items, About in the footer): equal grid tiles, words wrap between words, never sideways scroll ===== */
 .tabs button{white-space:normal;word-break:normal;overflow-wrap:normal;hyphens:none;text-align:center}
 .tabs button .tl-short{display:none}
 @media (max-width:699px){
-  /* 12 tabs = 4 x 3 tiles, icon over label */
-  .tabs{grid-template-columns:repeat(4,minmax(0,1fr))}
+  /* 10 tabs = 5 x 2 tiles, icon over label */
+  .tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
   .tabs button{min-height:48px;line-height:1.15}
 }
-@media (max-width:360px){
-  .tabs button{font-size:9px;letter-spacing:0}
+/* Phones under 480px: 4 tiles per row (Calculators and Map share the last row), so the longest whole word (CHARACTER,
+   EXCHANGE, MONSTERS) fits inside its tile at 320px with no letters clipped; Calculators shows its short label "Calcs"
+   (the button keeps aria-label "Calculators"). Widths checked against Cinzel 700 metrics in checks/nav_fit_check.py. */
+@media (max-width:479px){
+  .tabs{grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}
+  .tabs button{grid-column:span 3;font-size:10px;letter-spacing:.02em;padding:7px 2px 6px}
+  .tabs button[data-tab=calculators],.tabs button[data-tab=map]{grid-column:span 6}
   .tabs button .tl-long{display:none}
   .tabs button .tl-short{display:inline}
 }
+@media (max-width:360px){
+  .tabs{gap:4px}
+  .tabs button{font-size:9.5px;letter-spacing:.02em;padding-left:1px;padding-right:1px}
+}
 @media (min-width:700px){
-  /* 12 tabs = 6 x 2 tiles at tablet and desktop widths */
-  .tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));overflow:visible}
+  /* 10 tabs = 5 x 2 tiles at tablet widths, one row of 10 from 1180px */
+  .tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));overflow:visible}
   .tabs button{min-width:0;justify-content:center;line-height:1.15}
+}
+@media (min-width:1180px){
+  .tabs{grid-template-columns:repeat(10,minmax(0,1fr))}
 }
 @media (min-width:1001px){
   .tabs{gap:6px}
@@ -1366,6 +1378,7 @@ html{scrollbar-gutter:stable}
 }
 
 /* ===== Calculators tab ===== */
+.calc-val.partial{color:var(--soft);font-weight:600}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
 .calc-panel{min-width:0;max-width:100%;box-sizing:border-box}
 .calc-panel .note,.calc-desc{overflow-wrap:break-word}
@@ -1479,3 +1492,4 @@ html{scrollbar-gutter:stable}
 .calc-upcoming>summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .calc-item-name{font-weight:600}
 .calc-src{font-weight:400}
+.foot-about{display:inline-block;margin-left:.4em;color:var(--muted);text-decoration:underline;white-space:nowrap}

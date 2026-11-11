@@ -218,9 +218,10 @@ def calc_names():
         C = json.load(open(cp))
         for c, v in C['cats'].items():
             for it in v.get('items', []):
-                add(it['name'], 'cooking')
-                for m in it.get('material', []):
-                    if isinstance(m, str): add(m, 'cooking')
+                # eltGenerator setImgLnk: the row picture is File:<icon or image or name>.png
+                add(it.get('icon') or it.get('image') or it['name'], 'cooking')
+                for m in it.get('material', []):   # createList: File:<name>.png; currency rows ("image,link"): File:<image>.png
+                    if isinstance(m, str): add(m.split(',')[0], 'cooking')
     return names
 
 def items():

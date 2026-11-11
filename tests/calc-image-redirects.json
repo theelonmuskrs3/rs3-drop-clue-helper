@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-10 23:10 EST",
+ "checked": "2026-11-11 00:19 EST",
  "method": "MediaWiki API action=query&prop=imageinfo|revisions&redirects=1 on File:<item name>.png (and page redirects for item pages); recorded exactly as returned",
  "items": {
   "Clean wormwood": {
@@ -113,6 +113,20 @@
    ],
    "resolvedTitle": "File:Onyx bolt tips 5.png",
    "resolvedSha1": "0e85832398d54c28d77cafc05792c862801b0c03",
+   "missing": false
+  },
+  "Cooked crab meat": {
+   "via": "File redirect from File:Cooked crab meat.png",
+   "appFile": "File:Cooked crab meat (5).png",
+   "appSha1": "cfdc32bc6214c9fd755703698d39d2d18bbca8bd",
+   "fileRedirects": [
+    {
+     "from": "File:Cooked crab meat.png",
+     "to": "File:Cooked crab meat (5).png"
+    }
+   ],
+   "resolvedTitle": "File:Cooked crab meat (5).png",
+   "resolvedSha1": "cfdc32bc6214c9fd755703698d39d2d18bbca8bd",
    "missing": false
   }
  }

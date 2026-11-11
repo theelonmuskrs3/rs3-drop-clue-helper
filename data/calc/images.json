@@ -1,5 +1,18 @@
 {
 "items": {
+"Admiral pie": {
+"bytes": "mirror",
+"file": "File:Admiral pie.png",
+"h": 22,
+"icon": "new",
+"sha1": "a1dca551c596faaeae0dda08186f6065b3b925dc",
+"src": "icons/f4e94ecb20e0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
 "Adrenaline crystal": {
 "bytes": "mirror",
 "file": "File:Adrenaline crystal.png",
@@ -30,7 +43,7 @@
 "bytes": "mirror",
 "file": "File:Adrenaline potion (1).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "214e7e623c57c3ca1b47323abbf938119b05aacc",
 "src": "icons/ae469d669456.webp",
 "used": [
@@ -43,7 +56,7 @@
 "bytes": "mirror",
 "file": "File:Adrenaline potion (2).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "279822a3f8aaa465e085fd873b172c172e5dbc40",
 "src": "icons/00828ab75758.webp",
 "used": [
@@ -95,7 +108,7 @@
 "bytes": "mirror",
 "file": "File:Adrenaline renewal potion (1).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "d7c067535ea92594de64c392ab8034c5157c91c6",
 "src": "icons/82894d02cc05.webp",
 "used": [
@@ -108,7 +121,7 @@
 "bytes": "mirror",
 "file": "File:Adrenaline renewal potion (2).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "ec9b0008bdde70c4a5581bb7aeab26651f3a507b",
 "src": "icons/a67d5d857a98.webp",
 "used": [
@@ -121,7 +134,7 @@
 "bytes": "mirror",
 "file": "File:Adrenaline renewal potion (3).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "bb5f68b979fe68edfa6bb5ac0713f727e488aad7",
 "src": "icons/f59c3179a0ca.webp",
 "used": [
@@ -387,6 +400,32 @@
 "via": "exact file",
 "w": 21
 },
+"Alaea sea salt": {
+"bytes": "mirror",
+"file": "File:Alaea sea salt.png",
+"h": 27,
+"icon": "reused",
+"sha1": "f9d4adf5f3b015d4835e312bc135a2b239beae8c",
+"src": "icons/37469e6015fe.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Ale yeast": {
+"bytes": "mirror",
+"file": "File:Ale yeast.png",
+"h": 28,
+"icon": "new",
+"sha1": "88238291abff324db4745a603f81753c4a4651e0",
+"src": "icons/99e3ae36e0bd.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
 "Aloe potion (unfinished)": {
 "bytes": "mirror",
 "file": "File:Aloe potion (unfinished).png",
@@ -399,6 +438,32 @@
 ],
 "via": "exact file",
 "w": 20
+},
+"Anchovies": {
+"bytes": "mirror",
+"file": "File:Anchovies.png",
+"h": 25,
+"icon": "new",
+"sha1": "34b43d76f0a93c387ac3913833060a3a0a8f90f7",
+"src": "icons/1d6376672fff.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Anchovy pizza": {
+"bytes": "mirror",
+"file": "File:Anchovy pizza.png",
+"h": 25,
+"icon": "reused",
+"sha1": "c53d00740446675d0754a7a2bf37d414e9e1b9b2",
+"src": "icons/80944dd62f7e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
 },
 "Ancient gravel": {
 "bytes": "mirror",
@@ -866,6 +931,19 @@
 "via": "exact file",
 "w": 21
 },
+"Apple pie": {
+"bytes": "mirror",
+"file": "File:Apple pie.png",
+"h": 23,
+"icon": "reused",
+"sha1": "b3a4094497cc244b718ad41a06b895c4122728e5",
+"src": "icons/efcf664d427c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
 "Aquatic vine": {
 "bytes": "mirror",
 "file": "File:Aquatic vine.png",
@@ -891,6 +969,32 @@
 ],
 "via": "exact file",
 "w": 21
+},
+"Arc gumbo": {
+"bytes": "mirror",
+"file": "File:Arc gumbo.png",
+"h": 20,
+"icon": "new",
+"sha1": "a4b6e8539399bdfeb9f038beeeb04837de3792e5",
+"src": "icons/07d7fdec6027.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Arcane apoterrasaur meat": {
+"bytes": "mirror",
+"file": "File:Arcane apoterrasaur meat.png",
+"h": 26,
+"icon": "new",
+"sha1": "73bd1bd7c8fd8a6302ea1c4731e76a89e39ea421",
+"src": "icons/77b6213afa27.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
 },
 "Archaeology flask (6)": {
 "bytes": "mirror",
@@ -1000,6 +1104,45 @@
 ],
 "via": "exact file",
 "w": 24
+},
+"Asciatops meat": {
+"bytes": "mirror",
+"file": "File:Asciatops meat.png",
+"h": 25,
+"icon": "new",
+"sha1": "ab69f602bf44071f649f34f037fc0682af155174",
+"src": "icons/04f631e67f3e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Asgarnian ale (4)": {
+"bytes": "mirror",
+"file": "File:Asgarnian ale (4).png",
+"h": 28,
+"icon": "new",
+"sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
+"src": "icons/f3c69b3c2eb2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Asgarnian hops": {
+"bytes": "mirror",
+"file": "File:Asgarnian hops.png",
+"h": 27,
+"icon": "new",
+"sha1": "19dee8ae63c025a805254f098758a2970dfc8e82",
+"src": "icons/95adfd1ddfb9.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
 },
 "Ashes": {
 "bytes": "mirror",
@@ -1162,6 +1305,188 @@
 "via": "exact file",
 "w": 16
 },
+"Axeman's folly (4)": {
+"bytes": "mirror",
+"file": "File:Axeman's folly (4).png",
+"h": 28,
+"icon": "reused",
+"sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
+"src": "icons/f3c69b3c2eb2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Bacon": {
+"bytes": "mirror",
+"file": "File:Bacon.png",
+"h": 18,
+"icon": "new",
+"sha1": "018cfada0dd9b772c6814c3c01abd962663a4099",
+"src": "icons/a23bbd99e319.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
+"Bacon cheesecake": {
+"bytes": "mirror",
+"file": "File:Bacon cheesecake.png",
+"h": 19,
+"icon": "new",
+"sha1": "2c39a4edcd9f7d50b5bb00cbf75744e4e7cc7b88",
+"src": "icons/3ff9a36c65a6.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Bacon heap": {
+"bytes": "mirror",
+"file": "File:Bacon heap.png",
+"h": 28,
+"icon": "new",
+"sha1": "c8a04ce5f6b8bd1862473de1807a57dac7f61682",
+"src": "icons/f7999483e94b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Bacon mound": {
+"bytes": "mirror",
+"file": "File:Bacon mound.png",
+"h": 27,
+"icon": "new",
+"sha1": "6373e6eedc539e5f542c8d76bba7745cd315ca3c",
+"src": "icons/9cc5799cb7fc.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Bacon pile": {
+"bytes": "mirror",
+"file": "File:Bacon pile.png",
+"h": 22,
+"icon": "new",
+"sha1": "2c1a53740c809497ff8144b93426fcf1a596712d",
+"src": "icons/37152f3abd1b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Bacon stack": {
+"bytes": "mirror",
+"file": "File:Bacon stack.png",
+"h": 22,
+"icon": "new",
+"sha1": "bfad55c7e9352c16bda8b87b0bb7116eab227578",
+"src": "icons/689eb345cfae.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 24
+},
+"Bagrada rex meat": {
+"bytes": "mirror",
+"file": "File:Bagrada rex meat.png",
+"h": 24,
+"icon": "new",
+"sha1": "87c67d23f39e98b38d3db8e164c16e997177976d",
+"src": "icons/88af7e73ad00.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Baked cave potato": {
+"bytes": "mirror",
+"file": "File:Baked cave potato.png",
+"h": 16,
+"icon": "new",
+"sha1": "d9dc1ebfc1472980f33d4aae542a6d6b743223b9",
+"src": "icons/f4056f875d4b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Baked potato": {
+"bytes": "mirror",
+"file": "File:Baked potato.png",
+"h": 18,
+"icon": "reused",
+"sha1": "45c10fb1be7125281bc17b8cee34af56dbb8a641",
+"src": "icons/75ec7ada236c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
+"Banana": {
+"bytes": "mirror",
+"file": "File:Banana.png",
+"h": 24,
+"icon": "reused",
+"sha1": "2a3f5a1406b064837af9052dcfd8654d8fb9f154",
+"src": "icons/848c30748916.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Banana pizza": {
+"bytes": "mirror",
+"file": "File:Banana pizza.png",
+"h": 25,
+"icon": "new",
+"sha1": "b984d60d38fb59d7cdb8d79c5ef36b292b27bc8f",
+"src": "icons/cfcc67fd96f7.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Barley malt": {
+"bytes": "mirror",
+"file": "File:Barley malt.png",
+"h": 31,
+"icon": "reused",
+"sha1": "a07a4106211e1799e5842e68b461d421a5669251",
+"src": "icons/d81f6bb89069.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Bass": {
+"bytes": "mirror",
+"file": "File:Bass.png",
+"h": 24,
+"icon": "reused",
+"sha1": "59027937d0a0eaa4faaab20689873931bde43664",
+"src": "icons/0012d05e6045.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
 "Beak snot": {
 "bytes": "mirror",
 "file": "File:Beak snot.png",
@@ -1188,6 +1513,19 @@
 "via": "exact file",
 "w": 31
 },
+"Beltfish": {
+"bytes": "mirror",
+"file": "File:Beltfish.png",
+"h": 30,
+"icon": "reused",
+"sha1": "ee7e42985283ca53d7cc9528b6244a65632f8ebb",
+"src": "icons/70a508f645fa.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
 "Bird's nest (empty)": {
 "bytes": "mirror",
 "file": "File:Bird's nest (empty).png",
@@ -1200,6 +1538,45 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Biscuit dough": {
+"bytes": "mirror",
+"file": "File:Biscuit dough.png",
+"h": 13,
+"icon": "new",
+"sha1": "0e373f0a8ed3919cbd09d3e0ff2fc5b38793a8ab",
+"src": "icons/2a089eaa1e0e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 17
+},
+"Biscuits": {
+"bytes": "mirror",
+"file": "File:Biscuits.png",
+"h": 24,
+"icon": "reused",
+"sha1": "51983b366f6e038d0f02745a55c70059355bdda1",
+"src": "icons/5c9691382a11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Bittercap mushroom": {
+"bytes": "mirror",
+"file": "File:Bittercap mushroom.png",
+"h": 29,
+"icon": "reused",
+"sha1": "70a8f2e3da69dca6095c2c000bac6523141cbe91",
+"src": "icons/ade29baddbbd.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
 },
 "Black bead": {
 "bytes": "mirror",
@@ -1279,6 +1656,19 @@
 "via": "exact file",
 "w": 21
 },
+"Blue blubber jellyfish": {
+"bytes": "mirror",
+"file": "File:Blue blubber jellyfish.png",
+"h": 21,
+"icon": "new",
+"sha1": "ce4f5213c88ab703584743be20fe460c6e7cf451",
+"src": "icons/13f7ca009af5.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
 "Blue charm": {
 "bytes": "mirror",
 "file": "File:Blue charm.png",
@@ -1292,6 +1682,58 @@
 "via": "exact file",
 "w": 32
 },
+"Blue crab": {
+"bytes": "mirror",
+"file": "File:Blue crab.png",
+"h": 28,
+"icon": "new",
+"sha1": "171a09d3459c7dc17e512e48de44f44d7fcf35f3",
+"src": "icons/8ee4942f8a47.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Blue crab & edicap potato": {
+"bytes": "mirror",
+"file": "File:Blue crab & edicap potato.png",
+"h": 16,
+"icon": "new",
+"sha1": "8b791ac520889291238d3360f538dff2970cfc96",
+"src": "icons/c1e1edb81f11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Blue crab & gissel potato": {
+"bytes": "mirror",
+"file": "File:Blue crab & gissel potato.png",
+"h": 16,
+"icon": "new",
+"sha1": "cbd8a23888568ad8627a310c8979932a0da990f0",
+"src": "icons/82387ce586ee.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Blue crab potato": {
+"bytes": "mirror",
+"file": "File:Blue crab potato.png",
+"h": 16,
+"icon": "new",
+"sha1": "f076753db771c38cb2125fb771a13d64c87dd346",
+"src": "icons/f7a53f400415.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
 "Blue dragon scale": {
 "bytes": "mirror",
 "file": "File:Blue dragon scale.png",
@@ -1304,6 +1746,19 @@
 ],
 "via": "exact file",
 "w": 17
+},
+"Blurberry Special": {
+"bytes": "mirror",
+"file": "File:Blurberry Special.png",
+"h": 31,
+"icon": "reused",
+"sha1": "81ff4eaf1a6a37b5563993dba3e78df5a58cd836",
+"src": "icons/a0cb87c00257.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
 },
 "Bomb vial": {
 "bytes": "mirror",
@@ -1344,6 +1799,136 @@
 "via": "exact file",
 "w": 19
 },
+"Bouldabass": {
+"bytes": "mirror",
+"file": "File:Bouldabass.png",
+"h": 29,
+"icon": "new",
+"sha1": "3c7b183982b188c27b7f38b6485a089b076918bc",
+"src": "icons/4d48cff13766.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Bouldabass & edicap potato": {
+"bytes": "mirror",
+"file": "File:Bouldabass & edicap potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "8b791ac520889291238d3360f538dff2970cfc96",
+"src": "icons/c1e1edb81f11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Bouldabass & gissel potato": {
+"bytes": "mirror",
+"file": "File:Bouldabass & gissel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "cbd8a23888568ad8627a310c8979932a0da990f0",
+"src": "icons/82387ce586ee.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Bouldabass potato": {
+"bytes": "mirror",
+"file": "File:Bouldabass potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "f076753db771c38cb2125fb771a13d64c87dd346",
+"src": "icons/f7a53f400415.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Bowl": {
+"bytes": "mirror",
+"file": "File:Bowl.png",
+"h": 24,
+"icon": "reused",
+"sha1": "9af05daa512452f389ee1a0ed333d4cf390006c9",
+"src": "icons/f6768f20b45f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Bowl of water": {
+"bytes": "mirror",
+"file": "File:Bowl of water.png",
+"h": 24,
+"icon": "reused",
+"sha1": "7520314e4d72f232869ae6671300729749d08788",
+"src": "icons/e1576c32b1dd.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Brandy": {
+"bytes": "downloaded",
+"file": "File:Brandy.png",
+"h": 30,
+"icon": "new",
+"sha1": "b10aff68a32bca0a65d67b4379168a59f04dc5ef",
+"src": "icons/f67ef700f520.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 19
+},
+"Bread": {
+"bytes": "mirror",
+"file": "File:Bread.png",
+"h": 27,
+"icon": "reused",
+"sha1": "3b392b78ad159610c698608643830bce902e79a2",
+"src": "icons/0041caa52b90.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Bread dough": {
+"bytes": "mirror",
+"file": "File:Bread dough.png",
+"h": 25,
+"icon": "reused",
+"sha1": "7d8a802d59bf31c53c6160eaf875b4aeb8f109af",
+"src": "icons/c7cbc1fd8ce6.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Breadcrumbs": {
+"bytes": "mirror",
+"file": "File:Breadcrumbs.png",
+"h": 28,
+"icon": "new",
+"sha1": "3fe2771e6422b7d920b14d08a3ae85a6bc9e3130",
+"src": "icons/141a5a0849da.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
 "Brightfire potion (6)": {
 "bytes": "mirror",
 "file": "File:Brightfire potion (6).png",
@@ -1356,6 +1941,32 @@
 ],
 "via": "exact file",
 "w": 19
+},
+"Bucket of milk": {
+"bytes": "mirror",
+"file": "File:Bucket of milk.png",
+"h": 30,
+"icon": "reused",
+"sha1": "82bf8b9609d9cc8cb587c66d1f737f15673e35d1",
+"src": "icons/0a9e06234395.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 21
+},
+"Bucket of water": {
+"bytes": "mirror",
+"file": "File:Bucket of water.png",
+"h": 30,
+"icon": "reused",
+"sha1": "ab8ca00c5cd9edc8bafc4406de9865185a91976f",
+"src": "icons/dc45e6cc1e7b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 21
 },
 "Buckthorn potion (unfinished)": {
 "bytes": "mirror",
@@ -1382,6 +1993,32 @@
 ],
 "via": "exact file",
 "w": 21
+},
+"Bundle of bamboo": {
+"bytes": "mirror",
+"file": "File:Bundle of bamboo.png",
+"h": 26,
+"icon": "new",
+"sha1": "ed95782ed4d48d9d3bfe50ff9577067072a1c8f8",
+"src": "icons/8ae84c952005.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Cabbage": {
+"bytes": "mirror",
+"file": "File:Cabbage.png",
+"h": 25,
+"icon": "reused",
+"sha1": "d80dcd88984fef2b02add35b3f6797c2177bbe46",
+"src": "icons/f12795b99b8a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
 },
 "Cactus spine": {
 "bytes": "mirror",
@@ -1422,6 +2059,19 @@
 "via": "exact file",
 "w": 20
 },
+"Cake": {
+"bytes": "mirror",
+"file": "File:Cake.png",
+"h": 27,
+"icon": "reused",
+"sha1": "8d4dee2161a1ae0613b5848da31018dd261fe9cf",
+"src": "icons/25f4f15edbc0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
 "Calcified fungus": {
 "bytes": "mirror",
 "file": "File:Calcified fungus.png",
@@ -1434,6 +2084,19 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Calquat keg": {
+"bytes": "mirror",
+"file": "File:Calquat keg.png",
+"h": 28,
+"icon": "new",
+"sha1": "6476a589d2b9b3b9e7f931c981ca9533c8bc46fa",
+"src": "icons/3eda13b65706.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
 },
 "Camouflage flask (6)": {
 "bytes": "mirror",
@@ -1452,7 +2115,7 @@
 "bytes": "mirror",
 "file": "File:Camouflage potion (1).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "7a3befc6f219811527d06d3466f0267a581f3bbb",
 "src": "icons/267f4d50b04e.webp",
 "used": [
@@ -1465,7 +2128,7 @@
 "bytes": "mirror",
 "file": "File:Camouflage potion (2).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "1961afb3fb9a4e3a8287f0f52455c79d9e4c9e44",
 "src": "icons/da1f5dc73ee5.webp",
 "used": [
@@ -1491,7 +2154,7 @@
 "bytes": "mirror",
 "file": "File:Camouflage potion (4).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "3cc194941a210f841fb1e290a11d01d79e7a9681",
 "src": "icons/90423e1e6627.webp",
 "used": [
@@ -1499,6 +2162,19 @@
 ],
 "via": "exact file",
 "w": 21
+},
+"Cannonball cabbage": {
+"bytes": "mirror",
+"file": "File:Cannonball cabbage.png",
+"h": 24,
+"icon": "new",
+"sha1": "6bd7754f4c44b8f7d4ace0a01f2b51f25d5e298a",
+"src": "icons/cf21aa9dbcc3.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
 },
 "Carambola": {
 "bytes": "mirror",
@@ -1513,6 +2189,58 @@
 "via": "exact file",
 "w": 21
 },
+"Catfish": {
+"bytes": "mirror",
+"file": "File:Catfish.png",
+"h": 30,
+"icon": "new",
+"sha1": "cd7356f95de418b7ab9ca03552bb35fa73abf65a",
+"src": "icons/72b69895bd5c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Cave eel": {
+"bytes": "mirror",
+"file": "File:Cave eel.png",
+"h": 29,
+"icon": "new",
+"sha1": "d0cc86ee421709e1fed0436221f94b5b25a89b2e",
+"src": "icons/3cddaa379b88.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Cave moray": {
+"bytes": "mirror",
+"file": "File:Cave moray.png",
+"h": 30,
+"icon": "new",
+"sha1": "2746f19453b08af951c044c6c8a3f8f67608361b",
+"src": "icons/880f65ce839d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Cave moray potato": {
+"bytes": "mirror",
+"file": "File:Cave moray potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "f076753db771c38cb2125fb771a13d64c87dd346",
+"src": "icons/f7a53f400415.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
 "Cave nightshade": {
 "bytes": "mirror",
 "file": "File:Cave nightshade.png",
@@ -1525,6 +2253,19 @@
 ],
 "via": "exact file",
 "w": 30
+},
+"Cavefish": {
+"bytes": "mirror",
+"file": "File:Cavefish.png",
+"h": 26,
+"icon": "reused",
+"sha1": "892c50d61d50c33eaffcb3395c0cd4ef7acf0d1b",
+"src": "icons/7a83a6501fc7.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
 },
 "Caviar": {
 "bytes": "mirror",
@@ -1622,6 +2363,84 @@
 "via": "exact file",
 "w": 21
 },
+"Cheese": {
+"bytes": "mirror",
+"file": "File:Cheese.png",
+"h": 17,
+"icon": "reused",
+"sha1": "b30fc1a3807779dfa8ecedeeb0eb3dd3998cbac8",
+"src": "icons/aa397c500a34.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 21
+},
+"Cheese+tom batta": {
+"bytes": "mirror",
+"file": "File:Cheese+tom batta.png",
+"h": 22,
+"icon": "reused",
+"sha1": "d070646330df4195a8c7ce4cf3fd466e3ba5867a",
+"src": "icons/f7cdc1f5a998.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 21
+},
+"Cheesecake": {
+"bytes": "mirror",
+"file": "File:Cheesecake.png",
+"h": 19,
+"icon": "new",
+"sha1": "1fa71119f76d72e3a97d64f3d3d46824ae8222ff",
+"src": "icons/af0c5991af84.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Chef's delight (4)": {
+"bytes": "mirror",
+"file": "File:Chef's delight (4).png",
+"h": 28,
+"icon": "reused",
+"sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
+"src": "icons/f3c69b3c2eb2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Chilli con carne": {
+"bytes": "downloaded",
+"file": "File:Chilli con carne.png",
+"h": 24,
+"icon": "new",
+"sha1": "4cce03e2946df90ec49ebf325160ff332d7e7d1c",
+"src": "icons/9a0b936b45ba.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Chilli potato": {
+"bytes": "downloaded",
+"file": "File:Chilli potato.png",
+"h": 23,
+"icon": "new",
+"sha1": "41fe96c625d473748def49665b3be0bf8fcef927",
+"src": "icons/4c572416bba5.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
 "Chinchompa residue": {
 "bytes": "mirror",
 "file": "File:Chinchompa residue.png",
@@ -1635,6 +2454,32 @@
 "via": "exact file",
 "w": 26
 },
+"Chocchip crunchies": {
+"bytes": "downloaded",
+"file": "File:Chocchip crunchies.png",
+"h": 24,
+"icon": "new",
+"sha1": "134259f8769b198649dccd06a9134b7eed0f4a91",
+"src": "icons/492731fd2e5b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Chocolate Saturday": {
+"bytes": "mirror",
+"file": "File:Chocolate Saturday.png",
+"h": 31,
+"icon": "reused",
+"sha1": "eced807a3d975376cca2db7222e8baf913f609ba",
+"src": "icons/ef279cb677fe.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
 "Chocolate bar": {
 "bytes": "mirror",
 "file": "File:Chocolate bar.png",
@@ -1643,7 +2488,60 @@
 "sha1": "db5f852ab26a53bd0e3106c567c9d3aab5861977",
 "src": "icons/93d069209943.webp",
 "used": [
+"cooking",
 "herblore"
+],
+"via": "exact file",
+"w": 25
+},
+"Chocolate bomb": {
+"bytes": "downloaded",
+"file": "File:Chocolate bomb.png",
+"h": 24,
+"icon": "new",
+"sha1": "8b0cf839e740a51a06b2992a3a0a1b29b674cb56",
+"src": "icons/ae8fb7daaff0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Chocolate cake": {
+"bytes": "mirror",
+"file": "File:Chocolate cake.png",
+"h": 26,
+"icon": "reused",
+"sha1": "463f5ebe57a6ad0b5e90cd260c6c934f07262b57",
+"src": "icons/56d54e39e490.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Chocolate cheesecake": {
+"bytes": "mirror",
+"file": "File:Chocolate cheesecake.png",
+"h": 19,
+"icon": "new",
+"sha1": "3b063284504ce6ca248149404883f713c0a3ad45",
+"src": "icons/e738a02d4d20.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Chocolate cream cheese": {
+"bytes": "mirror",
+"file": "File:Chocolate cream cheese.png",
+"h": 19,
+"icon": "new",
+"sha1": "363b4f746612e6c1a82550bc5eccfede347a3113",
+"src": "icons/9c17da5db81f.webp",
+"used": [
+"cooking"
 ],
 "via": "exact file",
 "w": 25
@@ -1656,7 +2554,34 @@
 "sha1": "fb7965ea75eb0b9b08e9d322844d971e87c120ba",
 "src": "icons/e7bc0502ab69.webp",
 "used": [
+"cooking",
 "herblore"
+],
+"via": "exact file",
+"w": 22
+},
+"Chocolatey milk": {
+"bytes": "mirror",
+"file": "File:Chocolatey milk.png",
+"h": 30,
+"icon": "new",
+"sha1": "6530ab36f9105155ed311e1c212d5966e850a597",
+"src": "icons/7548829de595.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Cider (4)": {
+"bytes": "mirror",
+"file": "File:Cider (4).png",
+"h": 28,
+"icon": "reused",
+"sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
+"src": "icons/f3c69b3c2eb2.webp",
+"used": [
+"cooking"
 ],
 "via": "exact file",
 "w": 22
@@ -1851,6 +2776,7 @@
 "sha1": "2fa73c20e0a7a05ccc5e31f6eae6bd40dff8d19a",
 "src": "icons/5380fddd4876.webp",
 "used": [
+"cooking",
 "herblore"
 ],
 "via": "exact file",
@@ -2233,6 +3159,19 @@
 "via": "exact file",
 "w": 21
 },
+"Cod": {
+"bytes": "mirror",
+"file": "File:Cod.png",
+"h": 27,
+"icon": "new",
+"sha1": "6907f6c0ee8e774d3e9a2c25554f0f48770a9291",
+"src": "icons/6e2f392bd2ca.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
 "Combat flask (6)": {
 "bytes": "downloaded",
 "file": "File:Combat flask (6).png",
@@ -2329,6 +3268,19 @@
 "via": "exact file",
 "w": 21
 },
+"Compost": {
+"bytes": "mirror",
+"file": "File:Compost.png",
+"h": 30,
+"icon": "reused",
+"sha1": "31160e21280021c34c39f296134426bfb8b591a9",
+"src": "icons/35b1879173ad.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 21
+},
 "Congealed blood": {
 "bytes": "mirror",
 "file": "File:Congealed blood 1000.png",
@@ -2341,6 +3293,175 @@
 ],
 "via": "File redirect from File:Congealed blood.png",
 "w": 28
+},
+"Cooked chicken": {
+"bytes": "mirror",
+"file": "File:Cooked chicken.png",
+"h": 26,
+"icon": "reused",
+"sha1": "5c50c569e3b9511af2cdd622bdcfae5294779877",
+"src": "icons/cb670cf255c7.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Cooked chompy": {
+"bytes": "mirror",
+"file": "File:Cooked chompy.png",
+"h": 26,
+"icon": "new",
+"sha1": "e166f97d46cf6ba6fde6d2309b2644a96a2afc68",
+"src": "icons/1515116496fc.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Cooked crab meat": {
+"bytes": "mirror",
+"file": "File:Cooked crab meat (5).png",
+"h": 22,
+"icon": "new",
+"sha1": "cfdc32bc6214c9fd755703698d39d2d18bbca8bd",
+"src": "icons/190cc2fb7f49.webp",
+"used": [
+"cooking"
+],
+"via": "File redirect from File:Cooked crab meat.png",
+"w": 30
+},
+"Cooked fishcake": {
+"bytes": "mirror",
+"file": "File:Cooked fishcake.png",
+"h": 23,
+"icon": "new",
+"sha1": "3fd23f71ede8f4fe360a3d937db674f19c830d1d",
+"src": "icons/59a3bec63b9f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
+"Cooked jubbly": {
+"bytes": "mirror",
+"file": "File:Cooked jubbly.png",
+"h": 32,
+"icon": "new",
+"sha1": "83d9055ce199975dcc7298540239bece8d899ecf",
+"src": "icons/2d14e313280a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 36
+},
+"Cooked karambwan": {
+"bytes": "mirror",
+"file": "File:Cooked karambwan.png",
+"h": 28,
+"icon": "new",
+"sha1": "fa957e6504661eb1482a39b1f59f41a9909ebfb9",
+"src": "icons/d3db12c7cd32.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Cooked meat": {
+"bytes": "mirror",
+"file": "File:Cooked meat.png",
+"h": 31,
+"icon": "reused",
+"sha1": "67ca485786348a058eb86b9442a1e12518974418",
+"src": "icons/f9a77ce9e5d4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Cooked oomlie wrap": {
+"bytes": "mirror",
+"file": "File:Cooked oomlie wrap.png",
+"h": 27,
+"icon": "new",
+"sha1": "38484594fd35345b2282f752457bb4f7adbc6bb1",
+"src": "icons/ba65da58628e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Cooked pekin": {
+"bytes": "mirror",
+"file": "File:Cooked pekin.png",
+"h": 26,
+"icon": "reused",
+"sha1": "5c50c569e3b9511af2cdd622bdcfae5294779877",
+"src": "icons/cb670cf255c7.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Cooked rabbit": {
+"bytes": "mirror",
+"file": "File:Cooked rabbit.png",
+"h": 22,
+"icon": "reused",
+"sha1": "96d72686c0194a1da9ae168481429b7344983de4",
+"src": "icons/9c132f1f50ae.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Cooked slimy eel": {
+"bytes": "mirror",
+"file": "File:Cooked slimy eel.png",
+"h": 21,
+"icon": "new",
+"sha1": "63fabb7e84d183fb1a657bf3040b58312ba20934",
+"src": "icons/67dc7da7d191.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Cooked sweetcorn": {
+"bytes": "mirror",
+"file": "File:Cooked sweetcorn.png",
+"h": 30,
+"icon": "new",
+"sha1": "dfeef30b0ebf3115311206e711d0e44d74bc5cde",
+"src": "icons/5f074add2417.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Cooking apple": {
+"bytes": "mirror",
+"file": "File:Cooking apple.png",
+"h": 15,
+"icon": "reused",
+"sha1": "e151b4e3f22b615c3527b0835ef85253ad5ac279",
+"src": "icons/ad8eb0fa1c4b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 16
 },
 "Cooking flask (6)": {
 "bytes": "downloaded",
@@ -2425,6 +3546,19 @@
 "via": "exact file",
 "w": 22
 },
+"Corbicula rex meat": {
+"bytes": "mirror",
+"file": "File:Corbicula rex meat.png",
+"h": 24,
+"icon": "new",
+"sha1": "c42bfbb99d169edd81ad47a9801f64bb21a53d46",
+"src": "icons/532cdd06b2c2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
 "Corrupt vine": {
 "bytes": "mirror",
 "file": "File:Corrupt vine.png",
@@ -2437,6 +3571,45 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Crab meat": {
+"bytes": "mirror",
+"file": "File:Crab meat.png",
+"h": 22,
+"icon": "reused",
+"sha1": "e55bd612d64a53ce30be2a4aa19be6731d83b06d",
+"src": "icons/85a8334226cf.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Cracked cooking urn": {
+"bytes": "mirror",
+"file": "File:Cracked cooking urn.png",
+"h": 29,
+"icon": "new",
+"sha1": "e8f7920738a33841e968fb3de05989b5d1e945d3",
+"src": "icons/0b281ec2bd09.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Cracked cooking urn (no rune)": {
+"bytes": "mirror",
+"file": "File:Cracked cooking urn (no rune).png",
+"h": 29,
+"icon": "new",
+"sha1": "319bf17fcf152952e59324a5b43b907c4beb6196",
+"src": "icons/bdd1cec7b57e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
 },
 "Crafting flask (6)": {
 "bytes": "downloaded",
@@ -2508,6 +3681,32 @@
 "via": "exact file",
 "w": 21
 },
+"Crayfish": {
+"bytes": "mirror",
+"file": "File:Crayfish.png",
+"h": 31,
+"icon": "reused",
+"sha1": "a835f72b190b6e6dd05f69fa7bd8ab63d0fa3a1c",
+"src": "icons/951b19994b72.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Cream cheese": {
+"bytes": "mirror",
+"file": "File:Cream cheese.png",
+"h": 19,
+"icon": "new",
+"sha1": "cb572236df7d6972f6bcb9da79572332cc330828",
+"src": "icons/0c82bdad5063.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
 "Crimson charm": {
 "bytes": "mirror",
 "file": "File:Crimson charm.png",
@@ -2529,6 +3728,7 @@
 "sha1": "33294f00f0b84a03c74cccf157726953f94e8467",
 "src": "icons/7e4af0f37b2d.webp",
 "used": [
+"cooking",
 "herblore"
 ],
 "via": "exact file",
@@ -2585,6 +3785,58 @@
 ],
 "via": "exact file",
 "w": 24
+},
+"Curry": {
+"bytes": "mirror",
+"file": "File:Curry.png",
+"h": 25,
+"icon": "reused",
+"sha1": "02217318d92e433473cf6abc5ccf879f1e1c5a80",
+"src": "icons/a08b106b4007.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Curry leaf": {
+"bytes": "mirror",
+"file": "File:Curry leaf.png",
+"h": 26,
+"icon": "reused",
+"sha1": "9106afc6c2d09a130ba765e5a93907f66a30a378",
+"src": "icons/806b37b6233d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Decorated cooking urn": {
+"bytes": "mirror",
+"file": "File:Decorated cooking urn.png",
+"h": 28,
+"icon": "new",
+"sha1": "b6881c3cc665e10428a2247637916b660644f8e6",
+"src": "icons/70504e3693c1.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Decorated cooking urn (no rune)": {
+"bytes": "mirror",
+"file": "File:Decorated cooking urn (no rune).png",
+"h": 28,
+"icon": "new",
+"sha1": "eab63517fda02ade3849088b77f7aa3c50250a7c",
+"src": "icons/0467e3651ca5.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
 },
 "Defence flask (6)": {
 "bytes": "mirror",
@@ -2721,6 +3973,19 @@
 "via": "exact file",
 "w": 28
 },
+"Desert sole": {
+"bytes": "mirror",
+"file": "File:Desert sole.png",
+"h": 28,
+"icon": "new",
+"sha1": "8a6b653bdb5f77c27fde2f4c0c522fae9f7eace8",
+"src": "icons/d889e03493c6.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
 "Dinosaur claws": {
 "bytes": "mirror",
 "file": "File:Dinosaur claws.png",
@@ -2804,6 +4069,19 @@
 "via": "exact file",
 "w": 21
 },
+"Divine charge": {
+"bytes": "mirror",
+"file": "File:Divine charge.png",
+"h": 32,
+"icon": "new",
+"sha1": "7e6bfd848c94df8083db7bf1fe29d0f68afd1f78",
+"src": "icons/ae6039ae1677.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
 "Draconic vine": {
 "bytes": "mirror",
 "file": "File:Draconic vine.png",
@@ -2816,6 +4094,19 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Dragon bitter (4)": {
+"bytes": "mirror",
+"file": "File:Dragon bitter (4).png",
+"h": 28,
+"icon": "reused",
+"sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
+"src": "icons/f3c69b3c2eb2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
 },
 "Dragon scale dust": {
 "bytes": "mirror",
@@ -2838,10 +4129,89 @@
 "sha1": "ec38d7e416c378dbd4b2c9fac6abffbcae0ebfde",
 "src": "icons/88689bf2f938.webp",
 "used": [
+"cooking",
 "herblore"
 ],
 "via": "exact file",
 "w": 22
+},
+"Dragonstone": {
+"bytes": "mirror",
+"file": "File:Dragonstone.png",
+"h": 24,
+"icon": "new",
+"sha1": "b86eecc28eaf16ef1bc50c42553b7a98f6223258",
+"src": "icons/0c6abbe91f38.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 21
+},
+"Drunk Dragon": {
+"bytes": "mirror",
+"file": "File:Drunk Dragon.png",
+"h": 31,
+"icon": "reused",
+"sha1": "117e35fa3996d288a5efc88e45986959a6f44f97",
+"src": "icons/56082620beab.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Dusk eel": {
+"bytes": "mirror",
+"file": "File:Dusk eel.png",
+"h": 31,
+"icon": "new",
+"sha1": "8d83f3d8f4d90d7395b93e88f910e0f3075fa378",
+"src": "icons/7481bed96534.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Dusk eel & edicap potato": {
+"bytes": "mirror",
+"file": "File:Dusk eel & edicap potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "8b791ac520889291238d3360f538dff2970cfc96",
+"src": "icons/c1e1edb81f11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Dusk eel & gissel potato": {
+"bytes": "mirror",
+"file": "File:Dusk eel & gissel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "cbd8a23888568ad8627a310c8979932a0da990f0",
+"src": "icons/82387ce586ee.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Dusk eel potato": {
+"bytes": "mirror",
+"file": "File:Dusk eel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "f076753db771c38cb2125fb771a13d64c87dd346",
+"src": "icons/f7a53f400415.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
 },
 "Dwarf weed potion (unfinished)": {
 "bytes": "mirror",
@@ -2856,6 +4226,32 @@
 "via": "exact file",
 "w": 21
 },
+"Dwarven stout (4)": {
+"bytes": "mirror",
+"file": "File:Dwarven stout (4).png",
+"h": 28,
+"icon": "reused",
+"sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
+"src": "icons/f3c69b3c2eb2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Dwellberries": {
+"bytes": "mirror",
+"file": "File:Dwellberries.png",
+"h": 19,
+"icon": "reused",
+"sha1": "89e37d86c0359a3cdd5d11b46fac43bae8550d36",
+"src": "icons/4bf523d0e061.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
 "Earthen clay": {
 "bytes": "mirror",
 "file": "File:Earthen clay.png",
@@ -2868,6 +4264,71 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Edicap mushroom": {
+"bytes": "mirror",
+"file": "File:Edicap mushroom.png",
+"h": 27,
+"icon": "new",
+"sha1": "31c88785e5e7377648f596c946862155ee8f5171",
+"src": "icons/93a77653fd71.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Edicap potato": {
+"bytes": "mirror",
+"file": "File:Edicap potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "8b791ac520889291238d3360f538dff2970cfc96",
+"src": "icons/c1e1edb81f11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Egg": {
+"bytes": "mirror",
+"file": "File:Egg.png",
+"h": 21,
+"icon": "new",
+"sha1": "dd72ad65d54b9dc1a1fab84cab3e308dd5af9778",
+"src": "icons/c9f47d9b0dba.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 16
+},
+"Egg and tomato": {
+"bytes": "mirror",
+"file": "File:Egg and tomato.png",
+"h": 24,
+"icon": "new",
+"sha1": "aa94ab6bf3c3ac21e9014721baf4f63dce7f2adf",
+"src": "icons/1efb933bb9f2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Egg potato": {
+"bytes": "mirror",
+"file": "File:Egg potato.png",
+"h": 21,
+"icon": "reused",
+"sha1": "d38a8e93feb344e85d7f2da20e62000d4db6d66a",
+"src": "icons/1c6aee97b079.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
 },
 "Elder overload potion (6)": {
 "bytes": "mirror",
@@ -3056,6 +4517,19 @@
 "via": "exact file",
 "w": 32
 },
+"Equa leaves": {
+"bytes": "mirror",
+"file": "File:Equa leaves.png",
+"h": 24,
+"icon": "reused",
+"sha1": "8624a392055e0058943639c267245356d2d2b329",
+"src": "icons/aa0d647c1568.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
 "Erzille potion (unfinished)": {
 "bytes": "mirror",
 "file": "File:Erzille potion (unfinished).png",
@@ -3082,11 +4556,37 @@
 "via": "exact file",
 "w": 30
 },
+"Exquisite cooking urn": {
+"bytes": "mirror",
+"file": "File:Exquisite cooking urn.png",
+"h": 28,
+"icon": "new",
+"sha1": "f1d26d2910ae51c2fc1c5291cc4a740bbff352b1",
+"src": "icons/1bc9a634966b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Exquisite cooking urn (no rune)": {
+"bytes": "mirror",
+"file": "File:Exquisite cooking urn (no rune).png",
+"h": 28,
+"icon": "new",
+"sha1": "395b65861991aed1e931506af6e3d0b0abfa9853",
+"src": "icons/05a378d4b74b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
 "Extended super antifire (1)": {
 "bytes": "mirror",
 "file": "File:Extended super antifire (1).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "71ad816ebdc9d95701ce39a8a11d2af786c1abe5",
 "src": "icons/363945fa68b9.webp",
 "used": [
@@ -3099,7 +4599,7 @@
 "bytes": "mirror",
 "file": "File:Extended super antifire (2).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "e0dcc369e3f502bd5f7dab03a32e9443577696fc",
 "src": "icons/78f6241f41a5.webp",
 "used": [
@@ -3125,7 +4625,7 @@
 "bytes": "mirror",
 "file": "File:Extended super antifire (4).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "8042121e10a55454eed10e2bbe319e9075ef69b0",
 "src": "icons/73c72dec144f.webp",
 "used": [
@@ -3307,7 +4807,7 @@
 "bytes": "mirror",
 "file": "File:Extreme cooking potion (1).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "4d6c8d3a75a12fec5bca2d4e24d012c20c62871e",
 "src": "icons/135358701d02.webp",
 "used": [
@@ -3320,7 +4820,7 @@
 "bytes": "mirror",
 "file": "File:Extreme cooking potion (2).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "04a598dbc9acf354362f4591735cf0d0228e6919",
 "src": "icons/cb813fb058ec.webp",
 "used": [
@@ -3346,7 +4846,7 @@
 "bytes": "mirror",
 "file": "File:Extreme cooking potion (4).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "477c93ff1e74811c018318acbe5d5d8faa58fb5e",
 "src": "icons/19d079c8792c.webp",
 "used": [
@@ -3424,7 +4924,7 @@
 "bytes": "mirror",
 "file": "File:Extreme divination (1).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "6586fe9246bd96a0a95a008f4c4c9db23b71b694",
 "src": "icons/a0f544f5ba4b.webp",
 "used": [
@@ -3437,7 +4937,7 @@
 "bytes": "mirror",
 "file": "File:Extreme divination (2).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "9256cc22c2667945f8199ae2caf3ab1dd7286b65",
 "src": "icons/855ba7ef4afd.webp",
 "used": [
@@ -3463,7 +4963,7 @@
 "bytes": "mirror",
 "file": "File:Extreme divination (4).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "7ee773c84a08d4a419a08e19d9524e911825b5e6",
 "src": "icons/6ca2d8ca4355.webp",
 "used": [
@@ -3489,7 +4989,7 @@
 "bytes": "mirror",
 "file": "File:Extreme hunter (1).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "c7694fea84040b17ac036f4c9ba766fe3d3300ae",
 "src": "icons/e7eee595f50a.webp",
 "used": [
@@ -3502,7 +5002,7 @@
 "bytes": "mirror",
 "file": "File:Extreme hunter (2).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "b1e5ed443ca985c24ab378837fe2095fe0c9a6f1",
 "src": "icons/c569d3e880f4.webp",
 "used": [
@@ -3528,7 +5028,7 @@
 "bytes": "mirror",
 "file": "File:Extreme hunter (4).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "a3985cb629e64f2be15de653d3bb85ec6ffd485d",
 "src": "icons/03bfc85b81b1.webp",
 "used": [
@@ -3554,7 +5054,7 @@
 "bytes": "mirror",
 "file": "File:Extreme invention (1).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "6b389a536ad4879b86bc4b0cfe7ff7bbdf3f2795",
 "src": "icons/e199cd58415e.webp",
 "used": [
@@ -3567,7 +5067,7 @@
 "bytes": "mirror",
 "file": "File:Extreme invention (2).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "dfa3d7df1dc63d8c2aa0d1b58f288164c5a2af98",
 "src": "icons/da6d09eb57a8.webp",
 "used": [
@@ -3593,7 +5093,7 @@
 "bytes": "mirror",
 "file": "File:Extreme invention (4).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "3462c7dd187db398208ff37b129cdceb927b72ee",
 "src": "icons/93993e4318ee.webp",
 "used": [
@@ -3762,7 +5262,7 @@
 "bytes": "mirror",
 "file": "File:Extreme prayer (1).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "0d72071142fc77de78d461391b8ca130c098addd",
 "src": "icons/f83f6fad7d63.webp",
 "used": [
@@ -3775,7 +5275,7 @@
 "bytes": "mirror",
 "file": "File:Extreme prayer (2).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "19d20c33e017207902e55c70a103db4835b7fc0b",
 "src": "icons/2018646f34a5.webp",
 "used": [
@@ -3866,7 +5366,7 @@
 "bytes": "mirror",
 "file": "File:Extreme runecrafting (1).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "5f1536380dd785aaada4bae8c71684a8fc9c15b3",
 "src": "icons/e7b9dd0b30a4.webp",
 "used": [
@@ -3879,7 +5379,7 @@
 "bytes": "mirror",
 "file": "File:Extreme runecrafting (2).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "1160711bd49d95e6aa1673ad61cd064040637c3a",
 "src": "icons/cac48fcfc2c2.webp",
 "used": [
@@ -3905,7 +5405,7 @@
 "bytes": "mirror",
 "file": "File:Extreme runecrafting (4).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "bf6fbc5f8cd8acb2a3ee00165a6dc7e66f61939a",
 "src": "icons/187c210355d4.webp",
 "used": [
@@ -4044,6 +5544,32 @@
 "via": "exact file",
 "w": 31
 },
+"Fat snail": {
+"bytes": "mirror",
+"file": "File:Fat snail.png",
+"h": 28,
+"icon": "reused",
+"sha1": "1efe7864a42b10713e03342ec7e68ae773bba4ac",
+"src": "icons/e163714c39d0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Fat snail meat": {
+"bytes": "mirror",
+"file": "File:Fat snail meat.png",
+"h": 28,
+"icon": "reused",
+"sha1": "04d00688f8a26eec0a84d0e2122ad9124c1d7f36",
+"src": "icons/4a7cdb04a5be.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
 "Featherfoil potion (unfinished)": {
 "bytes": "mirror",
 "file": "File:Featherfoil potion (unfinished).png",
@@ -4083,6 +5609,19 @@
 "via": "exact file",
 "w": 29
 },
+"Fire rune": {
+"bytes": "mirror",
+"file": "File:Fire rune.png",
+"h": 30,
+"icon": "reused",
+"sha1": "1dada90f1f694554baee342f3f1a535e1a686020",
+"src": "icons/932a8a075b27.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
 "Firebreath whiskey": {
 "bytes": "mirror",
 "file": "File:Firebreath whiskey.png",
@@ -4095,6 +5634,45 @@
 ],
 "via": "exact file",
 "w": 26
+},
+"Fish oil 1": {
+"bytes": "mirror",
+"file": "File:Fish oil 1.png",
+"h": 13,
+"icon": "reused",
+"sha1": "fa9fb7185f570c15e2486139166e3a52a4e60a20",
+"src": "icons/444547f87eb7.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 18
+},
+"Fish oil 20": {
+"bytes": "mirror",
+"file": "File:Fish oil 20.png",
+"h": 21,
+"icon": "new",
+"sha1": "39980967dafb59edd9f6adbf59934ec50b49a998",
+"src": "icons/4e773c21c296.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Fish pie": {
+"bytes": "mirror",
+"file": "File:Fish pie.png",
+"h": 22,
+"icon": "new",
+"sha1": "7abe03eb10d2cff55b782ff221b71a2810e6ce81",
+"src": "icons/cb6f8942d67d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
 },
 "Fishing flask (6)": {
 "bytes": "mirror",
@@ -4192,6 +5770,32 @@
 "via": "exact file",
 "w": 21
 },
+"Flatfish & edicap potato": {
+"bytes": "mirror",
+"file": "File:Flatfish & edicap potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "8b791ac520889291238d3360f538dff2970cfc96",
+"src": "icons/c1e1edb81f11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Flatfish & gissel potato": {
+"bytes": "mirror",
+"file": "File:Flatfish & gissel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "cbd8a23888568ad8627a310c8979932a0da990f0",
+"src": "icons/82387ce586ee.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
 "Fletching flask (6)": {
 "bytes": "mirror",
 "file": "File:Fletching flask (6).png",
@@ -4262,6 +5866,58 @@
 "via": "exact file",
 "w": 21
 },
+"Fragile cooking urn": {
+"bytes": "mirror",
+"file": "File:Fragile cooking urn.png",
+"h": 28,
+"icon": "new",
+"sha1": "067973ec535feca5bfd60dff1448d24c06142162",
+"src": "icons/d8e47564c4fd.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Fragile cooking urn (no rune)": {
+"bytes": "mirror",
+"file": "File:Fragile cooking urn (no rune).png",
+"h": 28,
+"icon": "new",
+"sha1": "d7bb81eae52ca908f85029f99b2f8e79917234cc",
+"src": "icons/a12874501f08.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Fried mushrooms": {
+"bytes": "mirror",
+"file": "File:Fried mushrooms.png",
+"h": 24,
+"icon": "new",
+"sha1": "47a93f71cc57b5aee7db5426276c70ca977c1157",
+"src": "icons/c6a66087ca03.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Fried onions": {
+"bytes": "mirror",
+"file": "File:Fried onions.png",
+"h": 24,
+"icon": "new",
+"sha1": "94a1227a7a4977f49dcd74e38b4ab421940c6338",
+"src": "icons/a48965e359fe.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
 "Frog spawn": {
 "bytes": "mirror",
 "file": "File:Frog spawn.png",
@@ -4275,6 +5931,45 @@
 "via": "exact file",
 "w": 29
 },
+"Fruit Blast": {
+"bytes": "mirror",
+"file": "File:Fruit Blast.png",
+"h": 31,
+"icon": "reused",
+"sha1": "1a0622d1b2a328a93ac19ba614590913d1b9c4f5",
+"src": "icons/cca84e7b38cf.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Fruit batta": {
+"bytes": "mirror",
+"file": "File:Fruit batta.png",
+"h": 22,
+"icon": "new",
+"sha1": "25543848736a6dffa86f5ce3d5563cbec032a6d2",
+"src": "icons/54a93e0f81dd.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 21
+},
+"Garden pie": {
+"bytes": "mirror",
+"file": "File:Garden pie.png",
+"h": 23,
+"icon": "new",
+"sha1": "5ab848c4342adaebd105e9bf2250bbd60c5dfc89",
+"src": "icons/64ee38d18d71.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
 "Garlic": {
 "bytes": "mirror",
 "file": "File:Garlic.png",
@@ -4283,6 +5978,7 @@
 "sha1": "8030a3d343d2b258087625427b122db43979be3e",
 "src": "icons/912cf3789a85.webp",
 "used": [
+"cooking",
 "herblore"
 ],
 "via": "exact file",
@@ -4297,6 +5993,149 @@
 "src": "icons/c667ed1ac649.webp",
 "used": [
 "herblore"
+],
+"via": "exact file",
+"w": 24
+},
+"Ghostly sole": {
+"bytes": "mirror",
+"file": "File:Ghostly sole.png",
+"h": 28,
+"icon": "reused",
+"sha1": "0ffc47dba801ae5748c6034f18829fd09aa8803c",
+"src": "icons/3c1087d740f6.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Gianne dough": {
+"bytes": "downloaded",
+"file": "File:Gianne dough.png",
+"h": 25,
+"icon": "new",
+"sha1": "447ba861d88f7a723139a5e7101618932698b21b",
+"src": "icons/36798424f773.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Giant chinchompa meat": {
+"bytes": "mirror",
+"file": "File:Giant chinchompa meat.png",
+"h": 29,
+"icon": "new",
+"sha1": "f4b21a7f8c913219cc61992d73b682e966166479",
+"src": "icons/281cd56c725d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
+"Giant crayfish": {
+"bytes": "mirror",
+"file": "File:Giant crayfish.png",
+"h": 30,
+"icon": "new",
+"sha1": "c01fdb08ed4b064885382c900f93d5e46763670f",
+"src": "icons/1cbf1f0053d0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Giant flatfish": {
+"bytes": "mirror",
+"file": "File:Giant flatfish.png",
+"h": 29,
+"icon": "new",
+"sha1": "4d67c9818a25cf0a287625b19a872c06f5eb07b0",
+"src": "icons/44df0bcb7b1d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Giant flatfish potato": {
+"bytes": "mirror",
+"file": "File:Giant flatfish potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "f076753db771c38cb2125fb771a13d64c87dd346",
+"src": "icons/f7a53f400415.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Giant kebbit meat": {
+"bytes": "mirror",
+"file": "File:Giant kebbit meat.png",
+"h": 26,
+"icon": "new",
+"sha1": "2eafaf8703c822863e89a6b314fadfc69d84d4ca",
+"src": "icons/bea047bbc5d0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Gin": {
+"bytes": "downloaded",
+"file": "File:Gin.png",
+"h": 31,
+"icon": "new",
+"sha1": "65ef90dd3f78a113bb774848bdb458ef8122ef14",
+"src": "icons/b29e400a1abc.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 15
+},
+"Gissel mushroom": {
+"bytes": "mirror",
+"file": "File:Gissel mushroom.png",
+"h": 23,
+"icon": "new",
+"sha1": "201c8c5d9dc23de9f7a0587e654ee47d56f6309a",
+"src": "icons/845d8602b8f9.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
+"Gissel potato": {
+"bytes": "mirror",
+"file": "File:Gissel potato.png",
+"h": 16,
+"icon": "new",
+"sha1": "54c5caf5a606b15bcdfd666284c485964328cabb",
+"src": "icons/0ad54fe32ebd.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Gnome spice": {
+"bytes": "downloaded",
+"file": "File:Gnome spice.png",
+"h": 30,
+"icon": "new",
+"sha1": "bfe49b593e2295a6ba4b1cce302754273d48dff6",
+"src": "icons/c6efef400c97.webp",
+"used": [
+"cooking"
 ],
 "via": "exact file",
 "w": 24
@@ -4331,7 +6170,7 @@
 "bytes": "mirror",
 "file": "File:Goblin potion (2).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "81631be30503a988e69060c851be0761c139df85",
 "src": "icons/dfec66e18218.webp",
 "used": [
@@ -4357,7 +6196,7 @@
 "bytes": "mirror",
 "file": "File:Goblin potion (4).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "6fc23393e0c67564a64e54c4dfce843f0033b082",
 "src": "icons/a43ab8bc84b4.webp",
 "used": [
@@ -4391,6 +6230,19 @@
 ],
 "via": "exact file",
 "w": 22
+},
+"Golden watermelon": {
+"bytes": "mirror",
+"file": "File:Golden watermelon.png",
+"h": 29,
+"icon": "new",
+"sha1": "3fa8a39094f2d7a5fef714a34154adcf2ea33242",
+"src": "icons/31f077370913.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
 },
 "Gorak claw powder": {
 "bytes": "mirror",
@@ -4483,6 +6335,71 @@
 "via": "exact file",
 "w": 19
 },
+"Grapes": {
+"bytes": "mirror",
+"file": "File:Grapes.png",
+"h": 23,
+"icon": "reused",
+"sha1": "0687c2034423ab00c087b8c357ff45d9dec57271",
+"src": "icons/7428cd3afb79.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Great gunkan": {
+"bytes": "mirror",
+"file": "File:Great gunkan.png",
+"h": 21,
+"icon": "new",
+"sha1": "2ce9829d07357770757957762152759a1af01922",
+"src": "icons/989315553afe.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Great maki": {
+"bytes": "mirror",
+"file": "File:Great maki.png",
+"h": 24,
+"icon": "new",
+"sha1": "b0be0e6f5aabfb95da8f89610ed96f2014778cd2",
+"src": "icons/ca6d492b5779.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Great white shark": {
+"bytes": "mirror",
+"file": "File:Great white shark.png",
+"h": 28,
+"icon": "new",
+"sha1": "6bd4442a83706cfa34d1c9139f0475446cac7826",
+"src": "icons/09edc9c74f43.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 34
+},
+"Green blubber jellyfish": {
+"bytes": "mirror",
+"file": "File:Green blubber jellyfish.png",
+"h": 21,
+"icon": "new",
+"sha1": "6b573f19ae0e517d5e8e23c7a18f8c3f5e5420fc",
+"src": "icons/a0191d255b02.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
 "Green charm": {
 "bytes": "mirror",
 "file": "File:Green charm.png",
@@ -4495,6 +6412,19 @@
 ],
 "via": "exact file",
 "w": 32
+},
+"Greenman's ale (4)": {
+"bytes": "mirror",
+"file": "File:Greenman's ale (4).png",
+"h": 28,
+"icon": "reused",
+"sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
+"src": "icons/f3c69b3c2eb2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
 },
 "Grenwall spikes": {
 "bytes": "mirror",
@@ -5003,6 +6933,45 @@
 "via": "exact file",
 "w": 31
 },
+"Ground cod": {
+"bytes": "mirror",
+"file": "File:Ground cod.png",
+"h": 28,
+"icon": "new",
+"sha1": "d526bfeaa53ffe96442ec3923ccb0a8887eb2596",
+"src": "icons/d4cfcabfa21e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Ground crab meat": {
+"bytes": "mirror",
+"file": "File:Ground crab meat.png",
+"h": 28,
+"icon": "new",
+"sha1": "21603d70338c83e49b4c6badfa9c22c2ab1c9812",
+"src": "icons/4bc52f1d9904.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Ground kelp": {
+"bytes": "mirror",
+"file": "File:Ground kelp.png",
+"h": 15,
+"icon": "new",
+"sha1": "046eed2c219f47d4fd7239117f91144c84f5a1e6",
+"src": "icons/22a8acb7b3c7.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
 "Ground miasma rune": {
 "bytes": "mirror",
 "file": "File:Ground miasma rune.png",
@@ -5434,6 +7403,19 @@
 "via": "exact file",
 "w": 22
 },
+"Hammerstone hops": {
+"bytes": "downloaded",
+"file": "File:Hammerstone hops.png",
+"h": 27,
+"icon": "new",
+"sha1": "9b10bcccf66df0a31331c269c1718a52b1976d1a",
+"src": "icons/4f6c21247821.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
 "Harmony dust": {
 "bytes": "mirror",
 "file": "File:Harmony dust.png",
@@ -5555,6 +7537,84 @@
 ],
 "via": "exact file",
 "w": 21
+},
+"Heim crab": {
+"bytes": "mirror",
+"file": "File:Heim crab.png",
+"h": 30,
+"icon": "new",
+"sha1": "0de91d76b4451024e64590b7edafc367679470c1",
+"src": "icons/dda82b2f9800.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Heim crab & edicap potato": {
+"bytes": "mirror",
+"file": "File:Heim crab & edicap potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "8b791ac520889291238d3360f538dff2970cfc96",
+"src": "icons/c1e1edb81f11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Heim crab & gissel potato": {
+"bytes": "mirror",
+"file": "File:Heim crab & gissel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "cbd8a23888568ad8627a310c8979932a0da990f0",
+"src": "icons/82387ce586ee.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Heim crab potato": {
+"bytes": "mirror",
+"file": "File:Heim crab potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "f076753db771c38cb2125fb771a13d64c87dd346",
+"src": "icons/f7a53f400415.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Heirloom tomato": {
+"bytes": "mirror",
+"file": "File:Heirloom tomato.png",
+"h": 25,
+"icon": "new",
+"sha1": "b809b0a34f1f995b0f2bb513fec54469f56926f8",
+"src": "icons/3906b85092f9.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Herring": {
+"bytes": "mirror",
+"file": "File:Herring.png",
+"h": 22,
+"icon": "new",
+"sha1": "e071f56baa4112fedfd68329c0ad4ebdc7289219",
+"src": "icons/a2797cd88fde.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
 },
 "Holy aggroverload (6)": {
 "bytes": "mirror",
@@ -5786,6 +7846,32 @@
 ],
 "via": "exact file",
 "w": 20
+},
+"Jug of water": {
+"bytes": "mirror",
+"file": "File:Jug of water.png",
+"h": 29,
+"icon": "reused",
+"sha1": "0282e5ac97f244cd8d92c86ec4ec12acb32b90e2",
+"src": "icons/a7c36e18ed1e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Jug of wine": {
+"bytes": "mirror",
+"file": "File:Jug of wine.png",
+"h": 29,
+"icon": "reused",
+"sha1": "7784ee9b816a6d25e5b4d407e26181cd547ca429",
+"src": "icons/7e22bcde6fff.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
 },
 "Juju cooking flask (6)": {
 "bytes": "mirror",
@@ -6233,6 +8319,32 @@
 "via": "exact file",
 "w": 16
 },
+"Karambwanji": {
+"bytes": "mirror",
+"file": "File:Karambwanji.png",
+"h": 21,
+"icon": "reused",
+"sha1": "d7d1a0292fe892cfedaebdbc5182349ce5cfac86",
+"src": "icons/3b33e90990c1.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Kebab mix": {
+"bytes": "mirror",
+"file": "File:Kebab mix.png",
+"h": 24,
+"icon": "new",
+"sha1": "5bfd3ecaa2537d426c1d31381cb48ed7d69cfe34",
+"src": "icons/9c8ed02bde8a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
 "Kebbit teeth": {
 "bytes": "mirror",
 "file": "File:Kebbit teeth.png",
@@ -6258,6 +8370,45 @@
 ],
 "via": "exact file",
 "w": 30
+},
+"Kelp": {
+"bytes": "mirror",
+"file": "File:Kelp.png",
+"h": 22,
+"icon": "new",
+"sha1": "52305940fe345f0d2ad24fd77c0f293b9ade382d",
+"src": "icons/9f35abb855d4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
+"King worm": {
+"bytes": "mirror",
+"file": "File:King worm.png",
+"h": 25,
+"icon": "reused",
+"sha1": "8c6b513aefe39ca146b7a17a292cd5745e4595d1",
+"src": "icons/60fbeda0bc0f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Krandorian hops": {
+"bytes": "mirror",
+"file": "File:Krandorian hops.png",
+"h": 27,
+"icon": "new",
+"sha1": "004d2676e1db3883511de81d204b736103d43e7a",
+"src": "icons/2de05e806e40.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
 },
 "Kwuarm potion (unfinished)": {
 "bytes": "mirror",
@@ -6285,6 +8436,19 @@
 "via": "exact file",
 "w": 21
 },
+"Lava eel": {
+"bytes": "mirror",
+"file": "File:Lava eel.png",
+"h": 27,
+"icon": "reused",
+"sha1": "bffdceb306dfcedc0c221f14c291d02bb2f73e54",
+"src": "icons/f4b4abc262df.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
 "Law rune": {
 "bytes": "mirror",
 "file": "File:Law rune.png",
@@ -6298,6 +8462,84 @@
 "via": "exact file",
 "w": 30
 },
+"Lean snail": {
+"bytes": "mirror",
+"file": "File:Lean snail.png",
+"h": 28,
+"icon": "reused",
+"sha1": "3ec890cc46f26a65557f5c5c1326315cd12daa50",
+"src": "icons/b06a2e607340.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Lean snail meat": {
+"bytes": "mirror",
+"file": "File:Lean snail meat.png",
+"h": 28,
+"icon": "reused",
+"sha1": "2b84a2b7410af5575638852693ce32d4588624f4",
+"src": "icons/e1ee43a5c49b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Lemon": {
+"bytes": "mirror",
+"file": "File:Lemon.png",
+"h": 18,
+"icon": "reused",
+"sha1": "ff5a925825fa1f81dc89671196a451b5e23dbca5",
+"src": "icons/a0698e442fe0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 16
+},
+"Lemon cheesecake": {
+"bytes": "mirror",
+"file": "File:Lemon cheesecake.png",
+"h": 19,
+"icon": "new",
+"sha1": "11691d0979c1c4d4bbc245896835a7949d87356f",
+"src": "icons/e67b589fa252.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Lime": {
+"bytes": "mirror",
+"file": "File:Lime.png",
+"h": 16,
+"icon": "reused",
+"sha1": "5f05311bb68216f485bd88cbe1e640c37a87cd85",
+"src": "icons/23622cead310.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 17
+},
+"Lime chunks": {
+"bytes": "downloaded",
+"file": "File:Lime chunks.png",
+"h": 12,
+"icon": "new",
+"sha1": "b33d36e97ab22aa093b826d18c774ac0fd53d852",
+"src": "icons/2851239d8cc6.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
 "Limpwurt root": {
 "bytes": "mirror",
 "file": "File:Limpwurt root.png",
@@ -6310,6 +8552,19 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Lobster": {
+"bytes": "mirror",
+"file": "File:Lobster.png",
+"h": 30,
+"icon": "reused",
+"sha1": "309835f1a3fc5e18e6c838547713818927dbc7fe",
+"src": "icons/381a3fa677ed.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 34
 },
 "Luck potion": {
 "bytes": "mirror",
@@ -6349,6 +8604,19 @@
 ],
 "via": "exact file",
 "w": 20
+},
+"Mackerel": {
+"bytes": "mirror",
+"file": "File:Mackerel.png",
+"h": 22,
+"icon": "reused",
+"sha1": "c0a50727e60bc56d199582a84891c2ac67b0f7c4",
+"src": "icons/9faf1e207d72.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
 },
 "Magebane potion (unfinished)": {
 "bytes": "mirror",
@@ -6406,7 +8674,7 @@
 "bytes": "mirror",
 "file": "File:Magic essence (4).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "1adf37cb08494f58f90ae083328776bfb54d6d2f",
 "src": "icons/b86f0cd3e760.webp",
 "used": [
@@ -6589,6 +8857,19 @@
 "via": "exact file",
 "w": 33
 },
+"Malletops meat": {
+"bytes": "mirror",
+"file": "File:Malletops meat.png",
+"h": 24,
+"icon": "new",
+"sha1": "3215f7c15ffded0c695b00d1f3ae7b39dffb1541",
+"src": "icons/f2f28bad524e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
 "Mango": {
 "bytes": "mirror",
 "file": "File:Mango.png",
@@ -6597,10 +8878,24 @@
 "sha1": "9613b8292e948d7c5f58f2af298b9a186e721836",
 "src": "icons/75e0753cfbc3.webp",
 "used": [
+"cooking",
 "herblore"
 ],
 "via": "exact file",
 "w": 17
+},
+"Manta ray": {
+"bytes": "mirror",
+"file": "File:Manta ray.png",
+"h": 29,
+"icon": "reused",
+"sha1": "474a716e4bb4429180635e7632dfbebc4d131bdc",
+"src": "icons/31eb24a62b4c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
 },
 "Manuscript of Bik": {
 "bytes": "mirror",
@@ -6654,6 +8949,32 @@
 "via": "exact file",
 "w": 31
 },
+"Meat pie": {
+"bytes": "mirror",
+"file": "File:Meat pie.png",
+"h": 23,
+"icon": "reused",
+"sha1": "b3a4094497cc244b718ad41a06b895c4122728e5",
+"src": "icons/efcf664d427c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Meat pizza": {
+"bytes": "mirror",
+"file": "File:Meat pizza.png",
+"h": 25,
+"icon": "reused",
+"sha1": "48f6fe046d807cc1066de0578ac2a54c6ffc454d",
+"src": "icons/e165b9ca02e8.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
 "Melee potion": {
 "bytes": "mirror",
 "file": "File:Melee potion.png",
@@ -6666,6 +8987,19 @@
 ],
 "via": "exact file",
 "w": 24
+},
+"Mind bomb (4)": {
+"bytes": "mirror",
+"file": "File:Mind bomb (4).png",
+"h": 28,
+"icon": "reused",
+"sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
+"src": "icons/f3c69b3c2eb2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
 },
 "Mining flask (6)": {
 "bytes": "mirror",
@@ -6736,6 +9070,19 @@
 ],
 "via": "exact file",
 "w": 21
+},
+"Minnow": {
+"bytes": "mirror",
+"file": "File:Minnow.png",
+"h": 27,
+"icon": "reused",
+"sha1": "a697ab00e873f226a918c35dedad03b27fdf1570",
+"src": "icons/236f0d66ae2c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
 },
 "Misshapen claw": {
 "bytes": "mirror",
@@ -6854,6 +9201,58 @@
 "via": "exact file",
 "w": 21
 },
+"Monkfish": {
+"bytes": "mirror",
+"file": "File:Monkfish.png",
+"h": 23,
+"icon": "reused",
+"sha1": "81af5662ed8d4bb38cdbe74f6fa1e0bd23bdee08",
+"src": "icons/2336ff106fbd.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Moonlight mead (4)": {
+"bytes": "mirror",
+"file": "File:Moonlight mead (4).png",
+"h": 28,
+"icon": "reused",
+"sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
+"src": "icons/f3c69b3c2eb2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Moray & edicap potato": {
+"bytes": "mirror",
+"file": "File:Moray & edicap potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "8b791ac520889291238d3360f538dff2970cfc96",
+"src": "icons/c1e1edb81f11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Moray & gissel potato": {
+"bytes": "mirror",
+"file": "File:Moray & gissel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "cbd8a23888568ad8627a310c8979932a0da990f0",
+"src": "icons/82387ce586ee.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
 "Morchella mushroom": {
 "bytes": "mirror",
 "file": "File:Morchella mushroom.png",
@@ -6893,6 +9292,19 @@
 "via": "exact file",
 "w": 29
 },
+"Mud pie": {
+"bytes": "mirror",
+"file": "File:Mud pie.png",
+"h": 23,
+"icon": "reused",
+"sha1": "4bec240d1a1cd913df6c598938afeb7ba68360ec",
+"src": "icons/799fc3e52743.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
 "Mud rune": {
 "bytes": "mirror",
 "file": "File:Mud rune.png",
@@ -6905,6 +9317,32 @@
 ],
 "via": "exact file",
 "w": 30
+},
+"Mushroom & onion": {
+"bytes": "mirror",
+"file": "File:Mushroom & onion.png",
+"h": 24,
+"icon": "reused",
+"sha1": "c6a3663f5243a94395b7db747d4f96cdd3349946",
+"src": "icons/0ddf474f36f9.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Mushroom potato": {
+"bytes": "mirror",
+"file": "File:Mushroom potato.png",
+"h": 19,
+"icon": "reused",
+"sha1": "68d2cecf33f796781eb45d07a6844fe3afbcdd88",
+"src": "icons/1fd67f708794.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
 },
 "Mycelial webbing": {
 "bytes": "mirror",
@@ -7027,6 +9465,71 @@
 "via": "exact file",
 "w": 21
 },
+"Nettle tea": {
+"bytes": "mirror",
+"file": "File:Nettle tea.png",
+"h": 25,
+"icon": "new",
+"sha1": "ef75e59927f2ad2f3f6ac481c553c2b7706ef2fd",
+"src": "icons/166f66f9d77b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Nettles": {
+"bytes": "mirror",
+"file": "File:Nettles.png",
+"h": 29,
+"icon": "new",
+"sha1": "5ac4c5441705ddb9c2de4006e65a2aca48aa317d",
+"src": "icons/c801badf905d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Nuts": {
+"bytes": "mirror",
+"file": "File:Nuts.png",
+"h": 23,
+"icon": "reused",
+"sha1": "52707162390e6d4b08c93c46ce64d29f0bf1ffb8",
+"src": "icons/cd0885904108.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Oak roots": {
+"bytes": "mirror",
+"file": "File:Oak roots.png",
+"h": 29,
+"icon": "new",
+"sha1": "36cac425ffd622b51f88749c2f36f263e8753bdf",
+"src": "icons/d595f8383e78.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Oculi apoterrasaur meat": {
+"bytes": "mirror",
+"file": "File:Oculi apoterrasaur meat.png",
+"h": 26,
+"icon": "new",
+"sha1": "ccb5749a2aadd472de24d6ee2868356dec64f296",
+"src": "icons/f8d688c7e3cb.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
 "Oily vine": {
 "bytes": "mirror",
 "file": "File:Oily vine.png",
@@ -7040,6 +9543,19 @@
 "via": "exact file",
 "w": 29
 },
+"Onion": {
+"bytes": "mirror",
+"file": "File:Onion.png",
+"h": 16,
+"icon": "reused",
+"sha1": "6e5f3959da8e1764c3bc8a7bec16625735d99b21",
+"src": "icons/74d2ae95eb74.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 18
+},
 "Onyx bolt tips": {
 "bytes": "mirror",
 "file": "File:Onyx bolt tips 5.png",
@@ -7052,6 +9568,32 @@
 ],
 "via": "File redirect from File:Onyx bolt tips.png",
 "w": 31
+},
+"Orange": {
+"bytes": "downloaded",
+"file": "File:Orange.png",
+"h": 17,
+"icon": "new",
+"sha1": "3d93d5caa6bfbafe30b4c2533c65189dc7227abc",
+"src": "icons/59480f2896d3.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 17
+},
+"Orange chunks": {
+"bytes": "downloaded",
+"file": "File:Orange chunks.png",
+"h": 12,
+"icon": "new",
+"sha1": "a2971b8e984feb71beb8734abdfe119369c03fa2",
+"src": "icons/f24b94407e05.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
 },
 "Overload (1)": {
 "bytes": "mirror",
@@ -7070,7 +9612,7 @@
 "bytes": "mirror",
 "file": "File:Overload (2).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "7f931ff40b80af8b240b2ab19dae9d3fd728b0f6",
 "src": "icons/1739368f7a41.webp",
 "used": [
@@ -7156,6 +9698,58 @@
 ],
 "via": "exact file",
 "w": 19
+},
+"Part wild pie (raw bear meat)": {
+"bytes": "mirror",
+"file": "File:Part wild pie (raw bear meat).png",
+"h": 22,
+"icon": "new",
+"sha1": "982b654eb0f53f32c176e6f49d29a6ca4bd5bafc",
+"src": "icons/5ba32baa2bb4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Part wild pie (raw chompy)": {
+"bytes": "mirror",
+"file": "File:Part wild pie (raw chompy).png",
+"h": 21,
+"icon": "new",
+"sha1": "c42d355e99e94027db7c6a2e29b7d759dae46935",
+"src": "icons/33d4a0fb1f00.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Pat of butter": {
+"bytes": "mirror",
+"file": "File:Pat of butter.png",
+"h": 14,
+"icon": "reused",
+"sha1": "b5bf540d0cde4a76c3d7b36bc0cc20a633587afd",
+"src": "icons/b414faefa48c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
+"Pavosaurus rex meat": {
+"bytes": "mirror",
+"file": "File:Pavosaurus rex meat.png",
+"h": 24,
+"icon": "new",
+"sha1": "7b96e3411e0818fde5f30836c8349545efa47d6e",
+"src": "icons/9f7286570bd3.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
 },
 "Pengatrice egg": {
 "bytes": "mirror",
@@ -7852,6 +10446,188 @@
 "via": "exact file",
 "w": 30
 },
+"Pie shell": {
+"bytes": "mirror",
+"file": "File:Pie shell.png",
+"h": 22,
+"icon": "reused",
+"sha1": "58ed4fc4f869719d10fef74a7fd534cadc87dd7d",
+"src": "icons/8e4d27441e07.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Pigswill (4)": {
+"bytes": "mirror",
+"file": "File:Pigswill (4).png",
+"h": 28,
+"icon": "reused",
+"sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
+"src": "icons/f3c69b3c2eb2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Pike": {
+"bytes": "mirror",
+"file": "File:Pike.png",
+"h": 27,
+"icon": "reused",
+"sha1": "129e8a8ce60f5a8a7b29adfd705f6853c30d2108",
+"src": "icons/1612606268ff.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Pineapple": {
+"bytes": "mirror",
+"file": "File:Pineapple.png",
+"h": 30,
+"icon": "reused",
+"sha1": "199334e63f8b1acce237ae41fa80a16f66fb1926",
+"src": "icons/c00332374c61.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Pineapple Punch": {
+"bytes": "mirror",
+"file": "File:Pineapple Punch.png",
+"h": 31,
+"icon": "new",
+"sha1": "c504c86d1460e6d96e103df0fc879a4ebf65de90",
+"src": "icons/3e3a5c13b039.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Pineapple chunks": {
+"bytes": "mirror",
+"file": "File:Pineapple chunks.png",
+"h": 12,
+"icon": "reused",
+"sha1": "25390e3620a72b25b7c61ef74467c1f96dbfded1",
+"src": "icons/cef95769c436.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
+"Pineapple pizza": {
+"bytes": "mirror",
+"file": "File:Pineapple pizza.png",
+"h": 25,
+"icon": "new",
+"sha1": "60a145705cd9b672b5ebafe246fe22341e162c6b",
+"src": "icons/48bb5e51a019.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Pineapple ring": {
+"bytes": "mirror",
+"file": "File:Pineapple ring.png",
+"h": 18,
+"icon": "new",
+"sha1": "f415aabc3afa5ef17ac99f847ca9927965f95c20",
+"src": "icons/0b346b6bffd8.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Pitta bread": {
+"bytes": "mirror",
+"file": "File:Pitta bread.png",
+"h": 24,
+"icon": "new",
+"sha1": "4274b19ec38a869028eabec0e654f723fff6c4c9",
+"src": "icons/f4ad34c1efe1.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Pitta dough": {
+"bytes": "mirror",
+"file": "File:Pitta dough.png",
+"h": 24,
+"icon": "new",
+"sha1": "b1bace14913de8fc78d372c9afbd5af861b9ff71",
+"src": "icons/d65d1ba1f500.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Pizza base": {
+"bytes": "mirror",
+"file": "File:Pizza base.png",
+"h": 24,
+"icon": "new",
+"sha1": "7736765480691d5410e378a8331778a1a709a75c",
+"src": "icons/9b38027f2aef.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Plain cooking urn": {
+"bytes": "mirror",
+"file": "File:Plain cooking urn.png",
+"h": 28,
+"icon": "new",
+"sha1": "0911d92eab1ecc75f5b7d125357636d6b4396a7f",
+"src": "icons/f9027e99d31d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Plain cooking urn (no rune)": {
+"bytes": "mirror",
+"file": "File:Plain cooking urn (no rune).png",
+"h": 28,
+"icon": "new",
+"sha1": "d20a6fe5a62abe4e28835b59068b9c4b360a4774",
+"src": "icons/2f789ef616b5.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Plain pizza": {
+"bytes": "mirror",
+"file": "File:Plain pizza.png",
+"h": 25,
+"icon": "reused",
+"sha1": "4c61fac06bf3fb8a580c0a8feb5dfe6f57255d78",
+"src": "icons/ad90a22c9bc9.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
 "Plant teeth": {
 "bytes": "mirror",
 "file": "File:Plant teeth.png",
@@ -7904,6 +10680,45 @@
 "via": "exact file",
 "w": 25
 },
+"Pork pie": {
+"bytes": "mirror",
+"file": "File:Pork pie.png",
+"h": 24,
+"icon": "new",
+"sha1": "994c9e86884c02490b3f2dc21c777ecf42690b6d",
+"src": "icons/8937a131c38a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
+"Pot of cream": {
+"bytes": "mirror",
+"file": "File:Pot of cream.png",
+"h": 14,
+"icon": "reused",
+"sha1": "fb2121bc5d9c9d703e0f4023eb3fed14bb23cb32",
+"src": "icons/57a73aac4fc5.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
+"Pot of flour": {
+"bytes": "downloaded",
+"file": "File:Pot of flour.png",
+"h": 30,
+"icon": "new",
+"sha1": "04d5e0858e8db0ad58ea18fe87726f9b523397dc",
+"src": "icons/0e274781a23f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
 "Potato cactus": {
 "bytes": "mirror",
 "file": "File:Potato cactus.png",
@@ -7916,6 +10731,32 @@
 ],
 "via": "exact file",
 "w": 27
+},
+"Potato with butter": {
+"bytes": "mirror",
+"file": "File:Potato with butter.png",
+"h": 18,
+"icon": "reused",
+"sha1": "255eb0dfff730a36766bc39934e0435b03145894",
+"src": "icons/52044d20f100.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
+"Potato with cheese": {
+"bytes": "mirror",
+"file": "File:Potato with cheese.png",
+"h": 19,
+"icon": "new",
+"sha1": "ed1a93c2f9479a85de8a01d2ea5a7be80fb1eced",
+"src": "icons/53fa2cf5b11a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
 },
 "Potion flask": {
 "bytes": "mirror",
@@ -8422,6 +11263,19 @@
 "via": "exact file",
 "w": 21
 },
+"Primal dessert": {
+"bytes": "mirror",
+"file": "File:Primal dessert.png",
+"h": 28,
+"icon": "new",
+"sha1": "68eca2662bc4d0bc4ae85237959a13ba5aa9087b",
+"src": "icons/02c4a8abf141.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
 "Primal extract": {
 "bytes": "mirror",
 "file": "File:Primal extract.png",
@@ -8435,6 +11289,19 @@
 "via": "exact file",
 "w": 26
 },
+"Primal feast": {
+"bytes": "mirror",
+"file": "File:Primal feast.png",
+"h": 28,
+"icon": "new",
+"sha1": "f1739c62fe803f78e53f5c55679ba8794f9ad863",
+"src": "icons/2da83483c3c8.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
 "Primal fruit pulp": {
 "bytes": "mirror",
 "file": "File:Primal fruit pulp.png",
@@ -8447,6 +11314,32 @@
 ],
 "via": "exact file",
 "w": 26
+},
+"Primal main course": {
+"bytes": "mirror",
+"file": "File:Primal main course.png",
+"h": 28,
+"icon": "new",
+"sha1": "0743d76c74d91164f62331eb39d0492956ed6324",
+"src": "icons/c91598e381e5.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
+"Primal starter": {
+"bytes": "mirror",
+"file": "File:Primal starter.png",
+"h": 26,
+"icon": "new",
+"sha1": "f954a5094b970d9df96dbc2a0f1c67c087b719da",
+"src": "icons/88b01d7d2f95.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
 },
 "Rabbit foot": {
 "bytes": "mirror",
@@ -8470,6 +11363,32 @@
 "src": "icons/bf25eda3bdd2.webp",
 "used": [
 "herblore"
+],
+"via": "exact file",
+"w": 24
+},
+"Rainbow fish": {
+"bytes": "mirror",
+"file": "File:Rainbow fish.png",
+"h": 23,
+"icon": "reused",
+"sha1": "367e28a34b8ee9125d5a881605d064a696e954e8",
+"src": "icons/9314fa1a9882.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Rainbow sweetcorn": {
+"bytes": "mirror",
+"file": "File:Rainbow sweetcorn.png",
+"h": 28,
+"icon": "new",
+"sha1": "51ac8720a1285cf16b39007423b6fe4dbd19fb98",
+"src": "icons/334065ac7c39.webp",
+"used": [
+"cooking"
 ],
 "via": "exact file",
 "w": 24
@@ -8596,6 +11515,1098 @@
 "via": "exact file",
 "w": 21
 },
+"Raw admiral pie": {
+"bytes": "mirror",
+"file": "File:Raw admiral pie.png",
+"h": 22,
+"icon": "new",
+"sha1": "4032584302e841512bd01e5bcbee842261e4ee51",
+"src": "icons/d15bb2779627.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw anchovies": {
+"bytes": "mirror",
+"file": "File:Raw anchovies.png",
+"h": 25,
+"icon": "reused",
+"sha1": "d04669ea7078109638f1067ba5cea4219a3ad329",
+"src": "icons/9c36f2a76377.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Raw arcane apoterrasaur meat": {
+"bytes": "mirror",
+"file": "File:Raw arcane apoterrasaur meat.png",
+"h": 26,
+"icon": "reused",
+"sha1": "c510e6e67d527f68a437088fe5196ea0fcb455fb",
+"src": "icons/6c013c0ba32e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw asciatops meat": {
+"bytes": "mirror",
+"file": "File:Raw asciatops meat.png",
+"h": 25,
+"icon": "new",
+"sha1": "f1a01bc789e0b4714a95f82a3a40ec05a220bf74",
+"src": "icons/2206219b720e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Raw bacon": {
+"bytes": "mirror",
+"file": "File:Raw bacon.png",
+"h": 18,
+"icon": "reused",
+"sha1": "a03de751445b56894507e52938ac8b8961856000",
+"src": "icons/2f8c238d5eb5.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
+"Raw bacon stack": {
+"bytes": "mirror",
+"file": "File:Raw bacon stack.png",
+"h": 22,
+"icon": "new",
+"sha1": "d5476b28f9a3f8e9f7918854ff039d55a78004ee",
+"src": "icons/0e627bb6cc1a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 24
+},
+"Raw bagrada rex meat": {
+"bytes": "mirror",
+"file": "File:Raw bagrada rex meat.png",
+"h": 24,
+"icon": "new",
+"sha1": "cdf093a4c54d2d14bbe94cb972ea598c4e1bc24c",
+"src": "icons/7e0ee65090d4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw bass": {
+"bytes": "mirror",
+"file": "File:Raw bass.png",
+"h": 24,
+"icon": "reused",
+"sha1": "0f1377edbb3fda9ef070b67f9fa1850ab2d6358c",
+"src": "icons/dd8303ad5025.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw bear meat": {
+"bytes": "mirror",
+"file": "File:Raw bear meat.png",
+"h": 31,
+"icon": "reused",
+"sha1": "5957b5063274f55a0271d3fe247023f45ecbf89a",
+"src": "icons/eedd46abe0d6.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw beast meat": {
+"bytes": "mirror",
+"file": "File:Raw beast meat.png",
+"h": 19,
+"icon": "new",
+"sha1": "565a88ddba0fc3080b22bce638ddd6e8d5a40df9",
+"src": "icons/14bac0004e0f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Raw beef": {
+"bytes": "mirror",
+"file": "File:Raw beef.png",
+"h": 31,
+"icon": "reused",
+"sha1": "5957b5063274f55a0271d3fe247023f45ecbf89a",
+"src": "icons/eedd46abe0d6.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw beltfish": {
+"bytes": "mirror",
+"file": "File:Raw beltfish.png",
+"h": 30,
+"icon": "new",
+"sha1": "e00981ea1aae878b7c63ed3e0f357e2b696fd040",
+"src": "icons/c4d34beb4e6c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Raw blue blubber jellyfish": {
+"bytes": "mirror",
+"file": "File:Raw blue blubber jellyfish.png",
+"h": 21,
+"icon": "new",
+"sha1": "54c3c4a640dcb4bcab3865baa681850d0db01978",
+"src": "icons/6e723b759991.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw blue crab": {
+"bytes": "mirror",
+"file": "File:Raw blue crab.png",
+"h": 28,
+"icon": "new",
+"sha1": "fde9e487cca0f1a104c54a083afcbc4ba0a894f3",
+"src": "icons/6fe1b0a3f6a4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Raw bouldabass": {
+"bytes": "mirror",
+"file": "File:Raw bouldabass.png",
+"h": 29,
+"icon": "new",
+"sha1": "b8164bc3112a5d2040fd918b2f0d86ff418be7c6",
+"src": "icons/6bd169d0b286.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Raw catfish": {
+"bytes": "mirror",
+"file": "File:Raw catfish.png",
+"h": 30,
+"icon": "new",
+"sha1": "ed67302b6821cde8e86048a9b135212a90fc5011",
+"src": "icons/a89adaef83df.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw cave eel": {
+"bytes": "mirror",
+"file": "File:Raw cave eel.png",
+"h": 29,
+"icon": "reused",
+"sha1": "407618eba8697faef8740dc4dbbc6ef7d7aea051",
+"src": "icons/22a7d59b574a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw cave moray": {
+"bytes": "mirror",
+"file": "File:Raw cave moray.png",
+"h": 30,
+"icon": "new",
+"sha1": "3812b5b6aeb2d80d8630c3a30d7b779b643c82d6",
+"src": "icons/f3dd4360293b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Raw cave potato": {
+"bytes": "mirror",
+"file": "File:Raw cave potato.png",
+"h": 15,
+"icon": "new",
+"sha1": "57ecc99acc58dc0f3ab545f300da347d2d75b994",
+"src": "icons/bb06527f98b0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Raw cavefish": {
+"bytes": "mirror",
+"file": "File:Raw cavefish.png",
+"h": 26,
+"icon": "new",
+"sha1": "3d587e57c025ee7886e226c367ebc84b8efd9775",
+"src": "icons/3f40d52ab30b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Raw chicken": {
+"bytes": "mirror",
+"file": "File:Raw chicken.png",
+"h": 26,
+"icon": "reused",
+"sha1": "5b066975c574b9cae35b1dea854e8202dd84ff7a",
+"src": "icons/51b6a9c06188.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw chompy": {
+"bytes": "mirror",
+"file": "File:Raw chompy.png",
+"h": 26,
+"icon": "reused",
+"sha1": "81c8cacb5c2b6c17dce108e70615167b3d645d35",
+"src": "icons/b1898da1d369.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw cod": {
+"bytes": "mirror",
+"file": "File:Raw cod.png",
+"h": 27,
+"icon": "reused",
+"sha1": "60784ba11042e81f735e22cf51b577c73cb8a6cc",
+"src": "icons/757a3fcff5af.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw corbicula rex meat": {
+"bytes": "mirror",
+"file": "File:Raw corbicula rex meat.png",
+"h": 24,
+"icon": "new",
+"sha1": "6d9876268a1227c5d8dac7da41ee36c4cb3b4a04",
+"src": "icons/73dff1da0b0c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw crayfish": {
+"bytes": "mirror",
+"file": "File:Raw crayfish.png",
+"h": 31,
+"icon": "reused",
+"sha1": "89510f5711e504529bd02fd9be0e17ad36b3aabc",
+"src": "icons/d66c683b557f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Raw desert sole": {
+"bytes": "mirror",
+"file": "File:Raw desert sole.png",
+"h": 28,
+"icon": "new",
+"sha1": "4a8b08a390781b8ac55161b1fd5dda5a0d616842",
+"src": "icons/132e5453090b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw dusk eel": {
+"bytes": "mirror",
+"file": "File:Raw dusk eel.png",
+"h": 31,
+"icon": "new",
+"sha1": "d6200caf81a3f7c81deb94c3daeee50695bf31cb",
+"src": "icons/6f69a65b693d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw fish pie": {
+"bytes": "mirror",
+"file": "File:Raw fish pie.png",
+"h": 22,
+"icon": "new",
+"sha1": "6ce695c5438be05f492a98c8ddafd20e4c851d19",
+"src": "icons/1e593b0ce596.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw garden pie": {
+"bytes": "mirror",
+"file": "File:Raw garden pie.png",
+"h": 23,
+"icon": "new",
+"sha1": "25a7b78f9c14384c23a603bfda87789f3e217be2",
+"src": "icons/5343d343a02f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw ghostly sole": {
+"bytes": "mirror",
+"file": "File:Raw ghostly sole.png",
+"h": 28,
+"icon": "reused",
+"sha1": "c7aacb86b7ed86793bcc5fde579fc5d6bbc8a092",
+"src": "icons/cf08c1351652.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw giant chinchompa meat": {
+"bytes": "mirror",
+"file": "File:Raw giant chinchompa meat.png",
+"h": 29,
+"icon": "new",
+"sha1": "f966d6263e6a11aae389ff33c2402a23f094652f",
+"src": "icons/d93c83ad0219.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
+"Raw giant crayfish": {
+"bytes": "mirror",
+"file": "File:Raw giant crayfish.png",
+"h": 30,
+"icon": "new",
+"sha1": "8cbd06511b85fb8164303481dea0c557ba96c240",
+"src": "icons/b7103106d87d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Raw giant flatfish": {
+"bytes": "mirror",
+"file": "File:Raw giant flatfish.png",
+"h": 29,
+"icon": "new",
+"sha1": "ca40047ab0225398aeb6fcaf943ff0d01a4bbd7f",
+"src": "icons/8cd212511494.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw giant kebbit meat": {
+"bytes": "mirror",
+"file": "File:Raw giant kebbit meat.png",
+"h": 26,
+"icon": "new",
+"sha1": "4a9546044ad1cc9c97285850fdb53a51a71eb48e",
+"src": "icons/4f5da05f4e3d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw great white shark": {
+"bytes": "mirror",
+"file": "File:Raw great white shark.png",
+"h": 28,
+"icon": "new",
+"sha1": "3d4ad79e9570c0968aa96d7ece67ef1d5820bf00",
+"src": "icons/5f1df92292ac.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 34
+},
+"Raw green blubber jellyfish": {
+"bytes": "mirror",
+"file": "File:Raw green blubber jellyfish.png",
+"h": 21,
+"icon": "new",
+"sha1": "10ba4b52186df6f98025d4c74a330746b0d2e99b",
+"src": "icons/7d91a54ca4ea.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw heim crab": {
+"bytes": "mirror",
+"file": "File:Raw heim crab.png",
+"h": 30,
+"icon": "new",
+"sha1": "4c6e975f602dc13b2034736e133e99daacd762fd",
+"src": "icons/d71048723871.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw herring": {
+"bytes": "mirror",
+"file": "File:Raw herring.png",
+"h": 22,
+"icon": "reused",
+"sha1": "55a006284b2766a305c4ee1503a7d82e0fa6003f",
+"src": "icons/e2a2419a3f06.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Raw jubbly": {
+"bytes": "mirror",
+"file": "File:Raw jubbly.png",
+"h": 32,
+"icon": "reused",
+"sha1": "51ef208d9b16781af785be9be9eca5fc814b5e2f",
+"src": "icons/8db1914f064f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 36
+},
+"Raw karambwan": {
+"bytes": "mirror",
+"file": "File:Raw karambwan.png",
+"h": 28,
+"icon": "reused",
+"sha1": "b325b25603667d161eeafac5f8511a715c2764d4",
+"src": "icons/652f32924086.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Raw karambwanji": {
+"bytes": "mirror",
+"file": "File:Raw karambwanji.png",
+"h": 21,
+"icon": "new",
+"sha1": "6df84c4179525fb9fdec0de0e8288b6bc8df756f",
+"src": "icons/82dec575fba9.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw lava eel": {
+"bytes": "mirror",
+"file": "File:Raw lava eel.png",
+"h": 27,
+"icon": "new",
+"sha1": "d0d382edf1fba5bba1d998d4c1c459b97823854a",
+"src": "icons/2014cda9f5d0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw lobster": {
+"bytes": "mirror",
+"file": "File:Raw lobster.png",
+"h": 30,
+"icon": "reused",
+"sha1": "5e711ace35110a1bcf95e5715d1ee58545491f26",
+"src": "icons/defe3c19d396.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 34
+},
+"Raw mackerel": {
+"bytes": "mirror",
+"file": "File:Raw mackerel.png",
+"h": 22,
+"icon": "reused",
+"sha1": "662a4b0fdda9a000e6495dc27f6e28d8c94fc3ac",
+"src": "icons/3fb0f8cc4aea.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Raw malletops meat": {
+"bytes": "mirror",
+"file": "File:Raw malletops meat.png",
+"h": 25,
+"icon": "new",
+"sha1": "98e5a617587074d0b81d9f7bb7c7f65a018089a9",
+"src": "icons/c754ed1a00cc.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Raw manta ray": {
+"bytes": "mirror",
+"file": "File:Raw manta ray.png",
+"h": 29,
+"icon": "reused",
+"sha1": "7b4666fe520c58055055e3bf67ea5dea353046db",
+"src": "icons/5eadbce5eab8.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw minnow": {
+"bytes": "mirror",
+"file": "File:Raw minnow.png",
+"h": 27,
+"icon": "reused",
+"sha1": "1b4934bdf170604f6e17ab52a5e4d35c199f3e1f",
+"src": "icons/7d4f7146ccb6.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Raw monkfish": {
+"bytes": "mirror",
+"file": "File:Raw monkfish.png",
+"h": 23,
+"icon": "new",
+"sha1": "48cb3afddde689e3887bd742f8a5140f713ebe34",
+"src": "icons/8e96eb27a1a4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Raw mud pie": {
+"bytes": "mirror",
+"file": "File:Raw mud pie.png",
+"h": 23,
+"icon": "new",
+"sha1": "2309b490122937189247294ffb9f07efff804b70",
+"src": "icons/271f9696aa99.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw oculi apoterrasaur meat": {
+"bytes": "mirror",
+"file": "File:Raw oculi apoterrasaur meat.png",
+"h": 26,
+"icon": "new",
+"sha1": "bbd61e67850013d99fbc46344f5ce5c5d43834bd",
+"src": "icons/ce53d2b86380.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw oomlie": {
+"bytes": "mirror",
+"file": "File:Raw oomlie.png",
+"h": 26,
+"icon": "reused",
+"sha1": "5b066975c574b9cae35b1dea854e8202dd84ff7a",
+"src": "icons/51b6a9c06188.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw pavosaurus rex meat": {
+"bytes": "mirror",
+"file": "File:Raw pavosaurus rex meat.png",
+"h": 24,
+"icon": "new",
+"sha1": "a812a11ff67ac0ef873d3355c6e239090917a2e7",
+"src": "icons/91aae8c30f0e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw pawya meat": {
+"bytes": "mirror",
+"file": "File:Raw pawya meat.png",
+"h": 31,
+"icon": "new",
+"sha1": "e0dc85b71adafb392fa71f130f4c4e0408072a26",
+"src": "icons/91342db70f39.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw pekin": {
+"bytes": "mirror",
+"file": "File:Raw pekin.png",
+"h": 26,
+"icon": "reused",
+"sha1": "5b066975c574b9cae35b1dea854e8202dd84ff7a",
+"src": "icons/51b6a9c06188.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw pike": {
+"bytes": "mirror",
+"file": "File:Raw pike.png",
+"h": 27,
+"icon": "reused",
+"sha1": "5da0ac182f51aa5df516fdc4b4646c70f64a5582",
+"src": "icons/1fe8b8f3e76b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw potato": {
+"bytes": "mirror",
+"file": "File:Raw potato.png",
+"h": 18,
+"icon": "new",
+"sha1": "a7efbde7cb709120dcc1b48d9919e4285f1e1ddd",
+"src": "icons/e313e32189a3.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
+"Raw rabbit": {
+"bytes": "mirror",
+"file": "File:Raw rabbit.png",
+"h": 22,
+"icon": "reused",
+"sha1": "e3458cf4495ad9032d9daf737479d296a7c18985",
+"src": "icons/242a8f3a9728.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Raw rainbow fish": {
+"bytes": "mirror",
+"file": "File:Raw rainbow fish.png",
+"h": 23,
+"icon": "new",
+"sha1": "0097757dfbb417a247a507e1f9098980eece2442",
+"src": "icons/861ca61ed713.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Raw rat meat": {
+"bytes": "mirror",
+"file": "File:Raw rat meat.png",
+"h": 31,
+"icon": "reused",
+"sha1": "5957b5063274f55a0271d3fe247023f45ecbf89a",
+"src": "icons/eedd46abe0d6.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw red-eye": {
+"bytes": "mirror",
+"file": "File:Raw red-eye.png",
+"h": 28,
+"icon": "new",
+"sha1": "9a9a916e073ad26a7351041a471954655b7f43fb",
+"src": "icons/5be9ef97eb6a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Raw rocktail": {
+"bytes": "mirror",
+"file": "File:Raw rocktail.png",
+"h": 31,
+"icon": "reused",
+"sha1": "70b4638810d37564bd327e7abee59ad1c83d41fb",
+"src": "icons/80a46429acb2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Raw sailfish": {
+"bytes": "mirror",
+"file": "File:Raw sailfish.png",
+"h": 28,
+"icon": "new",
+"sha1": "887891c161b7d284944d4a0aaa29e053f80b77e8",
+"src": "icons/0a4527f9ba42.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw salmon": {
+"bytes": "mirror",
+"file": "File:Raw salmon.png",
+"h": 27,
+"icon": "reused",
+"sha1": "7e1f5b9c2b4b0799c3c55386fe288f132a02c0c1",
+"src": "icons/0f83fd09327d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw salve eel": {
+"bytes": "mirror",
+"file": "File:Raw salve eel.png",
+"h": 28,
+"icon": "new",
+"sha1": "304efec67057e619fe139669dbff70b8d4565f6a",
+"src": "icons/631b2eefd416.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw sardine": {
+"bytes": "mirror",
+"file": "File:Raw sardine.png",
+"h": 15,
+"icon": "reused",
+"sha1": "aefd614e8f374d989ec4e2d4655e86c8373de85b",
+"src": "icons/172c1513f38a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 19
+},
+"Raw scimitops meat": {
+"bytes": "mirror",
+"file": "File:Raw scimitops meat.png",
+"h": 24,
+"icon": "new",
+"sha1": "f2b964bf22757e0d8d7436510e1ce760fd76e512",
+"src": "icons/e350b47c8f23.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Raw sea turtle": {
+"bytes": "mirror",
+"file": "File:Raw sea turtle.png",
+"h": 23,
+"icon": "new",
+"sha1": "932280f9f197f3d5f071e73ed01d19154b1ab7e9",
+"src": "icons/cdc88791d90d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Raw seerfish": {
+"bytes": "mirror",
+"file": "File:Raw seerfish.png",
+"h": 27,
+"icon": "new",
+"sha1": "34c11b6b69e0e69f096da967de548c87a06c94fd",
+"src": "icons/15bcf253f6e4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
+"Raw shark": {
+"bytes": "mirror",
+"file": "File:Raw shark.png",
+"h": 32,
+"icon": "reused",
+"sha1": "fa0b6e7823581950e5e9d64d1f88218cb62d576c",
+"src": "icons/9f470ed01953.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Raw short-finned eel": {
+"bytes": "mirror",
+"file": "File:Raw short-finned eel.png",
+"h": 29,
+"icon": "new",
+"sha1": "c41a329d49372d42991197d7dae4fb75aaa9eb4a",
+"src": "icons/ba23221fdcbc.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw shrimps": {
+"bytes": "mirror",
+"file": "File:Raw shrimps.png",
+"h": 25,
+"icon": "new",
+"sha1": "3f18d049e24ca458de0acf43068107de1047920d",
+"src": "icons/ad0d7ada0cac.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Raw sillago": {
+"bytes": "mirror",
+"file": "File:Raw sillago.png",
+"h": 26,
+"icon": "new",
+"sha1": "b09f9b0eb1cfa5a5a85e44e3f8690902dee5aebe",
+"src": "icons/978b4650c0ae.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Raw spicati apoterrasaur meat": {
+"bytes": "mirror",
+"file": "File:Raw spicati apoterrasaur meat.png",
+"h": 26,
+"icon": "new",
+"sha1": "f1b4128fc1a6fcc9128ea3c6902953c52e5583e2",
+"src": "icons/7644b6d626e4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw summer pie": {
+"bytes": "mirror",
+"file": "File:Raw summer pie.png",
+"h": 21,
+"icon": "new",
+"sha1": "b12a0c49e7fccc01422e7a42f986621aca706ce1",
+"src": "icons/f829b3956cb5.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw swordfish": {
+"bytes": "mirror",
+"file": "File:Raw swordfish.png",
+"h": 28,
+"icon": "reused",
+"sha1": "a7daf931faa45bcf5b4e274997d7a77f64678da3",
+"src": "icons/d248eb95c39f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 35
+},
+"Raw tarpon": {
+"bytes": "mirror",
+"file": "File:Raw tarpon.png",
+"h": 26,
+"icon": "new",
+"sha1": "c76928c36593c995cc76df512894df502935b0ed",
+"src": "icons/705602f4a867.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
+"Raw tiger shark": {
+"bytes": "mirror",
+"file": "File:Raw tiger shark.png",
+"h": 25,
+"icon": "new",
+"sha1": "5ed5e2ae486096b131a7b105f1a04b849c449918",
+"src": "icons/47e55543a76c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Raw trout": {
+"bytes": "mirror",
+"file": "File:Raw trout.png",
+"h": 27,
+"icon": "new",
+"sha1": "01ea2ef09ce91d3842bc980e0c48ab16b0b546ef",
+"src": "icons/186f6f318b16.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw tuna": {
+"bytes": "mirror",
+"file": "File:Raw tuna.png",
+"h": 24,
+"icon": "reused",
+"sha1": "a58440f0310698455946e55598225d4649d354a0",
+"src": "icons/bb56eb5b4229.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw ugthanki meat": {
+"bytes": "mirror",
+"file": "File:Raw ugthanki meat.png",
+"h": 31,
+"icon": "reused",
+"sha1": "5957b5063274f55a0271d3fe247023f45ecbf89a",
+"src": "icons/eedd46abe0d6.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Raw web snipper": {
+"bytes": "mirror",
+"file": "File:Raw web snipper.png",
+"h": 29,
+"icon": "new",
+"sha1": "3c353c526b3c586d4e3e7dd3988b175a7725db1d",
+"src": "icons/70aef1400cdf.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Raw wild pie": {
+"bytes": "mirror",
+"file": "File:Raw wild pie.png",
+"h": 22,
+"icon": "new",
+"sha1": "ca7926910c33718341a8d2be1312d56a72e6e37e",
+"src": "icons/8f7610c59780.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw wobbegong": {
+"bytes": "mirror",
+"file": "File:Raw wobbegong.png",
+"h": 31,
+"icon": "new",
+"sha1": "e4b9ed69b277ab4395532017fa54791effd8e885",
+"src": "icons/b113eb0bbaad.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Raw yak meat": {
+"bytes": "mirror",
+"file": "File:Raw yak meat.png",
+"h": 31,
+"icon": "reused",
+"sha1": "5957b5063274f55a0271d3fe247023f45ecbf89a",
+"src": "icons/eedd46abe0d6.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
 "Red bead": {
 "bytes": "mirror",
 "file": "File:Red bead.png",
@@ -8622,6 +12633,19 @@
 "via": "exact file",
 "w": 30
 },
+"Red onion": {
+"bytes": "mirror",
+"file": "File:Red onion.png",
+"h": 28,
+"icon": "new",
+"sha1": "8768a0d4974cb20eb306ff25ae4b371afabf9cf8",
+"src": "icons/cbed731d37e8.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
 "Red spiders' eggs": {
 "bytes": "mirror",
 "file": "File:Red spiders' eggs.png",
@@ -8635,6 +12659,58 @@
 "via": "exact file",
 "w": 20
 },
+"Red-eye": {
+"bytes": "mirror",
+"file": "File:Red-eye.png",
+"h": 28,
+"icon": "new",
+"sha1": "0fc649ff3250719e3662730c788312aa4a1c8d4e",
+"src": "icons/ad7c452e6b0f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Red-eye & edicap potato": {
+"bytes": "mirror",
+"file": "File:Red-eye & edicap potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "8b791ac520889291238d3360f538dff2970cfc96",
+"src": "icons/c1e1edb81f11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Red-eye & gissel potato": {
+"bytes": "mirror",
+"file": "File:Red-eye & gissel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "cbd8a23888568ad8627a310c8979932a0da990f0",
+"src": "icons/82387ce586ee.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Red-eye potato": {
+"bytes": "mirror",
+"file": "File:Red-eye potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "f076753db771c38cb2125fb771a13d64c87dd346",
+"src": "icons/f7a53f400415.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
 "Redberries": {
 "bytes": "mirror",
 "file": "File:Redberries.png",
@@ -8643,10 +12719,24 @@
 "sha1": "064bf3895ae6c32acd09c6dcb0f1ab0e1a13e307",
 "src": "icons/c7d01bca8f2a.webp",
 "used": [
+"cooking",
 "herblore"
 ],
 "via": "exact file",
 "w": 20
+},
+"Redberry pie": {
+"bytes": "mirror",
+"file": "File:Redberry pie.png",
+"h": 23,
+"icon": "reused",
+"sha1": "b3a4094497cc244b718ad41a06b895c4122728e5",
+"src": "icons/efcf664d427c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
 },
 "Rejuvenation potion": {
 "bytes": "mirror",
@@ -8866,6 +12956,45 @@
 "via": "exact file",
 "w": 21
 },
+"Roast beast meat": {
+"bytes": "mirror",
+"file": "File:Roast beast meat.png",
+"h": 19,
+"icon": "new",
+"sha1": "a7302136795f4c8fea78c5c7aa5b4debb10ddbc4",
+"src": "icons/ab4061d8c485.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Roast bird meat": {
+"bytes": "mirror",
+"file": "File:Roast bird meat.png",
+"h": 20,
+"icon": "new",
+"sha1": "abad6280b4589a92251baff1949d2ebbaeaaa7d7",
+"src": "icons/943602cdb5a1.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
+"Roast rabbit": {
+"bytes": "mirror",
+"file": "File:Roast rabbit.png",
+"h": 22,
+"icon": "new",
+"sha1": "ba5f9118f252126eec1d5ddc69b84d5ef8fb3f49",
+"src": "icons/11ad25e4e031.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
 "Rocktail": {
 "bytes": "mirror",
 "file": "File:Rocktail.png",
@@ -8874,10 +13003,24 @@
 "sha1": "fd66ca8548cc3377b64afaeeda5bfd0698b0032c",
 "src": "icons/1b4c7de7948b.webp",
 "used": [
+"cooking",
 "herblore"
 ],
 "via": "exact file",
 "w": 31
+},
+"Rocktail soup": {
+"bytes": "mirror",
+"file": "File:Rocktail soup.png",
+"h": 22,
+"icon": "new",
+"sha1": "e2778f67f8ba010f4378e02200b9969c1d545ac9",
+"src": "icons/0cbfcf44947e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
 },
 "Roe": {
 "bytes": "mirror",
@@ -8917,6 +13060,19 @@
 ],
 "via": "exact file",
 "w": 26
+},
+"Rumberry": {
+"bytes": "mirror",
+"file": "File:Rumberry.png",
+"h": 29,
+"icon": "reused",
+"sha1": "510c1f7addd0776daeabd9079d755b8f2c2437f9",
+"src": "icons/fbd42a8e1ea1.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 16
 },
 "Runecrafting flask (6)": {
 "bytes": "mirror",
@@ -9014,6 +13170,45 @@
 "via": "exact file",
 "w": 20
 },
+"Sailfish": {
+"bytes": "mirror",
+"file": "File:Sailfish.png",
+"h": 28,
+"icon": "new",
+"sha1": "7129adbe326c88968c0fd064278374d771cc585b",
+"src": "icons/380958e612fd.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Sailfish soup": {
+"bytes": "mirror",
+"file": "File:Sailfish soup.png",
+"h": 22,
+"icon": "new",
+"sha1": "586a5edc6a7513d1c0caeb94614430941f54c7f7",
+"src": "icons/bf78a0761533.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Salmon": {
+"bytes": "mirror",
+"file": "File:Salmon.png",
+"h": 27,
+"icon": "reused",
+"sha1": "85f35371dc9f0d99941cf718adc1d731c8818d84",
+"src": "icons/acedf88d1640.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
 "Saltwater mud": {
 "bytes": "mirror",
 "file": "File:Saltwater mud.png",
@@ -9026,6 +13221,58 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Salve eel": {
+"bytes": "mirror",
+"file": "File:Salve eel.png",
+"h": 28,
+"icon": "new",
+"sha1": "dbce90bad4b362ed07824410eff7b84ddbc54e31",
+"src": "icons/34a971f08884.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Salve eel & edicap potato": {
+"bytes": "mirror",
+"file": "File:Salve eel & edicap potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "8b791ac520889291238d3360f538dff2970cfc96",
+"src": "icons/c1e1edb81f11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Salve eel & gissel potato": {
+"bytes": "mirror",
+"file": "File:Salve eel & gissel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "cbd8a23888568ad8627a310c8979932a0da990f0",
+"src": "icons/82387ce586ee.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Salve eel potato": {
+"bytes": "mirror",
+"file": "File:Salve eel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "f076753db771c38cb2125fb771a13d64c87dd346",
+"src": "icons/f7a53f400415.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
 },
 "Samaden potion (unfinished)": {
 "bytes": "mirror",
@@ -9289,6 +13536,19 @@
 "via": "exact file",
 "w": 22
 },
+"Sardine": {
+"bytes": "mirror",
+"file": "File:Sardine.png",
+"h": 15,
+"icon": "reused",
+"sha1": "a3979fa4d2f50b617eb17850ad76e9240b8d2184",
+"src": "icons/166a40010e6e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 19
+},
 "Scentless flask (6)": {
 "bytes": "mirror",
 "file": "File:Scentless flask (6).png",
@@ -9359,6 +13619,58 @@
 "via": "exact file",
 "w": 16
 },
+"Scimitops meat": {
+"bytes": "mirror",
+"file": "File:Scimitops meat.png",
+"h": 24,
+"icon": "new",
+"sha1": "e5656a77c3fe3a016027b98d3dab2ff272d0269f",
+"src": "icons/9fc49e80da20.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Scrambled egg": {
+"bytes": "mirror",
+"file": "File:Scrambled egg.png",
+"h": 24,
+"icon": "new",
+"sha1": "d93e4014c4d06aec19a8da20994bd66147bf4f2a",
+"src": "icons/6ae160a0ced5.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Sea salt": {
+"bytes": "mirror",
+"file": "File:Sea salt.png",
+"h": 27,
+"icon": "reused",
+"sha1": "b9719daea1382450392b942bd5056a3e8e3e62f7",
+"src": "icons/e5b6164af818.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Sea turtle": {
+"bytes": "mirror",
+"file": "File:Sea turtle.png",
+"h": 23,
+"icon": "new",
+"sha1": "a48d3ba4b788491a073f65641b6338989722ef0a",
+"src": "icons/fa0b3f50f846.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
 "Searing ashes": {
 "bytes": "mirror",
 "file": "File:Searing ashes.png",
@@ -9385,11 +13697,24 @@
 "via": "exact file",
 "w": 17
 },
+"Seaweed": {
+"bytes": "mirror",
+"file": "File:Seaweed.png",
+"h": 29,
+"icon": "reused",
+"sha1": "331c71103faa44df324afc83161415e247aaaaa6",
+"src": "icons/42cf39ac1f71.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
 "Serum 207 (1)": {
 "bytes": "mirror",
 "file": "File:Serum 207 (1).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "6ccd65a8a4acf5510d9bcc9e8209ceec257de4fc",
 "src": "icons/7e76f8d75bfe.webp",
 "used": [
@@ -9402,7 +13727,7 @@
 "bytes": "mirror",
 "file": "File:Serum 207 (2).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "460044a7561e18162686b5522c92fdf773df997a",
 "src": "icons/b11ddca075c6.webp",
 "used": [
@@ -9428,7 +13753,7 @@
 "bytes": "mirror",
 "file": "File:Serum 207 (4).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "0147fcca7d0eb602f9e13f247113a61e3227018e",
 "src": "icons/291570b0a39d.webp",
 "used": [
@@ -9463,6 +13788,32 @@
 "via": "exact file",
 "w": 29
 },
+"Shark": {
+"bytes": "mirror",
+"file": "File:Shark.png",
+"h": 33,
+"icon": "reused",
+"sha1": "83aa8467585f291e6fb9f75517939be7b7321e4a",
+"src": "icons/f0a98cfd955a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Shark soup": {
+"bytes": "mirror",
+"file": "File:Shark soup.png",
+"h": 20,
+"icon": "new",
+"sha1": "e3387cf41f6e62e842d68252ac3087e52bd75489",
+"src": "icons/c5f964661079.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
 "Shengo potion (unfinished)": {
 "bytes": "mirror",
 "file": "File:Shengo potion (unfinished).png",
@@ -9476,6 +13827,97 @@
 "via": "exact file",
 "w": 16
 },
+"Shiny tortle shell bowl": {
+"bytes": "mirror",
+"file": "File:Shiny tortle shell bowl.png",
+"h": 20,
+"icon": "new",
+"sha1": "2f72d7259f9b44dc62fe6ce3ac2e5def0a53a31b",
+"src": "icons/de5e60fa1d16.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Short Green Guy": {
+"bytes": "mirror",
+"file": "File:Short Green Guy.png",
+"h": 31,
+"icon": "new",
+"sha1": "712427af1b804363a6447659380288fc88d052aa",
+"src": "icons/dc92b6f39bbd.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Short-fin & edicap potato": {
+"bytes": "mirror",
+"file": "File:Short-fin & edicap potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "8b791ac520889291238d3360f538dff2970cfc96",
+"src": "icons/c1e1edb81f11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Short-fin & gissel potato": {
+"bytes": "mirror",
+"file": "File:Short-fin & gissel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "cbd8a23888568ad8627a310c8979932a0da990f0",
+"src": "icons/82387ce586ee.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Short-fin eel potato": {
+"bytes": "mirror",
+"file": "File:Short-fin eel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "f076753db771c38cb2125fb771a13d64c87dd346",
+"src": "icons/f7a53f400415.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Short-finned eel": {
+"bytes": "mirror",
+"file": "File:Short-finned eel.png",
+"h": 29,
+"icon": "new",
+"sha1": "f927a33411484b5f383e1fed96c515be65235984",
+"src": "icons/f16339aa84fb.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Shrimps": {
+"bytes": "mirror",
+"file": "File:Shrimps.png",
+"h": 25,
+"icon": "new",
+"sha1": "db0d995f7e3630de1ac01345981032feb9c53c72",
+"src": "icons/574fe9e3a198.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
 "Silver dust": {
 "bytes": "mirror",
 "file": "File:Silver dust.png",
@@ -9488,6 +13930,71 @@
 ],
 "via": "exact file",
 "w": 22
+},
+"Skewered bird meat": {
+"bytes": "mirror",
+"file": "File:Skewered bird meat.png",
+"h": 17,
+"icon": "new",
+"sha1": "0e4367ec82c0d66e6283ede08d1ecf90cffa4f30",
+"src": "icons/7b407e31b1cf.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
+"Slayer's respite (4)": {
+"bytes": "mirror",
+"file": "File:Slayer's respite (4).png",
+"h": 28,
+"icon": "reused",
+"sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
+"src": "icons/f3c69b3c2eb2.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Sliced banana": {
+"bytes": "mirror",
+"file": "File:Sliced banana.png",
+"h": 22,
+"icon": "reused",
+"sha1": "ad71be1cba4260e7bf4362cf271162d889555bf7",
+"src": "icons/cf317e971335.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Sliced mushrooms (The Arc)": {
+"bytes": "mirror",
+"file": "File:Sliced mushrooms (The Arc).png",
+"h": 21,
+"icon": "new",
+"sha1": "a5adf11e08eee64e92d6fb023716deab25604264",
+"src": "icons/cf62cf0ed0b8.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Slimy eel": {
+"bytes": "mirror",
+"file": "File:Slimy eel.png",
+"h": 21,
+"icon": "reused",
+"sha1": "4ea879f3d0034717604593a3cad13ebcf4a4dde3",
+"src": "icons/dfcadb8b5890.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
 },
 "Snakeweed mixture": {
 "bytes": "mirror",
@@ -9528,6 +14035,45 @@
 "via": "exact file",
 "w": 34
 },
+"Snipper & edicap potato": {
+"bytes": "mirror",
+"file": "File:Snipper & edicap potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "8b791ac520889291238d3360f538dff2970cfc96",
+"src": "icons/c1e1edb81f11.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Snipper & gissel potato": {
+"bytes": "mirror",
+"file": "File:Snipper & gissel potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "cbd8a23888568ad8627a310c8979932a0da990f0",
+"src": "icons/82387ce586ee.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Snipper potato": {
+"bytes": "mirror",
+"file": "File:Snipper potato.png",
+"h": 16,
+"icon": "reused",
+"sha1": "f076753db771c38cb2125fb771a13d64c87dd346",
+"src": "icons/f7a53f400415.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
 "Soul rune": {
 "bytes": "mirror",
 "file": "File:Soul rune.png",
@@ -9554,6 +14100,71 @@
 "via": "exact file",
 "w": 26
 },
+"Spicati apoterrasaur meat": {
+"bytes": "mirror",
+"file": "File:Spicati apoterrasaur meat.png",
+"h": 26,
+"icon": "new",
+"sha1": "a2c40ac40e7cea6c220b671c718537472a3be9b0",
+"src": "icons/e7c4b818a9eb.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Spice": {
+"bytes": "mirror",
+"file": "File:Spice.png",
+"h": 27,
+"icon": "reused",
+"sha1": "34fd8eddba0b686b213e697fd208857c19473699",
+"src": "icons/9e752364f9ae.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Spices": {
+"bytes": "mirror",
+"file": "File:Spices.png",
+"h": 34,
+"icon": "new",
+"sha1": "b37f41dafea2e5c931e15c82e4ca8a9c76ffc3c1",
+"src": "icons/8f40a329b576.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 34
+},
+"Spicy crunchies": {
+"bytes": "mirror",
+"file": "File:Spicy crunchies.png",
+"h": 24,
+"icon": "new",
+"sha1": "a28f16a53d68a8c6e98cdf0e0a9f032bfd974b14",
+"src": "icons/840ef62ae459.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Spicy sauce": {
+"bytes": "mirror",
+"file": "File:Spicy sauce.png",
+"h": 24,
+"icon": "new",
+"sha1": "a04aa0876fa0c7c5fdd9c039e19ac22a645d49b5",
+"src": "icons/17ea01874f52.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
 "Spider fangs": {
 "bytes": "mirror",
 "file": "File:Spider fangs.png",
@@ -9566,6 +14177,32 @@
 ],
 "via": "exact file",
 "w": 26
+},
+"Spider on stick": {
+"bytes": "mirror",
+"file": "File:Spider on stick.png",
+"h": 27,
+"icon": "new",
+"sha1": "cf1b03d4542915795f5f022107f6f833cf90d475",
+"src": "icons/9f1a8a25848d.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Spider on stick (raw)": {
+"bytes": "mirror",
+"file": "File:Spider on stick (raw).png",
+"h": 27,
+"icon": "new",
+"sha1": "f9e5806ba9852325800a797634333ea8e948b74a",
+"src": "icons/1873024c856b.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
 },
 "Spider venom": {
 "bytes": "mirror",
@@ -9719,7 +14356,7 @@
 "bytes": "mirror",
 "file": "File:Stamina potion (2).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "59539998ad3e320472676d1512872cafa814e551",
 "src": "icons/239f18fd6e73.webp",
 "used": [
@@ -9780,6 +14417,19 @@
 "via": "exact file",
 "w": 24
 },
+"Stew": {
+"bytes": "mirror",
+"file": "File:Stew.png",
+"h": 25,
+"icon": "new",
+"sha1": "c6c70dc6005d4238e63127c74a4845406f5694e3",
+"src": "icons/2ffecf529656.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
 "Sticky bomb": {
 "bytes": "mirror",
 "file": "File:Sticky bomb.png",
@@ -9792,6 +14442,58 @@
 ],
 "via": "exact file",
 "w": 18
+},
+"Strawberry": {
+"bytes": "mirror",
+"file": "File:Strawberry.png",
+"h": 25,
+"icon": "reused",
+"sha1": "095115ad33453a9bfcc4250a1fe1a4bf075f1191",
+"src": "icons/e479e26b6d6f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 20
+},
+"Strawberry cheesecake": {
+"bytes": "mirror",
+"file": "File:Strawberry cheesecake.png",
+"h": 19,
+"icon": "new",
+"sha1": "7d01899d32656f3066cdef1274c5029bcd12c687",
+"src": "icons/1cd614adc634.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Strawberry cream cheese": {
+"bytes": "mirror",
+"file": "File:Strawberry cream cheese.png",
+"h": 19,
+"icon": "new",
+"sha1": "e6c8814081b278fe4e2f600b6e2a717f6a6104ed",
+"src": "icons/22e443b65122.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Strawberry milk": {
+"bytes": "mirror",
+"file": "File:Strawberry milk.png",
+"h": 30,
+"icon": "new",
+"sha1": "105bee46ea58f03f82e0515f4708bd221b4229b1",
+"src": "icons/aa4d0dcd30a4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 21
 },
 "Strength flask (6)": {
 "bytes": "mirror",
@@ -9901,6 +14603,32 @@
 ],
 "via": "exact file",
 "w": 24
+},
+"Strong cooking urn": {
+"bytes": "mirror",
+"file": "File:Strong cooking urn.png",
+"h": 28,
+"icon": "new",
+"sha1": "9f376447e2251376a357f16c406b2a51198ecbdf",
+"src": "icons/f132cfc97b92.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Strong cooking urn (no rune)": {
+"bytes": "mirror",
+"file": "File:Strong cooking urn (no rune).png",
+"h": 28,
+"icon": "new",
+"sha1": "37e8f4b09e7a32fb3ccdc04c5b3d3bd26ee2dd67",
+"src": "icons/1af02bbca768.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
 },
 "Strong cure potion": {
 "bytes": "mirror",
@@ -10044,6 +14772,19 @@
 ],
 "via": "exact file",
 "w": 24
+},
+"Summer pie": {
+"bytes": "mirror",
+"file": "File:Summer pie.png",
+"h": 21,
+"icon": "reused",
+"sha1": "32b649a2c94a39d36d6a0ee07d34122340c9e54a",
+"src": "icons/02ab87e8ccb4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
 },
 "Summerdown wool": {
 "bytes": "mirror",
@@ -10425,7 +15166,7 @@
 "bytes": "mirror",
 "file": "File:Super adrenaline potion (1).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "54e99efc15f3551fc8bd0d72c68f82f4ba70ece8",
 "src": "icons/2190b51e61c5.webp",
 "used": [
@@ -10438,7 +15179,7 @@
 "bytes": "mirror",
 "file": "File:Super adrenaline potion (2).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "b1996d877ac4a6fa720120d808cac60a42b9a11a",
 "src": "icons/1d7479ca7cdc.webp",
 "used": [
@@ -12248,6 +16989,32 @@
 "via": "exact file",
 "w": 31
 },
+"Sweet potato": {
+"bytes": "mirror",
+"file": "File:Sweet potato.png",
+"h": 24,
+"icon": "new",
+"sha1": "1b003a690f16d33d85d1c9410f2b7f797ed4756a",
+"src": "icons/4b8dd0ef0ac0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
+"Sweetcorn": {
+"bytes": "mirror",
+"file": "File:Sweetcorn.png",
+"h": 29,
+"icon": "reused",
+"sha1": "e9393b0b73c5127f95d74c77400278bea16d378a",
+"src": "icons/54b1234c48e0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
 "Swordfish": {
 "bytes": "mirror",
 "file": "File:Swordfish.png",
@@ -12256,10 +17023,24 @@
 "sha1": "48ca5f6b0c9b4acddf6762833ebb354592cbfe9e",
 "src": "icons/eb5e63f4644c.webp",
 "used": [
+"cooking",
 "herblore"
 ],
 "via": "exact file",
 "w": 35
+},
+"Tangled toads' legs": {
+"bytes": "downloaded",
+"file": "File:Tangled toads' legs.png",
+"h": 25,
+"icon": "new",
+"sha1": "cee1b3016fcabd287d3d18edba306c85f3d64128",
+"src": "icons/e169b6313122.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
 },
 "Tarromin potion (unfinished)": {
 "bytes": "mirror",
@@ -12287,6 +17068,32 @@
 "via": "exact file",
 "w": 31
 },
+"Thin snail": {
+"bytes": "mirror",
+"file": "File:Thin snail.png",
+"h": 28,
+"icon": "reused",
+"sha1": "40f8cb336f5253d4c453d7c459f6d91aa04bf2f4",
+"src": "icons/3e9343b01389.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Thin snail meat": {
+"bytes": "mirror",
+"file": "File:Thin snail meat.png",
+"h": 28,
+"icon": "reused",
+"sha1": "89a5e19786b149836a0a3108cf28e98baeae2e33",
+"src": "icons/a8cff2266e2c.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
 "Third Age iron": {
 "bytes": "mirror",
 "file": "File:Third Age iron.png",
@@ -12299,6 +17106,19 @@
 ],
 "via": "exact file",
 "w": 27
+},
+"Tiger shark": {
+"bytes": "mirror",
+"file": "File:Tiger shark.png",
+"h": 25,
+"icon": "new",
+"sha1": "cbe8b97deaac1c00695bfb027de8259b7afcf35a",
+"src": "icons/24b3e132f3f4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
 },
 "Timber fungus": {
 "bytes": "mirror",
@@ -12326,6 +17146,32 @@
 "via": "exact file",
 "w": 12
 },
+"Toad batta": {
+"bytes": "mirror",
+"file": "File:Toad batta.png",
+"h": 22,
+"icon": "new",
+"sha1": "a9d84630958bcd3fe063db32f8ecca28d3be3c77",
+"src": "icons/965e91cf9dea.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 21
+},
+"Toad crunchies": {
+"bytes": "mirror",
+"file": "File:Toad crunchies.png",
+"h": 24,
+"icon": "reused",
+"sha1": "c65ba480c0e7f334c274ac5dc259baec8cf67572",
+"src": "icons/92e22eda3590.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
 "Toad's legs": {
 "bytes": "mirror",
 "file": "File:Toad's legs.png",
@@ -12334,6 +17180,7 @@
 "sha1": "79609de7e2697f291fc9264d5b8bb162ece432af",
 "src": "icons/0252ef390bfa.webp",
 "used": [
+"cooking",
 "herblore"
 ],
 "via": "exact file",
@@ -12351,6 +17198,19 @@
 ],
 "via": "exact file",
 "w": 21
+},
+"Tomato": {
+"bytes": "mirror",
+"file": "File:Tomato.png",
+"h": 21,
+"icon": "reused",
+"sha1": "a68e14b65d5b8a1ee547fce94407f88fb3273ae4",
+"src": "icons/1841c000ce36.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
 },
 "Tombshroom": {
 "bytes": "mirror",
@@ -12391,6 +17251,97 @@
 "via": "exact file",
 "w": 21
 },
+"Tortle shell bowl": {
+"bytes": "mirror",
+"file": "File:Tortle shell bowl.png",
+"h": 20,
+"icon": "reused",
+"sha1": "8c2d7cb3632a580652253ac0794a0a1236740385",
+"src": "icons/16c8364e40af.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Trout": {
+"bytes": "mirror",
+"file": "File:Trout.png",
+"h": 27,
+"icon": "reused",
+"sha1": "945294d3da219d94de4843c34a3a08273b11e843",
+"src": "icons/d31c07d338c0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Tuna": {
+"bytes": "mirror",
+"file": "File:Tuna.png",
+"h": 24,
+"icon": "reused",
+"sha1": "de6556fb4b4a2537a57f983fff55807e9a17d847",
+"src": "icons/034b9c81b332.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Tuna and corn": {
+"bytes": "mirror",
+"file": "File:Tuna and corn.png",
+"h": 24,
+"icon": "new",
+"sha1": "96cdcfc1f47ab695182863e0d16caacb7b786582",
+"src": "icons/d97ca3efe7c5.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 33
+},
+"Tuna potato": {
+"bytes": "mirror",
+"file": "File:Tuna potato.png",
+"h": 22,
+"icon": "reused",
+"sha1": "d4f31246a285c04895d0e6a2e50039cb8c579af8",
+"src": "icons/43f079ba087a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 23
+},
+"Ugthanki kebab": {
+"bytes": "mirror",
+"file": "File:Ugthanki kebab.png",
+"h": 23,
+"icon": "reused",
+"sha1": "1392a3774f783375919f93a4c0aa3c8a573d2129",
+"src": "icons/b06cfde3c462.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Ugthanki meat": {
+"bytes": "mirror",
+"file": "File:Ugthanki meat.png",
+"h": 31,
+"icon": "reused",
+"sha1": "67ca485786348a058eb86b9442a1e12518974418",
+"src": "icons/f9a77ce9e5d4.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
 "Ugune potion (unfinished)": {
 "bytes": "mirror",
 "file": "File:Ugune potion (unfinished).png",
@@ -12403,6 +17354,71 @@
 ],
 "via": "exact file",
 "w": 16
+},
+"Uncooked apple pie": {
+"bytes": "mirror",
+"file": "File:Uncooked apple pie.png",
+"h": 23,
+"icon": "reused",
+"sha1": "191341c7ea861f6740a925ad9c23aff71c044355",
+"src": "icons/82e4f1c6abc8.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Uncooked berry pie": {
+"bytes": "mirror",
+"file": "File:Uncooked berry pie.png",
+"h": 23,
+"icon": "reused",
+"sha1": "191341c7ea861f6740a925ad9c23aff71c044355",
+"src": "icons/82e4f1c6abc8.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Uncooked meat pie": {
+"bytes": "mirror",
+"file": "File:Uncooked meat pie.png",
+"h": 23,
+"icon": "reused",
+"sha1": "191341c7ea861f6740a925ad9c23aff71c044355",
+"src": "icons/82e4f1c6abc8.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
+"Uncooked pizza": {
+"bytes": "mirror",
+"file": "File:Uncooked pizza.png",
+"h": 25,
+"icon": "new",
+"sha1": "0a1b893b2923d43eaedf113a296cb25c33c5a51c",
+"src": "icons/4991f2b99805.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Uncooked pork pie": {
+"bytes": "mirror",
+"file": "File:Uncooked pork pie.png",
+"h": 24,
+"icon": "new",
+"sha1": "aee97d67b7e742f8372424755814b22414fad66e",
+"src": "icons/24eedbeae2f8.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
 },
 "Unicorn horn": {
 "bytes": "mirror",
@@ -12442,6 +17458,71 @@
 ],
 "via": "exact file",
 "w": 20
+},
+"Vanilla cheesecake": {
+"bytes": "mirror",
+"file": "File:Vanilla cheesecake.png",
+"h": 19,
+"icon": "new",
+"sha1": "0cf8dea2d8ab3e1060add01e0e1ab8f1e4c90c4f",
+"src": "icons/b37b95e13e77.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Vanilla cream cheese": {
+"bytes": "mirror",
+"file": "File:Vanilla cream cheese.png",
+"h": 19,
+"icon": "new",
+"sha1": "b6ca87ee756df4fd18ed35f13f5091cb76bdb515",
+"src": "icons/f3448e1e54c9.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 25
+},
+"Vanilla milk": {
+"bytes": "mirror",
+"file": "File:Vanilla milk.png",
+"h": 30,
+"icon": "new",
+"sha1": "96c526cd13a0fe920911899eb911f8c2d4b05e28",
+"src": "icons/ffd3abb1fc5f.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Veg ball": {
+"bytes": "downloaded",
+"file": "File:Veg ball.png",
+"h": 23,
+"icon": "new",
+"sha1": "818b05fe17312c464eb52d777375e95cf3814a00",
+"src": "icons/1c3c9d77502e.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 28
+},
+"Vegetable batta": {
+"bytes": "mirror",
+"file": "File:Vegetable batta.png",
+"h": 22,
+"icon": "new",
+"sha1": "097817fa3372761d5ae6739a8fb50fdb5b370f18",
+"src": "icons/1986a52a5770.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 21
 },
 "Vial": {
 "bytes": "mirror",
@@ -12494,6 +17575,19 @@
 ],
 "via": "exact file",
 "w": 20
+},
+"Vodka": {
+"bytes": "downloaded",
+"file": "File:Vodka.png",
+"h": 31,
+"icon": "new",
+"sha1": "60b428167527ca4d5a62f369fd05fab9e945fcc0",
+"src": "icons/a51aa1402097.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 15
 },
 "Void dust": {
 "bytes": "mirror",
@@ -12555,6 +17649,7 @@
 "sha1": "e38046c5ea831f1302bba2f9ad7859137753a397",
 "src": "icons/3f0f7670166c.webp",
 "used": [
+"cooking",
 "herblore"
 ],
 "via": "exact file",
@@ -13191,6 +18286,19 @@
 "via": "exact file",
 "w": 21
 },
+"Web snipper": {
+"bytes": "mirror",
+"file": "File:Web snipper.png",
+"h": 29,
+"icon": "new",
+"sha1": "31a336f31e1fcd62f85366cdb463fda0a4081941",
+"src": "icons/7623961d38fb.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 32
+},
 "Wergali potion (unfinished)": {
 "bytes": "mirror",
 "file": "File:Wergali potion (unfinished).png",
@@ -13203,6 +18311,19 @@
 ],
 "via": "exact file",
 "w": 21
+},
+"Whisky": {
+"bytes": "mirror",
+"file": "File:Whisky.png",
+"h": 31,
+"icon": "reused",
+"sha1": "dba200ef8f03856d18c56174b7df30680d059971",
+"src": "icons/e6cee7cc5758.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 15
 },
 "White bead": {
 "bytes": "mirror",
@@ -13229,6 +18350,58 @@
 ],
 "via": "exact file",
 "w": 20
+},
+"White strawberry": {
+"bytes": "mirror",
+"file": "File:White strawberry.png",
+"h": 26,
+"icon": "new",
+"sha1": "86e8fa3c7a516888942a2ca37d101b570233ea74",
+"src": "icons/8b2f37035265.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 26
+},
+"Wild pie": {
+"bytes": "mirror",
+"file": "File:Wild pie.png",
+"h": 22,
+"icon": "new",
+"sha1": "55de3f146441c84e29f933970bc5a6c2e7727f06",
+"src": "icons/a3ced06af42a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Wildblood hops": {
+"bytes": "mirror",
+"file": "File:Wildblood hops.png",
+"h": 27,
+"icon": "new",
+"sha1": "dfa5ba8f43d1e1415bc8a52a1de0d23d9ebb06fd",
+"src": "icons/af5dcca96555.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
+},
+"Wilder pie": {
+"bytes": "mirror",
+"file": "File:Wilder pie.png",
+"h": 22,
+"icon": "new",
+"sha1": "a63edfeb2e906ed62a17d8490f65672507afcf39",
+"src": "icons/4faa5acccc53.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
 },
 "Wimpy feather": {
 "bytes": "mirror",
@@ -13308,6 +18481,45 @@
 "via": "exact file",
 "w": 31
 },
+"Wizard Blizzard": {
+"bytes": "mirror",
+"file": "File:Wizard Blizzard.png",
+"h": 31,
+"icon": "reused",
+"sha1": "6063e25ccbf7651048e76d9a9ec94bd1f063dcba",
+"src": "icons/79192dc76a15.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 22
+},
+"Wobbegong oil 1": {
+"bytes": "mirror",
+"file": "File:Wobbegong oil 1.png",
+"h": 13,
+"icon": "new",
+"sha1": "d2bf64d3a3039fa38e427f902334c17dd7b5f5e9",
+"src": "icons/1effeb5e87c9.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 18
+},
+"Wobbegong oil 20": {
+"bytes": "mirror",
+"file": "File:Wobbegong oil 20.png",
+"h": 21,
+"icon": "new",
+"sha1": "5855799380fbb1dfd41ff186bbb8564b4969e7d3",
+"src": "icons/b423628e64f7.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 27
+},
 "Woodcutting flask (6)": {
 "bytes": "mirror",
 "file": "File:Woodcutting flask (6).png",
@@ -13378,6 +18590,45 @@
 "via": "exact file",
 "w": 21
 },
+"Worm batta": {
+"bytes": "mirror",
+"file": "File:Worm batta.png",
+"h": 22,
+"icon": "reused",
+"sha1": "474ecf4bee3fe341e4707178c59b8994b18362a1",
+"src": "icons/eb6d5248b52a.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 21
+},
+"Worm crunchies": {
+"bytes": "mirror",
+"file": "File:Worm crunchies.png",
+"h": 26,
+"icon": "new",
+"sha1": "14653476e884d32e677c65268c1a255863ed3768",
+"src": "icons/f2c6fccf68e0.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
+},
+"Worm hole": {
+"bytes": "downloaded",
+"file": "File:Worm hole.png",
+"h": 24,
+"icon": "new",
+"sha1": "d3e84cb089a6a464a29571c0689c8b428894c807",
+"src": "icons/6c5d7152f875.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 30
+},
 "Wormwood potion (unfinished)": {
 "bytes": "mirror",
 "file": "File:Wormwood potion (unfinished).png",
@@ -13390,6 +18641,19 @@
 ],
 "via": "exact file",
 "w": 20
+},
+"Wrapped oomlie": {
+"bytes": "mirror",
+"file": "File:Wrapped oomlie.png",
+"h": 27,
+"icon": "new",
+"sha1": "f026192a7d3ff2ef66e076dd4200193d91b4396c",
+"src": "icons/c3dc6ada2725.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 31
 },
 "Wyrmfire potion (6)": {
 "bytes": "mirror",
@@ -13455,6 +18719,19 @@
 ],
 "via": "exact file",
 "w": 30
+},
+"Yanillian hops": {
+"bytes": "mirror",
+"file": "File:Yanillian hops.png",
+"h": 27,
+"icon": "new",
+"sha1": "bb27392618e777dde664975d817a86a3c0528b62",
+"src": "icons/2f80c980a0b9.webp",
+"used": [
+"cooking"
+],
+"via": "exact file",
+"w": 29
 },
 "Yellow bead": {
 "bytes": "mirror",

@@ -1,0 +1,1067 @@
+[
+{
+"name": "Meat 1-10 Level",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "10",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Meat"
+}
+},
+{
+"name": "Meat 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Meat"
+}
+},
+{
+"name": "Fish 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Pie 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Pie"
+}
+},
+{
+"name": "Cheesecake 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Cheesecake"
+}
+},
+{
+"name": "Pizza 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Pizza"
+}
+},
+{
+"name": "Potatoes 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Potatoes"
+}
+},
+{
+"name": "Brewing 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Brewing"
+}
+},
+{
+"name": "Churning 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Churning"
+}
+},
+{
+"name": "Gnome Drinks 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Gnome Drinks"
+}
+},
+{
+"name": "Gnome Baking 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Gnome Baking"
+}
+},
+{
+"name": "Primal Feast 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Primal Feast"
+}
+},
+{
+"name": "Other 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Other"
+}
+},
+{
+"name": "Dungeoneering 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Dungeoneering"
+}
+},
+{
+"name": "Urns 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Urns"
+}
+},
+{
+"name": "All 1-99",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "All"
+}
+},
+{
+"name": "Fish 50-80 Level",
+"args": {
+"currToggle": "Level",
+"current": "50",
+"goalToggle": "Level",
+"goal": "80",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish XP->XP",
+"args": {
+"currToggle": "Experience",
+"current": "1000000",
+"goalToggle": "Experience",
+"goal": "13034431",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish 99-120",
+"args": {
+"currToggle": "Level",
+"current": "99",
+"goalToggle": "Level",
+"goal": "120",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish XP current to 200M",
+"args": {
+"currToggle": "Experience",
+"current": "13034431",
+"goalToggle": "Experience",
+"goal": "200000000",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish goal below current",
+"args": {
+"currToggle": "Level",
+"current": "90",
+"goalToggle": "Level",
+"goal": "80",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish goal Level>120 treated as XP",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "150",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish avatar 3",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "3",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish avatar 4",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "4",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish avatar 5",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "5",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish avatar 6",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "6",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish outfit 1",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "0",
+"outfit": "1",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish outfit 2",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "0",
+"outfit": "2",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish outfit 3",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "0",
+"outfit": "3",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish outfit 4",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "0",
+"outfit": "4",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish outfit 5",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "0",
+"outfit": "5",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish custom 25",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "0",
+"outfit": "0",
+"custom": "25",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish custom 1600",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "0",
+"outfit": "0",
+"custom": "1600",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish Bonfire",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Bonfire",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish Portable Range",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Portable Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Meat Portable Range",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "50",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Portable Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Meat"
+}
+},
+{
+"name": "Fish all boosts",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "6",
+"outfit": "5",
+"custom": "10",
+"extra": "Portable Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Dungeoneering all boosts (skipped)",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "6",
+"outfit": "5",
+"custom": "10",
+"extra": "Portable Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Dungeoneering"
+}
+},
+{
+"name": "Urns avatar (skipped) + outfit",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "6",
+"outfit": "5",
+"custom": "10",
+"extra": "Portable Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Urns"
+}
+},
+{
+"name": "Fish urn Cracked",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Cracked",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish urn Cracked enhancer",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Cracked",
+"urnEnhancer": "1",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish urn Fragile",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Fragile",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish urn Fragile enhancer",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Fragile",
+"urnEnhancer": "1",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish urn Plain",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Plain",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish urn Plain enhancer",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Plain",
+"urnEnhancer": "1",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish urn Strong",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Strong",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish urn Strong enhancer",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Strong",
+"urnEnhancer": "1",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish urn Decorated",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Decorated",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish urn Decorated enhancer",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Decorated",
+"urnEnhancer": "1",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish urn Exquisite",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Exquisite",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Fish urn Exquisite enhancer",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Exquisite",
+"urnEnhancer": "1",
+"bxp": "0",
+"disp": "Fish"
+}
+},
+{
+"name": "Meat urn Decorated boosts",
+"args": {
+"currToggle": "Level",
+"current": "20",
+"goalToggle": "Level",
+"goal": "80",
+"avatar": "6",
+"outfit": "5",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Decorated",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Meat"
+}
+},
+{
+"name": "Dungeoneering urn Strong",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "80",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Strong",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Dungeoneering"
+}
+},
+{
+"name": "Urns with urn selected (ignored)",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "99",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Plain",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Urns"
+}
+},
+{
+"name": "Brewing urn Fragile",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "60",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Fragile",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Brewing"
+}
+},
+{
+"name": "Fish bxp 50000",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "1",
+"disp": "Fish",
+"bxpnum": "50000"
+}
+},
+{
+"name": "Fish bxp over half",
+"args": {
+"currToggle": "Level",
+"current": "60",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "1",
+"disp": "Fish",
+"bxpnum": "99999999"
+}
+},
+{
+"name": "Fish bxp + urn + boosts",
+"args": {
+"currToggle": "Level",
+"current": "40",
+"goalToggle": "Level",
+"goal": "90",
+"avatar": "6",
+"outfit": "3",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "Strong",
+"urnEnhancer": "1",
+"bxp": "1",
+"disp": "Fish",
+"bxpnum": "200000"
+}
+},
+{
+"name": "Other 1-2 default goal",
+"args": {
+"currToggle": "Level",
+"current": "1",
+"goalToggle": "Level",
+"goal": "2",
+"avatar": "0",
+"outfit": "0",
+"custom": "0",
+"extra": "Range",
+"skill": "Cooking",
+"urn": "None",
+"urnEnhancer": "0",
+"bxp": "0",
+"disp": "Other"
+}
+}
+]

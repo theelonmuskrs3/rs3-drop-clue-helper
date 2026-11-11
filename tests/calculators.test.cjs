@@ -63,7 +63,9 @@ async function screen(hash, store = {}) {
 (async () => {
   let {dom, w, d, calls} = await screen('calculators', {mystats_v2: '{"Attack":99}'});
   const tabs = [...d.querySelectorAll('.tabs button[data-tab]')];
-  assert.equal(tabs.length, 12); assert.deepEqual(tabs.map(b => b.dataset.tab), ['drops', 'items', 'ge', 'char', 'clues', 'quests', 'train', 'money', 'calculators', 'secrets', 'map', 'about']);
+  // Easter eggs moved under Items, About to the footer (user request 2026-11-11): 10 main tabs
+  assert.equal(tabs.length, 10); assert.deepEqual(tabs.map(b => b.dataset.tab), ['drops', 'items', 'ge', 'char', 'clues', 'quests', 'train', 'money', 'calculators', 'map']);
+  { const fa = d.querySelector('footer a.foot-about'); assert.ok(fa); assert.equal(fa.getAttribute('href'), '#about'); assert.ok(!fa.target); assert.match(d.querySelector('footer').textContent, /Dev\. Soy Yoda[\s\S]*property of Jagex[\s\S]*CC BY-NC-SA 3\.0/); }
   assert.equal(d.querySelector('.tabs button.on').dataset.tab, 'calculators'); assert.equal(d.querySelector('.tabs button[aria-current="page"]').dataset.tab, 'calculators');
   assert.equal(d.querySelector('button[data-tab="calculators"]').getAttribute('aria-label'), 'Calculators');
   assert.equal(d.querySelectorAll('#view iframe').length, 0, 'Wiki calculators are not framed (Wiki sends X-Frame-Options DENY)');
@@ -149,8 +151,27 @@ async function screen(hash, store = {}) {
   assert.equal(d.querySelector('#view .subnav a[href="#ge"]').textContent, 'Grand Exchange'); assert.doesNotMatch(d.querySelector('#view .subnav').textContent, /G\.E\./);
   assert.equal(d.querySelector('button[data-tab="ge"]').textContent.trim(), 'Grand Exchange'); assert.doesNotMatch(d.querySelector('.tabs').textContent, /G\.E\./); dom.window.close();
   // CSS: nav grid for 12 tabs, no sideways scroll container
-  const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'); const tail = css.slice(css.indexOf('/* ===== 12 main tabs'));
-  assert.match(tail, /@media \(max-width:699px\)\{[^}]*repeat\(4,minmax\(0,1fr\)\)/); assert.match(tail, /@media \(min-width:700px\)\{[^}]*repeat\(6,minmax\(0,1fr\)\)[^}]*overflow:visible/);
+  const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'); const tail = css.slice(css.indexOf('/* ===== 10 main tabs'));
+  assert.match(tail, /@media \(max-width:699px\)\{[^}]*repeat\(5,minmax\(0,1fr\)\)/); assert.match(tail, /@media \(min-width:700px\)\{[^}]*repeat\(5,minmax\(0,1fr\)\)[^}]*overflow:visible/); assert.match(tail, /@media \(min-width:1180px\)\{[^}]*repeat\(10,minmax\(0,1fr\)\)/);
   assert.match(tail, /\.tabs button\{white-space:normal;word-break:normal;overflow-wrap:normal/);
-  console.log('PASS calculators: URL validation, independent favourites key, add/remove/persist/reopen, hostile storage, a11y, no framing; G.E. main tab + #items/~ge alias; 12-tab nav CSS');
+  { let x = await screen('secrets'); assert.equal(x.d.querySelector('.tabs button.on').dataset.tab, 'items'); assert.ok(x.d.querySelector('.subnav a.on[href="#secrets"]'));
+    assert.match(x.d.querySelector('#view').textContent, /Easter Eggs/); x.dom.window.close();
+    x = await screen('items'); assert.ok(x.d.querySelector('.subnav a[href="#secrets"]')); x.dom.window.close();
+    x = await screen('about'); assert.equal(x.d.querySelectorAll('.tabs button.on').length, 0); assert.ok(x.d.querySelector('#view').textContent.length > 200); x.dom.window.close(); }
+  console.log('PASS calculators: URL validation, independent favourites key, add/remove/persist/reopen, hostile storage, a11y, no framing; G.E. main tab + #items/~ge alias; 10-tab nav (Easter eggs under Items, About in footer) + CSS');
 })().catch(e => { console.error(e); process.exit(1); });
+
+// Phone nav (parent browser blocker, PR6: "Character" clipped in 5 columns at 320px): under 480px the 10 main tabs are 4 per
+// row (Calculators + Map share the last row) with whole words; tools/nav_fit_check.py checks the widths with Cinzel metrics.
+{
+  const css = require('fs').readFileSync(require('path').join(__dirname, '..', 'neon.css'), 'utf8');
+  const block = css.slice(css.indexOf('@media (max-width:479px){'), css.indexOf('}', css.indexOf('span 6}')) + 1);
+  assert.ok(block.includes('.tabs{grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}'));
+  assert.ok(block.includes('.tabs button{grid-column:span 3;font-size:10px'));
+  assert.ok(block.includes('.tabs button[data-tab=calculators],.tabs button[data-tab=map]{grid-column:span 6}'));
+  assert.ok(!/\.tabs button[^{]*\{[^}]*(word-break:break-all|overflow-wrap:anywhere)/.test(css), 'tab labels never break inside a word');
+  const html = require('fs').readFileSync(require('path').join(__dirname, '..', 'index.html'), 'utf8');
+  assert.deepEqual([...html.matchAll(/<button data-tab="([a-z]+)"/g)].map(m => m[1]), ['drops', 'items', 'ge', 'char', 'clues', 'quests', 'train', 'money', 'calculators', 'map']);
+  console.log('phone nav: 4 per row under 480px, whole words');
+}
+
