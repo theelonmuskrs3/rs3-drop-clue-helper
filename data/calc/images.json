@@ -1,10 +1,244 @@
 {
 "items": {
+"Acadia logs": {
+"bytes": "mirror",
+"file": "File:Acadia logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "004862aa5a62198f933341a7f83f3100df5f68de",
+"src": "icons/d381c5cd52ba.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Acadia longbow": {
+"bytes": "mirror",
+"file": "File:Acadia longbow.png",
+"h": 32,
+"icon": "reused",
+"sha1": "708cc88f790a2d2877933591175a0a9e0bbc8b09",
+"src": "icons/37be7bf43262.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Acadia longbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Acadia longbow (unstrung).png",
+"h": 31,
+"icon": "new",
+"sha1": "eb5185684f5e0a8e117fda6599fc5d1ee14073ef",
+"src": "icons/4d65e49d542a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Acadia shortbow": {
+"bytes": "mirror",
+"file": "File:Acadia shortbow.png",
+"h": 30,
+"icon": "reused",
+"sha1": "c47bea2235cbcf986bc4ec2124c2bea4918db68a",
+"src": "icons/ae41689f8967.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Acadia shortbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Acadia shortbow (unstrung).png",
+"h": 27,
+"icon": "new",
+"sha1": "d24e0cc54e0ce6f63402b6a41f8301e0b8a37bc5",
+"src": "icons/828bd78742af.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Achey tree logs": {
+"bytes": "mirror",
+"file": "File:Achey tree logs.png",
+"h": 27,
+"icon": "reused",
+"sha1": "cb45959ad603778a83a64fda50d546c9f3e7357b",
+"src": "icons/172af0e3ac17.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Adamant 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Adamant 2h crossbow.png",
+"h": 27,
+"icon": "new",
+"sha1": "7a62f2ded8a27849f1dcbde7e81c070e4c28f8f2",
+"src": "icons/c4c5257d3c2c.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Adamant arrow": {
+"bytes": "mirror",
+"file": "File:Adamant arrow 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "d1774faea2e9984d85347bf53337c1f57ce78155",
+"src": "icons/a2b5bd5a247b.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Adamant arrow.png",
+"w": 32
+},
+"Adamant arrowheads": {
+"bytes": "mirror",
+"file": "File:Adamant arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "839b523c0046a6e8f6da94724d0eb1e06393a05b",
+"src": "icons/5c54071cf6c7.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Adamant arrowheads.png",
+"w": 32
+},
+"Adamant bar": {
+"bytes": "mirror",
+"file": "File:Adamant bar.png",
+"h": 24,
+"icon": "reused",
+"sha1": "ba1d2306b7765125852ea7bfb46b6e2cd9dabc30",
+"src": "icons/a1fdd572e7db.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Adamant bolts": {
+"bytes": "mirror",
+"file": "File:Adamant bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "69170b772191342fb469c8b24dbed5e915c29855",
+"src": "icons/b148f1571df3.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Adamant bolts.png",
+"w": 28
+},
+"Adamant bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Adamant bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "6f6344dcfb1c702bd3b32e17933a49d6ac6af006",
+"src": "icons/23b28815ee42.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Adamant bolts (unf).png",
+"w": 26
+},
+"Adamant brutal": {
+"bytes": "mirror",
+"file": "File:Adamant brutal 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "a0871dc96334772c1ea97e5ad886cd52dd05ceab",
+"src": "icons/9170cf8bfc00.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Adamant brutal.png",
+"w": 31
+},
+"Adamant crossbow": {
+"bytes": "mirror",
+"file": "File:Adamant crossbow.png",
+"h": 25,
+"icon": "new",
+"sha1": "ac8cf354a1ff35453f954f03e1b1f86601248d1f",
+"src": "icons/019b1ffc2daf.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Adamant crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Adamant crossbow (unstrung).png",
+"h": 28,
+"icon": "reused",
+"sha1": "90f3fdcfed0e78096b040416bd2d74d16413bed6",
+"src": "icons/7d1f7566f050.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Adamant dart": {
+"bytes": "mirror",
+"file": "File:Adamant dart.png",
+"h": 30,
+"icon": "reused",
+"sha1": "8c3f1752ee4b6bc87db7c12b008a522919bfa120",
+"src": "icons/524179689d9b.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 23
+},
+"Adamant dart tip": {
+"bytes": "mirror",
+"file": "File:Adamant dart tip.png",
+"h": 19,
+"icon": "reused",
+"sha1": "5bdc7828933eb978ec19ae8e02d47845c5f209c5",
+"src": "icons/3c0aac0735db.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 11
+},
+"Adamant nails": {
+"bytes": "mirror",
+"file": "File:Adamant nails.png",
+"h": 25,
+"icon": "new",
+"sha1": "4b86013dc04bedb9389071e5be666fc24dd987dd",
+"src": "icons/6b52a1b85a69.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
 "Admiral pie": {
 "bytes": "mirror",
 "file": "File:Admiral pie.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "a1dca551c596faaeae0dda08186f6065b3b925dc",
 "src": "icons/f4e94ecb20e0.webp",
 "used": [
@@ -417,7 +651,7 @@
 "bytes": "mirror",
 "file": "File:Ale yeast.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "88238291abff324db4745a603f81753c4a4651e0",
 "src": "icons/99e3ae36e0bd.webp",
 "used": [
@@ -443,7 +677,7 @@
 "bytes": "mirror",
 "file": "File:Anchovies.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "34b43d76f0a93c387ac3913833060a3a0a8f90f7",
 "src": "icons/1d6376672fff.webp",
 "used": [
@@ -974,7 +1208,7 @@
 "bytes": "mirror",
 "file": "File:Arc gumbo.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "a4b6e8539399bdfeb9f038beeeb04837de3792e5",
 "src": "icons/07d7fdec6027.webp",
 "used": [
@@ -987,7 +1221,7 @@
 "bytes": "mirror",
 "file": "File:Arcane apoterrasaur meat.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "73bd1bd7c8fd8a6302ea1c4731e76a89e39ea421",
 "src": "icons/77b6213afa27.webp",
 "used": [
@@ -1079,6 +1313,32 @@
 "via": "exact file",
 "w": 21
 },
+"Argonite arrows": {
+"bytes": "mirror",
+"file": "File:Argonite arrows 5.png",
+"h": 28,
+"icon": "new",
+"sha1": "5777444d6593aba76d4e163e0b24ff20202e03f6",
+"src": "icons/89943a2059ad.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Argonite arrows.png",
+"w": 30
+},
+"Argonite bar": {
+"bytes": "mirror",
+"file": "File:Argonite bar.png",
+"h": 28,
+"icon": "new",
+"sha1": "0f87d322b2b9dee7095113573a76b4f8b8b5daa2",
+"src": "icons/714b7bcf5ccc.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
 "Argway potion (unfinished)": {
 "bytes": "mirror",
 "file": "File:Argway potion (unfinished).png",
@@ -1091,6 +1351,19 @@
 ],
 "via": "exact file",
 "w": 16
+},
+"Arrow shaft (Dungeoneering)": {
+"bytes": "mirror",
+"file": "File:Arrow shaft (Dungeoneering) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "869c89756220150424d19c7130b46a4bae7a851c",
+"src": "icons/083bb3cb8416.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Arrow shaft (Dungeoneering).png",
+"w": 29
 },
 "Artisan's potion": {
 "bytes": "mirror",
@@ -1105,11 +1378,63 @@
 "via": "exact file",
 "w": 24
 },
+"Ascendri bolts": {
+"bytes": "mirror",
+"file": "File:Ascendri bolts 4.png",
+"h": 20,
+"icon": "new",
+"sha1": "961a0816b791b80c88bb8fadae5a5467303deb60",
+"src": "icons/000399e6db26.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Ascendri bolts.png",
+"w": 28
+},
+"Ascension bolts": {
+"bytes": "mirror",
+"file": "File:Ascension bolts 4.png",
+"h": 15,
+"icon": "new",
+"sha1": "bac8ef7189a183b727933e5eefba5d13040236d1",
+"src": "icons/760dc595b637.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Ascension bolts.png",
+"w": 25
+},
+"Ascension fragment": {
+"bytes": "mirror",
+"file": "File:Ascension fragment 3.png",
+"h": 27,
+"icon": "new",
+"sha1": "b04d8cefb3a19a49a5eebd6b070249347be2f876",
+"src": "icons/08b0fa2d96fa.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Ascension fragment.png",
+"w": 26
+},
+"Ascension shard": {
+"bytes": "mirror",
+"file": "File:Ascension shard.png",
+"h": 26,
+"icon": "reused",
+"sha1": "7e5b6be9cbb550943eb2d08e6b251c3c3bec0609",
+"src": "icons/87457acb9080.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 27
+},
 "Asciatops meat": {
 "bytes": "mirror",
 "file": "File:Asciatops meat.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "ab69f602bf44071f649f34f037fc0682af155174",
 "src": "icons/04f631e67f3e.webp",
 "used": [
@@ -1122,7 +1447,7 @@
 "bytes": "mirror",
 "file": "File:Asgarnian ale (4).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "2e583926722d2b201bdd5d49cdc21f1a070b1780",
 "src": "icons/f3c69b3c2eb2.webp",
 "used": [
@@ -1135,7 +1460,7 @@
 "bytes": "mirror",
 "file": "File:Asgarnian hops.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "19dee8ae63c025a805254f098758a2970dfc8e82",
 "src": "icons/95adfd1ddfb9.webp",
 "used": [
@@ -1322,7 +1647,7 @@
 "bytes": "mirror",
 "file": "File:Bacon.png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "018cfada0dd9b772c6814c3c01abd962663a4099",
 "src": "icons/a23bbd99e319.webp",
 "used": [
@@ -1335,7 +1660,7 @@
 "bytes": "mirror",
 "file": "File:Bacon cheesecake.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "2c39a4edcd9f7d50b5bb00cbf75744e4e7cc7b88",
 "src": "icons/3ff9a36c65a6.webp",
 "used": [
@@ -1348,7 +1673,7 @@
 "bytes": "mirror",
 "file": "File:Bacon heap.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "c8a04ce5f6b8bd1862473de1807a57dac7f61682",
 "src": "icons/f7999483e94b.webp",
 "used": [
@@ -1361,7 +1686,7 @@
 "bytes": "mirror",
 "file": "File:Bacon mound.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "6373e6eedc539e5f542c8d76bba7745cd315ca3c",
 "src": "icons/9cc5799cb7fc.webp",
 "used": [
@@ -1374,7 +1699,7 @@
 "bytes": "mirror",
 "file": "File:Bacon pile.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "2c1a53740c809497ff8144b93426fcf1a596712d",
 "src": "icons/37152f3abd1b.webp",
 "used": [
@@ -1387,7 +1712,7 @@
 "bytes": "mirror",
 "file": "File:Bacon stack.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "bfad55c7e9352c16bda8b87b0bb7116eab227578",
 "src": "icons/689eb345cfae.webp",
 "used": [
@@ -1400,7 +1725,7 @@
 "bytes": "mirror",
 "file": "File:Bagrada rex meat.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "87c67d23f39e98b38d3db8e164c16e997177976d",
 "src": "icons/88af7e73ad00.webp",
 "used": [
@@ -1413,7 +1738,7 @@
 "bytes": "mirror",
 "file": "File:Baked cave potato.png",
 "h": 16,
-"icon": "new",
+"icon": "reused",
 "sha1": "d9dc1ebfc1472980f33d4aae542a6d6b743223b9",
 "src": "icons/f4056f875d4b.webp",
 "used": [
@@ -1435,6 +1760,58 @@
 "via": "exact file",
 "w": 23
 },
+"Bakriminel bolt shafts": {
+"bytes": "mirror",
+"file": "File:Bakriminel bolt shafts 5.png",
+"h": 21,
+"icon": "new",
+"sha1": "3048927cd13807afd549bf5e2bc8f5c4323b4e36",
+"src": "icons/a69c910f1ae8.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bakriminel bolt shafts.png",
+"w": 26
+},
+"Bakriminel bolt tips": {
+"bytes": "mirror",
+"file": "File:Bakriminel bolt tips 5.png",
+"h": 18,
+"icon": "new",
+"sha1": "f1fd927b38891195861e865fefc6389309ba9d23",
+"src": "icons/2e699d810f55.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bakriminel bolt tips.png",
+"w": 28
+},
+"Bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Bakriminel bolts 5.png",
+"h": 32,
+"icon": "reused",
+"sha1": "71af34323b681515c3cacd0070a0d6c943b50475",
+"src": "icons/4ba489dc169b.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bakriminel bolts.png",
+"w": 33
+},
+"Bamboo": {
+"bytes": "mirror",
+"file": "File:Bamboo.png",
+"h": 25,
+"icon": "reused",
+"sha1": "3ecfec062ef4ac47ee0c4aeb1460c63ece16595f",
+"src": "icons/efc67985bf2c.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 27
+},
 "Banana": {
 "bytes": "mirror",
 "file": "File:Banana.png",
@@ -1452,7 +1829,7 @@
 "bytes": "mirror",
 "file": "File:Banana pizza.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "b984d60d38fb59d7cdb8d79c5ef36b292b27bc8f",
 "src": "icons/cfcc67fd96f7.webp",
 "used": [
@@ -1460,6 +1837,136 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Bane 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Bane 2h crossbow.png",
+"h": 26,
+"icon": "new",
+"sha1": "9848d22f8df961776ae14f8d441ed6f49a8c2502",
+"src": "icons/1b26eb5c698a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Bane arrow": {
+"bytes": "mirror",
+"file": "File:Bane arrow 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "eb5a839381b9187eda0bcc1aaaa5bb704467971d",
+"src": "icons/407b8d31de4c.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bane arrow.png",
+"w": 32
+},
+"Bane arrowheads": {
+"bytes": "mirror",
+"file": "File:Bane arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "e5e8172f6ee1ccc0cb70790823a6957e0692d6bf",
+"src": "icons/fb69232ae4d6.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bane arrowheads.png",
+"w": 32
+},
+"Bane bar": {
+"bytes": "mirror",
+"file": "File:Bane bar.png",
+"h": 24,
+"icon": "new",
+"sha1": "cb93e1e0315be1eb733b437d675842c2d0864271",
+"src": "icons/a704413e6a04.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Bane bolts": {
+"bytes": "mirror",
+"file": "File:Bane bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "9d5cf70517aa1fe82a4a5854dd3336739f76fa7b",
+"src": "icons/0e46139d62dc.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bane bolts.png",
+"w": 28
+},
+"Bane bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Bane bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "a9d041f5a96ee79f7db08f92ee94362f1ea2c4fc",
+"src": "icons/3321607f57ec.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bane bolts (unf).png",
+"w": 26
+},
+"Bane crossbow": {
+"bytes": "mirror",
+"file": "File:Bane crossbow.png",
+"h": 25,
+"icon": "new",
+"sha1": "d098e59004016759174569eb1d5c50a8273d7dc4",
+"src": "icons/f9e692e22924.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Bane crossbow (unstrung)": {
+"bytes": "downloaded",
+"file": "File:Bane crossbow (unstrung).png",
+"h": 29,
+"icon": "new",
+"sha1": "cb7692a587e74fb41ad84248a0eacbcb390eb424",
+"src": "icons/a2a56d737280.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Barbed bolt tips": {
+"bytes": "mirror",
+"file": "File:Barbed bolt tips.png",
+"h": 28,
+"icon": "new",
+"sha1": "cec0fe5be9cc42fb4e5dcc28dcdb5bea5c379d8a",
+"src": "icons/008b1b71a7fd.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 22
+},
+"Barbed bolts": {
+"bytes": "mirror",
+"file": "File:Barbed bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "e8639e8b15e0a2b9c0191b62016c84bc31deae38",
+"src": "icons/6fd414dffb02.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Barbed bolts.png",
+"w": 30
 },
 "Barley malt": {
 "bytes": "mirror",
@@ -1483,6 +1990,32 @@
 "src": "icons/0012d05e6045.webp",
 "used": [
 "cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Bathus arrows": {
+"bytes": "mirror",
+"file": "File:Bathus arrows 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "763e0a14c5dc7b622b84498c9c693f26bef4a4ea",
+"src": "icons/2ed54e8a58a0.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bathus arrows.png",
+"w": 30
+},
+"Bathus bar": {
+"bytes": "mirror",
+"file": "File:Bathus bar.png",
+"h": 28,
+"icon": "new",
+"sha1": "b66bd36b6e1620d651e9ab110e31ee56d147f658",
+"src": "icons/702909ba4e7e.webp",
+"used": [
+"fletching"
 ],
 "via": "exact file",
 "w": 30
@@ -1526,6 +2059,19 @@
 "via": "exact file",
 "w": 31
 },
+"Bik arrow": {
+"bytes": "mirror",
+"file": "File:Bik arrow 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "07d395737278f8c10ea03de8435d9d063dab14de",
+"src": "icons/6a6a51c602e2.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bik arrow.png",
+"w": 31
+},
 "Bird's nest (empty)": {
 "bytes": "mirror",
 "file": "File:Bird's nest (empty).png",
@@ -1543,7 +2089,7 @@
 "bytes": "mirror",
 "file": "File:Biscuit dough.png",
 "h": 13,
-"icon": "new",
+"icon": "reused",
 "sha1": "0e373f0a8ed3919cbd09d3e0ff2fc5b38793a8ab",
 "src": "icons/2a089eaa1e0e.webp",
 "used": [
@@ -1591,6 +2137,32 @@
 "via": "exact file",
 "w": 15
 },
+"Black brutal": {
+"bytes": "mirror",
+"file": "File:Black brutal 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "76e82246517b431e661714ff07797ba202dd5c67",
+"src": "icons/268e47cd41c5.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Black brutal.png",
+"w": 31
+},
+"Black nails": {
+"bytes": "mirror",
+"file": "File:Black nails.png",
+"h": 25,
+"icon": "reused",
+"sha1": "399a5eb905a1396f4dd087cac431b50418cde5ff",
+"src": "icons/53a238420b07.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
 "Black salamander": {
 "bytes": "mirror",
 "file": "File:Black salamander.png",
@@ -1603,6 +2175,32 @@
 ],
 "via": "exact file",
 "w": 30
+},
+"Black stone arrow tips": {
+"bytes": "mirror",
+"file": "File:Black stone arrow tips 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "2826a8a59379b08002f47302d500c5236cba6028",
+"src": "icons/1ad06c804c39.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Black stone arrow tips.png",
+"w": 27
+},
+"Black stone arrows": {
+"bytes": "mirror",
+"file": "File:Black stone arrows 4.png",
+"h": 28,
+"icon": "new",
+"sha1": "d0915479bd818121a5a3ef21517dbb008a7c74fb",
+"src": "icons/93bf23201817.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Black stone arrows.png",
+"w": 24
 },
 "Blamish oil": {
 "bytes": "mirror",
@@ -1630,6 +2228,123 @@
 "via": "exact file",
 "w": 18
 },
+"Blisterwood logs": {
+"bytes": "mirror",
+"file": "File:Blisterwood logs.png",
+"h": 24,
+"icon": "reused",
+"sha1": "93e2268f8ae93ff1c51639471519bf5456dba1b6",
+"src": "icons/37d38baf9091.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Blisterwood orb": {
+"bytes": "mirror",
+"file": "File:Blisterwood orb.png",
+"h": 26,
+"icon": "new",
+"sha1": "1455560311fcedbe30eb52df23f8a5bdb3917a1a",
+"src": "icons/ba7054d9a57d.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 26
+},
+"Blisterwood polearm": {
+"bytes": "mirror",
+"file": "File:Blisterwood polearm.png",
+"h": 30,
+"icon": "reused",
+"sha1": "39fd8e33035591094d2a027c52ae04e5a4188b99",
+"src": "icons/08cb3c7492d3.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Blisterwood sickle": {
+"bytes": "mirror",
+"file": "File:Blisterwood sickle.png",
+"h": 28,
+"icon": "reused",
+"sha1": "17860059adfdab912e341a114fd2dd79138a0030",
+"src": "icons/55728d187cee.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Blisterwood staff": {
+"bytes": "mirror",
+"file": "File:Blisterwood staff.png",
+"h": 29,
+"icon": "new",
+"sha1": "94f8bf658785a75e453f3240c12a5ab0384def0b",
+"src": "icons/5f72af2f3fae.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 25
+},
+"Blisterwood stake": {
+"bytes": "mirror",
+"file": "File:Blisterwood stake.png",
+"h": 28,
+"icon": "new",
+"sha1": "44658a255aa5a0184721a829723220243caefbec",
+"src": "icons/3687c19166c6.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Blisterwood stake-thrower crossbow": {
+"bytes": "mirror",
+"file": "File:Blisterwood stake-thrower crossbow.png",
+"h": 27,
+"icon": "reused",
+"sha1": "a635cce488c53672d0d548844c844679aa5df31c",
+"src": "icons/5ed9f06e87a0.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Blisterwood stakes (ammo)": {
+"bytes": "mirror",
+"file": "File:Blisterwood stakes (ammo) 5.png",
+"h": 25,
+"icon": "new",
+"sha1": "4d2ee7a732c35f49085b7a52fdcbd66e68ba0705",
+"src": "icons/bdad187e04c5.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Blisterwood stakes (ammo).png",
+"w": 26
+},
+"Blisterwood wand": {
+"bytes": "mirror",
+"file": "File:Blisterwood wand.png",
+"h": 27,
+"icon": "new",
+"sha1": "5bde48e87dcb0fe66447932cf5c3cc9623731548",
+"src": "icons/39af772dee21.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
 "Blood rune": {
 "bytes": "mirror",
 "file": "File:Blood rune.png",
@@ -1642,6 +2357,71 @@
 ],
 "via": "exact file",
 "w": 30
+},
+"Blood spindle branches": {
+"bytes": "mirror",
+"file": "File:Blood spindle branches.png",
+"h": 29,
+"icon": "new",
+"sha1": "9601ab2c8cc020b6a2356d8e80ef9a9858392d70",
+"src": "icons/ac2b4a84733c.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Blood spindle longbow": {
+"bytes": "mirror",
+"file": "File:Blood spindle longbow.png",
+"h": 31,
+"icon": "reused",
+"sha1": "707ad81a3773dc01e742a7a62d7270ef86a22699",
+"src": "icons/f99f0f1110fe.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Blood spindle shortbow": {
+"bytes": "mirror",
+"file": "File:Blood spindle shortbow.png",
+"h": 28,
+"icon": "reused",
+"sha1": "40dd3590677439f5a0e4481bc95efdab01938584",
+"src": "icons/106cf57c1de6.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Blood spindle staff": {
+"bytes": "mirror",
+"file": "File:Blood spindle staff.png",
+"h": 26,
+"icon": "new",
+"sha1": "67b8df2dc48fdbf70bcaaad6e3c8ec90eb547edc",
+"src": "icons/2c82c5ba3526.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Blood spindle trap": {
+"bytes": "mirror",
+"file": "File:Blood spindle trap.png",
+"h": 28,
+"icon": "new",
+"sha1": "a6f6a9d1969f9ff80de094d6b76297bc7f4aab2e",
+"src": "icons/f86137410901.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 18
 },
 "Bloodweed potion (unfinished)": {
 "bytes": "mirror",
@@ -1656,11 +2436,24 @@
 "via": "exact file",
 "w": 21
 },
+"Bloodwood logs": {
+"bytes": "mirror",
+"file": "File:Bloodwood logs.png",
+"h": 24,
+"icon": "new",
+"sha1": "73fb672a6561e0246ab4cc4f3cf5c0541ccec394",
+"src": "icons/a85daeda084f.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
 "Blue blubber jellyfish": {
 "bytes": "mirror",
 "file": "File:Blue blubber jellyfish.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "ce4f5213c88ab703584743be20fe460c6e7cf451",
 "src": "icons/13f7ca009af5.webp",
 "used": [
@@ -1686,7 +2479,7 @@
 "bytes": "mirror",
 "file": "File:Blue crab.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "171a09d3459c7dc17e512e48de44f44d7fcf35f3",
 "src": "icons/8ee4942f8a47.webp",
 "used": [
@@ -1699,7 +2492,7 @@
 "bytes": "mirror",
 "file": "File:Blue crab & edicap potato.png",
 "h": 16,
-"icon": "new",
+"icon": "reused",
 "sha1": "8b791ac520889291238d3360f538dff2970cfc96",
 "src": "icons/c1e1edb81f11.webp",
 "used": [
@@ -1712,7 +2505,7 @@
 "bytes": "mirror",
 "file": "File:Blue crab & gissel potato.png",
 "h": 16,
-"icon": "new",
+"icon": "reused",
 "sha1": "cbd8a23888568ad8627a310c8979932a0da990f0",
 "src": "icons/82387ce586ee.webp",
 "used": [
@@ -1725,7 +2518,7 @@
 "bytes": "mirror",
 "file": "File:Blue crab potato.png",
 "h": 16,
-"icon": "new",
+"icon": "reused",
 "sha1": "f076753db771c38cb2125fb771a13d64c87dd346",
 "src": "icons/f7a53f400415.webp",
 "used": [
@@ -1759,6 +2552,97 @@
 ],
 "via": "exact file",
 "w": 22
+},
+"Blurite 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Blurite 2h crossbow.png",
+"h": 14,
+"icon": "new",
+"sha1": "ff212571e007a5626695abe28b0711a662d32d38",
+"src": "icons/45024e38ed67.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Blurite bar": {
+"bytes": "mirror",
+"file": "File:Blurite bar.png",
+"h": 24,
+"icon": "new",
+"sha1": "20259afb5cdcd74e48e5c0a4cb8ac91f4d9e5b95",
+"src": "icons/3177c7025b43.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Blurite bolts": {
+"bytes": "mirror",
+"file": "File:Blurite bolts 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "9426282aa28b981feb8cd9753ec11459a3798574",
+"src": "icons/5059c3c73c4d.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Blurite bolts.png",
+"w": 28
+},
+"Blurite bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Blurite bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "a21450fae2dd7b6fb1df5aef2b51f34232edff08",
+"src": "icons/c31a59e7d090.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Blurite bolts (unf).png",
+"w": 26
+},
+"Blurite crossbow": {
+"bytes": "mirror",
+"file": "File:Blurite crossbow.png",
+"h": 29,
+"icon": "new",
+"sha1": "6341309abb1cc65a81bcd7cb7f32b765d38d5dfa",
+"src": "icons/5bbc7bc4c872.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Blurite crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Blurite crossbow (unstrung).png",
+"h": 28,
+"icon": "new",
+"sha1": "4f166b811556be525dc0bfdd1364c93707907abd",
+"src": "icons/677ad4192704.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Bolas": {
+"bytes": "mirror",
+"file": "File:Bolas.png",
+"h": 29,
+"icon": "new",
+"sha1": "a31bdec244be3a09d9562071a82661404b9e52c7",
+"src": "icons/b912ad17223b.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
 },
 "Bomb vial": {
 "bytes": "mirror",
@@ -1803,7 +2687,7 @@
 "bytes": "mirror",
 "file": "File:Bouldabass.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "3c7b183982b188c27b7f38b6485a089b076918bc",
 "src": "icons/4d48cff13766.webp",
 "used": [
@@ -1851,6 +2735,71 @@
 "via": "exact file",
 "w": 20
 },
+"Bovistrangler branches": {
+"bytes": "mirror",
+"file": "File:Bovistrangler branches.png",
+"h": 29,
+"icon": "new",
+"sha1": "bdb90eebb0623cd8dc30c36e31e3f520bfeb7541",
+"src": "icons/c93d05d65888.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Bovistrangler longbow": {
+"bytes": "mirror",
+"file": "File:Bovistrangler longbow.png",
+"h": 32,
+"icon": "reused",
+"sha1": "ef0f4cd662247e5f1e6da4ccdeb9882428478ad6",
+"src": "icons/1fcf1028d612.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Bovistrangler shortbow": {
+"bytes": "mirror",
+"file": "File:Bovistrangler shortbow.png",
+"h": 30,
+"icon": "reused",
+"sha1": "bdba9272c695cd310049b710da4b71ec8f618ee1",
+"src": "icons/5002084ff749.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Bovistrangler staff": {
+"bytes": "mirror",
+"file": "File:Bovistrangler staff.png",
+"h": 29,
+"icon": "new",
+"sha1": "d169dc7113ecc16f23b2721cc060777870bbe392",
+"src": "icons/b27fe8305997.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Bovistrangler trap": {
+"bytes": "mirror",
+"file": "File:Bovistrangler trap.png",
+"h": 30,
+"icon": "new",
+"sha1": "c6045cfe0884c34af09533e83147e0c5173d3c25",
+"src": "icons/5cbe3b1768a4.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 19
+},
 "Bowl": {
 "bytes": "mirror",
 "file": "File:Bowl.png",
@@ -1877,11 +2826,37 @@
 "via": "exact file",
 "w": 33
 },
+"Bowstring": {
+"bytes": "mirror",
+"file": "File:Bowstring.png",
+"h": 28,
+"icon": "reused",
+"sha1": "d3d3a28a6b0296e17701024d7d3c27a2422f305d",
+"src": "icons/89ceb85388f9.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Bowstring (Dungeoneering)": {
+"bytes": "mirror",
+"file": "File:Bowstring (Dungeoneering).png",
+"h": 28,
+"icon": "new",
+"sha1": "c846fb1fb83d8b504988e492c9205d4fa30ee111",
+"src": "icons/f5dbe4b3feab.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 24
+},
 "Brandy": {
 "bytes": "downloaded",
 "file": "File:Brandy.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "b10aff68a32bca0a65d67b4379168a59f04dc5ef",
 "src": "icons/f67ef700f520.webp",
 "used": [
@@ -1920,7 +2895,7 @@
 "bytes": "mirror",
 "file": "File:Breadcrumbs.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "3fe2771e6422b7d920b14d08a3ae85a6bc9e3130",
 "src": "icons/141a5a0849da.webp",
 "used": [
@@ -1941,6 +2916,201 @@
 ],
 "via": "exact file",
 "w": 19
+},
+"Broad arrow": {
+"bytes": "mirror",
+"file": "File:Broad arrow 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "60a90115660b05635e89117ff25c601f8ee866f8",
+"src": "icons/7d52ff2fec26.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Broad arrow.png",
+"w": 30
+},
+"Broad arrowheads": {
+"bytes": "mirror",
+"file": "File:Broad arrowheads 5.png",
+"h": 24,
+"icon": "new",
+"sha1": "adfa097a18dd9e9d229b6dd44ddbf7c72cae5665",
+"src": "icons/00b0a0bb2a77.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Broad arrowheads.png",
+"w": 33
+},
+"Broad-tipped bolts": {
+"bytes": "mirror",
+"file": "File:Broad-tipped bolts 5.png",
+"h": 24,
+"icon": "new",
+"sha1": "0564be3a53d345bff4a30797dd19e9cafd900af5",
+"src": "icons/1ac84cce5e8f.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Broad-tipped bolts.png",
+"w": 32
+},
+"Bronze 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Bronze 2h crossbow.png",
+"h": 27,
+"icon": "reused",
+"sha1": "96d41660a0d63c6ef51986b739fec44dafe1c1f5",
+"src": "icons/ea1d64f7c316.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Bronze arrow": {
+"bytes": "mirror",
+"file": "File:Bronze arrow 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "ff469a5c52e18fcd1484511452043693e5f90e16",
+"src": "icons/0ac8c6451f8e.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bronze arrow.png",
+"w": 31
+},
+"Bronze arrowheads": {
+"bytes": "mirror",
+"file": "File:Bronze arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "9cd898084fd38449b93ebbdde080893c839b9da2",
+"src": "icons/2b8caa6e9b4c.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bronze arrowheads.png",
+"w": 32
+},
+"Bronze bar": {
+"bytes": "mirror",
+"file": "File:Bronze bar.png",
+"h": 24,
+"icon": "reused",
+"sha1": "f4ff48a1aab5bcff38965a1177f00a67d6468e9c",
+"src": "icons/0fd38e89a6de.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Bronze bolts": {
+"bytes": "mirror",
+"file": "File:Bronze bolts 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "1a79cba9a1aeaf927f1aba7d6d60e087d13f4e61",
+"src": "icons/3916ef407e07.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bronze bolts.png",
+"w": 28
+},
+"Bronze bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Bronze bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "872e12b21e82353a988da89324219066723fdb02",
+"src": "icons/5008e536cef2.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bronze bolts (unf).png",
+"w": 26
+},
+"Bronze brutal": {
+"bytes": "mirror",
+"file": "File:Bronze brutal 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "1a556c882534948163d0367374348e01f79118b0",
+"src": "icons/b40b0add5fb7.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Bronze brutal.png",
+"w": 31
+},
+"Bronze crossbow": {
+"bytes": "mirror",
+"file": "File:Bronze crossbow.png",
+"h": 27,
+"icon": "reused",
+"sha1": "6742a59cd904fb447ccc7a208f5f323f064d4883",
+"src": "icons/4a82c1b42a85.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Bronze crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Bronze crossbow (unstrung).png",
+"h": 28,
+"icon": "new",
+"sha1": "20a245a5316047b1e90942650c9ca308f9d834e3",
+"src": "icons/738f4a013a54.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Bronze dart": {
+"bytes": "mirror",
+"file": "File:Bronze dart.png",
+"h": 29,
+"icon": "reused",
+"sha1": "bdf18d7be24ee3f9a5d33f15b9ca86735219d62c",
+"src": "icons/269ee0713a4a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 22
+},
+"Bronze dart tip": {
+"bytes": "mirror",
+"file": "File:Bronze dart tip.png",
+"h": 19,
+"icon": "new",
+"sha1": "6335a55f09f4ba2bc3d8c075396c5551a78fe4a5",
+"src": "icons/f1d88f8822b9.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 11
+},
+"Bronze nails": {
+"bytes": "mirror",
+"file": "File:Bronze nails.png",
+"h": 25,
+"icon": "reused",
+"sha1": "0f4ff82d3a0b5b6e728b654603390c6feb6d1684",
+"src": "icons/5c7ad0af2065.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
 },
 "Bucket of milk": {
 "bytes": "mirror",
@@ -1998,11 +3168,12 @@
 "bytes": "mirror",
 "file": "File:Bundle of bamboo.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "ed95782ed4d48d9d3bfe50ff9577067072a1c8f8",
 "src": "icons/8ae84c952005.webp",
 "used": [
-"cooking"
+"cooking",
+"fletching"
 ],
 "via": "exact file",
 "w": 31
@@ -2089,7 +3260,7 @@
 "bytes": "mirror",
 "file": "File:Calquat keg.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "6476a589d2b9b3b9e7f931c981ca9533c8bc46fa",
 "src": "icons/3eda13b65706.webp",
 "used": [
@@ -2167,7 +3338,7 @@
 "bytes": "mirror",
 "file": "File:Cannonball cabbage.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "6bd7754f4c44b8f7d4ace0a01f2b51f25d5e298a",
 "src": "icons/cf21aa9dbcc3.webp",
 "used": [
@@ -2193,7 +3364,7 @@
 "bytes": "mirror",
 "file": "File:Catfish.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "cd7356f95de418b7ab9ca03552bb35fa73abf65a",
 "src": "icons/72b69895bd5c.webp",
 "used": [
@@ -2206,7 +3377,7 @@
 "bytes": "mirror",
 "file": "File:Cave eel.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "d0cc86ee421709e1fed0436221f94b5b25a89b2e",
 "src": "icons/3cddaa379b88.webp",
 "used": [
@@ -2219,7 +3390,7 @@
 "bytes": "mirror",
 "file": "File:Cave moray.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "2746f19453b08af951c044c6c8a3f8f67608361b",
 "src": "icons/880f65ce839d.webp",
 "used": [
@@ -2393,7 +3564,7 @@
 "bytes": "mirror",
 "file": "File:Cheesecake.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "1fa71119f76d72e3a97d64f3d3d46824ae8222ff",
 "src": "icons/af0c5991af84.webp",
 "used": [
@@ -2419,7 +3590,7 @@
 "bytes": "downloaded",
 "file": "File:Chilli con carne.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "4cce03e2946df90ec49ebf325160ff332d7e7d1c",
 "src": "icons/9a0b936b45ba.webp",
 "used": [
@@ -2432,7 +3603,7 @@
 "bytes": "downloaded",
 "file": "File:Chilli potato.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "41fe96c625d473748def49665b3be0bf8fcef927",
 "src": "icons/4c572416bba5.webp",
 "used": [
@@ -2458,7 +3629,7 @@
 "bytes": "downloaded",
 "file": "File:Chocchip crunchies.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "134259f8769b198649dccd06a9134b7eed0f4a91",
 "src": "icons/492731fd2e5b.webp",
 "used": [
@@ -2498,7 +3669,7 @@
 "bytes": "downloaded",
 "file": "File:Chocolate bomb.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "8b0cf839e740a51a06b2992a3a0a1b29b674cb56",
 "src": "icons/ae8fb7daaff0.webp",
 "used": [
@@ -2524,7 +3695,7 @@
 "bytes": "mirror",
 "file": "File:Chocolate cheesecake.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "3b063284504ce6ca248149404883f713c0a3ad45",
 "src": "icons/e738a02d4d20.webp",
 "used": [
@@ -2537,7 +3708,7 @@
 "bytes": "mirror",
 "file": "File:Chocolate cream cheese.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "363b4f746612e6c1a82550bc5eccfede347a3113",
 "src": "icons/9c17da5db81f.webp",
 "used": [
@@ -2564,7 +3735,7 @@
 "bytes": "mirror",
 "file": "File:Chocolatey milk.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "6530ab36f9105155ed311e1c212d5966e850a597",
 "src": "icons/7548829de595.webp",
 "used": [
@@ -3163,7 +4334,7 @@
 "bytes": "mirror",
 "file": "File:Cod.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "6907f6c0ee8e774d3e9a2c25554f0f48770a9291",
 "src": "icons/6e2f392bd2ca.webp",
 "used": [
@@ -3311,7 +4482,7 @@
 "bytes": "mirror",
 "file": "File:Cooked chompy.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "e166f97d46cf6ba6fde6d2309b2644a96a2afc68",
 "src": "icons/1515116496fc.webp",
 "used": [
@@ -3324,7 +4495,7 @@
 "bytes": "mirror",
 "file": "File:Cooked crab meat (5).png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "cfdc32bc6214c9fd755703698d39d2d18bbca8bd",
 "src": "icons/190cc2fb7f49.webp",
 "used": [
@@ -3337,7 +4508,7 @@
 "bytes": "mirror",
 "file": "File:Cooked fishcake.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "3fd23f71ede8f4fe360a3d937db674f19c830d1d",
 "src": "icons/59a3bec63b9f.webp",
 "used": [
@@ -3350,7 +4521,7 @@
 "bytes": "mirror",
 "file": "File:Cooked jubbly.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "83d9055ce199975dcc7298540239bece8d899ecf",
 "src": "icons/2d14e313280a.webp",
 "used": [
@@ -3363,7 +4534,7 @@
 "bytes": "mirror",
 "file": "File:Cooked karambwan.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "fa957e6504661eb1482a39b1f59f41a9909ebfb9",
 "src": "icons/d3db12c7cd32.webp",
 "used": [
@@ -3389,7 +4560,7 @@
 "bytes": "mirror",
 "file": "File:Cooked oomlie wrap.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "38484594fd35345b2282f752457bb4f7adbc6bb1",
 "src": "icons/ba65da58628e.webp",
 "used": [
@@ -3428,7 +4599,7 @@
 "bytes": "mirror",
 "file": "File:Cooked slimy eel.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "63fabb7e84d183fb1a657bf3040b58312ba20934",
 "src": "icons/67dc7da7d191.webp",
 "used": [
@@ -3441,7 +4612,7 @@
 "bytes": "mirror",
 "file": "File:Cooked sweetcorn.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "dfeef30b0ebf3115311206e711d0e44d74bc5cde",
 "src": "icons/5f074add2417.webp",
 "used": [
@@ -3550,7 +4721,7 @@
 "bytes": "mirror",
 "file": "File:Corbicula rex meat.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "c42bfbb99d169edd81ad47a9801f64bb21a53d46",
 "src": "icons/532cdd06b2c2.webp",
 "used": [
@@ -3558,6 +4729,71 @@
 ],
 "via": "exact file",
 "w": 30
+},
+"Corpsethorn branches": {
+"bytes": "mirror",
+"file": "File:Corpsethorn branches.png",
+"h": 29,
+"icon": "new",
+"sha1": "ddf52da4a21527910e118059430ad0a273593fb9",
+"src": "icons/d513bcad6db5.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Corpsethorn longbow": {
+"bytes": "mirror",
+"file": "File:Corpsethorn longbow.png",
+"h": 28,
+"icon": "reused",
+"sha1": "afd141c3014d7fc208882b5b41ceb26111d079bc",
+"src": "icons/7e84fb8b3c60.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Corpsethorn shortbow": {
+"bytes": "mirror",
+"file": "File:Corpsethorn shortbow.png",
+"h": 31,
+"icon": "reused",
+"sha1": "e179966f752b43968ed749d67994dcf40310d3c3",
+"src": "icons/02fd9a766dfa.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Corpsethorn staff": {
+"bytes": "mirror",
+"file": "File:Corpsethorn staff.png",
+"h": 29,
+"icon": "new",
+"sha1": "592618c3d43d85a04420166fd2826a5bf5955c01",
+"src": "icons/28120b151b68.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Corpsethorn trap": {
+"bytes": "mirror",
+"file": "File:Corpsethorn trap.png",
+"h": 31,
+"icon": "new",
+"sha1": "4f0247c1869f5aca28c897e55f2a62aa0227601c",
+"src": "icons/785fce61b4cb.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 18
 },
 "Corrupt vine": {
 "bytes": "mirror",
@@ -3571,6 +4807,19 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Corrupted magic logs": {
+"bytes": "mirror",
+"file": "File:Corrupted magic logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "3a9af6a81f2202c373231a5acd29fd591ac9275b",
+"src": "icons/7cc38ec728d1.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
 },
 "Crab meat": {
 "bytes": "mirror",
@@ -3589,7 +4838,7 @@
 "bytes": "mirror",
 "file": "File:Cracked cooking urn.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "e8f7920738a33841e968fb3de05989b5d1e945d3",
 "src": "icons/0b281ec2bd09.webp",
 "used": [
@@ -3602,7 +4851,7 @@
 "bytes": "mirror",
 "file": "File:Cracked cooking urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "319bf17fcf152952e59324a5b43b907c4beb6196",
 "src": "icons/bdd1cec7b57e.webp",
 "used": [
@@ -3698,7 +4947,7 @@
 "bytes": "mirror",
 "file": "File:Cream cheese.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "cb572236df7d6972f6bcb9da79572332cc330828",
 "src": "icons/0c82bdad5063.webp",
 "used": [
@@ -3719,6 +4968,19 @@
 ],
 "via": "exact file",
 "w": 32
+},
+"Crossbow string": {
+"bytes": "mirror",
+"file": "File:Crossbow string.png",
+"h": 29,
+"icon": "reused",
+"sha1": "79a0194a947155b690333e617340aea5b4527684",
+"src": "icons/4c9a712322c9.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
 },
 "Crushed dragonstone": {
 "bytes": "mirror",
@@ -3812,11 +5074,63 @@
 "via": "exact file",
 "w": 31
 },
+"Dark arrow": {
+"bytes": "mirror",
+"file": "File:Dark arrow 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "7bbcc1d6ede6e2862082d3329e9664ff66756a08",
+"src": "icons/e3740fcf5698.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Dark arrow.png",
+"w": 32
+},
+"Dark arrowheads": {
+"bytes": "mirror",
+"file": "File:Dark arrowheads 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "61f53fef8ee7d7138ecbc5c76c9e18a4f4730792",
+"src": "icons/e53aebb55bc7.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Dark arrowheads.png",
+"w": 33
+},
+"Deathspore arrow tips": {
+"bytes": "mirror",
+"file": "File:Deathspore arrow tips 5.png",
+"h": 21,
+"icon": "new",
+"sha1": "ceed5b1b7c3c486407da998b720e527012a31b95",
+"src": "icons/d8d2816fdd5a.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Deathspore arrow tips.png",
+"w": 30
+},
+"Deathspore arrows": {
+"bytes": "mirror",
+"file": "File:Deathspore arrows 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "7e0e0bc72c5e2181a9e60dc2f159b8fe868113b5",
+"src": "icons/3e1ae1d2c59d.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Deathspore arrows.png",
+"w": 32
+},
 "Decorated cooking urn": {
 "bytes": "mirror",
 "file": "File:Decorated cooking urn.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "b6881c3cc665e10428a2247637916b660644f8e6",
 "src": "icons/70504e3693c1.webp",
 "used": [
@@ -3829,7 +5143,7 @@
 "bytes": "mirror",
 "file": "File:Decorated cooking urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "eab63517fda02ade3849088b77f7aa3c50250a7c",
 "src": "icons/0467e3651ca5.webp",
 "used": [
@@ -3977,7 +5291,7 @@
 "bytes": "mirror",
 "file": "File:Desert sole.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "8a6b653bdb5f77c27fde2f4c0c522fae9f7eace8",
 "src": "icons/d889e03493c6.webp",
 "used": [
@@ -3985,6 +5299,84 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Diamond": {
+"bytes": "mirror",
+"file": "File:Diamond.png",
+"h": 24,
+"icon": "reused",
+"sha1": "f7d3deb9b75491ad433ba4a8dd0352a157339b1d",
+"src": "icons/eb8f3ca0da59.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 21
+},
+"Diamond bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Diamond bakriminel bolts 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "5de8a84dae59356a6b48053143606d2f0b5dd4ac",
+"src": "icons/be288d591638.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Diamond bakriminel bolts.png",
+"w": 33
+},
+"Diamond bolt tips": {
+"bytes": "mirror",
+"file": "File:Diamond bolt tips 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "11925b193c701815fe859985d145e94efc901471",
+"src": "icons/5d028324124a.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Diamond bolt tips.png",
+"w": 31
+},
+"Diamond bolts": {
+"bytes": "mirror",
+"file": "File:Diamond bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "f9a28cea2c9c6a291bf2b04a193f4e1041dd851b",
+"src": "icons/71a3c3c6ee93.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Diamond bolts.png",
+"w": 29
+},
+"Dinarrow": {
+"bytes": "mirror",
+"file": "File:Dinarrow 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "82599cd124e10a771010c9489b92bf84bce31b23",
+"src": "icons/27c3e133f13f.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Dinarrow.png",
+"w": 31
+},
+"Dinosaur 'propellant'": {
+"bytes": "mirror",
+"file": "File:Dinosaur 'propellant' 5.png",
+"h": 17,
+"icon": "new",
+"sha1": "35e0da2beb67115776c38b16f0318dcebf0c7341",
+"src": "icons/2861002a75ff.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Dinosaur 'propellant'.png",
+"w": 26
 },
 "Dinosaur claws": {
 "bytes": "mirror",
@@ -4073,7 +5465,7 @@
 "bytes": "mirror",
 "file": "File:Divine charge.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "7e6bfd848c94df8083db7bf1fe29d0f68afd1f78",
 "src": "icons/ae6039ae1677.webp",
 "used": [
@@ -4095,6 +5487,45 @@
 "via": "exact file",
 "w": 29
 },
+"Dragon 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Dragon 2h crossbow.png",
+"h": 26,
+"icon": "new",
+"sha1": "e8d81b636e1759d79b1e8f277c5a920b6fa728f1",
+"src": "icons/245509b41a6c.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 34
+},
+"Dragon arrow": {
+"bytes": "mirror",
+"file": "File:Dragon arrow 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "555bb79ed73f7bd6d0418ae0e8778a21116040b0",
+"src": "icons/dc38af46ba06.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Dragon arrow.png",
+"w": 29
+},
+"Dragon arrowheads": {
+"bytes": "mirror",
+"file": "File:Dragon arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "d93fb146fe18909965cba9f39b69f3e9333b8dee",
+"src": "icons/b4fa1715585b.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Dragon arrowheads.png",
+"w": 31
+},
 "Dragon bitter (4)": {
 "bytes": "mirror",
 "file": "File:Dragon bitter (4).png",
@@ -4107,6 +5538,84 @@
 ],
 "via": "exact file",
 "w": 22
+},
+"Dragon bolts": {
+"bytes": "mirror",
+"file": "File:Dragon bolts 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "76e00efce136861256a5d37429419268459eaded",
+"src": "icons/94d310204a55.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Dragon bolts.png",
+"w": 29
+},
+"Dragon crossbow": {
+"bytes": "mirror",
+"file": "File:Dragon crossbow.png",
+"h": 30,
+"icon": "new",
+"sha1": "92e22fc2339030e81ba0e7502686e9badf2e163c",
+"src": "icons/15dba5f45dcd.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Dragon crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Dragon crossbow (unstrung).png",
+"h": 28,
+"icon": "new",
+"sha1": "eecd197c118b1085e884e32fda2a58dc19a95333",
+"src": "icons/f84b1d3c810a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Dragon dart": {
+"bytes": "mirror",
+"file": "File:Dragon dart.png",
+"h": 30,
+"icon": "new",
+"sha1": "b4c50b1cc8065494e053bdc470f6c026a07817ca",
+"src": "icons/203ef4a38e59.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 24
+},
+"Dragon dart tip": {
+"bytes": "mirror",
+"file": "File:Dragon dart tip.png",
+"h": 21,
+"icon": "reused",
+"sha1": "d81e44453ef1e36c4670eff445ca97bb9cd97c34",
+"src": "icons/63ee40355cf2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 15
+},
+"Dragon limbs": {
+"bytes": "mirror",
+"file": "File:Dragon limbs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "52d96c5718f3c65ee40a0a258309ec7db1399102",
+"src": "icons/e1b4b8a63fbb.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 27
 },
 "Dragon scale dust": {
 "bytes": "mirror",
@@ -4139,14 +5648,41 @@
 "bytes": "mirror",
 "file": "File:Dragonstone.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "b86eecc28eaf16ef1bc50c42553b7a98f6223258",
 "src": "icons/0c6abbe91f38.webp",
 "used": [
-"cooking"
+"cooking",
+"fletching"
 ],
 "via": "exact file",
 "w": 21
+},
+"Dragonstone bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Dragonstone bakriminel bolts 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "eb125a6cfce0e9d3d7f26047ba73a7a3b785be7b",
+"src": "icons/cb105f2a423a.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Dragonstone bakriminel bolts.png",
+"w": 32
+},
+"Dragonstone bolt tips": {
+"bytes": "mirror",
+"file": "File:Dragonstone bolt tips 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "1f313c3170e49d3245b1627bf989022d728a8046",
+"src": "icons/ded6249f3269.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Dragonstone bolt tips.png",
+"w": 31
 },
 "Drunk Dragon": {
 "bytes": "mirror",
@@ -4165,7 +5701,7 @@
 "bytes": "mirror",
 "file": "File:Dusk eel.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "8d83f3d8f4d90d7395b93e88f910e0f3075fa378",
 "src": "icons/7481bed96534.webp",
 "used": [
@@ -4269,7 +5805,7 @@
 "bytes": "mirror",
 "file": "File:Edicap mushroom.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "31c88785e5e7377648f596c946862155ee8f5171",
 "src": "icons/93a77653fd71.webp",
 "used": [
@@ -4295,7 +5831,7 @@
 "bytes": "mirror",
 "file": "File:Egg.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "dd72ad65d54b9dc1a1fab84cab3e308dd5af9778",
 "src": "icons/c9f47d9b0dba.webp",
 "used": [
@@ -4308,7 +5844,7 @@
 "bytes": "mirror",
 "file": "File:Egg and tomato.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "aa94ab6bf3c3ac21e9014721baf4f63dce7f2adf",
 "src": "icons/1efb933bb9f2.webp",
 "used": [
@@ -4329,6 +5865,97 @@
 ],
 "via": "exact file",
 "w": 23
+},
+"Elder 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Elder 2h crossbow.png",
+"h": 26,
+"icon": "new",
+"sha1": "bd7c7e738fbcd3cb268da8e73f82b7093a54dd37",
+"src": "icons/f5f0132730df.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Elder crossbow": {
+"bytes": "mirror",
+"file": "File:Elder crossbow.png",
+"h": 25,
+"icon": "new",
+"sha1": "0bbab6e20e397f2d93d0165b848b9daf7fd069b5",
+"src": "icons/3182bcd9b494.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Elder crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Elder crossbow (unstrung).png",
+"h": 29,
+"icon": "new",
+"sha1": "7614ab566ca55ec12064ba9a02d2e8699d199c38",
+"src": "icons/fcfbd907d72b.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Elder headless shaft": {
+"bytes": "mirror",
+"file": "File:Elder headless shaft 5.png",
+"h": 27,
+"icon": "new",
+"sha1": "f405dcf64f8e1bad4c9805f260ddbdee13cd944a",
+"src": "icons/b609a8cc7740.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Elder headless shaft.png",
+"w": 31
+},
+"Elder logs": {
+"bytes": "mirror",
+"file": "File:Elder logs.png",
+"h": 26,
+"icon": "new",
+"sha1": "431ac21ccadb5895467f9cc7bf2aad5b85a5434c",
+"src": "icons/1030b4aa62bc.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Elder longbow": {
+"bytes": "mirror",
+"file": "File:Elder longbow.png",
+"h": 32,
+"icon": "new",
+"sha1": "11a8114a24bb80cbf3e88e48f3b413d84c2495b7",
+"src": "icons/f52a39f9d49b.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Elder longbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Elder longbow (unstrung).png",
+"h": 31,
+"icon": "new",
+"sha1": "3c3a9abf74d03943bc591bf9a9532cccaf2301ff",
+"src": "icons/5a92ee833607.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
 },
 "Elder overload potion (6)": {
 "bytes": "mirror",
@@ -4355,6 +5982,162 @@
 ],
 "via": "exact file",
 "w": 19
+},
+"Elder rune arrow": {
+"bytes": "mirror",
+"file": "File:Elder rune arrow 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "63891f54e9eba1528c6abf137644cad5c4c1de20",
+"src": "icons/dac01d310406.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Elder rune arrow.png",
+"w": 32
+},
+"Elder rune arrowheads": {
+"bytes": "mirror",
+"file": "File:Elder rune arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "5a2a5796cc12cf3ea2c758cc227b27f0237c06b3",
+"src": "icons/37a3175112c6.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Elder rune arrowheads.png",
+"w": 32
+},
+"Elder rune bar": {
+"bytes": "mirror",
+"file": "File:Elder rune bar.png",
+"h": 24,
+"icon": "new",
+"sha1": "32663ca09f64b2a5d1c736d19edd134d4661c05f",
+"src": "icons/613c78c2d573.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Elder rune bolts": {
+"bytes": "mirror",
+"file": "File:Elder rune bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "0059bfd12b5b787c6ee28ba4148b14146b8fca4b",
+"src": "icons/b2427b5e8db4.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Elder rune bolts.png",
+"w": 28
+},
+"Elder rune bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Elder rune bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "18824b13673c392b86b596d765b31f4b58d0bf48",
+"src": "icons/91e3ced83540.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Elder rune bolts (unf).png",
+"w": 26
+},
+"Elder shaft": {
+"bytes": "mirror",
+"file": "File:Elder shaft 5.png",
+"h": 28,
+"icon": "new",
+"sha1": "c4baeb35073006bcae7b9c4490d360a4adb4e231",
+"src": "icons/35a45144d801.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Elder shaft.png",
+"w": 30
+},
+"Elder shortbow": {
+"bytes": "mirror",
+"file": "File:Elder shortbow.png",
+"h": 30,
+"icon": "new",
+"sha1": "f38a558d0ab7ce4f08e6a7e2f1017960ab836334",
+"src": "icons/4be96ba3a978.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Elder shortbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Elder shortbow (unstrung).png",
+"h": 26,
+"icon": "new",
+"sha1": "eefade44aa4497a57abdf51b8ba03e77145c0971",
+"src": "icons/cc2bda3f022e.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Emerald": {
+"bytes": "mirror",
+"file": "File:Emerald.png",
+"h": 24,
+"icon": "reused",
+"sha1": "191d5a2cb2782a6ccaaa9651a1891fba6b735301",
+"src": "icons/fc005a477bec.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 21
+},
+"Emerald bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Emerald bakriminel bolts 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "8a071c2647ddd62fcb33a309071c5a8edfa85b5b",
+"src": "icons/1989e2b21771.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Emerald bakriminel bolts.png",
+"w": 32
+},
+"Emerald bolt tips": {
+"bytes": "mirror",
+"file": "File:Emerald bolt tips 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "000b0ec6bef5113c1899842eb0e00c8c5da4eab3",
+"src": "icons/23f892b62ddb.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Emerald bolt tips.png",
+"w": 31
+},
+"Emerald bolts": {
+"bytes": "mirror",
+"file": "File:Emerald bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "e89727446f3fb8e526b79a0d755db735a156d743",
+"src": "icons/bd9792a94c28.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Emerald bolts.png",
+"w": 29
 },
 "Energy flask (6)": {
 "bytes": "mirror",
@@ -4517,6 +6300,71 @@
 "via": "exact file",
 "w": 32
 },
+"Entgallow branches": {
+"bytes": "mirror",
+"file": "File:Entgallow branches.png",
+"h": 29,
+"icon": "new",
+"sha1": "008fbb611f4e225247b7481d34af0dbd34e0c16f",
+"src": "icons/fad10bdfaa34.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Entgallow longbow": {
+"bytes": "mirror",
+"file": "File:Entgallow longbow.png",
+"h": 27,
+"icon": "new",
+"sha1": "617aef731bffe2b107d8b9de4f56e2b598e60105",
+"src": "icons/9a2ae9d9a201.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Entgallow shortbow": {
+"bytes": "mirror",
+"file": "File:Entgallow shortbow.png",
+"h": 28,
+"icon": "reused",
+"sha1": "2c01af7f51ba33f5e559456528a9aef6dce09617",
+"src": "icons/c8304d21a5de.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Entgallow staff": {
+"bytes": "mirror",
+"file": "File:Entgallow staff.png",
+"h": 31,
+"icon": "new",
+"sha1": "72ce1932c92f68a7b89be6b0c05db70e38c55b6a",
+"src": "icons/3fa5f22e4b1e.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Entgallow trap": {
+"bytes": "mirror",
+"file": "File:Entgallow trap.png",
+"h": 31,
+"icon": "new",
+"sha1": "5f87dbe5b194c78e2a24123717f517c242996e38",
+"src": "icons/f20e110680ae.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 18
+},
 "Equa leaves": {
 "bytes": "mirror",
 "file": "File:Equa leaves.png",
@@ -4543,6 +6391,188 @@
 "via": "exact file",
 "w": 16
 },
+"Eternal magic headless shaft": {
+"bytes": "mirror",
+"file": "File:Eternal magic headless shaft 5.png",
+"h": 28,
+"icon": "new",
+"sha1": "4c513277c03a9a86830501942e2d18e16e086e2c",
+"src": "icons/9f02e9a05770.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Eternal magic headless shaft.png",
+"w": 30
+},
+"Eternal magic logs": {
+"bytes": "mirror",
+"file": "File:Eternal magic logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "d399e4e2562899dcfdf3010e61d4c93443e92c77",
+"src": "icons/50d97377e501.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Eternal magic longbow": {
+"bytes": "mirror",
+"file": "File:Eternal magic longbow.png",
+"h": 32,
+"icon": "new",
+"sha1": "fdc3d9a53f78bcca635c4c577d5eb79c95277883",
+"src": "icons/def854a15669.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Eternal magic longbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Eternal magic longbow (unstrung).png",
+"h": 31,
+"icon": "new",
+"sha1": "8f07b11b41b01fecb9119311dba0924b8f063fef",
+"src": "icons/243f72400a05.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Eternal magic shaft": {
+"bytes": "mirror",
+"file": "File:Eternal magic shaft 5.png",
+"h": 27,
+"icon": "new",
+"sha1": "be926fbc4eaaf7ec0b29c462f23952a35a4f9a27",
+"src": "icons/4467cbb736e0.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Eternal magic shaft.png",
+"w": 28
+},
+"Eternal magic shortbow": {
+"bytes": "mirror",
+"file": "File:Eternal magic shortbow.png",
+"h": 32,
+"icon": "new",
+"sha1": "77a37f9f91f5f8d7e2bd2ae8b2909f393259c6d8",
+"src": "icons/3bd41eb42247.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Eternal magic shortbow (martial)": {
+"bytes": "mirror",
+"file": "File:Eternal magic shortbow (martial).png",
+"h": 32,
+"icon": "reused",
+"sha1": "77a37f9f91f5f8d7e2bd2ae8b2909f393259c6d8",
+"src": "icons/3bd41eb42247.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Eternal magic shortbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Eternal magic shortbow (unstrung).png",
+"h": 32,
+"icon": "new",
+"sha1": "e7d98b520b95d0b49fc7d01c3e3a9e49410d3455",
+"src": "icons/1b8eaf33e79d.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Eternal magic shortbow Mk. 1": {
+"bytes": "mirror",
+"file": "File:Eternal magic shortbow Mk. 1.png",
+"h": 32,
+"icon": "reused",
+"sha1": "77a37f9f91f5f8d7e2bd2ae8b2909f393259c6d8",
+"src": "icons/3bd41eb42247.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Eternal magic shortbow Mk. 2": {
+"bytes": "mirror",
+"file": "File:Eternal magic shortbow Mk. 2.png",
+"h": 32,
+"icon": "reused",
+"sha1": "77a37f9f91f5f8d7e2bd2ae8b2909f393259c6d8",
+"src": "icons/3bd41eb42247.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Eternal magic shortbow Mk. 3": {
+"bytes": "mirror",
+"file": "File:Eternal magic shortbow Mk. 3.png",
+"h": 32,
+"icon": "reused",
+"sha1": "77a37f9f91f5f8d7e2bd2ae8b2909f393259c6d8",
+"src": "icons/3bd41eb42247.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Eternal magic shortbow Mk. 4": {
+"bytes": "mirror",
+"file": "File:Eternal magic shortbow Mk. 4.png",
+"h": 32,
+"icon": "reused",
+"sha1": "77a37f9f91f5f8d7e2bd2ae8b2909f393259c6d8",
+"src": "icons/3bd41eb42247.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Eternal magic shortbow Mk. 5": {
+"bytes": "mirror",
+"file": "File:Eternal magic shortbow Mk. 5.png",
+"h": 32,
+"icon": "reused",
+"sha1": "77a37f9f91f5f8d7e2bd2ae8b2909f393259c6d8",
+"src": "icons/3bd41eb42247.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Eternal magic stock": {
+"bytes": "mirror",
+"file": "File:Eternal magic stock.png",
+"h": 24,
+"icon": "new",
+"sha1": "933c23757a11dff5782c9a8ddf77c189816e14c8",
+"src": "icons/c5b0c6de0e8d.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 24
+},
 "Exalted essence": {
 "bytes": "mirror",
 "file": "File:Exalted essence.png",
@@ -4556,11 +6586,24 @@
 "via": "exact file",
 "w": 30
 },
+"Excrescence": {
+"bytes": "mirror",
+"file": "File:Excrescence 5.png",
+"h": 28,
+"icon": "new",
+"sha1": "6c331f597441867cfd986ec680c0827ebada526a",
+"src": "icons/4183edc37c3c.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Excrescence.png",
+"w": 32
+},
 "Exquisite cooking urn": {
 "bytes": "mirror",
 "file": "File:Exquisite cooking urn.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "f1d26d2910ae51c2fc1c5291cc4a740bbff352b1",
 "src": "icons/1bc9a634966b.webp",
 "used": [
@@ -4573,7 +6616,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite cooking urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "395b65861991aed1e931506af6e3d0b0abfa9853",
 "src": "icons/05a378d4b74b.webp",
 "used": [
@@ -5570,6 +7613,32 @@
 "via": "exact file",
 "w": 33
 },
+"Feather": {
+"bytes": "mirror",
+"file": "File:Feather.png",
+"h": 31,
+"icon": "reused",
+"sha1": "f5101886ab2517a3ba807c11f7159dbaff11deda",
+"src": "icons/c5947af25b67.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Feather (Dungeoneering)": {
+"bytes": "mirror",
+"file": "File:Feather (Dungeoneering).png",
+"h": 31,
+"icon": "new",
+"sha1": "fc8f0e3648018eb1c3169c50e6ae666936177f06",
+"src": "icons/c46e19e4f501.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
 "Featherfoil potion (unfinished)": {
 "bytes": "mirror",
 "file": "File:Featherfoil potion (unfinished).png",
@@ -5652,7 +7721,7 @@
 "bytes": "mirror",
 "file": "File:Fish oil 20.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "39980967dafb59edd9f6adbf59934ec50b49a998",
 "src": "icons/4e773c21c296.webp",
 "used": [
@@ -5665,7 +7734,7 @@
 "bytes": "mirror",
 "file": "File:Fish pie.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "7abe03eb10d2cff55b782ff221b71a2810e6ce81",
 "src": "icons/cb6f8942d67d.webp",
 "used": [
@@ -5866,11 +7935,63 @@
 "via": "exact file",
 "w": 21
 },
+"Fletching-icon": {
+"bytes": "mirror",
+"file": "File:Fletching-icon.png",
+"h": 25,
+"icon": "new",
+"sha1": "0a801f3b6b6ccd99e86dc4bc01de916a790689dd",
+"src": "icons/0485a3d83366.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 25
+},
+"Flighted ogre arrow": {
+"bytes": "mirror",
+"file": "File:Flighted ogre arrow 5.png",
+"h": 28,
+"icon": "new",
+"sha1": "12cfe7af802f00e5ee7ba5f5a11c03be95ef4ec7",
+"src": "icons/117b343616de.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Flighted ogre arrow.png",
+"w": 30
+},
+"Fractite arrows": {
+"bytes": "mirror",
+"file": "File:Fractite arrows 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "be243de0ecd7932b808d82041d2a43102365103e",
+"src": "icons/7cf0fb59e63c.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Fractite arrows.png",
+"w": 29
+},
+"Fractite bar": {
+"bytes": "mirror",
+"file": "File:Fractite bar.png",
+"h": 28,
+"icon": "new",
+"sha1": "a1fda0b48e5a90ac326a33556bada7080e741227",
+"src": "icons/ab08701d0b0f.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
 "Fragile cooking urn": {
 "bytes": "mirror",
 "file": "File:Fragile cooking urn.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "067973ec535feca5bfd60dff1448d24c06142162",
 "src": "icons/d8e47564c4fd.webp",
 "used": [
@@ -5883,7 +8004,7 @@
 "bytes": "mirror",
 "file": "File:Fragile cooking urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "d7bb81eae52ca908f85029f99b2f8e79917234cc",
 "src": "icons/a12874501f08.webp",
 "used": [
@@ -5892,11 +8013,37 @@
 "via": "exact file",
 "w": 30
 },
+"Fragment arrows": {
+"bytes": "mirror",
+"file": "File:Fragment arrows 4.png",
+"h": 28,
+"icon": "new",
+"sha1": "4560e36f60eeae9162582cbf649f13d6491b219c",
+"src": "icons/58ac91d514fb.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Fragment arrows.png",
+"w": 28
+},
+"Fragment bolts": {
+"bytes": "mirror",
+"file": "File:Fragment bolts 4.png",
+"h": 22,
+"icon": "new",
+"sha1": "dd5d0b4645d4d5e6c5b89fa6d9aec2a47109c0e9",
+"src": "icons/0d967b79b672.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Fragment bolts.png",
+"w": 30
+},
 "Fried mushrooms": {
 "bytes": "mirror",
 "file": "File:Fried mushrooms.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "47a93f71cc57b5aee7db5426276c70ca977c1157",
 "src": "icons/c6a66087ca03.webp",
 "used": [
@@ -5909,7 +8056,7 @@
 "bytes": "mirror",
 "file": "File:Fried onions.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "94a1227a7a4977f49dcd74e38b4ab421940c6338",
 "src": "icons/a48965e359fe.webp",
 "used": [
@@ -5948,7 +8095,7 @@
 "bytes": "mirror",
 "file": "File:Fruit batta.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "25543848736a6dffa86f5ce3d5563cbec032a6d2",
 "src": "icons/54a93e0f81dd.webp",
 "used": [
@@ -5957,11 +8104,37 @@
 "via": "exact file",
 "w": 21
 },
+"Ful arrow": {
+"bytes": "mirror",
+"file": "File:Ful arrow 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "a1e3aca50432d89da9dd39adf88670a2ac7c49de",
+"src": "icons/8ae0f8c80227.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Ful arrow.png",
+"w": 31
+},
+"Fungal bowstring": {
+"bytes": "mirror",
+"file": "File:Fungal bowstring 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "a9f3680d9264420b8e59d9b7caa2dee305dbd3e7",
+"src": "icons/5f24667ace04.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Fungal bowstring.png",
+"w": 33
+},
 "Garden pie": {
 "bytes": "mirror",
 "file": "File:Garden pie.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "5ab848c4342adaebd105e9bf2250bbd60c5dfc89",
 "src": "icons/64ee38d18d71.webp",
 "used": [
@@ -6014,7 +8187,7 @@
 "bytes": "downloaded",
 "file": "File:Gianne dough.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "447ba861d88f7a723139a5e7101618932698b21b",
 "src": "icons/36798424f773.webp",
 "used": [
@@ -6027,7 +8200,7 @@
 "bytes": "mirror",
 "file": "File:Giant chinchompa meat.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "f4b21a7f8c913219cc61992d73b682e966166479",
 "src": "icons/281cd56c725d.webp",
 "used": [
@@ -6040,7 +8213,7 @@
 "bytes": "mirror",
 "file": "File:Giant crayfish.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "c01fdb08ed4b064885382c900f93d5e46763670f",
 "src": "icons/1cbf1f0053d0.webp",
 "used": [
@@ -6053,7 +8226,7 @@
 "bytes": "mirror",
 "file": "File:Giant flatfish.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "4d67c9818a25cf0a287625b19a872c06f5eb07b0",
 "src": "icons/44df0bcb7b1d.webp",
 "used": [
@@ -6079,7 +8252,7 @@
 "bytes": "mirror",
 "file": "File:Giant kebbit meat.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "2eafaf8703c822863e89a6b314fadfc69d84d4ca",
 "src": "icons/bea047bbc5d0.webp",
 "used": [
@@ -6092,7 +8265,7 @@
 "bytes": "downloaded",
 "file": "File:Gin.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "65ef90dd3f78a113bb774848bdb458ef8122ef14",
 "src": "icons/b29e400a1abc.webp",
 "used": [
@@ -6105,7 +8278,7 @@
 "bytes": "mirror",
 "file": "File:Gissel mushroom.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "201c8c5d9dc23de9f7a0587e654ee47d56f6309a",
 "src": "icons/845d8602b8f9.webp",
 "used": [
@@ -6118,7 +8291,7 @@
 "bytes": "mirror",
 "file": "File:Gissel potato.png",
 "h": 16,
-"icon": "new",
+"icon": "reused",
 "sha1": "54c5caf5a606b15bcdfd666284c485964328cabb",
 "src": "icons/0ad54fe32ebd.webp",
 "used": [
@@ -6131,7 +8304,7 @@
 "bytes": "downloaded",
 "file": "File:Gnome spice.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "bfe49b593e2295a6ba4b1cce302754273d48dff6",
 "src": "icons/c6efef400c97.webp",
 "used": [
@@ -6218,6 +8391,19 @@
 "via": "exact file",
 "w": 32
 },
+"Golden bamboo": {
+"bytes": "mirror",
+"file": "File:Golden bamboo.png",
+"h": 25,
+"icon": "new",
+"sha1": "1c048e1bbbee682369196699e928a1356db2e4bd",
+"src": "icons/03d08ae92688.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 27
+},
 "Golden dragonfruit": {
 "bytes": "mirror",
 "file": "File:Golden dragonfruit.png",
@@ -6235,7 +8421,7 @@
 "bytes": "mirror",
 "file": "File:Golden watermelon.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "3fa8a39094f2d7a5fef714a34154adcf2ea33242",
 "src": "icons/31f077370913.webp",
 "used": [
@@ -6269,6 +8455,32 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Gorgonite arrows": {
+"bytes": "mirror",
+"file": "File:Gorgonite arrows 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "bc6c2e7926c573d5d1dd91bfaa3a2d926f4bb944",
+"src": "icons/d69d1d63af33.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Gorgonite arrows.png",
+"w": 34
+},
+"Gorgonite bar": {
+"bytes": "mirror",
+"file": "File:Gorgonite bar.png",
+"h": 28,
+"icon": "new",
+"sha1": "7519257a622fae02fcec37cbac964cda7e763d30",
+"src": "icons/09310d4745bb.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
 },
 "Grand attack potion (6)": {
 "bytes": "mirror",
@@ -6348,11 +8560,76 @@
 "via": "exact file",
 "w": 20
 },
+"Grave creeper branches": {
+"bytes": "mirror",
+"file": "File:Grave creeper branches.png",
+"h": 29,
+"icon": "new",
+"sha1": "5f03ee971eddbcf60da923ab1e56aba54429eecb",
+"src": "icons/82c2f36e56e6.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Grave creeper longbow": {
+"bytes": "mirror",
+"file": "File:Grave creeper longbow.png",
+"h": 27,
+"icon": "reused",
+"sha1": "c3d42ab6876c2775e5696c9c75c604bf8e3b6612",
+"src": "icons/0ffcf33f754c.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Grave creeper shortbow": {
+"bytes": "mirror",
+"file": "File:Grave creeper shortbow.png",
+"h": 28,
+"icon": "reused",
+"sha1": "50ea1a153305c2fcf65d11ae8f8b6e58d63ecb65",
+"src": "icons/ec13e17216c8.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Grave creeper staff": {
+"bytes": "mirror",
+"file": "File:Grave creeper staff.png",
+"h": 31,
+"icon": "new",
+"sha1": "0831241b5b7c8bc540260dbe7d2e30c24b4b25ce",
+"src": "icons/4683d53ae4d6.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Grave creeper trap": {
+"bytes": "mirror",
+"file": "File:Grave creeper trap.png",
+"h": 32,
+"icon": "new",
+"sha1": "cd1c94052d6e40ecf07ecbedf74bf2a923eff220",
+"src": "icons/7418293d67c5.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 18
+},
 "Great gunkan": {
 "bytes": "mirror",
 "file": "File:Great gunkan.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "2ce9829d07357770757957762152759a1af01922",
 "src": "icons/989315553afe.webp",
 "used": [
@@ -6365,7 +8642,7 @@
 "bytes": "mirror",
 "file": "File:Great maki.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "b0be0e6f5aabfb95da8f89610ed96f2014778cd2",
 "src": "icons/ca6d492b5779.webp",
 "used": [
@@ -6378,7 +8655,7 @@
 "bytes": "mirror",
 "file": "File:Great white shark.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "6bd4442a83706cfa34d1c9139f0475446cac7826",
 "src": "icons/09edc9c74f43.webp",
 "used": [
@@ -6391,7 +8668,7 @@
 "bytes": "mirror",
 "file": "File:Green blubber jellyfish.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "6b573f19ae0e517d5e8e23c7a18f8c3f5e5420fc",
 "src": "icons/a0191d255b02.webp",
 "used": [
@@ -6434,6 +8711,7 @@
 "sha1": "bc6aaac306b76c4f107733c98ec141bcd3e7315a",
 "src": "icons/3c694f0b1019.webp",
 "used": [
+"fletching",
 "herblore"
 ],
 "via": "File redirect from File:Grenwall spikes.png",
@@ -6937,7 +9215,7 @@
 "bytes": "mirror",
 "file": "File:Ground cod.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "d526bfeaa53ffe96442ec3923ccb0a8887eb2596",
 "src": "icons/d4cfcabfa21e.webp",
 "used": [
@@ -6950,7 +9228,7 @@
 "bytes": "mirror",
 "file": "File:Ground crab meat.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "21603d70338c83e49b4c6badfa9c22c2ab1c9812",
 "src": "icons/4bc52f1d9904.webp",
 "used": [
@@ -6963,7 +9241,7 @@
 "bytes": "mirror",
 "file": "File:Ground kelp.png",
 "h": 15,
-"icon": "new",
+"icon": "reused",
 "sha1": "046eed2c219f47d4fd7239117f91144c84f5a1e6",
 "src": "icons/22a8acb7b3c7.webp",
 "used": [
@@ -7407,7 +9685,7 @@
 "bytes": "downloaded",
 "file": "File:Hammerstone hops.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "9b10bcccf66df0a31331c269c1718a52b1976d1a",
 "src": "icons/4f6c21247821.webp",
 "used": [
@@ -7538,11 +9816,37 @@
 "via": "exact file",
 "w": 21
 },
+"Headless dinarrow": {
+"bytes": "mirror",
+"file": "File:Headless dinarrow 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "67149e91aa1f2922f13c8d67b1b022fbfc485b0b",
+"src": "icons/b121d6bafe1e.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Headless dinarrow.png",
+"w": 30
+},
+"Headless shaft": {
+"bytes": "mirror",
+"file": "File:Headless shaft 5.png",
+"h": 28,
+"icon": "new",
+"sha1": "287a2069f779380b959b54c92e34bb39d0904a03",
+"src": "icons/273ddcde8a6c.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Headless shaft.png",
+"w": 30
+},
 "Heim crab": {
 "bytes": "mirror",
 "file": "File:Heim crab.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "0de91d76b4451024e64590b7edafc367679470c1",
 "src": "icons/dda82b2f9800.webp",
 "used": [
@@ -7594,7 +9898,7 @@
 "bytes": "mirror",
 "file": "File:Heirloom tomato.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "b809b0a34f1f995b0f2bb513fec54469f56926f8",
 "src": "icons/3906b85092f9.webp",
 "used": [
@@ -7607,7 +9911,7 @@
 "bytes": "mirror",
 "file": "File:Herring.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "e071f56baa4112fedfd68329c0ad4ebdc7289219",
 "src": "icons/a2797cd88fde.webp",
 "used": [
@@ -7738,6 +10042,45 @@
 "via": "exact file",
 "w": 20
 },
+"Hydrix": {
+"bytes": "mirror",
+"file": "File:Hydrix.png",
+"h": 24,
+"icon": "new",
+"sha1": "59412708440dddeb7bac100c3fe3a0d25c0cb605",
+"src": "icons/570146ea5285.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 21
+},
+"Hydrix bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Hydrix bakriminel bolts 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "ca8946cb3f0766553734af81b050e7043c088fbb",
+"src": "icons/e077e2d8bc62.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Hydrix bakriminel bolts.png",
+"w": 32
+},
+"Hydrix bolt tips": {
+"bytes": "mirror",
+"file": "File:Hydrix bolt tips 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "726bc2e83a966be0215d2eacfa738dc2d0ca8b1c",
+"src": "icons/1eec725f8d8d.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Hydrix bolt tips.png",
+"w": 31
+},
 "Inert adrenaline crystal": {
 "bytes": "mirror",
 "file": "File:Inert adrenaline crystal.png",
@@ -7834,6 +10177,214 @@
 "via": "exact file",
 "w": 21
 },
+"Iron 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Iron 2h crossbow.png",
+"h": 27,
+"icon": "new",
+"sha1": "901420bd96e968b4119e1f104771977c37ddbbe9",
+"src": "icons/710b30f58655.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Iron arrow": {
+"bytes": "mirror",
+"file": "File:Iron arrow 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "5c61c1141e39d6efde76ac7e28812640a484c865",
+"src": "icons/f252f3097ee7.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Iron arrow.png",
+"w": 32
+},
+"Iron arrowheads": {
+"bytes": "mirror",
+"file": "File:Iron arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "3c56eedcd12edc4a2552f9acd2087c89aabc6b08",
+"src": "icons/7e9f05bcdabf.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Iron arrowheads.png",
+"w": 32
+},
+"Iron bar": {
+"bytes": "mirror",
+"file": "File:Iron bar.png",
+"h": 24,
+"icon": "reused",
+"sha1": "d93bf8bb9e29f15dfdb4178675e9113102f2ea60",
+"src": "icons/eca5561137ed.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Iron bolts": {
+"bytes": "mirror",
+"file": "File:Iron bolts 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "c39ee0c8b84ff8972e54f811b989aef288f757a6",
+"src": "icons/aace53ad7cc5.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Iron bolts.png",
+"w": 28
+},
+"Iron bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Iron bolts (unf) 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "69ca2bf3b2b688c54229e529c8632cef4374dca5",
+"src": "icons/5535864d5286.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Iron bolts (unf).png",
+"w": 26
+},
+"Iron brutal": {
+"bytes": "mirror",
+"file": "File:Iron brutal 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "6d46299db34729d4cd9a5311bf65a1ec27b2a226",
+"src": "icons/f18e3cc75db5.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Iron brutal.png",
+"w": 31
+},
+"Iron crossbow": {
+"bytes": "mirror",
+"file": "File:Iron crossbow.png",
+"h": 25,
+"icon": "reused",
+"sha1": "292c3a28f752fc06a91d0e7e5d42d4b344ed9ce7",
+"src": "icons/570a7fcdaa01.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Iron crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Iron crossbow (unstrung).png",
+"h": 28,
+"icon": "new",
+"sha1": "b7ab3ca0cdbf44e59e4fb5f2cd22801e851cb7fe",
+"src": "icons/b0498396aa01.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Iron dart": {
+"bytes": "mirror",
+"file": "File:Iron dart.png",
+"h": 29,
+"icon": "reused",
+"sha1": "42dceae67fcac4e56e3b8a41ef5e444833ec54d1",
+"src": "icons/2099652cbc17.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 22
+},
+"Iron dart tip": {
+"bytes": "mirror",
+"file": "File:Iron dart tip.png",
+"h": 19,
+"icon": "new",
+"sha1": "d1189f5fbc40d63f740a53992d2d5e8ab10fbf68",
+"src": "icons/c8619a9f9496.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 11
+},
+"Iron nails": {
+"bytes": "mirror",
+"file": "File:Iron nails.png",
+"h": 25,
+"icon": "reused",
+"sha1": "ece76291614e7040924219e3ae60087492a5e6d1",
+"src": "icons/09d38b0034ae.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Jade": {
+"bytes": "mirror",
+"file": "File:Jade.png",
+"h": 24,
+"icon": "reused",
+"sha1": "7e62956980b0f5f8675f7ba1f56d82129eb60eac",
+"src": "icons/711e0a37512d.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 21
+},
+"Jade bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Jade bakriminel bolts 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "75881172085817683545071a31c247cc1701d51c",
+"src": "icons/413e1fd858a8.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Jade bakriminel bolts.png",
+"w": 32
+},
+"Jade bolt tips": {
+"bytes": "mirror",
+"file": "File:Jade bolt tips 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "c1c6749c19b4035535ade3c07794c2c48d2e56f6",
+"src": "icons/c971cc69adac.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Jade bolt tips.png",
+"w": 31
+},
+"Jade bolts": {
+"bytes": "mirror",
+"file": "File:Jade bolts 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "dbd8de0e6aa9430916aa6caa08ebd0c1d62fcf43",
+"src": "icons/b5ddf5266a70.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Jade bolts.png",
+"w": 29
+},
 "Jangerberries": {
 "bytes": "mirror",
 "file": "File:Jangerberries.png",
@@ -7846,6 +10397,19 @@
 ],
 "via": "exact file",
 "w": 20
+},
+"Jas dragonbane arrow": {
+"bytes": "mirror",
+"file": "File:Jas dragonbane arrow 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "7995f780c6f3e6fd3e2302c31dd1f7ed77a82c36",
+"src": "icons/d9f9afc42904.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Jas dragonbane arrow.png",
+"w": 32
 },
 "Jug of water": {
 "bytes": "mirror",
@@ -8332,11 +10896,37 @@
 "via": "exact file",
 "w": 29
 },
+"Katagon arrows": {
+"bytes": "mirror",
+"file": "File:Katagon arrows 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "0bda32db06177873987f38a90555fbd5c9733548",
+"src": "icons/5dfde90db408.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Katagon arrows.png",
+"w": 32
+},
+"Katagon bar": {
+"bytes": "mirror",
+"file": "File:Katagon bar.png",
+"h": 28,
+"icon": "new",
+"sha1": "e60157c934c74055f2d56779d0607d5f7d4eb047",
+"src": "icons/05eba11b8e16.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
 "Kebab mix": {
 "bytes": "mirror",
 "file": "File:Kebab mix.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "5bfd3ecaa2537d426c1d31381cb48ed7d69cfe34",
 "src": "icons/9c8ed02bde8a.webp",
 "used": [
@@ -8344,6 +10934,32 @@
 ],
 "via": "exact file",
 "w": 33
+},
+"Kebbit bolts": {
+"bytes": "mirror",
+"file": "File:Kebbit bolts.png",
+"h": 29,
+"icon": "new",
+"sha1": "0b1039e16a8fe74b38617e2e99f0af966d1c9a32",
+"src": "icons/2e06f8cd10e5.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Kebbit spike": {
+"bytes": "mirror",
+"file": "File:Kebbit spike.png",
+"h": 21,
+"icon": "new",
+"sha1": "7df0520a8ed2e95c4c8be451714ce8d59fb939d1",
+"src": "icons/98abed1fdb09.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 26
 },
 "Kebbit teeth": {
 "bytes": "mirror",
@@ -8375,7 +10991,7 @@
 "bytes": "mirror",
 "file": "File:Kelp.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "52305940fe345f0d2ad24fd77c0f293b9ade382d",
 "src": "icons/9f35abb855d4.webp",
 "used": [
@@ -8401,7 +11017,7 @@
 "bytes": "mirror",
 "file": "File:Krandorian hops.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "004d2676e1db3883511de81d204b736103d43e7a",
 "src": "icons/2de05e806e40.webp",
 "used": [
@@ -8409,6 +11025,32 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Kratonite arrows": {
+"bytes": "mirror",
+"file": "File:Kratonite arrows 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "f420c7e6061e389f8c392825e77243f1d3c8697e",
+"src": "icons/95986a5c4c0b.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Kratonite arrows.png",
+"w": 30
+},
+"Kratonite bar": {
+"bytes": "mirror",
+"file": "File:Kratonite bar.png",
+"h": 28,
+"icon": "new",
+"sha1": "18b4cbc2a52807217bf35d76f7472979b24d8ac2",
+"src": "icons/e61b34d0d5a3.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
 },
 "Kwuarm potion (unfinished)": {
 "bytes": "mirror",
@@ -8505,7 +11147,7 @@
 "bytes": "mirror",
 "file": "File:Lemon cheesecake.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "11691d0979c1c4d4bbc245896835a7949d87356f",
 "src": "icons/e67b589fa252.webp",
 "used": [
@@ -8531,7 +11173,7 @@
 "bytes": "downloaded",
 "file": "File:Lime chunks.png",
 "h": 12,
-"icon": "new",
+"icon": "reused",
 "sha1": "b33d36e97ab22aa093b826d18c774ac0fd53d852",
 "src": "icons/2851239d8cc6.webp",
 "used": [
@@ -8565,6 +11207,71 @@
 ],
 "via": "exact file",
 "w": 34
+},
+"Logs": {
+"bytes": "mirror",
+"file": "File:Logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "a7b40a0a83aa1239907ce612b2c677d38473c4e1",
+"src": "icons/d87ccbaca112.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Long kebbit bolts": {
+"bytes": "mirror",
+"file": "File:Long kebbit bolts.png",
+"h": 29,
+"icon": "new",
+"sha1": "2bc75070fa3e43736725b6232b16d995b9e6e6a8",
+"src": "icons/6cc70cf6f8a9.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Long kebbit spike": {
+"bytes": "mirror",
+"file": "File:Long kebbit spike.png",
+"h": 27,
+"icon": "new",
+"sha1": "e36a589648f7b9ae63176e341f3ec345fc21c70a",
+"src": "icons/7e3341435ee8.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 34
+},
+"Longbow": {
+"bytes": "mirror",
+"file": "File:Longbow.png",
+"h": 32,
+"icon": "reused",
+"sha1": "e7277c1b3622dd6b9f58bc498ecc4e3a8739b556",
+"src": "icons/4826bd4278e6.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Longbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Longbow (unstrung).png",
+"h": 31,
+"icon": "new",
+"sha1": "cfe4a55f6fcd6d8a8e9108b20b28a4420623ce9f",
+"src": "icons/f9b4ca1e6cd1.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
 },
 "Luck potion": {
 "bytes": "mirror",
@@ -8749,6 +11456,45 @@
 "via": "exact file",
 "w": 21
 },
+"Magic logs": {
+"bytes": "mirror",
+"file": "File:Magic logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "4f2ffb5ae3065d802ba37af1ff382bad515002a9",
+"src": "icons/ececd320c370.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Magic longbow": {
+"bytes": "mirror",
+"file": "File:Magic longbow.png",
+"h": 32,
+"icon": "reused",
+"sha1": "0340d612da235c4611a4b985789086f99bdb4f05",
+"src": "icons/056e7ee8f96c.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Magic longbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Magic longbow (unstrung).png",
+"h": 31,
+"icon": "reused",
+"sha1": "bf0b0109a0c37c537fc0ea16686251dfe0d39cce",
+"src": "icons/bad81647fa6a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
 "Magic mix (1)": {
 "bytes": "mirror",
 "file": "File:Magic mix (1).png",
@@ -8857,11 +11603,50 @@
 "via": "exact file",
 "w": 33
 },
+"Magic shortbow": {
+"bytes": "mirror",
+"file": "File:Magic shortbow.png",
+"h": 30,
+"icon": "reused",
+"sha1": "081e1da3fab05a596e1bd60485cd888de45f04c7",
+"src": "icons/1dcc4247de7c.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Magic shortbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Magic shortbow (unstrung).png",
+"h": 27,
+"icon": "new",
+"sha1": "9547f4cbd8a58e20e6f3f565b7e165ddfd23558e",
+"src": "icons/0dbe5d2611fb.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Mahogany logs": {
+"bytes": "mirror",
+"file": "File:Mahogany logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "43991b6d943ce9edb0ed6fe8db153c0c4d92bd6c",
+"src": "icons/e30be3641c6e.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
 "Malletops meat": {
 "bytes": "mirror",
 "file": "File:Malletops meat.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "3215f7c15ffded0c695b00d1f3ae7b39dffb1541",
 "src": "icons/f2f28bad524e.webp",
 "used": [
@@ -8910,6 +11695,71 @@
 "via": "exact file",
 "w": 29
 },
+"Maple logs": {
+"bytes": "mirror",
+"file": "File:Maple logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "816072ab287b9af02956af0ffcd1a3512e874099",
+"src": "icons/ed8b83672572.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Maple longbow": {
+"bytes": "mirror",
+"file": "File:Maple longbow.png",
+"h": 32,
+"icon": "reused",
+"sha1": "3b24f22bd44296f68ab51c33190e1b734b01873d",
+"src": "icons/3378a70ac353.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Maple longbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Maple longbow (unstrung).png",
+"h": 31,
+"icon": "new",
+"sha1": "a395c7797ae03c47d852b9b3a9dc91a4e84741a4",
+"src": "icons/97d66df54ae2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Maple shortbow": {
+"bytes": "mirror",
+"file": "File:Maple shortbow.png",
+"h": 30,
+"icon": "reused",
+"sha1": "ff65a577156f6b96562dd1eaf0c9f18abc0750dc",
+"src": "icons/466425e3197e.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Maple shortbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Maple shortbow (unstrung).png",
+"h": 27,
+"icon": "reused",
+"sha1": "a0f097bdcbd435094d3289ff686df26f7853d6aa",
+"src": "icons/e9fa571dd3cc.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
 "Marble vine": {
 "bytes": "mirror",
 "file": "File:Marble vine.png",
@@ -8922,6 +11772,32 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Marmaros arrows": {
+"bytes": "mirror",
+"file": "File:Marmaros arrows 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "a6c6da07e041915f8ded5274ae70fc39e2d0538c",
+"src": "icons/4c7379e41630.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Marmaros arrows.png",
+"w": 26
+},
+"Marmaros bar": {
+"bytes": "mirror",
+"file": "File:Marmaros bar.png",
+"h": 28,
+"icon": "new",
+"sha1": "85662d2939485ba3ad9ca260b5d4a3336006d444",
+"src": "icons/5375e29b8ec3.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
 },
 "Marrentill potion (unfinished)": {
 "bytes": "mirror",
@@ -9096,6 +11972,188 @@
 ],
 "via": "exact file",
 "w": 28
+},
+"Mithril 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Mithril 2h crossbow.png",
+"h": 27,
+"icon": "new",
+"sha1": "9c0c71a7e57f1d46d6318a133cb31f00554f3846",
+"src": "icons/236445f4e7fc.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Mithril arrow": {
+"bytes": "mirror",
+"file": "File:Mithril arrow 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "a5daae279c9a4e98a9ec0dc545547368c488d9ef",
+"src": "icons/1e9ef6758aa3.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Mithril arrow.png",
+"w": 32
+},
+"Mithril arrowheads": {
+"bytes": "mirror",
+"file": "File:Mithril arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "b6a37b005d78ef71a9a8ca056c763884911f006e",
+"src": "icons/62ad05a4e341.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Mithril arrowheads.png",
+"w": 32
+},
+"Mithril bar": {
+"bytes": "mirror",
+"file": "File:Mithril bar.png",
+"h": 24,
+"icon": "reused",
+"sha1": "ade47c6416ab22ae8d2c0ed580b45ab1fcb69a89",
+"src": "icons/b53db272a8a2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Mithril bolts": {
+"bytes": "mirror",
+"file": "File:Mithril bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "9d749f983f9a79c1132d07c9fad62f2851e13234",
+"src": "icons/1c9fbf509d13.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Mithril bolts.png",
+"w": 28
+},
+"Mithril bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Mithril bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "425d250b9c57832c95c063037b590a7194be94fc",
+"src": "icons/c12c141fd66a.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Mithril bolts (unf).png",
+"w": 26
+},
+"Mithril brutal": {
+"bytes": "mirror",
+"file": "File:Mithril brutal 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "9c371cc695fa540c4566244f3115e6130f1b6aa8",
+"src": "icons/5685f49b5506.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Mithril brutal.png",
+"w": 31
+},
+"Mithril crossbow": {
+"bytes": "mirror",
+"file": "File:Mithril crossbow.png",
+"h": 25,
+"icon": "new",
+"sha1": "093fafd63d1f9ca3a179a8f93023b14329952040",
+"src": "icons/c7e9866271e9.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Mithril crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Mithril crossbow (unstrung).png",
+"h": 28,
+"icon": "new",
+"sha1": "4d32d32d3e2ff4aca34869f4b5829c4fb46791b7",
+"src": "icons/a23319b7628a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Mithril dart": {
+"bytes": "mirror",
+"file": "File:Mithril dart.png",
+"h": 30,
+"icon": "reused",
+"sha1": "615f8a2dd22f72b861d6abadbbf3c8983201b43d",
+"src": "icons/2b6e19e0dc5a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 23
+},
+"Mithril dart tip": {
+"bytes": "mirror",
+"file": "File:Mithril dart tip.png",
+"h": 19,
+"icon": "new",
+"sha1": "5125ee30c4814ed4d9c4474990b02c7f4652a587",
+"src": "icons/6ed57be40af8.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 11
+},
+"Mithril grapple (unf)": {
+"bytes": "mirror",
+"file": "File:Mithril grapple (unf).png",
+"h": 28,
+"icon": "new",
+"sha1": "2b5d6e39cefbfd985b097d78150d4d04334c1299",
+"src": "icons/69013c7a3f39.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Mithril grapple tip": {
+"bytes": "mirror",
+"file": "File:Mithril grapple tip.png",
+"h": 20,
+"icon": "new",
+"sha1": "eae6e72de2262d9f322435ae66fb4ea8cf6e7abf",
+"src": "icons/ccb88231798e.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 26
+},
+"Mithril nails": {
+"bytes": "mirror",
+"file": "File:Mithril nails.png",
+"h": 25,
+"icon": "reused",
+"sha1": "13374153720953d659910c25ab84f22fa2883fe5",
+"src": "icons/eba5a489dd32.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
 },
 "Mixture - step 1 (1)": {
 "bytes": "mirror",
@@ -9344,6 +12402,19 @@
 "via": "exact file",
 "w": 23
 },
+"Mutated vine": {
+"bytes": "mirror",
+"file": "File:Mutated vine.png",
+"h": 20,
+"icon": "reused",
+"sha1": "455d9961e15c6b1a59959ab87b4456c7bf9a5b05",
+"src": "icons/cf6c90267b96.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 26
+},
 "Mycelial webbing": {
 "bytes": "mirror",
 "file": "File:Mycelial webbing.png",
@@ -9465,11 +12536,115 @@
 "via": "exact file",
 "w": 21
 },
+"Necronium 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Necronium 2h crossbow.png",
+"h": 26,
+"icon": "new",
+"sha1": "32262ae6ccbc615c86584c7d4cc6c6fdb0cefe9b",
+"src": "icons/92cc4a365c75.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Necronium arrow": {
+"bytes": "mirror",
+"file": "File:Necronium arrow 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "45bf56bdb4f7e1f6416cf39603cacfa3ebaeecc8",
+"src": "icons/5e49d827068d.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Necronium arrow.png",
+"w": 32
+},
+"Necronium arrowheads": {
+"bytes": "mirror",
+"file": "File:Necronium arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "f8850a4ac455a800b99260d697b74356fa95b3da",
+"src": "icons/d4b26d8828b8.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Necronium arrowheads.png",
+"w": 32
+},
+"Necronium bar": {
+"bytes": "mirror",
+"file": "File:Necronium bar.png",
+"h": 24,
+"icon": "reused",
+"sha1": "a08551946a2b8a981e29b45a6c84dbb2a5c6ab42",
+"src": "icons/78a0aaf66fab.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Necronium bolts": {
+"bytes": "mirror",
+"file": "File:Necronium bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "5c463fb9ce52f8e241bfc34426669719af7ee706",
+"src": "icons/c9d62950aaba.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Necronium bolts.png",
+"w": 28
+},
+"Necronium bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Necronium bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "9771bae5d0f639d98442875833f205182f9e5dbd",
+"src": "icons/618429fd371d.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Necronium bolts (unf).png",
+"w": 26
+},
+"Necronium crossbow": {
+"bytes": "mirror",
+"file": "File:Necronium crossbow.png",
+"h": 25,
+"icon": "new",
+"sha1": "e18409878246b45a4d04257035ec6cd36c636d64",
+"src": "icons/5adc277f645e.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Necronium crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Necronium crossbow (unstrung).png",
+"h": 29,
+"icon": "new",
+"sha1": "c8f0387803361eb52b0dc19336f0dcf7b8a7da34",
+"src": "icons/face1d651a52.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
 "Nettle tea": {
 "bytes": "mirror",
 "file": "File:Nettle tea.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "ef75e59927f2ad2f3f6ac481c553c2b7706ef2fd",
 "src": "icons/166f66f9d77b.webp",
 "used": [
@@ -9482,7 +12657,7 @@
 "bytes": "mirror",
 "file": "File:Nettles.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "5ac4c5441705ddb9c2de4006e65a2aca48aa317d",
 "src": "icons/c801badf905d.webp",
 "used": [
@@ -9490,6 +12665,32 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Novite arrows": {
+"bytes": "mirror",
+"file": "File:Novite arrows 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "0bbc0412e4dc99b5879197be435f4694473d41f4",
+"src": "icons/6ee67496d282.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Novite arrows.png",
+"w": 28
+},
+"Novite bar": {
+"bytes": "mirror",
+"file": "File:Novite bar.png",
+"h": 28,
+"icon": "new",
+"sha1": "b0ff55efad35143a00dc2d254107135d2a02bc37",
+"src": "icons/58e6de4ebf49.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
 },
 "Nuts": {
 "bytes": "mirror",
@@ -9504,11 +12705,50 @@
 "via": "exact file",
 "w": 25
 },
+"Oak logs": {
+"bytes": "mirror",
+"file": "File:Oak logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "e15c5d2767ca573764a56dcb6d999f4654a8273c",
+"src": "icons/1a33ee60d0e9.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Oak longbow": {
+"bytes": "mirror",
+"file": "File:Oak longbow.png",
+"h": 32,
+"icon": "reused",
+"sha1": "212d5bcf2eff91d219e0548a95cb261d95414bcc",
+"src": "icons/0735fc9fa8b0.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Oak longbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Oak longbow (unstrung).png",
+"h": 31,
+"icon": "new",
+"sha1": "866ec80f378bf2433e522d5f6be2f520a192902d",
+"src": "icons/74a29bf68e3e.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
 "Oak roots": {
 "bytes": "mirror",
 "file": "File:Oak roots.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "36cac425ffd622b51f88749c2f36f263e8753bdf",
 "src": "icons/d595f8383e78.webp",
 "used": [
@@ -9517,15 +12757,444 @@
 "via": "exact file",
 "w": 33
 },
+"Oak shortbow": {
+"bytes": "mirror",
+"file": "File:Oak shortbow.png",
+"h": 30,
+"icon": "reused",
+"sha1": "f1fa9e9c82260a6f3598713b8e805581c57a9a19",
+"src": "icons/1f6f80f442f0.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Oak shortbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Oak shortbow (unstrung).png",
+"h": 27,
+"icon": "new",
+"sha1": "387990b9304084bab1fad44c7acdbf20fcf8415c",
+"src": "icons/c3c6a1da3bad.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
 "Oculi apoterrasaur meat": {
 "bytes": "mirror",
 "file": "File:Oculi apoterrasaur meat.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "ccb5749a2aadd472de24d6ee2868356dec64f296",
 "src": "icons/f8d688c7e3cb.webp",
 "used": [
 "cooking"
+],
+"via": "exact file",
+"w": 30
+},
+"Off-hand adamant crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand adamant crossbow.png",
+"h": 24,
+"icon": "new",
+"sha1": "da5cf666344f5ed9b142ac43e03000d950b0c83c",
+"src": "icons/d7251eae4b44.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Off-hand adamant dart": {
+"bytes": "mirror",
+"file": "File:Off-hand adamant dart.png",
+"h": 29,
+"icon": "reused",
+"sha1": "330e3f386d3ca25918addf24074e521bbff07f8e",
+"src": "icons/e9ecee445443.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 22
+},
+"Off-hand bane crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand bane crossbow.png",
+"h": 24,
+"icon": "new",
+"sha1": "3514e9817652590e3cf95cab1caba634efdbe90e",
+"src": "icons/c808845893a2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Off-hand blisterwood sickle": {
+"bytes": "mirror",
+"file": "File:Off-hand blisterwood sickle.png",
+"h": 27,
+"icon": "new",
+"sha1": "44c3a71274bccc11f2302579856e9529a1fee361",
+"src": "icons/3603f952611c.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Off-hand blisterwood stake": {
+"bytes": "mirror",
+"file": "File:Off-hand blisterwood stake.png",
+"h": 27,
+"icon": "new",
+"sha1": "c575de0f9dbfac883d0246d37879f7b48b11f64d",
+"src": "icons/49394cb6d615.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Off-hand blurite crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand blurite crossbow.png",
+"h": 31,
+"icon": "new",
+"sha1": "f5566584b7861d3b86e9445bec1bb79b0502c29a",
+"src": "icons/4bc50f229fd8.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Off-hand bronze crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand bronze crossbow.png",
+"h": 24,
+"icon": "reused",
+"sha1": "40c55da7f32b32b297279cd5cfb17f3a9ad48d7d",
+"src": "icons/ad83a871e2a3.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Off-hand bronze dart": {
+"bytes": "mirror",
+"file": "File:Off-hand bronze dart.png",
+"h": 29,
+"icon": "reused",
+"sha1": "eca543f417c99688ab468fe93cf391a042900e7a",
+"src": "icons/51c19cfe0006.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 22
+},
+"Off-hand dragon crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand dragon crossbow.png",
+"h": 30,
+"icon": "new",
+"sha1": "6f805df79a26c8c48a26e5e8aaf4d0fd1877063b",
+"src": "icons/9fc49f46b949.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Off-hand dragon dart": {
+"bytes": "mirror",
+"file": "File:Off-hand dragon dart.png",
+"h": 28,
+"icon": "new",
+"sha1": "7d7a21f924d2eed30e9090c386853e5a704c6bc5",
+"src": "icons/ebb89859eff1.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 23
+},
+"Off-hand elder crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand elder crossbow.png",
+"h": 24,
+"icon": "new",
+"sha1": "d95230f977ba9d9cc562748a840533fec67822f7",
+"src": "icons/05899728656a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Off-hand iron crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand iron crossbow.png",
+"h": 24,
+"icon": "new",
+"sha1": "e052492e316ee682a245e9e6d0136d92e8289d5c",
+"src": "icons/5dfb655f634d.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Off-hand iron dart": {
+"bytes": "mirror",
+"file": "File:Off-hand iron dart.png",
+"h": 29,
+"icon": "reused",
+"sha1": "1b3fc106ff2e01090476ebb8a681af452ca8bfa6",
+"src": "icons/7a0e06dc8653.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 22
+},
+"Off-hand mithril crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand mithril crossbow.png",
+"h": 24,
+"icon": "new",
+"sha1": "d01dbb6a345c9b972c80af6004ff8c447f174a70",
+"src": "icons/1b70a6d41b1a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Off-hand mithril dart": {
+"bytes": "mirror",
+"file": "File:Off-hand mithril dart.png",
+"h": 29,
+"icon": "reused",
+"sha1": "0c0ecae99b9ca26328f527022c628f2cce108d99",
+"src": "icons/1956434d6cda.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 22
+},
+"Off-hand necronium crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand necronium crossbow.png",
+"h": 24,
+"icon": "new",
+"sha1": "bf42007027cdfa22a3745ca349aa5f940e97914c",
+"src": "icons/069694beee6e.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Off-hand orikalkum crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand orikalkum crossbow.png",
+"h": 24,
+"icon": "new",
+"sha1": "f9f1be9dabc91fd77e2557f74d5f5c8a1f65dfe6",
+"src": "icons/abc1e19c165f.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Off-hand primal crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand primal crossbow.png",
+"h": 28,
+"icon": "new",
+"sha1": "c226db0e64804cb595d8a37c1f400c7a6b16d012",
+"src": "icons/dbc98e8c9ed2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Off-hand primal crossbow (martial)": {
+"bytes": "mirror",
+"file": "File:Off-hand primal crossbow (martial).png",
+"h": 28,
+"icon": "reused",
+"sha1": "c226db0e64804cb595d8a37c1f400c7a6b16d012",
+"src": "icons/dbc98e8c9ed2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Off-hand primal crossbow Mk. 1": {
+"bytes": "mirror",
+"file": "File:Off-hand primal crossbow Mk. 1.png",
+"h": 28,
+"icon": "reused",
+"sha1": "c226db0e64804cb595d8a37c1f400c7a6b16d012",
+"src": "icons/dbc98e8c9ed2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Off-hand primal crossbow Mk. 2": {
+"bytes": "mirror",
+"file": "File:Off-hand primal crossbow Mk. 2.png",
+"h": 28,
+"icon": "reused",
+"sha1": "c226db0e64804cb595d8a37c1f400c7a6b16d012",
+"src": "icons/dbc98e8c9ed2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Off-hand primal crossbow Mk. 3": {
+"bytes": "mirror",
+"file": "File:Off-hand primal crossbow Mk. 3.png",
+"h": 28,
+"icon": "reused",
+"sha1": "c226db0e64804cb595d8a37c1f400c7a6b16d012",
+"src": "icons/dbc98e8c9ed2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Off-hand primal crossbow Mk. 4": {
+"bytes": "mirror",
+"file": "File:Off-hand primal crossbow Mk. 4.png",
+"h": 28,
+"icon": "reused",
+"sha1": "c226db0e64804cb595d8a37c1f400c7a6b16d012",
+"src": "icons/dbc98e8c9ed2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Off-hand primal crossbow Mk. 5": {
+"bytes": "mirror",
+"file": "File:Off-hand primal crossbow Mk. 5.png",
+"h": 28,
+"icon": "reused",
+"sha1": "c226db0e64804cb595d8a37c1f400c7a6b16d012",
+"src": "icons/dbc98e8c9ed2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 35
+},
+"Off-hand rune crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand rune crossbow.png",
+"h": 24,
+"icon": "new",
+"sha1": "36e3f7ce3b3a3c1f1c63cbbc49f52c2866c34af2",
+"src": "icons/0145acc08b17.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Off-hand rune dart": {
+"bytes": "mirror",
+"file": "File:Off-hand rune dart.png",
+"h": 29,
+"icon": "reused",
+"sha1": "4282e9c382397d19e9f736777d8353dd602fec16",
+"src": "icons/9c65f9e16945.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 22
+},
+"Off-hand steel crossbow": {
+"bytes": "mirror",
+"file": "File:Off-hand steel crossbow.png",
+"h": 24,
+"icon": "new",
+"sha1": "cca823bef6368209b46ac2e348314c6a73a01571",
+"src": "icons/0071327114c9.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Off-hand steel dart": {
+"bytes": "mirror",
+"file": "File:Off-hand steel dart.png",
+"h": 29,
+"icon": "reused",
+"sha1": "48b919e6d45ca2d1187cdf57df2f906bb7d0dc2c",
+"src": "icons/80e46fb1114d.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 22
+},
+"Ogre arrow": {
+"bytes": "mirror",
+"file": "File:Ogre arrow 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "f47efeecdc99f389aedf7fca6c7bffd442827033",
+"src": "icons/1b819a24a586.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Ogre arrow.png",
+"w": 32
+},
+"Ogre arrow shaft": {
+"bytes": "mirror",
+"file": "File:Ogre arrow shaft 5.png",
+"h": 27,
+"icon": "new",
+"sha1": "947a777a70bb200e7a7fe509dc7fba776e2ab70a",
+"src": "icons/ccd8caa27d8a.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Ogre arrow shaft.png",
+"w": 28
+},
+"Ogre composite bow": {
+"bytes": "mirror",
+"file": "File:Ogre composite bow.png",
+"h": 24,
+"icon": "reused",
+"sha1": "568eb90438377a281838d20a9021751eef228f3e",
+"src": "icons/20c23c964fd9.webp",
+"used": [
+"fletching"
 ],
 "via": "exact file",
 "w": 30
@@ -9556,6 +13225,32 @@
 "via": "exact file",
 "w": 18
 },
+"Onyx": {
+"bytes": "mirror",
+"file": "File:Onyx.png",
+"h": 24,
+"icon": "reused",
+"sha1": "fcb96ad3895e122e3048ac17c63f95097d7f45f1",
+"src": "icons/748889650dd7.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 21
+},
+"Onyx bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Onyx bakriminel bolts 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "d5a89f8ba7254d5f9a292825bd8936f23c96cade",
+"src": "icons/34baeb8525f7.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Onyx bakriminel bolts.png",
+"w": 32
+},
 "Onyx bolt tips": {
 "bytes": "mirror",
 "file": "File:Onyx bolt tips 5.png",
@@ -9564,16 +13259,82 @@
 "sha1": "0e85832398d54c28d77cafc05792c862801b0c03",
 "src": "icons/eeda8851f3ae.webp",
 "used": [
+"fletching",
 "herblore"
 ],
 "via": "File redirect from File:Onyx bolt tips.png",
 "w": 31
 },
+"Onyx bolts": {
+"bytes": "mirror",
+"file": "File:Onyx bolts 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "e8207e20c5ed1c28a05f1247f04ff9ac807cb940",
+"src": "icons/cc287f7ccb59.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Onyx bolts.png",
+"w": 29
+},
+"Opal": {
+"bytes": "mirror",
+"file": "File:Opal.png",
+"h": 24,
+"icon": "reused",
+"sha1": "e64f50047163afaf6c52cb7cd53d0a0b045ebc33",
+"src": "icons/8d04616a3276.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 21
+},
+"Opal bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Opal bakriminel bolts 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "58a3f326a5c4ca0b948fdc4d3e4b1f0316eaec99",
+"src": "icons/62ac5de19eb5.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Opal bakriminel bolts.png",
+"w": 32
+},
+"Opal bolt tips": {
+"bytes": "mirror",
+"file": "File:Opal bolt tips 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "364c5ddb1a9ef4752064d7da8131daaf80477d89",
+"src": "icons/a2e13962cfe6.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Opal bolt tips.png",
+"w": 31
+},
+"Opal bolts": {
+"bytes": "mirror",
+"file": "File:Opal bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "77ac988ae276c488fed534527dc71c3e84dac998",
+"src": "icons/f5330679f577.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Opal bolts.png",
+"w": 29
+},
 "Orange": {
 "bytes": "downloaded",
 "file": "File:Orange.png",
 "h": 17,
-"icon": "new",
+"icon": "reused",
 "sha1": "3d93d5caa6bfbafe30b4c2533c65189dc7227abc",
 "src": "icons/59480f2896d3.webp",
 "used": [
@@ -9586,7 +13347,7 @@
 "bytes": "downloaded",
 "file": "File:Orange chunks.png",
 "h": 12,
-"icon": "new",
+"icon": "reused",
 "sha1": "a2971b8e984feb71beb8734abdfe119369c03fa2",
 "src": "icons/f24b94407e05.webp",
 "used": [
@@ -9594,6 +13355,110 @@
 ],
 "via": "exact file",
 "w": 23
+},
+"Orikalkum 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Orikalkum 2h crossbow.png",
+"h": 26,
+"icon": "reused",
+"sha1": "649540b804bd8ef2d03817d7c2dd4ba90163aff6",
+"src": "icons/0dbb89a5b4ad.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Orikalkum arrow": {
+"bytes": "mirror",
+"file": "File:Orikalkum arrow 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "5d8b5b1af539bb9d6aa32cd514e009727706b97f",
+"src": "icons/af1aea78b80f.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Orikalkum arrow.png",
+"w": 32
+},
+"Orikalkum arrowheads": {
+"bytes": "mirror",
+"file": "File:Orikalkum arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "b988e3d8a81d7cb39c93e80ad89938eefcec8c40",
+"src": "icons/25e51325485d.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Orikalkum arrowheads.png",
+"w": 32
+},
+"Orikalkum bar": {
+"bytes": "mirror",
+"file": "File:Orikalkum bar.png",
+"h": 24,
+"icon": "reused",
+"sha1": "66e09c661dc7029c7b0541aa47735a3819daee18",
+"src": "icons/733dd8a9f430.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Orikalkum bolts": {
+"bytes": "mirror",
+"file": "File:Orikalkum bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "1bc0d3b6ea391dd6a6a2d3326ac5065937d73e53",
+"src": "icons/8c7b0c4b2685.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Orikalkum bolts.png",
+"w": 28
+},
+"Orikalkum bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Orikalkum bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "bd1448a05cd9c264cc4aa8b4de2bf122c3ffc5bd",
+"src": "icons/cdc304130080.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Orikalkum bolts (unf).png",
+"w": 26
+},
+"Orikalkum crossbow": {
+"bytes": "mirror",
+"file": "File:Orikalkum crossbow.png",
+"h": 25,
+"icon": "new",
+"sha1": "fb67cf5249ef4a45c8d1bba528fe4d5d27d07be8",
+"src": "icons/419b60d43f3a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Orikalkum crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Orikalkum crossbow (unstrung).png",
+"h": 29,
+"icon": "new",
+"sha1": "191b943c1c4762dab9f829c0a3aafa9742499d08",
+"src": "icons/3e6d7adfc79f.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
 },
 "Overload (1)": {
 "bytes": "mirror",
@@ -9686,6 +13551,32 @@
 "via": "exact file",
 "w": 19
 },
+"Oyster pearl": {
+"bytes": "mirror",
+"file": "File:Oyster pearl.png",
+"h": 30,
+"icon": "reused",
+"sha1": "9f2d4537bb40730c3b0ba5a995839d6d50d5e5c4",
+"src": "icons/cc2edb9ba2dd.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Oyster pearls": {
+"bytes": "mirror",
+"file": "File:Oyster pearls.png",
+"h": 30,
+"icon": "reused",
+"sha1": "391d722e631c54b89aa1a21bac856cf02ce51891",
+"src": "icons/e670095c5d0a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
 "Papaya fruit": {
 "bytes": "mirror",
 "file": "File:Papaya fruit.png",
@@ -9703,7 +13594,7 @@
 "bytes": "mirror",
 "file": "File:Part wild pie (raw bear meat).png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "982b654eb0f53f32c176e6f49d29a6ca4bd5bafc",
 "src": "icons/5ba32baa2bb4.webp",
 "used": [
@@ -9716,7 +13607,7 @@
 "bytes": "mirror",
 "file": "File:Part wild pie (raw chompy).png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "c42d355e99e94027db7c6a2e29b7d759dae46935",
 "src": "icons/33d4a0fb1f00.webp",
 "used": [
@@ -9742,7 +13633,7 @@
 "bytes": "mirror",
 "file": "File:Pavosaurus rex meat.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "7b96e3411e0818fde5f30836c8349545efa47d6e",
 "src": "icons/9f7286570bd3.webp",
 "used": [
@@ -9750,6 +13641,45 @@
 ],
 "via": "exact file",
 "w": 30
+},
+"Pearl bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Pearl bakriminel bolts 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "e0cef92838f4df08a8f6508a68321d22576cd1d0",
+"src": "icons/1bf7bb1b6d2c.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Pearl bakriminel bolts.png",
+"w": 32
+},
+"Pearl bolt tips": {
+"bytes": "mirror",
+"file": "File:Pearl bolt tips 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "f8bfeca7f1444fba8d659809939b5d5de77faf3a",
+"src": "icons/4660178664eb.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Pearl bolt tips.png",
+"w": 31
+},
+"Pearl bolts": {
+"bytes": "mirror",
+"file": "File:Pearl bolts 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "2b0aa6120f3b197ed9e3d9dc8e4cf9ff76fc37d9",
+"src": "icons/31b5a4cb2260.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Pearl bolts.png",
+"w": 29
 },
 "Pengatrice egg": {
 "bytes": "mirror",
@@ -10502,7 +14432,7 @@
 "bytes": "mirror",
 "file": "File:Pineapple Punch.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "c504c86d1460e6d96e103df0fc879a4ebf65de90",
 "src": "icons/3e3a5c13b039.webp",
 "used": [
@@ -10528,7 +14458,7 @@
 "bytes": "mirror",
 "file": "File:Pineapple pizza.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "60a145705cd9b672b5ebafe246fe22341e162c6b",
 "src": "icons/48bb5e51a019.webp",
 "used": [
@@ -10541,7 +14471,7 @@
 "bytes": "mirror",
 "file": "File:Pineapple ring.png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "f415aabc3afa5ef17ac99f847ca9927965f95c20",
 "src": "icons/0b346b6bffd8.webp",
 "used": [
@@ -10554,7 +14484,7 @@
 "bytes": "mirror",
 "file": "File:Pitta bread.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "4274b19ec38a869028eabec0e654f723fff6c4c9",
 "src": "icons/f4ad34c1efe1.webp",
 "used": [
@@ -10567,7 +14497,7 @@
 "bytes": "mirror",
 "file": "File:Pitta dough.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "b1bace14913de8fc78d372c9afbd5af861b9ff71",
 "src": "icons/d65d1ba1f500.webp",
 "used": [
@@ -10580,7 +14510,7 @@
 "bytes": "mirror",
 "file": "File:Pizza base.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "7736765480691d5410e378a8331778a1a709a75c",
 "src": "icons/9b38027f2aef.webp",
 "used": [
@@ -10593,7 +14523,7 @@
 "bytes": "mirror",
 "file": "File:Plain cooking urn.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "0911d92eab1ecc75f5b7d125357636d6b4396a7f",
 "src": "icons/f9027e99d31d.webp",
 "used": [
@@ -10606,7 +14536,7 @@
 "bytes": "mirror",
 "file": "File:Plain cooking urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "d20a6fe5a62abe4e28835b59068b9c4b360a4774",
 "src": "icons/2f789ef616b5.webp",
 "used": [
@@ -10684,7 +14614,7 @@
 "bytes": "mirror",
 "file": "File:Pork pie.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "994c9e86884c02490b3f2dc21c777ecf42690b6d",
 "src": "icons/8937a131c38a.webp",
 "used": [
@@ -10710,7 +14640,7 @@
 "bytes": "downloaded",
 "file": "File:Pot of flour.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "04d5e0858e8db0ad58ea18fe87726f9b523397dc",
 "src": "icons/0e274781a23f.webp",
 "used": [
@@ -10749,7 +14679,7 @@
 "bytes": "mirror",
 "file": "File:Potato with cheese.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "ed1a93c2f9479a85de8a01d2ea5a7be80fb1eced",
 "src": "icons/53fa2cf5b11a.webp",
 "used": [
@@ -11263,11 +15193,193 @@
 "via": "exact file",
 "w": 21
 },
+"Primal 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Primal 2h crossbow.png",
+"h": 26,
+"icon": "new",
+"sha1": "7e9e13b63cebace8bb5399a2b291491c1c6d1d54",
+"src": "icons/f4599ff457bc.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Primal arrow": {
+"bytes": "mirror",
+"file": "File:Primal arrow 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "77e0379aad6d2bc7cecaae9ff54e79bfcca37a88",
+"src": "icons/2e980ef73cc3.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Primal arrow.png",
+"w": 32
+},
+"Primal arrowheads": {
+"bytes": "mirror",
+"file": "File:Primal arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "7adc0a2a8f23eff5dd58876f1353596cfbeec660",
+"src": "icons/c7fd4bb71884.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Primal arrowheads.png",
+"w": 32
+},
+"Primal bar": {
+"bytes": "mirror",
+"file": "File:Primal bar.png",
+"h": 24,
+"icon": "new",
+"sha1": "75190afd7ed5612f9a025b2057c2105fbdb63519",
+"src": "icons/508f6df987ff.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Primal bolts": {
+"bytes": "mirror",
+"file": "File:Primal bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "7e8d1d16aba451f32a86af20b02ab885aac5efb9",
+"src": "icons/b77d32ad26cd.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Primal bolts.png",
+"w": 28
+},
+"Primal bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Primal bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "da13d0bb5942b93fb0fad882b8defcae1a1dbb73",
+"src": "icons/172ec3e414e8.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Primal bolts (unf).png",
+"w": 26
+},
+"Primal crossbow": {
+"bytes": "mirror",
+"file": "File:Primal crossbow.png",
+"h": 28,
+"icon": "new",
+"sha1": "efc61e2dc5f034bb6bb313ebc844a1e05598883e",
+"src": "icons/a5f1941340c0.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 34
+},
+"Primal crossbow (martial)": {
+"bytes": "mirror",
+"file": "File:Primal crossbow (martial).png",
+"h": 28,
+"icon": "reused",
+"sha1": "efc61e2dc5f034bb6bb313ebc844a1e05598883e",
+"src": "icons/a5f1941340c0.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 34
+},
+"Primal crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Primal crossbow (unstrung).png",
+"h": 28,
+"icon": "new",
+"sha1": "759a57cd7e30accef3928270128a15902105eacf",
+"src": "icons/bb60a2c6a8b5.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 34
+},
+"Primal crossbow Mk. 1": {
+"bytes": "mirror",
+"file": "File:Primal crossbow Mk. 1.png",
+"h": 28,
+"icon": "reused",
+"sha1": "efc61e2dc5f034bb6bb313ebc844a1e05598883e",
+"src": "icons/a5f1941340c0.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 34
+},
+"Primal crossbow Mk. 2": {
+"bytes": "mirror",
+"file": "File:Primal crossbow Mk. 2.png",
+"h": 28,
+"icon": "reused",
+"sha1": "efc61e2dc5f034bb6bb313ebc844a1e05598883e",
+"src": "icons/a5f1941340c0.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 34
+},
+"Primal crossbow Mk. 3": {
+"bytes": "mirror",
+"file": "File:Primal crossbow Mk. 3.png",
+"h": 28,
+"icon": "reused",
+"sha1": "efc61e2dc5f034bb6bb313ebc844a1e05598883e",
+"src": "icons/a5f1941340c0.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 34
+},
+"Primal crossbow Mk. 4": {
+"bytes": "mirror",
+"file": "File:Primal crossbow Mk. 4.png",
+"h": 28,
+"icon": "reused",
+"sha1": "efc61e2dc5f034bb6bb313ebc844a1e05598883e",
+"src": "icons/a5f1941340c0.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 34
+},
+"Primal crossbow Mk. 5": {
+"bytes": "mirror",
+"file": "File:Primal crossbow Mk. 5.png",
+"h": 28,
+"icon": "reused",
+"sha1": "efc61e2dc5f034bb6bb313ebc844a1e05598883e",
+"src": "icons/a5f1941340c0.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 34
+},
 "Primal dessert": {
 "bytes": "mirror",
 "file": "File:Primal dessert.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "68eca2662bc4d0bc4ae85237959a13ba5aa9087b",
 "src": "icons/02c4a8abf141.webp",
 "used": [
@@ -11293,7 +15405,7 @@
 "bytes": "mirror",
 "file": "File:Primal feast.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "f1739c62fe803f78e53f5c55679ba8794f9ad863",
 "src": "icons/2da83483c3c8.webp",
 "used": [
@@ -11315,11 +15427,24 @@
 "via": "exact file",
 "w": 26
 },
+"Primal limbs": {
+"bytes": "mirror",
+"file": "File:Primal limbs.png",
+"h": 26,
+"icon": "new",
+"sha1": "780bd6abbc2604309175f2eceb9b861012e5be27",
+"src": "icons/c49e90583ee1.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 27
+},
 "Primal main course": {
 "bytes": "mirror",
 "file": "File:Primal main course.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "0743d76c74d91164f62331eb39d0492956ed6324",
 "src": "icons/c91598e381e5.webp",
 "used": [
@@ -11332,7 +15457,7 @@
 "bytes": "mirror",
 "file": "File:Primal starter.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "f954a5094b970d9df96dbc2a0f1c67c087b719da",
 "src": "icons/88b01d7d2f95.webp",
 "used": [
@@ -11340,6 +15465,32 @@
 ],
 "via": "exact file",
 "w": 27
+},
+"Promethium arrows": {
+"bytes": "mirror",
+"file": "File:Promethium arrows 5.png",
+"h": 33,
+"icon": "new",
+"sha1": "ce4c6d4d9e3da51ff4e9348127b4604d271d466c",
+"src": "icons/81a57414967d.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Promethium arrows.png",
+"w": 29
+},
+"Promethium bar": {
+"bytes": "mirror",
+"file": "File:Promethium bar.png",
+"h": 28,
+"icon": "new",
+"sha1": "755789a6b45db1d1140298f0f920d9fa301f8bf7",
+"src": "icons/a6bf1ddc89a5.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
 },
 "Rabbit foot": {
 "bytes": "mirror",
@@ -11384,7 +15535,7 @@
 "bytes": "mirror",
 "file": "File:Rainbow sweetcorn.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "51ac8720a1285cf16b39007423b6fe4dbd19fb98",
 "src": "icons/334065ac7c39.webp",
 "used": [
@@ -11519,7 +15670,7 @@
 "bytes": "mirror",
 "file": "File:Raw admiral pie.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "4032584302e841512bd01e5bcbee842261e4ee51",
 "src": "icons/d15bb2779627.webp",
 "used": [
@@ -11558,7 +15709,7 @@
 "bytes": "mirror",
 "file": "File:Raw asciatops meat.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "f1a01bc789e0b4714a95f82a3a40ec05a220bf74",
 "src": "icons/2206219b720e.webp",
 "used": [
@@ -11584,7 +15735,7 @@
 "bytes": "mirror",
 "file": "File:Raw bacon stack.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "d5476b28f9a3f8e9f7918854ff039d55a78004ee",
 "src": "icons/0e627bb6cc1a.webp",
 "used": [
@@ -11597,7 +15748,7 @@
 "bytes": "mirror",
 "file": "File:Raw bagrada rex meat.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "cdf093a4c54d2d14bbe94cb972ea598c4e1bc24c",
 "src": "icons/7e0ee65090d4.webp",
 "used": [
@@ -11636,7 +15787,7 @@
 "bytes": "mirror",
 "file": "File:Raw beast meat.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "565a88ddba0fc3080b22bce638ddd6e8d5a40df9",
 "src": "icons/14bac0004e0f.webp",
 "used": [
@@ -11662,7 +15813,7 @@
 "bytes": "mirror",
 "file": "File:Raw beltfish.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "e00981ea1aae878b7c63ed3e0f357e2b696fd040",
 "src": "icons/c4d34beb4e6c.webp",
 "used": [
@@ -11675,7 +15826,7 @@
 "bytes": "mirror",
 "file": "File:Raw blue blubber jellyfish.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "54c3c4a640dcb4bcab3865baa681850d0db01978",
 "src": "icons/6e723b759991.webp",
 "used": [
@@ -11688,7 +15839,7 @@
 "bytes": "mirror",
 "file": "File:Raw blue crab.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "fde9e487cca0f1a104c54a083afcbc4ba0a894f3",
 "src": "icons/6fe1b0a3f6a4.webp",
 "used": [
@@ -11701,7 +15852,7 @@
 "bytes": "mirror",
 "file": "File:Raw bouldabass.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "b8164bc3112a5d2040fd918b2f0d86ff418be7c6",
 "src": "icons/6bd169d0b286.webp",
 "used": [
@@ -11714,7 +15865,7 @@
 "bytes": "mirror",
 "file": "File:Raw catfish.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "ed67302b6821cde8e86048a9b135212a90fc5011",
 "src": "icons/a89adaef83df.webp",
 "used": [
@@ -11740,7 +15891,7 @@
 "bytes": "mirror",
 "file": "File:Raw cave moray.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "3812b5b6aeb2d80d8630c3a30d7b779b643c82d6",
 "src": "icons/f3dd4360293b.webp",
 "used": [
@@ -11753,7 +15904,7 @@
 "bytes": "mirror",
 "file": "File:Raw cave potato.png",
 "h": 15,
-"icon": "new",
+"icon": "reused",
 "sha1": "57ecc99acc58dc0f3ab545f300da347d2d75b994",
 "src": "icons/bb06527f98b0.webp",
 "used": [
@@ -11766,7 +15917,7 @@
 "bytes": "mirror",
 "file": "File:Raw cavefish.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "3d587e57c025ee7886e226c367ebc84b8efd9775",
 "src": "icons/3f40d52ab30b.webp",
 "used": [
@@ -11818,7 +15969,7 @@
 "bytes": "mirror",
 "file": "File:Raw corbicula rex meat.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "6d9876268a1227c5d8dac7da41ee36c4cb3b4a04",
 "src": "icons/73dff1da0b0c.webp",
 "used": [
@@ -11844,7 +15995,7 @@
 "bytes": "mirror",
 "file": "File:Raw desert sole.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "4a8b08a390781b8ac55161b1fd5dda5a0d616842",
 "src": "icons/132e5453090b.webp",
 "used": [
@@ -11857,7 +16008,7 @@
 "bytes": "mirror",
 "file": "File:Raw dusk eel.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "d6200caf81a3f7c81deb94c3daeee50695bf31cb",
 "src": "icons/6f69a65b693d.webp",
 "used": [
@@ -11870,7 +16021,7 @@
 "bytes": "mirror",
 "file": "File:Raw fish pie.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "6ce695c5438be05f492a98c8ddafd20e4c851d19",
 "src": "icons/1e593b0ce596.webp",
 "used": [
@@ -11883,7 +16034,7 @@
 "bytes": "mirror",
 "file": "File:Raw garden pie.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "25a7b78f9c14384c23a603bfda87789f3e217be2",
 "src": "icons/5343d343a02f.webp",
 "used": [
@@ -11909,7 +16060,7 @@
 "bytes": "mirror",
 "file": "File:Raw giant chinchompa meat.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "f966d6263e6a11aae389ff33c2402a23f094652f",
 "src": "icons/d93c83ad0219.webp",
 "used": [
@@ -11922,7 +16073,7 @@
 "bytes": "mirror",
 "file": "File:Raw giant crayfish.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "8cbd06511b85fb8164303481dea0c557ba96c240",
 "src": "icons/b7103106d87d.webp",
 "used": [
@@ -11935,7 +16086,7 @@
 "bytes": "mirror",
 "file": "File:Raw giant flatfish.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "ca40047ab0225398aeb6fcaf943ff0d01a4bbd7f",
 "src": "icons/8cd212511494.webp",
 "used": [
@@ -11948,7 +16099,7 @@
 "bytes": "mirror",
 "file": "File:Raw giant kebbit meat.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "4a9546044ad1cc9c97285850fdb53a51a71eb48e",
 "src": "icons/4f5da05f4e3d.webp",
 "used": [
@@ -11961,7 +16112,7 @@
 "bytes": "mirror",
 "file": "File:Raw great white shark.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "3d4ad79e9570c0968aa96d7ece67ef1d5820bf00",
 "src": "icons/5f1df92292ac.webp",
 "used": [
@@ -11974,7 +16125,7 @@
 "bytes": "mirror",
 "file": "File:Raw green blubber jellyfish.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "10ba4b52186df6f98025d4c74a330746b0d2e99b",
 "src": "icons/7d91a54ca4ea.webp",
 "used": [
@@ -11987,7 +16138,7 @@
 "bytes": "mirror",
 "file": "File:Raw heim crab.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "4c6e975f602dc13b2034736e133e99daacd762fd",
 "src": "icons/d71048723871.webp",
 "used": [
@@ -12039,7 +16190,7 @@
 "bytes": "mirror",
 "file": "File:Raw karambwanji.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "6df84c4179525fb9fdec0de0e8288b6bc8df756f",
 "src": "icons/82dec575fba9.webp",
 "used": [
@@ -12052,7 +16203,7 @@
 "bytes": "mirror",
 "file": "File:Raw lava eel.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "d0d382edf1fba5bba1d998d4c1c459b97823854a",
 "src": "icons/2014cda9f5d0.webp",
 "used": [
@@ -12091,7 +16242,7 @@
 "bytes": "mirror",
 "file": "File:Raw malletops meat.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "98e5a617587074d0b81d9f7bb7c7f65a018089a9",
 "src": "icons/c754ed1a00cc.webp",
 "used": [
@@ -12130,7 +16281,7 @@
 "bytes": "mirror",
 "file": "File:Raw monkfish.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "48cb3afddde689e3887bd742f8a5140f713ebe34",
 "src": "icons/8e96eb27a1a4.webp",
 "used": [
@@ -12143,7 +16294,7 @@
 "bytes": "mirror",
 "file": "File:Raw mud pie.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "2309b490122937189247294ffb9f07efff804b70",
 "src": "icons/271f9696aa99.webp",
 "used": [
@@ -12156,7 +16307,7 @@
 "bytes": "mirror",
 "file": "File:Raw oculi apoterrasaur meat.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "bbd61e67850013d99fbc46344f5ce5c5d43834bd",
 "src": "icons/ce53d2b86380.webp",
 "used": [
@@ -12182,7 +16333,7 @@
 "bytes": "mirror",
 "file": "File:Raw pavosaurus rex meat.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "a812a11ff67ac0ef873d3355c6e239090917a2e7",
 "src": "icons/91aae8c30f0e.webp",
 "used": [
@@ -12195,7 +16346,7 @@
 "bytes": "mirror",
 "file": "File:Raw pawya meat.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "e0dc85b71adafb392fa71f130f4c4e0408072a26",
 "src": "icons/91342db70f39.webp",
 "used": [
@@ -12234,7 +16385,7 @@
 "bytes": "mirror",
 "file": "File:Raw potato.png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "a7efbde7cb709120dcc1b48d9919e4285f1e1ddd",
 "src": "icons/e313e32189a3.webp",
 "used": [
@@ -12260,7 +16411,7 @@
 "bytes": "mirror",
 "file": "File:Raw rainbow fish.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "0097757dfbb417a247a507e1f9098980eece2442",
 "src": "icons/861ca61ed713.webp",
 "used": [
@@ -12286,7 +16437,7 @@
 "bytes": "mirror",
 "file": "File:Raw red-eye.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "9a9a916e073ad26a7351041a471954655b7f43fb",
 "src": "icons/5be9ef97eb6a.webp",
 "used": [
@@ -12312,7 +16463,7 @@
 "bytes": "mirror",
 "file": "File:Raw sailfish.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "887891c161b7d284944d4a0aaa29e053f80b77e8",
 "src": "icons/0a4527f9ba42.webp",
 "used": [
@@ -12338,7 +16489,7 @@
 "bytes": "mirror",
 "file": "File:Raw salve eel.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "304efec67057e619fe139669dbff70b8d4565f6a",
 "src": "icons/631b2eefd416.webp",
 "used": [
@@ -12364,7 +16515,7 @@
 "bytes": "mirror",
 "file": "File:Raw scimitops meat.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "f2b964bf22757e0d8d7436510e1ce760fd76e512",
 "src": "icons/e350b47c8f23.webp",
 "used": [
@@ -12377,7 +16528,7 @@
 "bytes": "mirror",
 "file": "File:Raw sea turtle.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "932280f9f197f3d5f071e73ed01d19154b1ab7e9",
 "src": "icons/cdc88791d90d.webp",
 "used": [
@@ -12390,7 +16541,7 @@
 "bytes": "mirror",
 "file": "File:Raw seerfish.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "34c11b6b69e0e69f096da967de548c87a06c94fd",
 "src": "icons/15bcf253f6e4.webp",
 "used": [
@@ -12416,7 +16567,7 @@
 "bytes": "mirror",
 "file": "File:Raw short-finned eel.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "c41a329d49372d42991197d7dae4fb75aaa9eb4a",
 "src": "icons/ba23221fdcbc.webp",
 "used": [
@@ -12429,7 +16580,7 @@
 "bytes": "mirror",
 "file": "File:Raw shrimps.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "3f18d049e24ca458de0acf43068107de1047920d",
 "src": "icons/ad0d7ada0cac.webp",
 "used": [
@@ -12442,7 +16593,7 @@
 "bytes": "mirror",
 "file": "File:Raw sillago.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "b09f9b0eb1cfa5a5a85e44e3f8690902dee5aebe",
 "src": "icons/978b4650c0ae.webp",
 "used": [
@@ -12455,7 +16606,7 @@
 "bytes": "mirror",
 "file": "File:Raw spicati apoterrasaur meat.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "f1b4128fc1a6fcc9128ea3c6902953c52e5583e2",
 "src": "icons/7644b6d626e4.webp",
 "used": [
@@ -12468,7 +16619,7 @@
 "bytes": "mirror",
 "file": "File:Raw summer pie.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "b12a0c49e7fccc01422e7a42f986621aca706ce1",
 "src": "icons/f829b3956cb5.webp",
 "used": [
@@ -12494,7 +16645,7 @@
 "bytes": "mirror",
 "file": "File:Raw tarpon.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "c76928c36593c995cc76df512894df502935b0ed",
 "src": "icons/705602f4a867.webp",
 "used": [
@@ -12507,7 +16658,7 @@
 "bytes": "mirror",
 "file": "File:Raw tiger shark.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "5ed5e2ae486096b131a7b105f1a04b849c449918",
 "src": "icons/47e55543a76c.webp",
 "used": [
@@ -12520,7 +16671,7 @@
 "bytes": "mirror",
 "file": "File:Raw trout.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "01ea2ef09ce91d3842bc980e0c48ab16b0b546ef",
 "src": "icons/186f6f318b16.webp",
 "used": [
@@ -12559,7 +16710,7 @@
 "bytes": "mirror",
 "file": "File:Raw web snipper.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "3c353c526b3c586d4e3e7dd3988b175a7725db1d",
 "src": "icons/70aef1400cdf.webp",
 "used": [
@@ -12572,7 +16723,7 @@
 "bytes": "mirror",
 "file": "File:Raw wild pie.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "ca7926910c33718341a8d2be1312d56a72e6e37e",
 "src": "icons/8f7610c59780.webp",
 "used": [
@@ -12585,7 +16736,7 @@
 "bytes": "mirror",
 "file": "File:Raw wobbegong.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "e4b9ed69b277ab4395532017fa54791effd8e885",
 "src": "icons/b113eb0bbaad.webp",
 "used": [
@@ -12637,7 +16788,7 @@
 "bytes": "mirror",
 "file": "File:Red onion.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "8768a0d4974cb20eb306ff25ae4b371afabf9cf8",
 "src": "icons/cbed731d37e8.webp",
 "used": [
@@ -12659,11 +16810,37 @@
 "via": "exact file",
 "w": 20
 },
+"Red topaz": {
+"bytes": "mirror",
+"file": "File:Red topaz.png",
+"h": 24,
+"icon": "new",
+"sha1": "df6d5257cf1edbb1056c845886b95a995f03bd1a",
+"src": "icons/2faaab393a37.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 21
+},
+"Red topaz bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Red topaz bakriminel bolts 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "e07a1e01215a149558921473e56c43ac83ff055c",
+"src": "icons/40f5f90aaf94.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Red topaz bakriminel bolts.png",
+"w": 32
+},
 "Red-eye": {
 "bytes": "mirror",
 "file": "File:Red-eye.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "0fc649ff3250719e3662730c788312aa4a1c8d4e",
 "src": "icons/ad7c452e6b0f.webp",
 "used": [
@@ -12860,6 +17037,58 @@
 "via": "exact file",
 "w": 19
 },
+"Resonant anima of Bik (tradeable)": {
+"bytes": "mirror",
+"file": "File:Resonant anima of Bik (tradeable).png",
+"h": 28,
+"icon": "new",
+"sha1": "ad0360c4f8be169c207562b14bea43edd35c993c",
+"src": "icons/07559374ecbf.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Resonant anima of Ful (tradeable)": {
+"bytes": "mirror",
+"file": "File:Resonant anima of Ful (tradeable).png",
+"h": 28,
+"icon": "reused",
+"sha1": "47774fde4be620d1c5efc817108126842ff8437c",
+"src": "icons/be447b1b20ba.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Resonant anima of Jas (tradeable)": {
+"bytes": "mirror",
+"file": "File:Resonant anima of Jas (tradeable).png",
+"h": 28,
+"icon": "reused",
+"sha1": "72420b2f59a635933519c75e52cd1da2e963cb21",
+"src": "icons/297735e8dfbe.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Resonant anima of Wen (tradeable)": {
+"bytes": "mirror",
+"file": "File:Resonant anima of Wen (tradeable).png",
+"h": 28,
+"icon": "reused",
+"sha1": "74e05efc2c39881be305750d8a95b6f5a41ab915",
+"src": "icons/70569867bc05.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
 "Restore flask (6)": {
 "bytes": "mirror",
 "file": "File:Restore flask (6).png",
@@ -12960,7 +17189,7 @@
 "bytes": "mirror",
 "file": "File:Roast beast meat.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "a7302136795f4c8fea78c5c7aa5b4debb10ddbc4",
 "src": "icons/ab4061d8c485.webp",
 "used": [
@@ -12973,7 +17202,7 @@
 "bytes": "mirror",
 "file": "File:Roast bird meat.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "abad6280b4589a92251baff1949d2ebbaeaaa7d7",
 "src": "icons/943602cdb5a1.webp",
 "used": [
@@ -12986,7 +17215,7 @@
 "bytes": "mirror",
 "file": "File:Roast rabbit.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "ba5f9118f252126eec1d5ddc69b84d5ef8fb3f49",
 "src": "icons/11ad25e4e031.webp",
 "used": [
@@ -13013,7 +17242,7 @@
 "bytes": "mirror",
 "file": "File:Rocktail soup.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "e2778f67f8ba010f4378e02200b9969c1d545ac9",
 "src": "icons/0cbfcf44947e.webp",
 "used": [
@@ -13061,6 +17290,58 @@
 "via": "exact file",
 "w": 26
 },
+"Ruby": {
+"bytes": "mirror",
+"file": "File:Ruby.png",
+"h": 24,
+"icon": "reused",
+"sha1": "074a70363649899dd698068f0e193643b98b44b9",
+"src": "icons/6c0fd3ef7fc3.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 21
+},
+"Ruby bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Ruby bakriminel bolts 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "0fd9dd07a97df4f72d9c69f2228417786d114d1d",
+"src": "icons/7de33cef3d65.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Ruby bakriminel bolts.png",
+"w": 32
+},
+"Ruby bolt tips": {
+"bytes": "mirror",
+"file": "File:Ruby bolt tips 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "cc98b477355c3de3b27d966dfd1d2499e9b235f4",
+"src": "icons/1958b1ea45cb.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Ruby bolt tips.png",
+"w": 31
+},
+"Ruby bolts": {
+"bytes": "mirror",
+"file": "File:Ruby bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "d7444ce91856237e97b7db7bd9cc6d122c75a3d3",
+"src": "icons/4b506ff97de8.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Ruby bolts.png",
+"w": 29
+},
 "Rumberry": {
 "bytes": "mirror",
 "file": "File:Rumberry.png",
@@ -13073,6 +17354,162 @@
 ],
 "via": "exact file",
 "w": 16
+},
+"Rune 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Rune 2h crossbow.png",
+"h": 27,
+"icon": "reused",
+"sha1": "4ab4a919fb66a8fa23b347051f56ec537ae6117a",
+"src": "icons/ac7340c35e7a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Rune arrow": {
+"bytes": "mirror",
+"file": "File:Rune arrow 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "e40600e21b78213fb0b18692e4de89a6e23a79bf",
+"src": "icons/ec68323434dc.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Rune arrow.png",
+"w": 31
+},
+"Rune arrowheads": {
+"bytes": "mirror",
+"file": "File:Rune arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "104056e6d8c546f48b9e1b40e89dadb94f48c2e2",
+"src": "icons/50b8ad370d3e.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Rune arrowheads.png",
+"w": 32
+},
+"Rune bar": {
+"bytes": "mirror",
+"file": "File:Rune bar.png",
+"h": 24,
+"icon": "reused",
+"sha1": "393995ea2ec937357670982ae13544aede5ea784",
+"src": "icons/c1dc5523fc6f.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Rune bolts": {
+"bytes": "mirror",
+"file": "File:Rune bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "173f46947c6934817c60c253318e989a8526b4c1",
+"src": "icons/a665f499ca01.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Rune bolts.png",
+"w": 28
+},
+"Rune bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Rune bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "986fdf1851bc9ab1a2fd871b9ecd7b7eac4379be",
+"src": "icons/604665e0a7f6.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Rune bolts (unf).png",
+"w": 26
+},
+"Rune brutal": {
+"bytes": "mirror",
+"file": "File:Rune brutal 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "b6862aada5a4d525148432698266052c3c1d3e85",
+"src": "icons/0de1054a0bfc.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Rune brutal.png",
+"w": 30
+},
+"Rune crossbow": {
+"bytes": "mirror",
+"file": "File:Rune crossbow.png",
+"h": 25,
+"icon": "new",
+"sha1": "4227169ba6c8b22149d0d86cf11f8d569b71c196",
+"src": "icons/74711b6c1ba7.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Rune crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Rune crossbow (unstrung).png",
+"h": 28,
+"icon": "new",
+"sha1": "a7018e914158a1984477e1e08f856239e6e4d2ff",
+"src": "icons/32917fec3654.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Rune dart": {
+"bytes": "mirror",
+"file": "File:Rune dart.png",
+"h": 29,
+"icon": "reused",
+"sha1": "99e817008d4850b71015b3eb2734ad7115777ad2",
+"src": "icons/4cbdab4df0b6.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 22
+},
+"Rune dart tip": {
+"bytes": "mirror",
+"file": "File:Rune dart tip.png",
+"h": 19,
+"icon": "new",
+"sha1": "e7b13264e54fcc090f6939918ddfc35c1845d6b4",
+"src": "icons/f38aee08f930.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 11
+},
+"Rune nails": {
+"bytes": "mirror",
+"file": "File:Rune nails.png",
+"h": 25,
+"icon": "reused",
+"sha1": "54bdaf00a56e9ea57a1d01d1a7f0cada7f270b1d",
+"src": "icons/6ef178192f08.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
 },
 "Runecrafting flask (6)": {
 "bytes": "mirror",
@@ -13157,6 +17594,32 @@
 "via": "exact file",
 "w": 24
 },
+"Sagaie": {
+"bytes": "mirror",
+"file": "File:Sagaie.png",
+"h": 29,
+"icon": "new",
+"sha1": "2b3d7412c9e08e754133b48d10bea5034840e4c5",
+"src": "icons/54ae7005afcc.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 25
+},
+"Sagaie shaft": {
+"bytes": "mirror",
+"file": "File:Sagaie shaft 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "3b523f6baf307c94a1eaac8eced90e80be08c673",
+"src": "icons/55481f340c01.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Sagaie shaft.png",
+"w": 33
+},
 "Sagewort potion (unfinished)": {
 "bytes": "mirror",
 "file": "File:Sagewort potion (unfinished).png",
@@ -13174,7 +17637,7 @@
 "bytes": "mirror",
 "file": "File:Sailfish.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "7129adbe326c88968c0fd064278374d771cc585b",
 "src": "icons/380958e612fd.webp",
 "used": [
@@ -13187,7 +17650,7 @@
 "bytes": "mirror",
 "file": "File:Sailfish soup.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "586a5edc6a7513d1c0caeb94614430941f54c7f7",
 "src": "icons/bf78a0761533.webp",
 "used": [
@@ -13226,7 +17689,7 @@
 "bytes": "mirror",
 "file": "File:Salve eel.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "dbce90bad4b362ed07824410eff7b84ddbc54e31",
 "src": "icons/34a971f08884.webp",
 "used": [
@@ -13369,6 +17832,58 @@
 ],
 "via": "exact file",
 "w": 19
+},
+"Sapphire": {
+"bytes": "mirror",
+"file": "File:Sapphire.png",
+"h": 24,
+"icon": "reused",
+"sha1": "85f23ff66379271e7adeeb7dcf3b6bcfb887e74c",
+"src": "icons/ecbe8357acd1.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 21
+},
+"Sapphire bakriminel bolts": {
+"bytes": "mirror",
+"file": "File:Sapphire bakriminel bolts 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "afb0a26edcf0611bdb3126813902ec1f5fd10d22",
+"src": "icons/2ef91f81c78e.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Sapphire bakriminel bolts.png",
+"w": 32
+},
+"Sapphire bolt tips": {
+"bytes": "mirror",
+"file": "File:Sapphire bolt tips 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "6d98d85e73f86a52857d5c9bb471ea613eace846",
+"src": "icons/a656bec3d6b8.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Sapphire bolt tips.png",
+"w": 31
+},
+"Sapphire bolts": {
+"bytes": "mirror",
+"file": "File:Sapphire bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "001b23efc9ae04f4975f923eeabeda6a5e84315e",
+"src": "icons/1edf783bc581.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Sapphire bolts.png",
+"w": 29
 },
 "Saradomin brew (1)": {
 "bytes": "mirror",
@@ -13623,7 +18138,7 @@
 "bytes": "mirror",
 "file": "File:Scimitops meat.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "e5656a77c3fe3a016027b98d3dab2ff272d0269f",
 "src": "icons/9fc49e80da20.webp",
 "used": [
@@ -13636,7 +18151,7 @@
 "bytes": "mirror",
 "file": "File:Scrambled egg.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "d93e4014c4d06aec19a8da20994bd66147bf4f2a",
 "src": "icons/6ae160a0ced5.webp",
 "used": [
@@ -13662,7 +18177,7 @@
 "bytes": "mirror",
 "file": "File:Sea turtle.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "a48d3ba4b788491a073f65641b6338989722ef0a",
 "src": "icons/fa0b3f50f846.webp",
 "used": [
@@ -13709,6 +18224,71 @@
 ],
 "via": "exact file",
 "w": 32
+},
+"Seeping elm branches": {
+"bytes": "mirror",
+"file": "File:Seeping elm branches.png",
+"h": 29,
+"icon": "new",
+"sha1": "9f32cae72259bdf0dc67362d601382334e80488a",
+"src": "icons/42a7403ee516.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Seeping elm longbow": {
+"bytes": "mirror",
+"file": "File:Seeping elm longbow.png",
+"h": 31,
+"icon": "reused",
+"sha1": "0db6bd91d288f41308c6de418cfea70151becba4",
+"src": "icons/1a2922e2f172.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Seeping elm shortbow": {
+"bytes": "mirror",
+"file": "File:Seeping elm shortbow.png",
+"h": 28,
+"icon": "reused",
+"sha1": "99ab2b38ddbfe3978a865e74a4cb7fdfa1fab2e6",
+"src": "icons/4436075f03b1.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Seeping elm staff": {
+"bytes": "mirror",
+"file": "File:Seeping elm staff.png",
+"h": 26,
+"icon": "new",
+"sha1": "2d85ceacca5cbc3bf7eeb63f5093b77a75f0c6d1",
+"src": "icons/c330af3df092.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Seeping elm trap": {
+"bytes": "mirror",
+"file": "File:Seeping elm trap.png",
+"h": 28,
+"icon": "new",
+"sha1": "435a3a3ef10ef2e118019c448e14c5c51d6553a8",
+"src": "icons/757153913a39.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 19
 },
 "Serum 207 (1)": {
 "bytes": "mirror",
@@ -13788,6 +18368,19 @@
 "via": "exact file",
 "w": 29
 },
+"Shaft": {
+"bytes": "mirror",
+"file": "File:Shaft 5.png",
+"h": 27,
+"icon": "new",
+"sha1": "7bdcaadbf850cb235dd6f1efd9d6189d017d25d9",
+"src": "icons/ef11b009b846.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Shaft.png",
+"w": 28
+},
 "Shark": {
 "bytes": "mirror",
 "file": "File:Shark.png",
@@ -13805,7 +18398,7 @@
 "bytes": "mirror",
 "file": "File:Shark soup.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "e3387cf41f6e62e842d68252ac3087e52bd75489",
 "src": "icons/c5f964661079.webp",
 "used": [
@@ -13813,6 +18406,19 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Sharp shell shard": {
+"bytes": "mirror",
+"file": "File:Sharp shell shard 5.png",
+"h": 28,
+"icon": "new",
+"sha1": "35b050d87f29094e198527d0cda6d48b70862fb7",
+"src": "icons/c2ca62f3d2e5.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Sharp shell shard.png",
+"w": 27
 },
 "Shengo potion (unfinished)": {
 "bytes": "mirror",
@@ -13831,7 +18437,7 @@
 "bytes": "mirror",
 "file": "File:Shiny tortle shell bowl.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "2f72d7259f9b44dc62fe6ce3ac2e5def0a53a31b",
 "src": "icons/de5e60fa1d16.webp",
 "used": [
@@ -13844,7 +18450,7 @@
 "bytes": "mirror",
 "file": "File:Short Green Guy.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "712427af1b804363a6447659380288fc88d052aa",
 "src": "icons/dc92b6f39bbd.webp",
 "used": [
@@ -13896,7 +18502,7 @@
 "bytes": "mirror",
 "file": "File:Short-finned eel.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "f927a33411484b5f383e1fed96c515be65235984",
 "src": "icons/f16339aa84fb.webp",
 "used": [
@@ -13905,11 +18511,37 @@
 "via": "exact file",
 "w": 29
 },
+"Shortbow": {
+"bytes": "mirror",
+"file": "File:Shortbow.png",
+"h": 30,
+"icon": "reused",
+"sha1": "951ce71a3856f50e99351b824243f42d7407b62e",
+"src": "icons/1eb7b2906be6.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Shortbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Shortbow (unstrung).png",
+"h": 27,
+"icon": "new",
+"sha1": "f4b30a6d6659a912e7dc0043edd4e7f4be3580bc",
+"src": "icons/68eeb9f8d3ce.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
 "Shrimps": {
 "bytes": "mirror",
 "file": "File:Shrimps.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "db0d995f7e3630de1ac01345981032feb9c53c72",
 "src": "icons/574fe9e3a198.webp",
 "used": [
@@ -13917,6 +18549,45 @@
 ],
 "via": "exact file",
 "w": 32
+},
+"Silver bar": {
+"bytes": "mirror",
+"file": "File:Silver bar.png",
+"h": 24,
+"icon": "reused",
+"sha1": "27e06b67b83fb8e2c8c4337c8d604b613dee0500",
+"src": "icons/263690363be6.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Silver bolts": {
+"bytes": "mirror",
+"file": "File:Silver bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "60cfd859646769ca598f1aa985529363ae07376c",
+"src": "icons/552c518f398d.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Silver bolts.png",
+"w": 28
+},
+"Silver bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Silver bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "b1c7a309f46cc1cc71bde0c57b4cb428336f002a",
+"src": "icons/76213e5d1629.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Silver bolts (unf).png",
+"w": 26
 },
 "Silver dust": {
 "bytes": "mirror",
@@ -13931,11 +18602,37 @@
 "via": "exact file",
 "w": 22
 },
+"Silver sickle": {
+"bytes": "mirror",
+"file": "File:Silver sickle.png",
+"h": 29,
+"icon": "reused",
+"sha1": "ac16ab9daac5d07c8a2843c1ff1067d5fa33c88b",
+"src": "icons/1e97a51db0c6.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Silvthril limbs": {
+"bytes": "mirror",
+"file": "File:Silvthril limbs.png",
+"h": 26,
+"icon": "new",
+"sha1": "b41d61ed0a466aaad9e39b72dda54b89088dddae",
+"src": "icons/9aa4cab86553.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
 "Skewered bird meat": {
 "bytes": "mirror",
 "file": "File:Skewered bird meat.png",
 "h": 17,
-"icon": "new",
+"icon": "reused",
 "sha1": "0e4367ec82c0d66e6283ede08d1ecf90cffa4f30",
 "src": "icons/7b407e31b1cf.webp",
 "used": [
@@ -13974,7 +18671,7 @@
 "bytes": "mirror",
 "file": "File:Sliced mushrooms (The Arc).png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "a5adf11e08eee64e92d6fb023716deab25604264",
 "src": "icons/cf62cf0ed0b8.webp",
 "used": [
@@ -14104,7 +18801,7 @@
 "bytes": "mirror",
 "file": "File:Spicati apoterrasaur meat.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "a2c40ac40e7cea6c220b671c718537472a3be9b0",
 "src": "icons/e7c4b818a9eb.webp",
 "used": [
@@ -14130,7 +18827,7 @@
 "bytes": "mirror",
 "file": "File:Spices.png",
 "h": 34,
-"icon": "new",
+"icon": "reused",
 "sha1": "b37f41dafea2e5c931e15c82e4ca8a9c76ffc3c1",
 "src": "icons/8f40a329b576.webp",
 "used": [
@@ -14143,7 +18840,7 @@
 "bytes": "mirror",
 "file": "File:Spicy crunchies.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "a28f16a53d68a8c6e98cdf0e0a9f032bfd974b14",
 "src": "icons/840ef62ae459.webp",
 "used": [
@@ -14156,7 +18853,7 @@
 "bytes": "mirror",
 "file": "File:Spicy sauce.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "a04aa0876fa0c7c5fdd9c039e19ac22a645d49b5",
 "src": "icons/17ea01874f52.webp",
 "used": [
@@ -14182,7 +18879,7 @@
 "bytes": "mirror",
 "file": "File:Spider on stick.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "cf1b03d4542915795f5f022107f6f833cf90d475",
 "src": "icons/9f1a8a25848d.webp",
 "used": [
@@ -14195,7 +18892,7 @@
 "bytes": "mirror",
 "file": "File:Spider on stick (raw).png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "f9e5806ba9852325800a797634333ea8e948b74a",
 "src": "icons/1873024c856b.webp",
 "used": [
@@ -14216,6 +18913,71 @@
 ],
 "via": "exact file",
 "w": 23
+},
+"Spinebeam branches": {
+"bytes": "mirror",
+"file": "File:Spinebeam branches.png",
+"h": 29,
+"icon": "new",
+"sha1": "42a0cead8db45f0cc25cb89378b9c7b7b2cfa083",
+"src": "icons/cb7df1f3d905.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Spinebeam longbow": {
+"bytes": "mirror",
+"file": "File:Spinebeam longbow.png",
+"h": 32,
+"icon": "reused",
+"sha1": "d21b37ed2aa5ec9871a800494aae2c2990325700",
+"src": "icons/f22675d8793e.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Spinebeam shortbow": {
+"bytes": "mirror",
+"file": "File:Spinebeam shortbow.png",
+"h": 31,
+"icon": "reused",
+"sha1": "4fd4375f9eb7a93e106651af885fa12f648a7e40",
+"src": "icons/951910cbe53b.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Spinebeam staff": {
+"bytes": "mirror",
+"file": "File:Spinebeam staff.png",
+"h": 29,
+"icon": "new",
+"sha1": "820f59a9df67c6b55b0d73d4f3942e355e0057f3",
+"src": "icons/8f84e65cd0b5.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Spinebeam trap": {
+"bytes": "mirror",
+"file": "File:Spinebeam trap.png",
+"h": 30,
+"icon": "new",
+"sha1": "c47f2af9f4b5968b1ae03dd1edb89e53605510fb",
+"src": "icons/757645d982cc.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 18
 },
 "Spirit attraction flask (6)": {
 "bytes": "mirror",
@@ -14313,6 +19075,32 @@
 "via": "exact file",
 "w": 19
 },
+"Splintering arrow tips": {
+"bytes": "mirror",
+"file": "File:Splintering arrow tips 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "cfefb7604e283ce92f220f770604e1f8a0bd2a0e",
+"src": "icons/7a221d775969.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Splintering arrow tips.png",
+"w": 27
+},
+"Splintering arrows": {
+"bytes": "mirror",
+"file": "File:Splintering arrows 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "8216b40175b23627a77b832dcbfab77ab95edc2b",
+"src": "icons/70f2d20f1384.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Splintering arrows.png",
+"w": 30
+},
 "Springsheared wool": {
 "bytes": "mirror",
 "file": "File:Springsheared wool.png",
@@ -14325,6 +19113,32 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Stalker arrow": {
+"bytes": "mirror",
+"file": "File:Stalker arrow 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "249334f5d35b5c2f47aa684c1b12146906ef1e85",
+"src": "icons/653cb6f7d019.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Stalker arrow.png",
+"w": 30
+},
+"Stalker essence": {
+"bytes": "mirror",
+"file": "File:Stalker essence.png",
+"h": 19,
+"icon": "reused",
+"sha1": "cd13743721a9af22c08abb396a0ced534b6d5849",
+"src": "icons/a2e2bd5058f3.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 18
 },
 "Stamina flask (6)": {
 "bytes": "mirror",
@@ -14417,11 +19231,167 @@
 "via": "exact file",
 "w": 24
 },
+"Steel 2h crossbow": {
+"bytes": "mirror",
+"file": "File:Steel 2h crossbow.png",
+"h": 27,
+"icon": "new",
+"sha1": "1fe4a7e5bf14ee8d0f5644d1e1ce50d3d24d2784",
+"src": "icons/709eb6c12452.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Steel arrow": {
+"bytes": "mirror",
+"file": "File:Steel arrow 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "a3e3aa920a47acb909ace643915c2c757bd8d630",
+"src": "icons/234fc8044f4a.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Steel arrow.png",
+"w": 32
+},
+"Steel arrowheads": {
+"bytes": "mirror",
+"file": "File:Steel arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "f291e485edc4a22594dfbd8850afe939457b62a8",
+"src": "icons/e89d11058794.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Steel arrowheads.png",
+"w": 32
+},
+"Steel bar": {
+"bytes": "mirror",
+"file": "File:Steel bar.png",
+"h": 24,
+"icon": "reused",
+"sha1": "5a7a09fb8ffc723cd204d7f298ee7c20213d8f15",
+"src": "icons/41678feda956.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Steel bolts": {
+"bytes": "mirror",
+"file": "File:Steel bolts 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "75e4e17e19669ee82e978bbcc98f17cfcb079793",
+"src": "icons/fd0b9529e243.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Steel bolts.png",
+"w": 28
+},
+"Steel bolts (unf)": {
+"bytes": "mirror",
+"file": "File:Steel bolts (unf) 5.png",
+"h": 29,
+"icon": "new",
+"sha1": "ac60d05932e0af26a1ed7602b118ff36b1365ce3",
+"src": "icons/0dd17ffa342e.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Steel bolts (unf).png",
+"w": 26
+},
+"Steel brutal": {
+"bytes": "mirror",
+"file": "File:Steel brutal 5.png",
+"h": 30,
+"icon": "new",
+"sha1": "0438a1140043354ac7a3fcb6f5ed4d01719058cc",
+"src": "icons/bd53a1346d26.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Steel brutal.png",
+"w": 30
+},
+"Steel crossbow": {
+"bytes": "mirror",
+"file": "File:Steel crossbow.png",
+"h": 25,
+"icon": "new",
+"sha1": "ee31f520b1f64d9a173274846638c6c00a53654d",
+"src": "icons/c0258d94276d.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
+"Steel crossbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Steel crossbow (unstrung).png",
+"h": 28,
+"icon": "new",
+"sha1": "ed5c347453c68c6acd3774272cc1c6374a5ad8c2",
+"src": "icons/212c2e2b9848.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Steel dart": {
+"bytes": "mirror",
+"file": "File:Steel dart.png",
+"h": 29,
+"icon": "reused",
+"sha1": "f53098fc34c06a7213e12fe13cddb06a18baad1d",
+"src": "icons/e7b113f56b70.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 22
+},
+"Steel dart tip": {
+"bytes": "mirror",
+"file": "File:Steel dart tip.png",
+"h": 19,
+"icon": "new",
+"sha1": "9a5155c106e56c2dce7f043fce448d7cc67d0497",
+"src": "icons/382583a3881d.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 11
+},
+"Steel nails": {
+"bytes": "mirror",
+"file": "File:Steel nails.png",
+"h": 25,
+"icon": "new",
+"sha1": "39a2bb424ccd8907148e029066c85f629bdbbe9b",
+"src": "icons/54692bc071b4.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
 "Stew": {
 "bytes": "mirror",
 "file": "File:Stew.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "c6c70dc6005d4238e63127c74a4845406f5694e3",
 "src": "icons/2ffecf529656.webp",
 "used": [
@@ -14460,7 +19430,7 @@
 "bytes": "mirror",
 "file": "File:Strawberry cheesecake.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "7d01899d32656f3066cdef1274c5029bcd12c687",
 "src": "icons/1cd614adc634.webp",
 "used": [
@@ -14473,7 +19443,7 @@
 "bytes": "mirror",
 "file": "File:Strawberry cream cheese.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "e6c8814081b278fe4e2f600b6e2a717f6a6104ed",
 "src": "icons/22e443b65122.webp",
 "used": [
@@ -14486,7 +19456,7 @@
 "bytes": "mirror",
 "file": "File:Strawberry milk.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "105bee46ea58f03f82e0515f4708bd221b4229b1",
 "src": "icons/aa4d0dcd30a4.webp",
 "used": [
@@ -14608,7 +19578,7 @@
 "bytes": "mirror",
 "file": "File:Strong cooking urn.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "9f376447e2251376a357f16c406b2a51198ecbdf",
 "src": "icons/f132cfc97b92.webp",
 "used": [
@@ -14621,7 +19591,7 @@
 "bytes": "mirror",
 "file": "File:Strong cooking urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "37e8f4b09e7a32fb3ccdc04c5b3d3bd26ee2dd67",
 "src": "icons/1af02bbca768.webp",
 "used": [
@@ -16993,7 +21963,7 @@
 "bytes": "mirror",
 "file": "File:Sweet potato.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "1b003a690f16d33d85d1c9410f2b7f797ed4756a",
 "src": "icons/4b8dd0ef0ac0.webp",
 "used": [
@@ -17029,11 +21999,76 @@
 "via": "exact file",
 "w": 35
 },
+"Tangle gum branches": {
+"bytes": "mirror",
+"file": "File:Tangle gum branches.png",
+"h": 29,
+"icon": "new",
+"sha1": "005846b37fafa4077efeeb832cd04b896085e55f",
+"src": "icons/5803a6bddf17.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Tangle gum longbow": {
+"bytes": "mirror",
+"file": "File:Tangle gum longbow.png",
+"h": 31,
+"icon": "reused",
+"sha1": "a24ce4660952097b16443c7da69c1b4fa43a2057",
+"src": "icons/cf6427781200.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Tangle gum shortbow": {
+"bytes": "mirror",
+"file": "File:Tangle gum shortbow.png",
+"h": 28,
+"icon": "reused",
+"sha1": "a3e87ae7bb480978e3508b8958407b9bf53dbb03",
+"src": "icons/56b2588ce0a8.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Tangle gum staff": {
+"bytes": "mirror",
+"file": "File:Tangle gum staff.png",
+"h": 26,
+"icon": "new",
+"sha1": "22c36b95b0bb140870818a4ce9d053cc032e37b6",
+"src": "icons/c6eae4959611.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Tangle gum trap": {
+"bytes": "mirror",
+"file": "File:Tangle gum trap.png",
+"h": 28,
+"icon": "new",
+"sha1": "c73dff79202031de68a8668acc324a6b2ec77d50",
+"src": "icons/7ba62e36a5aa.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 19
+},
 "Tangled toads' legs": {
 "bytes": "downloaded",
 "file": "File:Tangled toads' legs.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "cee1b3016fcabd287d3d18edba306c85f3d64128",
 "src": "icons/e169b6313122.webp",
 "used": [
@@ -17067,6 +22102,97 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Teak logs": {
+"bytes": "mirror",
+"file": "File:Teak logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "8c3bde2d9c8094f7f8cdcd062d7f27f14b0e855d",
+"src": "icons/ce17499ae6df.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Tempered fungal shaft": {
+"bytes": "mirror",
+"file": "File:Tempered fungal shaft 5.png",
+"h": 27,
+"icon": "new",
+"sha1": "958729479a4fc303d72453921ef5b1874cf9543f",
+"src": "icons/83d9abdf0d9e.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Tempered fungal shaft.png",
+"w": 32
+},
+"Thigat branches": {
+"bytes": "mirror",
+"file": "File:Thigat branches.png",
+"h": 29,
+"icon": "new",
+"sha1": "4324a93915e92ca2e468350b6929aa6c190839b2",
+"src": "icons/6f5b28bed193.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Thigat longbow": {
+"bytes": "mirror",
+"file": "File:Thigat longbow.png",
+"h": 32,
+"icon": "reused",
+"sha1": "077be99b3171732fa9451e4c92d86c7c29e4df64",
+"src": "icons/f6c999c5b898.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Thigat shortbow": {
+"bytes": "mirror",
+"file": "File:Thigat shortbow.png",
+"h": 30,
+"icon": "reused",
+"sha1": "207afc1eddb9263f5fece07bfd31074a730926f2",
+"src": "icons/2e77c70fb58a.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Thigat staff": {
+"bytes": "mirror",
+"file": "File:Thigat staff.png",
+"h": 29,
+"icon": "new",
+"sha1": "9dbffcd9e929a88b67abd0af1956870600935dd2",
+"src": "icons/f7b029787521.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Thigat trap": {
+"bytes": "mirror",
+"file": "File:Thigat trap.png",
+"h": 31,
+"icon": "new",
+"sha1": "5a7187405d4b819afda8780c51edd4b3926639a7",
+"src": "icons/f41f5ff77d87.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 18
 },
 "Thin snail": {
 "bytes": "mirror",
@@ -17111,7 +22237,7 @@
 "bytes": "mirror",
 "file": "File:Tiger shark.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "cbe8b97deaac1c00695bfb027de8259b7afcf35a",
 "src": "icons/24b3e132f3f4.webp",
 "used": [
@@ -17150,7 +22276,7 @@
 "bytes": "mirror",
 "file": "File:Toad batta.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "a9d84630958bcd3fe063db32f8ecca28d3be3c77",
 "src": "icons/965e91cf9dea.webp",
 "used": [
@@ -17225,6 +22351,32 @@
 "via": "exact file",
 "w": 29
 },
+"Topaz bolt tips": {
+"bytes": "mirror",
+"file": "File:Topaz bolt tips 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "07ec96636862d0019cc8632ffc9228cacc9e6016",
+"src": "icons/a6c3d31762eb.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Topaz bolt tips.png",
+"w": 31
+},
+"Topaz bolts": {
+"bytes": "mirror",
+"file": "File:Topaz bolts 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "6000ae5cfaaa5fd90485b29e2ef3fbc591bc4707",
+"src": "icons/872a53127f7a.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Topaz bolts.png",
+"w": 29
+},
 "Torstol incense sticks": {
 "bytes": "mirror",
 "file": "File:Torstol incense sticks.png",
@@ -17264,6 +22416,19 @@
 "via": "exact file",
 "w": 29
 },
+"Tortle trap": {
+"bytes": "mirror",
+"file": "File:Tortle trap.png",
+"h": 27,
+"icon": "new",
+"sha1": "6672f69d4bc3f7259829e27890cb5f1818630035",
+"src": "icons/1c56d6ba0592.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 31
+},
 "Trout": {
 "bytes": "mirror",
 "file": "File:Trout.png",
@@ -17294,7 +22459,7 @@
 "bytes": "mirror",
 "file": "File:Tuna and corn.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "96cdcfc1f47ab695182863e0d16caacb7b786582",
 "src": "icons/d97ca3efe7c5.webp",
 "used": [
@@ -17398,7 +22563,7 @@
 "bytes": "mirror",
 "file": "File:Uncooked pizza.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "0a1b893b2923d43eaedf113a296cb25c33c5a51c",
 "src": "icons/4991f2b99805.webp",
 "used": [
@@ -17411,7 +22576,7 @@
 "bytes": "mirror",
 "file": "File:Uncooked pork pie.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "aee97d67b7e742f8372424755814b22414fad66e",
 "src": "icons/24eedbeae2f8.webp",
 "used": [
@@ -17419,6 +22584,19 @@
 ],
 "via": "exact file",
 "w": 26
+},
+"Unfinished broad bolts": {
+"bytes": "mirror",
+"file": "File:Unfinished broad bolts 5.png",
+"h": 24,
+"icon": "new",
+"sha1": "564115bbdc909fba0f92c40464ead98da1e348ea",
+"src": "icons/c7c310159acd.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Unfinished broad bolts.png",
+"w": 32
 },
 "Unicorn horn": {
 "bytes": "mirror",
@@ -17446,6 +22624,84 @@
 "via": "exact file",
 "w": 22
 },
+"Unstrung ogre composite bow": {
+"bytes": "mirror",
+"file": "File:Unstrung ogre composite bow.png",
+"h": 24,
+"icon": "new",
+"sha1": "ea3a37ca666b7152e0d7284f7b3dfad2d99c30e9",
+"src": "icons/0ed3c44332ad.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Utuku branches": {
+"bytes": "mirror",
+"file": "File:Utuku branches.png",
+"h": 29,
+"icon": "new",
+"sha1": "1199ce8878335c59d77c5aafb9f2ceb029f597b6",
+"src": "icons/32e5ede2196e.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Utuku longbow": {
+"bytes": "mirror",
+"file": "File:Utuku longbow.png",
+"h": 30,
+"icon": "reused",
+"sha1": "e217dd6fa8c66503c53c49ba00378f80b941c33a",
+"src": "icons/ed0c14858ab2.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
+},
+"Utuku shortbow": {
+"bytes": "mirror",
+"file": "File:Utuku shortbow.png",
+"h": 28,
+"icon": "reused",
+"sha1": "26bb3a5091939492985fd39c911470d61d050d20",
+"src": "icons/d6dd360fbb55.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 28
+},
+"Utuku staff": {
+"bytes": "mirror",
+"file": "File:Utuku staff.png",
+"h": 26,
+"icon": "new",
+"sha1": "5ac1e8be7ccbda229465b180853d4acac1e593f3",
+"src": "icons/90635ec4ca33.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 29
+},
+"Utuku trap": {
+"bytes": "mirror",
+"file": "File:Utuku trap.png",
+"h": 30,
+"icon": "new",
+"sha1": "1836aa46114b161a5d07ab592140ad0d4ac75ca0",
+"src": "icons/cfd7cd53bb61.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 18
+},
 "Valerian potion (unfinished)": {
 "bytes": "mirror",
 "file": "File:Valerian potion (unfinished).png",
@@ -17463,7 +22719,7 @@
 "bytes": "mirror",
 "file": "File:Vanilla cheesecake.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "0cf8dea2d8ab3e1060add01e0e1ab8f1e4c90c4f",
 "src": "icons/b37b95e13e77.webp",
 "used": [
@@ -17476,7 +22732,7 @@
 "bytes": "mirror",
 "file": "File:Vanilla cream cheese.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "b6ca87ee756df4fd18ed35f13f5091cb76bdb515",
 "src": "icons/f3448e1e54c9.webp",
 "used": [
@@ -17489,7 +22745,7 @@
 "bytes": "mirror",
 "file": "File:Vanilla milk.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "96c526cd13a0fe920911899eb911f8c2d4b05e28",
 "src": "icons/ffd3abb1fc5f.webp",
 "used": [
@@ -17502,7 +22758,7 @@
 "bytes": "downloaded",
 "file": "File:Veg ball.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "818b05fe17312c464eb52d777375e95cf3814a00",
 "src": "icons/1c3c9d77502e.webp",
 "used": [
@@ -17515,7 +22771,7 @@
 "bytes": "mirror",
 "file": "File:Vegetable batta.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "097817fa3372761d5ae6739a8fb50fdb5b370f18",
 "src": "icons/1986a52a5770.webp",
 "used": [
@@ -17580,7 +22836,7 @@
 "bytes": "downloaded",
 "file": "File:Vodka.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "60b428167527ca4d5a62f369fd05fab9e945fcc0",
 "src": "icons/a51aa1402097.webp",
 "used": [
@@ -18290,7 +23546,7 @@
 "bytes": "mirror",
 "file": "File:Web snipper.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "31a336f31e1fcd62f85366cdb463fda0a4081941",
 "src": "icons/7623961d38fb.webp",
 "used": [
@@ -18298,6 +23554,19 @@
 ],
 "via": "exact file",
 "w": 32
+},
+"Wen arrow": {
+"bytes": "mirror",
+"file": "File:Wen arrow 5.png",
+"h": 32,
+"icon": "new",
+"sha1": "7e4521072d902f925d4dcdb42caaab57559d6ea2",
+"src": "icons/4bfd35e5448d.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Wen arrow.png",
+"w": 31
 },
 "Wergali potion (unfinished)": {
 "bytes": "mirror",
@@ -18355,7 +23624,7 @@
 "bytes": "mirror",
 "file": "File:White strawberry.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "86e8fa3c7a516888942a2ca37d101b570233ea74",
 "src": "icons/8b2f37035265.webp",
 "used": [
@@ -18368,7 +23637,7 @@
 "bytes": "mirror",
 "file": "File:Wild pie.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "55de3f146441c84e29f933970bc5a6c2e7727f06",
 "src": "icons/a3ced06af42a.webp",
 "used": [
@@ -18381,7 +23650,7 @@
 "bytes": "mirror",
 "file": "File:Wildblood hops.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "dfa5ba8f43d1e1415bc8a52a1de0d23d9ebb06fd",
 "src": "icons/af5dcca96555.webp",
 "used": [
@@ -18394,7 +23663,7 @@
 "bytes": "mirror",
 "file": "File:Wilder pie.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "a63edfeb2e906ed62a17d8490f65672507afcf39",
 "src": "icons/4faa5acccc53.webp",
 "used": [
@@ -18402,6 +23671,71 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Willow logs": {
+"bytes": "mirror",
+"file": "File:Willow logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "89042883f9e6579394d5ce689a0c9aa7c39de77b",
+"src": "icons/96e17cf17e0b.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Willow longbow": {
+"bytes": "mirror",
+"file": "File:Willow longbow.png",
+"h": 32,
+"icon": "reused",
+"sha1": "a8eeddb95f71305d5e5aaaffd354187a098d824c",
+"src": "icons/31cf207c45c6.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Willow longbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Willow longbow (unstrung).png",
+"h": 31,
+"icon": "new",
+"sha1": "65677a453f63c1d936b7414fc336ca3429d19b89",
+"src": "icons/26eae80d86d9.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Willow shortbow": {
+"bytes": "mirror",
+"file": "File:Willow shortbow.png",
+"h": 30,
+"icon": "reused",
+"sha1": "64b1904c3d7880333bc80fdbedf9d69c1d6cf45a",
+"src": "icons/c88c1a07d097.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Willow shortbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Willow shortbow (unstrung).png",
+"h": 27,
+"icon": "new",
+"sha1": "e6f00e869b50d04a330e289c84269e9026841d0e",
+"src": "icons/c3ad5ce1c818.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
 },
 "Wimpy feather": {
 "bytes": "mirror",
@@ -18498,7 +23832,7 @@
 "bytes": "mirror",
 "file": "File:Wobbegong oil 1.png",
 "h": 13,
-"icon": "new",
+"icon": "reused",
 "sha1": "d2bf64d3a3039fa38e427f902334c17dd7b5f5e9",
 "src": "icons/1effeb5e87c9.webp",
 "used": [
@@ -18511,7 +23845,7 @@
 "bytes": "mirror",
 "file": "File:Wobbegong oil 20.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "5855799380fbb1dfd41ff186bbb8564b4969e7d3",
 "src": "icons/b423628e64f7.webp",
 "used": [
@@ -18519,6 +23853,32 @@
 ],
 "via": "exact file",
 "w": 27
+},
+"Wolf bone arrowheads": {
+"bytes": "mirror",
+"file": "File:Wolf bone arrowheads 5.png",
+"h": 26,
+"icon": "new",
+"sha1": "69e56fe6e6b56f81f2107c7bc82f528c2cb49072",
+"src": "icons/382925918cb9.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Wolf bone arrowheads.png",
+"w": 32
+},
+"Wolf bones": {
+"bytes": "mirror",
+"file": "File:Wolf bones.png",
+"h": 19,
+"icon": "reused",
+"sha1": "5a4f9b36816a3010ee63dcb3422419bf26058856",
+"src": "icons/a1f4d61e5f3d.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 26
 },
 "Woodcutting flask (6)": {
 "bytes": "mirror",
@@ -18607,7 +23967,7 @@
 "bytes": "mirror",
 "file": "File:Worm crunchies.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "14653476e884d32e677c65268c1a255863ed3768",
 "src": "icons/f2c6fccf68e0.webp",
 "used": [
@@ -18620,7 +23980,7 @@
 "bytes": "downloaded",
 "file": "File:Worm hole.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "d3e84cb089a6a464a29571c0689c8b428894c807",
 "src": "icons/6c5d7152f875.webp",
 "used": [
@@ -18646,7 +24006,7 @@
 "bytes": "mirror",
 "file": "File:Wrapped oomlie.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "f026192a7d3ff2ef66e076dd4200193d91b4396c",
 "src": "icons/c3dc6ada2725.webp",
 "used": [
@@ -18724,7 +24084,7 @@
 "bytes": "mirror",
 "file": "File:Yanillian hops.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "bb27392618e777dde664975d817a86a3c0528b62",
 "src": "icons/2f80c980a0b9.webp",
 "used": [
@@ -18746,6 +24106,45 @@
 "via": "exact file",
 "w": 15
 },
+"Yew logs": {
+"bytes": "mirror",
+"file": "File:Yew logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "9fd4b2347ef9a73b603526e6fe96b96402e7de5e",
+"src": "icons/646844e1eaca.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Yew longbow": {
+"bytes": "mirror",
+"file": "File:Yew longbow.png",
+"h": 32,
+"icon": "reused",
+"sha1": "1f2ae932cb1c609ee7e298fdfcdf0258be23d3f0",
+"src": "icons/f51dceb1ce36.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Yew longbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Yew longbow (unstrung).png",
+"h": 31,
+"icon": "reused",
+"sha1": "3e616b85a872203dbdbf100aec423a971d2e4fdc",
+"src": "icons/4711240a2081.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
 "Yew roots": {
 "bytes": "mirror",
 "file": "File:Yew roots.png",
@@ -18755,6 +24154,32 @@
 "src": "icons/251963122a5a.webp",
 "used": [
 "herblore"
+],
+"via": "exact file",
+"w": 33
+},
+"Yew shortbow": {
+"bytes": "mirror",
+"file": "File:Yew shortbow.png",
+"h": 30,
+"icon": "reused",
+"sha1": "8dfe7518935f6936e8f7a3135018970b64a1569f",
+"src": "icons/420ff43d6aeb.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 32
+},
+"Yew shortbow (unstrung)": {
+"bytes": "mirror",
+"file": "File:Yew shortbow (unstrung).png",
+"h": 27,
+"icon": "reused",
+"sha1": "42bffddd3f04420067737f644a4366813a307eeb",
+"src": "icons/5ffc10686daf.webp",
+"used": [
+"fletching"
 ],
 "via": "exact file",
 "w": 33
@@ -18950,6 +24375,32 @@
 ],
 "via": "exact file",
 "w": 23
+},
+"Zephyrium arrows": {
+"bytes": "mirror",
+"file": "File:Zephyrium arrows 5.png",
+"h": 31,
+"icon": "new",
+"sha1": "8e7b6527f4e5dd31b22e7daebdfc88653db856dc",
+"src": "icons/a4ff74b3488d.webp",
+"used": [
+"fletching"
+],
+"via": "File redirect from File:Zephyrium arrows.png",
+"w": 33
+},
+"Zephyrium bar": {
+"bytes": "mirror",
+"file": "File:Zephyrium bar.png",
+"h": 28,
+"icon": "new",
+"sha1": "ca2d033ffa07755dfe23de67f923fd59fe43b2f6",
+"src": "icons/bf9d0f9fb5eb.webp",
+"used": [
+"fletching"
+],
+"via": "exact file",
+"w": 30
 },
 "Zygomite fruit": {
 "bytes": "mirror",

@@ -213,15 +213,16 @@ def calc_names():
         if v in H['ids']: add(v, 'herblore')
     import subprocess   # plus every name the ported engine actually puts in its rows (tools/calc_names.cjs)
     for v in json.loads(subprocess.run(['node', os.path.join(ROOT, 'tools', 'calc_names.cjs')], capture_output=True, check=True).stdout): add(v, 'herblore')
-    cp = os.path.join(ROOT, 'data', 'calc', 'cooking.json')
-    if os.path.exists(cp):
+    for slug in ('cooking', 'fletching'):   # native Wiki skill calculators (Module:Skill calc data files)
+        cp = os.path.join(ROOT, 'data', 'calc', slug + '.json')
+        if not os.path.exists(cp): continue
         C = json.load(open(cp))
         for c, v in C['cats'].items():
             for it in v.get('items', []):
                 # eltGenerator setImgLnk: the row picture is File:<icon or image or name>.png
-                add(it.get('icon') or it.get('image') or it['name'], 'cooking')
+                add(it.get('icon') or it.get('image') or it['name'], slug)
                 for m in it.get('material', []):   # createList: File:<name>.png; currency rows ("image,link"): File:<image>.png
-                    if isinstance(m, str): add(m.split(',')[0], 'cooking')
+                    if isinstance(m, str): add(m.split(',')[0], slug)
     return names
 
 def items():

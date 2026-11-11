@@ -123,10 +123,10 @@ async function screen(hash, store = {}, feed = 'full') {
   // directory: exact native mapping, favourites reopen in app, everything else Wiki-only
   ({dom, w, d} = await screen('calculators', {[C.FAV_KEY]: favs}));
   // running native coverage: Flask decanting + Herblore (tests/CALCULATOR_COVERAGE.md); Flask decanting's link is unchanged
-  const nat = [...d.querySelectorAll('#calc-native a.calc-card-main')]; assert.equal(nat.length, C.NATIVE.length); assert.equal(C.NATIVE.length, 3);
+  const nat = [...d.querySelectorAll('#calc-native a.calc-card-main')]; assert.equal(nat.length, C.NATIVE.length); assert.equal(C.NATIVE.length, 4);
   const fdLink = nat.find(a => a.getAttribute('href') === '#calculators/flask-decanting'); assert.ok(fdLink);
   assert.ok(fdLink.closest('li').textContent.includes('Decanting flasks for profit'));
-  assert.equal(d.querySelectorAll('#calc-native .calc-card').length, 3); assert.ok(!nat.some(a => a.target));
+  assert.equal(d.querySelectorAll('#calc-native .calc-card').length, 4); assert.ok(!nat.some(a => a.target));
   assert.ok(d.querySelectorAll('#calc-upcoming .calc-item').length > 100); assert.equal(d.querySelectorAll('#calc-upcoming .calc-in-app').length, 0);
   assert.equal(d.querySelector('#calc-fav-list a.calc-open').getAttribute('href'), '#calculators/flask-decanting');
   dom.window.close();

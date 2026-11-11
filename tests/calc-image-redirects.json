@@ -1,24 +1,498 @@
 {
- "checked": "2026-11-11 00:19 EST",
- "method": "MediaWiki API action=query&prop=imageinfo|revisions&redirects=1 on File:<item name>.png (and page redirects for item pages); recorded exactly as returned",
+ "checked": "2026-11-11 01:01 EST",
  "items": {
+  "Adamant arrow": {
+   "appFile": "File:Adamant arrow 5.png",
+   "appSha1": "d1774faea2e9984d85347bf53337c1f57ce78155",
+   "fileRedirects": [
+    {
+     "from": "File:Adamant arrow.png",
+     "to": "File:Adamant arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "d1774faea2e9984d85347bf53337c1f57ce78155",
+   "resolvedTitle": "File:Adamant arrow 5.png",
+   "via": "File redirect from File:Adamant arrow.png"
+  },
+  "Adamant arrowheads": {
+   "appFile": "File:Adamant arrowheads 5.png",
+   "appSha1": "839b523c0046a6e8f6da94724d0eb1e06393a05b",
+   "fileRedirects": [
+    {
+     "from": "File:Adamant arrowheads.png",
+     "to": "File:Adamant arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "839b523c0046a6e8f6da94724d0eb1e06393a05b",
+   "resolvedTitle": "File:Adamant arrowheads 5.png",
+   "via": "File redirect from File:Adamant arrowheads.png"
+  },
+  "Adamant bolts": {
+   "appFile": "File:Adamant bolts 5.png",
+   "appSha1": "69170b772191342fb469c8b24dbed5e915c29855",
+   "fileRedirects": [
+    {
+     "from": "File:Adamant bolts.png",
+     "to": "File:Adamant bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "69170b772191342fb469c8b24dbed5e915c29855",
+   "resolvedTitle": "File:Adamant bolts 5.png",
+   "via": "File redirect from File:Adamant bolts.png"
+  },
+  "Adamant bolts (unf)": {
+   "appFile": "File:Adamant bolts (unf) 5.png",
+   "appSha1": "6f6344dcfb1c702bd3b32e17933a49d6ac6af006",
+   "fileRedirects": [
+    {
+     "from": "File:Adamant bolts (unf).png",
+     "to": "File:Adamant bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "6f6344dcfb1c702bd3b32e17933a49d6ac6af006",
+   "resolvedTitle": "File:Adamant bolts (unf) 5.png",
+   "via": "File redirect from File:Adamant bolts (unf).png"
+  },
+  "Adamant brutal": {
+   "appFile": "File:Adamant brutal 5.png",
+   "appSha1": "a0871dc96334772c1ea97e5ad886cd52dd05ceab",
+   "fileRedirects": [
+    {
+     "from": "File:Adamant brutal.png",
+     "to": "File:Adamant brutal 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "a0871dc96334772c1ea97e5ad886cd52dd05ceab",
+   "resolvedTitle": "File:Adamant brutal 5.png",
+   "via": "File redirect from File:Adamant brutal.png"
+  },
+  "Argonite arrows": {
+   "appFile": "File:Argonite arrows 5.png",
+   "appSha1": "5777444d6593aba76d4e163e0b24ff20202e03f6",
+   "fileRedirects": [
+    {
+     "from": "File:Argonite arrows.png",
+     "to": "File:Argonite arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "5777444d6593aba76d4e163e0b24ff20202e03f6",
+   "resolvedTitle": "File:Argonite arrows 5.png",
+   "via": "File redirect from File:Argonite arrows.png"
+  },
+  "Arrow shaft (Dungeoneering)": {
+   "appFile": "File:Arrow shaft (Dungeoneering) 5.png",
+   "appSha1": "869c89756220150424d19c7130b46a4bae7a851c",
+   "fileRedirects": [
+    {
+     "from": "File:Arrow shaft (Dungeoneering).png",
+     "to": "File:Arrow shaft (Dungeoneering) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "869c89756220150424d19c7130b46a4bae7a851c",
+   "resolvedTitle": "File:Arrow shaft (Dungeoneering) 5.png",
+   "via": "File redirect from File:Arrow shaft (Dungeoneering).png"
+  },
+  "Ascendri bolts": {
+   "appFile": "File:Ascendri bolts 4.png",
+   "appSha1": "961a0816b791b80c88bb8fadae5a5467303deb60",
+   "fileRedirects": [
+    {
+     "from": "File:Ascendri bolts.png",
+     "to": "File:Ascendri bolts 4.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "961a0816b791b80c88bb8fadae5a5467303deb60",
+   "resolvedTitle": "File:Ascendri bolts 4.png",
+   "via": "File redirect from File:Ascendri bolts.png"
+  },
+  "Ascension bolts": {
+   "appFile": "File:Ascension bolts 4.png",
+   "appSha1": "bac8ef7189a183b727933e5eefba5d13040236d1",
+   "fileRedirects": [
+    {
+     "from": "File:Ascension bolts.png",
+     "to": "File:Ascension bolts 4.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "bac8ef7189a183b727933e5eefba5d13040236d1",
+   "resolvedTitle": "File:Ascension bolts 4.png",
+   "via": "File redirect from File:Ascension bolts.png"
+  },
+  "Ascension fragment": {
+   "appFile": "File:Ascension fragment 3.png",
+   "appSha1": "b04d8cefb3a19a49a5eebd6b070249347be2f876",
+   "fileRedirects": [
+    {
+     "from": "File:Ascension fragment.png",
+     "to": "File:Ascension fragment 3.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "b04d8cefb3a19a49a5eebd6b070249347be2f876",
+   "resolvedTitle": "File:Ascension fragment 3.png",
+   "via": "File redirect from File:Ascension fragment.png"
+  },
+  "Bakriminel bolt shafts": {
+   "appFile": "File:Bakriminel bolt shafts 5.png",
+   "appSha1": "3048927cd13807afd549bf5e2bc8f5c4323b4e36",
+   "fileRedirects": [
+    {
+     "from": "File:Bakriminel bolt shafts.png",
+     "to": "File:Bakriminel bolt shafts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "3048927cd13807afd549bf5e2bc8f5c4323b4e36",
+   "resolvedTitle": "File:Bakriminel bolt shafts 5.png",
+   "via": "File redirect from File:Bakriminel bolt shafts.png"
+  },
+  "Bakriminel bolt tips": {
+   "appFile": "File:Bakriminel bolt tips 5.png",
+   "appSha1": "f1fd927b38891195861e865fefc6389309ba9d23",
+   "fileRedirects": [
+    {
+     "from": "File:Bakriminel bolt tips.png",
+     "to": "File:Bakriminel bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "f1fd927b38891195861e865fefc6389309ba9d23",
+   "resolvedTitle": "File:Bakriminel bolt tips 5.png",
+   "via": "File redirect from File:Bakriminel bolt tips.png"
+  },
+  "Bakriminel bolts": {
+   "appFile": "File:Bakriminel bolts 5.png",
+   "appSha1": "71af34323b681515c3cacd0070a0d6c943b50475",
+   "fileRedirects": [
+    {
+     "from": "File:Bakriminel bolts.png",
+     "to": "File:Bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "71af34323b681515c3cacd0070a0d6c943b50475",
+   "resolvedTitle": "File:Bakriminel bolts 5.png",
+   "via": "File redirect from File:Bakriminel bolts.png"
+  },
+  "Bane arrow": {
+   "appFile": "File:Bane arrow 5.png",
+   "appSha1": "eb5a839381b9187eda0bcc1aaaa5bb704467971d",
+   "fileRedirects": [
+    {
+     "from": "File:Bane arrow.png",
+     "to": "File:Bane arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "eb5a839381b9187eda0bcc1aaaa5bb704467971d",
+   "resolvedTitle": "File:Bane arrow 5.png",
+   "via": "File redirect from File:Bane arrow.png"
+  },
+  "Bane arrowheads": {
+   "appFile": "File:Bane arrowheads 5.png",
+   "appSha1": "e5e8172f6ee1ccc0cb70790823a6957e0692d6bf",
+   "fileRedirects": [
+    {
+     "from": "File:Bane arrowheads.png",
+     "to": "File:Bane arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "e5e8172f6ee1ccc0cb70790823a6957e0692d6bf",
+   "resolvedTitle": "File:Bane arrowheads 5.png",
+   "via": "File redirect from File:Bane arrowheads.png"
+  },
+  "Bane bolts": {
+   "appFile": "File:Bane bolts 5.png",
+   "appSha1": "9d5cf70517aa1fe82a4a5854dd3336739f76fa7b",
+   "fileRedirects": [
+    {
+     "from": "File:Bane bolts.png",
+     "to": "File:Bane bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "9d5cf70517aa1fe82a4a5854dd3336739f76fa7b",
+   "resolvedTitle": "File:Bane bolts 5.png",
+   "via": "File redirect from File:Bane bolts.png"
+  },
+  "Bane bolts (unf)": {
+   "appFile": "File:Bane bolts (unf) 5.png",
+   "appSha1": "a9d041f5a96ee79f7db08f92ee94362f1ea2c4fc",
+   "fileRedirects": [
+    {
+     "from": "File:Bane bolts (unf).png",
+     "to": "File:Bane bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "a9d041f5a96ee79f7db08f92ee94362f1ea2c4fc",
+   "resolvedTitle": "File:Bane bolts (unf) 5.png",
+   "via": "File redirect from File:Bane bolts (unf).png"
+  },
+  "Barbed bolts": {
+   "appFile": "File:Barbed bolts 5.png",
+   "appSha1": "e8639e8b15e0a2b9c0191b62016c84bc31deae38",
+   "fileRedirects": [
+    {
+     "from": "File:Barbed bolts.png",
+     "to": "File:Barbed bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "e8639e8b15e0a2b9c0191b62016c84bc31deae38",
+   "resolvedTitle": "File:Barbed bolts 5.png",
+   "via": "File redirect from File:Barbed bolts.png"
+  },
+  "Bathus arrows": {
+   "appFile": "File:Bathus arrows 5.png",
+   "appSha1": "763e0a14c5dc7b622b84498c9c693f26bef4a4ea",
+   "fileRedirects": [
+    {
+     "from": "File:Bathus arrows.png",
+     "to": "File:Bathus arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "763e0a14c5dc7b622b84498c9c693f26bef4a4ea",
+   "resolvedTitle": "File:Bathus arrows 5.png",
+   "via": "File redirect from File:Bathus arrows.png"
+  },
+  "Bik arrow": {
+   "appFile": "File:Bik arrow 5.png",
+   "appSha1": "07d395737278f8c10ea03de8435d9d063dab14de",
+   "fileRedirects": [
+    {
+     "from": "File:Bik arrow.png",
+     "to": "File:Bik arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "07d395737278f8c10ea03de8435d9d063dab14de",
+   "resolvedTitle": "File:Bik arrow 5.png",
+   "via": "File redirect from File:Bik arrow.png"
+  },
+  "Black brutal": {
+   "appFile": "File:Black brutal 5.png",
+   "appSha1": "76e82246517b431e661714ff07797ba202dd5c67",
+   "fileRedirects": [
+    {
+     "from": "File:Black brutal.png",
+     "to": "File:Black brutal 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "76e82246517b431e661714ff07797ba202dd5c67",
+   "resolvedTitle": "File:Black brutal 5.png",
+   "via": "File redirect from File:Black brutal.png"
+  },
+  "Black stone arrow tips": {
+   "appFile": "File:Black stone arrow tips 5.png",
+   "appSha1": "2826a8a59379b08002f47302d500c5236cba6028",
+   "fileRedirects": [
+    {
+     "from": "File:Black stone arrow tips.png",
+     "to": "File:Black stone arrow tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "2826a8a59379b08002f47302d500c5236cba6028",
+   "resolvedTitle": "File:Black stone arrow tips 5.png",
+   "via": "File redirect from File:Black stone arrow tips.png"
+  },
+  "Black stone arrows": {
+   "appFile": "File:Black stone arrows 4.png",
+   "appSha1": "d0915479bd818121a5a3ef21517dbb008a7c74fb",
+   "fileRedirects": [
+    {
+     "from": "File:Black stone arrows.png",
+     "to": "File:Black stone arrows 4.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "d0915479bd818121a5a3ef21517dbb008a7c74fb",
+   "resolvedTitle": "File:Black stone arrows 4.png",
+   "via": "File redirect from File:Black stone arrows.png"
+  },
+  "Blisterwood stakes (ammo)": {
+   "appFile": "File:Blisterwood stakes (ammo) 5.png",
+   "appSha1": "4d2ee7a732c35f49085b7a52fdcbd66e68ba0705",
+   "fileRedirects": [
+    {
+     "from": "File:Blisterwood stakes (ammo).png",
+     "to": "File:Blisterwood stakes (ammo) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "4d2ee7a732c35f49085b7a52fdcbd66e68ba0705",
+   "resolvedTitle": "File:Blisterwood stakes (ammo) 5.png",
+   "via": "File redirect from File:Blisterwood stakes (ammo).png"
+  },
+  "Blurite bolts": {
+   "appFile": "File:Blurite bolts 5.png",
+   "appSha1": "9426282aa28b981feb8cd9753ec11459a3798574",
+   "fileRedirects": [
+    {
+     "from": "File:Blurite bolts.png",
+     "to": "File:Blurite bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "9426282aa28b981feb8cd9753ec11459a3798574",
+   "resolvedTitle": "File:Blurite bolts 5.png",
+   "via": "File redirect from File:Blurite bolts.png"
+  },
+  "Blurite bolts (unf)": {
+   "appFile": "File:Blurite bolts (unf) 5.png",
+   "appSha1": "a21450fae2dd7b6fb1df5aef2b51f34232edff08",
+   "fileRedirects": [
+    {
+     "from": "File:Blurite bolts (unf).png",
+     "to": "File:Blurite bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "a21450fae2dd7b6fb1df5aef2b51f34232edff08",
+   "resolvedTitle": "File:Blurite bolts (unf) 5.png",
+   "via": "File redirect from File:Blurite bolts (unf).png"
+  },
+  "Broad arrow": {
+   "appFile": "File:Broad arrow 5.png",
+   "appSha1": "60a90115660b05635e89117ff25c601f8ee866f8",
+   "fileRedirects": [
+    {
+     "from": "File:Broad arrow.png",
+     "to": "File:Broad arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "60a90115660b05635e89117ff25c601f8ee866f8",
+   "resolvedTitle": "File:Broad arrow 5.png",
+   "via": "File redirect from File:Broad arrow.png"
+  },
+  "Broad arrowheads": {
+   "appFile": "File:Broad arrowheads 5.png",
+   "appSha1": "adfa097a18dd9e9d229b6dd44ddbf7c72cae5665",
+   "fileRedirects": [
+    {
+     "from": "File:Broad arrowheads.png",
+     "to": "File:Broad arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "adfa097a18dd9e9d229b6dd44ddbf7c72cae5665",
+   "resolvedTitle": "File:Broad arrowheads 5.png",
+   "via": "File redirect from File:Broad arrowheads.png"
+  },
+  "Broad-tipped bolts": {
+   "appFile": "File:Broad-tipped bolts 5.png",
+   "appSha1": "0564be3a53d345bff4a30797dd19e9cafd900af5",
+   "fileRedirects": [
+    {
+     "from": "File:Broad-tipped bolts.png",
+     "to": "File:Broad-tipped bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "0564be3a53d345bff4a30797dd19e9cafd900af5",
+   "resolvedTitle": "File:Broad-tipped bolts 5.png",
+   "via": "File redirect from File:Broad-tipped bolts.png"
+  },
+  "Bronze arrow": {
+   "appFile": "File:Bronze arrow 5.png",
+   "appSha1": "ff469a5c52e18fcd1484511452043693e5f90e16",
+   "fileRedirects": [
+    {
+     "from": "File:Bronze arrow.png",
+     "to": "File:Bronze arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "ff469a5c52e18fcd1484511452043693e5f90e16",
+   "resolvedTitle": "File:Bronze arrow 5.png",
+   "via": "File redirect from File:Bronze arrow.png"
+  },
+  "Bronze arrowheads": {
+   "appFile": "File:Bronze arrowheads 5.png",
+   "appSha1": "9cd898084fd38449b93ebbdde080893c839b9da2",
+   "fileRedirects": [
+    {
+     "from": "File:Bronze arrowheads.png",
+     "to": "File:Bronze arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "9cd898084fd38449b93ebbdde080893c839b9da2",
+   "resolvedTitle": "File:Bronze arrowheads 5.png",
+   "via": "File redirect from File:Bronze arrowheads.png"
+  },
+  "Bronze bolts": {
+   "appFile": "File:Bronze bolts 5.png",
+   "appSha1": "1a79cba9a1aeaf927f1aba7d6d60e087d13f4e61",
+   "fileRedirects": [
+    {
+     "from": "File:Bronze bolts.png",
+     "to": "File:Bronze bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "1a79cba9a1aeaf927f1aba7d6d60e087d13f4e61",
+   "resolvedTitle": "File:Bronze bolts 5.png",
+   "via": "File redirect from File:Bronze bolts.png"
+  },
+  "Bronze bolts (unf)": {
+   "appFile": "File:Bronze bolts (unf) 5.png",
+   "appSha1": "872e12b21e82353a988da89324219066723fdb02",
+   "fileRedirects": [
+    {
+     "from": "File:Bronze bolts (unf).png",
+     "to": "File:Bronze bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "872e12b21e82353a988da89324219066723fdb02",
+   "resolvedTitle": "File:Bronze bolts (unf) 5.png",
+   "via": "File redirect from File:Bronze bolts (unf).png"
+  },
+  "Bronze brutal": {
+   "appFile": "File:Bronze brutal 5.png",
+   "appSha1": "1a556c882534948163d0367374348e01f79118b0",
+   "fileRedirects": [
+    {
+     "from": "File:Bronze brutal.png",
+     "to": "File:Bronze brutal 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "1a556c882534948163d0367374348e01f79118b0",
+   "resolvedTitle": "File:Bronze brutal 5.png",
+   "via": "File redirect from File:Bronze brutal.png"
+  },
   "Clean wormwood": {
-   "via": "item page Clean wormwood redirects to Clean wormwood leaf",
    "appFile": "File:Clean wormwood leaf.png",
    "appSha1": "fcf765e99010f0c061c68c44350904d9f9cf70b8",
    "fileRedirects": [],
-   "resolvedTitle": "File:Clean wormwood.png",
-   "resolvedSha1": null,
    "missing": true,
    "pageRedirects": [
     {
      "from": "Clean wormwood",
      "to": "Clean wormwood leaf"
     }
-   ]
+   ],
+   "resolvedSha1": null,
+   "resolvedTitle": "File:Clean wormwood.png",
+   "via": "item page Clean wormwood redirects to Clean wormwood leaf"
   },
   "Congealed blood": {
-   "via": "File redirect from File:Congealed blood.png",
    "appFile": "File:Congealed blood 1000.png",
    "appSha1": "68e1d8e45fb5135560d663bbf1b3a4d63741cedc",
    "fileRedirects": [
@@ -27,96 +501,12 @@
      "to": "File:Congealed blood 1000.png"
     }
    ],
-   "resolvedTitle": "File:Congealed blood 1000.png",
+   "missing": false,
    "resolvedSha1": "68e1d8e45fb5135560d663bbf1b3a4d63741cedc",
-   "missing": false
-  },
-  "Extreme prayer potion (1)": {
-   "via": "File redirect from File:Extreme prayer potion (1).png",
-   "appFile": "File:Extreme prayer (1).png",
-   "appSha1": "0d72071142fc77de78d461391b8ca130c098addd",
-   "fileRedirects": [
-    {
-     "from": "File:Extreme prayer potion (1).png",
-     "to": "File:Extreme prayer (1).png"
-    }
-   ],
-   "resolvedTitle": "File:Extreme prayer (1).png",
-   "resolvedSha1": "0d72071142fc77de78d461391b8ca130c098addd",
-   "missing": false
-  },
-  "Extreme prayer potion (2)": {
-   "via": "File redirect from File:Extreme prayer potion (2).png",
-   "appFile": "File:Extreme prayer (2).png",
-   "appSha1": "19d20c33e017207902e55c70a103db4835b7fc0b",
-   "fileRedirects": [
-    {
-     "from": "File:Extreme prayer potion (2).png",
-     "to": "File:Extreme prayer (2).png"
-    }
-   ],
-   "resolvedTitle": "File:Extreme prayer (2).png",
-   "resolvedSha1": "19d20c33e017207902e55c70a103db4835b7fc0b",
-   "missing": false
-  },
-  "Extreme prayer potion (3)": {
-   "via": "File redirect from File:Extreme prayer potion (3).png",
-   "appFile": "File:Extreme prayer (3).png",
-   "appSha1": "c67419e904a26d6e47e98c1f5321af889b8cf03c",
-   "fileRedirects": [
-    {
-     "from": "File:Extreme prayer potion (3).png",
-     "to": "File:Extreme prayer (3).png"
-    }
-   ],
-   "resolvedTitle": "File:Extreme prayer (3).png",
-   "resolvedSha1": "c67419e904a26d6e47e98c1f5321af889b8cf03c",
-   "missing": false
-  },
-  "Grenwall spikes": {
-   "via": "File redirect from File:Grenwall spikes.png",
-   "appFile": "File:Grenwall spikes 5.png",
-   "appSha1": "bc6aaac306b76c4f107733c98ec141bcd3e7315a",
-   "fileRedirects": [
-    {
-     "from": "File:Grenwall spikes.png",
-     "to": "File:Grenwall spikes 5.png"
-    }
-   ],
-   "resolvedTitle": "File:Grenwall spikes 5.png",
-   "resolvedSha1": "bc6aaac306b76c4f107733c98ec141bcd3e7315a",
-   "missing": false
-  },
-  "Guthix balance (unfinished)": {
-   "via": "File redirect from File:Guthix balance (unfinished).png",
-   "appFile": "File:Guthix balance (unfinished) (4).png",
-   "appSha1": "81c157326077d96eb4921f3bec11f3ff1037c045",
-   "fileRedirects": [
-    {
-     "from": "File:Guthix balance (unfinished).png",
-     "to": "File:Guthix balance (unfinished) (4).png"
-    }
-   ],
-   "resolvedTitle": "File:Guthix balance (unfinished) (4).png",
-   "resolvedSha1": "81c157326077d96eb4921f3bec11f3ff1037c045",
-   "missing": false
-  },
-  "Onyx bolt tips": {
-   "via": "File redirect from File:Onyx bolt tips.png",
-   "appFile": "File:Onyx bolt tips 5.png",
-   "appSha1": "0e85832398d54c28d77cafc05792c862801b0c03",
-   "fileRedirects": [
-    {
-     "from": "File:Onyx bolt tips.png",
-     "to": "File:Onyx bolt tips 5.png"
-    }
-   ],
-   "resolvedTitle": "File:Onyx bolt tips 5.png",
-   "resolvedSha1": "0e85832398d54c28d77cafc05792c862801b0c03",
-   "missing": false
+   "resolvedTitle": "File:Congealed blood 1000.png",
+   "via": "File redirect from File:Congealed blood.png"
   },
   "Cooked crab meat": {
-   "via": "File redirect from File:Cooked crab meat.png",
    "appFile": "File:Cooked crab meat (5).png",
    "appSha1": "cfdc32bc6214c9fd755703698d39d2d18bbca8bd",
    "fileRedirects": [
@@ -125,9 +515,1635 @@
      "to": "File:Cooked crab meat (5).png"
     }
    ],
-   "resolvedTitle": "File:Cooked crab meat (5).png",
+   "missing": false,
    "resolvedSha1": "cfdc32bc6214c9fd755703698d39d2d18bbca8bd",
-   "missing": false
+   "resolvedTitle": "File:Cooked crab meat (5).png",
+   "via": "File redirect from File:Cooked crab meat.png"
+  },
+  "Dark arrow": {
+   "appFile": "File:Dark arrow 5.png",
+   "appSha1": "7bbcc1d6ede6e2862082d3329e9664ff66756a08",
+   "fileRedirects": [
+    {
+     "from": "File:Dark arrow.png",
+     "to": "File:Dark arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "7bbcc1d6ede6e2862082d3329e9664ff66756a08",
+   "resolvedTitle": "File:Dark arrow 5.png",
+   "via": "File redirect from File:Dark arrow.png"
+  },
+  "Dark arrowheads": {
+   "appFile": "File:Dark arrowheads 5.png",
+   "appSha1": "61f53fef8ee7d7138ecbc5c76c9e18a4f4730792",
+   "fileRedirects": [
+    {
+     "from": "File:Dark arrowheads.png",
+     "to": "File:Dark arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "61f53fef8ee7d7138ecbc5c76c9e18a4f4730792",
+   "resolvedTitle": "File:Dark arrowheads 5.png",
+   "via": "File redirect from File:Dark arrowheads.png"
+  },
+  "Deathspore arrow tips": {
+   "appFile": "File:Deathspore arrow tips 5.png",
+   "appSha1": "ceed5b1b7c3c486407da998b720e527012a31b95",
+   "fileRedirects": [
+    {
+     "from": "File:Deathspore arrow tips.png",
+     "to": "File:Deathspore arrow tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "ceed5b1b7c3c486407da998b720e527012a31b95",
+   "resolvedTitle": "File:Deathspore arrow tips 5.png",
+   "via": "File redirect from File:Deathspore arrow tips.png"
+  },
+  "Deathspore arrows": {
+   "appFile": "File:Deathspore arrows 5.png",
+   "appSha1": "7e0e0bc72c5e2181a9e60dc2f159b8fe868113b5",
+   "fileRedirects": [
+    {
+     "from": "File:Deathspore arrows.png",
+     "to": "File:Deathspore arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "7e0e0bc72c5e2181a9e60dc2f159b8fe868113b5",
+   "resolvedTitle": "File:Deathspore arrows 5.png",
+   "via": "File redirect from File:Deathspore arrows.png"
+  },
+  "Diamond bakriminel bolts": {
+   "appFile": "File:Diamond bakriminel bolts 5.png",
+   "appSha1": "5de8a84dae59356a6b48053143606d2f0b5dd4ac",
+   "fileRedirects": [
+    {
+     "from": "File:Diamond bakriminel bolts.png",
+     "to": "File:Diamond bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "5de8a84dae59356a6b48053143606d2f0b5dd4ac",
+   "resolvedTitle": "File:Diamond bakriminel bolts 5.png",
+   "via": "File redirect from File:Diamond bakriminel bolts.png"
+  },
+  "Diamond bolt tips": {
+   "appFile": "File:Diamond bolt tips 5.png",
+   "appSha1": "11925b193c701815fe859985d145e94efc901471",
+   "fileRedirects": [
+    {
+     "from": "File:Diamond bolt tips.png",
+     "to": "File:Diamond bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "11925b193c701815fe859985d145e94efc901471",
+   "resolvedTitle": "File:Diamond bolt tips 5.png",
+   "via": "File redirect from File:Diamond bolt tips.png"
+  },
+  "Diamond bolts": {
+   "appFile": "File:Diamond bolts 5.png",
+   "appSha1": "f9a28cea2c9c6a291bf2b04a193f4e1041dd851b",
+   "fileRedirects": [
+    {
+     "from": "File:Diamond bolts.png",
+     "to": "File:Diamond bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "f9a28cea2c9c6a291bf2b04a193f4e1041dd851b",
+   "resolvedTitle": "File:Diamond bolts 5.png",
+   "via": "File redirect from File:Diamond bolts.png"
+  },
+  "Dinarrow": {
+   "appFile": "File:Dinarrow 5.png",
+   "appSha1": "82599cd124e10a771010c9489b92bf84bce31b23",
+   "fileRedirects": [
+    {
+     "from": "File:Dinarrow.png",
+     "to": "File:Dinarrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "82599cd124e10a771010c9489b92bf84bce31b23",
+   "resolvedTitle": "File:Dinarrow 5.png",
+   "via": "File redirect from File:Dinarrow.png"
+  },
+  "Dinosaur 'propellant'": {
+   "appFile": "File:Dinosaur 'propellant' 5.png",
+   "appSha1": "35e0da2beb67115776c38b16f0318dcebf0c7341",
+   "fileRedirects": [
+    {
+     "from": "File:Dinosaur 'propellant'.png",
+     "to": "File:Dinosaur 'propellant' 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "35e0da2beb67115776c38b16f0318dcebf0c7341",
+   "resolvedTitle": "File:Dinosaur 'propellant' 5.png",
+   "via": "File redirect from File:Dinosaur 'propellant'.png"
+  },
+  "Dragon arrow": {
+   "appFile": "File:Dragon arrow 5.png",
+   "appSha1": "555bb79ed73f7bd6d0418ae0e8778a21116040b0",
+   "fileRedirects": [
+    {
+     "from": "File:Dragon arrow.png",
+     "to": "File:Dragon arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "555bb79ed73f7bd6d0418ae0e8778a21116040b0",
+   "resolvedTitle": "File:Dragon arrow 5.png",
+   "via": "File redirect from File:Dragon arrow.png"
+  },
+  "Dragon arrowheads": {
+   "appFile": "File:Dragon arrowheads 5.png",
+   "appSha1": "d93fb146fe18909965cba9f39b69f3e9333b8dee",
+   "fileRedirects": [
+    {
+     "from": "File:Dragon arrowheads.png",
+     "to": "File:Dragon arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "d93fb146fe18909965cba9f39b69f3e9333b8dee",
+   "resolvedTitle": "File:Dragon arrowheads 5.png",
+   "via": "File redirect from File:Dragon arrowheads.png"
+  },
+  "Dragon bolts": {
+   "appFile": "File:Dragon bolts 5.png",
+   "appSha1": "76e00efce136861256a5d37429419268459eaded",
+   "fileRedirects": [
+    {
+     "from": "File:Dragon bolts.png",
+     "to": "File:Dragon bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "76e00efce136861256a5d37429419268459eaded",
+   "resolvedTitle": "File:Dragon bolts 5.png",
+   "via": "File redirect from File:Dragon bolts.png"
+  },
+  "Dragonstone bakriminel bolts": {
+   "appFile": "File:Dragonstone bakriminel bolts 5.png",
+   "appSha1": "eb125a6cfce0e9d3d7f26047ba73a7a3b785be7b",
+   "fileRedirects": [
+    {
+     "from": "File:Dragonstone bakriminel bolts.png",
+     "to": "File:Dragonstone bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "eb125a6cfce0e9d3d7f26047ba73a7a3b785be7b",
+   "resolvedTitle": "File:Dragonstone bakriminel bolts 5.png",
+   "via": "File redirect from File:Dragonstone bakriminel bolts.png"
+  },
+  "Dragonstone bolt tips": {
+   "appFile": "File:Dragonstone bolt tips 5.png",
+   "appSha1": "1f313c3170e49d3245b1627bf989022d728a8046",
+   "fileRedirects": [
+    {
+     "from": "File:Dragonstone bolt tips.png",
+     "to": "File:Dragonstone bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "1f313c3170e49d3245b1627bf989022d728a8046",
+   "resolvedTitle": "File:Dragonstone bolt tips 5.png",
+   "via": "File redirect from File:Dragonstone bolt tips.png"
+  },
+  "Elder headless shaft": {
+   "appFile": "File:Elder headless shaft 5.png",
+   "appSha1": "f405dcf64f8e1bad4c9805f260ddbdee13cd944a",
+   "fileRedirects": [
+    {
+     "from": "File:Elder headless shaft.png",
+     "to": "File:Elder headless shaft 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "f405dcf64f8e1bad4c9805f260ddbdee13cd944a",
+   "resolvedTitle": "File:Elder headless shaft 5.png",
+   "via": "File redirect from File:Elder headless shaft.png"
+  },
+  "Elder rune arrow": {
+   "appFile": "File:Elder rune arrow 5.png",
+   "appSha1": "63891f54e9eba1528c6abf137644cad5c4c1de20",
+   "fileRedirects": [
+    {
+     "from": "File:Elder rune arrow.png",
+     "to": "File:Elder rune arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "63891f54e9eba1528c6abf137644cad5c4c1de20",
+   "resolvedTitle": "File:Elder rune arrow 5.png",
+   "via": "File redirect from File:Elder rune arrow.png"
+  },
+  "Elder rune arrowheads": {
+   "appFile": "File:Elder rune arrowheads 5.png",
+   "appSha1": "5a2a5796cc12cf3ea2c758cc227b27f0237c06b3",
+   "fileRedirects": [
+    {
+     "from": "File:Elder rune arrowheads.png",
+     "to": "File:Elder rune arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "5a2a5796cc12cf3ea2c758cc227b27f0237c06b3",
+   "resolvedTitle": "File:Elder rune arrowheads 5.png",
+   "via": "File redirect from File:Elder rune arrowheads.png"
+  },
+  "Elder rune bolts": {
+   "appFile": "File:Elder rune bolts 5.png",
+   "appSha1": "0059bfd12b5b787c6ee28ba4148b14146b8fca4b",
+   "fileRedirects": [
+    {
+     "from": "File:Elder rune bolts.png",
+     "to": "File:Elder rune bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "0059bfd12b5b787c6ee28ba4148b14146b8fca4b",
+   "resolvedTitle": "File:Elder rune bolts 5.png",
+   "via": "File redirect from File:Elder rune bolts.png"
+  },
+  "Elder rune bolts (unf)": {
+   "appFile": "File:Elder rune bolts (unf) 5.png",
+   "appSha1": "18824b13673c392b86b596d765b31f4b58d0bf48",
+   "fileRedirects": [
+    {
+     "from": "File:Elder rune bolts (unf).png",
+     "to": "File:Elder rune bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "18824b13673c392b86b596d765b31f4b58d0bf48",
+   "resolvedTitle": "File:Elder rune bolts (unf) 5.png",
+   "via": "File redirect from File:Elder rune bolts (unf).png"
+  },
+  "Elder shaft": {
+   "appFile": "File:Elder shaft 5.png",
+   "appSha1": "c4baeb35073006bcae7b9c4490d360a4adb4e231",
+   "fileRedirects": [
+    {
+     "from": "File:Elder shaft.png",
+     "to": "File:Elder shaft 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "c4baeb35073006bcae7b9c4490d360a4adb4e231",
+   "resolvedTitle": "File:Elder shaft 5.png",
+   "via": "File redirect from File:Elder shaft.png"
+  },
+  "Emerald bakriminel bolts": {
+   "appFile": "File:Emerald bakriminel bolts 5.png",
+   "appSha1": "8a071c2647ddd62fcb33a309071c5a8edfa85b5b",
+   "fileRedirects": [
+    {
+     "from": "File:Emerald bakriminel bolts.png",
+     "to": "File:Emerald bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "8a071c2647ddd62fcb33a309071c5a8edfa85b5b",
+   "resolvedTitle": "File:Emerald bakriminel bolts 5.png",
+   "via": "File redirect from File:Emerald bakriminel bolts.png"
+  },
+  "Emerald bolt tips": {
+   "appFile": "File:Emerald bolt tips 5.png",
+   "appSha1": "000b0ec6bef5113c1899842eb0e00c8c5da4eab3",
+   "fileRedirects": [
+    {
+     "from": "File:Emerald bolt tips.png",
+     "to": "File:Emerald bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "000b0ec6bef5113c1899842eb0e00c8c5da4eab3",
+   "resolvedTitle": "File:Emerald bolt tips 5.png",
+   "via": "File redirect from File:Emerald bolt tips.png"
+  },
+  "Emerald bolts": {
+   "appFile": "File:Emerald bolts 5.png",
+   "appSha1": "e89727446f3fb8e526b79a0d755db735a156d743",
+   "fileRedirects": [
+    {
+     "from": "File:Emerald bolts.png",
+     "to": "File:Emerald bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "e89727446f3fb8e526b79a0d755db735a156d743",
+   "resolvedTitle": "File:Emerald bolts 5.png",
+   "via": "File redirect from File:Emerald bolts.png"
+  },
+  "Eternal magic headless shaft": {
+   "appFile": "File:Eternal magic headless shaft 5.png",
+   "appSha1": "4c513277c03a9a86830501942e2d18e16e086e2c",
+   "fileRedirects": [
+    {
+     "from": "File:Eternal magic headless shaft.png",
+     "to": "File:Eternal magic headless shaft 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "4c513277c03a9a86830501942e2d18e16e086e2c",
+   "resolvedTitle": "File:Eternal magic headless shaft 5.png",
+   "via": "File redirect from File:Eternal magic headless shaft.png"
+  },
+  "Eternal magic shaft": {
+   "appFile": "File:Eternal magic shaft 5.png",
+   "appSha1": "be926fbc4eaaf7ec0b29c462f23952a35a4f9a27",
+   "fileRedirects": [
+    {
+     "from": "File:Eternal magic shaft.png",
+     "to": "File:Eternal magic shaft 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "be926fbc4eaaf7ec0b29c462f23952a35a4f9a27",
+   "resolvedTitle": "File:Eternal magic shaft 5.png",
+   "via": "File redirect from File:Eternal magic shaft.png"
+  },
+  "Excrescence": {
+   "appFile": "File:Excrescence 5.png",
+   "appSha1": "6c331f597441867cfd986ec680c0827ebada526a",
+   "fileRedirects": [
+    {
+     "from": "File:Excrescence.png",
+     "to": "File:Excrescence 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "6c331f597441867cfd986ec680c0827ebada526a",
+   "resolvedTitle": "File:Excrescence 5.png",
+   "via": "File redirect from File:Excrescence.png"
+  },
+  "Extreme prayer potion (1)": {
+   "appFile": "File:Extreme prayer (1).png",
+   "appSha1": "0d72071142fc77de78d461391b8ca130c098addd",
+   "fileRedirects": [
+    {
+     "from": "File:Extreme prayer potion (1).png",
+     "to": "File:Extreme prayer (1).png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "0d72071142fc77de78d461391b8ca130c098addd",
+   "resolvedTitle": "File:Extreme prayer (1).png",
+   "via": "File redirect from File:Extreme prayer potion (1).png"
+  },
+  "Extreme prayer potion (2)": {
+   "appFile": "File:Extreme prayer (2).png",
+   "appSha1": "19d20c33e017207902e55c70a103db4835b7fc0b",
+   "fileRedirects": [
+    {
+     "from": "File:Extreme prayer potion (2).png",
+     "to": "File:Extreme prayer (2).png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "19d20c33e017207902e55c70a103db4835b7fc0b",
+   "resolvedTitle": "File:Extreme prayer (2).png",
+   "via": "File redirect from File:Extreme prayer potion (2).png"
+  },
+  "Extreme prayer potion (3)": {
+   "appFile": "File:Extreme prayer (3).png",
+   "appSha1": "c67419e904a26d6e47e98c1f5321af889b8cf03c",
+   "fileRedirects": [
+    {
+     "from": "File:Extreme prayer potion (3).png",
+     "to": "File:Extreme prayer (3).png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "c67419e904a26d6e47e98c1f5321af889b8cf03c",
+   "resolvedTitle": "File:Extreme prayer (3).png",
+   "via": "File redirect from File:Extreme prayer potion (3).png"
+  },
+  "Flighted ogre arrow": {
+   "appFile": "File:Flighted ogre arrow 5.png",
+   "appSha1": "12cfe7af802f00e5ee7ba5f5a11c03be95ef4ec7",
+   "fileRedirects": [
+    {
+     "from": "File:Flighted ogre arrow.png",
+     "to": "File:Flighted ogre arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "12cfe7af802f00e5ee7ba5f5a11c03be95ef4ec7",
+   "resolvedTitle": "File:Flighted ogre arrow 5.png",
+   "via": "File redirect from File:Flighted ogre arrow.png"
+  },
+  "Fractite arrows": {
+   "appFile": "File:Fractite arrows 5.png",
+   "appSha1": "be243de0ecd7932b808d82041d2a43102365103e",
+   "fileRedirects": [
+    {
+     "from": "File:Fractite arrows.png",
+     "to": "File:Fractite arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "be243de0ecd7932b808d82041d2a43102365103e",
+   "resolvedTitle": "File:Fractite arrows 5.png",
+   "via": "File redirect from File:Fractite arrows.png"
+  },
+  "Fragment arrows": {
+   "appFile": "File:Fragment arrows 4.png",
+   "appSha1": "4560e36f60eeae9162582cbf649f13d6491b219c",
+   "fileRedirects": [
+    {
+     "from": "File:Fragment arrows.png",
+     "to": "File:Fragment arrows 4.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "4560e36f60eeae9162582cbf649f13d6491b219c",
+   "resolvedTitle": "File:Fragment arrows 4.png",
+   "via": "File redirect from File:Fragment arrows.png"
+  },
+  "Fragment bolts": {
+   "appFile": "File:Fragment bolts 4.png",
+   "appSha1": "dd5d0b4645d4d5e6c5b89fa6d9aec2a47109c0e9",
+   "fileRedirects": [
+    {
+     "from": "File:Fragment bolts.png",
+     "to": "File:Fragment bolts 4.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "dd5d0b4645d4d5e6c5b89fa6d9aec2a47109c0e9",
+   "resolvedTitle": "File:Fragment bolts 4.png",
+   "via": "File redirect from File:Fragment bolts.png"
+  },
+  "Ful arrow": {
+   "appFile": "File:Ful arrow 5.png",
+   "appSha1": "a1e3aca50432d89da9dd39adf88670a2ac7c49de",
+   "fileRedirects": [
+    {
+     "from": "File:Ful arrow.png",
+     "to": "File:Ful arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "a1e3aca50432d89da9dd39adf88670a2ac7c49de",
+   "resolvedTitle": "File:Ful arrow 5.png",
+   "via": "File redirect from File:Ful arrow.png"
+  },
+  "Fungal bowstring": {
+   "appFile": "File:Fungal bowstring 5.png",
+   "appSha1": "a9f3680d9264420b8e59d9b7caa2dee305dbd3e7",
+   "fileRedirects": [
+    {
+     "from": "File:Fungal bowstring.png",
+     "to": "File:Fungal bowstring 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "a9f3680d9264420b8e59d9b7caa2dee305dbd3e7",
+   "resolvedTitle": "File:Fungal bowstring 5.png",
+   "via": "File redirect from File:Fungal bowstring.png"
+  },
+  "Gorgonite arrows": {
+   "appFile": "File:Gorgonite arrows 5.png",
+   "appSha1": "bc6c2e7926c573d5d1dd91bfaa3a2d926f4bb944",
+   "fileRedirects": [
+    {
+     "from": "File:Gorgonite arrows.png",
+     "to": "File:Gorgonite arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "bc6c2e7926c573d5d1dd91bfaa3a2d926f4bb944",
+   "resolvedTitle": "File:Gorgonite arrows 5.png",
+   "via": "File redirect from File:Gorgonite arrows.png"
+  },
+  "Grenwall spikes": {
+   "appFile": "File:Grenwall spikes 5.png",
+   "appSha1": "bc6aaac306b76c4f107733c98ec141bcd3e7315a",
+   "fileRedirects": [
+    {
+     "from": "File:Grenwall spikes.png",
+     "to": "File:Grenwall spikes 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "bc6aaac306b76c4f107733c98ec141bcd3e7315a",
+   "resolvedTitle": "File:Grenwall spikes 5.png",
+   "via": "File redirect from File:Grenwall spikes.png"
+  },
+  "Guthix balance (unfinished)": {
+   "appFile": "File:Guthix balance (unfinished) (4).png",
+   "appSha1": "81c157326077d96eb4921f3bec11f3ff1037c045",
+   "fileRedirects": [
+    {
+     "from": "File:Guthix balance (unfinished).png",
+     "to": "File:Guthix balance (unfinished) (4).png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "81c157326077d96eb4921f3bec11f3ff1037c045",
+   "resolvedTitle": "File:Guthix balance (unfinished) (4).png",
+   "via": "File redirect from File:Guthix balance (unfinished).png"
+  },
+  "Headless dinarrow": {
+   "appFile": "File:Headless dinarrow 5.png",
+   "appSha1": "67149e91aa1f2922f13c8d67b1b022fbfc485b0b",
+   "fileRedirects": [
+    {
+     "from": "File:Headless dinarrow.png",
+     "to": "File:Headless dinarrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "67149e91aa1f2922f13c8d67b1b022fbfc485b0b",
+   "resolvedTitle": "File:Headless dinarrow 5.png",
+   "via": "File redirect from File:Headless dinarrow.png"
+  },
+  "Headless shaft": {
+   "appFile": "File:Headless shaft 5.png",
+   "appSha1": "287a2069f779380b959b54c92e34bb39d0904a03",
+   "fileRedirects": [
+    {
+     "from": "File:Headless shaft.png",
+     "to": "File:Headless shaft 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "287a2069f779380b959b54c92e34bb39d0904a03",
+   "resolvedTitle": "File:Headless shaft 5.png",
+   "via": "File redirect from File:Headless shaft.png"
+  },
+  "Hydrix bakriminel bolts": {
+   "appFile": "File:Hydrix bakriminel bolts 5.png",
+   "appSha1": "ca8946cb3f0766553734af81b050e7043c088fbb",
+   "fileRedirects": [
+    {
+     "from": "File:Hydrix bakriminel bolts.png",
+     "to": "File:Hydrix bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "ca8946cb3f0766553734af81b050e7043c088fbb",
+   "resolvedTitle": "File:Hydrix bakriminel bolts 5.png",
+   "via": "File redirect from File:Hydrix bakriminel bolts.png"
+  },
+  "Hydrix bolt tips": {
+   "appFile": "File:Hydrix bolt tips 5.png",
+   "appSha1": "726bc2e83a966be0215d2eacfa738dc2d0ca8b1c",
+   "fileRedirects": [
+    {
+     "from": "File:Hydrix bolt tips.png",
+     "to": "File:Hydrix bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "726bc2e83a966be0215d2eacfa738dc2d0ca8b1c",
+   "resolvedTitle": "File:Hydrix bolt tips 5.png",
+   "via": "File redirect from File:Hydrix bolt tips.png"
+  },
+  "Iron arrow": {
+   "appFile": "File:Iron arrow 5.png",
+   "appSha1": "5c61c1141e39d6efde76ac7e28812640a484c865",
+   "fileRedirects": [
+    {
+     "from": "File:Iron arrow.png",
+     "to": "File:Iron arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "5c61c1141e39d6efde76ac7e28812640a484c865",
+   "resolvedTitle": "File:Iron arrow 5.png",
+   "via": "File redirect from File:Iron arrow.png"
+  },
+  "Iron arrowheads": {
+   "appFile": "File:Iron arrowheads 5.png",
+   "appSha1": "3c56eedcd12edc4a2552f9acd2087c89aabc6b08",
+   "fileRedirects": [
+    {
+     "from": "File:Iron arrowheads.png",
+     "to": "File:Iron arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "3c56eedcd12edc4a2552f9acd2087c89aabc6b08",
+   "resolvedTitle": "File:Iron arrowheads 5.png",
+   "via": "File redirect from File:Iron arrowheads.png"
+  },
+  "Iron bolts": {
+   "appFile": "File:Iron bolts 5.png",
+   "appSha1": "c39ee0c8b84ff8972e54f811b989aef288f757a6",
+   "fileRedirects": [
+    {
+     "from": "File:Iron bolts.png",
+     "to": "File:Iron bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "c39ee0c8b84ff8972e54f811b989aef288f757a6",
+   "resolvedTitle": "File:Iron bolts 5.png",
+   "via": "File redirect from File:Iron bolts.png"
+  },
+  "Iron bolts (unf)": {
+   "appFile": "File:Iron bolts (unf) 5.png",
+   "appSha1": "69ca2bf3b2b688c54229e529c8632cef4374dca5",
+   "fileRedirects": [
+    {
+     "from": "File:Iron bolts (unf).png",
+     "to": "File:Iron bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "69ca2bf3b2b688c54229e529c8632cef4374dca5",
+   "resolvedTitle": "File:Iron bolts (unf) 5.png",
+   "via": "File redirect from File:Iron bolts (unf).png"
+  },
+  "Iron brutal": {
+   "appFile": "File:Iron brutal 5.png",
+   "appSha1": "6d46299db34729d4cd9a5311bf65a1ec27b2a226",
+   "fileRedirects": [
+    {
+     "from": "File:Iron brutal.png",
+     "to": "File:Iron brutal 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "6d46299db34729d4cd9a5311bf65a1ec27b2a226",
+   "resolvedTitle": "File:Iron brutal 5.png",
+   "via": "File redirect from File:Iron brutal.png"
+  },
+  "Jade bakriminel bolts": {
+   "appFile": "File:Jade bakriminel bolts 5.png",
+   "appSha1": "75881172085817683545071a31c247cc1701d51c",
+   "fileRedirects": [
+    {
+     "from": "File:Jade bakriminel bolts.png",
+     "to": "File:Jade bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "75881172085817683545071a31c247cc1701d51c",
+   "resolvedTitle": "File:Jade bakriminel bolts 5.png",
+   "via": "File redirect from File:Jade bakriminel bolts.png"
+  },
+  "Jade bolt tips": {
+   "appFile": "File:Jade bolt tips 5.png",
+   "appSha1": "c1c6749c19b4035535ade3c07794c2c48d2e56f6",
+   "fileRedirects": [
+    {
+     "from": "File:Jade bolt tips.png",
+     "to": "File:Jade bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "c1c6749c19b4035535ade3c07794c2c48d2e56f6",
+   "resolvedTitle": "File:Jade bolt tips 5.png",
+   "via": "File redirect from File:Jade bolt tips.png"
+  },
+  "Jade bolts": {
+   "appFile": "File:Jade bolts 5.png",
+   "appSha1": "dbd8de0e6aa9430916aa6caa08ebd0c1d62fcf43",
+   "fileRedirects": [
+    {
+     "from": "File:Jade bolts.png",
+     "to": "File:Jade bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "dbd8de0e6aa9430916aa6caa08ebd0c1d62fcf43",
+   "resolvedTitle": "File:Jade bolts 5.png",
+   "via": "File redirect from File:Jade bolts.png"
+  },
+  "Jas dragonbane arrow": {
+   "appFile": "File:Jas dragonbane arrow 5.png",
+   "appSha1": "7995f780c6f3e6fd3e2302c31dd1f7ed77a82c36",
+   "fileRedirects": [
+    {
+     "from": "File:Jas dragonbane arrow.png",
+     "to": "File:Jas dragonbane arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "7995f780c6f3e6fd3e2302c31dd1f7ed77a82c36",
+   "resolvedTitle": "File:Jas dragonbane arrow 5.png",
+   "via": "File redirect from File:Jas dragonbane arrow.png"
+  },
+  "Katagon arrows": {
+   "appFile": "File:Katagon arrows 5.png",
+   "appSha1": "0bda32db06177873987f38a90555fbd5c9733548",
+   "fileRedirects": [
+    {
+     "from": "File:Katagon arrows.png",
+     "to": "File:Katagon arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "0bda32db06177873987f38a90555fbd5c9733548",
+   "resolvedTitle": "File:Katagon arrows 5.png",
+   "via": "File redirect from File:Katagon arrows.png"
+  },
+  "Kratonite arrows": {
+   "appFile": "File:Kratonite arrows 5.png",
+   "appSha1": "f420c7e6061e389f8c392825e77243f1d3c8697e",
+   "fileRedirects": [
+    {
+     "from": "File:Kratonite arrows.png",
+     "to": "File:Kratonite arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "f420c7e6061e389f8c392825e77243f1d3c8697e",
+   "resolvedTitle": "File:Kratonite arrows 5.png",
+   "via": "File redirect from File:Kratonite arrows.png"
+  },
+  "Marmaros arrows": {
+   "appFile": "File:Marmaros arrows 5.png",
+   "appSha1": "a6c6da07e041915f8ded5274ae70fc39e2d0538c",
+   "fileRedirects": [
+    {
+     "from": "File:Marmaros arrows.png",
+     "to": "File:Marmaros arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "a6c6da07e041915f8ded5274ae70fc39e2d0538c",
+   "resolvedTitle": "File:Marmaros arrows 5.png",
+   "via": "File redirect from File:Marmaros arrows.png"
+  },
+  "Mithril arrow": {
+   "appFile": "File:Mithril arrow 5.png",
+   "appSha1": "a5daae279c9a4e98a9ec0dc545547368c488d9ef",
+   "fileRedirects": [
+    {
+     "from": "File:Mithril arrow.png",
+     "to": "File:Mithril arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "a5daae279c9a4e98a9ec0dc545547368c488d9ef",
+   "resolvedTitle": "File:Mithril arrow 5.png",
+   "via": "File redirect from File:Mithril arrow.png"
+  },
+  "Mithril arrowheads": {
+   "appFile": "File:Mithril arrowheads 5.png",
+   "appSha1": "b6a37b005d78ef71a9a8ca056c763884911f006e",
+   "fileRedirects": [
+    {
+     "from": "File:Mithril arrowheads.png",
+     "to": "File:Mithril arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "b6a37b005d78ef71a9a8ca056c763884911f006e",
+   "resolvedTitle": "File:Mithril arrowheads 5.png",
+   "via": "File redirect from File:Mithril arrowheads.png"
+  },
+  "Mithril bolts": {
+   "appFile": "File:Mithril bolts 5.png",
+   "appSha1": "9d749f983f9a79c1132d07c9fad62f2851e13234",
+   "fileRedirects": [
+    {
+     "from": "File:Mithril bolts.png",
+     "to": "File:Mithril bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "9d749f983f9a79c1132d07c9fad62f2851e13234",
+   "resolvedTitle": "File:Mithril bolts 5.png",
+   "via": "File redirect from File:Mithril bolts.png"
+  },
+  "Mithril bolts (unf)": {
+   "appFile": "File:Mithril bolts (unf) 5.png",
+   "appSha1": "425d250b9c57832c95c063037b590a7194be94fc",
+   "fileRedirects": [
+    {
+     "from": "File:Mithril bolts (unf).png",
+     "to": "File:Mithril bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "425d250b9c57832c95c063037b590a7194be94fc",
+   "resolvedTitle": "File:Mithril bolts (unf) 5.png",
+   "via": "File redirect from File:Mithril bolts (unf).png"
+  },
+  "Mithril brutal": {
+   "appFile": "File:Mithril brutal 5.png",
+   "appSha1": "9c371cc695fa540c4566244f3115e6130f1b6aa8",
+   "fileRedirects": [
+    {
+     "from": "File:Mithril brutal.png",
+     "to": "File:Mithril brutal 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "9c371cc695fa540c4566244f3115e6130f1b6aa8",
+   "resolvedTitle": "File:Mithril brutal 5.png",
+   "via": "File redirect from File:Mithril brutal.png"
+  },
+  "Necronium arrow": {
+   "appFile": "File:Necronium arrow 5.png",
+   "appSha1": "45bf56bdb4f7e1f6416cf39603cacfa3ebaeecc8",
+   "fileRedirects": [
+    {
+     "from": "File:Necronium arrow.png",
+     "to": "File:Necronium arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "45bf56bdb4f7e1f6416cf39603cacfa3ebaeecc8",
+   "resolvedTitle": "File:Necronium arrow 5.png",
+   "via": "File redirect from File:Necronium arrow.png"
+  },
+  "Necronium arrowheads": {
+   "appFile": "File:Necronium arrowheads 5.png",
+   "appSha1": "f8850a4ac455a800b99260d697b74356fa95b3da",
+   "fileRedirects": [
+    {
+     "from": "File:Necronium arrowheads.png",
+     "to": "File:Necronium arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "f8850a4ac455a800b99260d697b74356fa95b3da",
+   "resolvedTitle": "File:Necronium arrowheads 5.png",
+   "via": "File redirect from File:Necronium arrowheads.png"
+  },
+  "Necronium bolts": {
+   "appFile": "File:Necronium bolts 5.png",
+   "appSha1": "5c463fb9ce52f8e241bfc34426669719af7ee706",
+   "fileRedirects": [
+    {
+     "from": "File:Necronium bolts.png",
+     "to": "File:Necronium bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "5c463fb9ce52f8e241bfc34426669719af7ee706",
+   "resolvedTitle": "File:Necronium bolts 5.png",
+   "via": "File redirect from File:Necronium bolts.png"
+  },
+  "Necronium bolts (unf)": {
+   "appFile": "File:Necronium bolts (unf) 5.png",
+   "appSha1": "9771bae5d0f639d98442875833f205182f9e5dbd",
+   "fileRedirects": [
+    {
+     "from": "File:Necronium bolts (unf).png",
+     "to": "File:Necronium bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "9771bae5d0f639d98442875833f205182f9e5dbd",
+   "resolvedTitle": "File:Necronium bolts (unf) 5.png",
+   "via": "File redirect from File:Necronium bolts (unf).png"
+  },
+  "Novite arrows": {
+   "appFile": "File:Novite arrows 5.png",
+   "appSha1": "0bbc0412e4dc99b5879197be435f4694473d41f4",
+   "fileRedirects": [
+    {
+     "from": "File:Novite arrows.png",
+     "to": "File:Novite arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "0bbc0412e4dc99b5879197be435f4694473d41f4",
+   "resolvedTitle": "File:Novite arrows 5.png",
+   "via": "File redirect from File:Novite arrows.png"
+  },
+  "Ogre arrow": {
+   "appFile": "File:Ogre arrow 5.png",
+   "appSha1": "f47efeecdc99f389aedf7fca6c7bffd442827033",
+   "fileRedirects": [
+    {
+     "from": "File:Ogre arrow.png",
+     "to": "File:Ogre arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "f47efeecdc99f389aedf7fca6c7bffd442827033",
+   "resolvedTitle": "File:Ogre arrow 5.png",
+   "via": "File redirect from File:Ogre arrow.png"
+  },
+  "Ogre arrow shaft": {
+   "appFile": "File:Ogre arrow shaft 5.png",
+   "appSha1": "947a777a70bb200e7a7fe509dc7fba776e2ab70a",
+   "fileRedirects": [
+    {
+     "from": "File:Ogre arrow shaft.png",
+     "to": "File:Ogre arrow shaft 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "947a777a70bb200e7a7fe509dc7fba776e2ab70a",
+   "resolvedTitle": "File:Ogre arrow shaft 5.png",
+   "via": "File redirect from File:Ogre arrow shaft.png"
+  },
+  "Onyx bakriminel bolts": {
+   "appFile": "File:Onyx bakriminel bolts 5.png",
+   "appSha1": "d5a89f8ba7254d5f9a292825bd8936f23c96cade",
+   "fileRedirects": [
+    {
+     "from": "File:Onyx bakriminel bolts.png",
+     "to": "File:Onyx bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "d5a89f8ba7254d5f9a292825bd8936f23c96cade",
+   "resolvedTitle": "File:Onyx bakriminel bolts 5.png",
+   "via": "File redirect from File:Onyx bakriminel bolts.png"
+  },
+  "Onyx bolt tips": {
+   "appFile": "File:Onyx bolt tips 5.png",
+   "appSha1": "0e85832398d54c28d77cafc05792c862801b0c03",
+   "fileRedirects": [
+    {
+     "from": "File:Onyx bolt tips.png",
+     "to": "File:Onyx bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "0e85832398d54c28d77cafc05792c862801b0c03",
+   "resolvedTitle": "File:Onyx bolt tips 5.png",
+   "via": "File redirect from File:Onyx bolt tips.png"
+  },
+  "Onyx bolts": {
+   "appFile": "File:Onyx bolts 5.png",
+   "appSha1": "e8207e20c5ed1c28a05f1247f04ff9ac807cb940",
+   "fileRedirects": [
+    {
+     "from": "File:Onyx bolts.png",
+     "to": "File:Onyx bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "e8207e20c5ed1c28a05f1247f04ff9ac807cb940",
+   "resolvedTitle": "File:Onyx bolts 5.png",
+   "via": "File redirect from File:Onyx bolts.png"
+  },
+  "Opal bakriminel bolts": {
+   "appFile": "File:Opal bakriminel bolts 5.png",
+   "appSha1": "58a3f326a5c4ca0b948fdc4d3e4b1f0316eaec99",
+   "fileRedirects": [
+    {
+     "from": "File:Opal bakriminel bolts.png",
+     "to": "File:Opal bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "58a3f326a5c4ca0b948fdc4d3e4b1f0316eaec99",
+   "resolvedTitle": "File:Opal bakriminel bolts 5.png",
+   "via": "File redirect from File:Opal bakriminel bolts.png"
+  },
+  "Opal bolt tips": {
+   "appFile": "File:Opal bolt tips 5.png",
+   "appSha1": "364c5ddb1a9ef4752064d7da8131daaf80477d89",
+   "fileRedirects": [
+    {
+     "from": "File:Opal bolt tips.png",
+     "to": "File:Opal bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "364c5ddb1a9ef4752064d7da8131daaf80477d89",
+   "resolvedTitle": "File:Opal bolt tips 5.png",
+   "via": "File redirect from File:Opal bolt tips.png"
+  },
+  "Opal bolts": {
+   "appFile": "File:Opal bolts 5.png",
+   "appSha1": "77ac988ae276c488fed534527dc71c3e84dac998",
+   "fileRedirects": [
+    {
+     "from": "File:Opal bolts.png",
+     "to": "File:Opal bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "77ac988ae276c488fed534527dc71c3e84dac998",
+   "resolvedTitle": "File:Opal bolts 5.png",
+   "via": "File redirect from File:Opal bolts.png"
+  },
+  "Orikalkum arrow": {
+   "appFile": "File:Orikalkum arrow 5.png",
+   "appSha1": "5d8b5b1af539bb9d6aa32cd514e009727706b97f",
+   "fileRedirects": [
+    {
+     "from": "File:Orikalkum arrow.png",
+     "to": "File:Orikalkum arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "5d8b5b1af539bb9d6aa32cd514e009727706b97f",
+   "resolvedTitle": "File:Orikalkum arrow 5.png",
+   "via": "File redirect from File:Orikalkum arrow.png"
+  },
+  "Orikalkum arrowheads": {
+   "appFile": "File:Orikalkum arrowheads 5.png",
+   "appSha1": "b988e3d8a81d7cb39c93e80ad89938eefcec8c40",
+   "fileRedirects": [
+    {
+     "from": "File:Orikalkum arrowheads.png",
+     "to": "File:Orikalkum arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "b988e3d8a81d7cb39c93e80ad89938eefcec8c40",
+   "resolvedTitle": "File:Orikalkum arrowheads 5.png",
+   "via": "File redirect from File:Orikalkum arrowheads.png"
+  },
+  "Orikalkum bolts": {
+   "appFile": "File:Orikalkum bolts 5.png",
+   "appSha1": "1bc0d3b6ea391dd6a6a2d3326ac5065937d73e53",
+   "fileRedirects": [
+    {
+     "from": "File:Orikalkum bolts.png",
+     "to": "File:Orikalkum bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "1bc0d3b6ea391dd6a6a2d3326ac5065937d73e53",
+   "resolvedTitle": "File:Orikalkum bolts 5.png",
+   "via": "File redirect from File:Orikalkum bolts.png"
+  },
+  "Orikalkum bolts (unf)": {
+   "appFile": "File:Orikalkum bolts (unf) 5.png",
+   "appSha1": "bd1448a05cd9c264cc4aa8b4de2bf122c3ffc5bd",
+   "fileRedirects": [
+    {
+     "from": "File:Orikalkum bolts (unf).png",
+     "to": "File:Orikalkum bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "bd1448a05cd9c264cc4aa8b4de2bf122c3ffc5bd",
+   "resolvedTitle": "File:Orikalkum bolts (unf) 5.png",
+   "via": "File redirect from File:Orikalkum bolts (unf).png"
+  },
+  "Pearl bakriminel bolts": {
+   "appFile": "File:Pearl bakriminel bolts 5.png",
+   "appSha1": "e0cef92838f4df08a8f6508a68321d22576cd1d0",
+   "fileRedirects": [
+    {
+     "from": "File:Pearl bakriminel bolts.png",
+     "to": "File:Pearl bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "e0cef92838f4df08a8f6508a68321d22576cd1d0",
+   "resolvedTitle": "File:Pearl bakriminel bolts 5.png",
+   "via": "File redirect from File:Pearl bakriminel bolts.png"
+  },
+  "Pearl bolt tips": {
+   "appFile": "File:Pearl bolt tips 5.png",
+   "appSha1": "f8bfeca7f1444fba8d659809939b5d5de77faf3a",
+   "fileRedirects": [
+    {
+     "from": "File:Pearl bolt tips.png",
+     "to": "File:Pearl bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "f8bfeca7f1444fba8d659809939b5d5de77faf3a",
+   "resolvedTitle": "File:Pearl bolt tips 5.png",
+   "via": "File redirect from File:Pearl bolt tips.png"
+  },
+  "Pearl bolts": {
+   "appFile": "File:Pearl bolts 5.png",
+   "appSha1": "2b0aa6120f3b197ed9e3d9dc8e4cf9ff76fc37d9",
+   "fileRedirects": [
+    {
+     "from": "File:Pearl bolts.png",
+     "to": "File:Pearl bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "2b0aa6120f3b197ed9e3d9dc8e4cf9ff76fc37d9",
+   "resolvedTitle": "File:Pearl bolts 5.png",
+   "via": "File redirect from File:Pearl bolts.png"
+  },
+  "Primal arrow": {
+   "appFile": "File:Primal arrow 5.png",
+   "appSha1": "77e0379aad6d2bc7cecaae9ff54e79bfcca37a88",
+   "fileRedirects": [
+    {
+     "from": "File:Primal arrow.png",
+     "to": "File:Primal arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "77e0379aad6d2bc7cecaae9ff54e79bfcca37a88",
+   "resolvedTitle": "File:Primal arrow 5.png",
+   "via": "File redirect from File:Primal arrow.png"
+  },
+  "Primal arrowheads": {
+   "appFile": "File:Primal arrowheads 5.png",
+   "appSha1": "7adc0a2a8f23eff5dd58876f1353596cfbeec660",
+   "fileRedirects": [
+    {
+     "from": "File:Primal arrowheads.png",
+     "to": "File:Primal arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "7adc0a2a8f23eff5dd58876f1353596cfbeec660",
+   "resolvedTitle": "File:Primal arrowheads 5.png",
+   "via": "File redirect from File:Primal arrowheads.png"
+  },
+  "Primal bolts": {
+   "appFile": "File:Primal bolts 5.png",
+   "appSha1": "7e8d1d16aba451f32a86af20b02ab885aac5efb9",
+   "fileRedirects": [
+    {
+     "from": "File:Primal bolts.png",
+     "to": "File:Primal bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "7e8d1d16aba451f32a86af20b02ab885aac5efb9",
+   "resolvedTitle": "File:Primal bolts 5.png",
+   "via": "File redirect from File:Primal bolts.png"
+  },
+  "Primal bolts (unf)": {
+   "appFile": "File:Primal bolts (unf) 5.png",
+   "appSha1": "da13d0bb5942b93fb0fad882b8defcae1a1dbb73",
+   "fileRedirects": [
+    {
+     "from": "File:Primal bolts (unf).png",
+     "to": "File:Primal bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "da13d0bb5942b93fb0fad882b8defcae1a1dbb73",
+   "resolvedTitle": "File:Primal bolts (unf) 5.png",
+   "via": "File redirect from File:Primal bolts (unf).png"
+  },
+  "Promethium arrows": {
+   "appFile": "File:Promethium arrows 5.png",
+   "appSha1": "ce4c6d4d9e3da51ff4e9348127b4604d271d466c",
+   "fileRedirects": [
+    {
+     "from": "File:Promethium arrows.png",
+     "to": "File:Promethium arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "ce4c6d4d9e3da51ff4e9348127b4604d271d466c",
+   "resolvedTitle": "File:Promethium arrows 5.png",
+   "via": "File redirect from File:Promethium arrows.png"
+  },
+  "Red topaz bakriminel bolts": {
+   "appFile": "File:Red topaz bakriminel bolts 5.png",
+   "appSha1": "e07a1e01215a149558921473e56c43ac83ff055c",
+   "fileRedirects": [
+    {
+     "from": "File:Red topaz bakriminel bolts.png",
+     "to": "File:Red topaz bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "e07a1e01215a149558921473e56c43ac83ff055c",
+   "resolvedTitle": "File:Red topaz bakriminel bolts 5.png",
+   "via": "File redirect from File:Red topaz bakriminel bolts.png"
+  },
+  "Ruby bakriminel bolts": {
+   "appFile": "File:Ruby bakriminel bolts 5.png",
+   "appSha1": "0fd9dd07a97df4f72d9c69f2228417786d114d1d",
+   "fileRedirects": [
+    {
+     "from": "File:Ruby bakriminel bolts.png",
+     "to": "File:Ruby bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "0fd9dd07a97df4f72d9c69f2228417786d114d1d",
+   "resolvedTitle": "File:Ruby bakriminel bolts 5.png",
+   "via": "File redirect from File:Ruby bakriminel bolts.png"
+  },
+  "Ruby bolt tips": {
+   "appFile": "File:Ruby bolt tips 5.png",
+   "appSha1": "cc98b477355c3de3b27d966dfd1d2499e9b235f4",
+   "fileRedirects": [
+    {
+     "from": "File:Ruby bolt tips.png",
+     "to": "File:Ruby bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "cc98b477355c3de3b27d966dfd1d2499e9b235f4",
+   "resolvedTitle": "File:Ruby bolt tips 5.png",
+   "via": "File redirect from File:Ruby bolt tips.png"
+  },
+  "Ruby bolts": {
+   "appFile": "File:Ruby bolts 5.png",
+   "appSha1": "d7444ce91856237e97b7db7bd9cc6d122c75a3d3",
+   "fileRedirects": [
+    {
+     "from": "File:Ruby bolts.png",
+     "to": "File:Ruby bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "d7444ce91856237e97b7db7bd9cc6d122c75a3d3",
+   "resolvedTitle": "File:Ruby bolts 5.png",
+   "via": "File redirect from File:Ruby bolts.png"
+  },
+  "Rune arrow": {
+   "appFile": "File:Rune arrow 5.png",
+   "appSha1": "e40600e21b78213fb0b18692e4de89a6e23a79bf",
+   "fileRedirects": [
+    {
+     "from": "File:Rune arrow.png",
+     "to": "File:Rune arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "e40600e21b78213fb0b18692e4de89a6e23a79bf",
+   "resolvedTitle": "File:Rune arrow 5.png",
+   "via": "File redirect from File:Rune arrow.png"
+  },
+  "Rune arrowheads": {
+   "appFile": "File:Rune arrowheads 5.png",
+   "appSha1": "104056e6d8c546f48b9e1b40e89dadb94f48c2e2",
+   "fileRedirects": [
+    {
+     "from": "File:Rune arrowheads.png",
+     "to": "File:Rune arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "104056e6d8c546f48b9e1b40e89dadb94f48c2e2",
+   "resolvedTitle": "File:Rune arrowheads 5.png",
+   "via": "File redirect from File:Rune arrowheads.png"
+  },
+  "Rune bolts": {
+   "appFile": "File:Rune bolts 5.png",
+   "appSha1": "173f46947c6934817c60c253318e989a8526b4c1",
+   "fileRedirects": [
+    {
+     "from": "File:Rune bolts.png",
+     "to": "File:Rune bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "173f46947c6934817c60c253318e989a8526b4c1",
+   "resolvedTitle": "File:Rune bolts 5.png",
+   "via": "File redirect from File:Rune bolts.png"
+  },
+  "Rune bolts (unf)": {
+   "appFile": "File:Rune bolts (unf) 5.png",
+   "appSha1": "986fdf1851bc9ab1a2fd871b9ecd7b7eac4379be",
+   "fileRedirects": [
+    {
+     "from": "File:Rune bolts (unf).png",
+     "to": "File:Rune bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "986fdf1851bc9ab1a2fd871b9ecd7b7eac4379be",
+   "resolvedTitle": "File:Rune bolts (unf) 5.png",
+   "via": "File redirect from File:Rune bolts (unf).png"
+  },
+  "Rune brutal": {
+   "appFile": "File:Rune brutal 5.png",
+   "appSha1": "b6862aada5a4d525148432698266052c3c1d3e85",
+   "fileRedirects": [
+    {
+     "from": "File:Rune brutal.png",
+     "to": "File:Rune brutal 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "b6862aada5a4d525148432698266052c3c1d3e85",
+   "resolvedTitle": "File:Rune brutal 5.png",
+   "via": "File redirect from File:Rune brutal.png"
+  },
+  "Sagaie shaft": {
+   "appFile": "File:Sagaie shaft 5.png",
+   "appSha1": "3b523f6baf307c94a1eaac8eced90e80be08c673",
+   "fileRedirects": [
+    {
+     "from": "File:Sagaie shaft.png",
+     "to": "File:Sagaie shaft 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "3b523f6baf307c94a1eaac8eced90e80be08c673",
+   "resolvedTitle": "File:Sagaie shaft 5.png",
+   "via": "File redirect from File:Sagaie shaft.png"
+  },
+  "Sapphire bakriminel bolts": {
+   "appFile": "File:Sapphire bakriminel bolts 5.png",
+   "appSha1": "afb0a26edcf0611bdb3126813902ec1f5fd10d22",
+   "fileRedirects": [
+    {
+     "from": "File:Sapphire bakriminel bolts.png",
+     "to": "File:Sapphire bakriminel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "afb0a26edcf0611bdb3126813902ec1f5fd10d22",
+   "resolvedTitle": "File:Sapphire bakriminel bolts 5.png",
+   "via": "File redirect from File:Sapphire bakriminel bolts.png"
+  },
+  "Sapphire bolt tips": {
+   "appFile": "File:Sapphire bolt tips 5.png",
+   "appSha1": "6d98d85e73f86a52857d5c9bb471ea613eace846",
+   "fileRedirects": [
+    {
+     "from": "File:Sapphire bolt tips.png",
+     "to": "File:Sapphire bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "6d98d85e73f86a52857d5c9bb471ea613eace846",
+   "resolvedTitle": "File:Sapphire bolt tips 5.png",
+   "via": "File redirect from File:Sapphire bolt tips.png"
+  },
+  "Sapphire bolts": {
+   "appFile": "File:Sapphire bolts 5.png",
+   "appSha1": "001b23efc9ae04f4975f923eeabeda6a5e84315e",
+   "fileRedirects": [
+    {
+     "from": "File:Sapphire bolts.png",
+     "to": "File:Sapphire bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "001b23efc9ae04f4975f923eeabeda6a5e84315e",
+   "resolvedTitle": "File:Sapphire bolts 5.png",
+   "via": "File redirect from File:Sapphire bolts.png"
+  },
+  "Shaft": {
+   "appFile": "File:Shaft 5.png",
+   "appSha1": "7bdcaadbf850cb235dd6f1efd9d6189d017d25d9",
+   "fileRedirects": [
+    {
+     "from": "File:Shaft.png",
+     "to": "File:Shaft 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "7bdcaadbf850cb235dd6f1efd9d6189d017d25d9",
+   "resolvedTitle": "File:Shaft 5.png",
+   "via": "File redirect from File:Shaft.png"
+  },
+  "Sharp shell shard": {
+   "appFile": "File:Sharp shell shard 5.png",
+   "appSha1": "35b050d87f29094e198527d0cda6d48b70862fb7",
+   "fileRedirects": [
+    {
+     "from": "File:Sharp shell shard.png",
+     "to": "File:Sharp shell shard 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "35b050d87f29094e198527d0cda6d48b70862fb7",
+   "resolvedTitle": "File:Sharp shell shard 5.png",
+   "via": "File redirect from File:Sharp shell shard.png"
+  },
+  "Silver bolts": {
+   "appFile": "File:Silver bolts 5.png",
+   "appSha1": "60cfd859646769ca598f1aa985529363ae07376c",
+   "fileRedirects": [
+    {
+     "from": "File:Silver bolts.png",
+     "to": "File:Silver bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "60cfd859646769ca598f1aa985529363ae07376c",
+   "resolvedTitle": "File:Silver bolts 5.png",
+   "via": "File redirect from File:Silver bolts.png"
+  },
+  "Silver bolts (unf)": {
+   "appFile": "File:Silver bolts (unf) 5.png",
+   "appSha1": "b1c7a309f46cc1cc71bde0c57b4cb428336f002a",
+   "fileRedirects": [
+    {
+     "from": "File:Silver bolts (unf).png",
+     "to": "File:Silver bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "b1c7a309f46cc1cc71bde0c57b4cb428336f002a",
+   "resolvedTitle": "File:Silver bolts (unf) 5.png",
+   "via": "File redirect from File:Silver bolts (unf).png"
+  },
+  "Splintering arrow tips": {
+   "appFile": "File:Splintering arrow tips 5.png",
+   "appSha1": "cfefb7604e283ce92f220f770604e1f8a0bd2a0e",
+   "fileRedirects": [
+    {
+     "from": "File:Splintering arrow tips.png",
+     "to": "File:Splintering arrow tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "cfefb7604e283ce92f220f770604e1f8a0bd2a0e",
+   "resolvedTitle": "File:Splintering arrow tips 5.png",
+   "via": "File redirect from File:Splintering arrow tips.png"
+  },
+  "Splintering arrows": {
+   "appFile": "File:Splintering arrows 5.png",
+   "appSha1": "8216b40175b23627a77b832dcbfab77ab95edc2b",
+   "fileRedirects": [
+    {
+     "from": "File:Splintering arrows.png",
+     "to": "File:Splintering arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "8216b40175b23627a77b832dcbfab77ab95edc2b",
+   "resolvedTitle": "File:Splintering arrows 5.png",
+   "via": "File redirect from File:Splintering arrows.png"
+  },
+  "Stalker arrow": {
+   "appFile": "File:Stalker arrow 5.png",
+   "appSha1": "249334f5d35b5c2f47aa684c1b12146906ef1e85",
+   "fileRedirects": [
+    {
+     "from": "File:Stalker arrow.png",
+     "to": "File:Stalker arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "249334f5d35b5c2f47aa684c1b12146906ef1e85",
+   "resolvedTitle": "File:Stalker arrow 5.png",
+   "via": "File redirect from File:Stalker arrow.png"
+  },
+  "Steel arrow": {
+   "appFile": "File:Steel arrow 5.png",
+   "appSha1": "a3e3aa920a47acb909ace643915c2c757bd8d630",
+   "fileRedirects": [
+    {
+     "from": "File:Steel arrow.png",
+     "to": "File:Steel arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "a3e3aa920a47acb909ace643915c2c757bd8d630",
+   "resolvedTitle": "File:Steel arrow 5.png",
+   "via": "File redirect from File:Steel arrow.png"
+  },
+  "Steel arrowheads": {
+   "appFile": "File:Steel arrowheads 5.png",
+   "appSha1": "f291e485edc4a22594dfbd8850afe939457b62a8",
+   "fileRedirects": [
+    {
+     "from": "File:Steel arrowheads.png",
+     "to": "File:Steel arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "f291e485edc4a22594dfbd8850afe939457b62a8",
+   "resolvedTitle": "File:Steel arrowheads 5.png",
+   "via": "File redirect from File:Steel arrowheads.png"
+  },
+  "Steel bolts": {
+   "appFile": "File:Steel bolts 5.png",
+   "appSha1": "75e4e17e19669ee82e978bbcc98f17cfcb079793",
+   "fileRedirects": [
+    {
+     "from": "File:Steel bolts.png",
+     "to": "File:Steel bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "75e4e17e19669ee82e978bbcc98f17cfcb079793",
+   "resolvedTitle": "File:Steel bolts 5.png",
+   "via": "File redirect from File:Steel bolts.png"
+  },
+  "Steel bolts (unf)": {
+   "appFile": "File:Steel bolts (unf) 5.png",
+   "appSha1": "ac60d05932e0af26a1ed7602b118ff36b1365ce3",
+   "fileRedirects": [
+    {
+     "from": "File:Steel bolts (unf).png",
+     "to": "File:Steel bolts (unf) 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "ac60d05932e0af26a1ed7602b118ff36b1365ce3",
+   "resolvedTitle": "File:Steel bolts (unf) 5.png",
+   "via": "File redirect from File:Steel bolts (unf).png"
+  },
+  "Steel brutal": {
+   "appFile": "File:Steel brutal 5.png",
+   "appSha1": "0438a1140043354ac7a3fcb6f5ed4d01719058cc",
+   "fileRedirects": [
+    {
+     "from": "File:Steel brutal.png",
+     "to": "File:Steel brutal 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "0438a1140043354ac7a3fcb6f5ed4d01719058cc",
+   "resolvedTitle": "File:Steel brutal 5.png",
+   "via": "File redirect from File:Steel brutal.png"
+  },
+  "Tempered fungal shaft": {
+   "appFile": "File:Tempered fungal shaft 5.png",
+   "appSha1": "958729479a4fc303d72453921ef5b1874cf9543f",
+   "fileRedirects": [
+    {
+     "from": "File:Tempered fungal shaft.png",
+     "to": "File:Tempered fungal shaft 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "958729479a4fc303d72453921ef5b1874cf9543f",
+   "resolvedTitle": "File:Tempered fungal shaft 5.png",
+   "via": "File redirect from File:Tempered fungal shaft.png"
+  },
+  "Topaz bolt tips": {
+   "appFile": "File:Topaz bolt tips 5.png",
+   "appSha1": "07ec96636862d0019cc8632ffc9228cacc9e6016",
+   "fileRedirects": [
+    {
+     "from": "File:Topaz bolt tips.png",
+     "to": "File:Topaz bolt tips 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "07ec96636862d0019cc8632ffc9228cacc9e6016",
+   "resolvedTitle": "File:Topaz bolt tips 5.png",
+   "via": "File redirect from File:Topaz bolt tips.png"
+  },
+  "Topaz bolts": {
+   "appFile": "File:Topaz bolts 5.png",
+   "appSha1": "6000ae5cfaaa5fd90485b29e2ef3fbc591bc4707",
+   "fileRedirects": [
+    {
+     "from": "File:Topaz bolts.png",
+     "to": "File:Topaz bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "6000ae5cfaaa5fd90485b29e2ef3fbc591bc4707",
+   "resolvedTitle": "File:Topaz bolts 5.png",
+   "via": "File redirect from File:Topaz bolts.png"
+  },
+  "Unfinished broad bolts": {
+   "appFile": "File:Unfinished broad bolts 5.png",
+   "appSha1": "564115bbdc909fba0f92c40464ead98da1e348ea",
+   "fileRedirects": [
+    {
+     "from": "File:Unfinished broad bolts.png",
+     "to": "File:Unfinished broad bolts 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "564115bbdc909fba0f92c40464ead98da1e348ea",
+   "resolvedTitle": "File:Unfinished broad bolts 5.png",
+   "via": "File redirect from File:Unfinished broad bolts.png"
+  },
+  "Wen arrow": {
+   "appFile": "File:Wen arrow 5.png",
+   "appSha1": "7e4521072d902f925d4dcdb42caaab57559d6ea2",
+   "fileRedirects": [
+    {
+     "from": "File:Wen arrow.png",
+     "to": "File:Wen arrow 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "7e4521072d902f925d4dcdb42caaab57559d6ea2",
+   "resolvedTitle": "File:Wen arrow 5.png",
+   "via": "File redirect from File:Wen arrow.png"
+  },
+  "Wolf bone arrowheads": {
+   "appFile": "File:Wolf bone arrowheads 5.png",
+   "appSha1": "69e56fe6e6b56f81f2107c7bc82f528c2cb49072",
+   "fileRedirects": [
+    {
+     "from": "File:Wolf bone arrowheads.png",
+     "to": "File:Wolf bone arrowheads 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "69e56fe6e6b56f81f2107c7bc82f528c2cb49072",
+   "resolvedTitle": "File:Wolf bone arrowheads 5.png",
+   "via": "File redirect from File:Wolf bone arrowheads.png"
+  },
+  "Zephyrium arrows": {
+   "appFile": "File:Zephyrium arrows 5.png",
+   "appSha1": "8e7b6527f4e5dd31b22e7daebdfc88653db856dc",
+   "fileRedirects": [
+    {
+     "from": "File:Zephyrium arrows.png",
+     "to": "File:Zephyrium arrows 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "8e7b6527f4e5dd31b22e7daebdfc88653db856dc",
+   "resolvedTitle": "File:Zephyrium arrows 5.png",
+   "via": "File redirect from File:Zephyrium arrows.png"
   }
- }
+ },
+ "method": "MediaWiki API action=query&prop=imageinfo|revisions&redirects=1 on File:<item name>.png (and page redirects for item pages); recorded exactly as returned"
 }

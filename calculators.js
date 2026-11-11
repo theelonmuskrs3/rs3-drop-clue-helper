@@ -70,7 +70,8 @@
   /* Native (in-app) calculators: exact Wiki path -> app route. Only calculators whose formulas are verified against Wiki output. */
   const NATIVE = [{slug: 'flask-decanting', path: '/w/Calculator:Herblore/Flask_decanting', data: 'data/calc/flask-decanting.json'},
     {slug: 'herblore', path: '/w/Calculator:Herblore', data: 'data/calc/herblore.json'},
-    {slug: 'cooking', path: '/w/Calculator:Cooking', data: 'data/calc/cooking.json'}];
+    {slug: 'cooking', path: '/w/Calculator:Cooking', data: 'data/calc/cooking.json'},
+    {slug: 'fletching', path: '/w/Calculator:Fletching', data: 'data/calc/fletching.json'}];
   const nativeFor = path => NATIVE.find(n => n.path === path) || null;
   const nativeBySlug = slug => NATIVE.find(n => n.slug === slug) || null;
 
@@ -560,9 +561,9 @@
      Shared RuneScape Wiki skill calculator engine — a JavaScript port of the generic Module:Skill calc (noValue) with
      Module:Skill calc/bonusGenerator and the Profit/Loss table of Module:Skill calc/eltGenerator, plus the parts of
      MediaWiki:Gadget-calc-core.js that decide what the Wiki form submits (CC BY-NC-SA 3.0; revisions in the calculator's
-     data file, e.g. data/calc/cooking.json). Validated against Wiki renders for Calculator:Cooking only (SC_VALIDATED);
+     data file, e.g. data/calc/cooking.json). Validated against Wiki renders for Calculator:Cooking and Calculator:Fletching only (SC_VALIDATED, SC_OPTS);
      every branch the Wiki module takes only for other skills or sub-categories is refused with an explicit
-     "not supported" error instead of being guessed, so the next calculators (Fletching, Crafting, Firemaking, Runecrafting)
+     "not supported" error instead of being guessed, so the next calculators (Crafting, Firemaking, Runecrafting)
      can be added by porting and validating their branches against Wiki goldens.
        skillFormDefaults(form) / skillFormSet(form, state, name, value) / skillFormSubmission(form, state) -> what the Wiki
          form sends (fields disabled by a toggle are omitted; hidden fields send their default; checks send range values)
@@ -670,6 +671,7 @@
     const skill = args.skill, disp = args.disp;
     if (typeof skill !== 'string' || typeof disp !== 'string') scFail('skill and sub-category are required');
     if (!SC_VALIDATED.includes(skill)) scUnsupported('the ' + skill + ' skill calculator');
+    if ((D.skill || 'Cooking') !== skill) scFail('This data is the ' + (D.skill || 'Cooking') + ' calculator; skill=' + skill + ' does not match.');
     const okOpts = SC_OPTS[skill] || [];
     for (const k of ['testing', 'dxp', 'torstol', 'elite', 'abyss', 'portable', 'workroom', 'tool', 'wild', 'altar', 'SOCleansing', 'spiritWeaver', 'summoningFocus', 'potion', 'vos', 'aura', 'aot', 'brooch', 'amuletOfOfferings', 'creature', 'equipment'])
       if (args[k] != null && !okOpts.includes(k)) scUnsupported('option "' + k + '"');
@@ -715,6 +717,7 @@
           urn = {name: u.name, title: u.title || null, tier: args.urn, isEnhancer: isEnh, totalXp: total, baseXpToFill: fill, rewardXp: total - fill, maxLevel: u.maxLevel, members: u.members === true}; break; }
       }
     }
+    if (!elts) scFail('No Wiki column layout for ' + skill + ' / ' + disp + '.');
     let headers = elts.slice(), urnColumn = null;
     if (urn) { const i = headers.indexOf('# needed'); if (i >= 0) { headers.splice(i + 1, 0, '# urns'); urnColumn = i + 1; } }
     const rows = src.sorted.map((v, idx) => {
@@ -741,7 +744,10 @@
       const cls = reqLv > goalLv ? 'red' : reqLv <= currLv ? 'green' : 'yellow';
       // every ingredient the Wiki lists, with whether the Wiki prices it (only the first mcount, and only when mtrade ~= 0)
       const listed = [];
-      if (v.material && !v.currency) for (let i = 0; i + 1 < v.material.length; i += 2) listed.push({name: String(v.material[i + 1]), qty: scNum(v.material[i]), priced: matPriced && i / 2 < mcount});
+      // unpriced: 'untradeable' (mtrade 0: the Wiki prices none of the ingredients) or 'wiki' (past the recipe's mcount: the Wiki
+      // leaves that ingredient out of the cost even though it may trade); either way the Wiki counts 0 and the total is partial
+      if (v.material && !v.currency) for (let i = 0; i + 1 < v.material.length; i += 2) { const priced = matPriced && i / 2 < mcount;
+        listed.push({name: String(v.material[i + 1]), qty: scNum(v.material[i]), priced, unpriced: priced ? null : !matPriced ? 'untradeable' : 'wiki'}); }
       // alternative-currency rows (eltGenerator expandedList): [qty, currency cost, "image,link" or name, ...]; the shown name is the link part
       if (v.material && v.currency) for (let i = 0; i < v.material.length; i++) if (typeof v.material[i] === 'string') { const parts = v.material[i].split(','); listed.push({name: parts.length > 1 ? parts[1] : parts[0], image: parts[0], qty: scNum(v.material[i - 2]), priced: false}); }
       return {idx, item: v, name: v.name, title: v.title || null, level: v.level == null ? null : scRound(v.level, 0), reqLevel: reqLv, cls,
