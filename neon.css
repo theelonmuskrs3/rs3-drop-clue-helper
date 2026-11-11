@@ -137,7 +137,6 @@ h1::after{content:attr(data-text);position:absolute;inset:0;background:linear-gr
   -webkit-background-clip:text;background-clip:text;color:transparent;animation:nxShimmer 7s linear infinite;pointer-events:none}
 @keyframes nxShimmer{from{background-position:150% 0}to{background-position:-100% 0}}
 .top .sub{font:700 11.5px/1.4 var(--head);letter-spacing:.24em;text-transform:uppercase;color:#e9dccb;margin-top:5px;display:flex;align-items:center;gap:8px}
-.top .sub::before{content:"";width:7px;height:7px;transform:rotate(45deg);background:var(--red);box-shadow:0 0 8px var(--red);flex:none}
 .nx-status{margin-left:auto;display:flex;align-items:center;gap:8px;font:600 11.5px/1 var(--ui);letter-spacing:.2em;color:var(--muted);
   padding:7px 12px;border-radius:4px;background:var(--stone2);border:1px solid var(--metal2);box-shadow:inset 0 1px 0 var(--metalhi),0 0 0 1px #000}
 .nx-led{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:nxBlink 2.4s ease-in-out infinite}
@@ -1186,6 +1185,8 @@ html[data-fx=off] .chsk .sk{transition:none}
 .chsk{text-align:center}
 .chsk>h2:first-child{justify-content:center;padding-left:0;padding-right:0}
 .chsk>h2:first-child::after{display:none}
+/* Skills heading: the official Old School RuneScape Stats tab icon (OSRS Wiki File:Stats icon.png, 25x23, transparent) in place of the diamond (pt349u); drawn 1:1 with pixelated scaling so it stays crisp on retina */
+.chsk>h2:first-child::before{width:25px;height:23px;transform:none;background:url(brand/osrs-stats-icon.png) center/25px 23px no-repeat;box-shadow:none;border-radius:0;image-rendering:pixelated}
 .chsk .chtools{justify-content:center}
 .chsk .skgrid{width:100%;max-width:540px;margin:8px auto 0;grid-template-columns:repeat(3,minmax(0,1fr));justify-content:center;text-align:left}
 .chsk .sktot{justify-content:center;text-align:center}
