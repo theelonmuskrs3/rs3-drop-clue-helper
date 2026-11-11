@@ -554,7 +554,277 @@
     }
     return out;
   }
-  const api = {NATIVE, nativeFor, nativeBySlug, flaskModel, guideProfit, herbloreRun, herbloreCost, FAV_KEY, ORIGIN, MAX_FAVS, safeWikiPath, wikiUrl, parseCalculatorUrl, load, save, toggle, has};
+
+  /* ---------------------------------------------------------------------------------------------
+     Shared RuneScape Wiki skill calculator engine — a JavaScript port of the generic Module:Skill calc (noValue) with
+     Module:Skill calc/bonusGenerator and the Profit/Loss table of Module:Skill calc/eltGenerator, plus the parts of
+     MediaWiki:Gadget-calc-core.js that decide what the Wiki form submits (CC BY-NC-SA 3.0; revisions in the calculator's
+     data file, e.g. data/calc/cooking.json). Validated against Wiki renders for Calculator:Cooking only (SC_VALIDATED);
+     every branch the Wiki module takes only for other skills or sub-categories is refused with an explicit
+     "not supported" error instead of being guessed, so the next calculators (Fletching, Crafting, Firemaking, Runecrafting)
+     can be added by porting and validating their branches against Wiki goldens.
+       skillFormDefaults(form) / skillFormSet(form, state, name, value) / skillFormSubmission(form, state) -> what the Wiki
+         form sends (fields disabled by a toggle are omitted; hidden fields send their default; checks send range values)
+       skillCalcRun(D, submission) -> {message parts, rows with XP, actions, urns, ingredient lines, product} (no prices)
+       skillCalcCost(row, linePrice) -> the Wiki's per-action and total cost / product / profit arithmetic with any price
+         source (Wiki guide prices in tests, live prices in the app); null (never 0) when a needed price is unavailable.
+  --------------------------------------------------------------------------------------------- */
+  const SC_VALIDATED = ['Cooking'];
+  /* Module:Yesno */
+  function scYn(arg, def) {
+    if (arg == null) return def;
+    const a = typeof arg === 'string' ? arg.toLowerCase() : arg;
+    if (a === true || a === 'yes' || a === 'y' || a === 'true' || scNum(a) === 1) return true;
+    if (a === false || a === 'no' || a === 'n' || a === 'false' || scNum(a) === 0) return false;
+    return def;
+  }
+  /* Lua 5.1 tonumber on a string or number (nil -> null) */
+  function scNum(v) {
+    if (typeof v === 'number') return Number.isFinite(v) ? v : null;
+    if (typeof v !== 'string' || !LUA_NUM.test(v)) return null;
+    const t = v.trim(), neg = /^-/.test(t), b = t.replace(/^[-+]/, '');
+    const n = /^0[xX]/.test(b) ? parseInt(b, 16) * (neg ? -1 : 1) : Number(t);
+    return Number.isFinite(n) ? n : null;
+  }
+  const scRound = (num, dp) => { const m = 10 ** (dp || 0); return Math.floor(num * m + 0.5) / m; };   // Module:Number._round
+  class SkillCalcError extends Error {}
+  const scFail = msg => { throw new SkillCalcError(msg); };
+  const scUnsupported = what => scFail('Not supported in the app yet: ' + what + ' (this part of the Wiki engine is not validated here).');
+  /* Module:Skill calc/bonusGenerator. Note: the Wiki module never copies data.category into its local `category`, so the
+     category checks in 'extra' always see '' (Bonfire never adds XP; Portable Range adds 21% in every sub-category). Ported as is. */
+  function scBonus(d) {
+    const object = d.object || '', skill = d.skill || '', pieces = d.pieces != null ? d.pieces : 0, item = d.item != null ? d.item : '';
+    const category = '', name = d.name || '', setting = d.setting || '', subSetting = d.subSetting || '';
+    let bonus = 0;
+    if (object === 'outfit') {
+      if (skill === 'Firemaking') { if (pieces === 1) bonus = 2 / 100; else if (pieces === 2) bonus = 5 / 100; }
+      else if (['Fishing', 'Runecrafting', 'Thieving', 'Woodcutting'].includes(skill)) { if (pieces < 4) bonus = pieces / 100; else if (pieces === 4) bonus = 5 / 100; }
+      else { if (pieces < 5) bonus = pieces / 100; else if (pieces === 5) bonus = 6 / 100; }
+    } else if (object === 'elite') { if (pieces < 5) bonus = pieces / 100; else if (pieces === 5) bonus = 6 / 100; }
+    else if (object === 'portable') bonus = skill === 'Cooking' ? 21 / 100 : skill === 'Firemaking' ? 15 / 100 : 10 / 100;
+    else if (object === 'tool') { if (skill === 'Cooking' && item === 'Dwarven army axe') bonus = 3; else if (skill === 'Hunter' && item === 'Enhanced yaktwee stick') bonus = 5 / 100; }
+    else if (object === 'abyss') { if (item === 'Yes') bonus = 2.5; else if (item === 'Demonic Skull') bonus = 3.5; }
+    else if (object === 'extra') {
+      if (!(category === 'Churning' || category === 'Brewing')) {
+        if (category === 'Meat' && item === 'Bonfire') bonus = 10 / 100;
+        else if (item === 'Portable Range' && !(category === 'Gnome Drinks')) bonus = 21 / 100;
+        else if (skill === 'Divination') { if (item === '1') bonus = 10 / 100; }
+        else if (skill === 'Mining' && item === '1') bonus = 10 / 100;
+      }
+    } else if (object === 'custom') { const n = scNum(item); if (n == null) scFail('custom boost is not a number'); bonus = n / 100; }
+    else if (object === 'workroom') bonus = 5 / 100;
+    else if (object === 'VoiceOfSeren') { bonus = 1; if (setting !== 'Perfect juju' && name === 'Cleansing crystal') bonus = subSetting === 'AvgOverTime' ? 103.3 / 100 : 120 / 100; }
+    else if (object === 'aura') { bonus = 1; bonus = {Basic: 101 / 100, Greater: 101.5 / 100, Master: 102 / 100, Supreme: 102.5 / 100}[item] || 1; }
+    else if (object === 'altar' || object === 'potion' || object === 'wild' || object === 'age') scUnsupported('bonus "' + object + '"');
+    else { const n = scNum(pieces); if (n == null) scFail('bonus "' + object + '" is not a number'); bonus = n / 100; }
+    return bonus;
+  }
+  const scFind = (list, x) => list.includes(x);
+  /* Module:Experience level_at_xp / xp_at_level on the 120-level table (elite skills are not supported) */
+  function scXpAt(D, level) { const n = scNum(level); return n != null && Number.isInteger(n) && n >= 1 && n <= 120 ? D.xp[n - 1] : null; }
+  function scLevelAt(D, xp) {
+    const n = scNum(typeof xp === 'string' ? xp.replace(/,/g, '') : xp);
+    if (n == null || n < 0 || n > 200000000) return null;
+    for (let i = 120; i >= 1; i--) if (D.xp[i - 1] <= n) return i;
+    return null;
+  }
+  function scItems(D, disp) {
+    const c = D.cats[disp]; if (!c) return null;
+    const items = c.refs ? c.refs.map(([k, i]) => D.cats[k].items[i]) : c.items;
+    return {items, sorted: c.order.map(i => items[i])};
+  }
+  /* Module:GEPHelper._quantity: floor(price x quantity) per line for the first `count` {qty, name} pairs. */
+  function scLines(material, count) {
+    const out = [];
+    for (let i = 0; i < count * 2; i += 2) { const name = material[i + 1]; if (name == null) continue; const q = scNum(material[i]); out.push({name: String(name), qty: q == null ? 1 : q}); }
+    return out;
+  }
+  function scUrnMult(urn) {
+    const enh = String(urn.title || '').includes('Urn Enhancer'), exq = String(urn.name || '').includes('Exquisite');
+    return enh && exq ? 1.3125 : (enh || exq) ? 1.25 : 1.2;
+  }
+  function scUrnsNeeded(needed, actionBaseXp, baseXpToFill) { if (!(needed > 0) || !(actionBaseXp > 0) || !(baseXpToFill > 0)) return 0; return Math.floor(needed * actionBaseXp / baseXpToFill); }
+  function scUrnUsage(remaining, actionExp, actionBaseXp, baseXpToFill, rewardXp) {
+    if (remaining <= 0 || actionExp <= 0) return [0, 0];
+    if (actionBaseXp <= 0 || baseXpToFill <= 0 || rewardXp <= 0) { const a = Math.ceil(remaining / actionExp); return [a, scUrnsNeeded(a, actionBaseXp, baseXpToFill)]; }
+    const tot = a => a * actionExp + scUrnsNeeded(a, actionBaseXp, baseXpToFill) * rewardXp;
+    let low = 0, high = Math.ceil(remaining / actionExp); if (high < 1) high = 1;
+    while (tot(high) < remaining) high *= 2;
+    while (low < high) { const mid = Math.floor((low + high) / 2); if (tot(mid) >= remaining) high = mid; else low = mid + 1; }
+    return [high, scUrnsNeeded(high, actionBaseXp, baseXpToFill)];
+  }
+  /* Module:Arguments.getArgs as used here: values trimmed, blank values dropped. */
+  function scArgs(submission) {
+    const a = {};
+    for (const [k, v0] of (Array.isArray(submission) ? submission : Object.entries(submission))) { if (v0 == null) continue; const v = String(v0).trim(); if (v !== '') a[k] = v; }
+    return a;
+  }
+  function skillCalcRun(D, submission) {
+    try { return scRun(D, scArgs(submission)); }
+    catch (e) { if (e instanceof SkillCalcError) return {error: e.message}; throw e; }
+  }
+  function scRun(D, args) {
+    const skill = args.skill, disp = args.disp;
+    if (typeof skill !== 'string' || typeof disp !== 'string') scFail('skill and sub-category are required');
+    if (!SC_VALIDATED.includes(skill)) scUnsupported('the ' + skill + ' skill calculator');
+    for (const k of ['testing', 'dxp', 'torstol', 'elite', 'abyss', 'portable', 'workroom', 'tool', 'wild', 'altar', 'SOCleansing', 'spiritWeaver', 'summoningFocus', 'potion', 'vos', 'aura', 'aot', 'brooch', 'amuletOfOfferings', 'creature', 'equipment'])
+      if (args[k] != null) scUnsupported('option "' + k + '"');
+    let pct = 0, flat = 0;
+    // order of the Wiki module: avatar, then (outside bonusExceptions) extra, outfit, custom
+    if (args.avatar != null && disp !== 'Urns') pct += scBonus({skill, object: 'avatar', pieces: scNum(args.avatar)});
+    const bonusExceptions = ['Dungeoneering', 'Blast furnace'];
+    if (!scFind(bonusExceptions, disp)) {
+      if (args.extra != null) pct += scBonus({skill, category: disp, object: 'extra', item: args.extra});
+      if (args.outfit != null) { const n = scNum(args.outfit); if (n == null) scFail('outfit pieces is not a number'); pct += scBonus({skill, object: 'outfit', pieces: n}); }
+      if (scNum(args.custom) != null) pct += scBonus({skill, category: disp, object: 'custom', item: args.custom});
+    }
+    // remainingExp
+    const cur = scNum(args.current), goal = scNum(args.goal);
+    if (cur == null || goal == null) scFail('Current and goal must be numbers (the Wiki module errors).');
+    let currLv, currXp, goalLv, goalXp;
+    if (args.currToggle === 'Level' && cur <= 120) { currLv = cur; currXp = scXpAt(D, args.current); }
+    else { currLv = scLevelAt(D, args.current); currXp = cur; }
+    if (args.goalToggle === 'Level' && goal <= 120) { goalLv = goal; goalXp = scXpAt(D, args.goal); }
+    else if (args.goalToggle === 'Additional Experience') scUnsupported('goal type "Additional Experience"');
+    else { goalLv = scLevelAt(D, args.goal); goalXp = goal; }
+    if (currXp == null || goalXp == null || currLv == null || goalLv == null)
+      scFail('No such level or XP: levels must be whole numbers from 1 to 120 and XP from 0 to 200,000,000 (the Wiki calculator shows a script error for this input).');
+    let bonusXp = 0; if (scYn(args.bxp)) bonusXp = scNum(args.bxpnum) || 0;
+    let actual = Math.ceil(goalXp - currXp); if (actual < 0) actual = 0;
+    let remaining = actual; if (bonusXp > 0) remaining -= Math.min(remaining / 2, bonusXp);
+    if (disp === 'Silverhawk Feathers' || disp === 'Wilderness Agility Course') scUnsupported('sub-category ' + disp);
+    const src = scItems(D, disp); if (!src) scFail('Unknown sub-category "' + disp + '" (the Wiki module errors).');
+    let elts = D.elts[skill];
+    if (disp === 'Urns') elts = D.elts.Urns;
+    else if (skill === 'Cooking' && disp === 'Dungeoneering') elts = D.elts['Cooking-Dungeoneering'];
+    else if (/Dungeoneering - /.test(disp)) scUnsupported('sub-category ' + disp);
+    const allowsUrns = disp !== 'Urns';
+    let urn = null;
+    if (allowsUrns && args.urn != null && args.urn !== 'None') {
+      const enh = scYn(args.urnEnhancer) || false, urns = scItems(D, 'Urns');
+      for (const u of (urns ? urns.items : [])) {
+        const isEnh = String(u.title || '').includes('Urn Enhancer');
+        if (String(u.name).includes(args.urn) && isEnh === enh) { const total = scNum(u.xp) || 0, m = scUrnMult(u), fill = total / m;
+          urn = {name: u.name, title: u.title || null, tier: args.urn, isEnhancer: isEnh, totalXp: total, baseXpToFill: fill, rewardXp: total - fill, maxLevel: u.maxLevel, members: u.members === true}; break; }
+      }
+    }
+    let headers = elts.slice(), urnColumn = null;
+    if (urn) { const i = headers.indexOf('# needed'); if (i >= 0) { headers.splice(i + 1, 0, '# urns'); urnColumn = i + 1; } }
+    const rows = src.sorted.map((v, idx) => {
+      const mcount = v.mcount || 1;
+      let matLines = [], matPriced = false;
+      if (v.material && (v.mtrade !== 0 || (disp === 'Urns' && !v.currency))) { matPriced = true; matLines = scLines(v.material, mcount); }
+      let product = null;
+      if (v.trade !== 0 && !v.currency) product = {name: v.name, units: 1};
+      if (v.multiplier) scUnsupported('product multiplier');
+      const brewing = disp === 'Brewing';
+      const unitExp = scRound(v.xp * (1 + pct) + flat, 1);
+      let needed = 0, urnsNeeded = 0;
+      if (unitExp !== 0 && unitExp != null) {
+        const lvl = scNum(v.level), canUrn = urn && (v.urns == null || scYn(v.urns) !== false) && urn.maxLevel != null && lvl != null && (urn.maxLevel === -1 || lvl <= urn.maxLevel);
+        if (canUrn) [needed, urnsNeeded] = scUrnUsage(remaining, unitExp, v.xp, urn.baseXpToFill, urn.rewardXp);
+        else needed = Math.ceil(remaining / unitExp);
+      }
+      const reqLv = Math.floor(v.level || 1);
+      const cls = reqLv > goalLv ? 'red' : reqLv <= currLv ? 'green' : 'yellow';
+      // every ingredient the Wiki lists, with whether the Wiki prices it (only the first mcount, and only when mtrade ~= 0)
+      const listed = [];
+      if (v.material && !v.currency) for (let i = 0; i + 1 < v.material.length; i += 2) listed.push({name: String(v.material[i + 1]), qty: scNum(v.material[i]), priced: matPriced && i / 2 < mcount});
+      if (v.material && v.currency) for (let i = 0; i < v.material.length; i++) if (typeof v.material[i] === 'string') listed.push({name: v.material[i], qty: scNum(v.material[i - 2]) , priced: false});
+      return {idx, item: v, name: v.name, title: v.title || null, level: v.level == null ? null : scRound(v.level, 0), reqLevel: reqLv, cls,
+        baseXp: v.xp, unitExp, needed, urnsNeeded, urnColumn: urnColumn != null, members: v.members === 0 || v.members === true,
+        matLines, listed, matPriced, product, brewing, currency: v.currency || null, value: v.value != null ? v.value : null, materialCost: v.materialCost != null ? v.materialCost : null,
+        costCols: !(skill === 'Cooking' && disp === 'Dungeoneering'), urnRow: disp === 'Urns'};
+    });
+    return {skill, disp, headers, urn, urnColumn, pctBoost: pct, flatBoost: flat, bonusXp, actualRemaining: actual, remaining, currLv, currXp, goalLv, goalXp, rows};
+  }
+  /* Per-action and total money for one row, in the Wiki's order: raw cost = sum floor(price x qty) over the priced
+     ingredients; product = floor(price) per product (x2 for Brewing, which makes two batches); alternative-currency rows use the
+     data's own value; totals are per-action x actions; profit/XP = per-action profit / XP each.
+     linePrice(name, role) -> number or null (role 'mat' or 'product'). Returns nulls (never 0) for anything that needs an
+     unavailable price. */
+  function skillCalcCost(row, linePrice) {
+    const out = {rawEach: 0, prodEach: 0, missing: [], currency: row.currency};
+    if (row.currency) { out.prodEach = row.value; out.rawEach = row.materialCost != null ? row.materialCost : 0; }
+    else {
+      for (const l of row.matLines) { const p = linePrice(l.name, 'mat'); if (p == null) { out.missing.push(l.name); continue; } out.rawEach += Math.floor(p * l.qty); }
+      if (row.product) { const p = linePrice(row.product.name, 'product'); if (p == null) out.missing.push(row.product.name); else out.prodEach = Math.floor(Math.floor(p) * 1 * 1); }
+      if (row.brewing) out.prodEach *= 2;
+    }
+    if (out.missing.length) { out.rawEach = out.prodEach = out.raw = out.prod = out.profit = out.profitPerXp = out.profitEach = null; return out; }
+    out.profitEach = out.prodEach - out.rawEach;
+    out.raw = out.rawEach * row.needed; out.prod = out.prodEach * row.needed; out.profit = out.profitEach * row.needed;
+    out.profitPerXp = row.unitExp !== 0 ? out.profitEach / row.unitExp : null;
+    return out;
+  }
+  /* MediaWiki:Gadget-calc-core.js (rev in data file) form semantics for a parsed jcConfig: initial values, toggles and submitForm. */
+  function scToggles(raw, defkey) {
+    const t = {}; const parts = String(raw || '').split(/\s*;\s*/);
+    if (!(parts.length && parts[0].length)) return t;
+    let allkeys = [], allvals = [];
+    for (const tog of parts) { const tmp = tog.split(/\s*=\s*/); let keys, val;
+      if (tmp.length < 2) { keys = [defkey]; val = tmp[0].split(/\s*,\s*/); } else { keys = tmp[0].split(/\s*,\s*/); val = tmp[1].split(/\s*,\s*/); }
+      for (const k of keys) { t[k] = {on: val}; allkeys.push(k); } allvals = allvals.concat(val); }
+    allkeys = allkeys.filter((x, i, a) => a.indexOf(x) === i);
+    for (const k of allkeys) t[k].off = allvals.filter(v => !t[k].on.includes(v));
+    t.__all__ = {off: allvals};
+    return t;
+  }
+  function scFormInit(form) {
+    const st = {value: {}, disabled: {}, togs: {}};
+    for (const p of form.params) {
+      st.disabled[p.name] = false;
+      if (p.type === 'select') { const opts = p.range.split(/\s*,\s*/); const v = opts.includes(p.def) ? p.def : opts[0]; st.value[p.name] = v; st.togs[p.name] = scToggles(p.rawtogs, v); }
+      else if (p.type === 'check') { const r = p.range ? p.range.split(/\s*,\s*/) : null; st.value[p.name] = p.def === 'true' || (r != null && p.def === r[0]); st.togs[p.name] = scToggles(p.rawtogs, 'true'); }
+      else if (p.type === 'int') { st.value[p.name] = p.def || '0'; st.togs[p.name] = scToggles(p.rawtogs, 'not0'); }
+      else if (p.type === 'hs' || p.type === 'hidden') st.value[p.name] = p.def;
+      else scUnsupported('form field type "' + p.type + '"');
+    }
+    for (const p of form.params) if (st.togs[p.name] && Object.keys(st.togs[p.name]).length) scApplyToggle(form, st, scTogKey(p, st.value[p.name]), st.togs[p.name]);
+    return st;
+  }
+  const scTogKey = (p, v) => p.type === 'check' ? (v ? 'true' : 'false') : String(v);
+  function scApplyToggle(form, st, item, togs) {
+    const set = (w, show) => { if (w in st.disabled) st.disabled[w] = !show; };
+    if (togs[item]) { for (const w of togs[item].on) set(w, true); for (const w of togs[item].off) set(w, false); }
+    else if (togs.not0 && !isNaN(parseFloat(item)) && parseFloat(item) !== 0) { for (const w of togs.not0.on) set(w, true); for (const w of togs.not0.off) set(w, false); }
+    else if (togs.__all__) for (const w of togs.__all__.off) set(w, false);
+  }
+  function skillFormDefaults(form) { return scFormInit(form); }
+  /* A user changing one visible control: validates against the Wiki widget and fires its toggles. */
+  function skillFormSet(form, st, name, value) {
+    const p = form.params.find(x => x.name === name); if (!p) scFail('no such field ' + name);
+    if (st.disabled[name]) scFail('control is hidden on the Wiki form: ' + name);
+    if (p.type === 'check') value = value === true || value === 'true';
+    else if (p.type === 'select' && !p.range.split(/\s*,\s*/).includes(value)) scFail('not an option of ' + name + ': ' + value);
+    else value = String(value);
+    st.value[name] = value;
+    if (st.togs[name] && Object.keys(st.togs[name]).length) scApplyToggle(form, st, scTogKey(p, value), st.togs[name]);
+    return st;
+  }
+  /* The int widget's own check: a whole number within the field's range (no range: 0 or more). Returns error text or null. */
+  function skillFieldError(p, raw) {
+    if (p.type !== 'int') return null;
+    const s = String(raw).split(',').join('');
+    const [lo, hi] = (() => { const m = /^(\d+)\s*-\s*(\d+)$/.exec(p.range.split(/\s*,\s*/)[0] || ''); return m ? [Number(m[1]), Number(m[2])] : [0, Infinity]; })();
+    const n = +s;
+    if (s.trim() === '' || !Number.isFinite(n) || !Number.isInteger(n) || n < lo || n > hi) return 'Invalid integer provided. Must be between ' + lo + ' and ' + (hi === Infinity ? 'Infinity' : hi);
+    return null;
+  }
+  function skillFormSubmission(form, st) {
+    const out = [], errors = [];
+    for (const p of form.params) {
+      if (!(p.type === 'hidden' || !st.disabled[p.name])) continue;
+      let v;
+      if (p.type === 'hidden') v = p.def;
+      else if (p.type === 'check') { v = st.value[p.name]; if (p.range) v = p.range.split(',')[v ? 0 : 1]; else v = String(v); }
+      else if (p.type === 'int') { v = String(st.value[p.name]).split(',').join(''); const e = skillFieldError(p, st.value[p.name]); if (e) errors.push(p.label + ': ' + e); }
+      else v = String(st.value[p.name]);
+      out.push([p.name, v]);
+    }
+    return {submission: out, errors};
+  }
+  const api = {NATIVE, nativeFor, nativeBySlug, flaskModel, guideProfit, herbloreRun, herbloreCost, skillCalcRun, skillCalcCost, skillFormDefaults, skillFormSet, skillFormSubmission, skillFieldError, SC_VALIDATED, FAV_KEY, ORIGIN, MAX_FAVS, safeWikiPath, wikiUrl, parseCalculatorUrl, load, save, toggle, has};
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.RS3Calc = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
