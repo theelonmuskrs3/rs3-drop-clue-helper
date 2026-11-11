@@ -1,0 +1,11 @@
+// RS3 Drop & Clue Helper player lookup (PR #20). Workers Free plan; no paid bindings, no secrets.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "rs3-dch-player-lookup",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-11",
+  "workers_dev": true,
+  "observability": { "enabled": true, "head_sampling_rate": 1, "traces": { "enabled": true } }
+  // Optional per-IP limit (Workers Rate Limiting binding), add only if available on the account's plan:
+  // ,"ratelimits": [{ "name": "LOOKUP_LIMITER", "namespace_id": "1001", "simple": { "limit": 20, "period": 60 } }]
+}
