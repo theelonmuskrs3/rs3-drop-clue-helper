@@ -1124,8 +1124,8 @@ async function flaskDecantView(n) {
     const fetched = book.fetchedAt ? priceTime(book.fetchedAt / 1000) : null;
     const gts = Object.values(GUIDE.prices).map(g => Date.parse(g.timestamp)).filter(Number.isFinite), gAsOf = gts.length ? priceTime(Math.max(...gts) / 1000) : null;
     const gLine = GUIDE.loading && !gts.length ? 'GE guide prices loading…' : gAsOf ? `GE guide prices (Jagex, via api.weirdgloop.org): as of ${gAsOf}${GUIDE.error ? ' (saved copy; refresh failed)' : ''}.` : `GE guide prices unavailable${GUIDE.error ? ' (' + GUIDE.error + ')' : ''}.`;
-    $('#fd-flask').textContent = (fq.value != null ? `Empty potion flask: Buy ${gp(fq.value)} (${fdWhen(fq)}). ` : 'Empty potion flask: no recorded trade price yet. ')
-      + (mode === 'guide' ? gLine : (book.online === false ? 'Offline: showing the last prices received. ' : fetched ? `Trade prices fetched ${fetched}. ` : 'Loading prices… ') + gLine);
+    $('#fd-flask').innerHTML = (fq.value != null ? `Empty potion flask: Buy ${gpH(fq.value)} (${esc(fdWhen(fq))}). ` : 'Empty potion flask: no recorded trade price yet. ')
+      + esc(mode === 'guide' ? gLine : (book.online === false ? 'Offline: showing the last prices received. ' : fetched ? `Trade prices fetched ${fetched}. ` : 'Loading prices… ') + gLine);
     const key = show.value === 'gross' ? 'gross' : 'net', nq = norm(q.value);
     let rows = D.rows.map(r => ({r, e: cols.map(c => fdBatch(D, r, c, mode))})).filter(x => !nq || norm(x.r.flask + ' ' + x.r.vial).includes(nq));
     const ci = cols.findIndex(c => c.key === sortKey);
@@ -2729,11 +2729,13 @@ function mmCalc(m) {
   let cost = 0, revenue = 0, tax = 0, oldest = Infinity, nG = 0, nW = 0; const missing = [];
   for (const [ls, side] of [[m.inp, 'buy'], [m.out, 'sell']]) for (const l of ls) {
     if (!l || !Number.isFinite(l.q) || l.q < 0) { missing.push((l && l.n) || 'quantity'); continue; }
+    // per-kill drop: the Wiki's exact per-kill quantity × kills/hr (the stored per-hour quantity is rounded to 4 decimals)
+    const q = l.k === 1 && !l.d && Number.isFinite(l.pq) && Number.isFinite(m.kph) && m.kph > 0 ? l.pq * m.kph : l.q;
     const p = mmQuote(l, side);
     if (p.value == null) { missing.push(l.n + ' (' + p.why + ')'); continue; }
     if (p.src === 'trade' || p.src === 'guide') { oldest = Math.min(oldest, p.time || 0); if (p.src === 'guide') nG++; } else if (p.src === 'wiki') nW++;
-    if (side === 'buy') cost += l.q * p.value;
-    else { revenue += l.q * p.value; if (p.src === 'trade' || p.src === 'guide') tax += l.q * RS3Prices.sellingTax(p.value, p.id); }
+    if (side === 'buy') cost += q * p.value;
+    else { revenue += q * p.value; if (p.src === 'trade' || p.src === 'guide') tax += q * RS3Prices.sellingTax(p.value, p.id); }
   }
   if (missing.length) return {...no('no price for ' + missing.slice(0, 3).join(', ') + (missing.length > 3 ? '…' : '')), missing};
   cost *= factor; revenue *= factor; tax *= factor;
@@ -2741,11 +2743,25 @@ function mmCalc(m) {
   if (![cost, revenue, tax, profit].every(Number.isFinite)) return no('estimate out of range');
   return {complete: true, profit, grossProfit: revenue - cost, tax, netRevenue: revenue - tax, cost, revenue, oldest: oldest === Infinity ? null : oldest, nG, nW, missing: []};
 }
+/* Methods whose Wiki guide profit uses templates the offline copy cannot expand (#expr, MinMax, Calcvalue): the figure the
+   Wiki page itself renders, read from the RuneScape Wiki API (action=parse, page revision in brackets) on 11 Nov 2026 ~11:05 ET,
+   i.e. the Wiki's GE guide prices of that day, after tax, per hour. */
+const MM_WIKI_RENDER_DATE = 'Nov 11, 2026';
+const MM_WIKI_RENDER = {'killing-abyssal-lords': [8253884, 37022456], 'killing-elite-profane-scabarites-afk': [9758092, 37138487],
+  'making-large-historic-component-crates': [8661720, 36967262], 'mining-animica-dark-animica': [1628698, 37157957], 'mining-animica-light-animica': [1708310, 37157957],
+  'mining-banite': [4860447, 37010986], 'mining-concentrated-coal-rocks': [2429140, 37081664]};
+/* Checked on the rendered Wiki page (same date): these state no single profit per hour. */
+const MM_WIKI_NONE = {'making-strong-divination-urns-no-rune': 'The Wiki guide page shows no profit figure (rendered page, revision 37165721)',
+  'raising-rex-dinosaurs-other-dinosaurs': 'The Wiki lists profit per day for each animal, not one figure (revision 35397138); see the guide'};
+function mmWikiFig(r) {
+  if (r.pw != null) return {value: r.pw, label: `Wiki figure, GE prices ${MM_GE}, after tax`};
+  const x = MM_WIKI_RENDER[r.id]; return x ? {value: x[0], label: `Wiki page figure, GE prices ${MM_WIKI_RENDER_DATE}, after tax`} : null;
+}
 /* What a method is ranked and filtered by: the estimate when it can be worked out, else the Wiki's own figure. */
 function mmLive(r) {
   if (!MM.calc) MM.calc = new Map();
   let e = MM.calc.get(r.id);
-  if (!e) { e = mmCalc(MM.models && MM.models[r.id]); e.basis = e.complete ? 'est' : r.pw != null ? 'wiki' : 'none'; e.value = e.complete ? e.profit : r.pw != null ? r.pw : null; MM.calc.set(r.id, e); }
+  if (!e) { e = mmCalc(MM.models && MM.models[r.id]); const wf = mmWikiFig(r); e.wiki = wf; e.basis = e.complete ? 'est' : wf ? 'wiki' : 'none'; e.value = e.complete ? e.profit : wf ? wf.value : null; MM.calc.set(r.id, e); }
   return e;
 }
 function mmGuideIds() {
@@ -2796,8 +2812,8 @@ function mmProfitTxt(r) {
     const src = [e.oldest ? `latest trades, oldest ${mmAge(e.oldest)}` : 'Wiki values', e.nG ? `${e.nG} GE guide price${e.nG > 1 ? 's' : ''} (G)` : '', e.nW ? `${e.nW} Wiki value${e.nW > 1 ? 's' : ''}` : ''].filter(Boolean).join(' · ');
     return `<span class="mmp${e.profit < 0 ? ' mmneg' : ''}">${mmGpH(e.profit)}<i>${per} · estimate after 2% tax${e.nG ? ' · G' : ''}</i></span><small class="price-age">${esc(src)}</small>${r.pw == null ? '' : `<small class="price-age">Wiki figure (GE prices ${esc(MM_GE)}): ${mmGpH(r.pw)}${per}</small>`}`;
   }
-  if (e.basis === 'wiki') return `<span class="mmp${r.pw < 0 ? ' mmneg' : ''}">${mmGpH(r.pw)}<i>${per} · Wiki figure, GE prices ${esc(MM_GE)}, after tax</i></span><small class="price-age">Not repriced: ${esc(e.why)}</small>`;
-  return `<span class="mmnone">The Wiki guide states no profit figure</span>`;
+  if (e.basis === 'wiki') return `<span class="mmp${e.value < 0 ? ' mmneg' : ''}">${mmGpH(e.value)}<i>${per} · ${esc(e.wiki.label)}</i></span><small class="price-age">Not repriced: ${esc(e.why)}</small>`;
+  return `<span class="mmnone">${esc(MM_WIKI_NONE[r.id] || 'No profit figure in the Wiki guide data')}</span>`;
 }
 
 function mmCard(r, S, open) {
@@ -2827,7 +2843,7 @@ function mmEstimate(D, m) {
 }
 function mmEstimateHTML(m) {
   const e = mmCalc(m);
-  if (!e.complete) return `<h5>Estimate</h5><p class="note">Not repriced: ${esc(e.why)}. ${m.pw != null ? `Ranked by the Wiki's own figure (GE prices ${esc(MM_GE)}).` : 'The Wiki guide states no profit figure.'} No value is invented; nothing is treated as 0.</p>`;
+  if (!e.complete) return `<h5>Estimate</h5><p class="note">Not repriced: ${esc(e.why)}. ${(f => f ? `Ranked by the ${esc(f.label.replace(/^Wiki/, 'Wiki'))}: ${mmGpH(f.value)}/hr.` : esc(MM_WIKI_NONE[m.id] || 'No profit figure in the Wiki guide data') + '.')(mmWikiFig(m))} No value is invented; nothing is treated as 0.</p>`;
   const row = (label, value, cls = '') => `<div class="estimate-row ${cls}"><dt>${label}</dt><dd>${mmGpH(value)}/hr</dd></div>`;
   return `<h5>Estimate</h5><dl class="estimate-metrics">${row('Buy supplies', e.cost)}${row('Sell gross', e.revenue)}${row('Est. 2% tax', e.tax)}${row('Sell net', e.netRevenue)}${row('Profit gross', e.grossProfit)}${row('Profit net', e.profit, 'estimate-profit')}</dl><p class="price-age estimate-source">${e.oldest ? `Latest recorded trades (oldest ${esc(mmAge(e.oldest))})` : 'No trade prices needed'}${e.nG ? ` · ${e.nG} item${e.nG > 1 ? 's' : ''} with no recorded trade at the GE guide price (G)` : ''}${e.nW ? ` · ${e.nW} Wiki value${e.nW > 1 ? 's' : ''} (untaxed)` : ''}; prices per item below.</p><p class="note">${m.at ? 'Per hour of activity, not passive clock-hour income. ' : ''}Buy/high costs; Sell/low returns. Older trades are not current offers. Tax rounded down per sold item; bonds exempt. Wiki quantities/rates are assumptions. Degradation and unlisted costs excluded.</p>`;
 }
@@ -2879,7 +2895,7 @@ async function mmFill(card, r, S) {
   const dateNote = m.ts ? `guide last edited ${m.ts}` : '';
   /* profit blocks: wiki figure and app estimate stay separate */
   let wiki = '';
-  if (m.pw == null) wiki = `<div class="mmfig"><b>Profit per hour <i>(wiki guide snapshot ${esc(MM_GE)})</i></b><span class="mmnone">Not stated — this guide's profit depends on a live wiki calculation that cannot be reproduced offline.</span></div>`;
+  if (m.pw == null) wiki = (f => f ? `<div class="mmfig"><b>Profit per hour <i>(${esc(f.label)}; the offline copy cannot expand this guide's formula)</i></b><span><b class="gp">${mmGpH(f.value)}</b></span></div>` : `<div class="mmfig"><b>Profit per hour</b><span class="mmnone">${esc(MM_WIKI_NONE[m.id] || 'No profit figure in the Wiki guide data')}</span></div>`)(mmWikiFig(m));
   else if (m.run != null) wiki = `<div class="mmfig"><b>Profit per hour <i>(wiki guide snapshot ${esc(MM_GE)})</i></b><span><b class="gp">${mmGpH(m.pw)}</b></span></div><div class="mmfig"><b>Each time you do it</b><span>${mmGpH(m.run)} every ${esc(m.rt || '?')}, ${m.at} min of activity</span></div>`;
   else wiki = `<div class="mmfig"><b>Profit per hour <i>(wiki guide snapshot ${esc(MM_GE)})</i></b><span><b class="gp">${mmGpH(m.pw)}</b></span></div>${perk ? `<div class="mmfig"><b>Profit per kill</b><span>${mmGpH(m.pk)}${m.kph ? ` · ${m.kph} ${esc(m.kn || 'kills')}/hr` : ''}</span></div>` : ''}`;
   const estBlk = `<section class="mmest" data-mm-estimate="${esc(m.id)}" aria-label="Live price estimate">${mmEstimateHTML(m)}</section>`;

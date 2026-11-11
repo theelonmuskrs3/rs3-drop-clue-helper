@@ -15,7 +15,7 @@ for (let i = 0; i < X.stats.shards; i++) for (const p of JSON.parse(fs.readFileS
 assert.equal(Object.keys(models).length, 878);
 function ctx(book, guide = {}) {
   const c = {LIVE: {book}, RS3Prices: P, GUIDE: {prices: guide}, fdAge: t => 'AGE' + t, MM: {models}, Number, Date, Math, Map, Set, Object, String, Infinity};
-  vm.createContext(c); vm.runInContext(extract('let MM_LC = null;', 'async function mmLoadModels'), c); return c;
+  vm.createContext(c); vm.runInContext(extract('let MM_LC = null;', 'async function mmLoadModels') + ';this.MM_WIKI_NONE=MM_WIKI_NONE;', c); c.MM_GE = 'Oct 21, 2026'; return c;
 }
 const T = Date.now(), OLD = T / 1000 - 5 * 86400;
 // 1) Wiki golden on the Wiki's own snapshot prices, 5-day-old trade times
@@ -23,12 +23,13 @@ const T = Date.now(), OLD = T / 1000 - 5 * 86400;
   b.setMapping(names.map((n, i) => ({id: i + 1, name: n})));
   const data = {}; names.forEach((n, i) => { data[i + 1] = {high: S.prices[n], low: S.prices[n], highTime: OLD, lowTime: OLD}; });
   b.setLatest({data}, T);
-  const c = ctx(b); let est = 0, eq = 0, near = 0; const off = [];
+  const c = ctx(b); let est = 0, eq = 0, near = 0; const off = [], nearL = [];
   for (const r of X.rows) { const m = models[r.id], e = c.mmCalc(m); if (!e.complete) continue; est++;
     const tol = 1 + (m.inp.length + m.out.length) * 2 * (m.at ? 60 / m.at : 1);
-    if (r.pw != null && Math.abs(e.profit - r.pw) <= tol) eq++; else if (r.pw != null && Math.abs(e.profit - r.pw) <= Math.max(tol, Math.abs(r.pw) * 0.001)) near++; else off.push([r.id, Math.round(e.profit), r.pw]); }
-  console.log(`Wiki golden: ${est} methods estimable on Wiki snapshot prices (trades 5 days old); ${eq} equal the Wiki guide's own profit figure (±rounding), ${near} within 0.1% (Wiki rounds quantities), differ more: ${off.length}`, off.slice(0, 8));
+    if (r.pw != null && Math.abs(e.profit - r.pw) <= tol) eq++; else if (r.pw != null && Math.abs(e.profit - r.pw) <= Math.max(tol, Math.abs(r.pw) * 0.001)) { near++; nearL.push([r.id, Math.round(e.profit), r.pw, models[r.id].inp.concat(models[r.id].out).some(l => l.d)]); } else off.push([r.id, Math.round(e.profit), r.pw]); }
+  console.log(`Wiki golden: ${est} methods estimable on Wiki snapshot prices (trades 5 days old); ${eq} equal the Wiki guide's own profit figure (±rounding), ${near} within 0.1% (Wiki rounds quantities), differ more: ${off.length}`, off.slice(0, 8)); if (process.env.MM_NEAR) console.log(nearL);
   assert.ok(est >= 700, 'old trades are used (Items-tab policy), not cut off at 15 min');
+  assert.equal(off.length, 0, 'every estimable method within 0.1% of the Wiki figure'); assert.ok(eq >= 725, 'exact (±rounding) for nearly all');
   assert.ok((eq + near) / est >= 0.9, 'estimate reproduces the Wiki figure for the large majority');
   // named goldens: Wiki figure reproduced exactly
   for (const id of ['adding-herbs-to-incense-sticks-spirit-weed', 'big-game-hunter-tier-1-dinosaurs', 'cleansing-the-gate-of-elidinis']) {
@@ -58,6 +59,13 @@ const T = Date.now(), OLD = T / 1000 - 5 * 86400;
   assert.equal(c.mmLive({id: 'n', tg: []}).basis, 'none'); assert.equal(c.mmLive({id: 'n', tg: []}).value, null);
   b.setMapping([{id: 1, name: 'Input'}]); c.MM.calc = null; b.mapping = new Map(); assert.match(c.mmCalc(m).why, /loading/);
 }
+// 2b) the nine without a parsed Wiki figure: seven use the figure the Wiki page renders (revision recorded), two are sourced 'no figure'
+{ const b = new P.PriceBook(); b.setMapping([{id: 1, name: 'X'}]); const c = ctx(b);
+  const want = {'killing-abyssal-lords': 8253884, 'killing-elite-profane-scabarites-afk': 9758092, 'making-large-historic-component-crates': 8661720, 'mining-animica-dark-animica': 1628698, 'mining-animica-light-animica': 1708310, 'mining-banite': 4860447, 'mining-concentrated-coal-rocks': 2429140};
+  for (const r of X.rows.filter(r => r.pw == null)) { const e = c.mmLive(r);
+    if (want[r.id]) { assert.equal(e.basis, 'wiki', r.id); assert.equal(e.value, want[r.id], r.id); assert.match(e.wiki.label, /Wiki page figure, GE prices Nov 11, 2026, after tax/); }
+    else { assert.equal(e.basis, 'none', r.id); assert.ok(c.MM_WIKI_NONE[r.id], r.id + ' has a sourced reason'); } }
+  assert.equal(X.rows.filter(r => r.pw == null).length, 9); }
 // 3) UI wording, coins icon, Items default
 assert.doesNotMatch(app, /Live estimate incomplete \/ unavailable|not live-ranked/);
 assert.match(app, /Wiki figure, GE prices/);

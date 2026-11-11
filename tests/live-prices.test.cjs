@@ -46,7 +46,7 @@ assert.equal(b.total([{n:'Input',q:Number.MAX_SAFE_INTEGER}],'buy',T).value,null
 // Exercise the app's actual ranking and min-profit code, not a parallel invented comparator.
 const app=fs.readFileSync('app.js','utf8');
 const extract=(start,end)=>app.slice(app.indexOf(start),app.indexOf(end,app.indexOf(start)));
-const context={LIVE:{book:b},RS3Prices:require('../live-prices.js'),GUIDE:{prices:{}},fdAge:()=>'',MM:{models:{a:m,z:{...m,inp:[{n:'Missing',q:1}]}},sort:'profit',ob:true},mmLvl:()=>0,norm:s=>s,mmCats:()=>[],mmFit:()=>null};
+const context={LIVE:{book:b},RS3Prices:require('../live-prices.js'),GUIDE:{prices:{}},fdAge:()=>'',MM_GE:'Oct 21, 2026',MM:{models:{a:m,z:{...m,inp:[{n:'Missing',q:1}]}},sort:'profit',ob:true},mmLvl:()=>0,norm:s=>s,mmCats:()=>[],mmFit:()=>null};
 vm.createContext(context);
 vm.runInContext("const priceCompare = (a,b,asc=false)=>a==null?(b==null?0:1):b==null?-1:asc?a-b:b-a;"+extract('let MM_LC = null;','async function mmLoadModels')+extract('function mmSort(rows)','function mmProfitTxt')+extract('function mmOk(r','function mmSort'),context);
 // PriceBook defaults to actual now for production; use a fixed fixture clock for app ranking.
