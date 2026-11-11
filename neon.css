@@ -1417,6 +1417,31 @@ html{scrollbar-gutter:stable}
 .calc-sub{display:block;color:var(--muted);font-size:.85em;overflow-wrap:break-word}
 .calc-unavail{color:var(--ember2);font-weight:600}
 .calc-prices summary{cursor:pointer;color:var(--muted);font-size:.85em;margin-top:2px}
+/* Flask decanting: compact Wiki-style comparison table at every width; scrolls sideways inside its own box on narrow screens */
+.fd-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;border:1px solid var(--edge2);border-radius:5px}
+.fd-wtable{border-collapse:collapse;width:100%;min-width:600px;font-size:14px;line-height:1.3}
+.fd-wtable th,.fd-wtable td{padding:3px 8px;border-bottom:1px solid var(--edge2);vertical-align:middle;white-space:nowrap}
+/* pinned cells: fully opaque (the global th rule sets opacity:.85, which let numbers show through when scrolled) */
+.fd-wtable th{opacity:1}
+.fd-wtable thead th{position:sticky;top:0;background:#171312;z-index:2;padding:0;white-space:normal}
+.fd-wtable thead th:first-child{left:0;z-index:3}
+.fd-wtable tbody>tr:nth-child(even):not(.fd-detail){background:rgba(255,255,255,.025)}
+.fd-wtable tbody th{text-align:left;font-weight:600;position:sticky;left:0;background:#151110;z-index:1;box-shadow:1px 0 0 var(--edge2)}
+.fd-wtable .fd-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.fd-wtable td.gain{color:#7fdc8a}.fd-wtable td.loss{color:#ff6b6b}.fd-wtable td.fd-unk{color:var(--muted);font-weight:400;text-align:center}
+.fd-sort{all:unset;box-sizing:border-box;display:flex;align-items:flex-end;justify-content:space-between;gap:4px;width:100%;padding:6px 8px;cursor:pointer;font:600 12px/1.25 var(--ui);color:var(--gold);text-align:left;white-space:normal}
+th.fd-num .fd-sort{text-align:right;justify-content:flex-end}
+.fd-sort:focus-visible,.fd-name:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.fd-arrow{color:var(--muted);font-size:10px;flex:none}
+th[aria-sort=ascending] .fd-arrow,th[aria-sort=descending] .fd-arrow{color:var(--gold)}
+.fd-name{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:6px;cursor:pointer;color:inherit;font:inherit;max-width:230px;white-space:normal}
+.fd-name .calc-ico{width:24px;height:24px;flex:0 0 24px;object-fit:contain}
+.fd-name .noimg{width:24px;height:24px;flex:0 0 24px}
+.fd-detail td{white-space:normal;background:rgba(0,0,0,.25);font-size:13px}
+.fd-prices{margin:2px 0;padding-left:1.1em}.fd-prices li{margin:2px 0}.fd-age{color:var(--muted)}
+.fd-prices .fd-unk{color:var(--muted)}
+.calc-assume-d>summary{cursor:pointer;color:var(--muted);font-size:.9em;margin:4px 0}
+@media (max-width:480px){.fd-wtable{font-size:13px;min-width:520px}.fd-wtable th,.fd-wtable td{padding:3px 6px}.fd-sort{padding:5px 6px;font-size:11px}.fd-name{max-width:150px}}
 .calc-prices ul{margin:4px 0 0;padding-left:1.1em;font-weight:400;font-size:.88em}
 .calc-native{margin-right:6px}
 .calc-in-app{border-color:var(--gold);color:var(--gold)}

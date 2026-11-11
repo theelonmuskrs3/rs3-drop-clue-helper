@@ -76,11 +76,14 @@ async function screen(hash, store = {}, feed = 'full') {
     url = String(url);
     if (url.startsWith(prices.BASE)) {
       if (feed === 'hang') return new Promise(() => {});
-      const ts = Date.now() / 1000 - 30;
+      // 'stale'/'varied': every trade 11 hours old (as most RS3 flask trades are), the normal case on the live API
+      const ts = Date.now() / 1000 - (feed === 'stale' || feed === 'varied' ? 11 * 3600 : 30);
       if (url.endsWith('/mapping')) return {ok: true, json: async () => items.map(x => ({id: x.id, name: x.n}))};
       const data = {}; for (const x of items) data[x.id] = {high: 1000, low: 900, highTime: ts, lowTime: ts};
       for (const r of D.rows) data[r.f6.id] = {high: 30000, low: 29000, highTime: ts, lowTime: ts};
+      if (feed === 'varied') for (const x of items) { const hi = 37 + (x.id * 7919) % 40000; data[x.id] = {high: hi, low: Math.max(1, hi - (x.id % 113)), highTime: ts - (x.id % 50) * 3600, lowTime: ts - (x.id % 7) * 3600}; }
       if (feed === 'noflask') delete data[D.flask.id];
+      if (feed === 'partial') delete data[D.rows[0].v1.id];
       return {ok: true, json: async () => ({data})};
     }
     try { return {ok: true, json: async () => JSON.parse(fs.readFileSync(path.resolve(base, url.split('?')[0]), 'utf8'))}; }
@@ -89,32 +92,45 @@ async function screen(hash, store = {}, feed = 'full') {
   w.addEventListener('error', e => errors.push(e.error));
   for (const f of ['live-prices.js', 'calculators.js', 'map.js']) w.eval(fs.readFileSync(path.join(base, f), 'utf8'));
   // Same hook as live-price-dom.test.cjs: expose the app's own book and registered refresh callback to the test.
-  w.eval(fs.readFileSync(path.join(base, 'app.js'), 'utf8') + '\nwindow.__t = {book: LIVE.book, refresh: refreshPriceView};');
+  w.eval(fs.readFileSync(path.join(base, 'app.js'), 'utf8') + '\nwindow.__t = {book: LIVE.book, refresh: refreshPriceView, quoteContents};');
   for (let i = 0; i < (feed === 'hang' ? 30 : 200); i++) { await tick(); if (w.document.querySelector('#live-price-status')?.textContent.includes('Last successful') && w.document.querySelector('#fd-table table')) break; }
   await tick();
   assert.deepEqual(errors, [], hash + ' runtime errors');
   return {dom, w, d: w.document};
 }
+const cellsOf = d => [...d.querySelectorAll('#fd-table tbody tr:not(.fd-detail)')].map(tr => [...tr.querySelectorAll('td')]);
+const val = td => { const t = td.textContent.trim(); return t === '—' ? null : (t.startsWith('−') ? -1 : 1) * Number(t.replace(/[−,]/g, '')); };
 (async () => {
   let {dom, w, d} = await screen('calculators/flask-decanting', {mystats_v2: '{"Attack":99}'});
   assert.equal(d.querySelector('.tabs button.on').dataset.tab, 'calculators');
   assert.ok(d.querySelector('.live-price-banner'), 'shared live-price banner and status');
   assert.equal(d.querySelectorAll('#view iframe').length, 0);
-  assert.equal(d.querySelectorAll('#fd-table tbody tr').length, 86);
-  assert.deepEqual([...d.querySelectorAll('#fd-table thead th')].map(t => t.textContent), ['Flask', ...D.columns.map(c => c.label)]);
-  // first row Aggression: net for 6 (1)s = 29000 - floor(29000/50) - 6*1000 - 1000
-  const firstCells = [...d.querySelectorAll('#fd-table tbody tr')[0].querySelectorAll('td')];
-  assert.match(firstCells[0].textContent, new RegExp((29000 - 580 - 7000).toLocaleString()));
-  assert.match(firstCells[0].textContent, /gross 22,000 gp · tax 580 gp/);
-  assert.match(firstCells[2].textContent, new RegExp((58000 - 1160 - 6000).toLocaleString()));
+  // one compact Wiki-style table at every width: never turned into phone cards, scrolls inside its own box
+  const tb = d.querySelector('#fd-table table'); assert.ok(tb.classList.contains('fd-wtable')); assert.ok(!tb.classList.contains('rtable'), 'not a phone-card table');
+  assert.ok(d.querySelector('#fd-table').classList.contains('fd-scroll'));
+  { const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'); assert.match(css, /\.fd-scroll\{overflow-x:auto/); assert.match(css, /\.fd-wtable\{[^}]*min-width:600px/); }
+  assert.equal(cellsOf(d).length, 86);
+  assert.deepEqual([...d.querySelectorAll('#fd-table thead th')].map(t => t.textContent.replace(/[⇅▲▼]/g, '')), ['Flask', ...D.columns.map(c => c.label)]);
+  assert.equal(d.querySelectorAll('#fd-table thead button.fd-sort').length, 5, 'every column header sorts');
+  assert.ok([...d.querySelectorAll('#fd-table tbody tr th button.fd-name')].every(b => b.querySelector('img.calc-ico[src^="icons/"]')), 'potion picture + name first column');
+  assert.equal(d.querySelectorAll('.calc-unavail').length, 0, 'no Unavailable panels'); assert.doesNotMatch(d.querySelector('#fd-table').textContent, /Unavailable/);
+  // every one of the 344 cells is a number from the same prices: net = flasks x (sell - floor(sell/50)) - vials x buy - flasks x flask buy
+  const exp = (c, sell, vial, fl, gross) => c.flasks * sell - c.vials * vial - c.flasks * fl - (gross ? 0 : c.flasks * Math.floor(sell / 50));
+  { const cs = cellsOf(d); let n = 0; cs.forEach(r => r.forEach((td, i) => { assert.equal(val(td), exp(D.columns[i], 29000, 1000, 1000)); n++; })); assert.equal(n, 344); }
+  assert.equal(cellsOf(d)[0][0].textContent, '21,420'); assert.equal(cellsOf(d)[0][2].textContent, '50,840');
+  assert.match(cellsOf(d)[0][0].title, /Gross 22,000 gp · tax 580 gp · net 21,420 gp/);
   { const s = d.querySelector('#fd-show'); assert.deepEqual([...s.options].map(o => o.textContent), ['Net profit', 'Gross profit']); assert.equal(s.getAttribute('aria-describedby'), 'fd-show-help'); assert.equal(d.querySelector('#fd-show-help').textContent, 'Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.'); }
   d.querySelector('#fd-show').value = 'gross'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
-  assert.match(d.querySelectorAll('#fd-table tbody tr')[0].querySelector('td').textContent, /^22,000 gp/);
+  assert.equal(cellsOf(d)[0][0].textContent, '22,000'); assert.match(d.querySelector('#fd-count').textContent, /gross profit \(before tax\)/);
+  d.querySelector('#fd-show').value = 'net'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
   const q = d.querySelector('#fd-q'); q.value = 'super restore'; q.dispatchEvent(new w.Event('input'));
-  assert.equal(d.querySelectorAll('#fd-table tbody tr').length, 1); assert.match(d.querySelector('#fd-count').textContent, /^1 of 86/);
+  assert.equal(cellsOf(d).length, 1); assert.match(d.querySelector('#fd-count').textContent, /^1 of 86/);
   q.value = ''; q.dispatchEvent(new w.Event('input'));
-  const det = d.querySelector('#fd-table details'); det.open = true; w.__redraw = null;
-  assert.match(det.textContent, /Aggression flask \(6\) — Sell 29,000 gp · est\. tax 580 gp · net 28,420 gp/); assert.match(det.textContent, /Potion flask — Buy 1,000 gp/);
+  // tap a potion name: one compact row with the prices used and their trade times
+  d.querySelector('#fd-table button.fd-name').click();
+  { const det = d.querySelector('#fd-table tr.fd-detail'); assert.ok(det); assert.equal(d.querySelector('#fd-table button.fd-name').getAttribute('aria-expanded'), 'true');
+    assert.match(det.textContent, /Sell 1 × Aggression flask \(6\): 29,000 gp \(est\. tax 580 gp each\)/); assert.match(det.textContent, /Buy 1 × Potion flask: 1,000 gp/); assert.match(det.textContent, /min ago/); }
+  d.querySelector('#fd-table button.fd-name').click(); assert.equal(d.querySelectorAll('#fd-table tr.fd-detail').length, 0);
   // favourite from the native page, independent key, stats untouched
   const star = d.querySelector('#fd-star'); assert.equal(star.getAttribute('aria-pressed'), 'false'); star.click();
   assert.equal(star.getAttribute('aria-pressed'), 'true'); assert.deepEqual(JSON.parse(w.localStorage.getItem(C.FAV_KEY)).map(f => f.path), [D.path]);
@@ -125,44 +141,76 @@ async function screen(hash, store = {}, feed = 'full') {
   ({dom, w, d} = await screen('calculators', {[C.FAV_KEY]: favs}));
   for (let i = 0; i < 50 && !d.querySelector('#fd-table tbody tr'); i++) await tick();
   assert.equal(w.location.hash, '#calculators/flask-decanting'); assert.deepEqual(C.NATIVE.map(n => n.slug), ['flask-decanting']);
-  assert.equal(d.querySelectorAll('#fd-table tbody tr').length, 86); assert.equal(d.querySelector('#view a[href="#calculators"]'), null, 'no "All calculators" link');
+  assert.equal(cellsOf(d).length, 86); assert.equal(d.querySelector('#view a[href="#calculators"]'), null, 'no "All calculators" link');
   assert.equal(d.querySelectorAll('#calc-native, #calc-upcoming').length, 0); assert.equal(d.querySelector('#fd-star').getAttribute('aria-pressed'), 'true');
   assert.equal(w.localStorage.getItem(C.FAV_KEY), favs);
   dom.window.close();
-  // missing empty-flask price: every result unavailable, never 0
-  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'noflask'));
-  assert.match(d.querySelector('#fd-flask').textContent, /unavailable/);
-  const tds = [...d.querySelectorAll('#fd-table tbody td')]; assert.equal(tds.length, 344);
-  assert.ok(tds.every(td => /^Unavailable/.test(td.textContent) && /Potion flask/.test(td.textContent)));
-  assert.ok(!tds.some(td => /\b0 gp/.test(td.textContent)));
+  // THE USER'S CASE: every trade 11 hours old (normal on the live API). Same as the Items tab: the prices are shown with their
+  // age, not rejected, so all 344 cells are numbers; the Items tab's own quote for the same item shows the same price.
+  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'stale'));
+  { let n = 0; cellsOf(d).forEach(r => r.forEach((td, i) => { assert.equal(val(td), exp(D.columns[i], 29000, 1000, 1000)); n++; })); assert.equal(n, 344, '344 numeric cells with 11-hour-old prices');
+    assert.doesNotMatch(d.querySelector('#fd-table').textContent, /Unavailable|stale/i);
+    assert.match(d.querySelector('#fd-flask').textContent, /Empty potion flask: Buy 1,000 gp \(last trade 11 h ago\)/);
+    assert.match(cellsOf(d)[0][0].title, /oldest price 11 h ago/);
+    const r0 = D.rows[0]; assert.match(w.__t.quoteContents(r0.f6.n, 'sell'), /Sell 29,000 gp · stale/, 'Items tab shows this same 11-hour-old quote'); }
   dom.window.close();
-  // "Prices used" stays open across the registered live-price refresh (bindPriceView -> LIVE.subscribe(refreshPriceView) -> priceDraws), filter and sort
+  // varied prices per item and trade times hours/days old: every cell equals the formula on the Items tab's quote values
+  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'varied'));
+  { const book = w.__t.book, P = (it, side) => book.quote(it.id, side).value; let n = 0;
+    const rows = cellsOf(d), names = [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask);
+    names.forEach((f, ri) => { const r = D.rows.find(x => x.flask === f); D.columns.forEach((c, i) => {
+      const sell = P(r.f6, 'sell'), e = c.flasks * (sell - Math.floor(sell / 50)) - c.vials * P(r['v' + c.dose], 'buy') - c.flasks * P(D.flask, 'buy');
+      assert.equal(val(rows[ri][i]), e, f + ' ' + c.key); n++; }); });
+    assert.equal(n, 344);
+    // header sort: best first, then lowest first, then back to potion name; ties/unknown last
+    const col = 2, sb = () => d.querySelectorAll('#fd-table thead button.fd-sort')[col + 1];
+    sb().click(); let v = cellsOf(d).map(r => val(r[col])); assert.deepEqual(v, [...v].sort((a, b) => b - a)); assert.equal(d.querySelectorAll('#fd-table thead th')[col + 1].getAttribute('aria-sort'), 'descending');
+    sb().click(); v = cellsOf(d).map(r => val(r[col])); assert.deepEqual(v, [...v].sort((a, b) => a - b)); assert.equal(d.querySelectorAll('#fd-table thead th')[col + 1].getAttribute('aria-sort'), 'ascending');
+    assert.deepEqual(JSON.parse(w.localStorage.getItem('dch_calc_fd_sort_v1')), {k: D.columns[col].key, d: 'asc'});
+    // Flask (name) header: A to Z, then Z to A, then A to Z again; aria-sort and the arrow follow the actual row order (8799 browser bug)
+    const nameB = () => d.querySelectorAll('#fd-table thead button.fd-sort')[0], nameTh = () => d.querySelectorAll('#fd-table thead th')[0];
+    const nmz = () => [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask), az = [...nmz()].sort((a, b) => a.localeCompare(b));
+    nameB().click(); assert.deepEqual(nmz(), az); assert.equal(nameTh().getAttribute('aria-sort'), 'ascending'); assert.match(nameB().textContent, /▲/);
+    nameB().click(); assert.deepEqual(nmz(), [...az].reverse()); assert.equal(nmz()[0], az[az.length - 1]); assert.equal(nameTh().getAttribute('aria-sort'), 'descending'); assert.match(nameB().textContent, /▼/);
+    assert.deepEqual(JSON.parse(w.localStorage.getItem('dch_calc_fd_sort_v1')), {k: '', d: 'desc'});
+    nameB().click(); assert.deepEqual(nmz(), az); assert.equal(nmz()[0], 'Aggression flask'); assert.equal(nameTh().getAttribute('aria-sort'), 'ascending'); }
+  dom.window.close();
+  // saved Z to A order is restored on reload
+  ({dom, w, d} = await screen('calculators/flask-decanting', {dch_calc_fd_sort_v1: JSON.stringify({k: '', d: 'desc'})}));
+  { const nm = [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask); assert.deepEqual(nm, [...nm].sort((a, b) => b.localeCompare(a)));
+    assert.equal(d.querySelectorAll('#fd-table thead th')[0].getAttribute('aria-sort'), 'descending'); }
+  // default (nothing saved): A to Z, and the Flask header says ascending
+  { const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8');
+    assert.match(css, /\.fd-wtable th\{opacity:1\}/, 'pinned cells not see-through'); assert.match(css, /\.fd-wtable tbody th\{[^}]*position:sticky;left:0;background:#[0-9a-f]{6};/); assert.match(css, /\.fd-wtable thead th\{[^}]*background:#[0-9a-f]{6};/); }
+  dom.window.close();
+  // a refresh keeps an opened price row open and shows the new quote
   ({dom, w, d} = await screen('calculators/flask-decanting'));
   { const SA = D.rows.find(r => r.flask === 'Super antifire flask');
-    const det = () => d.querySelector('#fd-table details[data-flask="Super antifire flask"]');
-    det().open = true;
-    assert.match(det().textContent, /Super antifire flask \(6\) — Sell 29,000 gp/);
+    [...d.querySelectorAll('#fd-table button.fd-name')].find(b => b.dataset.flask === SA.flask).click();
     const ts = Date.now() / 1000 - 5, data = JSON.parse(JSON.stringify(w.__t.book.data));
     data[SA.f6.id] = {high: 46000, low: 45221, highTime: ts, lowTime: ts};
-    w.__t.book.setLatest({data}, Date.now());
-    w.__t.refresh();
-    assert.ok(det() && det().open, 'details still open after price refresh (table was rebuilt)');
-    assert.match(det().textContent, /Super antifire flask \(6\) — Sell 45,221 gp · est\. tax 904 gp · net 44,317 gp/, 'updated quote shown');
-    const q = d.querySelector('#fd-q'); q.value = 'antifire'; q.dispatchEvent(new w.Event('input'));
-    assert.match(d.querySelector('#fd-count').textContent, /^2 of 86/); assert.ok(det().open, 'open after filter');
-    const so = d.querySelector('#fd-sort'); so.value = 'd3'; so.dispatchEvent(new w.Event('change'));
-    assert.ok(det().open, 'open after sort');
-    assert.equal(d.querySelectorAll('#fd-table details[open]').length, 1, 'only the opened row is open'); }
+    w.__t.book.setLatest({data}, Date.now()); w.__t.refresh();
+    const det = d.querySelector('#fd-table tr.fd-detail'); assert.ok(det, 'still open after price refresh');
+    assert.match(det.textContent, /Sell 1 × Super antifire flask \(6\): 45,221 gp \(est\. tax 904 gp each\)/, 'updated quote shown'); }
   dom.window.close();
-  // before the price list arrives: 'loading', not 'not found', and never 0
+  // an item with no recorded trade price: only the cells that need it are unknown (—), never 0; others stay numbers
+  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'partial'));
+  { const rows = cellsOf(d), i0 = [...d.querySelectorAll('#fd-table tbody button.fd-name')].findIndex(b => b.dataset.flask === D.rows[0].flask);
+    assert.equal(rows[i0][0].textContent, '—'); assert.match(rows[i0][0].title, /No recorded trade price: Aggression potion \(1\)/);
+    assert.ok(rows[i0].slice(1).every(td => val(td) != null)); assert.equal(rows.flat().filter(td => td.textContent === '—').length, 1); }
+  dom.window.close();
+  // missing empty-flask price: every result unknown (—), never 0, one short line instead of repeated panels
+  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'noflask'));
+  assert.match(d.querySelector('#fd-flask').textContent, /Empty potion flask: no recorded trade price yet/);
+  { const tds = cellsOf(d).flat(); assert.equal(tds.length, 344); assert.ok(tds.every(td => td.textContent === '—' && /Potion flask/.test(td.title))); }
+  dom.window.close();
+  // before the price list arrives: unknown (—), never 0
   ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'hang'));
-  { const cells = [...d.querySelectorAll('#fd-table tbody td')]; assert.equal(cells.length, 344);
-    assert.ok(cells.every(td => /^Unavailable/.test(td.textContent) && /live prices loading/.test(td.textContent) && !/not found/.test(td.textContent)));
-    assert.match(d.querySelector('#fd-flask').textContent, /live prices loading/); }
+  { const tds = cellsOf(d).flat(); assert.equal(tds.length, 344); assert.ok(tds.every(td => td.textContent === '—')); assert.match(d.querySelector('#fd-flask').textContent, /Loading prices/); }
   dom.window.close();
   // unknown slug goes to Flask decanting (the only calculator)
   ({dom, w, d} = await screen('calculators/not-a-calc'));
   for (let i = 0; i < 50 && !d.querySelector('#fd-title'); i++) await tick();
   assert.equal(w.location.hash, '#calculators/flask-decanting'); assert.ok(d.querySelector('#fd-title')); dom.window.close();
-  console.log('PASS flask decanting: 344/344 Wiki golden cells, dose conservation, exact IDs, buy-high/sell-low, per-flask floor tax, <50 gp, missing/stale/offline unavailable, DOM route, favourites, decanting-only #calculators');
+  console.log('PASS flask decanting: 344/344 Wiki golden cells, dose conservation, exact IDs, per-flask floor tax; screen: Items-tab prices incl. 11-hour-old trades -> 344/344 numeric cells (fresh, stale, varied), partial/no-flask/loading unknown (—) never 0, Wiki-style table (no phone cards), header sort, price rows, net/gross, favourites, decanting-only #calculators');
 })().catch(e => { console.error(e); process.exit(1); });

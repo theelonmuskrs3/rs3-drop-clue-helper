@@ -102,7 +102,7 @@ function coordStr(c, plane) { return c ? `${c[0]}, ${c[1]}${plane ? ` (floor ${p
  */
 let responsiveTableId = 0;
 function prepareAppTable(table) {
-  if (!view.contains(table)) return;
+  if (!view.contains(table) || table.classList.contains('fd-wtable')) return;   // Flask decanting: a real table at every width (Wiki style, scrolls sideways)
   table.classList.add('rtable');
   const rows = [...table.rows].filter(r => r.closest('table') === table);
   const top = [];
@@ -1016,6 +1016,27 @@ async function nativeCalcView(n) {
 const QUOTE_WHY = {missing: 'no recent trade price', stale: 'price is stale', offline: 'offline', unavailable: 'live source unavailable', unmapped: 'not found in the price source'};
 /* Before the first item list arrives every item is 'unmapped'; say it is loading rather than 'not found'. */
 const quoteWhy = st => st === 'unmapped' && !LIVE.book.mapping.size ? 'live prices loading' : QUOTE_WHY[st] || st;
+/* Prices: the same shared RS3 Grand Exchange feed and the same numbers the Items tab shows (LIVE.book, RuneScape Wiki Prices
+   API /latest: each item's latest recorded trade, Buy = high, Sell = low). Like the Items tab, a price older than 15 minutes is
+   still shown, with its trade time; only an item with no recorded trade price is unknown (shown as —, never 0). */
+const FD_SORT_KEY = 'dch_calc_fd_sort_v1';
+function fdPrice(item, side) {
+  const q = LIVE.book.quote(item.id, side);
+  return q.id != null && q.value != null ? {value: q.value, time: q.time, status: q.status} : {value: null, time: null, status: q.status};
+}
+/* One decanting batch with the Items-tab prices; tax is the RS3 2% per flask sold, rounded down per flask (RS3Prices.sellingTax). */
+function fdBatch(D, r, c) {
+  const m = RS3Calc.flaskModel(D, r, c), lines = [];
+  for (const l of m.inp) lines.push({...l, side: 'buy', p: fdPrice(l, 'buy')});
+  for (const l of m.out) lines.push({...l, side: 'sell', p: fdPrice(l, 'sell')});
+  const unknown = lines.filter(l => l.p.value == null).map(l => l.n);
+  if (unknown.length) return {lines, unknown, gross: null, net: null, tax: null, oldest: null};
+  let gross = 0, tax = 0;
+  for (const l of lines) { if (l.side === 'sell') { gross += l.p.value * l.q; tax += RS3Prices.sellingTax(l.p.value, l.id) * l.q; } else gross -= l.p.value * l.q; }
+  const oldest = Math.min(...lines.map(l => l.p.time || 0));
+  return {lines, unknown, gross, tax, net: gross - tax, oldest};
+}
+const fdAge = t => { if (!t) return 'no trade time'; const m = Math.max(0, Math.round((Date.now() / 1000 - t) / 60)); return m < 60 ? `${m} min ago` : m < 2880 ? `${Math.round(m / 60)} h ago` : `${Math.round(m / 1440)} days ago`; };
 async function flaskDecantView(n) {
   const D = await get(n.data);
   const cols = D.columns, label = 'Decanting flasks for profit';
@@ -1023,21 +1044,19 @@ async function flaskDecantView(n) {
     <div class="ge-heading calc-heading"><h2 id="fd-title">Flask decanting</h2>
       <div class="calc-native-actions"><button class="calc-star" type="button" id="fd-star"></button>
       <a class="btn sub calc-source" href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Wiki calculator ↗</a></div></div>
-    <p class="note">Profit or loss from buying potions in vials and empty potion flasks, decanting them into six-dose flasks and selling the flasks. Same potions and decanting options as the RuneScape Wiki <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Flask decanting</a> calculator (revision ${esc(D.source.pageRevision)}), using live prices instead of the Wiki's guide prices, so results differ from the Wiki page.</p>
-    <ul class="note calc-assume">
-      <li>Vials and empty potion flasks are bought at the live Buy (high) price; six-dose flasks are sold at the live Sell (low) price.</li>
-      <li>Net profit deducts the estimated 2% Grand Exchange tax on each flask sold, rounded down per flask. There is no tax on buying.</li>
-      <li>Each result is for one decanting batch: 6 (1)s or 3 (2)s make 1 flask; 4 (3)s or 3 (4)s make 2 flasks.</li>
-      <li>Leftover empty vials are not counted, as on the Wiki.</li>
-      <li>Potion flasks can be hard to buy on the Grand Exchange, and potion prices right after an update may not buy or sell at market price (Wiki note).</li>
-      <li>A price that is missing or older than 15 minutes makes that result unavailable; it is never treated as 0.</li></ul>
+    <p class="note">Profit or loss from buying potions in vials and empty potion flasks, decanting them into six-dose flasks and selling the flasks. Same potions and decanting options as the RuneScape Wiki <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Flask decanting</a> calculator (revision ${esc(D.source.pageRevision)}). Prices are the same Grand Exchange prices as the Items tab.</p>
+    <details class="calc-assume-d"><summary>How it is worked out</summary><ul class="note calc-assume">
+      <li>Prices: RuneScape Wiki Prices API (trade data supplied by Jagex), the same feed and numbers as the Items tab: each item's latest recorded trade. Vials and empty potion flasks at the Buy (high) price; six-dose flasks at the Sell (low) price.</li>
+      <li>Net profit deducts the estimated 2% Grand Exchange tax on each flask sold, rounded down per flask. There is no tax on buying. Gross profit is before tax.</li>
+      <li>Each result is for one decanting batch: 6 (1)s or 3 (2)s make 1 flask; 4 (3)s or 3 (4)s make 2 flasks. Leftover empty vials are not counted, as on the Wiki.</li>
+      <li>Tap a potion name to see the prices used and when each last traded. An item with no recorded trade price shows —; it is never counted as 0.</li>
+      <li>Potion flasks can be hard to buy on the Grand Exchange, and potion prices right after an update may not buy or sell at market price (Wiki note).</li></ul></details>
     <p class="note" id="fd-flask" role="status"></p>
     <div class="row calc-filters">
       <input id="fd-q" type="search" placeholder="Search potions" aria-label="Search potions" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <select id="fd-show" aria-label="Show" aria-describedby="fd-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><small class="calc-sub calc-show-help" id="fd-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</small>
-      <select id="fd-sort" aria-label="Sort"><option value="">Sort: potion name</option>${cols.map(c => `<option value="${esc(c.key)}">Sort: best ${esc(c.label.replace('Decanting ', ''))}</option>`).join('')}</select></div>
+      <select id="fd-show" aria-label="Show" aria-describedby="fd-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><small class="calc-sub calc-show-help" id="fd-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</small></div>
     <p class="note" id="fd-count" role="status" aria-live="polite"></p>
-    <div id="fd-table"></div>
+    <div id="fd-table" class="fd-scroll"></div>
     <p class="note">Formula and potion list: RuneScape Wiki, <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Calculator:Herblore/Flask decanting</a> and its row template (revisions ${esc(D.source.pageRevision)} / ${esc(D.source.rowTemplateRevision)}), CC BY-NC-SA 3.0. Item IDs: Module:GEIDs (revision ${esc(D.source.itemIdsRevision)}).</p>
   </section>`;
   const star = $('#fd-star');
@@ -1045,32 +1064,43 @@ async function flaskDecantView(n) {
     star.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${label} ${on ? 'from' : 'to'} favourites`); star.title = on ? 'Remove from favourites' : 'Save to favourites'; };
   star.onclick = () => { RS3Calc.toggle(CALC_LS, {path: D.path, label}); drawStar(); };
   drawStar();
-  const q = $('#fd-q'), show = $('#fd-show'), sort = $('#fd-sort');
-  const why = (item, side) => { const x = LIVE.book.quote(item.id, side); return x.live ? null : `${item.n}: ${quoteWhy(x.status)}`; };
-  const quoteLine = (item, side) => { const x = side === 'sell' ? LIVE.book.sale(item.id) : LIVE.book.quote(item.id, 'buy');
-    return `<li>${liIco(item.n)}${esc(item.n)} — ${side === 'sell' ? 'Sell' : 'Buy'} ${x.live ? `${esc(gp(x.value))}${side === 'sell' ? ` · est. tax ${esc(gp(x.tax))} · net ${esc(gp(x.net))}` : ''}` : `<span class="calc-unavail">unavailable (${esc(quoteWhy(x.status))})</span>`}</li>`; };
+  const q = $('#fd-q'), show = $('#fd-show');
+  let sortKey = '', sortDir = 'asc';   // default: potion name A to Z
+  try { const s = JSON.parse(CALC_LS.getItem(FD_SORT_KEY) || 'null'); if (s && (s.k === '' || cols.some(c => c.key === s.k)) && ['asc', 'desc'].includes(s.d)) { sortKey = s.k; sortDir = s.d; } } catch (e) {}
+  const open = new Set();
+  const num = v => (v < 0 ? '−' : '') + Math.abs(v).toLocaleString('en-GB');
+  const priceLi = l => `<li>${liIco(l.n)}${l.side === 'sell' ? 'Sell' : 'Buy'} ${l.q} × ${esc(l.n)}: ${l.p.value == null ? `<span class="fd-unk">no recorded trade price</span>` : `${esc(gp(l.p.value))}${l.side === 'sell' ? ` (est. tax ${esc(gp(RS3Prices.sellingTax(l.p.value, l.id)))} each)` : ''} <small class="fd-age">${esc(fdAge(l.p.time))}</small>`}</li>`;
   const draw = () => {
-    const fq = LIVE.book.quote(D.flask.id, 'buy');
-    $('#fd-flask').textContent = fq.live ? `Empty potion flask: Buy ${gp(fq.value)} each (live).` : `Empty potion flask: live Buy price unavailable (${quoteWhy(fq.status)}), so every result below is unavailable.`;
-    const key = show.value === 'gross' ? 'grossProfit' : 'profit', nq = norm(q.value);
-    let rows = D.rows.map(r => ({r, e: cols.map(c => {
-      const m = RS3Calc.flaskModel(D, r, c), est = LIVE.book.estimate(m);
-      const reasons = est.complete ? [] : [...m.inp.map(l => why(l, 'buy')), ...m.out.map(l => why(l, 'sell'))].filter(Boolean);
-      return {est, reasons: reasons.length ? reasons : est.missing};
-    })})).filter(x => !nq || norm(x.r.flask + ' ' + x.r.vial).includes(nq));
-    const ci = cols.findIndex(c => c.key === sort.value);
-    if (ci >= 0) rows.sort((a, b) => { const x = a.e[ci].est.complete ? a.e[ci].est[key] : null, y = b.e[ci].est.complete ? b.e[ci].est[key] : null;
-      return x == null && y == null ? a.r.flask.localeCompare(b.r.flask) : x == null ? 1 : y == null ? -1 : y - x; });
-    $('#fd-count').textContent = `${rows.length} of ${D.rows.length} potions · showing ${show.value === 'gross' ? 'gross profit (before tax)' : 'net profit (after estimated tax)'} per batch`;
-    const cell = x => x.est.complete
-      ? `<span class="calc-val ${x.est[key] < 0 ? 'loss' : 'gain'}">${x.est[key] < 0 ? '−' : ''}${esc(gp(Math.abs(x.est[key])))}</span><small class="calc-sub">${show.value === 'gross' ? `net ${esc(gp(x.est.profit))}` : `gross ${esc(gp(x.est.grossProfit))} · tax ${esc(gp(x.est.tax))}`}</small>`
-      : `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc(x.reasons.slice(0, 2).join('; '))}</small>`;
-    const openRows = new Set([...document.querySelectorAll('#fd-table details[open]')].map(d => d.dataset.flask));
-    $('#fd-table').innerHTML = rows.length ? `<table class="calc-table"><thead><tr><th scope="col">Flask</th>${cols.map(c => `<th scope="col">${esc(c.label)}</th>`).join('')}</tr></thead><tbody>${rows.map(({r, e}) =>
-      `<tr><th scope="row"><span class="calc-name-row">${calcIco(r.f6.n)}<span class="calc-name">${esc(r.flask)}</span></span><details class="calc-prices" data-flask="${esc(r.flask)}"${openRows.has(r.flask) ? ' open' : ''}><summary>Prices used</summary><ul>${quoteLine(r.f6, 'sell')}${[1, 2, 3, 4].map(d => quoteLine(r['v' + d], 'buy')).join('')}${quoteLine(D.flask, 'buy')}</ul></details></th>${e.map(x => `<td>${cell(x)}</td>`).join('')}</tr>`).join('')}</tbody></table>`
-      : '<p class="note">No potions match.</p>';
+    const fq = fdPrice(D.flask, 'buy'), book = LIVE.book;
+    const fetched = book.fetchedAt ? priceTime(book.fetchedAt / 1000) : null;
+    $('#fd-flask').textContent = (fq.value != null ? `Empty potion flask: Buy ${gp(fq.value)} (last trade ${fdAge(fq.time)}). ` : 'Empty potion flask: no recorded trade price yet. ')
+      + (book.online === false ? 'Offline: showing the last prices received.' : fetched ? `Prices fetched ${fetched}.` : 'Loading prices…');
+    const key = show.value === 'gross' ? 'gross' : 'net', nq = norm(q.value);
+    let rows = D.rows.map(r => ({r, e: cols.map(c => fdBatch(D, r, c))})).filter(x => !nq || norm(x.r.flask + ' ' + x.r.vial).includes(nq));
+    const ci = cols.findIndex(c => c.key === sortKey);
+    rows.sort((a, b) => { if (ci < 0) return sortDir === 'desc' ? b.r.flask.localeCompare(a.r.flask) : a.r.flask.localeCompare(b.r.flask);
+      const x = a.e[ci][key], y = b.e[ci][key];
+      return x == null && y == null ? a.r.flask.localeCompare(b.r.flask) : x == null ? 1 : y == null ? -1 : sortDir === 'asc' ? x - y : y - x; });
+    $('#fd-count').textContent = `${rows.length} of ${D.rows.length} potions · ${show.value === 'gross' ? 'gross profit (before tax)' : 'net profit (after estimated 2% tax)'} per batch, in gp`;
+    const th = (k, text, i) => { const cur = sortKey === k;
+      return `<th scope="col"${i ? ' class="fd-num"' : ''} aria-sort="${cur ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}"><button type="button" class="fd-sort" data-k="${esc(k)}">${esc(text)}<span class="fd-arrow" aria-hidden="true">${cur ? (sortDir === 'asc' ? '▲' : '▼') : '⇅'}</span></button></th>`; };
+    const cell = x => x[key] == null
+      ? `<td class="fd-num fd-unk" title="No recorded trade price: ${esc(x.unknown.join(', '))}">—</td>`
+      : `<td class="fd-num ${x[key] < 0 ? 'loss' : 'gain'}" title="Gross ${esc(gp(x.gross))} · tax ${esc(gp(x.tax))} · net ${esc(gp(x.net))} · oldest price ${esc(fdAge(x.oldest))}">${num(x[key])}</td>`;
+    $('#fd-table').innerHTML = rows.length ? `<table class="fd-wtable"><thead><tr>${th('', 'Flask', 0)}${cols.map((c, i) => th(c.key, c.label, i + 1)).join('')}</tr></thead><tbody>${rows.map(({r, e}) => {
+      const isOpen = open.has(r.flask);
+      return `<tr><th scope="row"><button type="button" class="fd-name" data-flask="${esc(r.flask)}" aria-expanded="${isOpen}">${calcIco(r.f6.n)}<span class="calc-name">${esc(r.flask)}</span></button></th>${e.map(cell).join('')}</tr>`
+        + (isOpen ? `<tr class="fd-detail"><td colspan="${cols.length + 1}"><ul class="fd-prices">${priceLi(e[0].lines.find(l => l.side === 'sell'))}${[1, 2, 3, 4].map(dz => { const it = r['v' + dz], p = fdPrice(it, 'buy'); return priceLi({n: it.n, id: it.id, q: 1, side: 'buy', p}); }).join('')}${priceLi({n: D.flask.n, id: D.flask.id, q: 1, side: 'buy', p: fq})}</ul></td></tr>` : '');
+    }).join('')}</tbody></table>` : '<p class="note">No potions match.</p>';
   };
-  q.addEventListener('input', draw); show.onchange = draw; sort.onchange = draw;
+  $('#fd-table').addEventListener('click', e => {
+    const s = e.target.closest('button.fd-sort');
+    if (s) { const k = s.dataset.k; if (sortKey === k) sortDir = sortDir === 'desc' ? 'asc' : 'desc'; else { sortKey = k; sortDir = k ? 'desc' : 'asc'; }
+      try { CALC_LS.setItem(FD_SORT_KEY, JSON.stringify({k: sortKey, d: sortDir})); } catch (err) {} draw(); const b = [...document.querySelectorAll('#fd-table button.fd-sort')].find(x => x.dataset.k === k); if (b) b.focus(); return; }
+    const nb = e.target.closest('button.fd-name');
+    if (nb) { const f = nb.dataset.flask; open.has(f) ? open.delete(f) : open.add(f); draw(); const b = [...document.querySelectorAll('#fd-table button.fd-name')].find(x => x.dataset.flask === f); if (b) b.focus(); }
+  });
+  q.addEventListener('input', draw); show.onchange = draw;
   priceDraws.push(draw);
   draw();
 }
