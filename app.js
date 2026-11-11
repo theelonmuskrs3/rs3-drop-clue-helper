@@ -775,7 +775,7 @@ async function charView(sub) {
   const tile = k => `<label class="sk" data-k="${esc(k)}" title="${esc(k)} (max ${skMax(k)})">${SKICONS[k] ? `<img src="${esc(SKICONS[k])}" alt="" width="27" height="27">` : `<span>${esc(k.slice(0, 3))}</span>`}<input type="number" inputmode="numeric" min="${skMin(k)}" max="${skMax(k)}" aria-label="${esc(k)} level (${skMin(k)} to ${skMax(k)})" title="${esc(k)}" data-sk="${esc(k)}" value="${lv(S, k)}"></label>`;
   const maxTot = SKORDER.reduce((a, k) => a + skMax(k), 0);
   const tiles = [['wear', 'Gear I can wear', 'Items filtered to your levels'], ['sets', 'Full sets I can wear', 'Whole armour sets that fit'], ['train', 'Training that fits me', 'Training guides for your levels'], ['money', 'Money making that fits', 'Methods that fit your levels'], ['quest', 'Quests to do', 'Quests you have not finished']];
-  view.innerHTML = `<section class="panel chhero"><div class="chhead"><div class="chdds" aria-hidden="true"><span class="chglow"></span><img src="brand/dds.webp" width="64" height="58" alt="" decoding="async"></div>
+  view.innerHTML = `<section class="panel chhero"><div class="chhead"><div class="chdds"><span class="chglow" aria-hidden="true"></span><img class="chwom" src="brand/wise-old-man.webp" width="256" height="256" alt="Wise Old Man in a red partyhat and red cape with glinting gold teeth, a gold Cuban link chain and a gold ring, holding a poisoned Dragon dagger (custom illustration, not an official Jagex render)" decoding="async"></div>
       <div class="chtitle"><h2>My Character</h2><div class="chsub">Your levels fit the gear, money, training and quest helpers to <i>your</i> account.</div></div></div>
     <div class="chbig"><div class="chn tot"><span class="chl">Total level</span><b class="chv" id="tot">${totalLevel(S)}</b><span class="chm">of ${maxTot.toLocaleString()}</span></div>
       <div class="chn cmb"><span class="chl">Combat level</span><b class="chv" id="cmb">${combatLevel(S)}</b><span class="chm">wiki formula</span></div>
@@ -1087,23 +1087,23 @@ async function flaskDecantView(n) {
       <a class="btn sub calc-source" href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Wiki calculator ↗</a></div></div>
     <div class="row calc-filters">
       <input id="fd-q" type="search" placeholder="Search potions" aria-label="Search potions" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <select id="fd-show" aria-label="Show" aria-describedby="fd-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><label class="fd-src-l" for="fd-src">Prices</label><select id="fd-src" aria-describedby="fd-src-what fd-src-help"><option value="live">Items prices</option><option value="guide">Wiki guide prices</option></select></div>
+      <select id="fd-show" aria-label="Show" aria-describedby="fd-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><span class="fd-src-l" id="fd-src" aria-describedby="fd-src-what fd-src-help">Wiki guide prices</span></div>
     <p class="note fd-alert" id="fd-alert" role="alert" hidden></p>
     <p class="note fd-count" id="fd-count" role="status" aria-live="polite"></p>
     <div id="fd-table" class="fd-scroll"></div>
     <details class="calc-assume-d fd-info" id="fd-info"><summary>Details &amp; sources</summary>
-    <p class="note">Profit or loss from buying potions in vials and empty potion flasks, decanting them into six-dose flasks and selling the flasks. Same potions and decanting options as the RuneScape Wiki <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Flask decanting</a> calculator (revision ${esc(D.source.pageRevision)}). Prices are the same Grand Exchange prices as the Items tab.</p>
+    <p class="note">Profit or loss from buying potions in vials and empty potion flasks, decanting them into six-dose flasks and selling the flasks. Same potions and decanting options as the RuneScape Wiki <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Flask decanting</a> calculator (revision ${esc(D.source.pageRevision)}). Prices: Jagex's official Grand Exchange guide prices (updated once a day), the prices the Wiki calculator uses.</p>
     <p class="note" id="fd-status"></p>
     <p class="note" id="fd-flask"></p>
     <p class="note" id="fd-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</p>
-    <p class="note" id="fd-src-what">Items prices: latest Grand Exchange trades, as on the Items tab (an item with no trade uses its GE guide price, marked G). Wiki guide prices: Jagex GE guide prices for every item, as the Wiki calculator uses.</p>
+    <p class="note" id="fd-src-what">Wiki guide prices: Jagex's official Grand Exchange guide price for every item, updated once a day, as the Wiki calculator uses (not the Items tab's latest trades). The time they are as of is shown below.</p>
     <p class="note" id="fd-src-help"></p>
     <p class="note">Formula and potion list: RuneScape Wiki, <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Calculator:Herblore/Flask decanting</a> and its row template (revisions ${esc(D.source.pageRevision)} / ${esc(D.source.rowTemplateRevision)}), CC BY-NC-SA 3.0. Item IDs: Module:GEIDs (revision ${esc(D.source.itemIdsRevision)}).</p>
     <h3 class="fd-info-h">How it is worked out</h3><ul class="note calc-assume">
-      <li>Prices: RuneScape Wiki Prices API (trade data supplied by Jagex), the same feed and numbers as the Items tab: each item's latest recorded trade. Vials and empty potion flasks at the Buy (high) price; six-dose flasks at the Sell (low) price.</li>
+      <li>Prices: each item's official Grand Exchange guide price (Jagex, via api.weirdgloop.org: the same values as the Wiki's Module:GEPrices), for vials, empty potion flasks and six-dose flasks alike. Gross profit matches the Wiki calculator.</li>
       <li>Net profit deducts the estimated 2% Grand Exchange tax on each flask sold, rounded down per flask. There is no tax on buying. Gross profit is before tax.</li>
       <li>Each result is for one decanting batch: 6 (1)s or 3 (2)s make 1 flask; 4 (3)s or 3 (4)s make 2 flasks. Leftover empty vials are not counted, as on the Wiki.</li>
-      <li>If an item has no recorded trade, its official Grand Exchange guide price (Jagex) is used instead — the price the Wiki's calculator uses — and the result is marked <b>G</b>. Choose "Wiki guide prices" to price every item that way; Gross profit then matches the Wiki calculator. An item with neither price shows —; it is never treated as 0.</li>
+      <li>An item with no guide price shows —; it is never treated as 0. Guide prices change once a day, so they can lag fast market moves; they are not guaranteed offers.</li>
       <li>Tap a potion name to see the prices used and where each came from.</li>
       <li>Potion flasks can be hard to buy on the Grand Exchange, and potion prices right after an update may not buy or sell at market price (Wiki note).</li></ul></details>
   </section>`;
@@ -1112,15 +1112,16 @@ async function flaskDecantView(n) {
     star.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${label} ${on ? 'from' : 'to'} favourites`); star.title = on ? 'Remove from favourites' : 'Save to favourites'; };
   star.onclick = () => { RS3Calc.toggle(CALC_LS, {path: D.path, label}); drawStar(); };
   drawStar();
-  const q = $('#fd-q'), show = $('#fd-show'), srcSel = $('#fd-src');
-  try { if (CALC_LS.getItem(FD_SRC_KEY) === 'guide') srcSel.value = 'guide'; if (CALC_LS.getItem(FD_SHOW_KEY) === 'gross') show.value = 'gross'; } catch (e) {}
+  const q = $('#fd-q'), show = $('#fd-show');
+  // Wiki guide prices only (owner 11 Nov 2026); an old saved "Items prices" choice (FD_SRC_KEY) is ignored, not deleted
+  try { if (CALC_LS.getItem(FD_SHOW_KEY) === 'gross') show.value = 'gross'; } catch (e) {}
   let sortKey = '', sortDir = 'asc';   // default: potion name A to Z
   try { const s = JSON.parse(CALC_LS.getItem(FD_SORT_KEY) || 'null'); if (s && (s.k === '' || cols.some(c => c.key === s.k)) && ['asc', 'desc'].includes(s.d)) { sortKey = s.k; sortDir = s.d; } } catch (e) {}
   const open = new Set();
   const num = v => (v < 0 ? '−' : '') + Math.abs(v).toLocaleString('en-GB');
   const priceLi = l => `<li>${liIco(l.n)}${l.side === 'sell' ? 'Sell' : 'Buy'} ${l.q} × ${esc(l.n)}: ${l.p.value == null ? `<span class="fd-unk">no recorded trade or guide price</span>` : `${gpH(l.p.value)}${l.side === 'sell' ? ` (est. tax ${gpH(RS3Prices.sellingTax(l.p.value, l.id))} each)` : ''} <small class="fd-age${l.p.src === 'guide' ? ' fd-gsrc' : ''}">${esc(fdWhen(l.p))}</small>`}</li>`;
   const draw = () => {
-    const mode = srcSel.value === 'guide' ? 'guide' : 'live', fq = fdPrice(D.flask, 'buy', mode), book = LIVE.book;
+    const mode = 'guide', fq = fdPrice(D.flask, 'buy', mode), book = LIVE.book;
     const fetched = book.fetchedAt ? priceTime(book.fetchedAt / 1000) : null;
     const gts = Object.values(GUIDE.prices).map(g => Date.parse(g.timestamp)).filter(Number.isFinite), gAsOf = gts.length ? priceTime(Math.max(...gts) / 1000) : null;
     const gLine = GUIDE.loading && !gts.length ? 'GE guide prices loading…' : gAsOf ? `GE guide prices (Jagex, via api.weirdgloop.org): as of ${gAsOf}${GUIDE.error ? ' (saved copy; refresh failed)' : ''}.` : `GE guide prices unavailable${GUIDE.error ? ' (' + GUIDE.error + ')' : ''}.`;
@@ -1157,7 +1158,6 @@ async function flaskDecantView(n) {
     if (nb) { const f = nb.dataset.flask; open.has(f) ? open.delete(f) : open.add(f); draw(); const b = [...document.querySelectorAll('#fd-table button.fd-name')].find(x => x.dataset.flask === f); if (b) b.focus(); }
   });
   q.addEventListener('input', draw); show.onchange = () => { try { CALC_LS.setItem(FD_SHOW_KEY, show.value); } catch (e) {} draw(); };
-  srcSel.onchange = () => { try { CALC_LS.setItem(FD_SRC_KEY, srcSel.value); } catch (e) {} draw(); };
   priceDraws.push(draw);
   draw();
   const ids = [D.flask.id, ...D.rows.flatMap(r => [r.f6.id, r.v1.id, r.v2.id, r.v3.id, r.v4.id])];
@@ -2695,7 +2695,7 @@ async function trainSkill(T, sk, gk) {
 }
 window.addEventListener('scroll', () => { const b = document.getElementById('trtopb'); if (b) b.classList.toggle('on', window.scrollY > 700); }, {passive: true});
 /* ================= Money tab: every RS3 wiki "Money making guide" ================= */
-const MM = {q: '', c: '', sk: '', mem: '', fit: '', sort: 'profit', minp: 0, afk: false, cmb: false, ob: false, norec: false, n: 20, idx: null, shards: {}};
+const MM = {q: '', c: '', sk: '', mem: '', fit: '', sort: 'profit', minp: 0, afk: false, cmb: false, hl: false, norec: false, src: 'live', n: 20, idx: null, shards: {}};
 const MM_CATS = [['', 'All'], ['pvm', 'PvM & bossing'], ['slay', 'Slayer'], ['mini', 'Minigames'], ['gath', 'Gathering'], ['proc', 'Processing & crafting'], ['coll', 'Collecting'], ['merch', 'Merching'], ['rec', 'Recurring'], ['oth', 'Other']];
 const MM_SK = ['Attack','Defence','Strength','Constitution','Ranged','Prayer','Magic','Cooking','Woodcutting','Fletching','Fishing','Firemaking','Crafting','Smithing','Mining','Herblore','Agility','Thieving','Slayer','Farming','Runecrafting','Hunter','Construction','Summoning','Dungeoneering','Divination','Invention','Archaeology','Necromancy'];
 const MM_MIN = [0, 50e3, 100e3, 250e3, 500e3, 1e6, 2e6, 5e6];
@@ -2738,6 +2738,7 @@ function mmQuote(l, side) {
   if (l.v != null) return {value: l.v, src: 'wiki'};
   if (l.cv) return {value: null, why: 'unresolved Wiki formula value'};
   const id = mmId(l.n); if (id == null) return {value: null, why: 'not a Grand Exchange item'};
+  if (MM.src === 'guide') { const g = GUIDE.prices[id]; return g ? {value: g.price, time: Date.parse(g.timestamp) / 1000, src: 'guide', id} : {value: null, id, why: GUIDE.loading ? 'GE guide prices loading' : 'no GE guide price'}; }
   const q = LIVE.book.quote(id, side);
   if (q.value != null) return {value: q.value, time: q.time, src: 'trade', id};
   const g = GUIDE.prices[id]; if (g) return {value: g.price, time: Date.parse(g.timestamp) / 1000, src: 'guide', id};
@@ -2772,13 +2773,18 @@ function mmCalc(m) {
 const MM_WIKI_RENDER_DATE = 'Nov 11, 2026';
 const MM_WIKI_RENDER = {'killing-abyssal-lords': [8253884, 37022456], 'killing-elite-profane-scabarites-afk': [9758092, 37138487],
   'making-large-historic-component-crates': [8661720, 36967262], 'mining-animica-dark-animica': [1628698, 37157957], 'mining-animica-light-animica': [1708310, 37157957],
-  'mining-banite': [4860447, 37010986], 'mining-concentrated-coal-rocks': [2429140, 37081664]};
+  'mining-banite': [4860447, 37010986], 'mining-concentrated-coal-rocks': [2429140, 37081664],
+  /* No complete item formula and the offline copy's figure was mis-read (e.g. per-instance pages read as 0, wrong sub-method): the figure
+     each method's own box renders on the Wiki page (11 Nov 2026 ~12:00 ET; recurring methods = the page's "Effective profit" per hour). */
+  'buying-feathers': [13137500, 37053425], 'buying-items-from-farm-shops': [3920000, 37035844], 'buying-runes': [21202440, 37111592], 'buying-supplies-from-the-stonemason': [18174771, 36522786], 'buying-vials-of-water': [30765750, 37034878], 'buying-yak-hide': [115920000, 37035853], 'constructing-frames-at-fort-forinthry-eternal': [-6707280, 37188415], 'crafting-decorated-urns-no-rune': [16249456, 36932771], 'crafting-diamond-jewellery-rings': [-1155048, 36866559], 'crafting-emerald-jewellery-rings': [2017680, 36916107], 'crafting-ruby-jewellery-necklaces': [-2797200, 36866562], 'crafting-ruby-jewellery-stringing-amulets': [292320, 36473700], 'crafting-sapphire-jewellery-bracelets': [-1753244, 36866563], 'crafting-sapphire-jewellery-rings': [-2439296, 36866563], 'creating-divine-charges-brilliant-energy': [-5046796, 36772798], 'enchanting-bakriminel-bolts-hydrix': [-9168186, 37111811], 'killing-spiritual-warriors': [4049358, 36962885], 'killing-the-arch-glacor-normal-mode-afk-with-1-mechanic': [1411035, 37055137], 'mega-shop-run-daily': [7616562, 37077302], 'mega-shop-run-weekly': [26384392, 37077302], 'mining-primal-ores': [2992748, 37228285], 'operating-optimised-hide-tanner-dinosaur-hide': [332078988600, 36905462], 'scavenging': [4328153, 37081598]};
+/* Wiki page figures that are the Wiki's own arithmetic but not realistic earnings: shown, labelled, with the reason. */
+const MM_WIKI_NOTE = {'operating-optimised-hide-tanner-dinosaur-hide': 'The Wiki page (revision 36905462) computes 30,000 Dinosaur hides (GE 4,653,988 each) tanned into Dinosaur leather (GE 5,125,612 each) plus 60 divine charges: 11,069,299,620 gp per 8 days 23 hours, shown per hour of the 2-minute activity (×30). The arithmetic matches the Wiki GE prices of 11 Nov 2026, but the page lists a daily trade volume of 58 Dinosaur leather against 30,000 needed, so this is not achievable earnings.'};
 /* Checked on the rendered Wiki page (same date): these state no single profit per hour. */
 const MM_WIKI_NONE = {'making-strong-divination-urns-no-rune': 'The Wiki guide page shows no profit figure (rendered page, revision 37165721)',
   'raising-rex-dinosaurs-other-dinosaurs': 'The Wiki lists profit per day for each animal, not one figure (revision 35397138); see the guide'};
 function mmWikiFig(r) {
-  if (r.pw != null) return {value: r.pw, label: `Wiki figure, GE prices ${MM_GE}, after tax`};
-  const x = MM_WIKI_RENDER[r.id]; return x ? {value: x[0], label: `Wiki page figure, GE prices ${MM_WIKI_RENDER_DATE}, after tax`} : null;
+  const x = MM_WIKI_RENDER[r.id]; if (x) return {value: x[0], label: `Wiki page figure, GE prices ${MM_WIKI_RENDER_DATE}, after tax`, rev: x[1]};
+  return r.pw != null ? {value: r.pw, label: `Wiki figure, GE prices ${MM_GE}, after tax`} : null;
 }
 /* What a method is ranked and filtered by: the estimate when it can be worked out, else the Wiki's own figure. */
 function mmLive(r) {
@@ -2787,10 +2793,10 @@ function mmLive(r) {
   if (!e) { e = mmCalc(MM.models && MM.models[r.id]); const wf = mmWikiFig(r); e.wiki = wf; e.basis = e.complete ? 'est' : wf ? 'wiki' : 'none'; e.value = e.complete ? e.profit : wf ? wf.value : null; MM.calc.set(r.id, e); }
   return e;
 }
-function mmGuideIds() {
+function mmGuideIds(all) {   // all: every GE item in a formula (GE guide mode), else only items with no recorded trade
   const ids = new Set();
   for (const m of Object.values(MM.models || {})) for (const [ls, side] of [[m.inp || [], 'buy'], [m.out || [], 'sell']]) for (const l of ls) {
-    if (mmCoin(l) || l.v != null || l.cv) continue; const id = mmId(l.n); if (id != null && LIVE.book.quote(id, side).value == null && !GUIDE.prices[id]) ids.add(id); }
+    if (mmCoin(l) || l.v != null || l.cv) continue; const id = mmId(l.n); if (id != null && (all || LIVE.book.quote(id, side).value == null) && !GUIDE.prices[id]) ids.add(id); }
   return [...ids];
 }
 function mmAge(t) { return t ? fdAge(t) : ''; }
@@ -2809,7 +2815,7 @@ function mmOk(r, nq, S) {
   if (MM.mem === 'f2p' && r.mem) return false;
   if (MM.mem === 'p2p' && !r.mem) return false;
   const live = mmLive(r);
-  if (!MM.ob && !nq && (live.value != null ? live.value <= 0 : r.tg.includes('ob'))) return false;
+  if (MM.hl && !(live.value > 0)) return false;   // opt-in only: every method is listed by default
   if (MM.afk && !r.tg.includes('afk')) return false;
   if (MM.cmb && !r.tg.includes('cmb')) return false;
   if (MM.norec && r.at) return false;
@@ -2833,9 +2839,10 @@ function mmProfitTxt(r) {
   const e = mmLive(r), per = `/hr${r.at ? ' of activity' : ''}`;
   if (e.basis === 'est') {
     const src = [e.oldest ? `latest trades, oldest ${mmAge(e.oldest)}` : 'Wiki values', e.nG ? `${e.nG} GE guide price${e.nG > 1 ? 's' : ''} (G)` : '', e.nW ? `${e.nW} Wiki value${e.nW > 1 ? 's' : ''}` : ''].filter(Boolean).join(' · ');
-    return `<span class="mmp${e.profit < 0 ? ' mmneg' : ''}">${mmGpH(e.profit)}<i>${per} · estimate after 2% tax${e.nG ? ' · G' : ''}</i></span><small class="price-age">${esc(src)}</small>${r.pw == null ? '' : `<small class="price-age">Wiki figure (GE prices ${esc(MM_GE)}): ${mmGpH(r.pw)}${per}</small>`}`;
+    const gm = MM.src === 'guide', w = e.wiki;
+    return `<span class="mmp${e.profit < 0 ? ' mmneg' : ''}">${mmGpH(e.profit)}<i>${per}${e.profit < 0 ? ' · loss' : ''} · ${gm ? 'Wiki formula, GE guide prices, after 2% tax' : `estimate after 2% tax${e.nG ? ' · G' : ''}`}</i></span><small class="price-age">${esc(gm ? `GE guide prices (as the Wiki), ${e.oldest ? priceTime(e.oldest) : ''}` : src)}</small>${!w ? '' : `<small class="price-age">${esc(w.label.replace(', after tax', ''))}: ${mmGpH(w.value)}${per}</small>`}`;
   }
-  if (e.basis === 'wiki') return `<span class="mmp${e.value < 0 ? ' mmneg' : ''}">${mmGpH(e.value)}<i>${per} · ${esc(e.wiki.label)}</i></span><small class="price-age">Not repriced: ${esc(e.why)}</small>`;
+  if (e.basis === 'wiki') return `<span class="mmp${e.value < 0 ? ' mmneg' : ''}">${mmGpH(e.value)}<i>${per}${e.value < 0 ? ' · loss' : ''} · ${esc(e.wiki.label)}</i></span><small class="price-age">Not repriced: ${esc(e.why)}</small>${MM_WIKI_NOTE[r.id] ? `<small class="price-age mm-warn">⚠ Not achievable: Wiki lists daily volume 58 vs 30,000 needed (see Details &amp; sources)</small>` : ''}`;
   return `<span class="mmnone">${esc(MM_WIKI_NONE[r.id] || 'No profit figure in the Wiki guide data')}</span>`;
 }
 
@@ -2959,7 +2966,9 @@ function mmBindCards(root, rows, S) {
   const by = {}; rows.forEach(r => by[r.id] = r);
   root.querySelectorAll('details.mmcard').forEach(c => { const go = () => { if (c.open) mmFill(c, by[c.dataset.id], S).catch(e => { c.querySelector('.mmdet').innerHTML = `<div class="note">Could not load: ${esc(e.message)}</div>`; delete c.querySelector('.mmdet').dataset.done; }); }; c.addEventListener('toggle', go); if (c.open) go(); });
 }
+const MM_SRC_KEY = 'dch_mm_price_src_v1';
 async function moneyView(arg) {
+  try { MM.src = CALC_LS.getItem(MM_SRC_KEY) === 'guide' ? 'guide' : 'live'; } catch (_) {}
   if (!MM.idx) { const d = await get('data/money.json'); MM.idx = d; MM_GE = Number.isNaN(Date.parse(d.ge_date)) ? d.ge_date : priceTime(Date.parse(d.ge_date) / 1000); }
   const X = MM.idx, S = loadStats() || {};
   await mmLoadModels(X);
@@ -2971,19 +2980,20 @@ async function moneyView(arg) {
     mmBindCards(view, [r], S); $('#trtop').onclick = $('#trtopb').onclick = () => window.scrollTo(0, 0); return;
   }
   const st = X.stats, skills = [...new Set(X.rows.flatMap(r => [...(r.xs || []), ...(r.rl || []).map(x => x[0])]))].filter(s => MM_SK.includes(s)).sort();
-  const cnt = {}; for (const c of MM_CATS) cnt[c[0]] = c[0] ? X.rows.filter(r => !r.tg.includes('ob') && mmCats(r).includes(c[0])).length : X.rows.filter(r => !r.tg.includes('ob')).length;
+  const cnt = {}; for (const c of MM_CATS) cnt[c[0]] = c[0] ? X.rows.filter(r => mmCats(r).includes(c[0])).length : X.rows.length;
   view.innerHTML = `<div class="trbar" id="mmbar"><b class="trbn">Money</b><select id="mmcatj" aria-label="Category">${MM_CATS.map(c => `<option value="${c[0]}"${MM.c === c[0] ? ' selected' : ''}>${esc(c[1])} (${cnt[c[0]]})</option>`).join('')}</select><button type="button" class="btn mini ghost" id="trtop" aria-label="Back to top">↑ Top</button></div>
     <div class="panel"><h2>Money making</h2>
     <details class="src-info" id="mm-src-info"><summary>Details &amp; sources</summary>
-    <div class="note">Every money-making guide on the RS3 wiki: ${st.methods.toLocaleString()} methods from ${st.pages} guide pages. Sorting and minimum profit use the estimate where the Wiki gives a complete item formula (latest recorded trades with their age, GE guide price marked G for an item with no trade, Wiki values for untradeable items; Buy supplies, Sell outputs, estimated 2% selling tax deducted), otherwise the Wiki's own figure, labelled on each method. Wiki figures (${esc(X.ge_date)}) remain guide snapshots; not every method can be recomputed.</div></details>
+    <div class="note">Every money-making guide on the RS3 wiki: ${st.methods.toLocaleString()} methods from ${st.pages} guide pages. Sorting and minimum profit use the estimate where the Wiki gives a complete item formula (latest recorded trades with their age, GE guide price marked G for an item with no trade, Wiki values for untradeable items; Buy supplies, Sell outputs, estimated 2% selling tax deducted), otherwise the Wiki's own figure, labelled on each method. Wiki figures (${esc(X.ge_date)}) remain guide snapshots; not every method can be recomputed. Every method is listed (profit, loss or no single figure); “Only profitable” hides the rest. ${Object.entries(MM_WIKI_NOTE).map(([id, n]) => `<br>Note (${esc((X.rows.find(r => r.id === id) || {}).t || id)}): ${esc(n)}`).join('')}</div></details>
     ${searchBox('mmq', 'Search methods, e.g. dragons, herbs, AFK', MM.q)}
     <div class="chips" id="mmc">${MM_CATS.map(c => `<button data-v="${c[0]}"${MM.c === c[0] ? ' class="on"' : ''}>${esc(c[1])}<span class="cnt">${cnt[c[0]]}</span></button>`).join('')}</div>
     <div class="mmsel"><label>Skill<select id="mmsk"><option value="">Any skill</option>${skills.map(s => `<option${MM.sk === s ? ' selected' : ''}>${esc(s)}</option>`).join('')}</select></label>
       <label>Access<select id="mmmem"><option value="">F2P &amp; members</option><option value="f2p"${MM.mem === 'f2p' ? ' selected' : ''}>Free-to-play only</option><option value="p2p"${MM.mem === 'p2p' ? ' selected' : ''}>Members only</option></select></label>
       <label>My levels<select id="mmfit"><option value="">Any</option><option value="ok"${MM.fit === 'ok' ? ' selected' : ''}>Fits my levels</option><option value="close"${MM.fit === 'close' ? ' selected' : ''}>Fits or close (within 5)</option><option value="no"${MM.fit === 'no' ? ' selected' : ''}>Can't do yet</option></select></label>
+      <label>Prices<select id="mmsrc"><option value="live">Latest trades</option><option value="guide"${MM.src === 'guide' ? ' selected' : ''}>GE guide (as the Wiki)</option></select></label>
       <label>Sort<select id="mmsort"><option value="profit">Profit/hr (highest first)</option><option value="level"${MM.sort === 'level' ? ' selected' : ''}>Level needed</option><option value="name"${MM.sort === 'name' ? ' selected' : ''}>Name</option></select></label></div>
     <div class="mmrng"><label for="mmmin">Min profit/hr: <b id="mmminv">${MM.minp ? mmGpH(MM.minp) : 'any'}</b></label><input id="mmmin" type="range" min="0" max="${MM_MIN.length - 1}" step="1" value="${Math.max(0, MM_MIN.indexOf(MM.minp))}"></div>
-    <div class="chips" id="mmf"><button data-v="afk"${MM.afk ? ' class="on"' : ''}>AFK / low effort</button><button data-v="cmb"${MM.cmb ? ' class="on"' : ''}>Needs combat</button><button data-v="norec"${MM.norec ? ' class="on"' : ''}>Hide timed recurring</button><button data-v="ob"${MM.ob ? ' class="on"' : ''}>Show non-positive / wiki-obsolete methods</button></div>
+    <div class="chips" id="mmf"><button data-v="afk"${MM.afk ? ' class="on"' : ''}>AFK / low effort</button><button data-v="cmb"${MM.cmb ? ' class="on"' : ''}>Needs combat</button><button data-v="norec"${MM.norec ? ' class="on"' : ''}>Hide timed recurring</button><button data-v="hl"${MM.hl ? ' class="on"' : ''}>Only profitable</button></div>
     ${STATS_SAVED ? '' : '<div class="note">Tip: save your levels (<a href="#char">Character tab</a>) to use “Fits my levels” and to see ✓/✗ on requirements. They stay on this device.</div>'}
     <div id="mmres"></div></div>
     <div class="panel"><h3>Sources</h3><div class="note">All text, numbers and pictures come from these RS3 wiki pages (CC BY-NC-SA 3.0, <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener noreferrer">licence</a>). Guide text and pictures are unchanged; this app separately calculates labeled net live-price estimates where supported. Each method has its own “Source: RS3 Wiki” link.</div>
@@ -2996,8 +3006,8 @@ async function moneyView(arg) {
     MM.q = q.value; const nq = norm(q.value);
     const rows = mmSort(X.rows.filter(r => mmOk(r, nq, S)));
     const show = rows.slice(0, MM.n);
-    const hidden = X.rows.filter(r => { const v = mmLive(r).value; return v != null ? v <= 0 : r.tg.includes('ob'); }).length;
-    out.innerHTML = `<div class="note trcount">${rows.length.toLocaleString()} of ${X.rows.length.toLocaleString()} methods${MM.ob || nq ? '' : ` (${hidden} with no profit hidden)`}.</div>
+    const k = mmKinds(X.rows);
+    out.innerHTML = `<div class="note trcount" id="mmcount">${rows.length.toLocaleString()} of ${X.rows.length.toLocaleString()} methods · all ${X.rows.length.toLocaleString()}: ${k.pos} profit, ${k.neg} loss${k.zero ? `, ${k.zero} break even` : ''}, ${k.none} no single figure${MM.src === 'guide' && GUIDE.loading ? ' · loading GE guide prices…' : ''}.</div>
       ${show.length ? `<div class="mmlist">${show.map(r => mmCard(r, S, false)).join('')}</div>` : '<div class="obempty"><div><b>No method matches.</b><div class="note">Clear a filter, lower the minimum profit, or change the search.</div></div></div>'}
       ${rows.length > show.length ? `<div class="mmmore"><button type="button" class="btn" id="mmmore">Show ${Math.min(20, rows.length - show.length)} more <span class="cnt">${rows.length - show.length} left</span></button></div>` : ''}`;
     mmBindCards(out, show, S);
@@ -3012,14 +3022,26 @@ async function moneyView(arg) {
   $('#mmmem').onchange = e => { MM.mem = e.target.value; draw(); };
   $('#mmfit').onchange = e => { MM.fit = e.target.value; draw(); };
   $('#mmsort').onchange = e => { MM.sort = e.target.value; draw(); };
+  $('#mmsrc').onchange = e => { MM.src = e.target.value === 'guide' ? 'guide' : 'live'; try { CALC_LS.setItem(MM_SRC_KEY, MM.src); } catch (_) {} draw(true); if (MM.src === 'guide') mmGuideAll(() => draw(true)); };
   $('#mmmin').oninput = e => { MM.minp = MM_MIN[+e.target.value]; $('#mmminv').innerHTML = MM.minp ? mmGpH(MM.minp) : 'any'; draw(); };
   document.querySelectorAll('#mmf button').forEach(b => b.onclick = () => { MM[b.dataset.v] = !MM[b.dataset.v]; b.classList.toggle('on', MM[b.dataset.v]); draw(); });
   $('#trtop').onclick = $('#trtopb').onclick = () => window.scrollTo(0, 0);
   watchPriceDraw(() => draw(true), out);
   draw();
   mmGuideNeeded(() => draw(true));
+  if (MM.src === 'guide') mmGuideAll(() => draw(true));
 }
 let MM_GUIDE_ASKED = false;
+/* Positive / loss / zero / no single figure over every method, on the basis shown (always sums to the method count). */
+function mmKinds(rows) { const k = {pos: 0, neg: 0, zero: 0, none: 0}; for (const r of rows) { const v = mmLive(r).value; k[v == null ? 'none' : v > 0 ? 'pos' : v < 0 ? 'neg' : 'zero']++; } return k; }
+/* GE guide mode: the Wiki's own price basis, so every GE item in a formula needs its guide price (batched, shared cache with Flask). */
+function mmGuideAll(redraw) {
+  guideLoadCache();
+  const go = () => { if (!LIVE.book.mapping.size) return false;
+    (async () => { while (GUIDE.loading) await GUIDE.loading; const ids = mmGuideIds(true); if (ids.length) { const p = guideFetch(ids); redraw(); await p; } })().then(() => { if ($('#mmres')) redraw(); });
+    return true; };
+  if (!go()) { const off = LIVE.subscribe(() => { if (go()) off(); }); }
+}
 function mmGuideNeeded(redraw) {
   guideLoadCache();
   const go = () => { if (MM_GUIDE_ASKED || !LIVE.book.mapping.size) return; MM_GUIDE_ASKED = true; const ids = mmGuideIds(); if (ids.length) guideFetch(ids).then(() => { if ($('#mmres')) { MM.calc = null; redraw(); } }); };

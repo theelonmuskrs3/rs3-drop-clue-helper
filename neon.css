@@ -1553,3 +1553,7 @@ th[aria-sort=ascending] .fd-arrow,th[aria-sort=descending] .fd-arrow{color:var(-
 /* Items: most expensive list on a blank search */
 .top-h{margin:10px 0 4px;font-size:1em}
 .top-h .note{font-weight:400}
+
+/* Character tab header: Wise Old Man picture (square), sized to the old dagger slot so the header layout is unchanged */
+.chdds img.chwom{width:54px;height:54px;object-fit:contain}
+@media (max-width:699px){.chdds img.chwom{width:44px;height:44px}}
