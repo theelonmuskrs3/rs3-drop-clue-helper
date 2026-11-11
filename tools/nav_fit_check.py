@@ -11,20 +11,18 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 f = TTFont(ROOT + '/fonts/cinzel-latin-700-normal.woff2'); cmap = f.getBestCmap(); hm = f['hmtx']; upm = f['head'].unitsPerEm
 def width(word, px, ls): return sum(hm[cmap[ord(c)]][0] for c in word) / upm * px + ls * px * len(word)
 css = open(ROOT + '/neon.css').read()
-for rule in ('.tabs{grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}',
-             '.tabs button{grid-column:span 3;font-size:10px;letter-spacing:.02em;padding:7px 2px 6px}',
-             '.tabs button[data-tab=calculators],.tabs button[data-tab=map]{grid-column:span 6}',
-             '.tabs button{font-size:9.5px;letter-spacing:.02em;padding-left:1px;padding-right:1px}'):
+for rule in ('.tabs{grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}',
+             '.tabs button{grid-column:auto;font-size:9px;letter-spacing:0;padding:7px 1px 6px}',
+             '.tabs button{font-size:8px;letter-spacing:0;padding-left:0;padding-right:0}'):
     assert rule in css, 'neon.css no longer has the rule this model assumes: ' + rule
 LABELS = ['Monsters', 'Items', 'Grand Exchange', 'Character', 'Clues', 'Quests', 'Training', 'Money', 'Calculators', 'Map']
-WIDE = ('Calculators', 'Map')
 def geometry(vw):
     pad = 8 if vw <= 420 else 12 if vw <= 560 else 18 if vw <= 1000 else 16
     W = min(vw - 2 * pad, 1180)
     if vw <= 479:
-        gap = 4 if vw <= 360 else 5; px, ls = (9.5, .02) if vw <= 360 else (10, .02)
-        col = (W - 11 * gap) / 12
-        return {l: col * (6 if l in WIDE else 3) + gap * (5 if l in WIDE else 2) for l in LABELS}, px, ls, (1 if vw <= 360 else 2), True
+        # 5 x 2 tiles (no third row); Calculators shows "Calcs"
+        gap = 4 if vw <= 360 else 5; px, ls = (8, 0) if vw <= 360 else (9, 0)
+        return {l: (W - 4 * gap) / 5 for l in LABELS}, px, ls, (0 if vw <= 360 else 1), True
     if vw <= 699: gap, px, ls, bpad, cols = 5, 9.5, .02, 1, 5
     elif vw <= 779: gap, px, ls, bpad, cols = 6, 11, .04, 2, 5
     else: gap, px, ls, bpad, cols = 4, 10, .02, 1, 5

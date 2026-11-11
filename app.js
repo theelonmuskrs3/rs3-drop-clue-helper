@@ -1009,12 +1009,9 @@ const CALC_LS = (() => { try { return window.localStorage; } catch (e) { return 
 /* Native calculators (see RS3Calc.NATIVE). Formulas are the Wiki's own, checked against Wiki output in tests;
    prices come from the shared live service (never from the embedded Grand Exchange frame). */
 async function nativeCalcView(n) {
-  if (n.slug === 'flask-decanting') return flaskDecantView(n);
-  if (n.slug === 'herblore') return herbloreView(n);
-  if (n.slug === 'cooking') return cookingView(n);
-  if (n.slug === 'fletching') return fletchingView(n);
-  if (n.slug === 'crafting') return craftingView(n);
-  location.replace('#calculators');
+  // only Flask decanting is offered; the other calculator screens are kept in the code but never routed
+  if (n && n.slug === 'flask-decanting') return flaskDecantView(n);
+  location.replace('#calculators/flask-decanting');
 }
 const QUOTE_WHY = {missing: 'no recent trade price', stale: 'price is stale', offline: 'offline', unavailable: 'live source unavailable', unmapped: 'not found in the price source'};
 /* Before the first item list arrives every item is 'unmapped'; say it is loading rather than 'not found'. */
@@ -1022,8 +1019,7 @@ const quoteWhy = st => st === 'unmapped' && !LIVE.book.mapping.size ? 'live pric
 async function flaskDecantView(n) {
   const D = await get(n.data);
   const cols = D.columns, label = 'Decanting flasks for profit';
-  view.innerHTML = `<div class="row subnav"><a class="btn sub" href="#calculators">← All calculators</a></div>
-  <section class="panel calc-native-panel" aria-labelledby="fd-title">
+  view.innerHTML = `<section class="panel calc-native-panel" aria-labelledby="fd-title">
     <div class="ge-heading calc-heading"><h2 id="fd-title">Flask decanting</h2>
       <div class="calc-native-actions"><button class="calc-star" type="button" id="fd-star"></button>
       <a class="btn sub calc-source" href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Wiki calculator ↗</a></div></div>
@@ -1514,7 +1510,21 @@ async function calcImages() { if (!CALC_IMG) { try { CALC_IMG = (await get('data
 const liIco = name => { const r = CALC_IMG && CALC_IMG[name]; return r ? `<img class="calc-li-ico" src="${esc(r.src)}" width="20" height="20" alt="" loading="lazy" decoding="async">` : ''; };
 const calcIco = name => { const r = CALC_IMG && CALC_IMG[name]; return r ? `<img class="calc-ico" src="${esc(r.src)}" width="32" height="32" alt="" loading="lazy" decoding="async" title="${esc(name)} (picture: RuneScape Wiki, ${esc(r.file)})">` : PH(); };
 const CALC_OPEN_KEY = 'dch_calc_dir_open_v1';
+/* The Calculators tab is the Flask decanting calculator only (owner decision 2026-11-11). #calculators and every old calculator
+   route (Herblore, Cooking, Fletching, Crafting, the Wiki directory) go to #calculators/flask-decanting; nothing else runs.
+   Favourites of calculators that are no longer offered are removed from the calculator favourites list only (its own key,
+   RS3Calc.FAV_KEY); no other stored data is touched. */
+function calcPruneFavs() {
+  try { const favs = RS3Calc.load(CALC_LS), keep = favs.filter(f => RS3Calc.nativeFor(f.path)); if (keep.length !== favs.length) RS3Calc.save(CALC_LS, keep); } catch (e) {}
+}
 async function calcView(arg) {
+  calcPruneFavs();
+  const fd = RS3Calc.nativeBySlug('flask-decanting');
+  if (arg !== fd.slug) { location.replace('#calculators/' + fd.slug); return; }
+  await calcImages(); return flaskDecantView(fd);
+}
+/* The former calculator directory (Wiki-only listings and the other native calculators); kept for history, not routed. */
+async function calcDirectoryViewRemoved(arg) {
   const native = arg ? RS3Calc.nativeBySlug(arg) : null;
   if (arg && !native) { location.replace('#calculators'); return; }
   if (native) { await calcImages(); return nativeCalcView(native); }

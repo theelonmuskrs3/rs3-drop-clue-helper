@@ -121,15 +121,13 @@ async function screen(hash, store = {}, feed = 'full') {
   assert.equal(w.localStorage.getItem('mystats_v2'), '{"Attack":99}');
   for (const a of d.querySelectorAll('#view a[target="_blank"]')) assert.equal(a.rel, 'noopener noreferrer');
   const favs = w.localStorage.getItem(C.FAV_KEY); dom.window.close();
-  // directory: exact native mapping, favourites reopen in app, everything else Wiki-only
+  // decanting-only (owner decision 2026-11-11): #calculators is this calculator; its favourite survives the stale-favourite prune
   ({dom, w, d} = await screen('calculators', {[C.FAV_KEY]: favs}));
-  // running native coverage: Flask decanting + Herblore (tests/CALCULATOR_COVERAGE.md); Flask decanting's link is unchanged
-  const nat = [...d.querySelectorAll('#calc-native a.calc-card-main')]; assert.equal(nat.length, C.NATIVE.length); assert.equal(C.NATIVE.length, 5);
-  const fdLink = nat.find(a => a.getAttribute('href') === '#calculators/flask-decanting'); assert.ok(fdLink);
-  assert.ok(fdLink.closest('li').textContent.includes('Decanting flasks for profit'));
-  assert.equal(d.querySelectorAll('#calc-native .calc-card').length, 5); assert.ok(!nat.some(a => a.target));
-  assert.ok(d.querySelectorAll('#calc-upcoming .calc-item').length > 100); assert.equal(d.querySelectorAll('#calc-upcoming .calc-in-app').length, 0);
-  assert.equal(d.querySelector('#calc-fav-list a.calc-open').getAttribute('href'), '#calculators/flask-decanting');
+  for (let i = 0; i < 50 && !d.querySelector('#fd-table tbody tr'); i++) await tick();
+  assert.equal(w.location.hash, '#calculators/flask-decanting'); assert.deepEqual(C.NATIVE.map(n => n.slug), ['flask-decanting']);
+  assert.equal(d.querySelectorAll('#fd-table tbody tr').length, 86); assert.equal(d.querySelector('#view a[href="#calculators"]'), null, 'no "All calculators" link');
+  assert.equal(d.querySelectorAll('#calc-native, #calc-upcoming').length, 0); assert.equal(d.querySelector('#fd-star').getAttribute('aria-pressed'), 'true');
+  assert.equal(w.localStorage.getItem(C.FAV_KEY), favs);
   dom.window.close();
   // missing empty-flask price: every result unavailable, never 0
   ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'noflask'));
@@ -162,9 +160,9 @@ async function screen(hash, store = {}, feed = 'full') {
     assert.ok(cells.every(td => /^Unavailable/.test(td.textContent) && /live prices loading/.test(td.textContent) && !/not found/.test(td.textContent)));
     assert.match(d.querySelector('#fd-flask').textContent, /live prices loading/); }
   dom.window.close();
-  // unknown native slug falls back to the directory
+  // unknown slug goes to Flask decanting (the only calculator)
   ({dom, w, d} = await screen('calculators/not-a-calc'));
-  for (let i = 0; i < 50 && w.location.hash !== '#calculators'; i++) await tick();
-  assert.equal(w.location.hash, '#calculators'); dom.window.close();
-  console.log('PASS flask decanting: 344/344 Wiki golden cells, dose conservation, exact IDs, buy-high/sell-low, per-flask floor tax, <50 gp, missing/stale/offline unavailable, DOM route, favourites, directory mapping');
+  for (let i = 0; i < 50 && !d.querySelector('#fd-title'); i++) await tick();
+  assert.equal(w.location.hash, '#calculators/flask-decanting'); assert.ok(d.querySelector('#fd-title')); dom.window.close();
+  console.log('PASS flask decanting: 344/344 Wiki golden cells, dose conservation, exact IDs, buy-high/sell-low, per-flask floor tax, <50 gp, missing/stale/offline unavailable, DOM route, favourites, decanting-only #calculators');
 })().catch(e => { console.error(e); process.exit(1); });

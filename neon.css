@@ -1350,19 +1350,19 @@ html{scrollbar-gutter:stable}
   .tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
   .tabs button{min-height:48px;line-height:1.15}
 }
-/* Phones under 480px: 4 tiles per row (Calculators and Map share the last row), so the longest whole word (CHARACTER,
-   EXCHANGE, MONSTERS) fits inside its tile at 320px with no letters clipped; Calculators shows its short label "Calcs"
-   (the button keeps aria-label "Calculators"). Widths checked against Cinzel 700 metrics in checks/nav_fit_check.py. */
+/* Phones under 480px: the same 5 x 2 tiles (no third row), so the longest whole word (CHARACTER, EXCHANGE, MONSTERS) fits
+   inside its tile with no letters clipped: smaller type, no letter spacing; "Grand Exchange" wraps onto two lines; Calculators
+   shows its short label "Calcs" (the button keeps aria-label "Calculators"). Widths checked against Cinzel 700 metrics in
+   tools/nav_fit_check.py. */
 @media (max-width:479px){
-  .tabs{grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}
-  .tabs button{grid-column:span 3;font-size:10px;letter-spacing:.02em;padding:7px 2px 6px}
-  .tabs button[data-tab=calculators],.tabs button[data-tab=map]{grid-column:span 6}
+  .tabs{grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+  .tabs button{grid-column:auto;font-size:9px;letter-spacing:0;padding:7px 1px 6px}
   .tabs button .tl-long{display:none}
   .tabs button .tl-short{display:inline}
 }
 @media (max-width:360px){
   .tabs{gap:4px}
-  .tabs button{font-size:9.5px;letter-spacing:.02em;padding-left:1px;padding-right:1px}
+  .tabs button{font-size:8px;letter-spacing:0;padding-left:0;padding-right:0}
 }
 @media (min-width:700px){
   /* 10 tabs = 5 x 2 tiles at tablet widths, one row of 10 from 1180px */

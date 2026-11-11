@@ -68,11 +68,9 @@
   }
 
   /* Native (in-app) calculators: exact Wiki path -> app route. Only calculators whose formulas are verified against Wiki output. */
-  const NATIVE = [{slug: 'flask-decanting', path: '/w/Calculator:Herblore/Flask_decanting', data: 'data/calc/flask-decanting.json'},
-    {slug: 'herblore', path: '/w/Calculator:Herblore', data: 'data/calc/herblore.json'},
-    {slug: 'cooking', path: '/w/Calculator:Cooking', data: 'data/calc/cooking.json'},
-    {slug: 'fletching', path: '/w/Calculator:Fletching', data: 'data/calc/fletching.json'},
-    {slug: 'crafting', path: '/w/Calculator:Crafting', data: 'data/calc/crafting.json'}];
+  // Owner decision (2026-11-11): the app offers ONLY the Flask decanting calculator. The other native ports (Herblore, Cooking,
+  // Fletching, Crafting) stay in this file and in git history for their golden tests, but are not offered or routed.
+  const NATIVE = [{slug: 'flask-decanting', path: '/w/Calculator:Herblore/Flask_decanting', data: 'data/calc/flask-decanting.json'}];
   const nativeFor = path => NATIVE.find(n => n.path === path) || null;
   const nativeBySlug = slug => NATIVE.find(n => n.slug === slug) || null;
 
