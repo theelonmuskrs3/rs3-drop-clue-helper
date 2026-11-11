@@ -104,7 +104,8 @@ const set = (d, w, k, v) => { const el = d.querySelector('#fl-' + k); assert.ok(
   { for (const v of [true, false, true]) set(d, w, 'bxp', v); const bx = d.querySelector('#fl-bxpnum'); assert.ok(bx); bx.focus(); bx.value = '';
     for (const ch of '50000') { bx.value += ch; bx.dispatchEvent(new w.Event('input', {bubbles: true})); }
     assert.equal(d.querySelector('#fl-bxpnum'), bx); set(d, w, 'workroom', 'Yes'); assert.equal(d.querySelector('#fl-bxpnum'), bx, 'non-toggling select keeps fields');
-    assert.equal(bx.value, '50000'); assert.match(d.querySelector('#fl-msg').textContent, /With 50,000 bonus XP/);
+    assert.equal(bx.value, '50000'); assert.match(d.querySelector('#fl-msg').textContent, /, ([\d,]+) experience is required\. \(50,000 bonus XP applied; ([\d,]+) XP to the goal in total\.\)$/);
+    { const m = /, ([\d,]+) experience is required\. \(50,000 bonus XP applied; ([\d,]+) XP to the goal in total\.\)$/.exec(d.querySelector('#fl-msg').textContent); const tot = +m[2].replace(/,/g, ''); assert.equal(+m[1].replace(/,/g, ''), tot - Math.min(tot / 2, 50000), 'Wiki prints the XP still needed from actions after bonus XP'); }
     bx.value = '5x'; bx.dispatchEvent(new w.Event('input', {bubbles: true})); assert.equal(bx.getAttribute('aria-invalid'), 'true'); assert.match(d.querySelector('#fl-bxpnum-r').textContent, /Invalid integer/i);
     bx.value = '50000'; bx.dispatchEvent(new w.Event('input', {bubbles: true})); assert.equal(bx.getAttribute('aria-invalid'), 'false'); }
   // favourite + persistence

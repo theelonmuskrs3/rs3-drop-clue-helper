@@ -1013,6 +1013,7 @@ async function nativeCalcView(n) {
   if (n.slug === 'herblore') return herbloreView(n);
   if (n.slug === 'cooking') return cookingView(n);
   if (n.slug === 'fletching') return fletchingView(n);
+  if (n.slug === 'crafting') return craftingView(n);
   location.replace('#calculators');
 }
 const QUOTE_WHY = {missing: 'no recent trade price', stale: 'price is stale', offline: 'offline', unavailable: 'live source unavailable', unmapped: 'not found in the price source'};
@@ -1429,7 +1430,7 @@ async function skillView(n, K) {
     if (errors.length) { $('#' + P + '-msg').textContent = errors.join(' · '); $('#' + P + '-count').textContent = ''; $('#' + P + '-table').innerHTML = ''; return; }
     const res = RS3Calc.skillCalcRun(D, submission);
     if (res.error) { $('#' + P + '-msg').textContent = res.error; $('#' + P + '-count').textContent = ''; $('#' + P + '-table').innerHTML = ''; return; }
-    $('#' + P + '-msg').textContent = `To train ${K.skill} from ${res.currXp.toLocaleString('en-GB')} experience (level ${res.currLv}) to ${res.goalXp.toLocaleString('en-GB')} experience (level ${res.goalLv}), ${res.actualRemaining.toLocaleString('en-GB')} experience is required.${res.bonusXp > 0 ? ` With ${res.bonusXp.toLocaleString('en-GB')} bonus XP, ${res.remaining.toLocaleString('en-GB')} is earned from actions.` : ''}`;
+    $('#' + P + '-msg').textContent = `To train ${K.skill} from ${res.currXp.toLocaleString('en-GB')} experience (level ${res.currLv}) to ${res.goalXp.toLocaleString('en-GB')} experience (level ${res.goalLv}), ${res.remaining.toLocaleString('en-GB')} experience is required.${res.bonusXp > 0 ? ` (${res.bonusXp.toLocaleString('en-GB')} bonus XP applied; ${res.actualRemaining.toLocaleString('en-GB')} XP to the goal in total.)` : ''}`;
     const gross = show.value === 'gross', urns = res.disp === 'Urns', costs = res.rows.length ? res.rows[0].costCols : true;
     const rows = res.rows.map(r => {
       const why = new Map(); let taxEach = 0;
@@ -1490,8 +1491,14 @@ const FLETCHING_K = {id: 'fl', key: 'dch_calc_fletching_v1', skill: 'Fletching',
     'Items made several at a time (for example "Bronze arrow × 15") sell all of them per action, as on the Wiki; tax is per item sold.',
     'Ingredients are bought at the live Buy (high) price and products sold at the live Sell (low) price; each ingredient line is rounded down, as on the Wiki. At a Portable Fletcher, ingredients for Arrows, Bolts, Darts and Bows - Unstrung cost 10% less (20% with the Brooch of the Gods), as on the Wiki.',
     ...SKILL_PRICE_NOTES, 'Dungeoneering sub-categories show no costs, as on the Wiki.']};
+const CRAFTING_K = {id: 'cr', key: 'dch_calc_crafting_v1', skill: 'Crafting', noun: 'items',
+  intro: src => wikiCalcIntro('Crafting', 'item', src),
+  assume: ['XP, number of actions and ingredient quantities follow the Wiki calculator exactly: Portable Crafter +10% XP, Amulet of offerings +3% (added after the other boosts), outfit and avatar bonuses as on the Wiki, bonus XP halves the XP needed up to its amount.',
+    'Ingredients are bought at the live Buy (high) price and products sold at the live Sell (low) price; each ingredient line is rounded down, as on the Wiki. At a Portable Crafter, ingredients in every sub-category cost 10% less (20% with the Brooch of the Gods), as on the Wiki.',
+    ...SKILL_PRICE_NOTES, 'Dungeoneering Armour shows no costs, as on the Wiki.']};
 const cookingView = n => skillView(n, COOKING_K);
 const fletchingView = n => skillView(n, FLETCHING_K);
+const craftingView = n => skillView(n, CRAFTING_K);
 
 /* Official RuneScape Wiki pictures for calculator items (data/calc/images.json, built by tools/calc_images.py): exact
    File:<item>.png or a file the Wiki itself redirects to. No picture -> no picture slot (never a stand-in). */

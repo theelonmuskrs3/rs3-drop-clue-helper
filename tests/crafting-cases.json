@@ -1,0 +1,363 @@
+[
+ {
+  "name": "Armour defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Armour"
+  }
+ },
+ {
+  "name": "Battlestaves defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Battlestaves"
+  }
+ },
+ {
+  "name": "Cutting gems defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Cutting gems"
+  }
+ },
+ {
+  "name": "Dungeoneering Armour defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Dungeoneering Armour"
+  }
+ },
+ {
+  "name": "Jewellery defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Jewellery"
+  }
+ },
+ {
+  "name": "Pottery defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Pottery"
+  }
+ },
+ {
+  "name": "Starbloom Armour defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Starbloom Armour"
+  }
+ },
+ {
+  "name": "Apex Hide Armour defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Apex Hide Armour"
+  }
+ },
+ {
+  "name": "Miscellaneous defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Miscellaneous"
+  }
+ },
+ {
+  "name": "Jewellery amulet of offerings",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "Yes",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Jewellery"
+  }
+ },
+ {
+  "name": "Armour portable",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "Yes",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Armour",
+   "brooch": "false"
+  }
+ },
+ {
+  "name": "Armour portable + brooch",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "Yes",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Armour",
+   "brooch": "true"
+  }
+ },
+ {
+  "name": "Pottery portable + brooch",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "Yes",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Pottery",
+   "brooch": "true"
+  }
+ },
+ {
+  "name": "Cutting gems avatar 6 outfit 5 custom 7",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "6",
+   "outfit": "5",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "7",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Cutting gems"
+  }
+ },
+ {
+  "name": "Battlestaves everything on",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "3",
+   "outfit": "4",
+   "amuletOfOfferings": "Yes",
+   "portable": "Yes",
+   "custom": "10",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Battlestaves",
+   "brooch": "true"
+  }
+ },
+ {
+  "name": "Dungeoneering Armour portable + amulet",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "Yes",
+   "portable": "Yes",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Dungeoneering Armour",
+   "brooch": "false"
+  }
+ },
+ {
+  "name": "Miscellaneous BXP 50000 XP 12345 to level 80",
+  "args": {
+   "currToggle": "Experience",
+   "current": "12345",
+   "goalToggle": "Level",
+   "goal": "80",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "1",
+   "disp": "Miscellaneous",
+   "bxpnum": "50000"
+  }
+ },
+ {
+  "name": "Starbloom XP to XP 1000000-5000000",
+  "args": {
+   "currToggle": "Experience",
+   "current": "1000000",
+   "goalToggle": "Experience",
+   "goal": "5000000",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Starbloom Armour"
+  }
+ },
+ {
+  "name": "Apex level 50-51",
+  "args": {
+   "currToggle": "Level",
+   "current": "50",
+   "goalToggle": "Level",
+   "goal": "51",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Apex Hide Armour"
+  }
+ },
+ {
+  "name": "Jewellery goal below current",
+  "args": {
+   "currToggle": "Level",
+   "current": "60",
+   "goalToggle": "Level",
+   "goal": "50",
+   "avatar": "0",
+   "outfit": "0",
+   "amuletOfOfferings": "No",
+   "portable": "No",
+   "brooch_no_effect": "No effect",
+   "custom": "0",
+   "skill": "Crafting",
+   "bxp": "0",
+   "disp": "Jewellery"
+  }
+ }
+]

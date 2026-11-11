@@ -14,6 +14,8 @@ from calc_cooking import ROOT, api, latest, content, sandbox, jcconfig, parse_co
 
 SKILLS = {
     'Fletching': {'page': ('Calculator:Fletching', 37236406), 'data': ('Module:Skill calc/Fletching/data', 37229972), 'slug': 'fletching'},
+    'Crafting': {'page': ('Calculator:Crafting', 37211361), 'data': ('Module:Skill calc/Crafting/data', 37211364), 'slug': 'crafting'},
+    'Firemaking': {'page': ('Calculator:Firemaking', 37106768), 'data': ('Module:Skill calc/Firemaking/data', 37035779), 'slug': 'firemaking'},
 }
 ENGINE = {k: v for k, v in CC.PIN.items() if k not in ('Calculator:Cooking', 'Module:Skill calc/Cooking/data')}
 ELTS = lambda skill: [skill, skill + '-Dungeoneering', 'Dungeons-Materials', 'Urns']

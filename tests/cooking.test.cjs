@@ -87,7 +87,8 @@ const set = (d, w, k, v) => { const el = d.querySelector('#ck-' + k); assert.ok(
   d.querySelector('#ck-sort').value = 'xp'; d.querySelector('#ck-sort').dispatchEvent(new w.Event('change'));
   { const xs = rows(d).map(tr => Number(tr.querySelectorAll('td')[1].textContent.replace(/,/g, ''))); assert.deepEqual(xs, [...xs].sort((a, b) => b - a)); }
   // bxp reveals bxpnum (Wiki toggle); invalid goal stops the run with the Wiki's message
-  set(d, w, 'bxp', true); assert.ok(d.querySelector('#ck-bxpnum')); set(d, w, 'bxpnum', '50000'); assert.match(d.querySelector('#ck-msg').textContent, /With 50,000 bonus XP/);
+  set(d, w, 'bxp', true); assert.ok(d.querySelector('#ck-bxpnum')); set(d, w, 'bxpnum', '50000'); assert.match(d.querySelector('#ck-msg').textContent, /, ([\d,]+) experience is required\. \(50,000 bonus XP applied; ([\d,]+) XP to the goal in total\.\)$/)
+    { const m = /, ([\d,]+) experience is required\. \(50,000 bonus XP applied; ([\d,]+) XP to the goal in total\.\)$/.exec(d.querySelector('#ck-msg').textContent); const tot = +m[2].replace(/,/g, ''); assert.equal(+m[1].replace(/,/g, ''), tot - Math.min(tot / 2, 50000), 'Wiki prints the XP still needed from actions after bonus XP'); };
   set(d, w, 'goal', 'abc'); assert.match(d.querySelector('#ck-msg').textContent, /Invalid integer provided/); assert.equal(rows(d).length, 0);
   set(d, w, 'goal', '99');
   // urn column
