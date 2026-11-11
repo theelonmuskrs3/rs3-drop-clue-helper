@@ -3598,7 +3598,7 @@ async function fillWtg(el, D, name, page, drops) {
    wiki map location shows its map without a click. Maps start only when they near the screen, at most 2 at a time; Hide map still works. */
 function wtgExpand(el) {
   el.querySelectorAll('details').forEach(d => { d.open = true; });
-  const seen = new Set(), btns = [...el.querySelectorAll('button[data-mm]')].filter(b => !seen.has(b.dataset.mm) && seen.add(b.dataset.mm));   // the same location once (the summary map and its card share pins)
+  const seen = new Set(), btns = [...el.querySelectorAll('.wcard button[data-mm]'), ...el.querySelectorAll('button[data-mm]')].filter(b => !seen.has(b) && !seen.has(b.dataset.mm) && seen.add(b).add(b.dataset.mm));   // each location once, in its own card ("Where …"); a summary button with the same pins stays a button
   if (!btns.length || typeof IntersectionObserver !== 'function') return;
   const q = [];
   let busy = 0;

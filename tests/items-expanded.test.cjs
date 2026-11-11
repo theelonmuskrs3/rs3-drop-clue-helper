@@ -7,6 +7,7 @@ const pick = (start, end) => { const i = app.indexOf(start), j = app.indexOf(end
 const code = pick('function wtgExpand(el)', '  b.dataset.auto = \'1\';   // a click wins') + "  b.dataset.auto = '1';\n  mmOpen(b);\n});";
 (async () => {
   const dom = new JSDOM(`<div id="wtg"><div class="wtg">
+    <div class="wsum wrow"><b>Thieve</b><button class="btn mini" data-mm='{"map":28,"x":3000,"y":9800}' data-t="Find on map">Find on map</button></div>
     <details class="thv"><summary>Thieve Chest (Dwarven mines)</summary><div class="thv-loc"><b>Where (1 location on the wiki)</b>
       <div class="wcard wloc"><div class="row wacts"><button class="btn mini" data-mm='{"map":28,"x":3000,"y":9800}' data-t="Find on map">Find on map</button></div></div></div></details>
     <details class="thvmore"><summary>Show all 8 thieving sources</summary>${[1, 2, 3, 4].map(i => `<details class="thv"><summary>s${i}</summary><div class="wcard"><div class="row wacts"><button class="btn mini" data-mm='{"map":28,"x":${i},"y":1}' data-t="Find on map">Find on map</button></div></div></details>`).join('')}</details>
@@ -29,14 +30,15 @@ const code = pick('function wtgExpand(el)', '  b.dataset.auto = \'1\';   // a cl
   cb(observed.map(t => ({target: t, isIntersecting: true})));
   assert.deepEqual(started, [3000, 1], 'maps open without a click, at most 2 at a time');
   assert.equal(el.querySelectorAll('.mmbox').length, 2);
-  assert.equal(el.querySelector('button[data-mm]').textContent, 'Hide map');
+  assert.equal(el.querySelector('.wsum button').textContent, 'Find on map', 'summary repeat of the same pins stays a button');
+  assert.equal(el.querySelector('.wloc button').textContent, 'Hide map', 'the Where card shows the map');
   waits.shift()(); await new Promise(r => setTimeout(r, 0));
   assert.deepEqual(started, [3000, 1, 2], 'next map starts when one finishes');
   // the user can still collapse: Hide map removes it and a section can be closed
-  el.querySelector('button[data-mm]').click(); await new Promise(r => setTimeout(r, 0));
-  assert.equal(el.querySelector('.wloc .mmbox'), null); assert.equal(el.querySelector('button[data-mm]').textContent, 'Find on map');
+  el.querySelector('.wloc button').click(); await new Promise(r => setTimeout(r, 0));
+  assert.equal(el.querySelector('.wloc .mmbox'), null); assert.equal(el.querySelector('.wloc button').textContent, 'Find on map');
   // a clicked button is not opened again by the queue
-  const b4 = el.querySelectorAll('button[data-mm]')[4]; b4.click(); while (waits.length) { waits.shift()(); await new Promise(r => setTimeout(r, 0)); }
+  const b4 = el.querySelectorAll('button[data-mm]')[5]; b4.click(); while (waits.length) { waits.shift()(); await new Promise(r => setTimeout(r, 0)); }
   assert.equal(b4.closest('.wcard').querySelectorAll('.mmbox').length, 1, 'no duplicate map after a click');
   // only item pages: called from fillWtg alone; other screens keep their collapsed Details & sources
   assert.equal((app.match(/wtgExpand\(el\)/g) || []).length, 2, 'definition + the one call in fillWtg');
