@@ -151,3 +151,18 @@ Wiki in a new tab. Check search, category/type filters, counts, star toggles
 (aria-pressed/label, 44px targets), Favourites list reopen links, Remove, reload
 persistence, invalid/`javascript:`/same-origin URL rejection message, and that
 saved stats (`mystats_v2`) are untouched. Favourites key: `dch_calc_favorites_v1`.
+
+## PR3b: native Flask decanting + "Grand Exchange" labels
+Main tab and Items sub-menu link both read "Grand Exchange" (no "G.E." in navigation).
+`#items/~ge` still lands on `#ge`, and the embed, Fit overview and Readable size are unchanged.
+
+`#calculators/flask-decanting` at 320/390/800/1280:
+- 86 potions × 4 decanting columns. Each column header must be readable, and narrow widths must use
+  cards with a label on every value. There must be no sideways scroll.
+- The live-price banner and status are shown.
+- Net/Gross selector, search and sort all work. "Prices used" shows Sell (low) with est. tax/net for the flask (6),
+  Buy (high) for the (1)–(4) vials and the empty Potion flask, and the details stay open across a price refresh.
+- Unavailable cells say why (e.g. "Potion flask: price is stale"), and none shows 0 gp.
+- The ☆ favourite saves the calculator. In the directory, "Open in app" appears only on "Decanting flasks for
+  profit" and in Favourites; every other entry is "Wiki only — not yet in app".
+- Spot-check one or two results by hand from the prices shown, e.g. 6 (1)s: sell − floor(sell/50) − 6×vial(1) − flask.

@@ -71,7 +71,7 @@ async function screen(hash, store = {}) {
   assert.equal(d.querySelector('#live-price-banner, .live-price-banner'), null, 'calculators tab has no price banner');
   const links = [...d.querySelectorAll('#calc-list a.calc-link')];
   assert.equal(links.length, D.calculators.length);
-  for (const a of d.querySelectorAll('#view a[href]')) { assert.match(a.href, /^https:\/\/runescape\.wiki\/w\//); assert.equal(a.target, '_blank'); assert.equal(a.rel, 'noopener noreferrer'); }
+  for (const a of d.querySelectorAll('#view a[href]:not(.calc-native)')) { assert.match(a.href, /^https:\/\/runescape\.wiki\/w\//); assert.equal(a.target, '_blank'); assert.equal(a.rel, 'noopener noreferrer'); }
   assert.match(d.querySelector('#calc-count').textContent, new RegExp(`^${D.calculators.length} of ${D.calculators.length}`));
   const q = d.querySelector('#calc-q'); q.value = 'herblore'; q.dispatchEvent(new w.Event('input'));
   const n = d.querySelectorAll('#calc-list .calc-item').length; assert.ok(n > 0 && n < D.calculators.length);
@@ -125,7 +125,8 @@ async function screen(hash, store = {}) {
   assert.equal(w.location.hash, '#ge'); assert.equal(d.querySelector('.tabs button.on').dataset.tab, 'ge'); assert.equal(d.querySelectorAll('#ge-frame').length, 1);
   dom.window.close();
   ({dom, w, d} = await screen('items/~disc'));
-  assert.equal(d.querySelector('#view .subnav a[href="#ge"]').textContent, 'G.E. → Grand Exchange tab'); dom.window.close();
+  assert.equal(d.querySelector('#view .subnav a[href="#ge"]').textContent, 'Grand Exchange'); assert.doesNotMatch(d.querySelector('#view .subnav').textContent, /G\.E\./);
+  assert.equal(d.querySelector('button[data-tab="ge"]').textContent.trim(), 'Grand Exchange'); assert.doesNotMatch(d.querySelector('.tabs').textContent, /G\.E\./); dom.window.close();
   // CSS: nav grid for 12 tabs, no sideways scroll container
   const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'); const tail = css.slice(css.indexOf('/* ===== 12 main tabs'));
   assert.match(tail, /@media \(max-width:699px\)\{[^}]*repeat\(4,minmax\(0,1fr\)\)/); assert.match(tail, /@media \(min-width:700px\)\{[^}]*repeat\(6,minmax\(0,1fr\)\)[^}]*overflow:visible/);

@@ -66,7 +66,27 @@
     const ok = save(storage, next);
     return {favs: ok ? next : favs, on: ok ? on : !on, ok};
   }
-  const api = {FAV_KEY, ORIGIN, MAX_FAVS, safeWikiPath, wikiUrl, parseCalculatorUrl, load, save, toggle, has};
+
+  /* Native (in-app) calculators: exact Wiki path -> app route. Only calculators whose formulas are verified against Wiki output. */
+  const NATIVE = [{slug: 'flask-decanting', path: '/w/Calculator:Herblore/Flask_decanting', data: 'data/calc/flask-decanting.json'}];
+  const nativeFor = path => NATIVE.find(n => n.path === path) || null;
+  const nativeBySlug = slug => NATIVE.find(n => n.slug === slug) || null;
+
+  /* Calculator:Herblore/Flask decanting/row (rev 37202166), per column c and row r:
+     revenue = flasks x "<flask> (6)"; cost = vials x "<vial> (dose)" + flasks x "Potion flask".
+     Leftover empty vials are not counted (as on the Wiki). Returns a structured model for PriceBook.estimate. */
+  function flaskModel(D, r, c) {
+    const v = r['v' + c.dose];
+    return {wf: 'c', inp: [{id: v.id, n: v.n, q: c.vials}, {id: D.flask.id, n: D.flask.n, q: c.flasks}], out: [{id: r.f6.id, n: r.f6.n, q: c.flasks}]};
+  }
+  /* Same arithmetic with one fixed price per item (Wiki guide prices, no tax): used to check against Wiki output. */
+  function guideProfit(model, price) {
+    let t = 0;
+    for (const l of model.out) { const p = price(l.n); if (p == null) return null; t += p * l.q; }
+    for (const l of model.inp) { const p = price(l.n); if (p == null) return null; t -= p * l.q; }
+    return t;
+  }
+  const api = {NATIVE, nativeFor, nativeBySlug, flaskModel, guideProfit, FAV_KEY, ORIGIN, MAX_FAVS, safeWikiPath, wikiUrl, parseCalculatorUrl, load, save, toggle, has};
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.RS3Calc = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

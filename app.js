@@ -189,10 +189,10 @@ async function route() {
     else if (tab === 'money') await moneyView(arg);
     else if (tab === 'map') await mapTab(arg);
     else if (tab === 'ge') geView();
-    else if (tab === 'calculators') await calcView();
+    else if (tab === 'calculators') await calcView(arg);
     else await dropsView(arg);
   } catch (e) { view.innerHTML = `<div class="panel">Could not load data: ${esc(e.message)}</div>`; }
-  if (['items', 'char', 'train', 'money', 'secrets'].includes(tab) && !(tab === 'items' && arg === '~ge')) bindPriceView();
+  if ((['items', 'char', 'train', 'money', 'secrets'].includes(tab) && !(tab === 'items' && arg === '~ge')) || (tab === 'calculators' && RS3Calc.nativeBySlug(arg))) bindPriceView();
   prepareAppTables();
   if (!(tab === 'secrets' && arg)) window.scrollTo(0, 0);
 }
@@ -435,7 +435,7 @@ function priceTag(D, n, side = 'buy', showGraph = false) {
 function rarTag(r) { return r == null ? '' : `<span class="rtag r${r}">${RANK[r]}</span>`; }
 function subnav(on) {
   const b = (h, t, k) => `<a class="btn sub ${on === k ? 'on' : ''}" href="${h}">${t}</a>`;
-  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}<a class="btn sub" href="#ge">G.E. → Grand Exchange tab</a><a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
+  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}<a class="btn sub" href="#ge">Grand Exchange</a><a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
 }
 
 /* ----- stats storage ----- */
@@ -1004,7 +1004,77 @@ function geView() {
    X-Frame-Options: DENY and frame-ancestors 'none', so its calculators cannot be embedded; we never proxy or inject.
    Favourites are saved only on this device under their own key (RS3Calc.FAV_KEY), separate from saved stats. */
 const CALC_LS = (() => { try { return window.localStorage; } catch (e) { return null; } })();
-async function calcView() {
+/* Native calculators (see RS3Calc.NATIVE). Formulas are the Wiki's own, checked against Wiki output in tests;
+   prices come from the shared live service (never from the embedded Grand Exchange frame). */
+async function nativeCalcView(n) {
+  if (n.slug === 'flask-decanting') return flaskDecantView(n);
+  location.replace('#calculators');
+}
+const QUOTE_WHY = {missing: 'no recent trade price', stale: 'price is stale', offline: 'offline', unavailable: 'live source unavailable', unmapped: 'not found in the price source'};
+async function flaskDecantView(n) {
+  const D = await get(n.data);
+  const cols = D.columns, label = 'Decanting flasks for profit';
+  view.innerHTML = `<div class="row subnav"><a class="btn sub" href="#calculators">← All calculators</a></div>
+  <section class="panel calc-native-panel" aria-labelledby="fd-title">
+    <div class="ge-heading calc-heading"><h2 id="fd-title">Flask decanting</h2>
+      <div class="calc-native-actions"><button class="calc-star" type="button" id="fd-star"></button>
+      <a class="btn sub calc-source" href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Wiki calculator ↗</a></div></div>
+    <p class="note">Profit or loss from buying potions in vials and empty potion flasks, decanting them into six-dose flasks and selling the flasks. Same potions and decanting options as the RuneScape Wiki <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Flask decanting</a> calculator (revision ${esc(D.source.pageRevision)}), using live prices instead of the Wiki's guide prices, so results differ from the Wiki page.</p>
+    <ul class="note calc-assume">
+      <li>Vials and empty potion flasks are bought at the live Buy (high) price; six-dose flasks are sold at the live Sell (low) price.</li>
+      <li>Net profit deducts the estimated 2% Grand Exchange tax on each flask sold, rounded down per flask. There is no tax on buying.</li>
+      <li>Each result is for one decanting batch: 6 (1)s or 3 (2)s make 1 flask; 4 (3)s or 3 (4)s make 2 flasks.</li>
+      <li>Leftover empty vials are not counted, as on the Wiki.</li>
+      <li>Potion flasks can be hard to buy on the Grand Exchange, and potion prices right after an update may not buy or sell at market price (Wiki note).</li>
+      <li>A price that is missing or older than 15 minutes makes that result unavailable; it is never treated as 0.</li></ul>
+    <p class="note" id="fd-flask" role="status"></p>
+    <div class="row calc-filters">
+      <input id="fd-q" type="search" placeholder="Search potions" aria-label="Search potions" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <select id="fd-show" aria-label="Show"><option value="net">Net profit (after est. tax)</option><option value="gross">Gross profit (before tax)</option></select>
+      <select id="fd-sort" aria-label="Sort"><option value="">Sort: potion name</option>${cols.map(c => `<option value="${esc(c.key)}">Sort: best ${esc(c.label.replace('Decanting ', ''))}</option>`).join('')}</select></div>
+    <p class="note" id="fd-count" role="status" aria-live="polite"></p>
+    <div id="fd-table"></div>
+    <p class="note">Formula and potion list: RuneScape Wiki, <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Calculator:Herblore/Flask decanting</a> and its row template (revisions ${esc(D.source.pageRevision)} / ${esc(D.source.rowTemplateRevision)}), CC BY-NC-SA 3.0. Item IDs: Module:GEIDs (revision ${esc(D.source.itemIdsRevision)}).</p>
+  </section>`;
+  const star = $('#fd-star');
+  const drawStar = () => { const on = RS3Calc.has(RS3Calc.load(CALC_LS), D.path); star.classList.toggle('on', on); star.setAttribute('aria-pressed', String(on)); star.textContent = on ? '★' : '☆';
+    star.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${label} ${on ? 'from' : 'to'} favourites`); star.title = on ? 'Remove from favourites' : 'Save to favourites'; };
+  star.onclick = () => { RS3Calc.toggle(CALC_LS, {path: D.path, label}); drawStar(); };
+  drawStar();
+  const q = $('#fd-q'), show = $('#fd-show'), sort = $('#fd-sort');
+  const why = (item, side) => { const x = LIVE.book.quote(item.id, side); return x.live ? null : `${item.n}: ${QUOTE_WHY[x.status] || x.status}`; };
+  const quoteLine = (item, side) => { const x = side === 'sell' ? LIVE.book.sale(item.id) : LIVE.book.quote(item.id, 'buy');
+    return `<li>${esc(item.n)} — ${side === 'sell' ? 'Sell' : 'Buy'} ${x.live ? `${esc(gp(x.value))}${side === 'sell' ? ` · est. tax ${esc(gp(x.tax))} · net ${esc(gp(x.net))}` : ''}` : `<span class="calc-unavail">unavailable (${esc(QUOTE_WHY[x.status] || x.status)})</span>`}</li>`; };
+  const draw = () => {
+    const fq = LIVE.book.quote(D.flask.id, 'buy');
+    $('#fd-flask').textContent = fq.live ? `Empty potion flask: Buy ${gp(fq.value)} each (live).` : `Empty potion flask: live Buy price unavailable (${QUOTE_WHY[fq.status] || fq.status}), so every result below is unavailable.`;
+    const key = show.value === 'gross' ? 'grossProfit' : 'profit', nq = norm(q.value);
+    let rows = D.rows.map(r => ({r, e: cols.map(c => {
+      const m = RS3Calc.flaskModel(D, r, c), est = LIVE.book.estimate(m);
+      const reasons = est.complete ? [] : [...m.inp.map(l => why(l, 'buy')), ...m.out.map(l => why(l, 'sell'))].filter(Boolean);
+      return {est, reasons: reasons.length ? reasons : est.missing};
+    })})).filter(x => !nq || norm(x.r.flask + ' ' + x.r.vial).includes(nq));
+    const ci = cols.findIndex(c => c.key === sort.value);
+    if (ci >= 0) rows.sort((a, b) => { const x = a.e[ci].est.complete ? a.e[ci].est[key] : null, y = b.e[ci].est.complete ? b.e[ci].est[key] : null;
+      return x == null && y == null ? a.r.flask.localeCompare(b.r.flask) : x == null ? 1 : y == null ? -1 : y - x; });
+    $('#fd-count').textContent = `${rows.length} of ${D.rows.length} potions · showing ${show.value === 'gross' ? 'gross profit (before tax)' : 'net profit (after estimated tax)'} per batch`;
+    const cell = x => x.est.complete
+      ? `<span class="calc-val ${x.est[key] < 0 ? 'loss' : 'gain'}">${x.est[key] < 0 ? '−' : ''}${esc(gp(Math.abs(x.est[key])))}</span><small class="calc-sub">${show.value === 'gross' ? `net ${esc(gp(x.est.profit))}` : `gross ${esc(gp(x.est.grossProfit))} · tax ${esc(gp(x.est.tax))}`}</small>`
+      : `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc(x.reasons.slice(0, 2).join('; '))}</small>`;
+    const openRows = new Set([...document.querySelectorAll('#fd-table details[open]')].map(d => d.dataset.flask));
+    $('#fd-table').innerHTML = rows.length ? `<table class="calc-table"><thead><tr><th scope="col">Flask</th>${cols.map(c => `<th scope="col">${esc(c.label)}</th>`).join('')}</tr></thead><tbody>${rows.map(({r, e}) =>
+      `<tr><th scope="row"><span class="calc-name">${esc(r.flask)}</span><details class="calc-prices" data-flask="${esc(r.flask)}"${openRows.has(r.flask) ? ' open' : ''}><summary>Prices used</summary><ul>${quoteLine(r.f6, 'sell')}${[1, 2, 3, 4].map(d => quoteLine(r['v' + d], 'buy')).join('')}${quoteLine(D.flask, 'buy')}</ul></details></th>${e.map(x => `<td>${cell(x)}</td>`).join('')}</tr>`).join('')}</tbody></table>`
+      : '<p class="note">No potions match.</p>';
+  };
+  q.addEventListener('input', draw); show.onchange = draw; sort.onchange = draw;
+  priceDraws.push(draw);
+  draw();
+}
+
+async function calcView(arg) {
+  const native = arg ? RS3Calc.nativeBySlug(arg) : null;
+  if (arg && !native) { location.replace('#calculators'); return; }
+  if (native) return nativeCalcView(native);
   const D = await get('data/calculators.json');
   const rows = (D.calculators || []).map(c => ({...c, path: RS3Calc.safeWikiPath(c.path)})).filter(c => c.path);
   const sections = [...new Set(rows.map(r => r.section))];
@@ -1013,7 +1083,7 @@ async function calcView() {
   view.innerHTML = `<section class="panel calc-panel" aria-labelledby="calc-title">
     <div class="ge-heading calc-heading"><h2 id="calc-title">Calculators</h2>
       <a class="btn sub calc-source" href="${esc(D.source)}" target="_blank" rel="noopener noreferrer">Wiki Calculators page ↗</a></div>
-    <p class="note">${rows.length} calculators listed on the RuneScape Wiki <a href="${esc(D.source)}" target="_blank" rel="noopener noreferrer">Calculators</a> page${rev ? ` (revision of ${esc(rev)})` : ''}. Each one opens and runs on the RuneScape Wiki in a new tab. The Wiki does not allow its pages to be shown inside other sites, so they cannot be embedded here. The Wiki may have calculators not in this list.</p>
+    <p class="note">${rows.length} calculators listed on the RuneScape Wiki <a href="${esc(D.source)}" target="_blank" rel="noopener noreferrer">Calculators</a> page${rev ? ` (revision of ${esc(rev)})` : ''}. Calculators marked <b>In app</b> are rebuilt here from the Wiki's own formulas and use live Grand Exchange trade prices; ${rows.filter(r => RS3Calc.nativeFor(r.path)).length ? 'the others' : 'all others'} open on the RuneScape Wiki in a new tab (the Wiki does not allow its pages to be embedded in other sites). This list is a dated snapshot; the Wiki page has the current full list.</p>
     <section class="calc-favs" aria-labelledby="calc-fav-title"><h3 id="calc-fav-title">★ Favourite calculators</h3>
       <div id="calc-fav-list"></div>
       <div class="row calc-add"><label for="calc-url" class="calc-add-label">Save another Wiki calculator</label>
@@ -1030,11 +1100,13 @@ async function calcView() {
     <p class="note">Calculator names and descriptions: RuneScape Wiki, CC BY-NC-SA 3.0. Calculators and their results belong to the Wiki.</p>
   </section>`;
   const star = (c, on) => `<button class="calc-star${on ? ' on' : ''}" type="button" data-path="${esc(c.path)}" data-label="${esc(c.label)}" aria-pressed="${on}" aria-label="${on ? 'Remove' : 'Save'} ${esc(c.label)} ${on ? 'from' : 'to'} favourites" title="${on ? 'Remove from favourites' : 'Save to favourites'}">${on ? '★' : '☆'}</button>`;
-  const link = (path, label) => `<a class="calc-link" href="${esc(RS3Calc.wikiUrl(path))}" target="_blank" rel="noopener noreferrer">${esc(label)} <span aria-hidden="true">↗</span><span class="sr-only"> (opens RuneScape Wiki in a new tab)</span></a>`;
+  const link = (path, label) => `<a class="calc-link" href="${esc(RS3Calc.wikiUrl(path))}" target="_blank" rel="noopener noreferrer">${esc(label)} <span aria-hidden="true">↗ Wiki</span><span class="sr-only"> (opens RuneScape Wiki in a new tab)</span></a>`;
+  const appLink = path => { const n = RS3Calc.nativeFor(path); return n ? `<a class="btn sub calc-native" href="#calculators/${esc(n.slug)}">Open in app</a> ` : ''; };
+  const status = path => RS3Calc.nativeFor(path) ? ' <span class="tag calc-in-app">In app · live prices</span>' : ' <span class="tag calc-wiki-only">Wiki only — not yet in app</span>';
   let favs = RS3Calc.load(CALC_LS);
   const drawFavs = () => {
     $('#calc-fav-list').innerHTML = favs.length
-      ? `<ul class="calc-fav-ul">${favs.map(f => `<li class="calc-fav">${link(f.path, f.label)}<button class="btn sub calc-unfav" type="button" data-path="${esc(f.path)}" aria-label="Remove ${esc(f.label)} from favourites">Remove</button></li>`).join('')}</ul>`
+      ? `<ul class="calc-fav-ul">${favs.map(f => `<li class="calc-fav">${appLink(f.path)}${link(f.path, f.label)}<button class="btn sub calc-unfav" type="button" data-path="${esc(f.path)}" aria-label="Remove ${esc(f.label)} from favourites">Remove</button></li>`).join('')}</ul>`
       : '<p class="note">No favourites yet. Tap ☆ next to a calculator to save it here.</p>';
   };
   const q = $('#calc-q'), sec = $('#calc-sec'), typ = $('#calc-type');
@@ -1045,7 +1117,7 @@ async function calcView() {
     for (const r of hit) { const k = r.section + '\u0000' + r.group; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(r); }
     $('#calc-count').textContent = `${hit.length} of ${rows.length} calculators`;
     $('#calc-list').innerHTML = hit.length ? [...groups.values()].map(g => `<section class="calc-group"><h3>${esc(g[0].group)} <small>${esc(g[0].section)}</small></h3><ul class="calc-ul">${g.map(r =>
-      `<li class="calc-item">${star(r, RS3Calc.has(favs, r.path))}<div class="calc-body">${link(r.path, r.label)} <span class="tag calc-type">${esc(r.type)}</span>${r.desc ? `<div class="calc-desc">${esc(r.desc)}</div>` : ''}</div></li>`).join('')}</ul></section>`).join('')
+      `<li class="calc-item">${star(r, RS3Calc.has(favs, r.path))}<div class="calc-body">${appLink(r.path)}${link(r.path, r.label)} <span class="tag calc-type">${esc(r.type)}</span>${status(r.path)}${r.desc ? `<div class="calc-desc">${esc(r.desc)}</div>` : ''}</div></li>`).join('')}</ul></section>`).join('')
       : '<p class="note">No calculators match.</p>';
   };
   const refreshStars = () => document.querySelectorAll('#calc-list .calc-star').forEach(b => {

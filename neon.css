@@ -1390,3 +1390,20 @@ html{scrollbar-gutter:stable}
 .calc-star.on{color:var(--gold);border-color:var(--gold)}
 .calc-star:focus-visible,.calc-unfav:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 @media(max-width:420px){.calc-heading{align-items:flex-start}.calc-source{width:100%;text-align:center}}
+/* Native calculators */
+.calc-native-panel{min-width:0;max-width:100%;box-sizing:border-box}
+.calc-native-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.calc-assume{margin:8px 0 12px;padding-left:1.2em}
+.calc-assume li{margin:3px 0}
+.calc-table{width:100%;border-collapse:collapse}
+.calc-table th,.calc-table td{padding:6px 8px;border-top:1px solid var(--edge2);vertical-align:top;text-align:left}
+@media(min-width:1001px){.calc-table td{text-align:right}}
+.calc-val{font-weight:700;display:block}
+.calc-val.gain{color:#7fdc8a}.calc-val.loss{color:#ff6b6b}
+.calc-sub{display:block;color:var(--muted);font-size:.85em;overflow-wrap:break-word}
+.calc-unavail{color:var(--ember2);font-weight:600}
+.calc-prices summary{cursor:pointer;color:var(--muted);font-size:.85em;margin-top:2px}
+.calc-prices ul{margin:4px 0 0;padding-left:1.1em;font-weight:400;font-size:.88em}
+.calc-native{margin-right:6px}
+.calc-in-app{border-color:var(--gold);color:var(--gold)}
+.calc-wiki-only{opacity:.75}

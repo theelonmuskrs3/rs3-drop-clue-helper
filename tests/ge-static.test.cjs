@@ -56,7 +56,7 @@ assert.match(app, /async function route\(\) \{\s*if \(geCleanup\)/);
 assert.match(app, /async function itemsView\(name\) \{\s*if \(name === '~ge'\) \{ location\.replace\('#ge'\); return; \}/, 'old #items/~ge bookmarks alias to #ge');
 assert.match(app, /else if \(tab === 'ge'\) geView\(\);/);
 assert.match(html, /<button data-tab="ge">/);
-assert.doesNotMatch(app.match(/if \(\[[^\]]+\]\.includes\(tab\)[^\n]*bindPriceView/)[0], /'ge'/, 'G.E. tab keeps no app price banner, as before');
+assert.doesNotMatch(app.match(/if \(\(?\[[^\]]+\]\.includes\(tab\)[^\n]*bindPriceView/)[0], /'ge'/, 'G.E. tab keeps no app price banner, as before');
 const csp = html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)[1];
 assert.match(csp, /frame-src https:\/\/prices.runescape.wiki;/);
 assert.match(csp, /connect-src 'self' https:\/\/prices.runescape.wiki;/);
