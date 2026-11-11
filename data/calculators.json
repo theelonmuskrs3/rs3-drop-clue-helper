@@ -1,0 +1,1690 @@
+{
+ "source": "https://runescape.wiki/w/Calculators",
+ "sourceRevision": 37207671,
+ "sourceRevisionTimestamp": "2026-10-14T18:45:53Z",
+ "license": "CC BY-NC-SA 3.0 (RuneScape Wiki)",
+ "note": "Directory of calculators listed on the RuneScape Wiki Calculators page. Calculators run on the Wiki; the Wiki forbids framing (X-Frame-Options: DENY; frame-ancestors 'none').",
+ "sections": [
+  "General",
+  "Artisan skills",
+  "Combat skills",
+  "Gathering skills",
+  "Support skills"
+ ],
+ "calculators": [
+  {
+   "label": "Nemi forest",
+   "page": "Nemi Forest",
+   "path": "/w/Nemi_Forest#Experience_rewards",
+   "type": "Experience",
+   "section": "General",
+   "group": "Distractions and Diversions",
+   "desc": "Calculates how much XP you get from doing one of the Nemi Forest activities."
+  },
+  {
+   "label": "Penguin point experience",
+   "page": "Calculator:Other/Penguin points",
+   "path": "/w/Calculator:Other/Penguin_points",
+   "type": "Experience",
+   "section": "General",
+   "group": "Distractions and Diversions",
+   "desc": "Calculates the amount of experience you get from penguin points."
+  },
+  {
+   "label": "Shark soup ingredient needed to achieve chimes goal",
+   "page": "Calculator:Shark soup",
+   "path": "/w/Calculator:Shark_soup",
+   "type": "Economic",
+   "section": "General",
+   "group": "Distractions and Diversions",
+   "desc": "Calculates the amount of ingredient needed to create shark soups, needed for earning chimes."
+  },
+  {
+   "label": "Troll Invasion experience",
+   "page": "Reward book",
+   "path": "/w/Reward_book",
+   "type": "Experience",
+   "section": "General",
+   "group": "Distractions and Diversions",
+   "desc": "Calculates the amount of experience you get from Troll Invasion."
+  },
+  {
+   "label": "Flipping calculator",
+   "page": "Calculator:Other/Flipping",
+   "path": "/w/Calculator:Other/Flipping",
+   "type": "Economic",
+   "section": "General",
+   "group": "Economy",
+   "desc": "Calculates the profit/loss made with flipping."
+  },
+  {
+   "label": "Merchanting for long-term investments",
+   "page": "Calculator:Other/Long-Term Merchanting",
+   "path": "/w/Calculator:Other/Long-Term_Merchanting",
+   "type": "Economic",
+   "section": "General",
+   "group": "Economy",
+   "desc": "Calculates your cash after merchanting for a set amount of rounds."
+  },
+  {
+   "label": "Brawling gloves multiplier",
+   "page": "Calculator:Brawling gloves multiplier",
+   "path": "/w/Calculator:Brawling_gloves_multiplier",
+   "type": "Experience",
+   "section": "General",
+   "group": "Levelling",
+   "desc": "Calculates the XP multiplier of brawling gloves depending on the tier of Infernal Puzzle Box."
+  },
+  {
+   "label": "Experience needed to reach a goal",
+   "page": "Calculator:Other/Experience to level",
+   "path": "/w/Calculator:Other/Experience_to_level",
+   "type": "Experience",
+   "section": "General",
+   "group": "Levelling",
+   "desc": "Calculates the experience missing from lLevelling."
+  },
+  {
+   "label": "Experience buffs stacking",
+   "page": "Calculator:Experience Buffs",
+   "path": "/w/Calculator:Experience_Buffs",
+   "type": "Experience",
+   "section": "General",
+   "group": "Levelling",
+   "desc": "Calculates the experience earned for every action when stacking multiple experience buffs."
+  },
+  {
+   "label": "Experience obtained during Double XP Events",
+   "page": "Calculator:Double XP Weekend",
+   "path": "/w/Calculator:Double_XP_Weekend",
+   "type": "Experience",
+   "section": "General",
+   "group": "Levelling",
+   "desc": "Calculates the experience you will get during Double XP events with boosts."
+  },
+  {
+   "label": "Dragonkin lamps/stars needed to reach a goal",
+   "page": "Calculator:Other/Dragonkin XP",
+   "path": "/w/Calculator:Other/Dragonkin_XP",
+   "type": "Experience",
+   "section": "General",
+   "group": "Levelling",
+   "desc": "Calculates how many effigies are needed to get to a specific level."
+  },
+  {
+   "label": "Efficiency of different methods of levelling",
+   "page": "Efficiency",
+   "path": "/w/Efficiency",
+   "type": "Experience",
+   "section": "General",
+   "group": "Levelling",
+   "desc": "Compares the efficiency of two different tasks."
+  },
+  {
+   "label": "Urns needed to reach a goal",
+   "page": "Calculator:Other/Urns",
+   "path": "/w/Calculator:Other/Urns",
+   "type": "Experience",
+   "section": "General",
+   "group": "Levelling",
+   "desc": "Calculates the number of urns needed to get to a particular level."
+  },
+  {
+   "label": "Advanced pulse core",
+   "page": "Calculator:Other/Advanced pulse core",
+   "path": "/w/Calculator:Other/Advanced_pulse_core",
+   "type": "Experience",
+   "section": "General",
+   "group": "MTX",
+   "desc": "Calculates the experience gained when a pulse core is consumed."
+  },
+  {
+   "label": "Protean items needed to reach a goal",
+   "page": "Calculator:Other/Protean Items",
+   "path": "/w/Calculator:Other/Protean_Items",
+   "type": "Experience",
+   "section": "General",
+   "group": "MTX",
+   "desc": "Calculates how many protean items are needed to get to a specific level."
+  },
+  {
+   "label": "XP Lamps needed to reach a goal",
+   "page": "Calculator:Other/XP Lamps",
+   "path": "/w/Calculator:Other/XP_Lamps",
+   "type": "Experience",
+   "section": "General",
+   "group": "MTX",
+   "desc": "Calculates how many XP Lamps of each size are needed to get to a specific level."
+  },
+  {
+   "label": "Crafting cleaner",
+   "page": "Calculator:Crafting/Crafting cleaner",
+   "path": "/w/Calculator:Crafting/Crafting_cleaner",
+   "type": "Economic",
+   "section": "General",
+   "group": "MTX",
+   "desc": "Calculates the profit/loss when using the crafting cleaner to cast high level alchemy."
+  },
+  {
+   "label": "Silverhawk feathers needed to reach a goal",
+   "page": "Calculator:Silverhawk boots",
+   "path": "/w/Calculator:Silverhawk_boots",
+   "type": "Experience",
+   "section": "General",
+   "group": "MTX",
+   "desc": "Calculates how many feathers are needed to get to your selected goal from a given amount of experience."
+  },
+  {
+   "label": "Trade goods profit from the player-owned port",
+   "page": "Calculator:Other/Trade goods",
+   "path": "/w/Calculator:Other/Trade_goods",
+   "type": "Economic",
+   "section": "General",
+   "group": "Minigames",
+   "desc": "Calculates the profit from making items from trade goods in the player-owned port."
+  },
+  {
+   "label": "Cabbage Facepunch Bonanza bonus experience",
+   "page": "Calculator:Other/Cabbage Facepunch Bonanza BonusXp",
+   "path": "/w/Calculator:Other/Cabbage_Facepunch_Bonanza_BonusXp",
+   "type": "Experience",
+   "section": "General",
+   "group": "Minigames",
+   "desc": "Calculates how much bonus xp you will receive for your levels."
+  },
+  {
+   "label": "Temple Trekking for profit",
+   "page": "Calculator:Other/Temple Trekking",
+   "path": "/w/Calculator:Other/Temple_Trekking",
+   "type": "Economic",
+   "section": "General",
+   "group": "Minigames",
+   "desc": "Calculates the minimum, average and maximum profit for redeeming reward tokens in Temple Trekking."
+  },
+  {
+   "label": "Item packs",
+   "page": "Calculator:Item packs",
+   "path": "/w/Calculator:Item_packs",
+   "type": "Economic",
+   "section": "General",
+   "group": "Stores",
+   "desc": "Shows the profit/loss from buying item packs and selling the unpacked items on the GE."
+  },
+  {
+   "label": "Splitbark armour making for profit",
+   "page": "Calculator:Other/Splitbark",
+   "path": "/w/Calculator:Other/Splitbark",
+   "type": "Economic",
+   "section": "General",
+   "group": "Stores",
+   "desc": "Calculates the profit/loss for purchasing Splitbark armour from either the Grand Exchange or from the Wizards' Tower armoured wizard."
+  },
+  {
+   "label": "Rune shops",
+   "page": "Calculator:Other/Runes from shops",
+   "path": "/w/Calculator:Other/Runes_from_shops",
+   "type": "Economic",
+   "section": "General",
+   "group": "Stores",
+   "desc": "Calculates which runes are profitable to buy from shops and sell back to the Grand Exchange."
+  },
+  {
+   "label": "Constructed items needed to reach a goal",
+   "page": "Calculator:Construction",
+   "path": "/w/Calculator:Construction",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Construction",
+   "desc": "Calculates the number of items needed to be built to attain a level."
+  },
+  {
+   "label": "Furniture profit on the Grand Exchange",
+   "page": "Calculator:Construction/Furniture",
+   "path": "/w/Calculator:Construction/Furniture",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Construction",
+   "desc": "Calculates the profit/loss from making furniture."
+  },
+  {
+   "label": "Selling player-owned house items for profit",
+   "page": "Calculator:Other/Selling POH items",
+   "path": "/w/Calculator:Other/Selling_POH_items",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Construction",
+   "desc": "Calculates the money made from selling items from a player-owned house."
+  },
+  {
+   "label": "Plank making cost and profit",
+   "page": "Calculator:Construction/Plank making",
+   "path": "/w/Calculator:Construction/Plank_making",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Construction",
+   "desc": "Calculates the profit/loss from making planks, refined planks, or frames at the sawmill/woodworking bench or with plank making invention machines."
+  },
+  {
+   "label": "Construction Contract cost",
+   "page": "Calculator:Construction/Contract cost",
+   "path": "/w/Calculator:Construction/Contract_cost",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Construction",
+   "desc": "Calculates the materials needed and cost for completing construction contracts."
+  },
+  {
+   "label": "Fort Forinthry",
+   "page": "Calculator:Construction/Fort Forinthry",
+   "path": "/w/Calculator:Construction/Fort_Forinthry",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Construction",
+   "desc": "Provides the total materials and calculates costs required to complete all buildings in Fort Forinthry."
+  },
+  {
+   "label": "Cooking for experience",
+   "page": "Calculator:Cooking",
+   "path": "/w/Calculator:Cooking",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Cooking",
+   "desc": "Calculates the number of food needed to be cooked to attain a level."
+  },
+  {
+   "label": "Cooking for profit",
+   "page": "Calculator:Cooking/Cooking various items",
+   "path": "/w/Calculator:Cooking/Cooking_various_items",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Cooking",
+   "desc": "Calculates the profit/loss from brewing ales, cooking fish, pies, pizzas, and potatoes based on the assumption that all ingredients are bought."
+  },
+  {
+   "label": "Cooking fish for profit",
+   "page": "Calculator:Cooking/Fish profit",
+   "path": "/w/Calculator:Cooking/Fish_profit",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Cooking",
+   "desc": "Dynamically calculates the profit/loss from cooking fish, with various effects such as the portable range."
+  },
+  {
+   "label": "Crafted items needed to reach a goal",
+   "page": "Calculator:Crafting",
+   "path": "/w/Calculator:Crafting",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "A calculator to work out how many items are needed to be crafted to get to a goal level/experience (from current level/experience), and the profit/loss for doing so."
+  },
+  {
+   "label": "Ranged armour crafting",
+   "page": "Calculator:Crafting/Hides",
+   "path": "/w/Calculator:Crafting/Hides",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "Calculates the cost of using various tanned and untanned hides to craft ranging armour using the tanner and Make leather spell/prepared materials."
+  },
+  {
+   "label": "Jewellery crafting for profit",
+   "page": "Calculator:Crafting/Jewellery",
+   "path": "/w/Calculator:Crafting/Jewellery",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "Calculates the cost of using gold and silver bars, and gems to craft different types of jewellery."
+  },
+  {
+   "label": "Urn crafting for profit",
+   "page": "Calculator:Urns/Crafting",
+   "path": "/w/Calculator:Urns/Crafting",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "Calculates the profit/loss of crafting urns."
+  },
+  {
+   "label": "Gem cutting for experience",
+   "page": "Calculator:Crafting/Gem cutting",
+   "path": "/w/Calculator:Crafting/Gem_cutting",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "Calculates the profit/loss from successfully cutting gems."
+  },
+  {
+   "label": "Gem cutting for experience (dynamic)",
+   "page": "Calculator:Crafting/Gem cutting dynamic",
+   "path": "/w/Calculator:Crafting/Gem_cutting_dynamic",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "Dynamically calculates the wealth difference and experience gain from successfully cutting gems."
+  },
+  {
+   "label": "Battlestaff profit from unpowered orbs",
+   "page": "Calculator:Crafting/Battlestaves",
+   "path": "/w/Calculator:Crafting/Battlestaves",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "Calculates the profit/loss of making battlestaves from unpowered orbs."
+  },
+  {
+   "label": "Tanning hides for profit",
+   "page": "Calculator:Crafting/Tanning",
+   "path": "/w/Calculator:Crafting/Tanning",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "Calculates the profit/loss of tanning various hides."
+  },
+  {
+   "label": "Glassblowing cost per experience point",
+   "page": "Calculator:Crafting/Glass",
+   "path": "/w/Calculator:Crafting/Glass",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "Calculates the profit/loss per XP for blowing molten glass into various items."
+  },
+  {
+   "label": "Polypore armour crafting for profit",
+   "page": "Calculator:Crafting/Polypore armour",
+   "path": "/w/Calculator:Crafting/Polypore_armour",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "Calculates the profit/loss of crafting fungal armour, grifolic armour, and ganodermic armour."
+  },
+  {
+   "label": "Other",
+   "page": "Calculator:Crafting/Other",
+   "path": "/w/Calculator:Crafting/Other",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "Calculates the profit/loss per XP for various items."
+  },
+  {
+   "label": "Crafting cleaner",
+   "page": "Calculator:Crafting/Crafting cleaner",
+   "path": "/w/Calculator:Crafting/Crafting_cleaner",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Crafting",
+   "desc": "Calculates the profit/loss when using the crafting cleaner to cast high level alchemy."
+  },
+  {
+   "label": "Bonfires needed to reach a goal",
+   "page": "Calculator:Firemaking",
+   "path": "/w/Calculator:Firemaking",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Firemaking",
+   "desc": "Calculates the number of logs needed to attain a level."
+  },
+  {
+   "label": "Incense profit",
+   "page": "Calculator:Firemaking/Incense sticks",
+   "path": "/w/Calculator:Firemaking/Incense_sticks",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Firemaking",
+   "desc": "Calculates the profit/loss from incense items when resources are bought."
+  },
+  {
+   "label": "Log burning cost per experience point",
+   "page": "Calculator:Firemaking/Burning logs",
+   "path": "/w/Calculator:Firemaking/Burning_logs",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Firemaking",
+   "desc": "Calculates the coins per experience for burning normal logs and pyre logs for Shades of Mort'ton minigame and Columbarium."
+  },
+  {
+   "label": "Fletched items needed to reach a goal",
+   "page": "Calculator:Fletching",
+   "path": "/w/Calculator:Fletching",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Fletching",
+   "desc": "Calculates the amount of experience and logs needed to reach a certain level."
+  },
+  {
+   "label": "Fletching bows and arrows for profit",
+   "page": "Calculator:Fletching/Items",
+   "path": "/w/Calculator:Fletching/Items",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Fletching",
+   "desc": "Calculates the profit/loss from fletching items when resources are bought."
+  },
+  {
+   "label": "Crafting gem bolt tips for profit",
+   "page": "Calculator:Fletching/Gems to bolt tips",
+   "path": "/w/Calculator:Fletching/Gems_to_bolt_tips",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Fletching",
+   "desc": "Calculates the profit/loss of crafting gem bolt tips from uncut or cut gems."
+  },
+  {
+   "label": "Crafting bakriminel bolts for profit",
+   "page": "Calculator:Fletching/Bakriminel bolts",
+   "path": "/w/Calculator:Fletching/Bakriminel_bolts",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Fletching",
+   "desc": "Calculates the profit/loss of crafting unenchanted and enchanted bakriminel bolts."
+  },
+  {
+   "label": "Potions needed to reach a goal",
+   "page": "Calculator:Herblore",
+   "path": "/w/Calculator:Herblore",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculate how many potions you need to get between a start and an end level or experience."
+  },
+  {
+   "label": "Potion cost for experience and profit",
+   "page": "Calculator:Herblore/Potions",
+   "path": "/w/Calculator:Herblore/Potions",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculates the costs of making standard potions."
+  },
+  {
+   "label": "Potion profit when buying ingredients",
+   "page": "Calculator:Herblore/Efficient Profit",
+   "path": "/w/Calculator:Herblore/Efficient_Profit",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculates profit/losses using grimy herbs, Portable well, have the Scroll of cleansing, and are decanting into Potion flasks."
+  },
+  {
+   "label": "Barbarian mix cost per experience point",
+   "page": "Calculator:Herblore/Barbarian mixes",
+   "path": "/w/Calculator:Herblore/Barbarian_mixes",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculates the costs of making Barbarian mix potions. Also includes potions that won't/can't be sold."
+  },
+  {
+   "label": "Dose cost",
+   "page": "Calculator:Herblore/Dose cost",
+   "path": "/w/Calculator:Herblore/Dose_cost",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculates the cost per dose for tradeable potions bought from the GE."
+  },
+  {
+   "label": "Decanting vials for profit",
+   "page": "Calculator:Decanting",
+   "path": "/w/Calculator:Decanting",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculates the profit/loss from decanting partially full vials into full vials."
+  },
+  {
+   "label": "Decanting flasks for profit",
+   "page": "Calculator:Herblore/Flask decanting",
+   "path": "/w/Calculator:Herblore/Flask_decanting",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculates the profit/loss from decanting potions into flasks."
+  },
+  {
+   "label": "Combination potion cost",
+   "page": "Calculator:Herblore/Combination potions",
+   "path": "/w/Calculator:Herblore/Combination_potions",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculates the costs of making combination potions."
+  },
+  {
+   "label": "Extreme potion and overload costs",
+   "page": "Calculator:Herblore/Extreme potions",
+   "path": "/w/Calculator:Herblore/Extreme_potions",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculates the costs of making extreme potions and overloads."
+  },
+  {
+   "label": "Ingredients of overload and overload variant",
+   "page": "Calculator:Herblore/Overload variants",
+   "path": "/w/Calculator:Herblore/Overload_variants",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculates the amount of ingredients needed to make desired amount of overloads or overload variants such as elder overloads while taking into account owned ingredients."
+  },
+  {
+   "label": "Cleaning herbs for profit",
+   "page": "Calculator:Herblore/Herbs",
+   "path": "/w/Calculator:Herblore/Herbs",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculates the (potential) profit of cleaning herbs."
+  },
+  {
+   "label": "Unfinished potion production for profit",
+   "page": "Calculator:Herblore/Unfinished potions",
+   "path": "/w/Calculator:Herblore/Unfinished_potions",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Herblore",
+   "desc": "Calculates the profit/cost of turning herbs into unfinished potions and turning unfinished potions into 3 dose potions."
+  },
+  {
+   "label": "Disassembly, siphoning, and manufacturing needed to reach a goal",
+   "page": "Calculator:Invention",
+   "path": "/w/Calculator:Invention",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Invention",
+   "desc": "Calculates the experience needed for a certain level."
+  },
+  {
+   "label": "Spring cleaner profit per spring",
+   "page": "Calculator:Spring cleaner",
+   "path": "/w/Calculator:Spring_cleaner",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Invention",
+   "desc": "Calculates profit/loss from using a Spring cleaner."
+  },
+  {
+   "label": "Spring cleaner profit per spring (dynamic)",
+   "page": "Calculator:Other/Spring cleaner desired profit",
+   "path": "/w/Calculator:Other/Spring_cleaner_desired_profit",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Invention",
+   "desc": "Calculates the profit made from the number of springs used."
+  },
+  {
+   "label": "Scavenging components and profit per hour",
+   "page": "Calculator:Invention/Scavenging",
+   "path": "/w/Calculator:Invention/Scavenging",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Invention",
+   "desc": "Calculates the estimated amount of components and profit received from the Scavenging perk."
+  },
+  {
+   "label": "Disassembly by category",
+   "page": "Calculator:Disassembly by category",
+   "path": "/w/Calculator:Disassembly_by_category",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Invention",
+   "desc": "Calculates the cost per material of disassembling items in a specific disassembly category."
+  },
+  {
+   "label": "Disassembly by material",
+   "page": "Calculator:Disassembly by material",
+   "path": "/w/Calculator:Disassembly_by_material",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Invention",
+   "desc": "Calculates the cost of disassembling items for a specific material."
+  },
+  {
+   "label": "Disassembling and siphoning for experience",
+   "page": "Calculator:Equipment experience by tier",
+   "path": "/w/Calculator:Equipment_experience_by_tier",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Invention",
+   "desc": "Shows common equipment tiers with disassembly experience at each level."
+  },
+  {
+   "label": "Runes needing crafted to reach a goal",
+   "page": "Calculator:Runecrafting",
+   "path": "/w/Calculator:Runecrafting",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Runecrafting",
+   "desc": "Calculates the number of runes needed to be crafted to attain a level."
+  },
+  {
+   "label": "Crafting multiple runes simultaneously for profit",
+   "page": "Calculator:Runecrafting/Multiple runes",
+   "path": "/w/Calculator:Runecrafting/Multiple_runes",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Runecrafting",
+   "desc": "Calculates the profit/loss of Runecrafting multiple runes."
+  },
+  {
+   "label": "Crafting multiple runes simultaneously for profit",
+   "page": "Calculator:Runecrafting/Multiple runes dynamic",
+   "path": "/w/Calculator:Runecrafting/Multiple_runes_dynamic",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Runecrafting",
+   "desc": "Calculates the profit/loss of Runecrafting multiple runes dynamically using Runecrafting level and other selected boosts."
+  },
+  {
+   "label": "Crafting tiaras for profit",
+   "page": "Calculator:Runecrafting/Tiaras",
+   "path": "/w/Calculator:Runecrafting/Tiaras",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Runecrafting",
+   "desc": "Calculates the profit/loss of making Runecrafting tiaras."
+  },
+  {
+   "label": "Altar runs for profit",
+   "page": "Calculator:Runecrafting/Profit per trip",
+   "path": "/w/Calculator:Runecrafting/Profit_per_trip",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Runecrafting",
+   "desc": "Calculates the profit/loss of making runes per trip."
+  },
+  {
+   "label": "Crafting combination runes for profit",
+   "page": "Calculator:Runecrafting/Combination runes",
+   "path": "/w/Calculator:Runecrafting/Combination_runes",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Runecrafting",
+   "desc": "Calculates the profit/loss of crafting combination runes."
+  },
+  {
+   "label": "Smithing needed to reach a goal",
+   "page": "Calculator:Smithing",
+   "path": "/w/Calculator:Smithing",
+   "type": "Experience",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the experience, time, and materials needed for a certain level."
+  },
+  {
+   "label": "Smithing rates",
+   "page": "Calculator:Smithing/Rate",
+   "path": "/w/Calculator:Smithing/Rate",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the speed and cost of gaining smithing experience and creating items."
+  },
+  {
+   "label": "Smithing rates overview",
+   "page": "Calculator:Smithing/Rates Overview",
+   "path": "/w/Calculator:Smithing/Rates_Overview",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "A quick overview of the speed, xp and materials rates of forging items."
+  },
+  {
+   "label": "Repairing armour at an armour repair stand",
+   "page": "Calculator:Smithing/Armour stand",
+   "path": "/w/Calculator:Smithing/Armour_stand",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the cost of repairing an item at an armour stand, for a given item and Smithing level."
+  },
+  {
+   "label": "Repairing armour in player-owned ports",
+   "page": "Calculator:Smithing/Player-owned port armour repair",
+   "path": "/w/Calculator:Smithing/Player-owned_port_armour_repair",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the cost of repairing player-owned port armour at an armour stand, for a given item and Smithing level."
+  },
+  {
+   "label": "Repairing Barrows armour for profit",
+   "page": "Calculator:Smithing/Barrows repair",
+   "path": "/w/Calculator:Smithing/Barrows_repair",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the profit/loss of repairing barrows items."
+  },
+  {
+   "label": "Cannonball smithing for profit",
+   "page": "Calculator:Smithing/Cannonballs",
+   "path": "/w/Calculator:Smithing/Cannonballs",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the profit/loss from making cannonballs using ores and bars."
+  },
+  {
+   "label": "Smelting bars for profit",
+   "page": "Calculator:Smithing/Ores",
+   "path": "/w/Calculator:Smithing/Ores",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the profit/loss from smithing ores into metal bars."
+  },
+  {
+   "label": "Smelting bars for profit (dynamic)",
+   "page": "Calculator:Smithing/Smelting",
+   "path": "/w/Calculator:Smithing/Smelting",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the profit/loss from smithing ores into metal bars for a given Smithing level and using selected equipment."
+  },
+  {
+   "label": "Blast furnace smithing for profit",
+   "page": "Calculator:Smithing/Blast Furnace",
+   "path": "/w/Calculator:Smithing/Blast_Furnace",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the profit/loss of creating all possible items at the Blast Furnace."
+  },
+  {
+   "label": "Smithing items for profit",
+   "page": "Calculator:Smithing/Profit",
+   "path": "/w/Calculator:Smithing/Profit",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the profit/loss from smithing items."
+  },
+  {
+   "label": "Smithing dragon items for profit",
+   "page": "Calculator:Smithing/Special",
+   "path": "/w/Calculator:Smithing/Special",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the profit/loss from smithing dragon items like the dragon platebody and dragonfire shield."
+  },
+  {
+   "label": "Superheating ore into bars for profit",
+   "page": "Calculator:Magic/Superheat",
+   "path": "/w/Calculator:Magic/Superheat",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the profit/loss of using Superheat Item to smelt bars."
+  },
+  {
+   "label": "Smelting bars for personal use",
+   "page": "Calculator:Smithing/Ore to metal buying",
+   "path": "/w/Calculator:Smithing/Ore_to_metal_buying",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates how many ores you can buy with the money you're willing to spend to smelt certain bars."
+  },
+  {
+   "label": "Masterwork smithing cost",
+   "page": "Calculator:Smithing/Trimmed masterwork armour",
+   "path": "/w/Calculator:Smithing/Trimmed_masterwork_armour",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the ores you need to smith the full masterwork armour, assuming Elder rune +5 is made."
+  },
+  {
+   "label": "Masterwork smithing time",
+   "page": "Calculator:Smithing/Trimmed masterwork armour time",
+   "path": "/w/Calculator:Smithing/Trimmed_masterwork_armour_time",
+   "type": "Economic",
+   "section": "Artisan skills",
+   "group": "Smithing",
+   "desc": "Calculates the time and cost to smith the full masterwork armour."
+  },
+  {
+   "label": "Combat level",
+   "page": "Combat level",
+   "path": "/w/Combat_level#combatCalcForm",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat",
+   "desc": "Calculates your combat level."
+  },
+  {
+   "label": "Critical strike",
+   "page": "Calculator:Combat/Critical strike",
+   "path": "/w/Calculator:Combat/Critical_strike",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat",
+   "desc": "Calculates the damage and probability of the player to land a critical strike."
+  },
+  {
+   "label": "Food cost per hitpoint",
+   "page": "Calculator:Other/Food healed",
+   "path": "/w/Calculator:Other/Food_healed",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Combat",
+   "desc": "Calculates the cost of food based on the amount healed."
+  },
+  {
+   "label": "Kills needed to reach a goal",
+   "page": "Calculator:Combat/Kills to goal",
+   "path": "/w/Calculator:Combat/Kills_to_goal",
+   "type": "Experience",
+   "section": "Combat skills",
+   "group": "Combat",
+   "desc": "Calculates how many kills of any monster are needed to reach level or experience goals in Attack, Strength, Magic, Ranged, Necromancy, Defence, Constitution, and Slayer."
+  },
+  {
+   "label": "Poison",
+   "page": "Calculator:Combat/Poison",
+   "path": "/w/Calculator:Combat/Poison",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat",
+   "desc": "Calculates poison damage."
+  },
+  {
+   "label": "Average damage",
+   "page": "Calculator:Combat/Average damage",
+   "path": "/w/Calculator:Combat/Average_damage",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Abilities",
+   "desc": "Calculates the average damage for auto attacks and (most) non-bleed abilities."
+  },
+  {
+   "label": "Barricade duration calculator",
+   "page": "Calculator:Combat/Barricade",
+   "path": "/w/Calculator:Combat/Barricade",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Abilities",
+   "desc": "Calculates the maximum amount of time the Barricade ultimate ability lasts. Shield tier, Turtling perk, and the malletops perk are taken into consideration."
+  },
+  {
+   "label": "Bleeding ability average damage",
+   "page": "Calculator:Combat/Average damage (bleeds)",
+   "path": "/w/Calculator:Combat/Average_damage_(bleeds)",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Abilities",
+   "desc": "Calculates the average damage for bleed abilities."
+  },
+  {
+   "label": "Divert",
+   "page": "Calculator:Combat/Divert",
+   "path": "/w/Calculator:Combat/Divert",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Abilities",
+   "desc": "Calculates the adrenaline gained from the Divert basic ability based on the damage the player takes, the player's shield tier, and if the player is under the PvM effect of Natural Instinct."
+  },
+  {
+   "label": "Crystal Rain",
+   "page": "Calculator:Combat/Crystal Rain",
+   "path": "/w/Calculator:Combat/Crystal_Rain",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Equipment",
+   "desc": "Calculates the total damage from the Seren godbow special attack, Crystal Rain, under various conditions."
+  },
+  {
+   "label": "Fungal Shield calculator",
+   "page": "Calculator:Combat/Fungal Shield",
+   "path": "/w/Calculator:Combat/Fungal_Shield",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Equipment",
+   "desc": "Calculates the possible life point values stored in the Fungal Shield based on the player's Defence level and Total Armour stat while wearing all 5 pieces of Cryptbloom armour."
+  },
+  {
+   "label": "Pocket slot combat items",
+   "page": "Calculator:Combat/Combat pocket slot items",
+   "path": "/w/Calculator:Combat/Combat_pocket_slot_items",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Equipment",
+   "desc": "Calculates effects of pocket slot items."
+  },
+  {
+   "label": "Ruby bolts (e) special effect damage",
+   "page": "Calculator:Combat/Ruby bolts (e)",
+   "path": "/w/Calculator:Combat/Ruby_bolts_(e)",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Equipment",
+   "desc": "Calculates the damage blood forfeit does based on the current and max life points of your enemy."
+  },
+  {
+   "label": "Scriptures",
+   "page": "Calculator:Combat/Scriptures",
+   "path": "/w/Calculator:Combat/Scriptures",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Equipment",
+   "desc": "Calculates and compares the damage per minute (DPM) increase of the Scripture of Jas, Scripture of Wen, Scripture of Ful, and Scripture of Amascut."
+  },
+  {
+   "label": "Split Soul",
+   "page": "Calculator:Combat/Split Soul",
+   "path": "/w/Calculator:Combat/Split_Soul",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Equipment",
+   "desc": "Calculates the total damage from the Eldritch crossbow special attack, Split Soul, for a given damage hitsplat."
+  },
+  {
+   "label": "Biting, Precise, and Eruptive combined effect",
+   "page": "Calculator:Combat/Biting Precise and Eruptive",
+   "path": "/w/Calculator:Combat/Biting_Precise_and_Eruptive",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat perks",
+   "desc": "Calculates average ability damage increase caused by the Biting, Precise, and Eruptive perks."
+  },
+  {
+   "label": "Bulwark efficacy on Debilitate",
+   "page": "Calculator:Combat/Bulwark",
+   "path": "/w/Calculator:Combat/Bulwark",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat perks",
+   "desc": "Calculates the total active time for Debilitate when used with the Bulwark perk."
+  },
+  {
+   "label": "Crystal Shield damage reduction",
+   "page": "Calculator:Combat/Crystal Shield (perk)",
+   "path": "/w/Calculator:Combat/Crystal_Shield_(perk)",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat perks",
+   "desc": "Calculates damage reduction provided by the Crystal Shield perk."
+  },
+  {
+   "label": "Enhanced Devoted and Devoted combined damage reduction",
+   "page": "Calculator:Combat/Combined Enhanced Devoted and Devoted",
+   "path": "/w/Calculator:Combat/Combined_Enhanced_Devoted_and_Devoted",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat perks",
+   "desc": "Calculates damage reduction provided by the Enhanced Devoted perk and the Devoted perk when used together in either PvM or PvP."
+  },
+  {
+   "label": "Lucky and Absorbative damage reduction",
+   "page": "Calculator:Combat/Combined Lucky and Absorbative",
+   "path": "/w/Calculator:Combat/Combined_Lucky_and_Absorbative",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat perks",
+   "desc": "Calculates the combined damage reduction provided by the Lucky and Absorbative perks."
+  },
+  {
+   "label": "Berserker's Fury calculator",
+   "page": "Calculator:Combat/Berserker's Fury",
+   "path": "/w/Calculator:Combat/Berserker%27s_Fury",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat perks",
+   "desc": "Calculates the range of life points corresponding to values of damage increase while the Berserker's Fury relic power is active."
+  },
+  {
+   "label": "Death Ward calculator",
+   "page": "Calculator:Combat/Death Ward",
+   "path": "/w/Calculator:Combat/Death_Ward",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat perks",
+   "desc": "Calculates the damage reduction and life points after the effect of the Death Ward relic power while it is active."
+  },
+  {
+   "label": "Animate Dead",
+   "page": "Calculator:Combat/Animate Dead",
+   "path": "/w/Calculator:Combat/Animate_Dead",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat perks",
+   "desc": "Calculates the damage reduction provided by the Animate Dead ancient spell."
+  },
+  {
+   "label": "Ripper demon passive",
+   "page": "Calculator:Combat/Ripper demon passive",
+   "path": "/w/Calculator:Combat/Ripper_demon_passive",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Combat perks",
+   "desc": "Calculates the damage increase passive as a function of target's current life points."
+  },
+  {
+   "label": "Arch-Glacor drop rates",
+   "page": "Calculator:Combat/Arch-Glacor",
+   "path": "/w/Calculator:Combat/Arch-Glacor",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "PvM",
+   "desc": "Calculates drop rates for unique drops at Arch-Glacor (Hard mode)."
+  },
+  {
+   "label": "Barrows drop rates",
+   "page": "Calculator:Barrows",
+   "path": "/w/Calculator:Barrows",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "PvM",
+   "desc": "Calculates the chance to receive Barrows equipment based on the number of brothers killed"
+  },
+  {
+   "label": "Drop rate calculator",
+   "page": "Calculator:Combat/Drop Rate",
+   "path": "/w/Calculator:Combat/Drop_Rate",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "PvM",
+   "desc": "Calculates the probability of receiving a drop within a certain amount of kills."
+  },
+  {
+   "label": "Rune pads",
+   "page": "Calculator:Combat/Rune pads",
+   "path": "/w/Calculator:Combat/Rune_pads",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "PvM",
+   "desc": "Calculates information about both the hexes and edicts during the Zamorak, Lord of Chaos boss fight."
+  },
+  {
+   "label": "Telos drop rates",
+   "page": "Calculator:Combat/Telos",
+   "path": "/w/Calculator:Combat/Telos",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "PvM",
+   "desc": "Calculates drop rates for unique drops at Telos."
+  },
+  {
+   "label": "Non-combat spells needed to reach a goal",
+   "page": "Calculator:Magic",
+   "path": "/w/Calculator:Magic",
+   "type": "Experience",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "A calculator for calculating how many non-combat spell casts (i.e. High Alchemy, Superheat, etc) are needed to achieve a certain level and the raw costs associated with these goals."
+  },
+  {
+   "label": "Spell cost",
+   "page": "Calculator:Magic/Advanced",
+   "path": "/w/Calculator:Magic/Advanced",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "Calculates the cost of using a Magic spell, based on the runes used."
+  },
+  {
+   "label": "High level alchemy profit when buying items on the Grand Exchange",
+   "page": "Calculator:Magic/High alchemy",
+   "path": "/w/Calculator:Magic/High_alchemy",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "Calculates the profits from High alching certain items."
+  },
+  {
+   "label": "Alchemy profit when using self-made items",
+   "page": "Calculator:Magic/Alchemy using self-made items",
+   "path": "/w/Calculator:Magic/Alchemy_using_self-made_items",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "Calculates the profit/loss from Low/High alching self-made items."
+  },
+  {
+   "label": "Alchemy profit (dynamic)",
+   "page": "Calculator:Magic/Alchemy dynamic",
+   "path": "/w/Calculator:Magic/Alchemy_dynamic",
+   "type": "Experience",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "A JavaScript version of the High Alchemy Profits calculator with various other features for determining the number of items you need to get to a certain level."
+  },
+  {
+   "label": "Humidify profit",
+   "page": "Calculator:Magic/Humidify",
+   "path": "/w/Calculator:Magic/Humidify",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "Calculates the profit/loss from humidifying certain items."
+  },
+  {
+   "label": "Wine of Zamorak profit using telekinetic grab",
+   "page": "Calculator:Magic/Wine of Zamorak",
+   "path": "/w/Calculator:Magic/Wine_of_Zamorak",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "Calculates the profit/loss of telekinetic grabbing Wine of Zamorak with the air staff."
+  },
+  {
+   "label": "Enchanting jewellery for profit",
+   "page": "Calculator:Magic/Enchanting",
+   "path": "/w/Calculator:Magic/Enchanting",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "Calculates the profit/loss of enchanting various items."
+  },
+  {
+   "label": "Enchanting bolts for profit",
+   "page": "Calculator:Magic/Bolt enchantment",
+   "path": "/w/Calculator:Magic/Bolt_enchantment",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "Calculates the profit/loss of enchanting bolts."
+  },
+  {
+   "label": "Sealing magic tablets for profit",
+   "page": "Calculator:Magic/Tablets",
+   "path": "/w/Calculator:Magic/Tablets",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "Calculates the profit/loss from making Magic tablets on a Lectern."
+  },
+  {
+   "label": "Superheat item profit per experience point",
+   "page": "Calculator:Magic/Superheat",
+   "path": "/w/Calculator:Magic/Superheat",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "Calculates the profit/loss per experience point (smithing, magic and combined) from creating bars with the Superheat item spell with a fire staff."
+  },
+  {
+   "label": "Mage Training Arena profit",
+   "page": "Calculator:Magic/Mage Training Arena",
+   "path": "/w/Calculator:Magic/Mage_Training_Arena",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Magic",
+   "desc": "Calculates the profit/loss of different rewards from the Mage Training Arena, such as Infinity Robes and Wands."
+  },
+  {
+   "label": "Well of Souls talent level",
+   "page": "Calculator:Necromancy/Well of Souls",
+   "path": "/w/Calculator:Necromancy/Well_of_Souls",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Necromancy",
+   "desc": "Calculates how many bones or mementos are needed to fill the Well of Souls to a certain talent level."
+  },
+  {
+   "label": "Rituals",
+   "page": "Calculator:Necromancy/Rituals",
+   "path": "/w/Calculator:Necromancy/Rituals",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Necromancy",
+   "desc": "Calculates how many ingredients are needed for a ritual, how long it will take, and how many items it will produce."
+  },
+  {
+   "label": "Bones and ashes needed to reach a goal",
+   "page": "Calculator:Prayer",
+   "path": "/w/Calculator:Prayer",
+   "type": "Experience",
+   "section": "Combat skills",
+   "group": "Prayer",
+   "desc": "Calculates the cost and amount of bones and ashes needed when buried or used at an altar."
+  },
+  {
+   "label": "Bones and ashes cost",
+   "page": "Calculator:Prayer/Bones",
+   "path": "/w/Calculator:Prayer/Bones",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Prayer",
+   "desc": "Calculates the costs of buying and using various bones or prayer ashes."
+  },
+  {
+   "label": "Rates of experience of different methods of levelling",
+   "page": "Calculator:Prayer/Bones",
+   "path": "/w/Calculator:Prayer/Bones#Prayer_experience_rate",
+   "type": "Experience",
+   "section": "Combat skills",
+   "group": "Prayer",
+   "desc": "Calculates the speed of gaining Prayer experience."
+  },
+  {
+   "label": "Prayer drain rate",
+   "page": "Calculator:Prayer/Drain rate",
+   "path": "/w/Calculator:Prayer/Drain_rate",
+   "type": "Experience",
+   "section": "Combat skills",
+   "group": "Prayer",
+   "desc": "Calculates the rate at which prayer points are depleted using a combination of Prayers or Ancient Curses."
+  },
+  {
+   "label": "Summoning pouches needed to reach a goal",
+   "page": "Calculator:Summoning",
+   "path": "/w/Calculator:Summoning",
+   "type": "Experience",
+   "section": "Combat skills",
+   "group": "Summoning",
+   "desc": "Calculates the experience needed for a certain level. Also takes in consideration the possible bonuses there are."
+  },
+  {
+   "label": "Crafting pouches for profit",
+   "page": "Calculator:Summoning/Pouches",
+   "path": "/w/Calculator:Summoning/Pouches",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Summoning",
+   "desc": "Calculates the profit/loss of making Summoning pouches, either from the High Level Alchemy spell, or by selling the pouches in the Grand Exchange."
+  },
+  {
+   "label": "Crafting scrolls for profit",
+   "page": "Calculator:Summoning/Scrolls",
+   "path": "/w/Calculator:Summoning/Scrolls",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Summoning",
+   "desc": "Calculates the profit/loss of making Summoning scrolls, by buying the pouches and selling the scrolls in the Grand Exchange."
+  },
+  {
+   "label": "Swapping shards for profit",
+   "page": "Calculator:Summoning/Shard swap",
+   "path": "/w/Calculator:Summoning/Shard_swap",
+   "type": "Economic",
+   "section": "Combat skills",
+   "group": "Summoning",
+   "desc": "Calculates the profit/loss of swapping Summoning pouches with Bogrog for Spirit shards."
+  },
+  {
+   "label": "Charm gathering",
+   "page": "Calculator:Summoning/Charm gathering dynamic",
+   "path": "/w/Calculator:Summoning/Charm_gathering_dynamic",
+   "type": "Combat",
+   "section": "Combat skills",
+   "group": "Summoning",
+   "desc": "Calculates how many monsters have to be killed to get wanted number of charms or how many charms can be acquired by killing X monsters."
+  },
+  {
+   "label": "Charms to experience",
+   "page": "Calculator:Summoning/Charms to experience",
+   "path": "/w/Calculator:Summoning/Charms_to_experience",
+   "type": "Experience",
+   "section": "Combat skills",
+   "group": "Summoning",
+   "desc": "Calculates how much experience can be gained (and how much it costs) with a set amount of each charm at a set level."
+  },
+  {
+   "label": "Wisps needed to reach a goal",
+   "page": "Calculator:Divination",
+   "path": "/w/Calculator:Divination",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Divination",
+   "desc": "A calculator to work out how many wisps are needed to be gathered to get to a goal level/experience (from current level/experience), and the profit/loss for doing so."
+  },
+  {
+   "label": "Divine location profit per day",
+   "page": "Calculator:Divination/Divine locations",
+   "path": "/w/Calculator:Divination/Divine_locations",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Divination",
+   "desc": "Calculates the profit/loss per day from divine locations."
+  },
+  {
+   "label": "Transmuting items for profit",
+   "page": "Calculator:Divination/Transmutation",
+   "path": "/w/Calculator:Divination/Transmutation",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Divination",
+   "desc": "Calculates the profit/loss from transmuting materials into higher tier materials with energy."
+  },
+  {
+   "label": "Sign of the porter profit when obtaining items",
+   "page": "Calculator:Divination/Sign of the porter",
+   "path": "/w/Calculator:Divination/Sign_of_the_porter",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Divination",
+   "desc": "Calculates the profit/loss from using signs of porter to send items to your bank."
+  },
+  {
+   "label": "Sign of the porter cost to craft",
+   "page": "Calculator:Divination/Sign of the porter/Cost",
+   "path": "/w/Calculator:Divination/Sign_of_the_porter/Cost",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Divination",
+   "desc": "Calculates the cost from crafting signs of porter."
+  },
+  {
+   "label": "Farming needed to reach a goal",
+   "page": "Calculator:Farming",
+   "path": "/w/Calculator:Farming",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Farming",
+   "desc": "Calculates the number of farming items needed to attain a certain level and the cost needed."
+  },
+  {
+   "label": "Player-owned farm food cost",
+   "page": "Calculator:Farming/Player-owned farm food costs",
+   "path": "/w/Calculator:Farming/Player-owned_farm_food_costs",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Farming",
+   "desc": "Shows the cheapest feeding methods for all animals in Player-owned farms."
+  },
+  {
+   "label": "Payment or compost",
+   "page": "Calculator:Farming/Compost to payment",
+   "path": "/w/Calculator:Farming/Compost_to_payment",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Farming",
+   "desc": "Calculates whether it is better to use supercompost or pay the farmer."
+  },
+  {
+   "label": "Herb and tree farming for profit",
+   "page": "Calculator:Farming/Tree to herb",
+   "path": "/w/Calculator:Farming/Tree_to_herb",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Farming",
+   "desc": "Calculates how much you make farming herbs regularly and farming trees at the same time."
+  },
+  {
+   "label": "Tree cost",
+   "page": "Calculator:Farming/Trees",
+   "path": "/w/Calculator:Farming/Trees",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Farming",
+   "desc": "Calculates XP per coins for growing trees."
+  },
+  {
+   "label": "Herb tending for profit",
+   "page": "Calculator:Farming/Herbs",
+   "path": "/w/Calculator:Farming/Herbs",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Farming",
+   "desc": "Calculates the profit/loss and XP per coins for growing herbs."
+  },
+  {
+   "label": "Supercompost cost",
+   "page": "Calculator:Farming/Supercompost",
+   "path": "/w/Calculator:Farming/Supercompost",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Farming",
+   "desc": "Calculates the cost of making supercompost with compost potion."
+  },
+  {
+   "label": "Fruit picking for profit",
+   "page": "Calculator:Farming/Fruit picking",
+   "path": "/w/Calculator:Farming/Fruit_picking",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Farming",
+   "desc": "Calculates the profit/loss from picking (renewable) fruit (such as berries, fruit trees, cacti, and willow branches)."
+  },
+  {
+   "label": "Fruit picking for profit (dynamic)",
+   "page": "Calculator:Farming/Renewables",
+   "path": "/w/Calculator:Farming/Renewables",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Farming",
+   "desc": "A dynamic version of the above calculator."
+  },
+  {
+   "label": "Basket and sack filling for profit",
+   "page": "Calculator:Other/Filling",
+   "path": "/w/Calculator:Other/Filling",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Farming",
+   "desc": "Calculates the profit/loss of filling/emptying baskets and sacks."
+  },
+  {
+   "label": "Fishing needed to reach a goal",
+   "page": "Calculator:Fishing",
+   "path": "/w/Calculator:Fishing",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Fishing",
+   "desc": "Calculates (1) the gold profit or loss per fish and per XP for catching various fish and (2) how many of one fish one must catch to reach a desired level."
+  },
+  {
+   "label": "Fishing chance",
+   "page": "Calculator:Fishing/Chance",
+   "path": "/w/Calculator:Fishing/Chance",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Fishing",
+   "desc": "Calculates the chance of catching a fish with each fishing action, and idealised experience/coins per hour of catching these fish."
+  },
+  {
+   "label": "Hunting needed to reach a goal",
+   "page": "Calculator:Hunter",
+   "path": "/w/Calculator:Hunter",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Hunter",
+   "desc": "Calculates how many monsters you have to catch to get from a given level or experience to a goal."
+  },
+  {
+   "label": "Hunting whirligigs for profit",
+   "page": "Calculator:Hunter/Whirligigs",
+   "path": "/w/Calculator:Hunter/Whirligigs",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Hunter",
+   "desc": "Calculates the profit from hunting whirligigs for powder."
+  },
+  {
+   "label": "Ores needed to reach a goal",
+   "page": "Calculator:Mining",
+   "path": "/w/Calculator:Mining",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Mining",
+   "desc": "Calculates the number of ores needed to attain a level as well as the profit earned."
+  },
+  {
+   "label": "Mining rates based on player conditions",
+   "page": "Calculator:Mining/Rate",
+   "path": "/w/Calculator:Mining/Rate",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Mining",
+   "desc": "Calculates your mining rate, xp, ores obtained etc based on mining and strength levels, equipment and other bonuses."
+  },
+  {
+   "label": "Woodcutting needed to reach a goal",
+   "page": "Calculator:Woodcutting",
+   "path": "/w/Calculator:Woodcutting",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Woodcutting",
+   "desc": "Calculates the experience needed for a certain level. Also takes in consideration the possible bonuses there are."
+  },
+  {
+   "label": "Woodcutting chance",
+   "page": "Calculator:Woodcutting/Chance",
+   "path": "/w/Calculator:Woodcutting/Chance",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Woodcutting",
+   "desc": "Calculates the chance of cutting a log from a tree with each woodcutting action, and idealised experience/coins per hour of cutting these logs."
+  },
+  {
+   "label": "Archaeology Hotspot calculator",
+   "page": "Calculator:Archaeology/Hotspot",
+   "path": "/w/Calculator:Archaeology/Hotspot",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Archaeology",
+   "desc": "For every excavation hotspot, it calculates the average xp/h, gp/xp, hours to target, among other various outputs. Takes many parameters into consideration."
+  },
+  {
+   "label": "Archaeology artefacts needed to reach a goal",
+   "page": "Calculator:Archaeology",
+   "path": "/w/Calculator:Archaeology",
+   "type": "Experience",
+   "section": "Gathering skills",
+   "group": "Archaeology",
+   "desc": "Calculates the experience and the number of artefacts to restore needed for a certain level. Also takes in consideration the possible bonuses there are."
+  },
+  {
+   "label": "List of artefacts and collectors by dig site",
+   "page": "Calculator:Archaeology/Artefacts",
+   "path": "/w/Calculator:Archaeology/Artefacts",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Archaeology",
+   "desc": "Calculates artefacts needed to complete all collections and miscellaneous uses"
+  },
+  {
+   "label": "Restoring artefacts",
+   "page": "Calculator:Archaeology/Restoring artefacts",
+   "path": "/w/Calculator:Archaeology/Restoring_artefacts",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Archaeology",
+   "desc": "Calculates the materials needed and xp received for restoring artefacts"
+  },
+  {
+   "label": "Restoration profit",
+   "page": "Calculator:Archaeology/Restoration profit",
+   "path": "/w/Calculator:Archaeology/Restoration_profit",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Archaeology",
+   "desc": "Shows profit/loss for restoring artefacts assuming materials are bought on GE and chronotes are sold on GE"
+  },
+  {
+   "label": "Excavation profit",
+   "page": "Calculator:Archaeology/Material excavation profit",
+   "path": "/w/Calculator:Archaeology/Material_excavation_profit",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Archaeology",
+   "desc": "Shows profit for excavating archaeology materials from material caches"
+  },
+  {
+   "label": "Disassembly profit",
+   "page": "Calculator:Archaeology/Disassembly profit",
+   "path": "/w/Calculator:Archaeology/Disassembly_profit",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Archaeology",
+   "desc": "Shows profit/loss for disassembling restored artefacts assuming materials are bought on GE and component crates are sold on GE"
+  },
+  {
+   "label": "Soil sifting",
+   "page": "Screening",
+   "path": "/w/Screening#Calculator",
+   "type": "Economic",
+   "section": "Gathering skills",
+   "group": "Archaeology",
+   "desc": "Shows items received and profit/loss from sifting soil"
+  },
+  {
+   "label": "Course laps needed to reach a goal",
+   "page": "Calculator:Agility",
+   "path": "/w/Calculator:Agility",
+   "type": "Experience",
+   "section": "Support skills",
+   "group": "Agility",
+   "desc": "Calculates the number of course laps that must be completed to get from a given level or amount of experience to your selected goal."
+  },
+  {
+   "label": "Silverhawk feathers needed to reach a goal",
+   "page": "Calculator:Silverhawk boots",
+   "path": "/w/Calculator:Silverhawk_boots",
+   "type": "Experience",
+   "section": "Support skills",
+   "group": "Agility",
+   "desc": "Calculates how many feathers are needed to get to your selected goal from a given amount of experience."
+  },
+  {
+   "label": "Dungeoneering floors",
+   "page": "Calculator:Dungeoneering",
+   "path": "/w/Calculator:Dungeoneering",
+   "type": "Experience",
+   "section": "Support skills",
+   "group": "Dungeoneering",
+   "desc": "Compares different strategies for completing dungeoneering floors, to find the optimal XP per hour."
+  },
+  {
+   "label": "Dungeoneering dailies needed to reach a goal",
+   "page": "Calculator:Dungeoneering/Daily",
+   "path": "/w/Calculator:Dungeoneering/Daily",
+   "type": "Experience",
+   "section": "Support skills",
+   "group": "Dungeoneering",
+   "desc": "Calculates the days it will take to reach your goal only taking into account Daily Challenges."
+  },
+  {
+   "label": "Chance of capturing souls in ushabti",
+   "page": "Ushabti",
+   "path": "/w/Ushabti#Chance_of_capturing_a_soul",
+   "type": "Guide",
+   "section": "Support skills",
+   "group": "Slayer",
+   "desc": "Calculates the chance of capturing a soul in an ushabti ."
+  },
+  {
+   "label": "Pickpocketing needed to reach a goal",
+   "page": "Calculator:Thieving",
+   "path": "/w/Calculator:Thieving",
+   "type": "Experience",
+   "section": "Support skills",
+   "group": "Thieving",
+   "desc": "Calculates the number of victims to pickpocket or sq'irkjuice to collect to reach a destination level."
+  },
+  {
+   "label": "Thieving chance",
+   "page": "Calculator:Thieving/Chance",
+   "path": "/w/Calculator:Thieving/Chance",
+   "type": "Experience",
+   "section": "Support skills",
+   "group": "Thieving",
+   "desc": "Calculates the chance of pickpocketing with each pickpocket action, and idealised experience per hour of pickpocketing these NPCs."
+  },
+  {
+   "label": "Vault of Hereditas",
+   "page": "Calculator:Thieving/Vault of Hereditas",
+   "path": "/w/Calculator:Thieving/Vault_of_Hereditas",
+   "type": "Experience",
+   "section": "Support skills",
+   "group": "Thieving",
+   "desc": "Calculates the chance of rare items from the Vault of Hereditas heist, and the average loot value."
+  },
+  {
+   "label": "Asuran Arsenal",
+   "page": "Calculator:Thieving/Asuran Arsenal",
+   "path": "/w/Calculator:Thieving/Asuran_Arsenal",
+   "type": "Experience",
+   "section": "Support skills",
+   "group": "Thieving",
+   "desc": "Calculates the chance of rare items from the Asuran Arsenal heist, and the average loot value"
+  }
+ ]
+}

@@ -169,7 +169,7 @@ responsiveTables.observe(view, {childList:true, subtree:true});
 
 /* ---------- tabs / routing ---------- */
 document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { location.hash = b.dataset.tab; });
-function setTab(t) { document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t)); }
+function setTab(t) { document.querySelectorAll('.tabs button').forEach(b => { const on = b.dataset.tab === t; b.classList.toggle('on', on); if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); }); }
 let geCleanup = null;
 async function route() {
   if (geCleanup) { geCleanup(); geCleanup = null; }
@@ -188,6 +188,8 @@ async function route() {
     else if (tab === 'train') await trainView(arg);
     else if (tab === 'money') await moneyView(arg);
     else if (tab === 'map') await mapTab(arg);
+    else if (tab === 'ge') geView();
+    else if (tab === 'calculators') await calcView();
     else await dropsView(arg);
   } catch (e) { view.innerHTML = `<div class="panel">Could not load data: ${esc(e.message)}</div>`; }
   if (['items', 'char', 'train', 'money', 'secrets'].includes(tab) && !(tab === 'items' && arg === '~ge')) bindPriceView();
@@ -433,7 +435,7 @@ function priceTag(D, n, side = 'buy', showGraph = false) {
 function rarTag(r) { return r == null ? '' : `<span class="rtag r${r}">${RANK[r]}</span>`; }
 function subnav(on) {
   const b = (h, t, k) => `<a class="btn sub ${on === k ? 'on' : ''}" href="${h}">${t}</a>`;
-  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}${b('#items/~ge', 'G.E.', 'ge')}<a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
+  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}<a class="btn sub" href="#ge">G.E. → Grand Exchange tab</a><a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
 }
 
 /* ----- stats storage ----- */
@@ -942,7 +944,7 @@ function setCard(D, s, S) {
 
 /* The source owns search, prices and graphs; never proxy or restyle its document. */
 function geView() {
-  view.innerHTML = `${subnav('ge')}<section class="panel ge-panel" aria-labelledby="ge-title">
+  view.innerHTML = `<section class="panel ge-panel" aria-labelledby="ge-title">
     <div class="ge-heading"><h2 id="ge-title">Grand Exchange</h2>
       <a class="btn sub ge-source" href="https://prices.runescape.wiki/rs/" target="_blank" rel="noopener noreferrer">Open RuneScape Wiki Prices ↗</a></div>
     <p class="note ge-attribution">RuneScape Wiki Prices — trade data supplied by Jagex</p>
@@ -998,8 +1000,84 @@ function geView() {
   update();
 }
 
+/* Calculators: a directory of the RuneScape Wiki's calculators, opened on the Wiki in a new tab. The Wiki sends
+   X-Frame-Options: DENY and frame-ancestors 'none', so its calculators cannot be embedded; we never proxy or inject.
+   Favourites are saved only on this device under their own key (RS3Calc.FAV_KEY), separate from saved stats. */
+const CALC_LS = (() => { try { return window.localStorage; } catch (e) { return null; } })();
+async function calcView() {
+  const D = await get('data/calculators.json');
+  const rows = (D.calculators || []).map(c => ({...c, path: RS3Calc.safeWikiPath(c.path)})).filter(c => c.path);
+  const sections = [...new Set(rows.map(r => r.section))];
+  const types = [...new Set(rows.map(r => r.type))].sort();
+  const rev = D.sourceRevisionTimestamp ? new Date(D.sourceRevisionTimestamp).toLocaleDateString('en-US', {timeZone: 'America/New_York', day: 'numeric', month: 'short', year: 'numeric'}) : '';
+  view.innerHTML = `<section class="panel calc-panel" aria-labelledby="calc-title">
+    <div class="ge-heading calc-heading"><h2 id="calc-title">Calculators</h2>
+      <a class="btn sub calc-source" href="${esc(D.source)}" target="_blank" rel="noopener noreferrer">Wiki Calculators page ↗</a></div>
+    <p class="note">${rows.length} calculators listed on the RuneScape Wiki <a href="${esc(D.source)}" target="_blank" rel="noopener noreferrer">Calculators</a> page${rev ? ` (revision of ${esc(rev)})` : ''}. Each one opens and runs on the RuneScape Wiki in a new tab. The Wiki does not allow its pages to be shown inside other sites, so they cannot be embedded here. The Wiki may have calculators not in this list.</p>
+    <section class="calc-favs" aria-labelledby="calc-fav-title"><h3 id="calc-fav-title">★ Favourite calculators</h3>
+      <div id="calc-fav-list"></div>
+      <div class="row calc-add"><label for="calc-url" class="calc-add-label">Save another Wiki calculator</label>
+        <input id="calc-url" type="url" inputmode="url" placeholder="https://runescape.wiki/w/Calculator:…" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <button class="btn sub" id="calc-add" type="button">Save</button></div>
+      <p class="note" id="calc-msg" role="status" aria-live="polite"></p>
+      <p class="note">Saved on this device only. Saving does not change your saved stats.</p></section>
+    <div class="row calc-filters">
+      <input id="calc-q" type="search" placeholder="Search calculators" aria-label="Search calculators" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <select id="calc-sec" aria-label="Category"><option value="">All categories</option>${sections.map(s => `<option>${esc(s)}</option>`).join('')}</select>
+      <select id="calc-type" aria-label="Calculator type"><option value="">All types</option>${types.map(s => `<option>${esc(s)}</option>`).join('')}</select></div>
+    <p class="note" id="calc-count" role="status" aria-live="polite"></p>
+    <div id="calc-list"></div>
+    <p class="note">Calculator names and descriptions: RuneScape Wiki, CC BY-NC-SA 3.0. Calculators and their results belong to the Wiki.</p>
+  </section>`;
+  const star = (c, on) => `<button class="calc-star${on ? ' on' : ''}" type="button" data-path="${esc(c.path)}" data-label="${esc(c.label)}" aria-pressed="${on}" aria-label="${on ? 'Remove' : 'Save'} ${esc(c.label)} ${on ? 'from' : 'to'} favourites" title="${on ? 'Remove from favourites' : 'Save to favourites'}">${on ? '★' : '☆'}</button>`;
+  const link = (path, label) => `<a class="calc-link" href="${esc(RS3Calc.wikiUrl(path))}" target="_blank" rel="noopener noreferrer">${esc(label)} <span aria-hidden="true">↗</span><span class="sr-only"> (opens RuneScape Wiki in a new tab)</span></a>`;
+  let favs = RS3Calc.load(CALC_LS);
+  const drawFavs = () => {
+    $('#calc-fav-list').innerHTML = favs.length
+      ? `<ul class="calc-fav-ul">${favs.map(f => `<li class="calc-fav">${link(f.path, f.label)}<button class="btn sub calc-unfav" type="button" data-path="${esc(f.path)}" aria-label="Remove ${esc(f.label)} from favourites">Remove</button></li>`).join('')}</ul>`
+      : '<p class="note">No favourites yet. Tap ☆ next to a calculator to save it here.</p>';
+  };
+  const q = $('#calc-q'), sec = $('#calc-sec'), typ = $('#calc-type');
+  const drawList = () => {
+    const n = norm(q.value), s = sec.value, t = typ.value;
+    const hit = rows.filter(r => (!s || r.section === s) && (!t || r.type === t) && (!n || norm(`${r.label} ${r.page} ${r.group} ${r.desc}`).includes(n)));
+    const groups = new Map();
+    for (const r of hit) { const k = r.section + '\u0000' + r.group; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(r); }
+    $('#calc-count').textContent = `${hit.length} of ${rows.length} calculators`;
+    $('#calc-list').innerHTML = hit.length ? [...groups.values()].map(g => `<section class="calc-group"><h3>${esc(g[0].group)} <small>${esc(g[0].section)}</small></h3><ul class="calc-ul">${g.map(r =>
+      `<li class="calc-item">${star(r, RS3Calc.has(favs, r.path))}<div class="calc-body">${link(r.path, r.label)} <span class="tag calc-type">${esc(r.type)}</span>${r.desc ? `<div class="calc-desc">${esc(r.desc)}</div>` : ''}</div></li>`).join('')}</ul></section>`).join('')
+      : '<p class="note">No calculators match.</p>';
+  };
+  const refreshStars = () => document.querySelectorAll('#calc-list .calc-star').forEach(b => {
+    const on = RS3Calc.has(favs, b.dataset.path), label = b.dataset.label;
+    b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); b.textContent = on ? '★' : '☆';
+    b.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${label} ${on ? 'from' : 'to'} favourites`); b.title = on ? 'Remove from favourites' : 'Save to favourites';
+  });
+  const msg = t => { $('#calc-msg').textContent = t; };
+  const toggleFav = (path, label) => {
+    const r = RS3Calc.toggle(CALC_LS, {path, label});
+    if (!r.ok) { msg('Could not save on this device (storage unavailable or full).'); return; }
+    favs = r.favs; drawFavs(); refreshStars(); msg(r.on ? `Saved ${label} to favourites.` : `Removed ${label} from favourites.`);
+  };
+  $('#calc-list').addEventListener('click', e => { const b = e.target.closest('.calc-star'); if (b) toggleFav(b.dataset.path, b.dataset.label); });
+  $('#calc-fav-list').addEventListener('click', e => { const b = e.target.closest('.calc-unfav'); if (!b) return; const f = favs.find(x => x.path === b.dataset.path); if (f) toggleFav(f.path, f.label); });
+  const add = () => {
+    const u = $('#calc-url'), p = RS3Calc.parseCalculatorUrl(u.value);
+    if (!p) { msg('Not saved: enter a RuneScape Wiki calculator link like https://runescape.wiki/w/Calculator:Herblore'); return; }
+    if (RS3Calc.has(favs, p.path)) { msg(`${p.page} is already a favourite.`); return; }
+    const known = rows.find(r => r.path === p.path);
+    const r = RS3Calc.toggle(CALC_LS, {path: p.path, label: known ? known.label : p.page.replace(/^Calculator:/, ''), custom: !known});
+    if (!r.ok) { msg('Could not save on this device (storage unavailable or full).'); return; }
+    favs = r.favs; u.value = ''; drawFavs(); refreshStars(); msg(`Saved ${p.page} to favourites.`);
+  };
+  $('#calc-add').onclick = add;
+  $('#calc-url').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); add(); } });
+  q.addEventListener('input', drawList); sec.onchange = drawList; typ.onchange = drawList;
+  drawFavs(); drawList();
+}
+
 async function itemsView(name) {
-  if (name === '~ge') return geView();
+  if (name === '~ge') { location.replace('#ge'); return; }   /* old bookmark: G.E. is its own main tab now */
   if (name === '~stats') { location.replace('#char'); return; }
   if (name === '~sets') { location.replace('#char/sets'); return; }
   if (name === '~obtain' || name === '~dragon') return obtainView(name === '~dragon' ? 'dragon' : null);

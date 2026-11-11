@@ -130,3 +130,24 @@ cleanup. Do NOT pass a clipped left edge, hidden prices, or merely the item grap
 If the 1024px source itself overflows, report it rather than hide its scrollbar or
 claim fit. At phone widths scaling may be too small; retain that honest limitation
 and get a user decision before replacing their chosen source embed with custom charts.
+
+## PR3: Grand Exchange main tab + Calculators tab
+Navigation (320/390/800/1280, plus 360/700/1000/1001): 12 main tabs fit with no
+sideways scroll and no layout shift between tabs. Phones: 4 x 3 tiles; ≥700px:
+6 x 2 tiles. "Grand Exchange" / "Easter Eggs" wrap between words only; at ≤360px
+the Calculators label reads "Calcs" (accessible name stays "Calculators").
+Selected tab: gold `.on` + `aria-current="page"`.
+
+Grand Exchange (strict relocation; geView is byte-identical apart from the removed
+Items subnav): repeat the full PR2 G.E. Fit overview checks above on `#ge`. Same
+source URL, Fit overview / Readable size, scaling, search, graphs, attribution,
+online/offline text, cleanup on navigating away. No app price banner (as before).
+Old bookmark `#items/~ge` must land on `#ge` (history replaced). Items subnav
+"G.E. → Grand Exchange tab" opens `#ge`.
+
+Calculators (`#calculators`): the Wiki sends `X-Frame-Options: DENY` and
+`frame-ancestors 'none'`, so calculators are NOT embedded; every entry opens the
+Wiki in a new tab. Check search, category/type filters, counts, star toggles
+(aria-pressed/label, 44px targets), Favourites list reopen links, Remove, reload
+persistence, invalid/`javascript:`/same-origin URL rejection message, and that
+saved stats (`mystats_v2`) are untouched. Favourites key: `dch_calc_favorites_v1`.
