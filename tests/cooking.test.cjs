@@ -74,7 +74,11 @@ const set = (d, w, k, v) => { const el = d.querySelector('#ck-' + k); assert.ok(
   assert.ok(rows(d).every(tr => tr.querySelector('th img.calc-ico[src^="icons/"]')), 'row pictures');
   assert.ok([...d.querySelectorAll('#ck-table .hb-list li')].every(li => li.querySelector('img.calc-li-ico[src^="icons/"]')), 'ingredient pictures');
   // untradeable (Wiki mtrade/trade 0): 0 as on the Wiki, explicitly flagged, not free
-  assert.match(row(d, 'Karambwanji').textContent, /excludes untradeable Raw karambwanji, Karambwanji \(product\)/);
+  assert.match(row(d, 'Karambwanji').textContent, /Partial, not a market profit: excludes untradeable Raw karambwanji, Karambwanji \(product\)/);
+  // ...and shown neutral (Wiki math 0 kept, never a green "profit"); fully priced rows keep gain/loss colours
+  { const k = row(d, 'Karambwanji'); assert.ok(k.querySelectorAll('.calc-val.partial').length === 2, 'profit and profit/XP neutral');
+    assert.equal(k.querySelector('.calc-val.gain'), null); assert.equal(k.querySelector('.calc-val.loss'), null);
+    assert.ok(row(d, 'Shrimps').querySelector('.calc-val.loss') && !row(d, 'Shrimps').querySelector('.calc-val.partial')); }
   // gross toggle
   d.querySelector('#ck-show').value = 'gross'; d.querySelector('#ck-show').dispatchEvent(new w.Event('change')); assert.match(row(d, 'Shrimps').textContent, /before tax/);
   // search + sort

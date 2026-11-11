@@ -1350,10 +1350,19 @@ html{scrollbar-gutter:stable}
   .tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
   .tabs button{min-height:48px;line-height:1.15}
 }
-@media (max-width:360px){
-  .tabs button{font-size:9px;letter-spacing:0}
+/* Phones under 480px: 4 tiles per row (Calculators and Map share the last row), so the longest whole word (CHARACTER,
+   EXCHANGE, MONSTERS) fits inside its tile at 320px with no letters clipped; Calculators shows its short label "Calcs"
+   (the button keeps aria-label "Calculators"). Widths checked against Cinzel 700 metrics in checks/nav_fit_check.py. */
+@media (max-width:479px){
+  .tabs{grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}
+  .tabs button{grid-column:span 3;font-size:10px;letter-spacing:.02em;padding:7px 2px 6px}
+  .tabs button[data-tab=calculators],.tabs button[data-tab=map]{grid-column:span 6}
   .tabs button .tl-long{display:none}
   .tabs button .tl-short{display:inline}
+}
+@media (max-width:360px){
+  .tabs{gap:4px}
+  .tabs button{font-size:9.5px;letter-spacing:.02em;padding-left:1px;padding-right:1px}
 }
 @media (min-width:700px){
   /* 10 tabs = 5 x 2 tiles at tablet widths, one row of 10 from 1180px */
@@ -1369,6 +1378,7 @@ html{scrollbar-gutter:stable}
 }
 
 /* ===== Calculators tab ===== */
+.calc-val.partial{color:var(--soft);font-weight:600}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
 .calc-panel{min-width:0;max-width:100%;box-sizing:border-box}
 .calc-panel .note,.calc-desc{overflow-wrap:break-word}

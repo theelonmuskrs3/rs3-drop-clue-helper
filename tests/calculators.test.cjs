@@ -160,3 +160,18 @@ async function screen(hash, store = {}) {
     x = await screen('about'); assert.equal(x.d.querySelectorAll('.tabs button.on').length, 0); assert.ok(x.d.querySelector('#view').textContent.length > 200); x.dom.window.close(); }
   console.log('PASS calculators: URL validation, independent favourites key, add/remove/persist/reopen, hostile storage, a11y, no framing; G.E. main tab + #items/~ge alias; 10-tab nav (Easter eggs under Items, About in footer) + CSS');
 })().catch(e => { console.error(e); process.exit(1); });
+
+// Phone nav (parent browser blocker, PR6: "Character" clipped in 5 columns at 320px): under 480px the 10 main tabs are 4 per
+// row (Calculators + Map share the last row) with whole words; tools/nav_fit_check.py checks the widths with Cinzel metrics.
+{
+  const css = require('fs').readFileSync(require('path').join(__dirname, '..', 'neon.css'), 'utf8');
+  const block = css.slice(css.indexOf('@media (max-width:479px){'), css.indexOf('}', css.indexOf('span 6}')) + 1);
+  assert.ok(block.includes('.tabs{grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}'));
+  assert.ok(block.includes('.tabs button{grid-column:span 3;font-size:10px'));
+  assert.ok(block.includes('.tabs button[data-tab=calculators],.tabs button[data-tab=map]{grid-column:span 6}'));
+  assert.ok(!/\.tabs button[^{]*\{[^}]*(word-break:break-all|overflow-wrap:anywhere)/.test(css), 'tab labels never break inside a word');
+  const html = require('fs').readFileSync(require('path').join(__dirname, '..', 'index.html'), 'utf8');
+  assert.deepEqual([...html.matchAll(/<button data-tab="([a-z]+)"/g)].map(m => m[1]), ['drops', 'items', 'ge', 'char', 'clues', 'quests', 'train', 'money', 'calculators', 'map']);
+  console.log('phone nav: 4 per row under 480px, whole words');
+}
+
