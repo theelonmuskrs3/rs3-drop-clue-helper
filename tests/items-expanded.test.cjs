@@ -10,6 +10,7 @@ const code = pick('function wtgExpand(el)', '  b.dataset.auto = \'1\';   // a cl
     <details class="thv"><summary>Thieve Chest (Dwarven mines)</summary><div class="thv-loc"><b>Where (1 location on the wiki)</b>
       <div class="wcard wloc"><div class="row wacts"><button class="btn mini" data-mm='{"map":28,"x":3000,"y":9800}' data-t="Find on map">Find on map</button></div></div></div></details>
     <details class="thvmore"><summary>Show all 8 thieving sources</summary>${[1, 2, 3, 4].map(i => `<details class="thv"><summary>s${i}</summary><div class="wcard"><div class="row wacts"><button class="btn mini" data-mm='{"map":28,"x":${i},"y":1}' data-t="Find on map">Find on map</button></div></div></details>`).join('')}</details>
+    <div class="wcard"><div class="row wacts"><button class="btn mini" data-mm='{"map":28,"x":3000,"y":9800}' data-t="Find on map">Find on map</button></div></div>
     <details class="glmore"><summary>+3 more</summary>a</details></div></div>
     <details class="src-info" id="items-src-info"><summary>Details &amp; sources</summary></details>`, {runScripts: 'outside-only'});
   const w = dom.window;
@@ -23,7 +24,7 @@ const code = pick('function wtgExpand(el)', '  b.dataset.auto = \'1\';   // a cl
   w.wtgExpand(el);
   assert.ok([...el.querySelectorAll('details')].every(x => x.open), 'every Where-to-get-it section open (source cards, Show all, folds)');
   assert.equal(d.getElementById('items-src-info').open, false, 'Details & sources banner stays collapsed');
-  assert.equal(observed.length, 5, 'every map location is watched; nothing starts before it nears the screen');
+  assert.equal(observed.length, 5, 'every distinct map location is watched once (a repeat of the same pins stays a button); nothing starts before it nears the screen');
   assert.equal(started.length, 0);
   cb(observed.map(t => ({target: t, isIntersecting: true})));
   assert.deepEqual(started, [3000, 1], 'maps open without a click, at most 2 at a time');
