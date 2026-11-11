@@ -7,13 +7,6 @@ const html = fs.readFileSync('index.html', 'utf8');
 const css = fs.readFileSync('neon.css', 'utf8');
 const extract = (start, end) => app.slice(app.indexOf(start), app.indexOf(end, app.indexOf(start)));
 const ge = extract('function geView() {', '\n/* Calculators:');
-// Strict relocation: the G.E. view is byte-identical to the released version except that it no longer sits under the Items subnav.
-const { execFileSync } = require('node:child_process');
-let released = null; try { released = execFileSync('git', ['show', 'f81a9ea80:app.js'], {encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore']}); } catch (e) {}
-if (released) {
-  const old = released.slice(released.indexOf('function geView() {'), released.indexOf('\nasync function itemsView', released.indexOf('function geView() {')));
-  assert.equal(ge, old.replace('view.innerHTML = `${subnav(\'ge\')}<section', 'view.innerHTML = `<section'), 'geView relocated unchanged');
-} else console.log('note: release commit f81a9ea80 not available; byte-identical relocation check skipped');
 assert.ok(ge.startsWith('function geView()'));
 const nav = extract('function subnav(on) {', '\n/* ----- stats');
 const handlers = new Map();
@@ -40,6 +33,26 @@ assert.equal(frame.url, 'https://prices.runescape.wiki/rs/');
 assert.match(context.view.innerHTML, /RuneScape Wiki Prices — trade data supplied by Jagex/);
 assert.match(context.view.innerHTML, /href="https:\/\/prices.runescape.wiki\/rs\/" target="_blank" rel="noopener noreferrer"/);
 assert.match(context.view.innerHTML, /title="RuneScape Wiki live Grand Exchange/);
+{
+  const html = context.view.innerHTML;
+  const i = html.indexOf('id="ge-info"');
+  assert.ok(i > 0, 'G.E. Details & sources section exists');
+  assert.doesNotMatch(html, /<details[^>]*id="ge-info"[^>]*\sopen/, 'G.E. details closed by default');
+  const det = html.slice(html.lastIndexOf('<details', i), html.indexOf('</details>', i) + 10);
+  assert.match(det, /<summary>Details &amp; sources<\/summary>/);
+  assert.match(det, /ge-attribution/);
+  assert.match(det, /not Jagex's official G\.E\. website/);
+  assert.match(det, /id="ge-status"/);
+  assert.match(det, /id="ge-fit-note"/);
+  assert.doesNotMatch(det, /ge-source|ge-view-controls|id="ge-viewport"|Internet required/);
+  assert.match(html, /class="btn sub ge-source"/);
+  assert.match(html, /id="ge-fit"/);
+  assert.match(html, /id="ge-readable"/);
+  assert.match(html, /id="ge-viewport"/);
+  assert.match(html, /Internet required/);
+  assert.match(status.textContent, /Online connection detected/);
+  assert.match(note.textContent, /Source overview:/);
+}
 assert.doesNotMatch(context.view.innerHTML, /class="row subnav"/, 'G.E. is a main tab, not under the Items subnav');
 assert.match(vm.runInContext("subnav('search')", context), /href="#ge"/, 'Items subnav still links to the G.E. tab');
 assert.equal((context.view.innerHTML.match(/<iframe/g) || []).length, 1);
@@ -71,4 +84,4 @@ assert.match(isolatedCSS,/transform-origin:top left/);
 assert.doesNotMatch(ge,/srcdoc|document\.write/);
 assert.match(ge,/Math\.max\(1024, width\)/);
 assert.match(fs.readFileSync('sw.js', 'utf8'), /new URL\(req.url\).origin !== location.origin\) return/);
-console.log('PASS: G.E. lazy loading, offline/reconnect, cleanup, attribution, direct link, main G.E. tab + #items/~ge alias, byte-identical relocation, scoped CSP, isolated styles, unchanged cross-origin cache policy');
+console.log('PASS: G.E. lazy loading, offline/reconnect, cleanup, attribution in closed Details & sources, Fit/Readable and embed outside details, direct link, main G.E. tab + #items/~ge alias, scoped CSP, isolated styles, unchanged cross-origin cache policy');

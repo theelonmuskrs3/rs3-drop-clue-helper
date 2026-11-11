@@ -412,7 +412,7 @@ function refreshPriceView() {
     : 'Live source unavailable or loading — snapshots and cached observations are not ranked as live.';
 }
 function bindPriceView() {
-  view.insertAdjacentHTML('afterbegin', `<aside class="live-price-banner"><b>RuneScape Wiki Prices — trade data supplied by Jagex</b><div>Buy/high = acquisition cost (no buyer tax). Sell/low = gross; net deducts estimated 2% tax, rounded down per item (Bond exempt). Money ranks net profit. Observed trades are not guaranteed offers; degradation and unlisted costs excluded. Wiki rates/prose remain snapshots.</div><div id="live-price-status" role="status"></div><a href="https://prices.runescape.wiki/rs/" target="_blank" rel="noopener noreferrer">Price source &amp; graphs ↗</a></aside>`);
+  view.insertAdjacentHTML('afterbegin', `<details class="src-info live-price-banner" id="live-price-info"><summary>Details &amp; sources</summary><b>RuneScape Wiki Prices — trade data supplied by Jagex</b><div>Buy/high = acquisition cost (no buyer tax). Sell/low = gross; net deducts estimated 2% tax, rounded down per item (Bond exempt). Money ranks net profit. Observed trades are not guaranteed offers; degradation and unlisted costs excluded. Wiki rates/prose remain snapshots.</div><div id="live-price-status" role="status"></div><a href="https://prices.runescape.wiki/rs/" target="_blank" rel="noopener noreferrer">Price source &amp; graphs ↗</a></details>`);
   priceUnsubscribe = LIVE.subscribe(refreshPriceView);
   // Initial values already rendered; update tags/status but avoid resetting any inputs or open panels.
   refreshPriceView();
@@ -949,11 +949,12 @@ function geView() {
   view.innerHTML = `<section class="panel ge-panel" aria-labelledby="ge-title">
     <div class="ge-heading"><h2 id="ge-title">Grand Exchange</h2>
       <a class="btn sub ge-source" href="https://prices.runescape.wiki/rs/" target="_blank" rel="noopener noreferrer">Open RuneScape Wiki Prices ↗</a></div>
+    <details class="src-info" id="ge-info"><summary>Details &amp; sources</summary>
     <p class="note ge-attribution">RuneScape Wiki Prices — trade data supplied by Jagex</p>
     <p class="note">The live source below provides its own search, graphs and price updates. Last-trade prices can be old; check the source timestamps. This is a community-operated website, not Jagex's official G.E. website.</p>
     <p class="note ge-status" id="ge-status" role="status" aria-live="polite"></p>
+    <p class="note" id="ge-fit-note" role="status"></p></details>
     <div class="row ge-view-controls"><button class="btn sub on" id="ge-fit" type="button" aria-pressed="true">Fit overview</button><button class="btn sub" id="ge-readable" type="button" aria-pressed="false">Readable size</button></div>
-    <p class="note" id="ge-fit-note" role="status"></p>
     <div class="ge-viewport" id="ge-viewport"><iframe class="ge-frame" id="ge-frame" title="RuneScape Wiki live Grand Exchange search, prices and graphs" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
     <p class="note">Internet required. The source may take a moment to load. If it stays blank or does not work here, use the open-source link above. Embedded content and controls belong to the source.</p>
   </section>`;
@@ -1777,8 +1778,10 @@ async function itemsView(name) {
     <select id="mem"><option value="">Members &amp; free</option><option value="mem">Members</option><option value="f2p">Free-to-play</option></select>
     <select id="fl"><option value="">Any kind</option><option value="items">Items only (no cosmetic overrides)</option><option value="equip">Equipable</option><option value="quest">Quest items</option><option value="holiday">Holiday items (wiki category)</option><option value="disc">Discontinued / not currently obtainable</option><option value="limited">Limited time (wiki restriction)</option><option value="mtx">Treasure Hunter</option><option value="override">Cosmetic overrides</option></select>
     <select id="sort"><option value="match">Best match</option><option value="name">Name A–Z</option><option value="price">Observed Sell, high → low</option><option value="pricel">Observed Sell, low → high</option><option value="common">Rarity, common first</option><option value="rare">Rarity, rarest first</option><option value="tier">Tier, high → low</option></select></div>
-    <div class="note" style="margin-top:6px">${D.names.length.toLocaleString()} items: every item page of the RS3 wiki copy (${(st.items || 0).toLocaleString()} item infobox entries incl. versions, ${(st.overrides || 0).toLocaleString()} cosmetic overrides), ${Object.keys(items).length.toLocaleString()} in drop tables, ${D.gd.gear.length.toLocaleString()} equipment pieces with stats, ${Object.keys(D.pr.prices).length.toLocaleString()} with an offline guide-price snapshot. Guide snapshots ${asof}. Displayed Buy/Sell quotes and live-price sorting use the separate live source; unavailable/stale quotes sort last.
-    Rarity is an item's best drop chance across all its sources, banded the way the wiki colours drop tables (Always; Common ≥ 1/16; Uncommon ≥ 1/64; Rare ≥ 1/256; Very rare below that).</div><div id="res" class="list"></div></div>`;
+    <details class="src-info" id="items-src-info"><summary>Details &amp; sources</summary>
+    <div class="note">${D.names.length.toLocaleString()} items: every item page of the RS3 wiki copy (${(st.items || 0).toLocaleString()} item infobox entries incl. versions, ${(st.overrides || 0).toLocaleString()} cosmetic overrides), ${Object.keys(items).length.toLocaleString()} in drop tables, ${D.gd.gear.length.toLocaleString()} equipment pieces with stats, ${Object.keys(D.pr.prices).length.toLocaleString()} with an offline guide-price snapshot. Guide snapshots ${asof}. Displayed Buy/Sell quotes and live-price sorting use the separate live source; unavailable/stale quotes sort last.
+    Rarity is an item's best drop chance across all its sources, banded the way the wiki colours drop tables (Always; Common ≥ 1/16; Uncommon ≥ 1/64; Rare ≥ 1/256; Very rare below that).</div>
+    <div class="note" id="items-src-status" hidden></div></details><div id="res" class="list"></div></div>`;
   const q = $('#q'), out = $('#res');
   ['show', 'tr', 'mem', 'fl', 'sort'].forEach(k => { $('#' + k).value = o[k]; });
   const F = D.FL;
@@ -1840,6 +1843,7 @@ async function itemsView(name) {
     }
     if (sv) {
       if (!sres) { out.innerHTML = '<div class="note">Loading full sets…</div>'; return; }
+      const srcSt = $('#items-src-status'); if (srcSt) { srcSt.textContent = ''; srcSt.hidden = true; }
       gfRefresh([], nDr, sres.counts);
       const L = sres.list.map(s => [s, setWear(s, GS)]);
       const price = s => s.gePrice ?? s.sum;
@@ -1854,12 +1858,14 @@ async function itemsView(name) {
       pricel: (a, b) => priceCompare(P(a[1]), P(b[1]), true), common: (a, b) => (B(b[1]) ?? -1) - (B(a[1]) ?? -1), rare: (a, b) => (B(a[1]) ?? 9) - (B(b[1]) ?? 9),
       tier: (a, b) => ((gear[b[1]] || {}).tier ?? -1) - ((gear[a[1]] || {}).tier ?? -1)};
     const none = !nq && !gfActive(gf) && !gf.dragon && o.rar === '' && o.show === 'all' && !o.tr && !o.mem && !o.fl;
+    const srcSt = $('#items-src-status');
+    if (srcSt) { srcSt.textContent = none ? 'No filter picked: sorting by fresh observed Sell quotes; stale/unavailable items are last, not live-valued. Type a name, or choose a class, slot, tier or other filter, to narrow it down.' : ''; srcSt.hidden = !none; }
     const tierD = (a, b) => ((gear[b[1]] || {}).tier ?? -1) - ((gear[a[1]] || {}).tier ?? -1);
     /* default order with no search text: tier first when a gear filter is on, then GE price, high to low */
     const dflt = (a, b) => (gfActive(gf) ? tierD(a, b) : 0) || priceCompare(P(a[1]), P(b[1])) || a[1].localeCompare(b[1]);
     hits.sort(!nq && o.sort === 'match' ? dflt : so[o.sort] || so.match);
     const n0 = hits.length; hits = hits.slice(0, lim);
-    out.innerHTML = `<div class="note">${none ? 'No filter picked: sorting by fresh observed Sell quotes; stale/unavailable items are last, not live-valued. Type a name, or choose a class, slot, tier or other filter, to narrow it down. ' : ''}${n0.toLocaleString()} match${n0 === 1 ? '' : 'es'}${n0 > lim ? `, showing ${lim}` : ''}.</div>` + (n0 ? '' : '<div class="obempty"><div><b>No items match.</b><div class="note">Loosen a filter, or use “Clear gear filter”.</div></div></div>') + hits.map(([, n]) => {
+    out.innerHTML = `<div class="note">${n0.toLocaleString()} match${n0 === 1 ? '' : 'es'}${n0 > lim ? `, showing ${lim}` : ''}.</div>` + (n0 ? '' : '<div class="obempty"><div><b>No items match.</b><div class="note">Loosen a filter, or use “Clear gear filter”.</div></div></div>') + hits.map(([, n]) => {
       const g = gear[n], b = best[n], src = dropsOf(D, n), gv = gi(n), cl = gv && gv.c !== 'unc' && gv.c !== 'none' ? GF_CLS.find(c => c[0] === gv.c)[1] : '';
       return `<a class="hit" href="#items/${encodeURIComponent(n)}">${icon(n)}<span>${esc(n)}${g && g.tier != null ? ` <span class="tag">T${g.tier}</span>` : ''}${cl ? ` <span class="tag">${cl}</span>` : ''}${g && g.slot ? ` <span class="tag">${esc(SLOT_LABEL[g.slot] || g.slot)}</span>` : ''}${flagTags(D, n)}</span>
         <span class="meta">${b ? rarTag(b[0]) : ''}${priceTag(D, n, 'sell')}${src ? `<div>${src.length} source${src.length === 1 ? '' : 's'}</div>` : ''}</span></a>`;
@@ -2857,7 +2863,8 @@ async function moneyView(arg) {
   const cnt = {}; for (const c of MM_CATS) cnt[c[0]] = c[0] ? X.rows.filter(r => !r.tg.includes('ob') && mmCats(r).includes(c[0])).length : X.rows.filter(r => !r.tg.includes('ob')).length;
   view.innerHTML = `<div class="trbar" id="mmbar"><b class="trbn">Money</b><select id="mmcatj" aria-label="Category">${MM_CATS.map(c => `<option value="${c[0]}"${MM.c === c[0] ? ' selected' : ''}>${esc(c[1])} (${cnt[c[0]]})</option>`).join('')}</select><button type="button" class="btn mini ghost" id="trtop" aria-label="Back to top">↑ Top</button></div>
     <div class="panel"><h2>Money making</h2>
-    <div class="note">Every money-making guide on the RS3 wiki: ${st.methods.toLocaleString()} methods from ${st.pages} guide pages. Default sorting and minimum profit use complete fresh net live-price estimates only (Buy supplies, Sell outputs; estimated 2% selling tax deducted). Unverified/stale methods rank last and fail live-profit filters. Wiki figures (${esc(X.ge_date)}) remain guide snapshots; not every method can be recomputed.</div>
+    <details class="src-info" id="mm-src-info"><summary>Details &amp; sources</summary>
+    <div class="note">Every money-making guide on the RS3 wiki: ${st.methods.toLocaleString()} methods from ${st.pages} guide pages. Default sorting and minimum profit use complete fresh net live-price estimates only (Buy supplies, Sell outputs; estimated 2% selling tax deducted). Unverified/stale methods rank last and fail live-profit filters. Wiki figures (${esc(X.ge_date)}) remain guide snapshots; not every method can be recomputed.</div></details>
     ${searchBox('mmq', 'Search methods, e.g. dragons, herbs, AFK', MM.q)}
     <div class="chips" id="mmc">${MM_CATS.map(c => `<button data-v="${c[0]}"${MM.c === c[0] ? ' class="on"' : ''}>${esc(c[1])}<span class="cnt">${cnt[c[0]]}</span></button>`).join('')}</div>
     <div class="mmsel"><label>Skill<select id="mmsk"><option value="">Any skill</option>${skills.map(s => `<option${MM.sk === s ? ' selected' : ''}>${esc(s)}</option>`).join('')}</select></label>
