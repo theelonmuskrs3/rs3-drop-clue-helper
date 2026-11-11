@@ -533,6 +533,9 @@
     }
     rows.sort((l, r) => l.level !== r.level ? l.level - r.level : l.item_alias !== r.item_alias ? (l.item_alias < r.item_alias ? -1 : 1) : l.recipe_idx - r.recipe_idx);
     const hideProducts = cats.length === 1 && cats[0] === 'burner';
+    // "Most profitable primal fruit" chosen while a fruit's price was unknown: every row that uses the chosen pulp/fruit inherits the gap
+    for (const n of notes) if (n.pulp && n.unpriced && n.unpriced.length) for (const r of rows)
+      if ((r.steps || []).some(x => x.name === n.pulp) || r.mats.some(m => m.name === n.fruit || m.name === n.pulp)) for (const g of n.unpriced) if (!r.choice_gaps.includes(g)) r.choice_gaps.push(g);
     return {rows, remaining, currLevel, currXp, targetLevel, targetXp, categories: cats, hideProducts, rawEnabled, notes, rusty: rows.some(r => r.rusty)};
   }
   /* Totals for one row, exactly as the Wiki adds them up: each item's cost is rounded up (ceil(price x quantity));
@@ -540,10 +543,13 @@
      linePrice(line, role) -> number, or null when no usable price exists (the row total is then unavailable, never 0). */
   function herbloreCost(row, linePrice) {
     const sum = (items, role) => { let t = 0; const missing = []; for (const it of items) { const p = linePrice(it, role); if (p == null) { missing.push(it.name); it.cost = null; continue; } it.cost = Math.ceil(p * it.qty); t += it.cost; } return {total: missing.length ? null : Math.ceil(t), missing}; };
-    const m = sum(row.mats, 'mat'), xpUsed = row.total_xp === 0 ? row.xp_per_iter : row.total_xp;
-    const out = {matTotal: m.total, matMissing: m.missing, costPerXp: m.total != null && xpUsed > 0 ? hRound(m.total / xpUsed, 2) || 0 : null, prodTotal: null, prodMissing: [], profit: null, profitPerXp: null};
+    // A Wiki price-based choice (profitable dose, most profitable fruit) made without every candidate's price may not be the
+    // Wiki's choice: line costs are still shown, but the totals are unavailable rather than looking complete.
+    const undetermined = row.choice_gaps && row.choice_gaps.length ? row.choice_gaps.slice() : null;
+    const m0 = sum(row.mats, 'mat'), m = undetermined ? {total: null, missing: m0.missing} : m0, xpUsed = row.total_xp === 0 ? row.xp_per_iter : row.total_xp;
+    const out = {undetermined, matTotal: m.total, matMissing: m.missing, costPerXp: m.total != null && xpUsed > 0 ? hRound(m.total / xpUsed, 2) || 0 : null, prodTotal: null, prodMissing: [], profit: null, profitPerXp: null};
     if (row.products.length) {
-      const p = sum(row.products, 'product'); out.prodTotal = p.total; out.prodMissing = p.missing;
+      const p0 = sum(row.products, 'product'), p = undetermined ? {total: null, missing: p0.missing} : p0; out.prodTotal = p.total; out.prodMissing = p.missing;
       if (p.total != null && m.total != null) { out.profit = p.total - m.total; if (xpUsed > 0) out.profitPerXp = hRound(out.profit / xpUsed, 2) || 0; /* || 0: no negative zero */ }
     }
     return out;

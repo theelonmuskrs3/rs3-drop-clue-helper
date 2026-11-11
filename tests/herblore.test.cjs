@@ -33,10 +33,10 @@ const guide = (n, m) => m === 'gemw' ? (FX.prices[n] ?? 0) : m === 'no' ? 0 : UN
 const g14 = x => Number(Number(x).toPrecision(14));
 const sorted = a => [...a].sort((x, y) => x[0] < y[0] ? -1 : x[0] > y[0] ? 1 : 0);
 const dur = ticks => { let t = Math.ceil(ticks * 0.6); const p = [[86400, 'day'], [3600, 'hour'], [60, 'minute'], [1, 'second']].map(([s, u]) => { const k = Math.floor(t / s); t -= k * s; return k ? `${k.toLocaleString('en-GB')} ${u}${k === 1 ? '' : 's'}` : null; }).filter(Boolean); return p.length > 1 ? p.slice(0, -1).join(', ') + ' and ' + p[p.length - 1] : p[0]; };
-const stats = {cases: 0, rows: 0, pricedRows: 0, unpricedRows: 0, flagged: 0, lines: 0};
-for (const cs of FX.cases) {
+const stats = {cases: 0, rows: 0, pricedRows: 0, unpricedRows: 0, flagged: 0, flaggedMatched: 0, lines: 0};
+function compareCase(cs, args) {
   stats.cases++;
-  const res = C.herbloreRun(D, {...DEF, ...cs.args, ...FX.render}, (n, m) => guide(n, m));
+  const res = C.herbloreRun(D, args, (n, m) => guide(n, m));
   assert.equal(res.rows.length, cs.rows.length, cs.name + ' row count');
   assert.equal(`To train Herblore from ${res.currXp.toLocaleString('en-GB')} experience (level ${res.currLevel}) to ${res.targetXp.toLocaleString('en-GB')} experience (level ${res.targetLevel}), ${res.remaining.toLocaleString('en-GB')} experience is required.`, cs.message, cs.name);
   assert.equal(cs.head.includes('Products'), !res.hideProducts, cs.name + ' products column'); assert.equal(cs.head.includes('Total value'), !res.hideProducts);
@@ -50,11 +50,14 @@ for (const cs of FX.cases) {
     let j = g.findIndex(r => sig(r.mats) === sig(w.mats) && g14(r.xp_per_iter) === g14(w.xp) && (!w.steps || sig(r.steps || []) === sig(w.steps)));
     if (j < 0) {   // only allowed where the Wiki chose a decanting dose by a value the app cannot price (Module:Calcvalue); the app flags these rows
       j = g.findIndex(r => r.choice_gaps.length && g14(r.xp_per_iter) === g14(w.xp));
-      assert.ok(j >= 0, `${cs.name}: ${w.sort} unmatched`); g.splice(j, 1); stats.flagged++; continue;
+      assert.ok(j >= 0, `${cs.name}: ${w.sort} unmatched`); const fr = g.splice(j, 1)[0]; stats.flagged++;
+      const fc = C.herbloreCost(fr, l => guide(l.price_name, methodOf(l)));   // undetermined choice: totals unavailable, never a misleading number
+      assert.deepEqual([fc.matTotal, fc.prodTotal, fc.profit, fc.costPerXp, fc.profitPerXp], [null, null, null, null, null], cs.name + ' flagged totals'); assert.ok(fc.undetermined.length); continue;
     }
     const r = g.splice(j, 1)[0];
     const where = `${cs.name}: ${w.recipe}`;
-    if (r.choice_gaps.length) stats.flaggedMatched = (stats.flaggedMatched || 0) + 1;   // flagged, but the dose chosen happens to equal the Wiki's
+    const undetermined = r.choice_gaps.length > 0;   // a candidate had no price: even if the dose equals the Wiki's, totals are unavailable
+    if (undetermined) stats.flaggedMatched++;
     assert.equal(g14(r.xp_per_iter), g14(w.xp), where + ' XP');
     assert.equal(Number((Math.round(r.xp_per_iter * 100) / 100)).toLocaleString('en-GB', {maximumFractionDigits: 2}), w.xpText, where + ' XP text');
     assert.equal(Math.round(r.needed_iterations), w.number, where + ' number');
@@ -76,14 +79,24 @@ for (const cs of FX.cases) {
     };
     lines(r.mats, w.mats, 'materials');
     if (w.products) lines(r.products, w.products, 'products');
-    if (priced) {
+    if (priced && undetermined) { assert.equal(cost.matTotal, null, where); assert.equal(cost.profit, null, where); assert.ok(cost.undetermined.length); stats.unpricedRows++; }
+    else if (priced) {
       stats.pricedRows++;
       assert.equal(z(cost.matTotal), w.matTotal, where + ' total cost'); assert.equal(cost.costPerXp ?? null, w.costPerXp, where + ' cost/XP');
       if ('prodTotal' in w) { assert.equal(z(cost.prodTotal), w.prodTotal, where + ' total value'); assert.equal(cost.profit ?? null, w.profit, where + ' profit'); assert.equal(cost.profitPerXp ?? null, w.profitPerXp, where + ' profit/XP'); }
     } else stats.unpricedRows++;
   }
+  return res;
 }
-assert.equal(stats.cases, 36); assert.equal(stats.rows, 2846); assert.ok(stats.flagged <= 13, 'flagged rows: ' + stats.flagged); assert.ok(stats.pricedRows > 2400);
+for (const cs of FX.cases) compareCase(cs, {...DEF, ...cs.args, ...FX.render});
+assert.equal(stats.cases, 39); assert.equal(stats.rows, 2978); assert.ok(stats.flagged <= 13, 'flagged rows: ' + stats.flagged); assert.ok(stats.pricedRows > 2400);
+const templateStats = {...stats};
+
+/* ---- licences and attribution on every Herblore artifact ---- */
+for (const [f, txt] of [['data/calc/herblore.json', D.license], ['tests/fixtures-herblore-golden.json', FX.license]]) assert.match(txt, /RuneScape Wiki.*CC BY-NC-SA 3\.0/, f);
+assert.match(JSON.parse(fs.readFileSync(path.join(__dirname, 'herblore-form-cases.json'), 'utf8')).source, /CC BY-NC-SA 3\.0/);
+for (const f of ['tools/calc_herblore.py', 'tools/herblore_form.py', 'tools/lua_data_sandbox.py']) assert.match(fs.readFileSync(path.join(base, f), 'utf8'), /RuneScape Wiki|Wiki/, f);
+assert.match(fs.readFileSync(path.join(base, 'app.js'), 'utf8'), /Module:Skill calc\/Herblore \(revision \$\{rev\('Module:Skill calc\/Herblore'\)\}\).*CC BY-NC-SA 3\.0/);
 
 /* ---- engine edge cases ---- */
 { const run = a => C.herbloreRun(D, {...DEF, ...a}, () => 0);
@@ -97,6 +110,12 @@ assert.equal(stats.cases, 36); assert.equal(stats.rows, 2846); assert.ok(stats.f
   // Wiki XP stacking: ceil to 0.1 per category; DXP disables desert pantheon / knowledge bomb
   const kb = run({knowledge_bomb: 'Superior', dxp: 'true', category: 'Clean herbs'}).rows[0], dx = run({dxp: 'true', category: 'Clean herbs'}).rows[0];
   assert.equal(kb.xp_per_iter, dx.xp_per_iter); assert.equal(dx.xp_per_iter, 5);
+  // "Most profitable primal fruit" with one fruit unpriced: every row using the chosen pulp/fruit is undetermined
+  const PF = Object.values(D.data.primal_pulp).map(p => p.mats[0].name);
+  const pr = C.herbloreRun(D, {...DEF, category_choice: 'All', raw_material_replacement_mode: 'Most ingredients', primal_pulp_from: 'Most profitable primal fruit', herb_potion_from: 'Keep original'}, n => n === PF[1] ? null : 100);
+  const note = pr.notes.find(n => n.pulp); assert.deepEqual(note.unpriced, [PF[1]]);
+  const uses = pr.rows.filter(r => (r.steps || []).some(x => x.name === note.pulp) || r.mats.some(m => m.name === note.fruit || m.name === note.pulp));
+  assert.ok(uses.length > 0); for (const r of uses) { assert.ok(r.choice_gaps.includes(PF[1])); assert.equal(C.herbloreCost(r, () => 1).matTotal, null); }
 }
 
 /* ---- DOM ---- */
@@ -123,7 +142,7 @@ async function screen(hash, store = {}, feed = {}) {
   };
   w.addEventListener('error', e => errors.push(e.error));
   for (const f of ['live-prices.js', 'calculators.js', 'map.js']) w.eval(fs.readFileSync(path.join(base, f), 'utf8'));
-  w.eval(fs.readFileSync(path.join(base, 'app.js'), 'utf8') + '\nwindow.__t = {book: LIVE.book, refresh: refreshPriceView, hbDefaults};');
+  w.eval(fs.readFileSync(path.join(base, 'app.js'), 'utf8') + '\nwindow.__t = {book: LIVE.book, refresh: refreshPriceView, hbDefaults, hbArgs};');
   for (let i = 0; i < (feed.hang ? 30 : 300); i++) { await tick(); if (w.document.querySelector('#live-price-status')?.textContent.includes('Last successful') && w.document.querySelector('#hb-table table, #calc-list')) break; }
   await tick();
   assert.deepEqual(errors, [], hash + ' runtime errors');
@@ -141,6 +160,18 @@ const set = (d, w, k, v) => { const el = d.querySelector('#hb-' + k); assert.ok(
     for (const [k, v] of Object.entries(appDef)) assert.equal(v, form[k], 'default ' + k);
     // not offered: the form's section switches (the engine never reads them) and its two hidden fields
     assert.deepEqual(Object.keys(form).filter(k => !(k in appDef)).sort(), ['cost_saving', 'desert_pantheon', 'experience_boost', 'outfit_piece', 'potion_decanting', 'wisdom']); }
+  // Wiki form submission semantics (MediaWiki:Gadget-calc-core.js, emulated in tools/herblore_form.py): each case is a click
+  // sequence on the real Wiki form, rendered by the Wiki with exactly the fields the gadget submits; the app gets the same
+  // values (including stale values of hidden controls) through its own visibility rules.
+  { const FC = JSON.parse(fs.readFileSync(path.join(__dirname, 'herblore-form-cases.json'), 'utf8')); assert.equal(FX.gadgetRevision, 37082305); assert.equal(FX.formRevision, 37008978);
+    const disp = {show_production_time: 'true', mat_mode: 'Price', product_mode: 'Price', step_mode: 'Quantity'};
+    for (const fc of FC.cases) {
+      const cs = FX.formCases.find(c => c.name === fc.name); assert.ok(cs, fc.name);
+      const args = w.__t.hbArgs({...w.__t.hbDefaults(), ...disp, ...fc.app});
+      if (fc.expectDifferent) { const keep = JSON.stringify(stats); assert.throws(() => compareCase(cs, args), /AssertionError|unmatched|quantity|XP|number|cost|order/, fc.name + ' is a Wiki gadget quirk the app does not copy'); Object.assign(stats, JSON.parse(keep)); continue; }
+      compareCase(cs, args);
+    }
+    stats.formCases = FC.cases.length; }
   const g0 = FX.cases.find(c => c.name === 'standard-default');
   assert.equal(d.querySelector('#hb-msg').textContent, g0.message, 'goal message identical to the Wiki');
   assert.equal(rowsOf(d).length, g0.rows.length);
@@ -158,7 +189,8 @@ const set = (d, w, k, v) => { const el = d.querySelector('#hb-' + k); assert.ok(
   { const tr = rowNamed(d, 'Super adrenaline potion (3)'); assert.ok(tr); const td = [...tr.querySelectorAll('td')];
     assert.match(td[4].textContent, /^Unavailable/); assert.match(td[4].textContent, /Wiki calculated value/); assert.match(td[7].textContent, /^Unavailable/); assert.doesNotMatch(td[7].textContent, /\b0 gp/); }
   // untradeable product valued at 0 as on the Wiki, labelled
-  { const tr = rowNamed(d, 'Adrenaline renewal potion (4)'); const det = tr.querySelector('details'); assert.match(det.textContent, /Adrenaline renewal potion \(4\) — Sell untradeable, valued at 0 as on the Wiki/); }
+  { const tr = rowNamed(d, 'Adrenaline renewal potion (4)'); const det = tr.querySelector('details'); assert.match(det.textContent, /Adrenaline renewal potion \(4\) — Sell untradeable, no market price: valued at 0 as on the Wiki \(not free/);
+    assert.match(tr.querySelectorAll('td')[6].textContent, /excludes untradeable Adrenaline renewal potion \(4\) \(no market price, not free\)/); }
   // gross/net, search, sort
   set(d, w, 'show', 'gross'); d.querySelector('#hb-show').value = 'gross'; d.querySelector('#hb-show').dispatchEvent(new w.Event('change'));
   assert.equal([...d.querySelectorAll('#hb-table thead th')][8].textContent, 'Gross profit');
@@ -212,9 +244,41 @@ const set = (d, w, k, v) => { const el = d.querySelector('#hb-' + k); assert.ok(
   { const heads = [...d.querySelectorAll('#hb-table thead th')].map(t => t.textContent); assert.deepEqual(heads.slice(4, 6), ['Time', 'Steps']); assert.ok(heads.includes('Products'));
     const tr = rowNamed(d, 'Attack potion (3)'), td = tr.querySelectorAll('td'); assert.match(td[3].textContent, /days?, .*seconds$/); assert.match(td[4].textContent, /^Clean guam × .*Guam potion \(unfinished\) × /); assert.match(td[5].textContent, /Grimy guam × /); }
   dom.window.close();
+  // "Profitable" product decanting follows the profit basis on screen: net per dose after the per-item tax, or gross
+  { const lowOf = {'Attack potion (1)': 10, 'Attack potion (2)': 20, 'Attack potion (3)': 149, 'Attack potion (4)': 200};   // gross/dose: 4 best (50); net/dose 49 vs 49 -> Wiki tie rule keeps 3
+    const over = Object.fromEntries(Object.entries(lowOf).map(([n, low]) => [n, {high: low + 1, low}]));
+    ({dom, w, d} = await screen('calculators/herblore', {dch_calc_herblore_v1: JSON.stringify({product_decant_type: 'Profitable', product_mode: 'Quantity'})}, {over}));
+    const prod = () => rowNamed(d, 'Attack potion (3)').querySelectorAll('td')[6].textContent;
+    assert.match(prod(), /^Attack potion \(3\) × /, 'net basis keeps 3-dose');
+    d.querySelector('#hb-show').value = 'gross'; d.querySelector('#hb-show').dispatchEvent(new w.Event('change'));
+    assert.match(prod(), /^Attack potion \(4\) × /, 'gross basis picks 4-dose (as the Wiki rule would on these prices)');
+    dom.window.close();
+    // one candidate without a price: choice undetermined -> totals unavailable, warning shown
+    delete over['Attack potion (2)'];
+    ({dom, w, d} = await screen('calculators/herblore', {dch_calc_herblore_v1: JSON.stringify({product_decant_type: 'Profitable'})}, {over: {...over, 'Attack potion (2)': null}}));
+    const tr = rowNamed(d, 'Attack potion (3)'), td = tr.querySelectorAll('td');
+    assert.match(tr.querySelector('th').textContent, /Profitable choice undetermined \(totals unavailable\), no live price for: Attack potion \(2\)/);
+    for (const i of [4, 6, 7]) { assert.match(td[i].textContent, /^Unavailable/); assert.match(td[i].textContent, /Profitable choice undetermined: no price for Attack potion \(2\)/); }
+    dom.window.close(); }
+  // browser spot-check script (checklist "completion run"): same controls, tags and Wiki form values
+  ({dom, w, d} = await screen('calculators/herblore', {}));
+  { const tag = g => (d.querySelector(`details[data-g="${g}"] summary .tag`) || {}).textContent || '';
+    const check = name => { const c = FX.formCases.find(x => x.name === name); assert.equal(d.querySelector('#hb-msg').textContent, c.message, name);
+      for (const wr of c.rows.filter(r => /^(Attack potion \(3\)|Strength potion \(3\)|Antipoison \(3\)|Prayer potion \(3\)|Super attack \(3\))$/.test(r.recipe))) {
+        const td = rowNamed(d, wr.recipe).querySelectorAll('td'); assert.equal(td[1].textContent, wr.xpText, name + ' ' + wr.recipe); assert.equal(td[2].textContent, wr.number.toLocaleString('en-GB'), name + ' ' + wr.recipe); } };
+    for (const [k, v] of [['curr_level', '30'], ['target_level', '50'], ['inspire', 'true'], ['wise', 'Wise 4'], ['avatar', '6'], ['torsol', '4'], ['pulse_core', 'Buff and equipped'], ['bxp', 'true'], ['bxp_amount', '100000'], ['cinder_core', 'Buff and equipped']]) set(d, w, k, v);
+    assert.equal(tag('xp'), '8 set'); check('spot-boosts-bxp');
+    set(d, w, 'bxp', 'false'); assert.equal(d.querySelector('#hb-bxp_amount'), null); assert.equal(tag('xp'), '5 set');
+    d.querySelector('#hb-reset').click();
+    for (const [k, v] of [['curr_level', '30'], ['target_level', '50'], ['bik_scripture', 'Flicking and switching every minute'], ['dxp', 'true'], ['outfit', '5'], ['modified_mask', 'true'], ['portable', 'true'], ['brooch', 'true'], ['product_mode', 'Quantity']]) set(d, w, k, v);
+    assert.equal(tag('xp'), '2 set'); assert.equal(tag('outfit'), '2 set'); assert.equal(tag('saving'), '2 set'); check('spot-dxp-outfit-brooch');
+    const c = FX.formCases.find(x => x.name === 'spot-dxp-outfit-brooch'), ap = c.rows.find(r => r.recipe === 'Attack potion (3)');
+    assert.equal(rowNamed(d, 'Attack potion (3)').querySelectorAll('td')[6].textContent.trim(), `Attack potion (3) × ${ap.products[0][1].toLocaleString('en-GB')}`);
+    set(d, w, 'portable', 'false'); assert.equal(d.querySelector('#hb-brooch'), null); assert.equal(tag('saving'), ''); }
+  dom.window.close();
   // before the price list arrives: 'live prices loading', never 0
   ({dom, w, d} = await screen('calculators/herblore', {}, {hang: true}));
   { const td = [...rowNamed(d, 'Attack potion (3)').querySelectorAll('td')]; assert.match(td[4].textContent, /^Unavailable/); assert.match(td[4].textContent, /live prices loading/); }
   dom.window.close();
-  console.log(`PASS herblore: ${stats.rows} Wiki rows in ${stats.cases} renders (${stats.pricedRows} with every cost/profit cell, ${stats.unpricedRows} quantities-only where the Wiki uses its own calculated or Daemonheim values, ${stats.flagged} flagged Wiki-only dose choices), ${stats.lines} item lines; edge cases; live buy-high/sell-low, per-item tax, missing/stale/loading unavailable, untradeable 0 labelled, rusty coins unavailable; DOM options, persistence, favourites, directory 2 in app`);
+  const T = templateStats; console.log(`PASS herblore: template renders ${T.rows} rows in ${T.cases} cases (${T.pricedRows} every cost/profit cell, ${T.unpricedRows} quantities-only or undetermined-choice totals unavailable, ${T.flagged} flagged dose choices, ${T.flaggedMatched} flagged-but-same); ${stats.formCases - 1} Wiki form click-sequence renders match (${stats.rows - T.rows} rows) + 1 gadget quirk confirmed different; all: ${stats.rows} Wiki rows in ${stats.cases} renders (${stats.pricedRows} with every cost/profit cell, ${stats.unpricedRows} quantities-only where the Wiki uses its own calculated or Daemonheim values, ${stats.flagged} flagged Wiki-only dose choices), ${stats.lines} item lines; edge cases; live buy-high/sell-low, per-item tax, missing/stale/loading unavailable, untradeable 0 labelled, rusty coins unavailable; DOM options, persistence, favourites, directory 2 in app`);
 })().catch(e => { console.error(e); process.exit(1); });

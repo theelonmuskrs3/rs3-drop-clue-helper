@@ -24,7 +24,7 @@ Every native port records its page, template and module revisions and gives attr
 | Calculator | Wiki path | Status | Verification |
 |---|---|---|---|
 | Flask decanting (Herblore) | /w/Calculator:Herblore/Flask_decanting | **Native** `#calculators/flask-decanting` | 86 potions × 4 decanting options: all 344 Wiki-rendered cells reproduced (page rev 37202169, row template rev 37202166, GEPrices rev 37236236). Rebuild with `tools/calc_flask_decanting.py`. |
-| Herblore skill calculator | /w/Calculator:Herblore | **Native** `#calculators/herblore` (draft, not published) | JS port of `Module:Skill calc/Herblore` rev 36813069 with data rev 37201040, page rev 37008978, Experience 35948183 / data 35392677, GEIDs 37236241. 36 Wiki renders (2,846 rows, 14,335 item lines) at GEPrices rev 37236236: every row's order, XP, actions, time, colour, steps and line quantities match; costs/profits match on 2,483 rows. See below. Rebuild with `tools/calc_herblore.py build` / `golden`. |
+| Herblore skill calculator | /w/Calculator:Herblore | **Native** `#calculators/herblore` (draft, not published) | JS port of `Module:Skill calc/Herblore` rev 36813069 with data rev 37201040, page rev 37008978, Experience 35948183 / data 35392677, GEIDs 37236241. 39 template renders (2,978 rows) + 15 Wiki form click-sequence renders (1,522 rows) at GEPrices rev 37236236: every row's order, XP, actions, time, colour, steps and line quantities match; costs/profits match on 2,551 template rows, the rest are unavailable by rule (see below). See below. Rebuild with `tools/calc_herblore.py build` / `golden`. |
 | All other 180 pages | — | Wiki only | — |
 
 Running coverage: **2 of 182 pages native** (2 of 186 directory entries "In app"; 184 "Wiki only — not yet in app").
@@ -47,17 +47,41 @@ brooch, botanist's amulet, Morytania legs 4, desert amulet 4, envenomed, scroll 
 every sub-choice, ingredient sets, cape 99/120); level range and level options, tradability filters.
 Display modes (time, steps, material/product display) are presentation only; goldens use the fullest display.
 
-Not offered / limits (explicit, not simplified):
-* The form's section switches (`experience_boost`, `outfit_piece`, `cost_saving`, `potion_decanting`) are not read by the
-  module; the app shows/hides groups instead. The form's hidden `wisdom` and `desert_pantheon` fields are not offered (left at the
-  Wiki defaults). Fields hidden by a parent switch are sent at their defaults (e.g. brooch without portable well).
-* Multiple-mode checkboxes for Overload variants and the two Daemonheim categories are not golden-tested in Multiple mode (those
-  categories are tested through Single/Dungeoneering/Outside Daemonheim).
-* Items the Wiki values with `Module:Calcvalue` or Dungeoneering values (350 golden rows, compared on quantities only) and
-  Daemonheim rusty-coin prices are **unavailable** in the app, never 0. Items the Wiki marks untradeable are 0 as on the Wiki and labelled.
-* "Profitable" decanting and "Most profitable primal fruit" choose with live prices; when a candidate price is missing the row is
-  flagged (13 golden rows differ only because the Wiki chose using a calculated value).
-* The order of tied rows (3- and 4-dose products of one recipe) is unspecified on the Wiki; tests compare those ties by name.
+Test inputs and fixtures: `tests/herblore-defaults.json` (the Wiki form's defaults), `tests/herblore-cases.json` and
+`tests/herblore-form-cases.json` (inputs and click sequences), `tests/fixtures-herblore-golden.json` (Wiki renders and guide
+prices) all derive from RuneScape Wiki content, CC BY-NC-SA 3.0; the fixture and the form cases carry the licence inline.
+
+Wiki form submission semantics (audited, `tools/herblore_form.py`, `tests/herblore-form-cases.json`):
+The Wiki form is `{{Form calculator}}` run by `MediaWiki:Gadget-calc-core.js` (rev 37082305). It sends only enabled fields;
+a field hidden by its parent toggle is disabled and **omitted**, and the module then uses its own nil default. A section
+switched off omits its whole group. The emulator ports that logic and the pinned form; 15 click sequences were rendered by
+the Wiki with exactly the gadget's submission. 14 match the app row for row: hidden brooch after the portable well is
+turned off, BXP fields after BXP off, mask after outfit None, decant fixed→profitable, raw Most ingredients→Potions and herbs,
+XP→level, filter switched back, Multiple mode with Overload variants + Combination potions (duplicated rows, as the Wiki
+help says) and with both Daemonheim boxes, every section switched off (= app defaults), and the two spot-check cases.
+The 15th is a **Wiki gadget quirk** that the app deliberately does not copy: turning Cost saving off and on re-enables the
+hidden Brooch checkbox, so a stale ticked brooch is submitted and cancels "Scripture of Bik: Always activated". The test
+proves the Wiki output differs there; the app follows the visible form.
+Other form facts: `wisdom` and `desert_pantheon` are `type=hidden` and always submitted as `false` (the app sends the same
+defaults); an invalid default (`raw_material_replacement_mode = None`) becomes the first option, "Original only"; the
+module never reads the section switches or `raw_material_replacement_mode` itself; Factory outfit is listed in both outfit
+and cost-saving groups and belongs to the last (cost saving) on the Wiki, while the app shows it under Outfit pieces with the same effect.
+
+Limits (explicit, not simplified):
+* Items the Wiki values with `Module:Calcvalue` or Dungeoneering values, Daemonheim rusty-coin prices, and any item without
+  a Grand Exchange ID are **unavailable** in the app, never 0 (the Wiki itself silently uses 0 for a failed GE lookup).
+* Items with price method `no` are 0 in the Wiki source (`calprice`: "no = no price provided"). The app keeps 0 so totals
+  match the Wiki, but labels each one "untradeable, no market price … not free" and every total including one says
+  "excludes untradeable …".
+* "Profitable" decanting and "Most profitable primal fruit" use live prices. Products are compared on the profit basis on
+  screen: net per dose after the per-item tax (Net) or gross (Gross); ingredients by Buy price; ties keep the Wiki's order.
+  If any candidate has no live price, the choice is **undetermined** and that recipe's totals are unavailable (the Wiki skips
+  unpriced doses silently). Live audit 10 Nov 2026, 10:16 PM ET, Outside Daemonheim + profitable product and material
+  decanting: 200 of 300 rows undetermined (340 dose variants had no trade in the last 15 minutes, 19 none in the feed;
+  median last trade 8 h); among determined rows, net and gross bases chose the same doses.
+* At Wiki guide prices, 13 rows chose a dose by a Calcvalue price and 1 more row has an unpriceable candidate; all 14 show
+  totals unavailable.
+* Display modes are presentation only; goldens use the fullest display. Tied 3/4-dose row order is unspecified on the Wiki.
 
 ## How the remaining pages are built (survey of page sources, 10 Nov 2026)
 | How the Wiki builds it | Pages | Plan |

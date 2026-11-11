@@ -419,5 +419,34 @@
    "soc": "true",
    "torsol": "1"
   }
+ },
+ {
+  "name": "multiple-overload-variants-combinations",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "false",
+   "categories_combinations": "true",
+   "categories_overload_variants": "true"
+  }
+ },
+ {
+  "name": "multiple-daemonheim-boxes",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "false",
+   "categories_herb": "true",
+   "categories_daemonheim_herb": "true",
+   "categories_daemonheim": "true"
+  }
+ },
+ {
+  "name": "multiple-overload-variants-only-raw",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "false",
+   "categories_overload_variants": "true",
+   "raw_material_replacement_mode": "Potions and herbs",
+   "herb_potion_from": "Unfinished potions"
+  }
  }
 ]

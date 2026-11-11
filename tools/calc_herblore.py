@@ -15,6 +15,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 API = 'https://runescape.wiki/api.php'
 UA = 'DropClueHelper-calc-verify/1.0 (unofficial fan tool; github.com/theelonmuskrs3/rs3-drop-clue-helper)'
 LUA_PY = '/workspace/.venv-lua/bin/python'
+GADGET_REV = 37082305   # MediaWiki:Gadget-calc-core.js, ported in tools/herblore_form.py
 PIN = {   # page -> revision id used for this build
     'Calculator:Herblore': 37008978,
     'Calculator:Herblore/Template': None,
@@ -147,12 +148,27 @@ def golden():
     defaults = json.load(open(os.path.join(ROOT, 'tests', 'herblore-defaults.json')))
     cases = json.load(open(os.path.join(ROOT, 'tests', 'herblore-cases.json')))
     D = json.load(open(os.path.join(ROOT, 'data', 'calc', 'herblore.json')))
+    sys.path.insert(0, os.path.join(ROOT, 'tools')); from herblore_form import Form
+    form_cases = json.load(open(os.path.join(ROOT, 'tests', 'herblore-form-cases.json')))
+    page_rev, _, page_text = content('Calculator:Herblore', D['source']['Calculator:Herblore']['revid'])
+    for t, pinned in (('Calculator:Herblore', D['source']['Calculator:Herblore']['revid']), ('MediaWiki:Gadget-calc-core.js', GADGET_REV)):
+        if latest(t)[0] != pinned: sys.exit('%s is now at revision %s, emulation pinned to %s: re-read it first' % (t, latest(t)[0], pinned))
     for t in ('Module:Skill calc/Herblore', 'Module:Skill calc/Herblore/data'):
         lr = latest(t)[0]
         if lr != D['source'][t]['revid']: sys.exit('Wiki %s is at revision %s, app data pinned %s: rebuild first' % (t, lr, D['source'][t]['revid']))
     for attempt in range(3):
         r1, ts1, prices_text = content('Module:GEPrices/data.json')
-        out = []
+        out, fout = [], []
+        for c in form_cases['cases']:
+            F = Form(page_text)
+            for n, v in form_cases['display'] + c['actions']: F.set(n, v)
+            sub = F.submission()
+            text = '{{Calculator:Herblore/Template' + ''.join('|%s=%s' % kv for kv in sub) + '}}'
+            j = api({'action': 'parse', 'prop': 'text', 'contentmodel': 'wikitext', 'disablelimitreport': '1', 'text': text}, post=True)
+            msg, head, rows = parse_table(j['parse']['text'])
+            fout.append({'name': c['name'], 'submission': sub, 'message': msg, 'head': head, 'rows': rows})
+            print(c['name'], len(rows), 'rows (form submission)', file=sys.stderr)
+            time.sleep(1)
         for c in cases:
             args = dict(defaults); args.update(c['args']); args.update(RENDER)
             html = render(args)
@@ -168,14 +184,16 @@ def golden():
         assert latest(t)[0] == D['source'][t]['revid']
     allp = json.loads(prices_text)
     want = set(D['ids'])
-    for c in out:
+    for c in out + fout:
         for r in c['rows']:
             for k in ('mats', 'products'):
                 for l in r.get(k, []): want.add(l[0])
     prices = {n: allp[n] for n in sorted(want) if isinstance(allp.get(n), (int, float))}
     fx = {'generated': time.strftime('%Y-%m-%d %H:%M %Z'), 'gePricesRevision': r1, 'gePricesTimestamp': ts1,
           'engineRevision': D['source']['Module:Skill calc/Herblore']['revid'], 'dataRevision': D['source']['Module:Skill calc/Herblore/data']['revid'],
-          'render': RENDER, 'prices': prices, 'cases': out}
+          'formRevision': page_rev, 'gadgetRevision': GADGET_REV,
+          'license': 'Rendered by the RuneScape Wiki (Calculator:Herblore, Module:Skill calc/Herblore, Module:GEPrices/data.json); CC BY-NC-SA 3.0, https://runescape.wiki/w/RuneScape:Copyrights',
+          'render': RENDER, 'prices': prices, 'cases': out, 'formCases': fout}
     p = os.path.join(ROOT, 'tests', 'fixtures-herblore-golden.json')
     json.dump(fx, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
     print('wrote', p, sum(len(c['rows']) for c in out), 'rows in', len(out), 'cases; GEPrices revision', r1)

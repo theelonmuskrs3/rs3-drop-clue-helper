@@ -1177,9 +1177,9 @@ async function herbloreView(n) {
       <li>XP, number of actions, time, ingredient and product quantities follow the Wiki calculator exactly.</li>
       <li>Ingredients are bought at the live Buy (high) price and products are sold at the live Sell (low) price. Each item's cost is rounded up, as on the Wiki.</li>
       <li>Net profit deducts the estimated 2% Grand Exchange tax on each product sold (rounded down per item; Bonds are exempt). Gross profit is before tax.</li>
-      <li>Untradeable items the Wiki values at 0 are shown as "untradeable (0)". Items the Wiki prices by its own calculated value, and Daemonheim items in rusty coins, have no live price here, so the totals for those recipes are unavailable.</li>
+      <li>Items the Wiki marks as having no price (untradeable) count as 0 in the totals, as on the Wiki. They are not free: totals that include one say "excludes untradeable …". Items the Wiki prices by its own calculated value, Daemonheim items in rusty coins, and any item without a Grand Exchange ID have no live price here, so the totals for those recipes are unavailable.</li>
       <li>A price that is missing or older than 15 minutes makes the totals for that recipe unavailable; it is never treated as 0.</li>
-      <li>"Profitable" decanting and "Most profitable primal fruit" choose using live prices (the Wiki uses guide prices), so the dose or fruit chosen can differ from the Wiki.</li></ul>
+      <li>"Profitable" decanting and "Most profitable primal fruit" choose using live prices (the Wiki uses guide prices), so the dose or fruit chosen can differ from the Wiki. Products are compared on the profit basis shown (after estimated tax for Net, before tax for Gross). If any candidate has no live price, the choice is undetermined and that recipe's totals are unavailable.</li></ul>
     <form id="hb-form" class="hb-form" autocomplete="off" onsubmit="return false"></form>
     <div class="row hb-reset"><button class="btn sub" type="button" id="hb-reset">Reset all options</button></div>
     <p class="hb-msg" id="hb-msg" role="status"></p>
@@ -1243,15 +1243,18 @@ async function herbloreView(n) {
     if (isNum(m)) return {v: Number(m.replace(/,/g, '')), kind: 'fixed'};
     return {v: null, why: m === 'calcvalue' ? "Wiki calculated value, no live price" : m === 'dung' ? 'Daemonheim smuggler price, not in this app' : 'Wiki price method "' + m + '" not in this app'};
   };
+  /* Price for the Wiki's own price-based choices. Products (side 'sell') compare what selling yields under the profit basis
+     on screen: after the estimated per-item tax for Net, before it for Gross; ingredients compare the Buy price. */
   const choicePrice = (name, method, side) => {
-    if (method === 'gemw') { const id = D.ids[name]; if (id == null) return null; const x = side === 'sell' ? LIVE.book.sale(id) : LIVE.book.quote(id, 'buy'); return x.live ? x.value : null; }
+    if (method === 'gemw') { const id = D.ids[name]; if (id == null) return null; if (side !== 'sell') { const x = LIVE.book.quote(id, 'buy'); return x.live ? x.value : null; }
+      const x = LIVE.book.sale(id); return !x.live ? null : show.value === 'gross' ? x.value : x.net; }
     return isNum(method) ? Number(method.replace(/,/g, '')) : null;
   };
   const money = n => `${n < 0 ? '−' : ''}${gp(Math.abs(n))}`;
   const rowKey = r => [r.level, r.item_alias, r.recipe_idx, ...(r.steps || []).map(s => s.name), ...r.mats.map(m => m.name)].join('|');
   const draw = () => {
     const a = hbArgs(st);
-    const res = RS3Calc.herbloreRun(D, a, choicePrice);
+    const res = RS3Calc.herbloreRun(D, a, choicePrice);   // re-run per view: "Profitable" choices follow the Net/Gross basis
     if (res.error) { $('#hb-msg').textContent = res.error; $('#hb-count').textContent = ''; $('#hb-table').innerHTML = ''; return; }
     $('#hb-msg').textContent = `To train Herblore from ${res.currXp.toLocaleString('en-GB')} experience (level ${res.currLevel}) to ${res.targetXp.toLocaleString('en-GB')} experience (level ${res.targetLevel}), ${res.remaining.toLocaleString('en-GB')} experience is required.`;
     const gross = show.value === 'gross';
@@ -1276,28 +1279,31 @@ async function herbloreView(n) {
     $('#hb-count').textContent = `${shown.length} of ${rows.length} recipes · ${priced} with complete live costs · profit shown ${gross ? 'gross (before tax)' : 'net (after estimated tax)'}`;
     const open = new Set([...document.querySelectorAll('#hb-table details[open]')].map(d => d.dataset.row));
     const lvlCls = lv => lv > res.targetLevel ? 'hb-lv-red' : lv <= res.currLevel ? 'hb-lv-green' : 'hb-lv-yellow';
-    const lineVal = (x, l, role) => { const p = x.prices.get(role + ':' + l.name); return p.v == null ? '<span class="calc-unavail">unavailable</span>' : p.kind === 'untradeable' ? 'untradeable (0)' : l.cost > 0 ? esc(gp(l.cost)) : '-'; };
+    const lineVal = (x, l, role) => { const p = x.prices.get(role + ':' + l.name); return p.v == null ? '<span class="calc-unavail">unavailable</span>' : p.kind === 'untradeable' ? 'untradeable: 0, not counted' : l.cost > 0 ? esc(gp(l.cost)) : '-'; };
     const list = (x, items, mode, role) => mode === 'Hidden' ? '' : items.length ? `<ul class="hb-list">${items.map(l => `<li><span class="hb-item">${esc(l.name)}</span>${mode !== 'Item' ? ` <span class="hb-qty">× ${esc(hbFmt(l.qty))}</span>` : ''}${mode === 'Price' && l.cost !== undefined ? ` <span class="hb-cost">${lineVal(x, l, role)}</span>` : ''}</li>`).join('')}</ul>` : '-';
     const steps = x => { const s = x.r.steps; if (stepMode === 'Hidden') return null; if (stepMode === 'Total') return String((s ? s.length : 0) + 1); return s && s.length ? `<ul class="hb-list">${s.map(l => `<li>${esc(l.name)}${stepMode === 'Quantity' ? ` × ${esc(hbFmt(l.qty))}` : ''}</li>`).join('')}</ul>` : '-'; };
     const why = (x, role, items) => [...new Set(items.map(l => x.prices.get(role + ':' + l.name)).filter(p => p && p.v == null).map(p => p.why))].join('; ');
     const priceLine = (x, l, role) => { const p = x.prices.get(role + ':' + l.name);
-      return `<li>${esc(l.name)} — ${role === 'product' ? 'Sell' : 'Buy'} ${p.v == null ? `<span class="calc-unavail">unavailable (${esc(p.why)})</span>` : p.kind === 'untradeable' ? 'untradeable, valued at 0 as on the Wiki' : p.kind === 'fixed' ? `fixed Wiki value ${esc(gp(p.v))}` : `${esc(gp(p.v))} each${role === 'product' ? ` · est. tax ${esc(gp(p.tax))}` : ''}`}</li>`; };
+      return `<li>${esc(l.name)} — ${role === 'product' ? 'Sell' : 'Buy'} ${p.v == null ? `<span class="calc-unavail">unavailable (${esc(p.why)})</span>` : p.kind === 'untradeable' ? 'untradeable, no market price: valued at 0 as on the Wiki (not free; its real cost/value is not in the totals)' : p.kind === 'fixed' ? `fixed Wiki value ${esc(gp(p.v))}` : `${esc(gp(p.v))} each${role === 'product' ? ` · est. tax ${esc(gp(p.tax))}` : ''}`}</li>`; };
     const recipe = x => { const r = x.r; let h = `<span class="calc-name">${esc(r.item_name)}${r.item_multi > 1 ? ` × ${esc(String(r.item_multi))}` : ''}</span>`;
       if (Number(r.improved) > 0) h += `<small class="calc-sub">(Improved +${esc(String(r.improved))} recipe)</small>`;
       for (const m of [r.method, ...(r.steps || []).map(s => s.method)]) if (m) h += `<small class="calc-sub"><i>(${esc(m)})</i></small>`;
-      if (r.choice_gaps && r.choice_gaps.length) h += `<small class="calc-sub hb-warn">Profitable dose chosen without a price for: ${esc(r.choice_gaps.slice(0, 4).join(', '))}${r.choice_gaps.length > 4 ? '…' : ''}</small>`;
+      if (r.choice_gaps && r.choice_gaps.length) h += `<small class="calc-sub hb-warn">Profitable choice undetermined (totals unavailable), no live price for: ${esc(r.choice_gaps.slice(0, 4).join(', '))}${r.choice_gaps.length > 4 ? '…' : ''}</small>`;
       const k = rowKey(r);
       h += `<details class="calc-prices" data-row="${esc(k)}"${open.has(k) ? ' open' : ''}><summary>Prices used</summary><ul>${r.mats.map(l => priceLine(x, l, 'mat')).join('')}${showProfit ? r.products.map(l => priceLine(x, l, 'product')).join('') : ''}</ul></details>`;
       return h; };
-    const total = (v, miss) => v == null ? `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc(miss)}</small>` : v > 0 ? esc(gp(v)) : '-';
-    const profitCell = x => x.profit == null ? `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc(why(x, 'mat', x.r.mats) || why(x, 'product', x.r.products))}</small>`
-      : `<span class="calc-val ${x.profit < 0 ? 'loss' : 'gain'}">${esc(money(x.profit))}</span><small class="calc-sub">${gross ? `net ${esc(money(x.net))}` : `gross ${esc(money(x.c.profit))} · tax ${esc(gp(x.tax))}`}</small>`;
+    const untr = (x, role, items) => items.filter(l => { const p = x.prices.get(role + ':' + l.name); return p && p.kind === 'untradeable'; }).map(l => l.name);
+    const undet = x => x.c.undetermined ? `Profitable choice undetermined: no price for ${x.c.undetermined.slice(0, 3).join(', ')}${x.c.undetermined.length > 3 ? '…' : ''}` : '';
+    const excl = names => names.length ? `<small class="calc-sub hb-excl">excludes untradeable ${esc(names.slice(0, 3).join(', '))}${names.length > 3 ? '…' : ''} (no market price, not free)</small>` : '';
+    const total = (x, v, miss, names) => v == null ? `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc(undet(x) || miss)}</small>` : (v > 0 ? esc(gp(v)) : '-') + excl(names);
+    const profitCell = x => x.profit == null ? `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc(undet(x) || why(x, 'mat', x.r.mats) || why(x, 'product', x.r.products))}</small>`
+      : `<span class="calc-val ${x.profit < 0 ? 'loss' : 'gain'}">${esc(money(x.profit))}</span><small class="calc-sub">${gross ? `net ${esc(money(x.net))}` : `gross ${esc(money(x.c.profit))} · tax ${esc(gp(x.tax))}`}</small>${excl([...untr(x, 'mat', x.r.mats), ...untr(x, 'product', x.r.products)])}`;
     const perXp = v => v == null ? '-' : `${v < 0 ? '−' : ''}${esc(Math.abs(v).toLocaleString('en-GB', {maximumFractionDigits: 2}))} gp`;
     const showTime = a.show_production_time === 'true';
     const head = ['Lvl', 'Recipe', 'XP', 'Number', ...(showTime ? ['Time'] : []), ...(stepMode !== 'Hidden' ? ['Steps'] : []), 'Materials', 'Total cost', 'Cost/XP', ...(showProducts ? ['Products'] : []), ...(showProfit ? ['Total value', gross ? 'Gross profit' : 'Net profit', 'Profit/XP'] : [])];
     $('#hb-table').innerHTML = shown.length ? `<table class="calc-table hb-table"><thead><tr>${head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${shown.map(x => {
       const r = x.r, st1 = steps(x);
-      return `<tr><td class="${lvlCls(r.level)}">${esc(String(r.level))}</td><th scope="row">${recipe(x)}</th><td>${esc(hbFmt(r.xp_per_iter))}</td><td>${r.needed_iterations > 0 ? esc(Math.round(r.needed_iterations).toLocaleString('en-GB')) : '-'}</td>${showTime ? `<td>${r.tick ? esc(hbDur(r.tick)) : '-'}</td>` : ''}${st1 != null ? `<td>${st1}</td>` : ''}<td>${list(x, r.mats, matMode, 'mat')}</td><td>${total(x.c.matTotal, why(x, 'mat', r.mats))}</td><td>${x.c.costPerXp == null ? '-' : perXp(x.c.costPerXp)}</td>${showProducts ? `<td>${list(x, r.products, prodMode, 'product')}</td>` : ''}${showProfit ? `<td>${total(x.c.prodTotal, why(x, 'product', r.products))}</td><td>${profitCell(x)}</td><td>${perXp(x.perXp)}</td>` : ''}</tr>`;
+      return `<tr><td class="${lvlCls(r.level)}">${esc(String(r.level))}</td><th scope="row">${recipe(x)}</th><td>${esc(hbFmt(r.xp_per_iter))}</td><td>${r.needed_iterations > 0 ? esc(Math.round(r.needed_iterations).toLocaleString('en-GB')) : '-'}</td>${showTime ? `<td>${r.tick ? esc(hbDur(r.tick)) : '-'}</td>` : ''}${st1 != null ? `<td>${st1}</td>` : ''}<td>${list(x, r.mats, matMode, 'mat')}</td><td>${total(x, x.c.matTotal, why(x, 'mat', r.mats), untr(x, 'mat', r.mats))}</td><td>${x.c.costPerXp == null ? '-' : perXp(x.c.costPerXp)}</td>${showProducts ? `<td>${list(x, r.products, prodMode, 'product')}</td>` : ''}${showProfit ? `<td>${total(x, x.c.prodTotal, why(x, 'product', r.products), untr(x, 'product', r.products))}</td><td>${profitCell(x)}</td><td>${perXp(x.perXp)}</td>` : ''}</tr>`;
     }).join('')}</tbody></table>` : '<p class="note">No recipes match these options.</p>';
   };
   q.addEventListener('input', draw); show.onchange = draw; sort.onchange = draw;
