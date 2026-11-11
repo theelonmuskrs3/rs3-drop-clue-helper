@@ -1,0 +1,423 @@
+[
+ {
+  "name": "standard-default",
+  "args": {}
+ },
+ {
+  "name": "herbs-50-60",
+  "args": {
+   "category": "Clean herbs",
+   "curr_level": "50",
+   "target_level": "60"
+  }
+ },
+ {
+  "name": "xp-toggles-current-above-target",
+  "args": {
+   "curr_toggle": "Experience",
+   "curr_xp": "5000000",
+   "target_toggle": "Experience",
+   "target_xp": "4000000",
+   "category": "Combination potions"
+  }
+ },
+ {
+  "name": "xp-goal-exp",
+  "args": {
+   "curr_toggle": "Experience",
+   "curr_xp": "737627",
+   "target_toggle": "Experience",
+   "target_xp": "13034431",
+   "category": "Juju potions"
+  }
+ },
+ {
+  "name": "boosts-cat123",
+  "args": {
+   "category_choice": "Common potions",
+   "bik_scripture": "Flicking and switching every minute",
+   "inspire": "true",
+   "avatar": "6",
+   "wise": "Wise 4",
+   "torsol": "4",
+   "pulse_core": "Buff and equipped",
+   "perfect_juju": "Perfect juju herblore potion",
+   "meilyr_hour": "true",
+   "raf": "true",
+   "add_xp_boost": "7",
+   "outfit": "5",
+   "curr_level": "80",
+   "target_level": "99"
+  }
+ },
+ {
+  "name": "boosts-kb-bik-always",
+  "args": {
+   "category": "Standard potions",
+   "knowledge_bomb": "Superior",
+   "bik_scripture": "Always activated",
+   "avatar": "3",
+   "wise": "Wise 1",
+   "torsol": "2",
+   "pulse_core": "Equipped",
+   "curr_level": "60",
+   "target_level": "80"
+  }
+ },
+ {
+  "name": "dxp-bxp-cinder",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "true",
+   "categories_unfinished": "true",
+   "categories_herb": "true",
+   "dxp": "true",
+   "bxp": "true",
+   "bxp_amount": "1500000",
+   "cinder_core": "Buff and equipped",
+   "knowledge_bomb": "Small/Medium/Large/Huge/Prime Gaming",
+   "curr_level": "70",
+   "target_level": "90"
+  }
+ },
+ {
+  "name": "bxp-only",
+  "args": {
+   "category": "Bomb",
+   "bxp": "true",
+   "bxp_amount": "20000",
+   "cinder_core": "Buff only",
+   "curr_level": "50",
+   "target_level": "99"
+  }
+ },
+ {
+  "name": "cost-saving-all",
+  "args": {
+   "category": "Standard potions",
+   "portable": "true",
+   "brooch": "true",
+   "botanist_amulet": "true",
+   "morytania_4": "true",
+   "desert_4": "true",
+   "envenomed": "true",
+   "soc": "true",
+   "modified_mask": "true",
+   "factory": "3",
+   "outfit": "3",
+   "curr_level": "40",
+   "target_level": "96"
+  }
+ },
+ {
+  "name": "brooch-bik-flick",
+  "args": {
+   "category": "Unfinished potions",
+   "portable": "true",
+   "brooch": "true",
+   "bik_scripture": "Flicking and switching every minute",
+   "soc": "true",
+   "curr_level": "30",
+   "target_level": "85"
+  }
+ },
+ {
+  "name": "brooch-bik-always",
+  "args": {
+   "category": "Juju potions",
+   "portable": "true",
+   "brooch": "true",
+   "bik_scripture": "Always activated",
+   "botanist_amulet": "true",
+   "factory": "5"
+  }
+ },
+ {
+  "name": "factory5-unfinished",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "false",
+   "categories_unfinished": "true",
+   "categories_juju_unfinished": "true",
+   "factory": "5",
+   "curr_level": "20",
+   "target_level": "75"
+  }
+ },
+ {
+  "name": "cape99-herbs",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "false",
+   "categories_herb": "true",
+   "categories_juju_herb": "true",
+   "cape99": "true",
+   "raw_material_replacement_mode": "Potions and herbs"
+  }
+ },
+ {
+  "name": "cape120-combo",
+  "args": {
+   "category": "Combination potions",
+   "cape120": "true",
+   "portable": "true",
+   "modified_mask": "true",
+   "curr_level": "96",
+   "target_level": "120"
+  }
+ },
+ {
+  "name": "overload-variants",
+  "args": {
+   "category": "Overload variants",
+   "cape120": "true",
+   "perfect_juju": "Perfect plus potion",
+   "meilyr_hour": "true"
+  }
+ },
+ {
+  "name": "decant-product-flask",
+  "args": {
+   "category": "Standard potions",
+   "product_decant_type": "Fixed",
+   "product_decant_dose_fixed": "6",
+   "curr_level": "50",
+   "target_level": "90"
+  }
+ },
+ {
+  "name": "decant-product-4-material-2",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "true",
+   "categories_combinations": "true",
+   "product_decant_type": "Fixed",
+   "product_decant_dose_fixed": "4",
+   "material_decant_type": "Fixed",
+   "material_decant_dose_fixed": "2",
+   "factory": "3",
+   "botanist_amulet": "true"
+  }
+ },
+ {
+  "name": "decant-profitable",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "true",
+   "categories_juju": "true",
+   "categories_combinations": "true",
+   "product_decant_type": "Profitable",
+   "product_decant_dose_restriction": "Any",
+   "material_decant_type": "Profitable",
+   "material_decant_dose_restriction": "Min. 3"
+  }
+ },
+ {
+  "name": "decant-profitable-2or3-max2",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "true",
+   "categories_barbarian": "true",
+   "product_decant_type": "Profitable",
+   "product_decant_dose_restriction": "2 or 3",
+   "material_decant_type": "Profitable",
+   "material_decant_dose_restriction": "Max. 2"
+  }
+ },
+ {
+  "name": "decant-material-flask",
+  "args": {
+   "category": "Combination potions",
+   "material_decant_type": "Fixed",
+   "material_decant_dose_fixed": "6"
+  }
+ },
+ {
+  "name": "raw-grimy-standard",
+  "args": {
+   "category": "Standard potions",
+   "raw_material_replacement_mode": "Potions and herbs",
+   "herb_potion_from": "Grimy herbs",
+   "curr_level": "50",
+   "target_level": "80",
+   "soc": "true",
+   "factory": "5"
+  }
+ },
+ {
+  "name": "raw-unfinished-combo",
+  "args": {
+   "category": "Combination potions",
+   "raw_material_replacement_mode": "Potions and herbs",
+   "herb_potion_from": "Unfinished potions",
+   "use_ingredient_set": "Add"
+  }
+ },
+ {
+  "name": "raw-tradable-combo",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "false",
+   "categories_combinations": "true",
+   "categories_powerburst": "true",
+   "raw_material_replacement_mode": "Potions and herbs",
+   "herb_potion_from": "Tradable potions",
+   "use_ingredient_set": "Replace"
+  }
+ },
+ {
+  "name": "raw-clean-bomb-tar-burner",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "false",
+   "categories_bomb": "true",
+   "categories_tar": "true",
+   "categories_burner": "true",
+   "categories_juju": "true",
+   "raw_material_replacement_mode": "Potions and herbs",
+   "herb_potion_from": "Clean herbs",
+   "cape99": "true"
+  }
+ },
+ {
+  "name": "raw-most-ingredients",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "true",
+   "categories_primal": "true",
+   "categories_adrenaline": "true",
+   "categories_combinations": "true",
+   "raw_material_replacement_mode": "Most ingredients",
+   "herb_potion_from": "Grimy herbs",
+   "primal_extract_from": "Improved yield +2",
+   "primal_pulp_from": "Golden dragonfruit",
+   "adrenaline_from": "Charging inert",
+   "ground_from": "Telekinetic Grind",
+   "water_from": "Humidify",
+   "coconut_from": "Whole coconut",
+   "torsol": "3",
+   "curr_level": "90",
+   "target_level": "110"
+  }
+ },
+ {
+  "name": "raw-most-ingredients-2",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "true",
+   "categories_primal": "true",
+   "categories_barbarian": "true",
+   "raw_material_replacement_mode": "Most ingredients",
+   "primal_extract_from": "Regular portion",
+   "primal_pulp_from": "Most profitable primal fruit",
+   "ground_from": "Manual grinding",
+   "water_from": "Manual filling",
+   "coconut_from": "Opened coconut",
+   "product_decant_type": "Fixed",
+   "product_decant_dose_fixed": "4",
+   "material_decant_type": "Fixed",
+   "material_decant_dose_fixed": "4"
+  }
+ },
+ {
+  "name": "raw-pulp-yield",
+  "args": {
+   "category": "Primal extract",
+   "raw_material_replacement_mode": "Most ingredients",
+   "primal_pulp_from": "Most yield per primal fruit"
+  }
+ },
+ {
+  "name": "raw-filter-ingredients",
+  "args": {
+   "category": "Standard potions",
+   "raw_material_replacement_mode": "Potions and herbs",
+   "herb_potion_from": "Grimy herbs",
+   "recipe_level_start": "30",
+   "recipe_level_end": "75",
+   "recipe_level_filter": "Both",
+   "ingredient_level_filter": "Unfinished"
+  }
+ },
+ {
+  "name": "raw-filter-ingredients-tradable",
+  "args": {
+   "category": "Combination potions",
+   "raw_material_replacement_mode": "Potions and herbs",
+   "herb_potion_from": "Clean herbs",
+   "recipe_level_start": "40",
+   "recipe_level_end": "100",
+   "recipe_level_filter": "Ingredients",
+   "ingredient_level_filter": "Tradable"
+  }
+ },
+ {
+  "name": "filters-tradability",
+  "args": {
+   "category_choice": "Common potions",
+   "recipe_level_start": "45",
+   "recipe_level_end": "95",
+   "recipe_product_tradability": "Tradable",
+   "recipe_material_tradability": "All tradable"
+  }
+ },
+ {
+  "name": "filters-untradable",
+  "args": {
+   "category_choice": "Outside Daemonheim",
+   "recipe_product_tradability": "Untradable",
+   "recipe_material_tradability": "Some tradable"
+  }
+ },
+ {
+  "name": "filters-all-untradable-mats",
+  "args": {
+   "category_choice": "All",
+   "recipe_material_tradability": "All untradable"
+  }
+ },
+ {
+  "name": "outside-daemonheim",
+  "args": {
+   "category_choice": "Outside Daemonheim",
+   "curr_level": "99",
+   "target_level": "120",
+   "wise": "Wise 2"
+  }
+ },
+ {
+  "name": "dungeoneering",
+  "args": {
+   "category_choice": "Dungeoneering",
+   "curr_level": "10",
+   "target_level": "70",
+   "avatar": "5",
+   "dxp": "true"
+  }
+ },
+ {
+  "name": "burner-only",
+  "args": {
+   "category": "Deployable herb burner",
+   "curr_level": "5",
+   "target_level": "40"
+  }
+ },
+ {
+  "name": "small-categories",
+  "args": {
+   "category_choice": "Multiple",
+   "categories_standard": "false",
+   "categories_primal_pulp": "true",
+   "categories_primal": "true",
+   "categories_adrenaline": "true",
+   "categories_juju_herb": "true",
+   "categories_barbarian": "true",
+   "categories_powerburst": "true",
+   "categories_tar": "true",
+   "portable": "true",
+   "soc": "true",
+   "torsol": "1"
+  }
+ }
+]

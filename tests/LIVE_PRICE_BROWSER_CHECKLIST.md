@@ -166,3 +166,23 @@ Main tab and Items sub-menu link both read "Grand Exchange" (no "G.E." in naviga
 - The ☆ favourite saves the calculator. In the directory, "Open in app" appears only on "Decanting flasks for
   profit" and in Favourites; every other entry is "Wiki only — not yet in app".
 - Spot-check one or two results by hand from the prices shown, e.g. 6 (1)s: sell − floor(sell/50) − 6×vial(1) − flask.
+
+## Batch 2: native Herblore skill calculator (draft PR, no publish until these pass)
+The PR3b directory line above is superseded: "Open in app" now appears on exactly two entries, "Decanting flasks for
+profit" and the Herblore skill calculator, and everything else stays "Wiki only — not yet in app". The Flask page and the
+Grand Exchange tab must be unchanged.
+
+`#calculators/herblore` at 320/390/800/1280, on a fresh preview origin (no service worker, `X-DCH-Preview-Build` matches):
+- Defaults (level 1 → 120, Standard potions) show the same goal message and rows as the Wiki page with its defaults.
+  Spot-check 2–3 rows' XP and Number against https://runescape.wiki/w/Calculator:Herblore with the same inputs, including one with boosts
+  (e.g. Wise 4 + avatar 6 + DXP) and one with BXP.
+- Every form group opens and collapses, shows "N set" when changed, and the dependent fields appear only when their switch is
+  on (brooch after portable well, BXP amount/cinder core after BXP, preparation sub-choices after a preparation mode).
+- Inputs survive a reload; favourites are not affected by input changes; the ☆ favourite reopens `#calculators/herblore`.
+- Prices: ingredients use Buy (high), products Sell (low) with per-item est. tax; net/gross toggle; Calcvalue,
+  Dungeoneering and rusty-coin items say "Unavailable" with a reason and never 0 gp; untradeable items say so and count 0.
+- "Prices used" details stay open across a live price refresh, a search and a sort.
+- Turn on decanting (Profitable) and ingredient preparation (Most ingredients, Most profitable primal fruit): rows with a
+  missing candidate price show the warning, and the Steps column lists the intermediate items.
+- Narrow widths: cards with labels, no sideways scroll; the long Materials/Steps lists wrap.
+- Before prices arrive (or offline): "live prices loading"/unavailable, no 0 gp, no stale snapshot shown as live.

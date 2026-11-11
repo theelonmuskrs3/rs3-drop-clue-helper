@@ -1008,6 +1008,7 @@ const CALC_LS = (() => { try { return window.localStorage; } catch (e) { return 
    prices come from the shared live service (never from the embedded Grand Exchange frame). */
 async function nativeCalcView(n) {
   if (n.slug === 'flask-decanting') return flaskDecantView(n);
+  if (n.slug === 'herblore') return herbloreView(n);
   location.replace('#calculators');
 }
 const QUOTE_WHY = {missing: 'no recent trade price', stale: 'price is stale', offline: 'offline', unavailable: 'live source unavailable', unmapped: 'not found in the price source'};
@@ -1069,6 +1070,238 @@ async function flaskDecantView(n) {
       : '<p class="note">No potions match.</p>';
   };
   q.addEventListener('input', draw); show.onchange = draw; sort.onchange = draw;
+  priceDraws.push(draw);
+  draw();
+}
+
+/* Calculator:Herblore, native. The engine is the Wiki's own Module:Skill calc/Herblore, ported to RS3Calc.herbloreRun and
+   checked row by row against Wiki renders (tests/herblore.test.cjs). Inputs are the Wiki form's own fields and values;
+   an option only counts while it is shown (as on the Wiki form, where hidden fields fall back to their defaults).
+   Prices: live Buy (high) for ingredients, live Sell (low) for products, estimated 2% tax per item sold. */
+const HB_KEY = 'dch_calc_herblore_v1';
+const HB_YN = ['false', 'true'];
+const HB_CATS = [['herb', 'Clean herbs'], ['unfinished', 'Unfinished potions'], ['standard', 'Standard potions'], ['combinations', 'Combination potions'], ['overload_variants', 'Overload variants'], ['primal', 'Primal extract'], ['primal_pulp', 'Primal fruit pulp'], ['adrenaline', 'Adrenaline crystal'], ['juju_herb', 'Clean juju herbs'], ['juju_unfinished', 'Unfinished juju potions'], ['juju', 'Juju potions'], ['barbarian', 'Barbarian mix'], ['bomb', 'Bomb'], ['powerburst', 'Powerbursts'], ['tar', 'Tar'], ['burner', 'Deployable herb burner'], ['daemonheim_herb', 'Daemonheim - clean herbs'], ['daemonheim', 'Daemonheim - potions']];
+const HB_DOSE = ['1', '2', '3', '4', '6'], HB_RESTRICT = ['Any', 'Max. 2', 'Max. 3', 'Min. 2', 'Min. 3', '2 or 3'];
+/* [key, label, type, options|range, default, group, visible(state)] — labels, options and defaults from Calculator:Herblore's form */
+const HB_FIELDS = [
+  ['curr_toggle', 'Current', 'sel', ['Level', 'Experience'], 'Level', 'goal'],
+  ['curr_level', 'Herblore level', 'int', [1, 120], '1', 'goal', s => s.curr_toggle === 'Level'],
+  ['curr_xp', 'Herblore XP', 'int', [0, 200000000], '1', 'goal', s => s.curr_toggle === 'Experience'],
+  ['target_toggle', 'Target', 'sel', ['Level', 'Experience'], 'Level', 'goal'],
+  ['target_level', 'Target level', 'int', [1, 120], '120', 'goal', s => s.target_toggle === 'Level'],
+  ['target_xp', 'Target XP', 'int', [0, 200000000], '13034431', 'goal', s => s.target_toggle === 'Experience'],
+  ['category_choice', 'Skill subcategory choice', 'sel', ['Single', 'Multiple', 'Common potions', 'Dungeoneering', 'Outside Daemonheim', 'All'], 'Single', 'recipes'],
+  ['category', 'Skill subcategory', 'sel', HB_CATS.map(c => c[1]), 'Standard potions', 'recipes', s => s.category_choice === 'Single'],
+  ...HB_CATS.map(([c, l]) => ['categories_' + c, l, 'chk', HB_YN, c === 'standard' ? 'true' : 'false', 'recipes', s => s.category_choice === 'Multiple']),
+  ['bik_scripture', 'Scripture of Bik', 'sel', ['None', 'Flicking and switching every minute', 'Always activated'], 'None', 'xp'],
+  ['inspire', 'Inspire Genius', 'chk', HB_YN, 'false', 'xp'],
+  ['avatar', 'Clan avatar bonus (%)', 'sel', ['None', '3', '4', '5', '6'], 'None', 'xp'],
+  ['wise', 'Wise perk', 'sel', ['None', 'Wise 1', 'Wise 2', 'Wise 3', 'Wise 4'], 'None', 'xp'],
+  ['torsol', 'Torstol incense sticks potency level', 'sel', ['None', '1', '2', '3', '4'], 'None', 'xp'],
+  ['pulse_core', 'Advanced pulse core', 'sel', ['None', 'Buff only', 'Equipped', 'Buff and equipped'], 'None', 'xp'],
+  ['knowledge_bomb', 'Knowledge bomb', 'sel', ['None', 'Small/Medium/Large/Huge/Prime Gaming', 'Superior'], 'None', 'xp'],
+  ['perfect_juju', 'Perfect juju potion / Perfect plus potion', 'sel', ['None', 'Perfect juju herblore potion', 'Perfect plus potion'], 'None', 'xp'],
+  ['meilyr_hour', 'Meilyr Hour (Voice of Seren)', 'chk', HB_YN, 'false', 'xp'],
+  ['raf', 'Recruit a Friend', 'chk', HB_YN, 'false', 'xp'],
+  ['dxp', 'Double XP Live', 'chk', HB_YN, 'false', 'xp'],
+  ['add_xp_boost', 'Additional XP boost (%)', 'num', [0, 1600], '0', 'xp'],
+  ['bxp', 'Bonus Experience', 'chk', HB_YN, 'false', 'xp'],
+  ['bxp_amount', 'Amount of BXP', 'int', [0, 200000000], '0', 'xp', s => s.bxp === 'true'],
+  ['cinder_core', 'Cinder core', 'sel', ['None', 'Buff only', 'Equipped', 'Buff and equipped'], 'None', 'xp', s => s.bxp === 'true'],
+  ['outfit', "Botanist's outfit pieces", 'sel', ['None', '1', '2', '3', '4', '5'], 'None', 'outfit'],
+  ['modified_mask', "Modified botanist's mask", 'chk', HB_YN, 'false', 'outfit', s => s.outfit !== 'None'],
+  ['factory', 'Factory outfit pieces', 'sel', ['None', '3', '5'], 'None', 'outfit'],
+  ['portable', 'Portable well', 'chk', HB_YN, 'false', 'saving'],
+  ['brooch', 'Brooch of the Gods', 'chk', HB_YN, 'false', 'saving', s => s.portable === 'true'],
+  ['botanist_amulet', "Botanist's amulet", 'chk', HB_YN, 'false', 'saving'],
+  ['morytania_4', 'Morytania legs 4', 'chk', HB_YN, 'false', 'saving'],
+  ['desert_4', 'Desert amulet 4', 'chk', HB_YN, 'false', 'saving'],
+  ['envenomed', 'Envenomed perk', 'chk', HB_YN, 'false', 'saving'],
+  ['soc', 'Scroll of cleansing', 'chk', HB_YN, 'false', 'saving'],
+  ['product_decant_type', 'Decanting product to', 'sel', ['None', 'Fixed', 'Profitable'], 'None', 'decant'],
+  ['product_decant_dose_fixed', 'Dose', 'sel', HB_DOSE, '3', 'decant', s => s.product_decant_type === 'Fixed'],
+  ['product_decant_dose_restriction', 'Restriction (dose)', 'sel', HB_RESTRICT, 'Any', 'decant', s => s.product_decant_type === 'Profitable'],
+  ['material_decant_type', 'Decanting material from', 'sel', ['None', 'Fixed', 'Profitable'], 'None', 'decant'],
+  ['material_decant_dose_fixed', 'Dose', 'sel', HB_DOSE, '3', 'decant', s => s.material_decant_type === 'Fixed'],
+  ['material_decant_dose_restriction', 'Restriction (dose)', 'sel', HB_RESTRICT, 'Any', 'decant', s => s.material_decant_type === 'Profitable'],
+  ['raw_material_replacement_mode', 'Ingredient preparation', 'sel', ['Original only', 'Potions and herbs', 'Most ingredients'], 'Original only', 'prep'],
+  ['herb_potion_from', 'Potions and herbs', 'sel', ['Keep original', 'Tradable potions', 'Unfinished potions', 'Clean herbs', 'Grimy herbs'], 'Keep original', 'prep', s => s.raw_material_replacement_mode !== 'Original only'],
+  ['use_ingredient_set', 'Ingredient set', 'sel', ['Avoid', 'Replace', 'Add'], 'Avoid', 'prep', s => s.raw_material_replacement_mode !== 'Original only'],
+  ['cape99', 'Herblore cape (instantly clean 28 grimy herbs)', 'chk', HB_YN, 'false', 'prep', s => s.raw_material_replacement_mode !== 'Original only'],
+  ['cape120', 'Herblore master cape (overloads in batches of five)', 'chk', HB_YN, 'false', 'prep', s => s.raw_material_replacement_mode !== 'Original only'],
+  ['primal_extract_from', 'Primal extract', 'sel', ['Keep original', 'Regular portion', 'Improved yield +1', 'Improved yield +2'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
+  ['primal_pulp_from', 'Primal fruit pulp', 'sel', ['Keep original', 'Most yield per primal fruit', 'Most profitable primal fruit', 'Avocado', 'Carambola', 'Ciku', 'Dragonfruit', 'Golden dragonfruit', 'Guarana', 'Lychee', 'Mango'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
+  ['adrenaline_from', 'Adrenaline crystal', 'sel', ['Keep original', 'Charging inert'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
+  ['ground_from', 'Ground ingredients', 'sel', ['Keep original', 'Manual grinding', 'Telekinetic Grind'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
+  ['water_from', 'Vials of water', 'sel', ['Keep original', 'Manual filling', 'Humidify'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
+  ['coconut_from', 'Coconut milk', 'sel', ['Keep original', 'Opened coconut', 'Whole coconut'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
+  ['show_production_time', 'Show production time', 'chk', HB_YN, 'false', 'show'],
+  ['step_mode', 'Step display', 'sel', ['Hidden', 'Total', 'Item', 'Quantity'], 'Hidden', 'show', s => s.raw_material_replacement_mode !== 'Original only'],
+  ['mat_mode', 'Material display', 'sel', ['Item', 'Quantity', 'Price'], 'Quantity', 'show'],
+  ['product_mode', 'Product display', 'sel', ['Hidden', 'Item', 'Quantity', 'Price'], 'Hidden', 'show'],
+  ['recipe_level_start', 'Level from', 'int', [1, 120], '1', 'filter'],
+  ['recipe_level_end', 'Level to', 'int', [1, 120], '120', 'filter'],
+  ['recipe_level_filter', 'Level options', 'sel', ['Original recipe', 'Ingredients', 'Both'], 'Original recipe', 'filter'],
+  ['ingredient_level_filter', 'Level of ingredient recipes', 'sel', ['Herbs', 'Unfinished', 'Standard potions', 'Tradable', 'Untradable', 'Every recipe'], 'Herbs', 'filter', s => s.recipe_level_filter !== 'Original recipe'],
+  ['recipe_product_tradability', 'Tradability of products', 'sel', ['All', 'Tradable', 'Untradable'], 'All', 'filter'],
+  ['recipe_material_tradability', 'Tradability of ingredients', 'sel', ['All', 'All tradable', 'Some tradable', 'All untradable'], 'All', 'filter'],
+];
+const HB_GROUPS = [['goal', 'Goal'], ['recipes', 'Recipes'], ['xp', 'Experience boosts'], ['outfit', 'Outfit pieces'], ['saving', 'Cost saving and extra doses'], ['decant', 'Potion decanting'], ['prep', 'Ingredient preparation'], ['show', 'Display'], ['filter', 'Filter recipes']];
+const hbDefaults = () => Object.fromEntries(HB_FIELDS.map(f => [f[0], f[4]]));
+function hbClean(f, v) {
+  const [, , type, opt, def] = f; v = typeof v === 'string' ? v.trim() : v == null ? '' : String(v);
+  if (type === 'sel' || type === 'chk') return opt.includes(v) ? v : def;
+  if (!/^\d+(\.\d+)?$/.test(v.replace(/,/g, ''))) return def;
+  let n = Number(v.replace(/,/g, '')); if (type === 'int') n = Math.floor(n);
+  return String(Math.min(opt[1], Math.max(opt[0], n)));
+}
+function hbLoad() { const d = hbDefaults(); let o = null; try { o = JSON.parse(CALC_LS && CALC_LS.getItem(HB_KEY) || 'null'); } catch (e) {} if (o && typeof o === 'object' && !Array.isArray(o)) for (const f of HB_FIELDS) if (typeof o[f[0]] === 'string') d[f[0]] = hbClean(f, o[f[0]]); return d; }
+function hbSave(s) { try { CALC_LS && CALC_LS.setItem(HB_KEY, JSON.stringify(s)); } catch (e) {} }
+/* The arguments the Wiki module receives: every field, with hidden ones at their defaults. */
+const hbArgs = s => Object.fromEntries(HB_FIELDS.map(f => [f[0], !f[6] || f[6](s) ? s[f[0]] : f[4]]));
+const hbFmt = n => Number(n).toLocaleString('en-GB', {maximumFractionDigits: 2});
+const hbDur = ticks => { let t = Math.ceil(ticks * 0.6); const parts = [[86400, 'day'], [3600, 'hour'], [60, 'minute'], [1, 'second']].map(([s, u]) => { const k = Math.floor(t / s); t -= k * s; return k ? `${k.toLocaleString('en-GB')} ${u}${k === 1 ? '' : 's'}` : null; }).filter(Boolean); return parts.length > 1 ? parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] : parts[0] || '0 seconds'; };
+
+async function herbloreView(n) {
+  const D = await get(n.data);
+  const label = 'Potions needed to reach a goal', src = RS3Calc.wikiUrl(D.path);
+  const rev = t => esc(D.source[t].revid);
+  let st = hbLoad();
+  view.innerHTML = `<div class="row subnav"><a class="btn sub" href="#calculators">← All calculators</a></div>
+  <section class="panel calc-native-panel" aria-labelledby="hb-title">
+    <div class="ge-heading calc-heading"><h2 id="hb-title">Herblore calculator</h2>
+      <div class="calc-native-actions"><button class="calc-star" type="button" id="hb-star"></button>
+      <a class="btn sub calc-source" href="${esc(src)}" target="_blank" rel="noopener noreferrer">Wiki calculator ↗</a></div></div>
+    <p class="note">How many potions, herbs and other Herblore recipes you need to reach a level or XP goal, with their ingredients, products, cost and profit. Same recipes, options and formulas as the RuneScape Wiki <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">Herblore calculator</a>, using live prices instead of the Wiki's guide prices, so costs and profits differ from the Wiki page.</p>
+    <ul class="note calc-assume">
+      <li>XP, number of actions, time, ingredient and product quantities follow the Wiki calculator exactly.</li>
+      <li>Ingredients are bought at the live Buy (high) price and products are sold at the live Sell (low) price. Each item's cost is rounded up, as on the Wiki.</li>
+      <li>Net profit deducts the estimated 2% Grand Exchange tax on each product sold (rounded down per item; Bonds are exempt). Gross profit is before tax.</li>
+      <li>Untradeable items the Wiki values at 0 are shown as "untradeable (0)". Items the Wiki prices by its own calculated value, and Daemonheim items in rusty coins, have no live price here, so the totals for those recipes are unavailable.</li>
+      <li>A price that is missing or older than 15 minutes makes the totals for that recipe unavailable; it is never treated as 0.</li>
+      <li>"Profitable" decanting and "Most profitable primal fruit" choose using live prices (the Wiki uses guide prices), so the dose or fruit chosen can differ from the Wiki.</li></ul>
+    <form id="hb-form" class="hb-form" autocomplete="off" onsubmit="return false"></form>
+    <div class="row hb-reset"><button class="btn sub" type="button" id="hb-reset">Reset all options</button></div>
+    <p class="hb-msg" id="hb-msg" role="status"></p>
+    <div class="row calc-filters">
+      <input id="hb-q" type="search" placeholder="Search recipes or ingredients" aria-label="Search recipes or ingredients" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <select id="hb-show" aria-label="Profit shown"><option value="net">Net profit (after est. tax)</option><option value="gross">Gross profit (before tax)</option></select>
+      <select id="hb-sort" aria-label="Sort"><option value="">Sort: level (as on the Wiki)</option><option value="profit">Sort: most profit</option><option value="pxp">Sort: best profit/XP</option><option value="cxp">Sort: lowest cost/XP</option><option value="xp">Sort: most XP each</option><option value="num">Sort: fewest actions</option></select></div>
+    <p class="note" id="hb-count" role="status" aria-live="polite"></p>
+    <div id="hb-table"></div>
+    <p class="note">Formulas, recipes and form options: RuneScape Wiki <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">Calculator:Herblore</a> (revision ${rev('Calculator:Herblore')}), Module:Skill calc/Herblore (revision ${rev('Module:Skill calc/Herblore')}) and Module:Skill calc/Herblore/data (revision ${rev('Module:Skill calc/Herblore/data')}); XP table Module:Experience/data (revision ${rev('Module:Experience/data')}); item IDs Module:GEIDs (revision ${rev('Module:GEIDs/data.json')}). CC BY-NC-SA 3.0.</p>
+  </section>`;
+  const star = $('#hb-star');
+  const drawStar = () => { const on = RS3Calc.has(RS3Calc.load(CALC_LS), D.path); star.classList.toggle('on', on); star.setAttribute('aria-pressed', String(on)); star.textContent = on ? '★' : '☆';
+    star.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${label} ${on ? 'from' : 'to'} favourites`); star.title = on ? 'Remove from favourites' : 'Save to favourites'; };
+  star.onclick = () => { RS3Calc.toggle(CALC_LS, {path: D.path, label}); drawStar(); };
+  drawStar();
+
+  const form = $('#hb-form'), openGroups = new Set(['goal', 'recipes']);
+  const ctl = f => {
+    const [k, l, type, opt] = f, id = 'hb-' + k, v = st[k];
+    if (type === 'chk') return `<label class="hb-chk" for="${id}"><input type="checkbox" id="${id}" data-k="${k}"${v === 'true' ? ' checked' : ''}> ${esc(l)}</label>`;
+    if (type === 'sel') return `<label class="hb-field" for="${id}"><span>${esc(l)}</span><select id="${id}" data-k="${k}">${opt.map(o => `<option${o === v ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select></label>`;
+    return `<label class="hb-field" for="${id}"><span>${esc(l)}</span><input id="${id}" data-k="${k}" type="text" inputmode="${type === 'int' ? 'numeric' : 'decimal'}" value="${esc(v)}" aria-describedby="${id}-r"><small id="${id}-r" class="calc-sub">${esc(opt[0].toLocaleString())}–${esc(opt[1].toLocaleString())}</small></label>`;
+  };
+  const drawForm = () => {
+    for (const d of form.querySelectorAll('details')) { if (d.open) openGroups.add(d.dataset.g); else openGroups.delete(d.dataset.g); }
+    const a = hbArgs(st), def = hbDefaults();
+    form.innerHTML = HB_GROUPS.map(([g, title]) => {
+      const fs = HB_FIELDS.filter(f => f[5] === g && (!f[6] || f[6](st)));
+      const active = HB_FIELDS.filter(f => f[5] === g && a[f[0]] !== def[f[0]]).length;
+      return `<details class="hb-group" data-g="${g}"${openGroups.has(g) ? ' open' : ''}><summary>${esc(title)}${active && !['goal', 'recipes'].includes(g) ? ` <span class="tag">${active} set</span>` : ''}</summary><div class="hb-fields">${fs.map(ctl).join('')}</div></details>`;
+    }).join('');
+  };
+  const onChange = e => {
+    const k = e.target.dataset.k; if (!k) return;
+    const f = HB_FIELDS.find(x => x[0] === k);
+    const raw = f[2] === 'chk' ? String(e.target.checked) : e.target.value;
+    if (f[2] !== 'chk' && f[2] !== 'sel' && e.type === 'input') { const c = hbClean(f, raw); if (c !== raw.replace(/,/g, '').trim()) return; }   // wait for a complete number
+    const before = HB_FIELDS.filter(x => x[6]).map(x => x[6](st)).join();
+    st[k] = hbClean(f, raw); hbSave(st);
+    if (e.type === 'change' && f[2] !== 'chk' && f[2] !== 'sel') e.target.value = st[k];
+    if (HB_FIELDS.filter(x => x[6]).map(x => x[6](st)).join() !== before || e.type === 'change') { const foc = document.activeElement && document.activeElement.id; drawForm(); const el = foc && document.getElementById(foc); if (el) el.focus(); }
+    draw();
+  };
+  form.addEventListener('change', onChange); form.addEventListener('input', onChange);
+  $('#hb-reset').onclick = () => { st = hbDefaults(); hbSave(st); drawForm(); draw(); };
+
+  const q = $('#hb-q'), show = $('#hb-show'), sort = $('#hb-sort');
+  const methodOf = l => String(l.price || 'gemw').toLowerCase();
+  const isNum = m => /^\d+(\.\d+)?$/.test(m.replace(/,/g, ''));
+  /* One price per line: {v, kind, why}. v === null -> unavailable (never 0). */
+  const linePrice = (l, role, rusty) => {
+    const m = methodOf(l);
+    if (rusty) return {v: null, why: 'Daemonheim price in rusty coins, not in this app'};
+    if (m === 'no') return {v: 0, kind: 'untradeable'};
+    if (m === 'gemw') {
+      const id = D.ids[l.price_name]; if (id == null) return {v: null, why: 'no Grand Exchange item ID'};
+      const x = role === 'product' ? LIVE.book.sale(id) : LIVE.book.quote(id, 'buy');
+      return x.live ? {v: x.value, kind: 'live', tax: role === 'product' ? x.tax : 0, id} : {v: null, why: quoteWhy(x.status)};
+    }
+    if (isNum(m)) return {v: Number(m.replace(/,/g, '')), kind: 'fixed'};
+    return {v: null, why: m === 'calcvalue' ? "Wiki calculated value, no live price" : m === 'dung' ? 'Daemonheim smuggler price, not in this app' : 'Wiki price method "' + m + '" not in this app'};
+  };
+  const choicePrice = (name, method, side) => {
+    if (method === 'gemw') { const id = D.ids[name]; if (id == null) return null; const x = side === 'sell' ? LIVE.book.sale(id) : LIVE.book.quote(id, 'buy'); return x.live ? x.value : null; }
+    return isNum(method) ? Number(method.replace(/,/g, '')) : null;
+  };
+  const money = n => `${n < 0 ? '−' : ''}${gp(Math.abs(n))}`;
+  const rowKey = r => [r.level, r.item_alias, r.recipe_idx, ...(r.steps || []).map(s => s.name), ...r.mats.map(m => m.name)].join('|');
+  const draw = () => {
+    const a = hbArgs(st);
+    const res = RS3Calc.herbloreRun(D, a, choicePrice);
+    if (res.error) { $('#hb-msg').textContent = res.error; $('#hb-count').textContent = ''; $('#hb-table').innerHTML = ''; return; }
+    $('#hb-msg').textContent = `To train Herblore from ${res.currXp.toLocaleString('en-GB')} experience (level ${res.currLevel}) to ${res.targetXp.toLocaleString('en-GB')} experience (level ${res.targetLevel}), ${res.remaining.toLocaleString('en-GB')} experience is required.`;
+    const gross = show.value === 'gross';
+    const showProducts = !res.hideProducts && a.product_mode !== 'Hidden', showProfit = !res.hideProducts;
+    const matMode = a.mat_mode, prodMode = res.hideProducts ? 'Hidden' : a.product_mode, stepMode = a.step_mode;
+    const rows = res.rows.map(r => {
+      const prices = new Map();
+      const lp = (l, role) => { const p = linePrice(l, role, r.rusty); prices.set(role + ':' + l.name, p); return p.v; };
+      const c = RS3Calc.herbloreCost(r, lp);
+      let tax = null;
+      if (c.prodTotal != null) tax = Math.ceil(r.products.reduce((t, l) => t + (prices.get('product:' + l.name).tax || 0) * l.qty, 0));
+      const xpUsed = r.total_xp === 0 ? r.xp_per_iter : r.total_xp;
+      const net = c.profit == null || tax == null ? null : c.profit - tax;
+      const profit = gross ? c.profit : net;
+      return {r, c, prices, tax, net, profit, perXp: profit != null && xpUsed > 0 ? Math.round(profit / xpUsed * 100) / 100 : null};
+    });
+    const nq = norm(q.value);
+    let shown = nq ? rows.filter(x => norm([x.r.item_name, x.r.method, ...x.r.mats.map(m => m.name), ...x.r.products.map(p => p.name), ...(x.r.steps || []).map(s => s.name)].join(' ')).includes(nq)) : rows;
+    const by = {profit: x => x.profit, pxp: x => x.perXp, cxp: x => x.c.costPerXp == null ? null : -x.c.costPerXp, xp: x => x.r.xp_per_iter, num: x => x.r.needed_iterations ? -x.r.needed_iterations : null}[sort.value];
+    if (by) shown = [...shown].sort((x, y) => { const a1 = by(x), b1 = by(y); return a1 == null && b1 == null ? 0 : a1 == null ? 1 : b1 == null ? -1 : b1 - a1; });
+    const priced = rows.filter(x => x.c.matTotal != null).length;
+    $('#hb-count').textContent = `${shown.length} of ${rows.length} recipes · ${priced} with complete live costs · profit shown ${gross ? 'gross (before tax)' : 'net (after estimated tax)'}`;
+    const open = new Set([...document.querySelectorAll('#hb-table details[open]')].map(d => d.dataset.row));
+    const lvlCls = lv => lv > res.targetLevel ? 'hb-lv-red' : lv <= res.currLevel ? 'hb-lv-green' : 'hb-lv-yellow';
+    const lineVal = (x, l, role) => { const p = x.prices.get(role + ':' + l.name); return p.v == null ? '<span class="calc-unavail">unavailable</span>' : p.kind === 'untradeable' ? 'untradeable (0)' : l.cost > 0 ? esc(gp(l.cost)) : '-'; };
+    const list = (x, items, mode, role) => mode === 'Hidden' ? '' : items.length ? `<ul class="hb-list">${items.map(l => `<li><span class="hb-item">${esc(l.name)}</span>${mode !== 'Item' ? ` <span class="hb-qty">× ${esc(hbFmt(l.qty))}</span>` : ''}${mode === 'Price' && l.cost !== undefined ? ` <span class="hb-cost">${lineVal(x, l, role)}</span>` : ''}</li>`).join('')}</ul>` : '-';
+    const steps = x => { const s = x.r.steps; if (stepMode === 'Hidden') return null; if (stepMode === 'Total') return String((s ? s.length : 0) + 1); return s && s.length ? `<ul class="hb-list">${s.map(l => `<li>${esc(l.name)}${stepMode === 'Quantity' ? ` × ${esc(hbFmt(l.qty))}` : ''}</li>`).join('')}</ul>` : '-'; };
+    const why = (x, role, items) => [...new Set(items.map(l => x.prices.get(role + ':' + l.name)).filter(p => p && p.v == null).map(p => p.why))].join('; ');
+    const priceLine = (x, l, role) => { const p = x.prices.get(role + ':' + l.name);
+      return `<li>${esc(l.name)} — ${role === 'product' ? 'Sell' : 'Buy'} ${p.v == null ? `<span class="calc-unavail">unavailable (${esc(p.why)})</span>` : p.kind === 'untradeable' ? 'untradeable, valued at 0 as on the Wiki' : p.kind === 'fixed' ? `fixed Wiki value ${esc(gp(p.v))}` : `${esc(gp(p.v))} each${role === 'product' ? ` · est. tax ${esc(gp(p.tax))}` : ''}`}</li>`; };
+    const recipe = x => { const r = x.r; let h = `<span class="calc-name">${esc(r.item_name)}${r.item_multi > 1 ? ` × ${esc(String(r.item_multi))}` : ''}</span>`;
+      if (Number(r.improved) > 0) h += `<small class="calc-sub">(Improved +${esc(String(r.improved))} recipe)</small>`;
+      for (const m of [r.method, ...(r.steps || []).map(s => s.method)]) if (m) h += `<small class="calc-sub"><i>(${esc(m)})</i></small>`;
+      if (r.choice_gaps && r.choice_gaps.length) h += `<small class="calc-sub hb-warn">Profitable dose chosen without a price for: ${esc(r.choice_gaps.slice(0, 4).join(', '))}${r.choice_gaps.length > 4 ? '…' : ''}</small>`;
+      const k = rowKey(r);
+      h += `<details class="calc-prices" data-row="${esc(k)}"${open.has(k) ? ' open' : ''}><summary>Prices used</summary><ul>${r.mats.map(l => priceLine(x, l, 'mat')).join('')}${showProfit ? r.products.map(l => priceLine(x, l, 'product')).join('') : ''}</ul></details>`;
+      return h; };
+    const total = (v, miss) => v == null ? `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc(miss)}</small>` : v > 0 ? esc(gp(v)) : '-';
+    const profitCell = x => x.profit == null ? `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc(why(x, 'mat', x.r.mats) || why(x, 'product', x.r.products))}</small>`
+      : `<span class="calc-val ${x.profit < 0 ? 'loss' : 'gain'}">${esc(money(x.profit))}</span><small class="calc-sub">${gross ? `net ${esc(money(x.net))}` : `gross ${esc(money(x.c.profit))} · tax ${esc(gp(x.tax))}`}</small>`;
+    const perXp = v => v == null ? '-' : `${v < 0 ? '−' : ''}${esc(Math.abs(v).toLocaleString('en-GB', {maximumFractionDigits: 2}))} gp`;
+    const showTime = a.show_production_time === 'true';
+    const head = ['Lvl', 'Recipe', 'XP', 'Number', ...(showTime ? ['Time'] : []), ...(stepMode !== 'Hidden' ? ['Steps'] : []), 'Materials', 'Total cost', 'Cost/XP', ...(showProducts ? ['Products'] : []), ...(showProfit ? ['Total value', gross ? 'Gross profit' : 'Net profit', 'Profit/XP'] : [])];
+    $('#hb-table').innerHTML = shown.length ? `<table class="calc-table hb-table"><thead><tr>${head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${shown.map(x => {
+      const r = x.r, st1 = steps(x);
+      return `<tr><td class="${lvlCls(r.level)}">${esc(String(r.level))}</td><th scope="row">${recipe(x)}</th><td>${esc(hbFmt(r.xp_per_iter))}</td><td>${r.needed_iterations > 0 ? esc(Math.round(r.needed_iterations).toLocaleString('en-GB')) : '-'}</td>${showTime ? `<td>${r.tick ? esc(hbDur(r.tick)) : '-'}</td>` : ''}${st1 != null ? `<td>${st1}</td>` : ''}<td>${list(x, r.mats, matMode, 'mat')}</td><td>${total(x.c.matTotal, why(x, 'mat', r.mats))}</td><td>${x.c.costPerXp == null ? '-' : perXp(x.c.costPerXp)}</td>${showProducts ? `<td>${list(x, r.products, prodMode, 'product')}</td>` : ''}${showProfit ? `<td>${total(x.c.prodTotal, why(x, 'product', r.products))}</td><td>${profitCell(x)}</td><td>${perXp(x.perXp)}</td>` : ''}</tr>`;
+    }).join('')}</tbody></table>` : '<p class="note">No recipes match these options.</p>';
+  };
+  q.addEventListener('input', draw); show.onchange = draw; sort.onchange = draw;
+  drawForm();
   priceDraws.push(draw);
   draw();
 }
