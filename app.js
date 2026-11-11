@@ -1018,25 +1018,63 @@ const QUOTE_WHY = {missing: 'no recent trade price', stale: 'price is stale', of
 const quoteWhy = st => st === 'unmapped' && !LIVE.book.mapping.size ? 'live prices loading' : QUOTE_WHY[st] || st;
 /* Prices: the same shared RS3 Grand Exchange feed and the same numbers the Items tab shows (LIVE.book, RuneScape Wiki Prices
    API /latest: each item's latest recorded trade, Buy = high, Sell = low). Like the Items tab, a price older than 15 minutes is
-   still shown, with its trade time; only an item with no recorded trade price is unknown (shown as —, never 0). */
-const FD_SORT_KEY = 'dch_calc_fd_sort_v1';
-function fdPrice(item, side) {
-  const q = LIVE.book.quote(item.id, side);
-  return q.id != null && q.value != null ? {value: q.value, time: q.time, status: q.status} : {value: null, time: null, status: q.status};
+   still shown, with its trade time.
+   GE guide prices: Jagex's official Grand Exchange guide prices, the prices the Wiki's own calculator uses (Module:GEPrices/data.json
+   is updated from them; tools/flask_guide_source_check.py verified 431/431 items equal and 344/344 Wiki cells reproduced), read
+   from the public Weird Gloop exchange API (api.weirdgloop.org/exchange, CORS *). Cached with their Jagex timestamp. Used (a) for
+   an item with no recorded trade in the Items-tab feed, marked G on every result that uses one, or (b) for every item in
+   "Prices: GE guide (as the Wiki)" mode. An item with neither price is unknown (—), never 0. */
+const FD_SORT_KEY = 'dch_calc_fd_sort_v1', FD_SRC_KEY = 'dch_calc_fd_src_v1';
+const GUIDE_KEY = 'dch_ge_guide_cache_v1', GUIDE_REFRESH_MS = 3 * 3600e3, GUIDE_API = 'https://api.weirdgloop.org/exchange/history/rs/latest?id=';
+const GUIDE = {prices: {}, fetchedAt: 0, error: '', loading: null, loaded: false};
+const guideOk = (id, x) => !!x && String(x.id) === String(id) && Number.isSafeInteger(x.price) && x.price > 0 && typeof x.timestamp === 'string' && Number.isFinite(Date.parse(x.timestamp));
+function guideLoadCache() {
+  if (GUIDE.loaded) return; GUIDE.loaded = true;
+  try { const c = JSON.parse(CALC_LS.getItem(GUIDE_KEY) || 'null');
+    if (c && c.prices && typeof c.prices === 'object' && Number.isFinite(c.fetchedAt)) { for (const [id, x] of Object.entries(c.prices)) if (x && guideOk(id, {...x, id})) GUIDE.prices[id] = {price: x.price, timestamp: x.timestamp}; GUIDE.fetchedAt = c.fetchedAt; } } catch (e) {}
 }
-/* One decanting batch with the Items-tab prices; tax is the RS3 2% per flask sold, rounded down per flask (RS3Prices.sellingTax). */
-function fdBatch(D, r, c) {
+function guideFetch(ids) {
+  guideLoadCache();
+  if (GUIDE.loading) return GUIDE.loading;
+  if (GUIDE.fetchedAt && Date.now() - GUIDE.fetchedAt < GUIDE_REFRESH_MS && ids.every(i => GUIDE.prices[i])) return Promise.resolve();
+  GUIDE.loading = (async () => {
+    try { const got = {};
+      for (let i = 0; i < ids.length; i += 100) {
+        const r = await fetch(GUIDE_API + ids.slice(i, i + 100).join('|'), {cache: 'no-store'});
+        if (!r.ok) throw Error('HTTP ' + r.status);
+        const j = await r.json(); if (!j || typeof j !== 'object') throw Error('invalid response');
+        for (const id of ids.slice(i, i + 100)) if (guideOk(id, j[id])) got[id] = {price: j[id].price, timestamp: j[id].timestamp};
+      }
+      Object.assign(GUIDE.prices, got); GUIDE.fetchedAt = Date.now(); GUIDE.error = '';
+      try { CALC_LS.setItem(GUIDE_KEY, JSON.stringify({fetchedAt: GUIDE.fetchedAt, prices: GUIDE.prices})); } catch (e) {}
+    } catch (e) { GUIDE.error = String(e && e.message || e); }
+    finally { GUIDE.loading = null; }
+  })();
+  return GUIDE.loading;
+}
+function fdGuide(item) { const g = GUIDE.prices[item.id]; return g ? {value: g.price, time: Date.parse(g.timestamp) / 1000, status: 'guide', src: 'guide'} : null; }
+function fdPrice(item, side, mode = 'live') {
+  if (mode === 'guide') return fdGuide(item) || {value: null, time: null, status: 'noguide', src: null};
+  const q = LIVE.book.quote(item.id, side);
+  if (q.id != null && q.value != null) return {value: q.value, time: q.time, status: q.status, src: 'trade'};
+  // still loading the Items-tab feed: wait for it instead of briefly showing guide prices
+  if (!LIVE.book.mapping.size && LIVE.book.online !== false) return {value: null, time: null, status: q.status, src: null};
+  return fdGuide(item) || {value: null, time: null, status: q.status, src: null};
+}
+/* One decanting batch; tax is the RS3 2% per flask sold, rounded down per flask (RS3Prices.sellingTax). */
+function fdBatch(D, r, c, mode = 'live') {
   const m = RS3Calc.flaskModel(D, r, c), lines = [];
-  for (const l of m.inp) lines.push({...l, side: 'buy', p: fdPrice(l, 'buy')});
-  for (const l of m.out) lines.push({...l, side: 'sell', p: fdPrice(l, 'sell')});
-  const unknown = lines.filter(l => l.p.value == null).map(l => l.n);
-  if (unknown.length) return {lines, unknown, gross: null, net: null, tax: null, oldest: null};
+  for (const l of m.inp) lines.push({...l, side: 'buy', p: fdPrice(l, 'buy', mode)});
+  for (const l of m.out) lines.push({...l, side: 'sell', p: fdPrice(l, 'sell', mode)});
+  const unknown = lines.filter(l => l.p.value == null).map(l => l.n), guided = mode === 'live' ? lines.filter(l => l.p.src === 'guide').map(l => l.n) : [];
+  if (unknown.length) return {lines, unknown, guided, gross: null, net: null, tax: null, oldest: null};
   let gross = 0, tax = 0;
   for (const l of lines) { if (l.side === 'sell') { gross += l.p.value * l.q; tax += RS3Prices.sellingTax(l.p.value, l.id) * l.q; } else gross -= l.p.value * l.q; }
   const oldest = Math.min(...lines.map(l => l.p.time || 0));
-  return {lines, unknown, gross, tax, net: gross - tax, oldest};
+  return {lines, unknown, guided, gross, tax, net: gross - tax, oldest};
 }
 const fdAge = t => { if (!t) return 'no trade time'; const m = Math.max(0, Math.round((Date.now() / 1000 - t) / 60)); return m < 60 ? `${m} min ago` : m < 2880 ? `${Math.round(m / 60)} h ago` : `${Math.round(m / 1440)} days ago`; };
+const fdWhen = p => p.src === 'guide' ? `GE guide price, ${priceTime(p.time)}` : `last trade ${fdAge(p.time)}`;
 async function flaskDecantView(n) {
   const D = await get(n.data);
   const cols = D.columns, label = 'Decanting flasks for profit';
@@ -1049,14 +1087,16 @@ async function flaskDecantView(n) {
       <li>Prices: RuneScape Wiki Prices API (trade data supplied by Jagex), the same feed and numbers as the Items tab: each item's latest recorded trade. Vials and empty potion flasks at the Buy (high) price; six-dose flasks at the Sell (low) price.</li>
       <li>Net profit deducts the estimated 2% Grand Exchange tax on each flask sold, rounded down per flask. There is no tax on buying. Gross profit is before tax.</li>
       <li>Each result is for one decanting batch: 6 (1)s or 3 (2)s make 1 flask; 4 (3)s or 3 (4)s make 2 flasks. Leftover empty vials are not counted, as on the Wiki.</li>
-      <li>Tap a potion name to see the prices used and when each last traded. An item with no recorded trade price shows —; it is never counted as 0.</li>
+      <li>If an item has no recorded trade, its official Grand Exchange guide price (Jagex) is used instead — the price the Wiki's calculator uses — and the result is marked <b>G</b>. Choose "Prices: GE guide (as the Wiki)" to price every item that way; Gross profit then matches the Wiki calculator. An item with neither price shows —; it is never counted as 0.</li>
+      <li>Tap a potion name to see the prices used and where each came from.</li>
       <li>Potion flasks can be hard to buy on the Grand Exchange, and potion prices right after an update may not buy or sell at market price (Wiki note).</li></ul></details>
     <p class="note" id="fd-flask" role="status"></p>
     <div class="row calc-filters">
       <input id="fd-q" type="search" placeholder="Search potions" aria-label="Search potions" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <select id="fd-show" aria-label="Show" aria-describedby="fd-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><small class="calc-sub calc-show-help" id="fd-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</small></div>
+      <select id="fd-show" aria-label="Show" aria-describedby="fd-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><select id="fd-src" aria-label="Prices" aria-describedby="fd-src-help"><option value="live">Prices: latest trades (Items tab)</option><option value="guide">Prices: GE guide (as the Wiki)</option></select><small class="calc-sub calc-show-help" id="fd-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</small></div>
     <p class="note" id="fd-count" role="status" aria-live="polite"></p>
     <div id="fd-table" class="fd-scroll"></div>
+    <p class="note" id="fd-src-help"></p>
     <p class="note">Formula and potion list: RuneScape Wiki, <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Calculator:Herblore/Flask decanting</a> and its row template (revisions ${esc(D.source.pageRevision)} / ${esc(D.source.rowTemplateRevision)}), CC BY-NC-SA 3.0. Item IDs: Module:GEIDs (revision ${esc(D.source.itemIdsRevision)}).</p>
   </section>`;
   const star = $('#fd-star');
@@ -1064,33 +1104,38 @@ async function flaskDecantView(n) {
     star.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${label} ${on ? 'from' : 'to'} favourites`); star.title = on ? 'Remove from favourites' : 'Save to favourites'; };
   star.onclick = () => { RS3Calc.toggle(CALC_LS, {path: D.path, label}); drawStar(); };
   drawStar();
-  const q = $('#fd-q'), show = $('#fd-show');
+  const q = $('#fd-q'), show = $('#fd-show'), srcSel = $('#fd-src');
+  try { if (CALC_LS.getItem(FD_SRC_KEY) === 'guide') srcSel.value = 'guide'; } catch (e) {}
   let sortKey = '', sortDir = 'asc';   // default: potion name A to Z
   try { const s = JSON.parse(CALC_LS.getItem(FD_SORT_KEY) || 'null'); if (s && (s.k === '' || cols.some(c => c.key === s.k)) && ['asc', 'desc'].includes(s.d)) { sortKey = s.k; sortDir = s.d; } } catch (e) {}
   const open = new Set();
   const num = v => (v < 0 ? '−' : '') + Math.abs(v).toLocaleString('en-GB');
-  const priceLi = l => `<li>${liIco(l.n)}${l.side === 'sell' ? 'Sell' : 'Buy'} ${l.q} × ${esc(l.n)}: ${l.p.value == null ? `<span class="fd-unk">no recorded trade price</span>` : `${esc(gp(l.p.value))}${l.side === 'sell' ? ` (est. tax ${esc(gp(RS3Prices.sellingTax(l.p.value, l.id)))} each)` : ''} <small class="fd-age">${esc(fdAge(l.p.time))}</small>`}</li>`;
+  const priceLi = l => `<li>${liIco(l.n)}${l.side === 'sell' ? 'Sell' : 'Buy'} ${l.q} × ${esc(l.n)}: ${l.p.value == null ? `<span class="fd-unk">no recorded trade or guide price</span>` : `${esc(gp(l.p.value))}${l.side === 'sell' ? ` (est. tax ${esc(gp(RS3Prices.sellingTax(l.p.value, l.id)))} each)` : ''} <small class="fd-age${l.p.src === 'guide' ? ' fd-gsrc' : ''}">${esc(fdWhen(l.p))}</small>`}</li>`;
   const draw = () => {
-    const fq = fdPrice(D.flask, 'buy'), book = LIVE.book;
+    const mode = srcSel.value === 'guide' ? 'guide' : 'live', fq = fdPrice(D.flask, 'buy', mode), book = LIVE.book;
     const fetched = book.fetchedAt ? priceTime(book.fetchedAt / 1000) : null;
-    $('#fd-flask').textContent = (fq.value != null ? `Empty potion flask: Buy ${gp(fq.value)} (last trade ${fdAge(fq.time)}). ` : 'Empty potion flask: no recorded trade price yet. ')
-      + (book.online === false ? 'Offline: showing the last prices received.' : fetched ? `Prices fetched ${fetched}.` : 'Loading prices…');
+    const gts = Object.values(GUIDE.prices).map(g => Date.parse(g.timestamp)).filter(Number.isFinite), gAsOf = gts.length ? priceTime(Math.max(...gts) / 1000) : null;
+    const gLine = GUIDE.loading && !gts.length ? 'GE guide prices loading…' : gAsOf ? `GE guide prices (Jagex, via api.weirdgloop.org): as of ${gAsOf}${GUIDE.error ? ' (saved copy; refresh failed)' : ''}.` : `GE guide prices unavailable${GUIDE.error ? ' (' + GUIDE.error + ')' : ''}.`;
+    $('#fd-flask').textContent = (fq.value != null ? `Empty potion flask: Buy ${gp(fq.value)} (${fdWhen(fq)}). ` : 'Empty potion flask: no recorded trade price yet. ')
+      + (mode === 'guide' ? gLine : (book.online === false ? 'Offline: showing the last prices received. ' : fetched ? `Trade prices fetched ${fetched}. ` : 'Loading prices… ') + gLine);
     const key = show.value === 'gross' ? 'gross' : 'net', nq = norm(q.value);
-    let rows = D.rows.map(r => ({r, e: cols.map(c => fdBatch(D, r, c))})).filter(x => !nq || norm(x.r.flask + ' ' + x.r.vial).includes(nq));
+    let rows = D.rows.map(r => ({r, e: cols.map(c => fdBatch(D, r, c, mode))})).filter(x => !nq || norm(x.r.flask + ' ' + x.r.vial).includes(nq));
     const ci = cols.findIndex(c => c.key === sortKey);
     rows.sort((a, b) => { if (ci < 0) return sortDir === 'desc' ? b.r.flask.localeCompare(a.r.flask) : a.r.flask.localeCompare(b.r.flask);
       const x = a.e[ci][key], y = b.e[ci][key];
       return x == null && y == null ? a.r.flask.localeCompare(b.r.flask) : x == null ? 1 : y == null ? -1 : sortDir === 'asc' ? x - y : y - x; });
-    $('#fd-count').textContent = `${rows.length} of ${D.rows.length} potions · ${show.value === 'gross' ? 'gross profit (before tax)' : 'net profit (after estimated 2% tax)'} per batch, in gp`;
+    $('#fd-count').textContent = `${rows.length} of ${D.rows.length} potions · ${show.value === 'gross' ? 'gross profit (before tax)' : 'net profit (after estimated 2% tax)'} per batch, in gp · ${mode === 'guide' ? 'GE guide prices (as the Wiki)' : 'latest trade prices (Items tab)'}`;
+    const nG = rows.reduce((t, x) => t + x.e.filter(c => c.guided.length && c[key] != null).length, 0), nU = rows.reduce((t, x) => t + x.e.filter(c => c[key] == null).length, 0);
+    $('#fd-src-help').textContent = ((mode === 'guide' ? 'Every price is the official Grand Exchange guide price, as on the Wiki calculator (the Wiki shows gross profit).' : nG ? `G: ${nG} result${nG > 1 ? 's use' : ' uses'} a GE guide price for an item with no recorded trade.` : '') + (nU ? ` —: ${nU} result${nU > 1 ? 's have' : ' has'} an item with no price yet (never counted as 0).` : '')).trim();
     const th = (k, text, i) => { const cur = sortKey === k;
       return `<th scope="col"${i ? ' class="fd-num"' : ''} aria-sort="${cur ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}"><button type="button" class="fd-sort" data-k="${esc(k)}">${esc(text)}<span class="fd-arrow" aria-hidden="true">${cur ? (sortDir === 'asc' ? '▲' : '▼') : '⇅'}</span></button></th>`; };
     const cell = x => x[key] == null
-      ? `<td class="fd-num fd-unk" title="No recorded trade price: ${esc(x.unknown.join(', '))}">—</td>`
-      : `<td class="fd-num ${x[key] < 0 ? 'loss' : 'gain'}" title="Gross ${esc(gp(x.gross))} · tax ${esc(gp(x.tax))} · net ${esc(gp(x.net))} · oldest price ${esc(fdAge(x.oldest))}">${num(x[key])}</td>`;
+      ? `<td class="fd-num fd-unk" title="No price: ${esc(x.unknown.join(', '))}">—</td>`
+      : `<td class="fd-num ${x[key] < 0 ? 'loss' : 'gain'}${x.guided.length ? ' fd-g' : ''}" title="Gross ${esc(gp(x.gross))} · tax ${esc(gp(x.tax))} · net ${esc(gp(x.net))}${x.guided.length ? ` · GE guide price used for ${esc(x.guided.join(', '))}` : mode === 'guide' ? ' · GE guide prices' : ` · oldest price ${esc(fdAge(x.oldest))}`}">${num(x[key])}</td>`;
     $('#fd-table').innerHTML = rows.length ? `<table class="fd-wtable"><thead><tr>${th('', 'Flask', 0)}${cols.map((c, i) => th(c.key, c.label, i + 1)).join('')}</tr></thead><tbody>${rows.map(({r, e}) => {
       const isOpen = open.has(r.flask);
       return `<tr><th scope="row"><button type="button" class="fd-name" data-flask="${esc(r.flask)}" aria-expanded="${isOpen}">${calcIco(r.f6.n)}<span class="calc-name">${esc(r.flask)}</span></button></th>${e.map(cell).join('')}</tr>`
-        + (isOpen ? `<tr class="fd-detail"><td colspan="${cols.length + 1}"><ul class="fd-prices">${priceLi(e[0].lines.find(l => l.side === 'sell'))}${[1, 2, 3, 4].map(dz => { const it = r['v' + dz], p = fdPrice(it, 'buy'); return priceLi({n: it.n, id: it.id, q: 1, side: 'buy', p}); }).join('')}${priceLi({n: D.flask.n, id: D.flask.id, q: 1, side: 'buy', p: fq})}</ul></td></tr>` : '');
+        + (isOpen ? `<tr class="fd-detail"><td colspan="${cols.length + 1}"><ul class="fd-prices">${priceLi(e[0].lines.find(l => l.side === 'sell'))}${[1, 2, 3, 4].map(dz => { const it = r['v' + dz], p = fdPrice(it, 'buy', mode); return priceLi({n: it.n, id: it.id, q: 1, side: 'buy', p}); }).join('')}${priceLi({n: D.flask.n, id: D.flask.id, q: 1, side: 'buy', p: fq})}</ul></td></tr>` : '');
     }).join('')}</tbody></table>` : '<p class="note">No potions match.</p>';
   };
   $('#fd-table').addEventListener('click', e => {
@@ -1101,8 +1146,11 @@ async function flaskDecantView(n) {
     if (nb) { const f = nb.dataset.flask; open.has(f) ? open.delete(f) : open.add(f); draw(); const b = [...document.querySelectorAll('#fd-table button.fd-name')].find(x => x.dataset.flask === f); if (b) b.focus(); }
   });
   q.addEventListener('input', draw); show.onchange = draw;
+  srcSel.onchange = () => { try { CALC_LS.setItem(FD_SRC_KEY, srcSel.value); } catch (e) {} draw(); };
   priceDraws.push(draw);
   draw();
+  const ids = [D.flask.id, ...D.rows.flatMap(r => [r.f6.id, r.v1.id, r.v2.id, r.v3.id, r.v4.id])];
+  guideFetch(ids).then(() => { if ($('#fd-table')) draw(); });
 }
 
 /* Calculator:Herblore, native. The engine is the Wiki's own Module:Skill calc/Herblore, ported to RS3Calc.herbloreRun and

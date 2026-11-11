@@ -61,7 +61,7 @@ assert.match(app,/watchPriceDraw\(\(\) => draw\(true\), out\)/);
 assert.doesNotMatch(app,/counted as 0|untradeables count as 0/);
 assert.match(app,/Wiki snapshot costs &amp; experience/);
 assert.match(app,/priceOf\(D, n, side = 'buy'\) \{ return LIVE.book.number/);
-const html=fs.readFileSync('index.html','utf8'); assert.match(html,/connect-src 'self' https:\/\/prices.runescape.wiki;/);
+const html=fs.readFileSync('index.html','utf8'); assert.match(html,/connect-src 'self' https:\/\/prices.runescape.wiki https:\/\/api.weirdgloop.org;/);
 assert.ok(html.indexOf('live-prices.js')<html.indexOf('src="app.js"'));
 function events(){const h=new Map();return {addEventListener:(k,f)=>h.set(k,f),removeEventListener:k=>h.delete(k),fire:k=>h.get(k)?.(),h};}
 async function lifecycleTests(){

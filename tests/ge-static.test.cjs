@@ -59,7 +59,7 @@ assert.match(html, /<button data-tab="ge">/);
 assert.doesNotMatch(app.match(/if \(\(?\[[^\]]+\]\.includes\(tab\)[^\n]*bindPriceView/)[0], /'ge'/, 'G.E. tab keeps no app price banner, as before');
 const csp = html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)[1];
 assert.match(csp, /frame-src https:\/\/prices.runescape.wiki;/);
-assert.match(csp, /connect-src 'self' https:\/\/prices.runescape.wiki;/);
+assert.match(csp, /connect-src 'self' https:\/\/prices.runescape.wiki https:\/\/api.weirdgloop.org;/);
 assert.match(csp, /script-src 'self';/);
 assert.match(csp, /img-src 'self' data: blob:;/);
 assert.doesNotMatch(ge, /fetch\(|contentDocument|contentWindow|postMessage|setInterval|onload|onerror/);
