@@ -70,6 +70,9 @@ const T = Date.now(), OLD = T / 1000 - 5 * 86400;
 assert.doesNotMatch(app, /Live estimate incomplete \/ unavailable|not live-ranked/);
 assert.match(app, /Wiki figure, GE prices/);
 assert.match(fs.readFileSync(path.join(base, 'neon.css'), 'utf8'), /\.gpc::before\{content:"";[^}]*background:url\(icons\/1c41f66de5ec\.webp\)/);
+{ const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'); assert.match(css, /\.gp::before\{content:"";[^}]*1c41f66de5ec/); assert.match(css, /\.gp \.gpc::before\{content:none\}/, 'no second coin inside an amount already styled .gp');
+  // every app place that nests the shared amount inside .gp relies on that rule
+  assert.ok((app.match(/class="gp"[^>]*>\$\{(mmGpH|gpH)\(/g) || []).length >= 2); }
 assert.ok(fs.existsSync(path.join(base, 'icons/1c41f66de5ec.webp')), 'Wiki Coins icon asset is in the app');
 assert.match(app, /if \(name === '~all' \|\| !name\) return allView\(\);\n  if \(name === '~search'\) name = '';/);
 assert.match(app, /b\('#items\/~search', 'Search · rarity · prices', 'search'\)/);

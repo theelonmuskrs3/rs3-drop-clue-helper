@@ -1547,4 +1547,5 @@ th[aria-sort=ascending] .fd-arrow,th[aria-sort=descending] .fd-arrow{color:var(-
 
 /* Coins icon before money amounts, as on the Wiki ({{Coins}}): the Wiki's Coins item icon, decorative (CSS, not read out). */
 .gpc::before{content:"";display:inline-block;width:11px;height:9px;margin-right:3px;background:url(icons/1c41f66de5ec.webp) no-repeat center/contain;vertical-align:baseline}
+.gp .gpc::before{content:none}   /* .gp already draws the coins icon: one icon per amount */
 .mm-g{font-size:.8em;color:var(--soft);margin-left:2px}
