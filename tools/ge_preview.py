@@ -9,7 +9,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ('index.html', 'app.js', 'live-prices.js', 'calculators.js', 'neon.css', 'neon.js', 'map.js', 'fx.js',
-          'data/calculators.json', 'data/calc/flask-decanting.json', 'data/calc/herblore.json')
+          'data/calculators.json', 'data/calc/flask-decanting.json', 'data/calc/herblore.json',
+          'data/calc/directory.json', 'data/calc/images.json')
 BUILD = hashlib.sha256(b''.join((ROOT / p).read_bytes() for p in ASSETS)).hexdigest()[:16]
 
 class Preview(SimpleHTTPRequestHandler):

@@ -1,0 +1,3646 @@
+{
+"icons": {
+"Artisan skills|Construction|/w/Calculator:Construction": {
+"file": "Construction.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Construction.png",
+"h": 27,
+"icon": "reused",
+"sha1": "9495f8573b12a598a3965bec2e05a6a91e867297",
+"src": "icons/1d6dc7c5b04c.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Artisan skills|Construction|/w/Calculator:Construction/Contract_cost": {
+"file": "Construction contract.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Construction contract.png",
+"h": 30,
+"icon": "reused",
+"sha1": "fc50f29ed2e1f7319989dcee003d8ea8c85d8e35",
+"src": "icons/dffe8f8169d3.webp",
+"via": "exact file",
+"w": 24
+}
+},
+"Artisan skills|Construction|/w/Calculator:Construction/Fort_Forinthry": {
+"file": "Fort_Forinthry_lodestone_icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Fort Forinthry lodestone icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "3510311b58a61ecbacf324683d1d5fe806d00724",
+"src": "icons/d7675d5805ca.webp",
+"via": "exact file",
+"w": 30
+}
+},
+"Artisan skills|Construction|/w/Calculator:Construction/Furniture": {
+"file": "Mahogany bookcase (scenery).png",
+"img": {
+"bytes": "mirror",
+"file": "File:Mahogany bookcase (scenery).png",
+"h": 36,
+"icon": "reused",
+"sha1": "38328385aa9ffc67257cb93e116ad798339ea4f0",
+"src": "icons/16f064836846.webp",
+"via": "exact file",
+"w": 20
+}
+},
+"Artisan skills|Construction|/w/Calculator:Construction/Plank_making": {
+"file": "Plank detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Plank detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "ba9c69ddb84983798001cad41d5e617b77531f3f",
+"src": "icons/b852b5bf0552.webp",
+"via": "exact file",
+"w": 26
+}
+},
+"Artisan skills|Construction|/w/Calculator:Other/Selling_POH_items": {
+"file": "House portal.png",
+"img": {
+"bytes": "mirror",
+"file": "File:House portal.png",
+"h": 26,
+"icon": "reused",
+"sha1": "c468c08ff1857adc1e777e328e284851fa4e14b0",
+"src": "icons/94af869e1709.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Cooking|/w/Calculator:Cooking": {
+"file": "Cooking.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Cooking.png",
+"h": 27,
+"icon": "reused",
+"sha1": "03e595a5b50429cc7c95dabab67cd836a511eab4",
+"src": "icons/7dead1959cf4.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Artisan skills|Cooking|/w/Calculator:Cooking/Cooking_various_items": {
+"file": "Tuna detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Tuna detail.png",
+"h": 21,
+"icon": "reused",
+"sha1": "3e2d22dc9b19d63a1bf113a1741b256e36b9f305",
+"src": "icons/4f6bedd57401.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Cooking|/w/Calculator:Cooking/Fish_profit": {
+"file": "Sailfish detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Sailfish detail.png",
+"h": 33,
+"icon": "reused",
+"sha1": "71270725e10297ca4abab0033362d2e569d88242",
+"src": "icons/7597d5ea3bb1.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Crafting": {
+"file": "Crafting.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Crafting.png",
+"h": 27,
+"icon": "reused",
+"sha1": "950c6a64d86a9da2cd5b4cbf354919ed7269acce",
+"src": "icons/039a3c39d447.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Crafting/Battlestaves": {
+"file": "Battlestaff detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Battlestaff detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "24a6025139387a83fcb006b856b8a17f61197a2e",
+"src": "icons/e40aeb3aaf73.webp",
+"via": "exact file",
+"w": 29
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Crafting/Crafting_cleaner": {
+"file": "Crafting cleaner detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Crafting cleaner detail.png",
+"h": 31,
+"icon": "reused",
+"sha1": "2926673c92447864c695bb2687ddb9eb46ddd67f",
+"src": "icons/66b9c0ce4bf0.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Crafting/Gem_cutting": {
+"file": "Emerald detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Emerald detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "5056ea47b43a2b3097993f2dc929534b94aa8ad9",
+"src": "icons/13f71a0a7681.webp",
+"via": "exact file",
+"w": 30
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Crafting/Gem_cutting_dynamic": {
+"file": "Diamond detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Diamond detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "e569b4523d3d91a68b4e26b83daf49f2da44d0be",
+"src": "icons/d141eedb42cd.webp",
+"via": "exact file",
+"w": 34
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Crafting/Glass": {
+"file": "Molten glass detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Molten glass detail.png",
+"h": 24,
+"icon": "reused",
+"sha1": "bf59bbcd6b946f75296ed84ea980066563172c1d",
+"src": "icons/15d9071726e8.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Crafting/Hides": {
+"file": "Studded leather coif detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Studded leather coif detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "b6187b3e0773cc67ec2bfe968365ea1cda9ac69a",
+"src": "icons/d8fd221fc9e7.webp",
+"via": "exact file",
+"w": 24
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Crafting/Jewellery": {
+"file": "Dragonstone necklace detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Dragonstone necklace detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "86d4472d8d1c54651de92aff28efe409c586b45f",
+"src": "icons/ac21f70fcd5b.webp",
+"via": "exact file",
+"w": 22
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Crafting/Other": {
+"file": "Chisel detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Chisel detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "b9b72975e9f9112684bd8c3f7597c698c70ec72f",
+"src": "icons/9b9d81e0ab33.webp",
+"via": "exact file",
+"w": 26
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Crafting/Polypore_armour": {
+"file": "Fungal flake 5 detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Fungal flake 5 detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "b42604c4d6f88cc1875929405884ac170e35e99d",
+"src": "icons/c9213b18e6e1.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Crafting/Tanning": {
+"file": "Cowhide detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Cowhide detail.png",
+"h": 34,
+"icon": "reused",
+"sha1": "1c7c57213eaaf523b290b346b37863b975749c72",
+"src": "icons/6978dcbf4afa.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Crafting|/w/Calculator:Urns/Crafting": {
+"file": "Decorated cooking urn detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Decorated cooking urn detail.png",
+"h": 33,
+"icon": "reused",
+"sha1": "8078e62a0b0ed3634e1dd9f8e20eedb795bbf883",
+"src": "icons/5e772c72f024.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Firemaking|/w/Calculator:Firemaking": {
+"file": "Firemaking.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Firemaking.png",
+"h": 36,
+"icon": "reused",
+"sha1": "e3c824b3fe046ef4b2580d256a2d41130384288e",
+"src": "icons/1d5581a858d3.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Firemaking|/w/Calculator:Firemaking/Burning_logs": {
+"file": "Logs detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Logs detail.png",
+"h": 34,
+"icon": "reused",
+"sha1": "e5747a4e2bd5691b2a0e058e7e1bf7b47c992a00",
+"src": "icons/66a6948eae0a.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Firemaking|/w/Calculator:Firemaking/Incense_sticks": {
+"file": "Spirit weed incense sticks detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Spirit weed incense sticks detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "739f3327128e4afbdc3cabf938d7cc846a49b5e2",
+"src": "icons/7b75d7dc3a05.webp",
+"via": "exact file",
+"w": 22
+}
+},
+"Artisan skills|Fletching|/w/Calculator:Fletching": {
+"file": "Fletching.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Fletching.png",
+"h": 27,
+"icon": "reused",
+"sha1": "e3e622dab2ec1169b0bee4819129ce0145f853c2",
+"src": "icons/a64153b6aba0.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Artisan skills|Fletching|/w/Calculator:Fletching/Bakriminel_bolts": {
+"file": "Bakriminel bolts.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Bakriminel bolts 5.png",
+"h": 32,
+"icon": "reused",
+"sha1": "71af34323b681515c3cacd0070a0d6c943b50475",
+"src": "icons/4ba489dc169b.webp",
+"via": "File redirect from File:Bakriminel bolts.png",
+"w": 33
+}
+},
+"Artisan skills|Fletching|/w/Calculator:Fletching/Gems_to_bolt_tips": {
+"file": "Opal bolt tips detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Opal bolt tips detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "ca2fda5696b118282b9de99dd372dbd53c0cbc16",
+"src": "icons/7beae0ee858b.webp",
+"via": "exact file",
+"w": 34
+}
+},
+"Artisan skills|Fletching|/w/Calculator:Fletching/Items": {
+"file": "Steel arrow detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Steel arrow detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "f27a1a6560707e4a220083913996c459a31dae16",
+"src": "icons/ca97963b40dc.webp",
+"via": "exact file",
+"w": 17
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Decanting": {
+"file": "Attack potion (4) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Attack potion (4) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "a149f3d09029775fa02d11881f54f3bc68247ec9",
+"src": "icons/da71a938966d.webp",
+"via": "exact file",
+"w": 22
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Herblore": {
+"file": "Restore potion (4) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Restore potion (4) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "d50cde5f846aeeee7f1862510392fc5b481cd808",
+"src": "icons/e0465c7a260d.webp",
+"via": "exact file",
+"w": 22
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Herblore/Barbarian_mixes": {
+"file": "Defence mix (2) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Defence mix (2) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "282b23a6ee37ee68f0e604407156c6e763d7533f",
+"src": "icons/1c7b55a1e4e1.webp",
+"via": "exact file",
+"w": 22
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Herblore/Combination_potions": {
+"file": "Enhanced replenishment potion (6) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Enhanced replenishment potion (6) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "b0460135d0a50b4d1f5ffa970aed2dee2c3c316f",
+"src": "icons/5c432b409a8f.webp",
+"via": "exact file",
+"w": 19
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Herblore/Dose_cost": {
+"file": "Magic potion (1) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Magic potion (1) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "6388348b5ce0dd2f90561ae50fb839cfbe19f742",
+"src": "icons/f5ef908b2eb7.webp",
+"via": "exact file",
+"w": 22
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Herblore/Efficient_Profit": {
+"file": "Saradomin brew (4) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Saradomin brew (4) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "b88a5731bb1ad558fea22a472fde90629acb2d43",
+"src": "icons/423972326cb3.webp",
+"via": "exact file",
+"w": 22
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Herblore/Extreme_potions": {
+"file": "Overload (4) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Overload (4) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "5b658d916c77ee393bf891f3a5935a4b0ee2a905",
+"src": "icons/0a15301f7b2c.webp",
+"via": "exact file",
+"w": 22
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Herblore/Flask_decanting": {
+"file": "Antifire flask (6) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Antifire flask (6) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "b9dc270f5916134a6bdcff8d35ccaf9ccd8a724e",
+"src": "icons/859a90c25cbe.webp",
+"via": "exact file",
+"w": 25
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Herblore/Herbs": {
+"file": "Grimy wergali detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Grimy wergali detail.png",
+"h": 28,
+"icon": "reused",
+"sha1": "e5358ca7e91cbeccf2363599e5370dfb1108f2bf",
+"src": "icons/6ec459263cb2.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Herblore/Overload_variants": {
+"file": "Elder overload salve (6) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Elder overload salve (6) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "8aa7295d391d1890b9de9677edeabf59f0e8383d",
+"src": "icons/a53b84a128a4.webp",
+"via": "exact file",
+"w": 20
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Herblore/Potions": {
+"file": "Super prayer (4) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Super prayer (4) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "095686018dac0f136f60c5a7bd8ef6fd774fd92d",
+"src": "icons/5edcb2db1a42.webp",
+"via": "exact file",
+"w": 22
+}
+},
+"Artisan skills|Herblore|/w/Calculator:Herblore/Unfinished_potions": {
+"file": "Avantoe potion (unfinished) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Avantoe potion (unfinished) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "bee4f042e463061aa06e002cf6ef1b46fec704a5",
+"src": "icons/26bf8bf3f492.webp",
+"via": "exact file",
+"w": 24
+}
+},
+"Artisan skills|Invention|/w/Calculator:Disassembly_by_category": {
+"file": "Disassemble.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Disassemble.png",
+"h": 30,
+"icon": "reused",
+"sha1": "9399e17849f7d94ff0296279fd4282923262b371",
+"src": "icons/2449ee43d915.webp",
+"via": "exact file",
+"w": 30
+}
+},
+"Artisan skills|Invention|/w/Calculator:Disassembly_by_material": {
+"file": "Disassemble.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Disassemble.png",
+"h": 30,
+"icon": "reused",
+"sha1": "9399e17849f7d94ff0296279fd4282923262b371",
+"src": "icons/2449ee43d915.webp",
+"via": "exact file",
+"w": 30
+}
+},
+"Artisan skills|Invention|/w/Calculator:Equipment_experience_by_tier": {
+"file": "Disassemble.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Disassemble.png",
+"h": 30,
+"icon": "reused",
+"sha1": "9399e17849f7d94ff0296279fd4282923262b371",
+"src": "icons/2449ee43d915.webp",
+"via": "exact file",
+"w": 30
+}
+},
+"Artisan skills|Invention|/w/Calculator:Invention": {
+"file": "Invention.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Invention.png",
+"h": 27,
+"icon": "reused",
+"sha1": "cba7053405fac0a54bb636782fb82bf3161ce941",
+"src": "icons/68a384b955be.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Artisan skills|Invention|/w/Calculator:Invention/Scavenging": {
+"file": "Scavenging.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Scavenging.png",
+"h": 32,
+"icon": "reused",
+"sha1": "91705fc2e46f5f1ce9f0f514f4fe49f5013d6356",
+"src": "icons/857dc92d1142.webp",
+"via": "exact file",
+"w": 32
+}
+},
+"Artisan skills|Invention|/w/Calculator:Other/Spring_cleaner_desired_profit": {
+"file": "Spring detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Spring detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "36066f7343594771faa3a4bac1e8159e00306836",
+"src": "icons/9c168fbe45e6.webp",
+"via": "exact file",
+"w": 33
+}
+},
+"Artisan skills|Invention|/w/Calculator:Spring_cleaner": {
+"file": "Spring detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Spring detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "36066f7343594771faa3a4bac1e8159e00306836",
+"src": "icons/9c168fbe45e6.webp",
+"via": "exact file",
+"w": 33
+}
+},
+"Artisan skills|Runecrafting|/w/Calculator:Runecrafting": {
+"file": "Runecrafting.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Runecrafting.png",
+"h": 36,
+"icon": "reused",
+"sha1": "c7ad907daff9263e40eaaec413bc5c1626fc9588",
+"src": "icons/496626a55ae7.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Runecrafting|/w/Calculator:Runecrafting/Combination_runes": {
+"file": "Lava rune detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Lava rune detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "aa859ff8f6f2cfc85e5163d3f4715982d3354bdf",
+"src": "icons/7cfa322576f0.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Runecrafting|/w/Calculator:Runecrafting/Multiple_runes": {
+"file": "Massive pouch detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Massive pouch detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "74e1300048d156be718e128eecbd0c1ccb845bff",
+"src": "icons/45ac07df20dc.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Runecrafting|/w/Calculator:Runecrafting/Multiple_runes_dynamic": {
+"file": "Blood rune detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Blood rune detail.png",
+"h": 35,
+"icon": "reused",
+"sha1": "df67894ed5b3293237f3baa50b6e7d7eae5b96ce",
+"src": "icons/11c878a6128b.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Runecrafting|/w/Calculator:Runecrafting/Profit_per_trip": {
+"file": "Small pouch detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Small pouch detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "dfd523f87ef1337514ef006dde87e33fb3cad630",
+"src": "icons/dfc64eaf4607.webp",
+"via": "exact file",
+"w": 28
+}
+},
+"Artisan skills|Runecrafting|/w/Calculator:Runecrafting/Tiaras": {
+"file": "Water tiara detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Water tiara detail.png",
+"h": 18,
+"icon": "reused",
+"sha1": "b6fd9e6b0d8d371a3236345e5290f79740c893bc",
+"src": "icons/a8ae539d81b0.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Magic/Superheat": {
+"file": "Superheat Item icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Superheat Item icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "8250e8c451da54dce6681df4c1bb9531f5bdb500",
+"src": "icons/2b28eb3476b8.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing": {
+"file": "Smithing.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Smithing.png",
+"h": 27,
+"icon": "reused",
+"sha1": "e11b7d02cf92c12d70bd27bfacf9faf844b85703",
+"src": "icons/40c015ea2c4f.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Armour_stand": {
+"file": "Armour repair stand.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Armour repair stand.png",
+"h": 30,
+"icon": "reused",
+"sha1": "5121e86ee31f536d3746ed34aefe41eb88b727d4",
+"src": "icons/c11c17be112f.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Barrows_repair": {
+"file": "Linza's helm detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Linza's helm detail.png",
+"h": 28,
+"icon": "reused",
+"sha1": "d5d55a14908fd9e7b574f68fca9b9066f30915ac",
+"src": "icons/2b77fbedb484.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Blast_Furnace": {
+"file": "Blast Furnace icon.jpg",
+"img": {
+"bytes": "mirror",
+"file": "File:Blast Furnace icon.jpg",
+"h": 36,
+"icon": "reused",
+"sha1": "3a0f469cbca3a309160ceb49d5f88b461a70df2a",
+"src": "icons/9ade7b0b2de6.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Cannonballs": {
+"file": "Cannonball detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Cannonball detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "ff33f000c0da53b92fa99404c3a39824c1e2e29f",
+"src": "icons/1a895a41ecce.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Ore_to_metal_buying": {
+"file": "Steel bar detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Steel bar detail.png",
+"h": 28,
+"icon": "reused",
+"sha1": "db91bf37065191a49d62f504464e07bd6734cc8d",
+"src": "icons/aba2bc08acbb.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Ores": {
+"file": "Gold bar detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Gold bar detail.png",
+"h": 26,
+"icon": "reused",
+"sha1": "e54ce159eb2303e020deace5b6d6214006f8c7aa",
+"src": "icons/2a3d499b3aea.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Player-owned_port_armour_repair": {
+"file": "Ships button.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Ships button.png",
+"h": 36,
+"icon": "reused",
+"sha1": "015131015279c11a9ce17552ec96bc8fc23d4b6a",
+"src": "icons/e6acc09c5d25.webp",
+"via": "exact file",
+"w": 29
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Profit": {
+"file": "Anvil.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Anvil.png",
+"h": 30,
+"icon": "reused",
+"sha1": "6cbeca5527b9e083709151a0aee68bae7a24d615",
+"src": "icons/1ce903ef92c9.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Rate": {
+"file": "Hammer detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Hammer detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "02024898f76873860ab9c43b76fd808208f56f36",
+"src": "icons/f5dd27454275.webp",
+"via": "exact file",
+"w": 30
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Rates_Overview": {
+"file": "Hammer detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Hammer detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "02024898f76873860ab9c43b76fd808208f56f36",
+"src": "icons/f5dd27454275.webp",
+"via": "exact file",
+"w": 30
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Smelting": {
+"file": "Elder rune bar detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Elder rune bar detail.png",
+"h": 22,
+"icon": "reused",
+"sha1": "a1ec93e17c2accfa11956a201ac5c4e4a6e14bcf",
+"src": "icons/4f36435d93d0.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Special": {
+"file": "Dragonfire shield (charged) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Dragonfire shield (charged) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "fb18f5a4a3310a3529a112ca4228af2530f46976",
+"src": "icons/7559ea6fb977.webp",
+"via": "exact file",
+"w": 19
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Trimmed_masterwork_armour": {
+"file": "Masterwork melee helm detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Masterwork melee helm detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "6d597623a215fb23d6a93ffbecc3fe53e8a42705",
+"src": "icons/61f78e6a615a.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Artisan skills|Smithing|/w/Calculator:Smithing/Trimmed_masterwork_armour_time": {
+"file": "Masterwork melee helm detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Masterwork melee helm detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "6d597623a215fb23d6a93ffbecc3fe53e8a42705",
+"src": "icons/61f78e6a615a.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Abilities|/w/Calculator:Combat/Average_damage": {
+"file": "Hitsplat.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Hitsplat.png",
+"h": 11,
+"icon": "reused",
+"sha1": "affccf17203698c4c6b1b6bc3313df9055da5ebf",
+"src": "icons/16de0bb65784.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Abilities|/w/Calculator:Combat/Average_damage_(bleeds)": {
+"file": "Dismember.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Dismember.png",
+"h": 36,
+"icon": "reused",
+"sha1": "37296a77483d652f18c1159134b7c7c842f7cd9c",
+"src": "icons/fde2e233ae59.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Abilities|/w/Calculator:Combat/Barricade": {
+"file": "Barricade.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Barricade.png",
+"h": 36,
+"icon": "reused",
+"sha1": "22c01bdeb702ff84d3fdc73f8d2b6a62a3072484",
+"src": "icons/10eb6d06da6e.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Abilities|/w/Calculator:Combat/Divert": {
+"file": "Divert.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Divert.png",
+"h": 30,
+"icon": "reused",
+"sha1": "e919e5f6a83a8079a4e0330b5c26e7f24e584bae",
+"src": "icons/2e70a5dd3c69.webp",
+"via": "exact file",
+"w": 30
+}
+},
+"Combat skills|Combat perks|/w/Calculator:Combat/Animate_Dead": {
+"file": "Animate Dead icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Animate Dead icon.png",
+"h": 30,
+"icon": "reused",
+"sha1": "b8a80b6aff1fecf1bdb988bad04ef2ad2b0c96b4",
+"src": "icons/a1bc63cb0e27.webp",
+"via": "exact file",
+"w": 30
+}
+},
+"Combat skills|Combat perks|/w/Calculator:Combat/Berserker%27s_Fury": {
+"file": "Berserker's Fury.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Berserker's Fury.png",
+"h": 36,
+"icon": "reused",
+"sha1": "84e05e23fe8683f9249da89ad57e07ed1eb22038",
+"src": "icons/e8f9d3f02933.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Combat perks|/w/Calculator:Combat/Biting_Precise_and_Eruptive": {
+"file": "Biting.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Biting.png",
+"h": 32,
+"icon": "reused",
+"sha1": "026a5ede243316c68db02600405c2360b58c2ff6",
+"src": "icons/9033f0604d45.webp",
+"via": "exact file",
+"w": 32
+}
+},
+"Combat skills|Combat perks|/w/Calculator:Combat/Bulwark": {
+"file": "Bulwark.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Bulwark.png",
+"h": 32,
+"icon": "reused",
+"sha1": "1ac64fc9d6470f516d6d60220238865b802ce5a8",
+"src": "icons/01ae8ce33a49.webp",
+"via": "exact file",
+"w": 32
+}
+},
+"Combat skills|Combat perks|/w/Calculator:Combat/Combined_Enhanced_Devoted_and_Devoted": {
+"file": "Enhanced Devoted.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Enhanced Devoted.png",
+"h": 32,
+"icon": "reused",
+"sha1": "cf80225fba62795ea649714296c2496370b45b5d",
+"src": "icons/ada938f84790.webp",
+"via": "exact file",
+"w": 32
+}
+},
+"Combat skills|Combat perks|/w/Calculator:Combat/Combined_Lucky_and_Absorbative": {
+"file": "Lucky.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Lucky.png",
+"h": 32,
+"icon": "reused",
+"sha1": "855cb3445b41c720e802200c6b931db1357d262b",
+"src": "icons/acb7b575e842.webp",
+"via": "exact file",
+"w": 32
+}
+},
+"Combat skills|Combat perks|/w/Calculator:Combat/Crystal_Shield_(perk)": {
+"file": "Crystal Shield (perk).png",
+"img": {
+"bytes": "mirror",
+"file": "File:Crystal Shield (perk).png",
+"h": 32,
+"icon": "reused",
+"sha1": "812058fd63e96f59dbc679e5545c38bf78ba87a2",
+"src": "icons/b5a5220b6b60.webp",
+"via": "exact file",
+"w": 32
+}
+},
+"Combat skills|Combat perks|/w/Calculator:Combat/Death_Ward": {
+"file": "Death Ward.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Death Ward.png",
+"h": 36,
+"icon": "reused",
+"sha1": "d06276600bbb914a194a46923335c0ea9b76edbe",
+"src": "icons/40e1e583ce1e.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Combat perks|/w/Calculator:Combat/Ripper_demon_passive": {
+"file": "Ripper demon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Ripper demon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "ccbf960a4449bd401700abe5b2322c6d6456cae6",
+"src": "icons/9e5366764695.webp",
+"via": "exact file",
+"w": 33
+}
+},
+"Combat skills|Combat|/w/Calculator:Combat/Critical_strike": {
+"file": "Critical melee hitsplat.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Critical melee hitsplat.png",
+"h": 36,
+"icon": "reused",
+"sha1": "16d7750a1aa94bcb551b5f852f207ca8c72d51f2",
+"src": "icons/d7b2a9e399f9.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Combat|/w/Calculator:Combat/Kills_to_goal": {
+"file": "Multicombat.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Multicombat.png",
+"h": 31,
+"icon": "reused",
+"sha1": "3cba839c0c5b0ff82ad357cbe6f9250e0ee785bc",
+"src": "icons/e45af41d9af5.webp",
+"via": "exact file",
+"w": 33
+}
+},
+"Combat skills|Combat|/w/Calculator:Combat/Poison": {
+"file": "Poison hitsplat.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Poison hitsplat.png",
+"h": 20,
+"icon": "reused",
+"sha1": "31aeb570854f7575bda5b29efd75d6ca3b17ea9a",
+"src": "icons/8665f8e309d0.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Combat|/w/Calculator:Other/Food_healed": {
+"file": "Monkfish detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Monkfish detail.png",
+"h": 21,
+"icon": "reused",
+"sha1": "9c5158757d72c80f6a6b04cd07de9fc0e678dc1a",
+"src": "icons/55caa298f3a1.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Combat|/w/Combat_level#combatCalcForm": {
+"file": "Combat icon large.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Combat icon large.png",
+"h": 36,
+"icon": "reused",
+"sha1": "5ff79dbdbcdf2be3b59fd5ba2426453c30b45e50",
+"src": "icons/c2c3fd77c9d9.webp",
+"via": "exact file",
+"w": 33
+}
+},
+"Combat skills|Equipment|/w/Calculator:Combat/Combat_pocket_slot_items": {
+"file": "Pocket slot.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Pocket slot.png",
+"h": 32,
+"icon": "reused",
+"sha1": "0f0e138775effb076f42f8268b68edf1feaa7aad",
+"src": "icons/45cc100c141b.webp",
+"via": "exact file",
+"w": 32
+}
+},
+"Combat skills|Equipment|/w/Calculator:Combat/Crystal_Rain": {
+"file": "Seren godbow detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Seren godbow detail.png",
+"h": 33,
+"icon": "reused",
+"sha1": "1570542fb942605e009f07588a7d7117b4635ebf",
+"src": "icons/cab027d73087.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Equipment|/w/Calculator:Combat/Fungal_Shield": {
+"file": "Cryptbloom top detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Cryptbloom top detail.png",
+"h": 34,
+"icon": "reused",
+"sha1": "e8adff45525ba93f3823fe4fb991a4bab06d9744",
+"src": "icons/76121dd69788.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Equipment|/w/Calculator:Combat/Ruby_bolts_(e)": {
+"file": "Ruby bakriminel bolts (e) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Ruby bakriminel bolts (e) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "778f1021bdb128135530fb6f4b3dcaf3c08c9a15",
+"src": "icons/d4c5f15735d9.webp",
+"via": "exact file",
+"w": 33
+}
+},
+"Combat skills|Equipment|/w/Calculator:Combat/Scriptures": {
+"file": "Scripture of Ful.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Scripture of Ful.png",
+"h": 32,
+"icon": "reused",
+"sha1": "ff42959da9cee7cbd3c73e58ad3e61928bbea662",
+"src": "icons/9128582126c6.webp",
+"via": "exact file",
+"w": 29
+}
+},
+"Combat skills|Equipment|/w/Calculator:Combat/Split_Soul": {
+"file": "Eldritch crossbow detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Eldritch crossbow detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "67bacd9e467dbd2b60e2c18b12ee8d3765aef695",
+"src": "icons/781ab625f1c1.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic": {
+"file": "Bones to Bananas icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Bones to Bananas icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "8f46608facff97df4d67f09a8b1c19cca260ce19",
+"src": "icons/7818df949f9d.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic/Advanced": {
+"file": "Water Wave icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Water Wave icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "26a5f3af336c2443e0ca48e6c8ef703d519aec84",
+"src": "icons/80a9b83f737d.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic/Alchemy_dynamic": {
+"file": "High Level Alchemy icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:High Level Alchemy icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "fd943d594f43e8c6f5a662bcb6fa3216d68ffcbd",
+"src": "icons/da0d0af3aea2.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic/Alchemy_using_self-made_items": {
+"file": "High Level Alchemy icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:High Level Alchemy icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "fd943d594f43e8c6f5a662bcb6fa3216d68ffcbd",
+"src": "icons/da0d0af3aea2.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic/Bolt_enchantment": {
+"file": "Enchant Crossbow Bolt icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Enchant Crossbow Bolt icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "288620989640cdcdc38796f3b9bc73fab127040e",
+"src": "icons/cc25d8a3e36e.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic/Enchanting": {
+"file": "Lvl-3 Enchant icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Lvl-3 Enchant icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "5efde5828f84b87896d1da9bde555c747424e6f8",
+"src": "icons/14b76e83d150.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic/High_alchemy": {
+"file": "High Level Alchemy icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:High Level Alchemy icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "fd943d594f43e8c6f5a662bcb6fa3216d68ffcbd",
+"src": "icons/da0d0af3aea2.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic/Humidify": {
+"file": "Humidify icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Humidify icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "6d732434016b47ac701e66c006e025c2b04158f5",
+"src": "icons/8ae5dc4ffcba.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic/Mage_Training_Arena": {
+"file": "Mg magetraining.jpg",
+"img": {
+"bytes": "mirror",
+"file": "File:Mg magetraining.jpg",
+"h": 36,
+"icon": "reused",
+"sha1": "3e1dcb4049f819cccb8a85fe0d844fb0f2291522",
+"src": "icons/7066fa692d39.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic/Superheat": {
+"file": "Superheat Item icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Superheat Item icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "8250e8c451da54dce6681df4c1bb9531f5bdb500",
+"src": "icons/2b28eb3476b8.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic/Tablets": {
+"file": "Varrock teleport detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Varrock teleport detail.png",
+"h": 34,
+"icon": "reused",
+"sha1": "900fc1b4c74023a5c4d1f657daa8289eaf2902e1",
+"src": "icons/20f383923c96.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Magic|/w/Calculator:Magic/Wine_of_Zamorak": {
+"file": "Wine of Zamorak detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Wine of Zamorak detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "1d3d79b97f2cb9062346c965785a49b8cadc8485",
+"src": "icons/6420a6811f4d.webp",
+"via": "exact file",
+"w": 34
+}
+},
+"Combat skills|Necromancy|/w/Calculator:Necromancy/Rituals": {
+"file": "Elemental I.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Elemental I.png",
+"h": 25,
+"icon": "reused",
+"sha1": "6b59c39cc5e7cfb55b88ee46de519a5ba5ce61fb",
+"src": "icons/ee9d17c2f2c0.webp",
+"via": "exact file",
+"w": 22
+}
+},
+"Combat skills|Necromancy|/w/Calculator:Necromancy/Well_of_Souls": {
+"file": "Reinforced dragon bones.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Reinforced dragon bones.png",
+"h": 27,
+"icon": "reused",
+"sha1": "c5cb08981d7081a29c8441024ce991b88fe4f2c9",
+"src": "icons/7f0c7d769f1a.webp",
+"via": "exact file",
+"w": 31
+}
+},
+"Combat skills|Prayer|/w/Calculator:Prayer": {
+"file": "Bones detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Bones detail.png",
+"h": 35,
+"icon": "reused",
+"sha1": "e22ee7b5263eb733e3d45a2de3a5aa962a76561a",
+"src": "icons/13812f4531bf.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Prayer|/w/Calculator:Prayer/Bones": {
+"file": "Monkey bones detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Monkey bones detail.png",
+"h": 26,
+"icon": "reused",
+"sha1": "13c4eac198a756669105b4392abe13312364f9c5",
+"src": "icons/8b105894f33b.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Prayer|/w/Calculator:Prayer/Bones#Prayer_experience_rate": {
+"file": "Timepiece detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Timepiece detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "da5f6d0e90cd3cd9f12b4e68442fc61e3d136ac0",
+"src": "icons/51da3a2f778d.webp",
+"via": "exact file",
+"w": 30
+}
+},
+"Combat skills|Prayer|/w/Calculator:Prayer/Drain_rate": {
+"file": "Prayer.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Prayer.png",
+"h": 36,
+"icon": "reused",
+"sha1": "2ebe9ab3a242177f1766bf2dadc37ac54c0fc589",
+"src": "icons/527341fd1633.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|PvM|/w/Calculator:Barrows": {
+"file": "Torag's helm detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Torag's helm detail.png",
+"h": 29,
+"icon": "reused",
+"sha1": "85f41dcafd0af902830791bcdde0772595833537",
+"src": "icons/2f28a2ae4c90.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|PvM|/w/Calculator:Combat/Arch-Glacor": {
+"file": "Frozen core of Leng detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Frozen core of Leng detail.png",
+"h": 35,
+"icon": "reused",
+"sha1": "71ceae0545b9fd27a411f1a342725fb5b0ea4dd7",
+"src": "icons/ace41b3bed8b.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|PvM|/w/Calculator:Combat/Drop_Rate": {
+"file": "Casket detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Casket detail.png",
+"h": 32,
+"icon": "reused",
+"sha1": "c0c0cc40d1d59efc4a0af4ad0b77d353e1c3744a",
+"src": "icons/356036bb4535.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|PvM|/w/Calculator:Combat/Rune_pads": {
+"file": "V (Twilight of the Gods) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:V (Twilight of the Gods) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "b2f4a597905be34552f1456d4f471f8c84c09e63",
+"src": "icons/df1bf1ea709e.webp",
+"via": "exact file",
+"w": 22
+}
+},
+"Combat skills|PvM|/w/Calculator:Combat/Telos": {
+"file": "Orb of corrupted anima detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Orb of corrupted anima detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "41b4f936a20c4627bbf155c6987ab604f8437f42",
+"src": "icons/9c5214a1d3c6.webp",
+"via": "exact file",
+"w": 35
+}
+},
+"Combat skills|Summoning|/w/Calculator:Summoning": {
+"file": "Summoning.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Summoning.png",
+"h": 27,
+"icon": "reused",
+"sha1": "4bf0ce624844ec6aa38f0d1a9c3c34c0ecfc5fd0",
+"src": "icons/54363dd3e22a.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Combat skills|Summoning|/w/Calculator:Summoning/Charm_gathering_dynamic": {
+"file": "Crimson charm detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Crimson charm detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "c47c830ba2ae78199631a7823a8ecc0b7960ebee",
+"src": "icons/fb27b12215b5.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Summoning|/w/Calculator:Summoning/Charms_to_experience": {
+"file": "Blue charm detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Blue charm detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "558cab68ec41c9f1abda6a73904e1954c621b04a",
+"src": "icons/626cf860e757.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Summoning|/w/Calculator:Summoning/Pouches": {
+"file": "Pouch detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Pouch detail.png",
+"h": 35,
+"icon": "reused",
+"sha1": "e8603c9db5821b1c24ae59d45aafea03ac7b16e1",
+"src": "icons/3007bb97c05d.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Combat skills|Summoning|/w/Calculator:Summoning/Scrolls": {
+"file": "Spirit Wolf scroll (Howl) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Spirit Wolf scroll (Howl) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "586c250d3242b14fb19f662947a4770112843b43",
+"src": "icons/b3008fb3b4ea.webp",
+"via": "exact file",
+"w": 35
+}
+},
+"Combat skills|Summoning|/w/Calculator:Summoning/Shard_swap": {
+"file": "Spirit shards detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Spirit shards detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "a08b374c7f632c9a91327bc8a54e788c5c716e19",
+"src": "icons/88c84aa1dd25.webp",
+"via": "exact file",
+"w": 18
+}
+},
+"Gathering skills|Archaeology|/w/Calculator:Archaeology": {
+"file": "Archaeology.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Archaeology.png",
+"h": 36,
+"icon": "reused",
+"sha1": "cd281c957ccbe30083c6d7b0b59117db625c3cf5",
+"src": "icons/5013dc216705.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Archaeology|/w/Calculator:Archaeology/Artefacts": {
+"file": "Chronotes 1 detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Chronotes 1 detail.png",
+"h": 35,
+"icon": "reused",
+"sha1": "0da2bd3034728b49bbb2d12c8a734d42f92e9c18",
+"src": "icons/d2a6d7e36978.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Archaeology|/w/Calculator:Archaeology/Disassembly_profit": {
+"file": "Large crate (historic components) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Large crate (historic components) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "d402fa32a3937bc2cbc90cf579d9e9f977392c32",
+"src": "icons/22f6568be62e.webp",
+"via": "exact file",
+"w": 33
+}
+},
+"Gathering skills|Archaeology|/w/Calculator:Archaeology/Hotspot": {
+"file": "Archaeology.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Archaeology.png",
+"h": 36,
+"icon": "reused",
+"sha1": "cd281c957ccbe30083c6d7b0b59117db625c3cf5",
+"src": "icons/5013dc216705.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Archaeology|/w/Calculator:Archaeology/Material_excavation_profit": {
+"file": "Orgone detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Orgone detail.png",
+"h": 29,
+"icon": "reused",
+"sha1": "ddd87cf10ae9797d717f8e4df516cf49f9e69b7b",
+"src": "icons/fd836a9dcdb8.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Archaeology|/w/Calculator:Archaeology/Restoration_profit": {
+"file": "Prototype godbow detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Prototype godbow detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "fc4eb26958796b3770026b7b5f7e500f1c23c0c4",
+"src": "icons/2c73b42c875a.webp",
+"via": "exact file",
+"w": 32
+}
+},
+"Gathering skills|Archaeology|/w/Calculator:Archaeology/Restoring_artefacts": {
+"file": "Spherical astrolabe detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Spherical astrolabe detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "da85bfc2ee986bd9c0db18c1e82014ec8d4b2522",
+"src": "icons/0ec7fe88ea9c.webp",
+"via": "exact file",
+"w": 28
+}
+},
+"Gathering skills|Archaeology|/w/Screening#Calculator": {
+"file": "Ancient gravel detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Ancient gravel detail.png",
+"h": 29,
+"icon": "reused",
+"sha1": "7cd0d62473ab1b986585b0a3e62df4edeb1ea0d0",
+"src": "icons/bc24ce1a580a.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Divination|/w/Calculator:Divination": {
+"file": "Pale wisp.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Pale wisp.png",
+"h": 36,
+"icon": "reused",
+"sha1": "10e832e77f5592454dd194bb43e3e95055c7d075",
+"src": "icons/eec62ab29af7.webp",
+"via": "exact file",
+"w": 35
+}
+},
+"Gathering skills|Divination|/w/Calculator:Divination/Divine_locations": {
+"file": "Divine box trap detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Divine box trap detail.png",
+"h": 28,
+"icon": "reused",
+"sha1": "d769aeaeabfce7cfe2ef620511b74a69d1edb463",
+"src": "icons/7e6f111bb755.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Divination|/w/Calculator:Divination/Sign_of_the_porter": {
+"file": "Sign of the porter VI detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Sign of the porter VI detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "07fc52fa6aa392543875b22bc2a2d681b3d6414c",
+"src": "icons/bdaeed86256b.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Divination|/w/Calculator:Divination/Sign_of_the_porter/Cost": {
+"file": "Sign of the porter VII detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Sign of the porter VII detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "3a8f540f8c653a3906ac2af154ccc33fd595126d",
+"src": "icons/5a8f1a5a543e.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Divination|/w/Calculator:Divination/Transmutation": {
+"file": "Divination.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Divination.png",
+"h": 27,
+"icon": "reused",
+"sha1": "e021220de1f5c1cb5a1481bb546b4def12e4ca98",
+"src": "icons/217d65bf379b.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Gathering skills|Farming|/w/Calculator:Farming": {
+"file": "Farming.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Farming.png",
+"h": 27,
+"icon": "reused",
+"sha1": "c4eec73cdb528c2b5b33d660b8ae57fd34adcbd1",
+"src": "icons/1a428630a055.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Gathering skills|Farming|/w/Calculator:Farming/Compost_to_payment": {
+"file": "Oranges detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Oranges detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "cf055ddb669d32da92172dc235e3d8383578b3a2",
+"src": "icons/718a444ec8bc.webp",
+"via": "exact file",
+"w": 31
+}
+},
+"Gathering skills|Farming|/w/Calculator:Farming/Fruit_picking": {
+"file": "Pineapple detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Pineapple detail.png",
+"h": 32,
+"icon": "reused",
+"sha1": "4cdf14fd124d3c460ad2558320e6488f8e7de905",
+"src": "icons/0de54cea990b.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Farming|/w/Calculator:Farming/Herbs": {
+"file": "Kwuarm seed detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Kwuarm seed detail.png",
+"h": 31,
+"icon": "reused",
+"sha1": "885ba7647d706201a96b6fe96d901a4881c9b83e",
+"src": "icons/878fd0e3f14b.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Farming|/w/Calculator:Farming/Player-owned_farm_food_costs": {
+"file": "Zygomite sporeling.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Zygomite sporeling.png",
+"h": 36,
+"icon": "reused",
+"sha1": "6e9fca600745373e18d184fdd80232a308b51b5a",
+"src": "icons/f3ceafe43ab3.webp",
+"via": "exact file",
+"w": 32
+}
+},
+"Gathering skills|Farming|/w/Calculator:Farming/Renewables": {
+"file": "Pineapple detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Pineapple detail.png",
+"h": 32,
+"icon": "reused",
+"sha1": "4cdf14fd124d3c460ad2558320e6488f8e7de905",
+"src": "icons/0de54cea990b.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Farming|/w/Calculator:Farming/Supercompost": {
+"file": "Compost Bin (closed).png",
+"img": {
+"bytes": "mirror",
+"file": "File:Compost Bin (closed).png",
+"h": 36,
+"icon": "reused",
+"sha1": "74acc36e0f4ad0085f28892d5f99eca9384d54bd",
+"src": "icons/f9427c93cc4d.webp",
+"via": "exact file",
+"w": 28
+}
+},
+"Gathering skills|Farming|/w/Calculator:Farming/Tree_to_herb": {
+"file": "Willow tree.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Willow tree.png",
+"h": 36,
+"icon": "reused",
+"sha1": "bb390b3964d663b0df3b1daf6287db12a0006db6",
+"src": "icons/de640c73866e.webp",
+"via": "exact file",
+"w": 29
+}
+},
+"Gathering skills|Farming|/w/Calculator:Farming/Trees": {
+"file": "Willow sapling detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Willow sapling detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "ed19313ec35182e921064803ed684ce6dfeebd77",
+"src": "icons/474789989963.webp",
+"via": "exact file",
+"w": 19
+}
+},
+"Gathering skills|Farming|/w/Calculator:Other/Filling": {
+"file": "Apples (4) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Apples (4) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "a98b2dfb1cb63eaf8a625e50a5bf2e35c8af4ee2",
+"src": "icons/9ed04e612a4d.webp",
+"via": "exact file",
+"w": 31
+}
+},
+"Gathering skills|Fishing|/w/Calculator:Fishing": {
+"file": "Fishing.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Fishing.png",
+"h": 27,
+"icon": "reused",
+"sha1": "db6b37815f204ef365fff110a41ef716e74d25e7",
+"src": "icons/4575e7899009.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Gathering skills|Fishing|/w/Calculator:Fishing/Chance": {
+"file": "Fishing.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Fishing.png",
+"h": 27,
+"icon": "reused",
+"sha1": "db6b37815f204ef365fff110a41ef716e74d25e7",
+"src": "icons/4575e7899009.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Gathering skills|Hunter|/w/Calculator:Hunter": {
+"file": "Hunter.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Hunter.png",
+"h": 36,
+"icon": "reused",
+"sha1": "be473ac4d42d2c77f24406a353156a04d4aab047",
+"src": "icons/a61ee015f5f9.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Hunter|/w/Calculator:Hunter/Whirligigs": {
+"file": "Plain whirligig icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Plain whirligig icon.png",
+"h": 21,
+"icon": "reused",
+"sha1": "a39665f02ff817852b25a7cc1de38e77a1e7c96f",
+"src": "icons/61a67f713cfc.webp",
+"via": "exact file",
+"w": 29
+}
+},
+"Gathering skills|Mining|/w/Calculator:Mining": {
+"file": "Light animica detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Light animica detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "4336894fb1920ced5c6b16c4ef9182c871dd272d",
+"src": "icons/03ffbbc90ac4.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Gathering skills|Mining|/w/Calculator:Mining/Rate": {
+"file": "Iron pickaxe detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Iron pickaxe detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "d32a049e3a7b121788632e6db2b111fc27f0e526",
+"src": "icons/a777533bbc89.webp",
+"via": "exact file",
+"w": 24
+}
+},
+"Gathering skills|Woodcutting|/w/Calculator:Woodcutting": {
+"file": "Woodcutting.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Woodcutting.png",
+"h": 27,
+"icon": "reused",
+"sha1": "2bab45a4a34c0bb7f88a8c07d089243a05614927",
+"src": "icons/263785144701.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Gathering skills|Woodcutting|/w/Calculator:Woodcutting/Chance": {
+"file": "Woodcutting.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Woodcutting.png",
+"h": 27,
+"icon": "reused",
+"sha1": "2bab45a4a34c0bb7f88a8c07d089243a05614927",
+"src": "icons/263785144701.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"General|Distractions and Diversions|/w/Calculator:Other/Penguin_points": {
+"file": "Penguin chathead.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Penguin chathead.png",
+"h": 34,
+"icon": "reused",
+"sha1": "457318dda11d36045bef9de5728feed2f4c7c4b2",
+"src": "icons/4f81d7205b79.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|Distractions and Diversions|/w/Calculator:Shark_soup": {
+"file": "Chimes 1000 detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Chimes 1000 detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "221a360ce0f064134e6bb034d3678aa008cf720a",
+"src": "icons/a2f3412f0650.webp",
+"via": "exact file",
+"w": 33
+}
+},
+"General|Distractions and Diversions|/w/Nemi_Forest#Experience_rewards": {
+"file": "Goebie chathead.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Goebie chathead.png",
+"h": 36,
+"icon": "reused",
+"sha1": "9c94306c4fb40d615e7ec4ea0157514fa7d673a4",
+"src": "icons/bf0d264ea3c2.webp",
+"via": "exact file",
+"w": 32
+}
+},
+"General|Distractions and Diversions|/w/Reward_book": {
+"file": "Reward book detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Reward book detail.png",
+"h": 35,
+"icon": "reused",
+"sha1": "685363e44688271de107ecb30d9163d16c68da03",
+"src": "icons/47f496c75560.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|Economy|/w/Calculator:Other/Flipping": {
+"file": "Calculator icons - economy.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Calculator icons - economy.png",
+"h": 33,
+"icon": "reused",
+"sha1": "4b698f8025beed645d90f027428a937f94d810eb",
+"src": "icons/f4a471a9e6b2.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|Economy|/w/Calculator:Other/Long-Term_Merchanting": {
+"file": "Distraction & Diversion reset token (monthly) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Distraction & Diversion reset token (monthly) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "5ff75781397392165091c311ba632778a99a6a67",
+"src": "icons/f91dd15ea7c5.webp",
+"via": "exact file",
+"w": 26
+}
+},
+"General|Levelling|/w/Calculator:Brawling_gloves_multiplier": {
+"file": "Brawling gloves (Fishing) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Brawling gloves (Fishing) detail.png",
+"h": 14,
+"icon": "reused",
+"sha1": "2839480f4316e4005d5135efdabd6d17b3b5e936",
+"src": "icons/2636fd307b58.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|Levelling|/w/Calculator:Double_XP_Weekend": {
+"file": "XP tracker icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:XP tracker icon.png",
+"h": 34,
+"icon": "reused",
+"sha1": "97570dcbd860d992968e09efda0919850a640ca5",
+"src": "icons/ea09e5d445e7.webp",
+"via": "exact file",
+"w": 34
+}
+},
+"General|Levelling|/w/Calculator:Experience_Buffs": {
+"file": "Clan Avatar XP boost.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Clan Avatar XP boost.png",
+"h": 27,
+"icon": "reused",
+"sha1": "3a05b3d708a7e78ce2707d59a195f59694c9d380",
+"src": "icons/39227c9f9383.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"General|Levelling|/w/Calculator:Other/Dragonkin_XP": {
+"file": "Dragonkin lamp detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Dragonkin lamp detail.png",
+"h": 32,
+"icon": "reused",
+"sha1": "1c39ffd87d778070ae5ddbed13950f47024989ad",
+"src": "icons/cc560ec5b097.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|Levelling|/w/Calculator:Other/Experience_to_level": {
+"file": "XP tracker icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:XP tracker icon.png",
+"h": 34,
+"icon": "reused",
+"sha1": "97570dcbd860d992968e09efda0919850a640ca5",
+"src": "icons/ea09e5d445e7.webp",
+"via": "exact file",
+"w": 34
+}
+},
+"General|Levelling|/w/Calculator:Other/Urns": {
+"file": "Decorated runecrafting urn detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Decorated runecrafting urn detail.png",
+"h": 35,
+"icon": "reused",
+"sha1": "2f93911af7fa3b8cabdff770608bb421c8e8a0f3",
+"src": "icons/d6ab7a2cb259.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|Levelling|/w/Efficiency": {
+"file": "Cog detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Cog detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "c37e89b1fa6bcccb4d38743d4be18c486639d03d",
+"src": "icons/e1b2a6417564.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|MTX|/w/Calculator:Crafting/Crafting_cleaner": {
+"file": "Crafting cleaner detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Crafting cleaner detail.png",
+"h": 31,
+"icon": "reused",
+"sha1": "2926673c92447864c695bb2687ddb9eb46ddd67f",
+"src": "icons/66b9c0ce4bf0.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|MTX|/w/Calculator:Other/Advanced_pulse_core": {
+"file": "Advanced pulse core.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Advanced pulse core.png",
+"h": 30,
+"icon": "reused",
+"sha1": "ca3e03d59009fb064a46cecfa45de17b161ee670",
+"src": "icons/7d53407f8578.webp",
+"via": "exact file",
+"w": 29
+}
+},
+"General|MTX|/w/Calculator:Other/Protean_Items": {
+"file": "Protean cog detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Protean cog detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "eb10472897d684ab948c954b03f9ef7198965040",
+"src": "icons/620f87e6560a.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|MTX|/w/Calculator:Other/XP_Lamps": {
+"file": "Large prismatic lamp detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Large prismatic lamp detail.png",
+"h": 22,
+"icon": "reused",
+"sha1": "ed003ad28f587f8ebea1d5aae0cfde0becd099ad",
+"src": "icons/17c7f5af4de1.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|MTX|/w/Calculator:Silverhawk_boots": {
+"file": "Silverhawk feathers detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Silverhawk feathers 5 detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "65ae420221278b893d73adaa92c0bb7aa0d661e4",
+"src": "icons/becb94164151.webp",
+"via": "File redirect from File:Silverhawk feathers detail.png",
+"w": 33
+}
+},
+"General|Minigames|/w/Calculator:Other/Cabbage_Facepunch_Bonanza_BonusXp": {
+"file": "Cabbage Facepunch Bonanza icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Cabbage Facepunch Bonanza icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "65808400d79904a128ed77615aac30305b614430",
+"src": "icons/adae549635bd.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|Minigames|/w/Calculator:Other/Temple_Trekking": {
+"file": "Reward token (blue) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Reward token (blue) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "7b9a5866b730e4b14606201731508ba34b007855",
+"src": "icons/f35abf38062b.webp",
+"via": "exact file",
+"w": 35
+}
+},
+"General|Minigames|/w/Calculator:Other/Trade_goods": {
+"file": "Ancient bones.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Ancient bones.png",
+"h": 34,
+"icon": "reused",
+"sha1": "fa7b64714a93250be78532eb32fd15bcf04e6909",
+"src": "icons/2328351657b1.webp",
+"via": "exact file",
+"w": 34
+}
+},
+"General|Stores|/w/Calculator:Item_packs": {
+"file": "Vial of water pack detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Vial of water pack detail.png",
+"h": 34,
+"icon": "reused",
+"sha1": "e8afceb12bc2647b7d94fc0072bcd8e14a948dd9",
+"src": "icons/5f247467a37a.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|Stores|/w/Calculator:Other/Runes_from_shops": {
+"file": "Law rune detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Law rune detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "1b602767c155d459039fda9e150d4a3db4f6bc67",
+"src": "icons/69eefa6e387d.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"General|Stores|/w/Calculator:Other/Splitbark": {
+"file": "Splitbark body detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Splitbark body detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "6b4ade0624dc8867a19c9236d9e5a3de5f79e203",
+"src": "icons/90f6ab0a223b.webp",
+"via": "exact file",
+"w": 33
+}
+},
+"Support skills|Agility|/w/Calculator:Agility": {
+"file": "Agility.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Agility.png",
+"h": 36,
+"icon": "reused",
+"sha1": "3ed0119b49814940e60503629916027800b763f6",
+"src": "icons/7b2ad8dc6498.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Support skills|Agility|/w/Calculator:Silverhawk_boots": {
+"file": "Silverhawk feathers detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Silverhawk feathers 5 detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "65ae420221278b893d73adaa92c0bb7aa0d661e4",
+"src": "icons/becb94164151.webp",
+"via": "File redirect from File:Silverhawk feathers detail.png",
+"w": 33
+}
+},
+"Support skills|Dungeoneering|/w/Calculator:Dungeoneering": {
+"file": "Dungeoneering.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Dungeoneering.png",
+"h": 27,
+"icon": "reused",
+"sha1": "57a744bb5e7cb0ef2d09edd322c751697f8e26f0",
+"src": "icons/5b6ac6acb747.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Support skills|Dungeoneering|/w/Calculator:Dungeoneering/Daily": {
+"file": "Dungeoneering.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Dungeoneering.png",
+"h": 27,
+"icon": "reused",
+"sha1": "57a744bb5e7cb0ef2d09edd322c751697f8e26f0",
+"src": "icons/5b6ac6acb747.webp",
+"via": "exact file",
+"w": 27
+}
+},
+"Support skills|Slayer|/w/Ushabti#Chance_of_capturing_a_soul": {
+"file": "Ushabti detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Ushabti detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "37af7afa4fb4b39add78e7939b32f3c0d980a2f7",
+"src": "icons/63168329d7e2.webp",
+"via": "exact file",
+"w": 17
+}
+},
+"Support skills|Thieving|/w/Calculator:Thieving": {
+"file": "Thieving.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Thieving.png",
+"h": 36,
+"icon": "reused",
+"sha1": "177d0591528d1947fd7eef2a5d80f2c3cb4750d4",
+"src": "icons/154af67b000f.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Support skills|Thieving|/w/Calculator:Thieving/Asuran_Arsenal": {
+"file": "Giant tablet detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Giant tablet detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "64cbf1bcbbc7893a4b6fd8ad188dde76b3f7951b",
+"src": "icons/b095aee14f47.webp",
+"via": "exact file",
+"w": 23
+}
+},
+"Support skills|Thieving|/w/Calculator:Thieving/Chance": {
+"file": "Thieving.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Thieving.png",
+"h": 36,
+"icon": "reused",
+"sha1": "177d0591528d1947fd7eef2a5d80f2c3cb4750d4",
+"src": "icons/154af67b000f.webp",
+"via": "exact file",
+"w": 36
+}
+},
+"Support skills|Thieving|/w/Calculator:Thieving/Vault_of_Hereditas": {
+"file": "Pylon battery (Vault of Hereditas) detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Pylon battery (Vault of Hereditas) detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "5ab46ae761e40a9e268bf702a10d653cc6e90fca",
+"src": "icons/4507a28f1094.webp",
+"via": "exact file",
+"w": 18
+}
+}
+},
+"license": "Layout, names and icons: RuneScape Wiki, CC BY-NC-SA 3.0 (https://runescape.wiki/w/RuneScape:Copyrights); RuneScape images (c) Jagex Ltd.",
+"missingGroupImages": [],
+"missingIcons": [],
+"notInCatalog": [
+{
+"group": "Distractions and Diversions",
+"label": "Towers solver",
+"link": "Calculator:Other/Towers solver",
+"section": "General"
+},
+{
+"group": "Distractions and Diversions",
+"label": "Treasure Trail Points",
+"link": "Calculator:Other/Treasure Trails reward points",
+"section": "General"
+},
+{
+"group": "Distractions and Diversions",
+"label": "Treasure Trail collection log clues needed",
+"link": "Calculator:Other/Treasure trail collection log calculator",
+"section": "General"
+},
+{
+"group": "Economy",
+"label": "Exchange data for items",
+"link": "Calculator:Other/GE Price",
+"section": "General"
+},
+{
+"group": "Levelling",
+"label": "Stat boosting",
+"link": "Calculator:Other/Boosting",
+"section": "General"
+},
+{
+"group": "MTX",
+"label": "Converting protean items into a single type",
+"link": "Calculator:Other/Protean/Convert",
+"section": "General"
+},
+{
+"group": "Minigames",
+"label": "Voyage success from the player-owned port",
+"link": "Calculator:Player-owned port/Optimal set-up",
+"section": "General"
+},
+{
+"group": "Minigames",
+"label": "Voyage rewards from the player-owned port",
+"link": "Calculator:Player-owned port/Voyage rewards",
+"section": "General"
+},
+{
+"group": "Minigames",
+"label": "Miscellania kingdom management",
+"link": "Calculator:Other/Miscellania",
+"section": "General"
+},
+{
+"group": "Minigames",
+"label": "Miscellania kingdom management (dynamic)",
+"link": "Calculator:Other/Miscellania dynamic",
+"section": "General"
+},
+{
+"group": "Minigames",
+"label": "Anachronia base camp management",
+"link": "Calculator:Other/Anachronia base camp",
+"section": "General"
+},
+{
+"group": "Questing",
+"label": "Quest requirements including all subquests",
+"link": "Calculator:Recursive Quest Requirements",
+"section": "General"
+},
+{
+"group": "Multi-skill",
+"label": "Recipe tree search for all production steps to create an item",
+"link": "Calculator:Recipe Tree Search",
+"section": "Artisan skills"
+},
+{
+"group": "Herblore",
+"label": "Dose to flask decanting",
+"link": "Calculator:Herblore/Dose to flask",
+"section": "Artisan skills"
+},
+{
+"group": "Herblore",
+"label": "Dungeoneering potions by types",
+"link": "Calculator:Dungeoneering potions by types",
+"section": "Artisan skills"
+},
+{
+"group": "Invention",
+"label": "Disassembly categories",
+"link": "Calculator:Disassembly categories",
+"section": "Artisan skills"
+},
+{
+"group": "Invention",
+"label": "Junk rates per level",
+"link": "Calculator:Standard disassembly",
+"section": "Artisan skills"
+},
+{
+"group": "Invention",
+"label": "Junk refiners needed to refine all your Junk",
+"link": "Calculator:Invention/Junk Refiner",
+"section": "Artisan skills"
+},
+{
+"group": "Invention",
+"label": "Charge drain rate",
+"link": "Calculator:Charge drain",
+"section": "Artisan skills"
+},
+{
+"group": "Invention",
+"label": "Perk combination probabilities",
+"link": "Calculator:Perks",
+"section": "Artisan skills"
+},
+{
+"group": "Invention",
+"label": "Trading materials through product manufacturing",
+"link": "Calculator:Invention/Trading materials through product manufacturing",
+"section": "Artisan skills"
+},
+{
+"group": "PvM",
+"label": "Boss collection log kills needed",
+"link": "Calculator:Combat/Boss collection log calculator",
+"section": "Combat skills"
+},
+{
+"group": "PvM",
+"label": "Boss pet kills needed",
+"link": "Calculator:Combat/Boss pets",
+"section": "Combat skills"
+},
+{
+"group": "Summoning",
+"label": "Materials needed to craft binding contracts",
+"link": "Calculator:Summoning/Binding contract",
+"section": "Combat skills"
+},
+{
+"group": "Summoning",
+"label": "Charms saved when using spirit gems",
+"link": "Calculator:Summoning/Charms saved with Spirit Gems",
+"section": "Combat skills"
+},
+{
+"group": "Summoning",
+"label": "Money saved by using Spiritual Healing",
+"link": "Calculator:Spiritual Healing",
+"section": "Combat skills"
+},
+{
+"group": "Slayer",
+"label": "Slayer task weight",
+"link": "Calculator:Slayer",
+"section": "Support skills"
+},
+{
+"group": "Slayer",
+"label": "Slayer points received per task",
+"link": "Calculator:Slayer/Slayer points",
+"section": "Support skills"
+},
+{
+"group": "Wiki related",
+"label": "Coordinate conversion",
+"link": "Calculator:Coordinates",
+"section": "Other"
+},
+{
+"group": "Wiki related",
+"label": "Calcvalue parser",
+"link": "Calculator:Calcvalue",
+"section": "Other"
+},
+{
+"group": "Calculator creation",
+"label": "Calculator basics",
+"link": "RuneScape:Calculators",
+"section": "Other"
+},
+{
+"group": "Calculator creation",
+"label": "Form calculators",
+"link": "RuneScape:Calculators/Form calculators",
+"section": "Other"
+}
+],
+"sections": [
+{
+"groups": [
+{
+"colour": "#d2b244",
+"id": "Distractions_and_Diversions",
+"image": "D&D icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:D&D icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "485420de6a307f6f363f9e6afa7330169bcf280a",
+"src": "icons/d33bb5c311ee.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": "D&D",
+"name": "Distractions and Diversions",
+"paths": [
+"/w/Nemi_Forest#Experience_rewards",
+"/w/Calculator:Other/Penguin_points",
+"/w/Calculator:Shark_soup",
+"/w/Reward_book"
+],
+"skillIcon": null,
+"wikiLink": "D&D calculators"
+},
+{
+"colour": "#409c76",
+"id": "Economy",
+"image": "Calculator icons - economy.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Calculator icons - economy.png",
+"h": 33,
+"icon": "reused",
+"sha1": "4b698f8025beed645d90f027428a937f94d810eb",
+"src": "icons/f4a471a9e6b2.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Economy",
+"paths": [
+"/w/Calculator:Other/Flipping",
+"/w/Calculator:Other/Long-Term_Merchanting"
+],
+"skillIcon": null,
+"wikiLink": "Economy calculators"
+},
+{
+"colour": "#484275",
+"id": "Levelling",
+"image": "XP tracker icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:XP tracker icon.png",
+"h": 34,
+"icon": "reused",
+"sha1": "97570dcbd860d992968e09efda0919850a640ca5",
+"src": "icons/ea09e5d445e7.webp",
+"via": "exact file",
+"w": 34
+},
+"mobile": null,
+"name": "Levelling",
+"paths": [
+"/w/Calculator:Brawling_gloves_multiplier",
+"/w/Calculator:Other/Experience_to_level",
+"/w/Calculator:Experience_Buffs",
+"/w/Calculator:Double_XP_Weekend",
+"/w/Calculator:Other/Dragonkin_XP",
+"/w/Efficiency",
+"/w/Calculator:Other/Urns"
+],
+"skillIcon": null,
+"wikiLink": "Levelling calculators"
+},
+{
+"colour": "#484275",
+"id": "MTX",
+"image": "XP tracker icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:XP tracker icon.png",
+"h": 34,
+"icon": "reused",
+"sha1": "97570dcbd860d992968e09efda0919850a640ca5",
+"src": "icons/ea09e5d445e7.webp",
+"via": "exact file",
+"w": 34
+},
+"mobile": null,
+"name": "MTX",
+"paths": [
+"/w/Calculator:Other/Advanced_pulse_core",
+"/w/Calculator:Other/Protean_Items",
+"/w/Calculator:Other/XP_Lamps",
+"/w/Calculator:Crafting/Crafting_cleaner",
+"/w/Calculator:Silverhawk_boots"
+],
+"skillIcon": null,
+"wikiLink": "MTX calculators"
+},
+{
+"colour": null,
+"id": "Minigames",
+"image": "Manual Activites.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Manual Activites.png",
+"h": 36,
+"icon": "reused",
+"sha1": "362d06b00c20083c29d93f4d63da0d811e2012f7",
+"src": "icons/19ce507e06eb.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Minigames",
+"paths": [
+"/w/Calculator:Other/Trade_goods",
+"/w/Calculator:Other/Cabbage_Facepunch_Bonanza_BonusXp",
+"/w/Calculator:Other/Temple_Trekking"
+],
+"skillIcon": null,
+"wikiLink": "Minigame calculators"
+},
+{
+"colour": null,
+"id": "Questing",
+"image": "Quest icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Quest icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "1d3253b260fb6d194c0f411795025395c54f7cb4",
+"src": "icons/40cec32e991e.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Questing",
+"paths": [],
+"skillIcon": null,
+"wikiLink": "Quest calculators"
+},
+{
+"colour": "#d19f2a",
+"id": "Stores",
+"image": "Empty pot detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Empty pot detail.png",
+"h": 36,
+"icon": "reused",
+"sha1": "9696c7e3f13f9d6dd4afb8ebd795eab59b621a0d",
+"src": "icons/d2523b0c02df.webp",
+"via": "exact file",
+"w": 35
+},
+"mobile": null,
+"name": "Stores",
+"paths": [
+"/w/Calculator:Item_packs",
+"/w/Calculator:Other/Splitbark",
+"/w/Calculator:Other/Runes_from_shops"
+],
+"skillIcon": null,
+"wikiLink": "Store calculators"
+}
+],
+"name": "General"
+},
+{
+"groups": [
+{
+"colour": "#777777",
+"id": "Multi-skill",
+"image": null,
+"img": null,
+"mobile": null,
+"name": "Multi-skill",
+"paths": [],
+"skillIcon": null,
+"wikiLink": "Multi-skill calculators"
+},
+{
+"colour": "#916b48",
+"id": "Construction",
+"image": "Construction.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Construction.png",
+"h": 27,
+"icon": "reused",
+"sha1": "9495f8573b12a598a3965bec2e05a6a91e867297",
+"src": "icons/1d6dc7c5b04c.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Construction",
+"paths": [
+"/w/Calculator:Construction",
+"/w/Calculator:Construction/Furniture",
+"/w/Calculator:Other/Selling_POH_items",
+"/w/Calculator:Construction/Plank_making",
+"/w/Calculator:Construction/Contract_cost",
+"/w/Calculator:Construction/Fort_Forinthry"
+],
+"skillIcon": "icons/1d6dc7c5b04c.webp",
+"wikiLink": "Construction calculators"
+},
+{
+"colour": "#d5823f",
+"id": "Cooking",
+"image": "Cooking.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Cooking.png",
+"h": 27,
+"icon": "reused",
+"sha1": "03e595a5b50429cc7c95dabab67cd836a511eab4",
+"src": "icons/7dead1959cf4.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Cooking",
+"paths": [
+"/w/Calculator:Cooking",
+"/w/Calculator:Cooking/Cooking_various_items",
+"/w/Calculator:Cooking/Fish_profit"
+],
+"skillIcon": "icons/7dead1959cf4.webp",
+"wikiLink": "Cooking calculators"
+},
+{
+"colour": "#713684",
+"id": "Crafting",
+"image": "Crafting.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Crafting.png",
+"h": 27,
+"icon": "reused",
+"sha1": "950c6a64d86a9da2cd5b4cbf354919ed7269acce",
+"src": "icons/039a3c39d447.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Crafting",
+"paths": [
+"/w/Calculator:Crafting",
+"/w/Calculator:Crafting/Hides",
+"/w/Calculator:Crafting/Jewellery",
+"/w/Calculator:Urns/Crafting",
+"/w/Calculator:Crafting/Gem_cutting",
+"/w/Calculator:Crafting/Gem_cutting_dynamic",
+"/w/Calculator:Crafting/Battlestaves",
+"/w/Calculator:Crafting/Tanning",
+"/w/Calculator:Crafting/Glass",
+"/w/Calculator:Crafting/Polypore_armour",
+"/w/Calculator:Crafting/Other",
+"/w/Calculator:Crafting/Crafting_cleaner"
+],
+"skillIcon": "icons/039a3c39d447.webp",
+"wikiLink": "Crafting calculators"
+},
+{
+"colour": "#d5823f",
+"id": "Firemaking",
+"image": "Firemaking.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Firemaking.png",
+"h": 36,
+"icon": "reused",
+"sha1": "e3c824b3fe046ef4b2580d256a2d41130384288e",
+"src": "icons/1d5581a858d3.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Firemaking",
+"paths": [
+"/w/Calculator:Firemaking",
+"/w/Calculator:Firemaking/Incense_sticks",
+"/w/Calculator:Firemaking/Burning_logs"
+],
+"skillIcon": "icons/1d5581a858d3.webp",
+"wikiLink": "Firemaking calculators"
+},
+{
+"colour": "#4c6215",
+"id": "Fletching",
+"image": "Fletching.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Fletching.png",
+"h": 27,
+"icon": "reused",
+"sha1": "e3e622dab2ec1169b0bee4819129ce0145f853c2",
+"src": "icons/a64153b6aba0.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Fletching",
+"paths": [
+"/w/Calculator:Fletching",
+"/w/Calculator:Fletching/Items",
+"/w/Calculator:Fletching/Gems_to_bolt_tips",
+"/w/Calculator:Fletching/Bakriminel_bolts"
+],
+"skillIcon": "icons/a64153b6aba0.webp",
+"wikiLink": "Fletching calculators"
+},
+{
+"colour": "#748d36",
+"id": "Herblore",
+"image": "Herblore.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Herblore.png",
+"h": 36,
+"icon": "reused",
+"sha1": "6288617f94ed318a1bdc77b8f39a4561228c1cd2",
+"src": "icons/a030c5853d50.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Herblore",
+"paths": [
+"/w/Calculator:Herblore",
+"/w/Calculator:Herblore/Potions",
+"/w/Calculator:Herblore/Efficient_Profit",
+"/w/Calculator:Herblore/Barbarian_mixes",
+"/w/Calculator:Herblore/Dose_cost",
+"/w/Calculator:Decanting",
+"/w/Calculator:Herblore/Flask_decanting",
+"/w/Calculator:Herblore/Combination_potions",
+"/w/Calculator:Herblore/Extreme_potions",
+"/w/Calculator:Herblore/Overload_variants",
+"/w/Calculator:Herblore/Herbs",
+"/w/Calculator:Herblore/Unfinished_potions"
+],
+"skillIcon": "icons/a030c5853d50.webp",
+"wikiLink": "Herblore calculators"
+},
+{
+"colour": "#8297e3",
+"id": "Invention",
+"image": "Invention.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Invention.png",
+"h": 27,
+"icon": "reused",
+"sha1": "cba7053405fac0a54bb636782fb82bf3161ce941",
+"src": "icons/68a384b955be.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Invention",
+"paths": [
+"/w/Calculator:Invention",
+"/w/Calculator:Spring_cleaner",
+"/w/Calculator:Other/Spring_cleaner_desired_profit",
+"/w/Calculator:Invention/Scavenging",
+"/w/Calculator:Disassembly_by_category",
+"/w/Calculator:Disassembly_by_material",
+"/w/Calculator:Equipment_experience_by_tier"
+],
+"skillIcon": "icons/68a384b955be.webp",
+"wikiLink": "Invention calculators"
+},
+{
+"colour": "#d5823f",
+"id": "Runecrafting",
+"image": "Runecrafting.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Runecrafting.png",
+"h": 36,
+"icon": "reused",
+"sha1": "c7ad907daff9263e40eaaec413bc5c1626fc9588",
+"src": "icons/496626a55ae7.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Runecrafting",
+"paths": [
+"/w/Calculator:Runecrafting",
+"/w/Calculator:Runecrafting/Multiple_runes",
+"/w/Calculator:Runecrafting/Multiple_runes_dynamic",
+"/w/Calculator:Runecrafting/Tiaras",
+"/w/Calculator:Runecrafting/Profit_per_trip",
+"/w/Calculator:Runecrafting/Combination_runes"
+],
+"skillIcon": "icons/496626a55ae7.webp",
+"wikiLink": "Runecrafting calculators"
+},
+{
+"colour": "#d2b244",
+"id": "Smithing",
+"image": "Smithing.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Smithing.png",
+"h": 27,
+"icon": "reused",
+"sha1": "e11b7d02cf92c12d70bd27bfacf9faf844b85703",
+"src": "icons/40c015ea2c4f.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Smithing",
+"paths": [
+"/w/Calculator:Smithing",
+"/w/Calculator:Smithing/Rate",
+"/w/Calculator:Smithing/Rates_Overview",
+"/w/Calculator:Smithing/Armour_stand",
+"/w/Calculator:Smithing/Player-owned_port_armour_repair",
+"/w/Calculator:Smithing/Barrows_repair",
+"/w/Calculator:Smithing/Cannonballs",
+"/w/Calculator:Smithing/Ores",
+"/w/Calculator:Smithing/Smelting",
+"/w/Calculator:Smithing/Blast_Furnace",
+"/w/Calculator:Smithing/Profit",
+"/w/Calculator:Smithing/Special",
+"/w/Calculator:Magic/Superheat",
+"/w/Calculator:Smithing/Ore_to_metal_buying",
+"/w/Calculator:Smithing/Trimmed_masterwork_armour",
+"/w/Calculator:Smithing/Trimmed_masterwork_armour_time"
+],
+"skillIcon": "icons/40c015ea2c4f.webp",
+"wikiLink": "Smithing calculators"
+}
+],
+"name": "Artisan skills"
+},
+{
+"groups": [
+{
+"colour": "#bc483d",
+"id": "Combat",
+"image": "Combat icon large.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Combat icon large.png",
+"h": 36,
+"icon": "reused",
+"sha1": "5ff79dbdbcdf2be3b59fd5ba2426453c30b45e50",
+"src": "icons/c2c3fd77c9d9.webp",
+"via": "exact file",
+"w": 33
+},
+"mobile": null,
+"name": "Combat",
+"paths": [
+"/w/Combat_level#combatCalcForm",
+"/w/Calculator:Combat/Critical_strike",
+"/w/Calculator:Other/Food_healed",
+"/w/Calculator:Combat/Kills_to_goal",
+"/w/Calculator:Combat/Poison"
+],
+"skillIcon": null,
+"wikiLink": "Combat calculators"
+},
+{
+"colour": "#5b95c3",
+"id": "Abilities",
+"image": "Powers (header) icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Powers (header) icon.png",
+"h": 36,
+"icon": "reused",
+"sha1": "289d822bbb2d53a252b8ca00612eb8a3da16ec7e",
+"src": "icons/49c8162b953f.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Abilities",
+"paths": [
+"/w/Calculator:Combat/Average_damage",
+"/w/Calculator:Combat/Barricade",
+"/w/Calculator:Combat/Average_damage_(bleeds)",
+"/w/Calculator:Combat/Divert"
+],
+"skillIcon": null,
+"wikiLink": "Abilities calculators"
+},
+{
+"colour": "#7c8183",
+"id": "Equipments",
+"image": "Worn Equipment icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Worn Equipment icon.png",
+"h": 32,
+"icon": "reused",
+"sha1": "399b1b795d38cef335a656c92ba20ba5135822a2",
+"src": "icons/1741b38deb5b.webp",
+"via": "exact file",
+"w": 32
+},
+"mobile": null,
+"name": "Equipment",
+"paths": [
+"/w/Calculator:Combat/Crystal_Rain",
+"/w/Calculator:Combat/Fungal_Shield",
+"/w/Calculator:Combat/Combat_pocket_slot_items",
+"/w/Calculator:Combat/Ruby_bolts_(e)",
+"/w/Calculator:Combat/Scriptures",
+"/w/Calculator:Combat/Split_Soul"
+],
+"skillIcon": null,
+"wikiLink": "Equipment calculators"
+},
+{
+"colour": "#79d7de",
+"id": "Combat-perks",
+"image": "Weapon gizmo detail.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Weapon gizmo detail.png",
+"h": 35,
+"icon": "reused",
+"sha1": "f955d8c50850c3f40a3f704c571ca70a4ec7511e",
+"src": "icons/66520000f9f6.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Combat perks",
+"paths": [
+"/w/Calculator:Combat/Biting_Precise_and_Eruptive",
+"/w/Calculator:Combat/Bulwark",
+"/w/Calculator:Combat/Crystal_Shield_(perk)",
+"/w/Calculator:Combat/Combined_Enhanced_Devoted_and_Devoted",
+"/w/Calculator:Combat/Combined_Lucky_and_Absorbative",
+"/w/Calculator:Combat/Berserker%27s_Fury",
+"/w/Calculator:Combat/Death_Ward",
+"/w/Calculator:Combat/Animate_Dead",
+"/w/Calculator:Combat/Ripper_demon_passive"
+],
+"skillIcon": null,
+"wikiLink": "Combat perk calculators"
+},
+{
+"colour": "#333333",
+"id": "PvM",
+"image": "Demon flash mobs map icon.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Demon flash mobs map icon.png",
+"h": 28,
+"icon": "reused",
+"sha1": "4c851a5efbece60be500aff089dc860b796e7745",
+"src": "icons/bea104f01f1f.webp",
+"via": "exact file",
+"w": 25
+},
+"mobile": null,
+"name": "PvM",
+"paths": [
+"/w/Calculator:Combat/Arch-Glacor",
+"/w/Calculator:Barrows",
+"/w/Calculator:Combat/Drop_Rate",
+"/w/Calculator:Combat/Rune_pads",
+"/w/Calculator:Combat/Telos"
+],
+"skillIcon": null,
+"wikiLink": "PvM calculators"
+},
+{
+"colour": "#5d4ea6",
+"id": "Magic",
+"image": "Magic.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Magic.png",
+"h": 36,
+"icon": "reused",
+"sha1": "083ac3342f358a622fe1205a3b1f58881855f249",
+"src": "icons/b5846ee11e78.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Magic",
+"paths": [
+"/w/Calculator:Magic",
+"/w/Calculator:Magic/Advanced",
+"/w/Calculator:Magic/High_alchemy",
+"/w/Calculator:Magic/Alchemy_using_self-made_items",
+"/w/Calculator:Magic/Alchemy_dynamic",
+"/w/Calculator:Magic/Humidify",
+"/w/Calculator:Magic/Wine_of_Zamorak",
+"/w/Calculator:Magic/Enchanting",
+"/w/Calculator:Magic/Bolt_enchantment",
+"/w/Calculator:Magic/Tablets",
+"/w/Calculator:Magic/Superheat",
+"/w/Calculator:Magic/Mage_Training_Arena"
+],
+"skillIcon": "icons/b5846ee11e78.webp",
+"wikiLink": "Magic calculators"
+},
+{
+"colour": "#4abe97",
+"id": "Necromancy",
+"image": "Necromancy.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Necromancy.png",
+"h": 36,
+"icon": "reused",
+"sha1": "0ae42a41d80dc68527ea66c5e549161707e9bf92",
+"src": "icons/87bc0eba7dfd.webp",
+"via": "exact file",
+"w": 31
+},
+"mobile": null,
+"name": "Necromancy",
+"paths": [
+"/w/Calculator:Necromancy/Well_of_Souls",
+"/w/Calculator:Necromancy/Rituals"
+],
+"skillIcon": "icons/87bc0eba7dfd.webp",
+"wikiLink": "Necromancy calculators"
+},
+{
+"colour": "#82bce3",
+"id": "Prayer",
+"image": "Prayer.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Prayer.png",
+"h": 36,
+"icon": "reused",
+"sha1": "2ebe9ab3a242177f1766bf2dadc37ac54c0fc589",
+"src": "icons/527341fd1633.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Prayer",
+"paths": [
+"/w/Calculator:Prayer",
+"/w/Calculator:Prayer/Bones",
+"/w/Calculator:Prayer/Bones#Prayer_experience_rate",
+"/w/Calculator:Prayer/Drain_rate"
+],
+"skillIcon": "icons/527341fd1633.webp",
+"wikiLink": "Prayer calculators"
+},
+{
+"colour": "#6385a8",
+"id": "Summoning",
+"image": "Summoning.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Summoning.png",
+"h": 27,
+"icon": "reused",
+"sha1": "4bf0ce624844ec6aa38f0d1a9c3c34c0ecfc5fd0",
+"src": "icons/54363dd3e22a.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Summoning",
+"paths": [
+"/w/Calculator:Summoning",
+"/w/Calculator:Summoning/Pouches",
+"/w/Calculator:Summoning/Scrolls",
+"/w/Calculator:Summoning/Shard_swap",
+"/w/Calculator:Summoning/Charm_gathering_dynamic",
+"/w/Calculator:Summoning/Charms_to_experience"
+],
+"skillIcon": "icons/54363dd3e22a.webp",
+"wikiLink": "Summoning calculators"
+}
+],
+"name": "Combat skills"
+},
+{
+"groups": [
+{
+"colour": "#91689e",
+"id": "Divination",
+"image": "Divination.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Divination.png",
+"h": 27,
+"icon": "reused",
+"sha1": "e021220de1f5c1cb5a1481bb546b4def12e4ca98",
+"src": "icons/217d65bf379b.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Divination",
+"paths": [
+"/w/Calculator:Divination",
+"/w/Calculator:Divination/Divine_locations",
+"/w/Calculator:Divination/Transmutation",
+"/w/Calculator:Divination/Sign_of_the_porter",
+"/w/Calculator:Divination/Sign_of_the_porter/Cost"
+],
+"skillIcon": "icons/217d65bf379b.webp",
+"wikiLink": "Divination calculators"
+},
+{
+"colour": "#59924f",
+"id": "Farming",
+"image": "Farming.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Farming.png",
+"h": 27,
+"icon": "reused",
+"sha1": "c4eec73cdb528c2b5b33d660b8ae57fd34adcbd1",
+"src": "icons/1a428630a055.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Farming",
+"paths": [
+"/w/Calculator:Farming",
+"/w/Calculator:Farming/Player-owned_farm_food_costs",
+"/w/Calculator:Farming/Compost_to_payment",
+"/w/Calculator:Farming/Tree_to_herb",
+"/w/Calculator:Farming/Trees",
+"/w/Calculator:Farming/Herbs",
+"/w/Calculator:Farming/Supercompost",
+"/w/Calculator:Farming/Fruit_picking",
+"/w/Calculator:Farming/Renewables",
+"/w/Calculator:Other/Filling"
+],
+"skillIcon": "icons/1a428630a055.webp",
+"wikiLink": "Farming calculators"
+},
+{
+"colour": "#3e8e9a",
+"id": "Fishing",
+"image": "Fishing.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Fishing.png",
+"h": 27,
+"icon": "reused",
+"sha1": "db6b37815f204ef365fff110a41ef716e74d25e7",
+"src": "icons/4575e7899009.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Fishing",
+"paths": [
+"/w/Calculator:Fishing",
+"/w/Calculator:Fishing/Chance"
+],
+"skillIcon": "icons/4575e7899009.webp",
+"wikiLink": "Fishing calculators"
+},
+{
+"colour": "#4c6215",
+"id": "Hunter",
+"image": "Hunter.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Hunter.png",
+"h": 36,
+"icon": "reused",
+"sha1": "be473ac4d42d2c77f24406a353156a04d4aab047",
+"src": "icons/a61ee015f5f9.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Hunter",
+"paths": [
+"/w/Calculator:Hunter",
+"/w/Calculator:Hunter/Whirligigs"
+],
+"skillIcon": "icons/a61ee015f5f9.webp",
+"wikiLink": "Hunter calculators"
+},
+{
+"colour": "#315f8d",
+"id": "Mining",
+"image": "Mining.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Mining.png",
+"h": 36,
+"icon": "reused",
+"sha1": "68972b36785a16c7409dc1a4e4112c935c0386b2",
+"src": "icons/714e39d48381.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Mining",
+"paths": [
+"/w/Calculator:Mining",
+"/w/Calculator:Mining/Rate"
+],
+"skillIcon": "icons/714e39d48381.webp",
+"wikiLink": "Mining calculators"
+},
+{
+"colour": "#748d36",
+"id": "Woodcutting",
+"image": "Woodcutting.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Woodcutting.png",
+"h": 27,
+"icon": "reused",
+"sha1": "2bab45a4a34c0bb7f88a8c07d089243a05614927",
+"src": "icons/263785144701.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Woodcutting",
+"paths": [
+"/w/Calculator:Woodcutting",
+"/w/Calculator:Woodcutting/Chance"
+],
+"skillIcon": "icons/263785144701.webp",
+"wikiLink": "Woodcutting calculators"
+},
+{
+"colour": "#916b48",
+"id": "Archaeology",
+"image": "Archaeology.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Archaeology.png",
+"h": 36,
+"icon": "reused",
+"sha1": "cd281c957ccbe30083c6d7b0b59117db625c3cf5",
+"src": "icons/5013dc216705.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Archaeology",
+"paths": [
+"/w/Calculator:Archaeology/Hotspot",
+"/w/Calculator:Archaeology",
+"/w/Calculator:Archaeology/Artefacts",
+"/w/Calculator:Archaeology/Restoring_artefacts",
+"/w/Calculator:Archaeology/Restoration_profit",
+"/w/Calculator:Archaeology/Material_excavation_profit",
+"/w/Calculator:Archaeology/Disassembly_profit",
+"/w/Screening#Calculator"
+],
+"skillIcon": "icons/5013dc216705.webp",
+"wikiLink": "Archaeology calculators"
+}
+],
+"name": "Gathering skills"
+},
+{
+"groups": [
+{
+"colour": "#d19f2a",
+"id": "Agility",
+"image": "Agility.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Agility.png",
+"h": 36,
+"icon": "reused",
+"sha1": "3ed0119b49814940e60503629916027800b763f6",
+"src": "icons/7b2ad8dc6498.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Agility",
+"paths": [
+"/w/Calculator:Agility",
+"/w/Calculator:Silverhawk_boots"
+],
+"skillIcon": "icons/7b2ad8dc6498.webp",
+"wikiLink": "Agility calculators"
+},
+{
+"colour": "#c46c39",
+"id": "Dungeoneering",
+"image": "Dungeoneering.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Dungeoneering.png",
+"h": 27,
+"icon": "reused",
+"sha1": "57a744bb5e7cb0ef2d09edd322c751697f8e26f0",
+"src": "icons/5b6ac6acb747.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Dungeoneering",
+"paths": [
+"/w/Calculator:Dungeoneering",
+"/w/Calculator:Dungeoneering/Daily"
+],
+"skillIcon": "icons/5b6ac6acb747.webp",
+"wikiLink": "Dungeoneering calculators"
+},
+{
+"colour": "#bc483d",
+"id": "Slayer",
+"image": "Slayer.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Slayer.png",
+"h": 27,
+"icon": "reused",
+"sha1": "f02e62091573da83747736f18cd20f4391710897",
+"src": "icons/ef97b9f288b5.webp",
+"via": "exact file",
+"w": 27
+},
+"mobile": null,
+"name": "Slayer",
+"paths": [
+"/w/Ushabti#Chance_of_capturing_a_soul"
+],
+"skillIcon": "icons/ef97b9f288b5.webp",
+"wikiLink": "Slayer calculators"
+},
+{
+"colour": "#713684",
+"id": "Thieving",
+"image": "Thieving.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Thieving.png",
+"h": 36,
+"icon": "reused",
+"sha1": "177d0591528d1947fd7eef2a5d80f2c3cb4750d4",
+"src": "icons/154af67b000f.webp",
+"via": "exact file",
+"w": 36
+},
+"mobile": null,
+"name": "Thieving",
+"paths": [
+"/w/Calculator:Thieving",
+"/w/Calculator:Thieving/Chance",
+"/w/Calculator:Thieving/Vault_of_Hereditas",
+"/w/Calculator:Thieving/Asuran_Arsenal"
+],
+"skillIcon": "icons/154af67b000f.webp",
+"wikiLink": "Thieving calculators"
+}
+],
+"name": "Support skills"
+},
+{
+"groups": [
+{
+"colour": "#777777",
+"id": "Wiki_related",
+"image": "World map - Key button.png",
+"img": {
+"bytes": "mirror",
+"file": "File:World map - Key button.png",
+"h": 24,
+"icon": "reused",
+"sha1": "d7964ee00a9ae5fba618521ec491a42b64f3abd9",
+"src": "icons/bb4d6f1b8856.webp",
+"via": "exact file",
+"w": 24
+},
+"mobile": null,
+"name": "Wiki related",
+"paths": [],
+"skillIcon": null,
+"wikiLink": "Wiki calculators"
+},
+{
+"colour": "#949eaa",
+"id": "Calculator_creation",
+"image": "Citadel Build Cursor.png",
+"img": {
+"bytes": "mirror",
+"file": "File:Citadel Build Cursor.png",
+"h": 24,
+"icon": "reused",
+"sha1": "08477623377730d93d9ed6d50bfac699d18aff10",
+"src": "icons/2fde13d2918b.webp",
+"via": "exact file",
+"w": 20
+},
+"mobile": null,
+"name": "Calculator creation",
+"paths": [],
+"skillIcon": null,
+"wikiLink": "Help:Editing"
+}
+],
+"name": "Other"
+}
+],
+"source": "https://runescape.wiki/w/Calculators",
+"sourceRevision": 37207671,
+"sourceRevisionTimestamp": "2026-10-14T18:45:53Z"
+}
