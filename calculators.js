@@ -730,11 +730,15 @@
       // every ingredient the Wiki lists, with whether the Wiki prices it (only the first mcount, and only when mtrade ~= 0)
       const listed = [];
       if (v.material && !v.currency) for (let i = 0; i + 1 < v.material.length; i += 2) listed.push({name: String(v.material[i + 1]), qty: scNum(v.material[i]), priced: matPriced && i / 2 < mcount});
-      if (v.material && v.currency) for (let i = 0; i < v.material.length; i++) if (typeof v.material[i] === 'string') listed.push({name: v.material[i], qty: scNum(v.material[i - 2]) , priced: false});
+      // alternative-currency rows (eltGenerator expandedList): [qty, currency cost, "image,link" or name, ...]; the shown name is the link part
+      if (v.material && v.currency) for (let i = 0; i < v.material.length; i++) if (typeof v.material[i] === 'string') { const parts = v.material[i].split(','); listed.push({name: parts.length > 1 ? parts[1] : parts[0], image: parts[0], qty: scNum(v.material[i - 2]), priced: false}); }
       return {idx, item: v, name: v.name, title: v.title || null, level: v.level == null ? null : scRound(v.level, 0), reqLevel: reqLv, cls,
         baseXp: v.xp, unitExp, needed, urnsNeeded, urnColumn: urnColumn != null, members: v.members === 0 || v.members === true,
         matLines, listed, matPriced, product, brewing, currency: v.currency || null, value: v.value != null ? v.value : null, materialCost: v.materialCost != null ? v.materialCost : null,
-        costCols: !(skill === 'Cooking' && disp === 'Dungeoneering'), urnRow: disp === 'Urns'};
+        costCols: !(skill === 'Cooking' && disp === 'Dungeoneering'), urnRow: disp === 'Urns',
+        // eltGenerator builds {images, links, numbers(T.level), ...}: with no level the Lua list ends at the nil, so the Wiki row shows
+        // only the picture and name (urns in "All"). The app shows no values for such rows rather than inventing them.
+        truncated: disp !== 'Urns' && v.level == null};
     });
     return {skill, disp, headers, urn, urnColumn, pctBoost: pct, flatBoost: flat, bonusXp, actualRemaining: actual, remaining, currLv, currXp, goalLv, goalXp, rows};
   }
