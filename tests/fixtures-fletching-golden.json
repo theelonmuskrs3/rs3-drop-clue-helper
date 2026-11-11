@@ -1,5 +1,5 @@
 {
-"generated": "2026-11-11 00:28 EST",
+"generated": "2026-11-11 00:38 EST",
 "gePricesRevision": 37236236,
 "gePricesTimestamp": "2026-11-10T17:30:36Z",
 "pins": {
@@ -62755,5 +62755,10213 @@
 }
 }
 ],
-"formCases": []
+"formCases": [
+{
+"message": "To train Fletching from 1 experience (level 1) to 83 experience (level 2), 82 experience is required. Name Level XP # needed Materials Raw cost Product cost Profit/Loss Profit/XP Bronze arrow × 15 1 19.5 5 75 Bronze arrowheads 75 Headless shaft 6,075 8,625 2,550 26.15 Ogre arrow × 6 5 6 14 84 Wolf bone arrowheads 84 Flighted ogre arrow 69,888 19,656 −50,232 −598 Bronze brutal × 6 7 8.4 10 60 Flighted ogre arrow 60 Bronze nails 46,860 2,220 −44,640 −531.43 Iron arrow × 15 10 37.5 3 45 Iron arrowheads 45 Headless shaft 3,060 1,080 −1,980 −17.6 Iron brutal × 6 18 15.6 6 36 Flighted ogre arrow 36 Iron nails 28,332 972 −27,360 −292.31 Steel arrow × 15 20 75 2 30 Steel arrowheads 30 Headless shaft 2,040 720 −1,320 −8.8 Mithril arrow × 15 30 112.5 1 15 Mithril arrowheads 15 Headless shaft 1,245 375 −870 −7.73 Steel brutal × 6 33 30.6 3 18 Flighted ogre arrow 18 Steel nails 14,526 522 −14,004 −152.55 Black brutal × 1 38 6.4 13 13 Flighted ogre arrow 13 Black nails 87,568 1,274 −86,294 −1,037.19 Adamant arrow × 15 40 150 1 15 Adamant arrowheads 15 Headless shaft 1,320 735 −585 −3.9 Mithril brutal × 6 49 45.6 2 12 Flighted ogre arrow 12 Mithril nails 9,540 8,100 −1,440 −15.79 Rune arrow × 15 50 187.5 1 15 Rune arrowheads 15 Headless shaft 2,655 2,085 −570 −3.04 Broad arrow × 15 52 225 1 15 Headless shaft 15 Broad arrowheads 1,590 - −1,590 −7.07 Fragment arrows × 15 60 7.5 11 165 Bronze arrow 165 Ascension fragment 18,975 - −18,975 −230 Orikalkum arrow × 15 60 225 1 15 Orikalkum arrowheads 15 Headless shaft 4,005 1,965 −2,040 −9.07 Dragon arrow × 15 60 225 1 15 Dragon arrowheads 15 Headless shaft 6,870 3,240 −3,630 −16.13 Adamant brutal × 6 62 60.6 2 12 Flighted ogre arrow 12 Adamant nails 9,720 7,080 −2,640 −21.78 Necronium arrow × 15 70 243.8 1 15 Necronium arrowheads 15 Headless shaft 5,040 2,340 −2,700 −11.07 Rune brutal × 6 77 75 2 12 Flighted ogre arrow 12 Rune nails 11,124 14,436 3,312 22.08 Bane arrow × 15 80 262.5 1 15 Bane arrowheads 15 Headless shaft 6,180 1,650 −4,530 −17.26 Elder rune arrow × 15 90 281.3 1 15 Elder rune arrowheads 15 Headless shaft 8,130 2,265 −5,865 −20.85 Black stone arrows × 15 92 189 1 15 Black stone arrow tips 15 Elder headless shaft 71,730 69,015 −2,715 −14.37 Dark arrow × 15 95 262.5 1 15 Dark arrowheads 15 Headless shaft 5,895 855 −5,040 −19.2 Stalker arrow × 15 95 262.5 1 15 Dark arrow 15 Stalker essence 8,355 1,575 −6,780 −25.83 Bik arrow × 15 95 285 1 15 Dinarrow 45 Resonant anima of Bik (tradeable) 16,350 9,675 −6,675 −23.42 Ful arrow × 15 95 285 1 15 Dinarrow 45 Resonant anima of Ful (tradeable) 16,800 18,750 1,950 6.84 Jas dragonbane arrow × 15 95 285 1 15 Dinarrow 45 Resonant anima of Jas (tradeable) 18,015 19,155 1,140 4 Wen arrow × 15 95 285 1 15 Dinarrow 45 Resonant anima of Wen (tradeable) 16,620 14,880 −1,740 −6.11 Deathspore arrows × 15 95 300 1 15 Deathspore arrow tips 15 Elder headless shaft 13,860 6,015 −7,845 −26.15 Splintering arrows × 15 95 300 1 15 Splintering arrow tips 15 Elder headless shaft 13,710 2,070 −11,640 −38.8 Dinarrow × 15 95 300 1 15 Sharp shell shard 15 Headless dinarrow 26,700 16,305 −10,395 −34.65 Primal arrow × 15 100 300 1 15 Primal arrowheads 15 Eternal magic headless shaft 13,680 2,130 −11,550 −38.5",
+"head": [
+"",
+"Name",
+"Level",
+"XP",
+"# needed",
+"Materials",
+"Raw cost",
+"Product cost",
+"Profit/Loss",
+"Profit/XP",
+""
+],
+"rows": [
+{
+"cls": [
+"table-bg-green"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bronze arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "19.5",
+"s": null,
+"c": []
+},
+{
+"t": "5",
+"s": null,
+"c": []
+},
+{
+"t": "75 Bronze arrowheads 75 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "6,075",
+"s": "6075",
+"c": []
+},
+{
+"t": "8,625",
+"s": "8625",
+"c": []
+},
+{
+"t": "2,550",
+"s": "2550",
+"c": []
+},
+{
+"t": "26.15",
+"s": "26.153846153846",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bronze arrowheads",
+"Headless shaft"
+],
+"text": "75 Bronze arrowheads 75 Headless shaft"
+},
+"ragged": false,
+"link": "Bronze arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Ogre arrow × 6",
+"s": null,
+"c": []
+},
+{
+"t": "5",
+"s": null,
+"c": []
+},
+{
+"t": "6",
+"s": null,
+"c": []
+},
+{
+"t": "14",
+"s": null,
+"c": []
+},
+{
+"t": "84 Wolf bone arrowheads 84 Flighted ogre arrow",
+"s": null,
+"c": []
+},
+{
+"t": "69,888",
+"s": "69888",
+"c": []
+},
+{
+"t": "19,656",
+"s": "19656",
+"c": []
+},
+{
+"t": "−50,232",
+"s": "-50232",
+"c": []
+},
+{
+"t": "−598",
+"s": "-598",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Wolf bone arrowheads",
+"Flighted ogre arrow"
+],
+"text": "84 Wolf bone arrowheads 84 Flighted ogre arrow"
+},
+"ragged": false,
+"link": "Ogre arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bronze brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "7",
+"s": null,
+"c": []
+},
+{
+"t": "8.4",
+"s": null,
+"c": []
+},
+{
+"t": "10",
+"s": null,
+"c": []
+},
+{
+"t": "60 Flighted ogre arrow 60 Bronze nails",
+"s": null,
+"c": []
+},
+{
+"t": "46,860",
+"s": "46860",
+"c": []
+},
+{
+"t": "2,220",
+"s": "2220",
+"c": []
+},
+{
+"t": "−44,640",
+"s": "-44640",
+"c": []
+},
+{
+"t": "−531.43",
+"s": "-531.42857142857",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Bronze nails"
+],
+"text": "60 Flighted ogre arrow 60 Bronze nails"
+},
+"ragged": false,
+"link": "Bronze brutal"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Iron arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "10",
+"s": null,
+"c": []
+},
+{
+"t": "37.5",
+"s": null,
+"c": []
+},
+{
+"t": "3",
+"s": null,
+"c": []
+},
+{
+"t": "45 Iron arrowheads 45 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "3,060",
+"s": "3060",
+"c": []
+},
+{
+"t": "1,080",
+"s": "1080",
+"c": []
+},
+{
+"t": "−1,980",
+"s": "-1980",
+"c": []
+},
+{
+"t": "−17.6",
+"s": "-17.6",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Iron arrowheads",
+"Headless shaft"
+],
+"text": "45 Iron arrowheads 45 Headless shaft"
+},
+"ragged": false,
+"link": "Iron arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Iron brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "18",
+"s": null,
+"c": []
+},
+{
+"t": "15.6",
+"s": null,
+"c": []
+},
+{
+"t": "6",
+"s": null,
+"c": []
+},
+{
+"t": "36 Flighted ogre arrow 36 Iron nails",
+"s": null,
+"c": []
+},
+{
+"t": "28,332",
+"s": "28332",
+"c": []
+},
+{
+"t": "972",
+"s": "972",
+"c": []
+},
+{
+"t": "−27,360",
+"s": "-27360",
+"c": []
+},
+{
+"t": "−292.31",
+"s": "-292.30769230769",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Iron nails"
+],
+"text": "36 Flighted ogre arrow 36 Iron nails"
+},
+"ragged": false,
+"link": "Iron brutal"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Steel arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "20",
+"s": null,
+"c": []
+},
+{
+"t": "75",
+"s": null,
+"c": []
+},
+{
+"t": "2",
+"s": null,
+"c": []
+},
+{
+"t": "30 Steel arrowheads 30 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "2,040",
+"s": "2040",
+"c": []
+},
+{
+"t": "720",
+"s": "720",
+"c": []
+},
+{
+"t": "−1,320",
+"s": "-1320",
+"c": []
+},
+{
+"t": "−8.8",
+"s": "-8.8",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Steel arrowheads",
+"Headless shaft"
+],
+"text": "30 Steel arrowheads 30 Headless shaft"
+},
+"ragged": false,
+"link": "Steel arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Mithril arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "30",
+"s": null,
+"c": []
+},
+{
+"t": "112.5",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Mithril arrowheads 15 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "1,245",
+"s": "1245",
+"c": []
+},
+{
+"t": "375",
+"s": "375",
+"c": []
+},
+{
+"t": "−870",
+"s": "-870",
+"c": []
+},
+{
+"t": "−7.73",
+"s": "-7.7333333333333",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Mithril arrowheads",
+"Headless shaft"
+],
+"text": "15 Mithril arrowheads 15 Headless shaft"
+},
+"ragged": false,
+"link": "Mithril arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Steel brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "33",
+"s": null,
+"c": []
+},
+{
+"t": "30.6",
+"s": null,
+"c": []
+},
+{
+"t": "3",
+"s": null,
+"c": []
+},
+{
+"t": "18 Flighted ogre arrow 18 Steel nails",
+"s": null,
+"c": []
+},
+{
+"t": "14,526",
+"s": "14526",
+"c": []
+},
+{
+"t": "522",
+"s": "522",
+"c": []
+},
+{
+"t": "−14,004",
+"s": "-14004",
+"c": []
+},
+{
+"t": "−152.55",
+"s": "-152.54901960784",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Steel nails"
+],
+"text": "18 Flighted ogre arrow 18 Steel nails"
+},
+"ragged": false,
+"link": "Steel brutal"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Black brutal × 1",
+"s": null,
+"c": []
+},
+{
+"t": "38",
+"s": null,
+"c": []
+},
+{
+"t": "6.4",
+"s": null,
+"c": []
+},
+{
+"t": "13",
+"s": null,
+"c": []
+},
+{
+"t": "13 Flighted ogre arrow 13 Black nails",
+"s": null,
+"c": []
+},
+{
+"t": "87,568",
+"s": "87568",
+"c": []
+},
+{
+"t": "1,274",
+"s": "1274",
+"c": []
+},
+{
+"t": "−86,294",
+"s": "-86294",
+"c": []
+},
+{
+"t": "−1,037.19",
+"s": "-1037.1875",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Black nails"
+],
+"text": "13 Flighted ogre arrow 13 Black nails"
+},
+"ragged": false,
+"link": "Black brutal"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Adamant arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "40",
+"s": null,
+"c": []
+},
+{
+"t": "150",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Adamant arrowheads 15 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "1,320",
+"s": "1320",
+"c": []
+},
+{
+"t": "735",
+"s": "735",
+"c": []
+},
+{
+"t": "−585",
+"s": "-585",
+"c": []
+},
+{
+"t": "−3.9",
+"s": "-3.9",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Adamant arrowheads",
+"Headless shaft"
+],
+"text": "15 Adamant arrowheads 15 Headless shaft"
+},
+"ragged": false,
+"link": "Adamant arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Mithril brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "49",
+"s": null,
+"c": []
+},
+{
+"t": "45.6",
+"s": null,
+"c": []
+},
+{
+"t": "2",
+"s": null,
+"c": []
+},
+{
+"t": "12 Flighted ogre arrow 12 Mithril nails",
+"s": null,
+"c": []
+},
+{
+"t": "9,540",
+"s": "9540",
+"c": []
+},
+{
+"t": "8,100",
+"s": "8100",
+"c": []
+},
+{
+"t": "−1,440",
+"s": "-1440",
+"c": []
+},
+{
+"t": "−15.79",
+"s": "-15.789473684211",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Mithril nails"
+],
+"text": "12 Flighted ogre arrow 12 Mithril nails"
+},
+"ragged": false,
+"link": "Mithril brutal"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Rune arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "50",
+"s": null,
+"c": []
+},
+{
+"t": "187.5",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Rune arrowheads 15 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "2,655",
+"s": "2655",
+"c": []
+},
+{
+"t": "2,085",
+"s": "2085",
+"c": []
+},
+{
+"t": "−570",
+"s": "-570",
+"c": []
+},
+{
+"t": "−3.04",
+"s": "-3.04",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Rune arrowheads",
+"Headless shaft"
+],
+"text": "15 Rune arrowheads 15 Headless shaft"
+},
+"ragged": false,
+"link": "Rune arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Broad arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "52",
+"s": null,
+"c": []
+},
+{
+"t": "225",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Headless shaft 15 Broad arrowheads",
+"s": null,
+"c": []
+},
+{
+"t": "1,590",
+"s": "1590",
+"c": []
+},
+{
+"t": "-",
+"s": "-1000000000",
+"c": [
+"sortbottom"
+]
+},
+{
+"t": "−1,590",
+"s": "-1590",
+"c": []
+},
+{
+"t": "−7.07",
+"s": "-7.0666666666667",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Headless shaft",
+"Broad arrowheads"
+],
+"text": "15 Headless shaft 15 Broad arrowheads"
+},
+"ragged": false,
+"link": "Broad arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Fragment arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "60",
+"s": null,
+"c": []
+},
+{
+"t": "7.5",
+"s": null,
+"c": []
+},
+{
+"t": "11",
+"s": null,
+"c": []
+},
+{
+"t": "165 Bronze arrow 165 Ascension fragment",
+"s": null,
+"c": []
+},
+{
+"t": "18,975",
+"s": "18975",
+"c": []
+},
+{
+"t": "-",
+"s": "-1000000000",
+"c": [
+"sortbottom"
+]
+},
+{
+"t": "−18,975",
+"s": "-18975",
+"c": []
+},
+{
+"t": "−230",
+"s": "-230",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bronze arrow",
+"Ascension fragment"
+],
+"text": "165 Bronze arrow 165 Ascension fragment"
+},
+"ragged": false,
+"link": "Fragment arrows"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Orikalkum arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "60",
+"s": null,
+"c": []
+},
+{
+"t": "225",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Orikalkum arrowheads 15 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "4,005",
+"s": "4005",
+"c": []
+},
+{
+"t": "1,965",
+"s": "1965",
+"c": []
+},
+{
+"t": "−2,040",
+"s": "-2040",
+"c": []
+},
+{
+"t": "−9.07",
+"s": "-9.0666666666667",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Orikalkum arrowheads",
+"Headless shaft"
+],
+"text": "15 Orikalkum arrowheads 15 Headless shaft"
+},
+"ragged": false,
+"link": "Orikalkum arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Dragon arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "60",
+"s": null,
+"c": []
+},
+{
+"t": "225",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Dragon arrowheads 15 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "6,870",
+"s": "6870",
+"c": []
+},
+{
+"t": "3,240",
+"s": "3240",
+"c": []
+},
+{
+"t": "−3,630",
+"s": "-3630",
+"c": []
+},
+{
+"t": "−16.13",
+"s": "-16.133333333333",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dragon arrowheads",
+"Headless shaft"
+],
+"text": "15 Dragon arrowheads 15 Headless shaft"
+},
+"ragged": false,
+"link": "Dragon arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Adamant brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "62",
+"s": null,
+"c": []
+},
+{
+"t": "60.6",
+"s": null,
+"c": []
+},
+{
+"t": "2",
+"s": null,
+"c": []
+},
+{
+"t": "12 Flighted ogre arrow 12 Adamant nails",
+"s": null,
+"c": []
+},
+{
+"t": "9,720",
+"s": "9720",
+"c": []
+},
+{
+"t": "7,080",
+"s": "7080",
+"c": []
+},
+{
+"t": "−2,640",
+"s": "-2640",
+"c": []
+},
+{
+"t": "−21.78",
+"s": "-21.782178217822",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Adamant nails"
+],
+"text": "12 Flighted ogre arrow 12 Adamant nails"
+},
+"ragged": false,
+"link": "Adamant brutal"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Necronium arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "70",
+"s": null,
+"c": []
+},
+{
+"t": "243.8",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Necronium arrowheads 15 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "5,040",
+"s": "5040",
+"c": []
+},
+{
+"t": "2,340",
+"s": "2340",
+"c": []
+},
+{
+"t": "−2,700",
+"s": "-2700",
+"c": []
+},
+{
+"t": "−11.07",
+"s": "-11.074651353568",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Necronium arrowheads",
+"Headless shaft"
+],
+"text": "15 Necronium arrowheads 15 Headless shaft"
+},
+"ragged": false,
+"link": "Necronium arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Rune brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "77",
+"s": null,
+"c": []
+},
+{
+"t": "75",
+"s": null,
+"c": []
+},
+{
+"t": "2",
+"s": null,
+"c": []
+},
+{
+"t": "12 Flighted ogre arrow 12 Rune nails",
+"s": null,
+"c": []
+},
+{
+"t": "11,124",
+"s": "11124",
+"c": []
+},
+{
+"t": "14,436",
+"s": "14436",
+"c": []
+},
+{
+"t": "3,312",
+"s": "3312",
+"c": []
+},
+{
+"t": "22.08",
+"s": "22.08",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Rune nails"
+],
+"text": "12 Flighted ogre arrow 12 Rune nails"
+},
+"ragged": false,
+"link": "Rune brutal"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bane arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "80",
+"s": null,
+"c": []
+},
+{
+"t": "262.5",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Bane arrowheads 15 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "6,180",
+"s": "6180",
+"c": []
+},
+{
+"t": "1,650",
+"s": "1650",
+"c": []
+},
+{
+"t": "−4,530",
+"s": "-4530",
+"c": []
+},
+{
+"t": "−17.26",
+"s": "-17.257142857143",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bane arrowheads",
+"Headless shaft"
+],
+"text": "15 Bane arrowheads 15 Headless shaft"
+},
+"ragged": false,
+"link": "Bane arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Elder rune arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "90",
+"s": null,
+"c": []
+},
+{
+"t": "281.3",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Elder rune arrowheads 15 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "8,130",
+"s": "8130",
+"c": []
+},
+{
+"t": "2,265",
+"s": "2265",
+"c": []
+},
+{
+"t": "−5,865",
+"s": "-5865",
+"c": []
+},
+{
+"t": "−20.85",
+"s": "-20.849626733025",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Elder rune arrowheads",
+"Headless shaft"
+],
+"text": "15 Elder rune arrowheads 15 Headless shaft"
+},
+"ragged": false,
+"link": "Elder rune arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Black stone arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "92",
+"s": null,
+"c": []
+},
+{
+"t": "189",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Black stone arrow tips 15 Elder headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "71,730",
+"s": "71730",
+"c": []
+},
+{
+"t": "69,015",
+"s": "69015",
+"c": []
+},
+{
+"t": "−2,715",
+"s": "-2715",
+"c": []
+},
+{
+"t": "−14.37",
+"s": "-14.365079365079",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Black stone arrow tips",
+"Elder headless shaft"
+],
+"text": "15 Black stone arrow tips 15 Elder headless shaft"
+},
+"ragged": false,
+"link": "Black stone arrows"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Dark arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "262.5",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Dark arrowheads 15 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "5,895",
+"s": "5895",
+"c": []
+},
+{
+"t": "855",
+"s": "855",
+"c": []
+},
+{
+"t": "−5,040",
+"s": "-5040",
+"c": []
+},
+{
+"t": "−19.2",
+"s": "-19.2",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dark arrowheads",
+"Headless shaft"
+],
+"text": "15 Dark arrowheads 15 Headless shaft"
+},
+"ragged": false,
+"link": "Dark arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Stalker arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "262.5",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Dark arrow 15 Stalker essence",
+"s": null,
+"c": []
+},
+{
+"t": "8,355",
+"s": "8355",
+"c": []
+},
+{
+"t": "1,575",
+"s": "1575",
+"c": []
+},
+{
+"t": "−6,780",
+"s": "-6780",
+"c": []
+},
+{
+"t": "−25.83",
+"s": "-25.828571428571",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dark arrow",
+"Stalker essence"
+],
+"text": "15 Dark arrow 15 Stalker essence"
+},
+"ragged": false,
+"link": "Stalker arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bik arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "285",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Dinarrow 45 Resonant anima of Bik (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "16,350",
+"s": "16350",
+"c": []
+},
+{
+"t": "9,675",
+"s": "9675",
+"c": []
+},
+{
+"t": "−6,675",
+"s": "-6675",
+"c": []
+},
+{
+"t": "−23.42",
+"s": "-23.421052631579",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Bik (tradeable)"
+],
+"text": "15 Dinarrow 45 Resonant anima of Bik (tradeable)"
+},
+"ragged": false,
+"link": "Bik arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Ful arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "285",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Dinarrow 45 Resonant anima of Ful (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "16,800",
+"s": "16800",
+"c": []
+},
+{
+"t": "18,750",
+"s": "18750",
+"c": []
+},
+{
+"t": "1,950",
+"s": "1950",
+"c": []
+},
+{
+"t": "6.84",
+"s": "6.8421052631579",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Ful (tradeable)"
+],
+"text": "15 Dinarrow 45 Resonant anima of Ful (tradeable)"
+},
+"ragged": false,
+"link": "Ful arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Jas dragonbane arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "285",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Dinarrow 45 Resonant anima of Jas (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "18,015",
+"s": "18015",
+"c": []
+},
+{
+"t": "19,155",
+"s": "19155",
+"c": []
+},
+{
+"t": "1,140",
+"s": "1140",
+"c": []
+},
+{
+"t": "4",
+"s": "4",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Jas (tradeable)"
+],
+"text": "15 Dinarrow 45 Resonant anima of Jas (tradeable)"
+},
+"ragged": false,
+"link": "Jas dragonbane arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Wen arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "285",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Dinarrow 45 Resonant anima of Wen (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "16,620",
+"s": "16620",
+"c": []
+},
+{
+"t": "14,880",
+"s": "14880",
+"c": []
+},
+{
+"t": "−1,740",
+"s": "-1740",
+"c": []
+},
+{
+"t": "−6.11",
+"s": "-6.1052631578947",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Wen (tradeable)"
+],
+"text": "15 Dinarrow 45 Resonant anima of Wen (tradeable)"
+},
+"ragged": false,
+"link": "Wen arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Deathspore arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "300",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Deathspore arrow tips 15 Elder headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "13,860",
+"s": "13860",
+"c": []
+},
+{
+"t": "6,015",
+"s": "6015",
+"c": []
+},
+{
+"t": "−7,845",
+"s": "-7845",
+"c": []
+},
+{
+"t": "−26.15",
+"s": "-26.15",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Deathspore arrow tips",
+"Elder headless shaft"
+],
+"text": "15 Deathspore arrow tips 15 Elder headless shaft"
+},
+"ragged": false,
+"link": "Deathspore arrows"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Splintering arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "300",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Splintering arrow tips 15 Elder headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "13,710",
+"s": "13710",
+"c": []
+},
+{
+"t": "2,070",
+"s": "2070",
+"c": []
+},
+{
+"t": "−11,640",
+"s": "-11640",
+"c": []
+},
+{
+"t": "−38.8",
+"s": "-38.8",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Splintering arrow tips",
+"Elder headless shaft"
+],
+"text": "15 Splintering arrow tips 15 Elder headless shaft"
+},
+"ragged": false,
+"link": "Splintering arrows"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Dinarrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "300",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Sharp shell shard 15 Headless dinarrow",
+"s": null,
+"c": []
+},
+{
+"t": "26,700",
+"s": "26700",
+"c": []
+},
+{
+"t": "16,305",
+"s": "16305",
+"c": []
+},
+{
+"t": "−10,395",
+"s": "-10395",
+"c": []
+},
+{
+"t": "−34.65",
+"s": "-34.65",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Sharp shell shard",
+"Headless dinarrow"
+],
+"text": "15 Sharp shell shard 15 Headless dinarrow"
+},
+"ragged": false,
+"link": "Dinarrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Primal arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "100",
+"s": null,
+"c": []
+},
+{
+"t": "300",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "15 Primal arrowheads 15 Eternal magic headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "13,680",
+"s": "13680",
+"c": []
+},
+{
+"t": "2,130",
+"s": "2130",
+"c": []
+},
+{
+"t": "−11,550",
+"s": "-11550",
+"c": []
+},
+{
+"t": "−38.5",
+"s": "-38.5",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Primal arrowheads",
+"Eternal magic headless shaft"
+],
+"text": "15 Primal arrowheads 15 Eternal magic headless shaft"
+},
+"ragged": false,
+"link": "Primal arrow"
+}
+],
+"name": "defaults",
+"submission": [
+[
+"name",
+""
+],
+[
+"currToggle",
+"Experience"
+],
+[
+"current",
+"1"
+],
+[
+"goalToggle",
+"Level"
+],
+[
+"goal",
+"2"
+],
+[
+"avatar",
+"0"
+],
+[
+"outfit",
+"0"
+],
+[
+"custom",
+"0"
+],
+[
+"portable",
+"No"
+],
+[
+"workroom",
+"No"
+],
+[
+"disp",
+"Arrows"
+],
+[
+"skill",
+"Fletching"
+],
+[
+"bxp",
+"0"
+],
+[
+"brooch_no_effect",
+"No effect"
+],
+[
+"dxp",
+"0"
+]
+]
+},
+{
+"message": "To train Fletching from 0 experience (level 1) to 13,034,431 experience (level 99), 13,034,431 experience is required. Name Level XP # needed Materials Raw cost Product cost Profit/Loss Profit/XP Bronze arrow × 15 1 21.5 606,253 9,093,795 Bronze arrowheads 9,093,795 Headless shaft 589,277,916 1,045,786,425 456,508,509 35.02 Ogre arrow × 6 5 6.6 1,974,914 11,849,484 Wolf bone arrowheads 11,849,484 Flighted ogre arrow 7,887,016,550.4 2,772,779,256 −5,114,237,294.4 −392.36 Bronze brutal × 6 7 9.2 1,416,786 8,500,716 Flighted ogre arrow 8,500,716 Bronze nails 5,311,247,356.8 314,526,492 −4,996,720,864.8 −383.35 Iron arrow × 15 10 41.3 315,604 4,734,060 Iron arrowheads 4,734,060 Headless shaft 257,532,864 113,617,440 −143,915,424 −11.04 Iron brutal × 6 18 17.2 757,816 4,546,896 Flighted ogre arrow 4,546,896 Iron nails 2,862,725,721.6 122,766,192 −2,739,959,529.6 −210.21 Steel arrow × 15 20 82.5 157,994 2,369,910 Steel arrowheads 2,369,910 Headless shaft 128,923,104 56,877,840 −72,045,264 −5.53 Mithril arrow × 15 30 123.8 105,287 1,579,305 Mithril arrowheads 1,579,305 Headless shaft 104,865,852 39,482,625 −65,383,227 −5.02 Steel brutal × 6 33 33.7 386,779 2,320,674 Flighted ogre arrow 2,320,674 Steel nails 1,498,227,134.4 67,299,546 −1,430,927,588.4 −109.78 Black brutal × 1 38 7 1,862,062 1,862,062 Flighted ogre arrow 1,862,062 Black nails 10,034,279,705.6 182,482,076 −9,851,797,629.6 −755.83 Adamant arrow × 15 40 165 78,997 1,184,955 Adamant arrowheads 1,184,955 Headless shaft 83,420,832 58,062,795 −25,358,037 −1.95 Mithril brutal × 6 49 50.2 259,651 1,557,906 Flighted ogre arrow 1,557,906 Mithril nails 990,828,216 1,051,586,550 60,758,334 4.66 Rune arrow × 15 50 206.3 63,182 947,730 Rune arrowheads 947,730 Headless shaft 134,198,568 131,734,470 −2,464,098 −0.19 Broad arrow × 15 52 247.5 52,665 789,975 Headless shaft 789,975 Broad arrowheads 66,989,880 - −66,989,880 −5.14 Fragment arrows × 15 60 8.3 1,570,414 23,556,210 Bronze arrow 23,556,210 Ascension fragment 2,167,171,320 - −2,167,171,320 −166.27 Orikalkum arrow × 15 60 247.5 52,665 789,975 Orikalkum arrowheads 789,975 Headless shaft 168,738,660 103,486,725 −65,251,935 −5.01 Dragon arrow × 15 60 247.5 52,665 789,975 Dragon arrowheads 789,975 Headless shaft 289,446,840 170,634,600 −118,812,240 −9.12 Adamant brutal × 6 62 66.7 195,419 1,172,514 Flighted ogre arrow 1,172,514 Adamant nails 759,789,072 691,783,260 −68,005,812 −5.22 Necronium arrow × 15 70 268.1 48,618 729,270 Necronium arrowheads 729,270 Headless shaft 196,027,776 113,766,120 −82,261,656 −6.31 Rune brutal × 6 77 82.5 157,994 947,964 Flighted ogre arrow 947,964 Rune nails 703,010,102.4 1,140,400,692 437,390,589.6 33.56 Bane arrow × 15 80 288.8 45,134 677,010 Bane arrowheads 677,010 Headless shaft 223,142,496 74,471,100 −148,671,396 −11.41 Elder rune arrow × 15 90 309.4 42,129 631,935 Elder rune arrowheads 631,935 Headless shaft 274,007,016 95,422,185 −178,584,831 −13.7 Black stone arrows × 15 92 207.9 62,696 940,440 Black stone arrow tips 940,440 Elder headless shaft 3,597,747,264 4,326,964,440 729,217,176 55.95 Dark arrow × 15 95 288.8 45,134 677,010 Dark arrowheads 677,010 Headless shaft 212,851,944 38,589,570 −174,262,374 −13.37 Stalker arrow × 15 95 288.8 45,134 677,010 Dark arrow 677,010 Stalker essence 301,675,656 71,086,050 −230,589,606 −17.69 Bik arrow × 15 95 313.5 41,578 623,670 Dinarrow 1,871,010 Resonant anima of Bik (tradeable) 543,840,240 402,267,150 −141,573,090 −10.86 Ful arrow × 15 95 313.5 41,578 623,670 Dinarrow 1,871,010 Resonant anima of Ful (tradeable) 558,808,320 779,587,500 220,779,180 16.94 Jas dragonbane arrow × 15 95 313.5 41,578 623,670 Dinarrow 1,871,010 Resonant anima of Jas (tradeable) 599,222,136 796,426,590 197,204,454 15.13 Wen arrow × 15 95 313.5 41,578 623,670 Dinarrow 1,871,010 Resonant anima of Wen (tradeable) 552,821,088 618,680,640 65,859,552 5.05 Deathspore arrows × 15 95 330 39,499 592,485 Deathspore arrow tips 592,485 Elder headless shaft 437,964,912 237,586,485 −200,378,427 −15.37 Splintering arrows × 15 95 330 39,499 592,485 Splintering arrow tips 592,485 Elder headless shaft 433,225,032 81,762,930 −351,462,102 −26.96 Dinarrow × 15 95 330 39,499 592,485 Sharp shell shard 592,485 Headless dinarrow 843,698,640 644,031,195 −199,667,445 −15.32 Primal arrow × 15 100 330 39,499 592,485 Primal arrowheads 592,485 Eternal magic headless shaft 432,277,056 84,132,870 −348,144,186 −26.71",
+"head": [
+"",
+"Name",
+"Level",
+"XP",
+"# needed",
+"Materials",
+"Raw cost",
+"Product cost",
+"Profit/Loss",
+"Profit/XP",
+""
+],
+"rows": [
+{
+"cls": [
+"table-bg-green"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bronze arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "21.5",
+"s": null,
+"c": []
+},
+{
+"t": "606,253",
+"s": null,
+"c": []
+},
+{
+"t": "9,093,795 Bronze arrowheads 9,093,795 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "589,277,916",
+"s": "589277916",
+"c": []
+},
+{
+"t": "1,045,786,425",
+"s": "1045786425",
+"c": []
+},
+{
+"t": "456,508,509",
+"s": "456508509",
+"c": []
+},
+{
+"t": "35.02",
+"s": "35.023255813953",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bronze arrowheads",
+"Headless shaft"
+],
+"text": "9,093,795 Bronze arrowheads 9,093,795 Headless shaft"
+},
+"ragged": false,
+"link": "Bronze arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Ogre arrow × 6",
+"s": null,
+"c": []
+},
+{
+"t": "5",
+"s": null,
+"c": []
+},
+{
+"t": "6.6",
+"s": null,
+"c": []
+},
+{
+"t": "1,974,914",
+"s": null,
+"c": []
+},
+{
+"t": "11,849,484 Wolf bone arrowheads 11,849,484 Flighted ogre arrow",
+"s": null,
+"c": []
+},
+{
+"t": "7,887,016,550.4",
+"s": "7887016550.4",
+"c": []
+},
+{
+"t": "2,772,779,256",
+"s": "2772779256",
+"c": []
+},
+{
+"t": "−5,114,237,294.4",
+"s": "-5114237294.4",
+"c": []
+},
+{
+"t": "−392.36",
+"s": "-392.36363636364",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Wolf bone arrowheads",
+"Flighted ogre arrow"
+],
+"text": "11,849,484 Wolf bone arrowheads 11,849,484 Flighted ogre arrow"
+},
+"ragged": false,
+"link": "Ogre arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bronze brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "7",
+"s": null,
+"c": []
+},
+{
+"t": "9.2",
+"s": null,
+"c": []
+},
+{
+"t": "1,416,786",
+"s": null,
+"c": []
+},
+{
+"t": "8,500,716 Flighted ogre arrow 8,500,716 Bronze nails",
+"s": null,
+"c": []
+},
+{
+"t": "5,311,247,356.8",
+"s": "5311247356.8",
+"c": []
+},
+{
+"t": "314,526,492",
+"s": "314526492",
+"c": []
+},
+{
+"t": "−4,996,720,864.8",
+"s": "-4996720864.8",
+"c": []
+},
+{
+"t": "−383.35",
+"s": "-383.34782608696",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Bronze nails"
+],
+"text": "8,500,716 Flighted ogre arrow 8,500,716 Bronze nails"
+},
+"ragged": false,
+"link": "Bronze brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Iron arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "10",
+"s": null,
+"c": []
+},
+{
+"t": "41.3",
+"s": null,
+"c": []
+},
+{
+"t": "315,604",
+"s": null,
+"c": []
+},
+{
+"t": "4,734,060 Iron arrowheads 4,734,060 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "257,532,864",
+"s": "257532864",
+"c": []
+},
+{
+"t": "113,617,440",
+"s": "113617440",
+"c": []
+},
+{
+"t": "−143,915,424",
+"s": "-143915424",
+"c": []
+},
+{
+"t": "−11.04",
+"s": "-11.041162227603",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Iron arrowheads",
+"Headless shaft"
+],
+"text": "4,734,060 Iron arrowheads 4,734,060 Headless shaft"
+},
+"ragged": false,
+"link": "Iron arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Iron brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "18",
+"s": null,
+"c": []
+},
+{
+"t": "17.2",
+"s": null,
+"c": []
+},
+{
+"t": "757,816",
+"s": null,
+"c": []
+},
+{
+"t": "4,546,896 Flighted ogre arrow 4,546,896 Iron nails",
+"s": null,
+"c": []
+},
+{
+"t": "2,862,725,721.6",
+"s": "2862725721.6",
+"c": []
+},
+{
+"t": "122,766,192",
+"s": "122766192",
+"c": []
+},
+{
+"t": "−2,739,959,529.6",
+"s": "-2739959529.6",
+"c": []
+},
+{
+"t": "−210.21",
+"s": "-210.20930232558",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Iron nails"
+],
+"text": "4,546,896 Flighted ogre arrow 4,546,896 Iron nails"
+},
+"ragged": false,
+"link": "Iron brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Steel arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "20",
+"s": null,
+"c": []
+},
+{
+"t": "82.5",
+"s": null,
+"c": []
+},
+{
+"t": "157,994",
+"s": null,
+"c": []
+},
+{
+"t": "2,369,910 Steel arrowheads 2,369,910 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "128,923,104",
+"s": "128923104",
+"c": []
+},
+{
+"t": "56,877,840",
+"s": "56877840",
+"c": []
+},
+{
+"t": "−72,045,264",
+"s": "-72045264",
+"c": []
+},
+{
+"t": "−5.53",
+"s": "-5.5272727272727",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Steel arrowheads",
+"Headless shaft"
+],
+"text": "2,369,910 Steel arrowheads 2,369,910 Headless shaft"
+},
+"ragged": false,
+"link": "Steel arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Mithril arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "30",
+"s": null,
+"c": []
+},
+{
+"t": "123.8",
+"s": null,
+"c": []
+},
+{
+"t": "105,287",
+"s": null,
+"c": []
+},
+{
+"t": "1,579,305 Mithril arrowheads 1,579,305 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "104,865,852",
+"s": "104865852",
+"c": []
+},
+{
+"t": "39,482,625",
+"s": "39482625",
+"c": []
+},
+{
+"t": "−65,383,227",
+"s": "-65383227",
+"c": []
+},
+{
+"t": "−5.02",
+"s": "-5.016155088853",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Mithril arrowheads",
+"Headless shaft"
+],
+"text": "1,579,305 Mithril arrowheads 1,579,305 Headless shaft"
+},
+"ragged": false,
+"link": "Mithril arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Steel brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "33",
+"s": null,
+"c": []
+},
+{
+"t": "33.7",
+"s": null,
+"c": []
+},
+{
+"t": "386,779",
+"s": null,
+"c": []
+},
+{
+"t": "2,320,674 Flighted ogre arrow 2,320,674 Steel nails",
+"s": null,
+"c": []
+},
+{
+"t": "1,498,227,134.4",
+"s": "1498227134.4",
+"c": []
+},
+{
+"t": "67,299,546",
+"s": "67299546",
+"c": []
+},
+{
+"t": "−1,430,927,588.4",
+"s": "-1430927588.4",
+"c": []
+},
+{
+"t": "−109.78",
+"s": "-109.78041543027",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Steel nails"
+],
+"text": "2,320,674 Flighted ogre arrow 2,320,674 Steel nails"
+},
+"ragged": false,
+"link": "Steel brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Black brutal × 1",
+"s": null,
+"c": []
+},
+{
+"t": "38",
+"s": null,
+"c": []
+},
+{
+"t": "7",
+"s": null,
+"c": []
+},
+{
+"t": "1,862,062",
+"s": null,
+"c": []
+},
+{
+"t": "1,862,062 Flighted ogre arrow 1,862,062 Black nails",
+"s": null,
+"c": []
+},
+{
+"t": "10,034,279,705.6",
+"s": "10034279705.6",
+"c": []
+},
+{
+"t": "182,482,076",
+"s": "182482076",
+"c": []
+},
+{
+"t": "−9,851,797,629.6",
+"s": "-9851797629.6",
+"c": []
+},
+{
+"t": "−755.83",
+"s": "-755.82857142857",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Black nails"
+],
+"text": "1,862,062 Flighted ogre arrow 1,862,062 Black nails"
+},
+"ragged": false,
+"link": "Black brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Adamant arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "40",
+"s": null,
+"c": []
+},
+{
+"t": "165",
+"s": null,
+"c": []
+},
+{
+"t": "78,997",
+"s": null,
+"c": []
+},
+{
+"t": "1,184,955 Adamant arrowheads 1,184,955 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "83,420,832",
+"s": "83420832",
+"c": []
+},
+{
+"t": "58,062,795",
+"s": "58062795",
+"c": []
+},
+{
+"t": "−25,358,037",
+"s": "-25358037",
+"c": []
+},
+{
+"t": "−1.95",
+"s": "-1.9454545454545",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Adamant arrowheads",
+"Headless shaft"
+],
+"text": "1,184,955 Adamant arrowheads 1,184,955 Headless shaft"
+},
+"ragged": false,
+"link": "Adamant arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Mithril brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "49",
+"s": null,
+"c": []
+},
+{
+"t": "50.2",
+"s": null,
+"c": []
+},
+{
+"t": "259,651",
+"s": null,
+"c": []
+},
+{
+"t": "1,557,906 Flighted ogre arrow 1,557,906 Mithril nails",
+"s": null,
+"c": []
+},
+{
+"t": "990,828,216",
+"s": "990828216",
+"c": []
+},
+{
+"t": "1,051,586,550",
+"s": "1051586550",
+"c": []
+},
+{
+"t": "60,758,334",
+"s": "60758334",
+"c": []
+},
+{
+"t": "4.66",
+"s": "4.6613545816733",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Mithril nails"
+],
+"text": "1,557,906 Flighted ogre arrow 1,557,906 Mithril nails"
+},
+"ragged": false,
+"link": "Mithril brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Rune arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "50",
+"s": null,
+"c": []
+},
+{
+"t": "206.3",
+"s": null,
+"c": []
+},
+{
+"t": "63,182",
+"s": null,
+"c": []
+},
+{
+"t": "947,730 Rune arrowheads 947,730 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "134,198,568",
+"s": "134198568",
+"c": []
+},
+{
+"t": "131,734,470",
+"s": "131734470",
+"c": []
+},
+{
+"t": "−2,464,098",
+"s": "-2464098",
+"c": []
+},
+{
+"t": "−0.19",
+"s": "-0.18904507998061",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Rune arrowheads",
+"Headless shaft"
+],
+"text": "947,730 Rune arrowheads 947,730 Headless shaft"
+},
+"ragged": false,
+"link": "Rune arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Broad arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "52",
+"s": null,
+"c": []
+},
+{
+"t": "247.5",
+"s": null,
+"c": []
+},
+{
+"t": "52,665",
+"s": null,
+"c": []
+},
+{
+"t": "789,975 Headless shaft 789,975 Broad arrowheads",
+"s": null,
+"c": []
+},
+{
+"t": "66,989,880",
+"s": "66989880",
+"c": []
+},
+{
+"t": "-",
+"s": "-1000000000",
+"c": [
+"sortbottom"
+]
+},
+{
+"t": "−66,989,880",
+"s": "-66989880",
+"c": []
+},
+{
+"t": "−5.14",
+"s": "-5.1393939393939",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Headless shaft",
+"Broad arrowheads"
+],
+"text": "789,975 Headless shaft 789,975 Broad arrowheads"
+},
+"ragged": false,
+"link": "Broad arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Fragment arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "60",
+"s": null,
+"c": []
+},
+{
+"t": "8.3",
+"s": null,
+"c": []
+},
+{
+"t": "1,570,414",
+"s": null,
+"c": []
+},
+{
+"t": "23,556,210 Bronze arrow 23,556,210 Ascension fragment",
+"s": null,
+"c": []
+},
+{
+"t": "2,167,171,320",
+"s": "2167171320",
+"c": []
+},
+{
+"t": "-",
+"s": "-1000000000",
+"c": [
+"sortbottom"
+]
+},
+{
+"t": "−2,167,171,320",
+"s": "-2167171320",
+"c": []
+},
+{
+"t": "−166.27",
+"s": "-166.26506024096",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bronze arrow",
+"Ascension fragment"
+],
+"text": "23,556,210 Bronze arrow 23,556,210 Ascension fragment"
+},
+"ragged": false,
+"link": "Fragment arrows"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Orikalkum arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "60",
+"s": null,
+"c": []
+},
+{
+"t": "247.5",
+"s": null,
+"c": []
+},
+{
+"t": "52,665",
+"s": null,
+"c": []
+},
+{
+"t": "789,975 Orikalkum arrowheads 789,975 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "168,738,660",
+"s": "168738660",
+"c": []
+},
+{
+"t": "103,486,725",
+"s": "103486725",
+"c": []
+},
+{
+"t": "−65,251,935",
+"s": "-65251935",
+"c": []
+},
+{
+"t": "−5.01",
+"s": "-5.0060606060606",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Orikalkum arrowheads",
+"Headless shaft"
+],
+"text": "789,975 Orikalkum arrowheads 789,975 Headless shaft"
+},
+"ragged": false,
+"link": "Orikalkum arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Dragon arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "60",
+"s": null,
+"c": []
+},
+{
+"t": "247.5",
+"s": null,
+"c": []
+},
+{
+"t": "52,665",
+"s": null,
+"c": []
+},
+{
+"t": "789,975 Dragon arrowheads 789,975 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "289,446,840",
+"s": "289446840",
+"c": []
+},
+{
+"t": "170,634,600",
+"s": "170634600",
+"c": []
+},
+{
+"t": "−118,812,240",
+"s": "-118812240",
+"c": []
+},
+{
+"t": "−9.12",
+"s": "-9.1151515151515",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dragon arrowheads",
+"Headless shaft"
+],
+"text": "789,975 Dragon arrowheads 789,975 Headless shaft"
+},
+"ragged": false,
+"link": "Dragon arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Adamant brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "62",
+"s": null,
+"c": []
+},
+{
+"t": "66.7",
+"s": null,
+"c": []
+},
+{
+"t": "195,419",
+"s": null,
+"c": []
+},
+{
+"t": "1,172,514 Flighted ogre arrow 1,172,514 Adamant nails",
+"s": null,
+"c": []
+},
+{
+"t": "759,789,072",
+"s": "759789072",
+"c": []
+},
+{
+"t": "691,783,260",
+"s": "691783260",
+"c": []
+},
+{
+"t": "−68,005,812",
+"s": "-68005812",
+"c": []
+},
+{
+"t": "−5.22",
+"s": "-5.2173913043478",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Adamant nails"
+],
+"text": "1,172,514 Flighted ogre arrow 1,172,514 Adamant nails"
+},
+"ragged": false,
+"link": "Adamant brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Necronium arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "70",
+"s": null,
+"c": []
+},
+{
+"t": "268.1",
+"s": null,
+"c": []
+},
+{
+"t": "48,618",
+"s": null,
+"c": []
+},
+{
+"t": "729,270 Necronium arrowheads 729,270 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "196,027,776",
+"s": "196027776",
+"c": []
+},
+{
+"t": "113,766,120",
+"s": "113766120",
+"c": []
+},
+{
+"t": "−82,261,656",
+"s": "-82261656",
+"c": []
+},
+{
+"t": "−6.31",
+"s": "-6.3110779559866",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Necronium arrowheads",
+"Headless shaft"
+],
+"text": "729,270 Necronium arrowheads 729,270 Headless shaft"
+},
+"ragged": false,
+"link": "Necronium arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Rune brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "77",
+"s": null,
+"c": []
+},
+{
+"t": "82.5",
+"s": null,
+"c": []
+},
+{
+"t": "157,994",
+"s": null,
+"c": []
+},
+{
+"t": "947,964 Flighted ogre arrow 947,964 Rune nails",
+"s": null,
+"c": []
+},
+{
+"t": "703,010,102.4",
+"s": "703010102.4",
+"c": []
+},
+{
+"t": "1,140,400,692",
+"s": "1140400692",
+"c": []
+},
+{
+"t": "437,390,589.6",
+"s": "437390589.6",
+"c": []
+},
+{
+"t": "33.56",
+"s": "33.556363636364",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Rune nails"
+],
+"text": "947,964 Flighted ogre arrow 947,964 Rune nails"
+},
+"ragged": false,
+"link": "Rune brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bane arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "80",
+"s": null,
+"c": []
+},
+{
+"t": "288.8",
+"s": null,
+"c": []
+},
+{
+"t": "45,134",
+"s": null,
+"c": []
+},
+{
+"t": "677,010 Bane arrowheads 677,010 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "223,142,496",
+"s": "223142496",
+"c": []
+},
+{
+"t": "74,471,100",
+"s": "74471100",
+"c": []
+},
+{
+"t": "−148,671,396",
+"s": "-148671396",
+"c": []
+},
+{
+"t": "−11.41",
+"s": "-11.405817174515",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bane arrowheads",
+"Headless shaft"
+],
+"text": "677,010 Bane arrowheads 677,010 Headless shaft"
+},
+"ragged": false,
+"link": "Bane arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Elder rune arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "90",
+"s": null,
+"c": []
+},
+{
+"t": "309.4",
+"s": null,
+"c": []
+},
+{
+"t": "42,129",
+"s": null,
+"c": []
+},
+{
+"t": "631,935 Elder rune arrowheads 631,935 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "274,007,016",
+"s": "274007016",
+"c": []
+},
+{
+"t": "95,422,185",
+"s": "95422185",
+"c": []
+},
+{
+"t": "−178,584,831",
+"s": "-178584831",
+"c": []
+},
+{
+"t": "−13.7",
+"s": "-13.700711053652",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Elder rune arrowheads",
+"Headless shaft"
+],
+"text": "631,935 Elder rune arrowheads 631,935 Headless shaft"
+},
+"ragged": false,
+"link": "Elder rune arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Black stone arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "92",
+"s": null,
+"c": []
+},
+{
+"t": "207.9",
+"s": null,
+"c": []
+},
+{
+"t": "62,696",
+"s": null,
+"c": []
+},
+{
+"t": "940,440 Black stone arrow tips 940,440 Elder headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "3,597,747,264",
+"s": "3597747264",
+"c": []
+},
+{
+"t": "4,326,964,440",
+"s": "4326964440",
+"c": []
+},
+{
+"t": "729,217,176",
+"s": "729217176",
+"c": []
+},
+{
+"t": "55.95",
+"s": "55.945165945166",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Black stone arrow tips",
+"Elder headless shaft"
+],
+"text": "940,440 Black stone arrow tips 940,440 Elder headless shaft"
+},
+"ragged": false,
+"link": "Black stone arrows"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Dark arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "288.8",
+"s": null,
+"c": []
+},
+{
+"t": "45,134",
+"s": null,
+"c": []
+},
+{
+"t": "677,010 Dark arrowheads 677,010 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "212,851,944",
+"s": "212851944",
+"c": []
+},
+{
+"t": "38,589,570",
+"s": "38589570",
+"c": []
+},
+{
+"t": "−174,262,374",
+"s": "-174262374",
+"c": []
+},
+{
+"t": "−13.37",
+"s": "-13.369113573407",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dark arrowheads",
+"Headless shaft"
+],
+"text": "677,010 Dark arrowheads 677,010 Headless shaft"
+},
+"ragged": false,
+"link": "Dark arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Stalker arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "288.8",
+"s": null,
+"c": []
+},
+{
+"t": "45,134",
+"s": null,
+"c": []
+},
+{
+"t": "677,010 Dark arrow 677,010 Stalker essence",
+"s": null,
+"c": []
+},
+{
+"t": "301,675,656",
+"s": "301675656",
+"c": []
+},
+{
+"t": "71,086,050",
+"s": "71086050",
+"c": []
+},
+{
+"t": "−230,589,606",
+"s": "-230589606",
+"c": []
+},
+{
+"t": "−17.69",
+"s": "-17.690443213296",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dark arrow",
+"Stalker essence"
+],
+"text": "677,010 Dark arrow 677,010 Stalker essence"
+},
+"ragged": false,
+"link": "Stalker arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bik arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "313.5",
+"s": null,
+"c": []
+},
+{
+"t": "41,578",
+"s": null,
+"c": []
+},
+{
+"t": "623,670 Dinarrow 1,871,010 Resonant anima of Bik (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "543,840,240",
+"s": "543840240",
+"c": []
+},
+{
+"t": "402,267,150",
+"s": "402267150",
+"c": []
+},
+{
+"t": "−141,573,090",
+"s": "-141573090",
+"c": []
+},
+{
+"t": "−10.86",
+"s": "-10.861244019139",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Bik (tradeable)"
+],
+"text": "623,670 Dinarrow 1,871,010 Resonant anima of Bik (tradeable)"
+},
+"ragged": false,
+"link": "Bik arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Ful arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "313.5",
+"s": null,
+"c": []
+},
+{
+"t": "41,578",
+"s": null,
+"c": []
+},
+{
+"t": "623,670 Dinarrow 1,871,010 Resonant anima of Ful (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "558,808,320",
+"s": "558808320",
+"c": []
+},
+{
+"t": "779,587,500",
+"s": "779587500",
+"c": []
+},
+{
+"t": "220,779,180",
+"s": "220779180",
+"c": []
+},
+{
+"t": "16.94",
+"s": "16.937799043062",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Ful (tradeable)"
+],
+"text": "623,670 Dinarrow 1,871,010 Resonant anima of Ful (tradeable)"
+},
+"ragged": false,
+"link": "Ful arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Jas dragonbane arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "313.5",
+"s": null,
+"c": []
+},
+{
+"t": "41,578",
+"s": null,
+"c": []
+},
+{
+"t": "623,670 Dinarrow 1,871,010 Resonant anima of Jas (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "599,222,136",
+"s": "599222136",
+"c": []
+},
+{
+"t": "796,426,590",
+"s": "796426590",
+"c": []
+},
+{
+"t": "197,204,454",
+"s": "197204454",
+"c": []
+},
+{
+"t": "15.13",
+"s": "15.129186602871",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Jas (tradeable)"
+],
+"text": "623,670 Dinarrow 1,871,010 Resonant anima of Jas (tradeable)"
+},
+"ragged": false,
+"link": "Jas dragonbane arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Wen arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "313.5",
+"s": null,
+"c": []
+},
+{
+"t": "41,578",
+"s": null,
+"c": []
+},
+{
+"t": "623,670 Dinarrow 1,871,010 Resonant anima of Wen (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "552,821,088",
+"s": "552821088",
+"c": []
+},
+{
+"t": "618,680,640",
+"s": "618680640",
+"c": []
+},
+{
+"t": "65,859,552",
+"s": "65859552",
+"c": []
+},
+{
+"t": "5.05",
+"s": "5.0526315789474",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Wen (tradeable)"
+],
+"text": "623,670 Dinarrow 1,871,010 Resonant anima of Wen (tradeable)"
+},
+"ragged": false,
+"link": "Wen arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Deathspore arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "330",
+"s": null,
+"c": []
+},
+{
+"t": "39,499",
+"s": null,
+"c": []
+},
+{
+"t": "592,485 Deathspore arrow tips 592,485 Elder headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "437,964,912",
+"s": "437964912",
+"c": []
+},
+{
+"t": "237,586,485",
+"s": "237586485",
+"c": []
+},
+{
+"t": "−200,378,427",
+"s": "-200378427",
+"c": []
+},
+{
+"t": "−15.37",
+"s": "-15.372727272727",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Deathspore arrow tips",
+"Elder headless shaft"
+],
+"text": "592,485 Deathspore arrow tips 592,485 Elder headless shaft"
+},
+"ragged": false,
+"link": "Deathspore arrows"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Splintering arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "330",
+"s": null,
+"c": []
+},
+{
+"t": "39,499",
+"s": null,
+"c": []
+},
+{
+"t": "592,485 Splintering arrow tips 592,485 Elder headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "433,225,032",
+"s": "433225032",
+"c": []
+},
+{
+"t": "81,762,930",
+"s": "81762930",
+"c": []
+},
+{
+"t": "−351,462,102",
+"s": "-351462102",
+"c": []
+},
+{
+"t": "−26.96",
+"s": "-26.963636363636",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Splintering arrow tips",
+"Elder headless shaft"
+],
+"text": "592,485 Splintering arrow tips 592,485 Elder headless shaft"
+},
+"ragged": false,
+"link": "Splintering arrows"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Dinarrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "330",
+"s": null,
+"c": []
+},
+{
+"t": "39,499",
+"s": null,
+"c": []
+},
+{
+"t": "592,485 Sharp shell shard 592,485 Headless dinarrow",
+"s": null,
+"c": []
+},
+{
+"t": "843,698,640",
+"s": "843698640",
+"c": []
+},
+{
+"t": "644,031,195",
+"s": "644031195",
+"c": []
+},
+{
+"t": "−199,667,445",
+"s": "-199667445",
+"c": []
+},
+{
+"t": "−15.32",
+"s": "-15.318181818182",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Sharp shell shard",
+"Headless dinarrow"
+],
+"text": "592,485 Sharp shell shard 592,485 Headless dinarrow"
+},
+"ragged": false,
+"link": "Dinarrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Primal arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "100",
+"s": null,
+"c": []
+},
+{
+"t": "330",
+"s": null,
+"c": []
+},
+{
+"t": "39,499",
+"s": null,
+"c": []
+},
+{
+"t": "592,485 Primal arrowheads 592,485 Eternal magic headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "432,277,056",
+"s": "432277056",
+"c": []
+},
+{
+"t": "84,132,870",
+"s": "84132870",
+"c": []
+},
+{
+"t": "−348,144,186",
+"s": "-348144186",
+"c": []
+},
+{
+"t": "−26.71",
+"s": "-26.709090909091",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Primal arrowheads",
+"Eternal magic headless shaft"
+],
+"text": "592,485 Primal arrowheads 592,485 Eternal magic headless shaft"
+},
+"ragged": false,
+"link": "Primal arrow"
+}
+],
+"name": "portable Yes shows the brooch check (and hides the \"No effect\" note); brooch on; Level 1->99",
+"submission": [
+[
+"name",
+""
+],
+[
+"currToggle",
+"Level"
+],
+[
+"current",
+"1"
+],
+[
+"goalToggle",
+"Level"
+],
+[
+"goal",
+"99"
+],
+[
+"avatar",
+"0"
+],
+[
+"outfit",
+"0"
+],
+[
+"custom",
+"0"
+],
+[
+"portable",
+"Yes"
+],
+[
+"workroom",
+"No"
+],
+[
+"disp",
+"Arrows"
+],
+[
+"skill",
+"Fletching"
+],
+[
+"bxp",
+"0"
+],
+[
+"brooch",
+"true"
+],
+[
+"dxp",
+"0"
+]
+]
+},
+{
+"message": "To train Fletching from 1 experience (level 1) to 273,742 experience (level 60), 273,741 experience is required. Name Level XP # needed Materials Raw cost Product cost Profit/Loss Profit/XP Bronze arrow × 15 1 19.5 14,038 210,570 Bronze arrowheads 210,570 Headless shaft 17,056,170 24,215,550 7,159,380 26.15 Ogre arrow × 6 5 6 45,624 273,744 Wolf bone arrowheads 273,744 Flighted ogre arrow 227,755,008 64,056,096 −163,698,912 −598 Bronze brutal × 6 7 8.4 32,589 195,534 Flighted ogre arrow 195,534 Bronze nails 152,712,054 7,234,758 −145,477,296 −531.43 Iron arrow × 15 10 37.5 7,300 109,500 Iron arrowheads 109,500 Headless shaft 7,446,000 2,628,000 −4,818,000 −17.6 Iron brutal × 6 18 15.6 17,548 105,288 Flighted ogre arrow 105,288 Iron nails 82,861,656 2,842,776 −80,018,880 −292.31 Steel arrow × 15 20 75 3,650 54,750 Steel arrowheads 54,750 Headless shaft 3,723,000 1,314,000 −2,409,000 −8.8 Mithril arrow × 15 30 112.5 2,434 36,510 Mithril arrowheads 36,510 Headless shaft 3,030,330 912,750 −2,117,580 −7.73 Steel brutal × 6 33 30.6 8,946 53,676 Flighted ogre arrow 53,676 Steel nails 43,316,532 1,556,604 −41,759,928 −152.55 Black brutal × 1 38 6.4 42,773 42,773 Flighted ogre arrow 42,773 Black nails 288,118,928 4,191,754 −283,927,174 −1,037.19 Adamant arrow × 15 40 150 1,825 27,375 Adamant arrowheads 27,375 Headless shaft 2,409,000 1,341,375 −1,067,625 −3.9 Mithril brutal × 6 49 45.6 6,004 36,024 Flighted ogre arrow 36,024 Mithril nails 28,639,080 24,316,200 −4,322,880 −15.79 Rune arrow × 15 50 187.5 1,460 21,900 Rune arrowheads 21,900 Headless shaft 3,876,300 3,044,100 −832,200 −3.04 Broad arrow × 15 52 225 1,217 18,255 Headless shaft 18,255 Broad arrowheads 1,935,030 - −1,935,030 −7.07 Fragment arrows × 15 60 7.5 36,499 547,485 Bronze arrow 547,485 Ascension fragment 62,960,775 - −62,960,775 −230 Orikalkum arrow × 15 60 225 1,217 18,255 Orikalkum arrowheads 18,255 Headless shaft 4,874,085 2,391,405 −2,482,680 −9.07 Dragon arrow × 15 60 225 1,217 18,255 Dragon arrowheads 18,255 Headless shaft 8,360,790 3,943,080 −4,417,710 −16.13 Adamant brutal × 6 62 60.6 4,518 27,108 Flighted ogre arrow 27,108 Adamant nails 21,957,480 15,993,720 −5,963,760 −21.78 Necronium arrow × 15 70 243.8 1,123 16,845 Necronium arrowheads 16,845 Headless shaft 5,659,920 2,627,820 −3,032,100 −11.07 Rune brutal × 6 77 75 3,650 21,900 Flighted ogre arrow 21,900 Rune nails 20,301,300 26,345,700 6,044,400 22.08 Bane arrow × 15 80 262.5 1,043 15,645 Bane arrowheads 15,645 Headless shaft 6,445,740 1,720,950 −4,724,790 −17.26 Elder rune arrow × 15 90 281.3 974 14,610 Elder rune arrowheads 14,610 Headless shaft 7,918,620 2,206,110 −5,712,510 −20.85 Black stone arrows × 15 92 189 1,449 21,735 Black stone arrow tips 21,735 Elder headless shaft 103,936,770 100,002,735 −3,934,035 −14.37 Dark arrow × 15 95 262.5 1,043 15,645 Dark arrowheads 15,645 Headless shaft 6,148,485 891,765 −5,256,720 −19.2 Stalker arrow × 15 95 262.5 1,043 15,645 Dark arrow 15,645 Stalker essence 8,714,265 1,642,725 −7,071,540 −25.83 Bik arrow × 15 95 285 961 14,415 Dinarrow 43,245 Resonant anima of Bik (tradeable) 15,712,350 9,297,675 −6,414,675 −23.42 Ful arrow × 15 95 285 961 14,415 Dinarrow 43,245 Resonant anima of Ful (tradeable) 16,144,800 18,018,750 1,873,950 6.84 Jas dragonbane arrow × 15 95 285 961 14,415 Dinarrow 43,245 Resonant anima of Jas (tradeable) 17,312,415 18,407,955 1,095,540 4 Wen arrow × 15 95 285 961 14,415 Dinarrow 43,245 Resonant anima of Wen (tradeable) 15,971,820 14,299,680 −1,672,140 −6.11 Deathspore arrows × 15 95 300 913 13,695 Deathspore arrow tips 13,695 Elder headless shaft 12,654,180 5,491,695 −7,162,485 −26.15 Splintering arrows × 15 95 300 913 13,695 Splintering arrow tips 13,695 Elder headless shaft 12,517,230 1,889,910 −10,627,320 −38.8 Dinarrow × 15 95 300 913 13,695 Sharp shell shard 13,695 Headless dinarrow 24,377,100 14,886,465 −9,490,635 −34.65 Primal arrow × 15 100 300 913 13,695 Primal arrowheads 13,695 Eternal magic headless shaft 12,489,840 1,944,690 −10,545,150 −38.5",
+"head": [
+"",
+"Name",
+"Level",
+"XP",
+"# needed",
+"Materials",
+"Raw cost",
+"Product cost",
+"Profit/Loss",
+"Profit/XP",
+""
+],
+"rows": [
+{
+"cls": [
+"table-bg-green"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bronze arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "1",
+"s": null,
+"c": []
+},
+{
+"t": "19.5",
+"s": null,
+"c": []
+},
+{
+"t": "14,038",
+"s": null,
+"c": []
+},
+{
+"t": "210,570 Bronze arrowheads 210,570 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "17,056,170",
+"s": "17056170",
+"c": []
+},
+{
+"t": "24,215,550",
+"s": "24215550",
+"c": []
+},
+{
+"t": "7,159,380",
+"s": "7159380",
+"c": []
+},
+{
+"t": "26.15",
+"s": "26.153846153846",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bronze arrowheads",
+"Headless shaft"
+],
+"text": "210,570 Bronze arrowheads 210,570 Headless shaft"
+},
+"ragged": false,
+"link": "Bronze arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Ogre arrow × 6",
+"s": null,
+"c": []
+},
+{
+"t": "5",
+"s": null,
+"c": []
+},
+{
+"t": "6",
+"s": null,
+"c": []
+},
+{
+"t": "45,624",
+"s": null,
+"c": []
+},
+{
+"t": "273,744 Wolf bone arrowheads 273,744 Flighted ogre arrow",
+"s": null,
+"c": []
+},
+{
+"t": "227,755,008",
+"s": "227755008",
+"c": []
+},
+{
+"t": "64,056,096",
+"s": "64056096",
+"c": []
+},
+{
+"t": "−163,698,912",
+"s": "-163698912",
+"c": []
+},
+{
+"t": "−598",
+"s": "-598",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Wolf bone arrowheads",
+"Flighted ogre arrow"
+],
+"text": "273,744 Wolf bone arrowheads 273,744 Flighted ogre arrow"
+},
+"ragged": false,
+"link": "Ogre arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bronze brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "7",
+"s": null,
+"c": []
+},
+{
+"t": "8.4",
+"s": null,
+"c": []
+},
+{
+"t": "32,589",
+"s": null,
+"c": []
+},
+{
+"t": "195,534 Flighted ogre arrow 195,534 Bronze nails",
+"s": null,
+"c": []
+},
+{
+"t": "152,712,054",
+"s": "152712054",
+"c": []
+},
+{
+"t": "7,234,758",
+"s": "7234758",
+"c": []
+},
+{
+"t": "−145,477,296",
+"s": "-145477296",
+"c": []
+},
+{
+"t": "−531.43",
+"s": "-531.42857142857",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Bronze nails"
+],
+"text": "195,534 Flighted ogre arrow 195,534 Bronze nails"
+},
+"ragged": false,
+"link": "Bronze brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Iron arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "10",
+"s": null,
+"c": []
+},
+{
+"t": "37.5",
+"s": null,
+"c": []
+},
+{
+"t": "7,300",
+"s": null,
+"c": []
+},
+{
+"t": "109,500 Iron arrowheads 109,500 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "7,446,000",
+"s": "7446000",
+"c": []
+},
+{
+"t": "2,628,000",
+"s": "2628000",
+"c": []
+},
+{
+"t": "−4,818,000",
+"s": "-4818000",
+"c": []
+},
+{
+"t": "−17.6",
+"s": "-17.6",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Iron arrowheads",
+"Headless shaft"
+],
+"text": "109,500 Iron arrowheads 109,500 Headless shaft"
+},
+"ragged": false,
+"link": "Iron arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Iron brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "18",
+"s": null,
+"c": []
+},
+{
+"t": "15.6",
+"s": null,
+"c": []
+},
+{
+"t": "17,548",
+"s": null,
+"c": []
+},
+{
+"t": "105,288 Flighted ogre arrow 105,288 Iron nails",
+"s": null,
+"c": []
+},
+{
+"t": "82,861,656",
+"s": "82861656",
+"c": []
+},
+{
+"t": "2,842,776",
+"s": "2842776",
+"c": []
+},
+{
+"t": "−80,018,880",
+"s": "-80018880",
+"c": []
+},
+{
+"t": "−292.31",
+"s": "-292.30769230769",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Iron nails"
+],
+"text": "105,288 Flighted ogre arrow 105,288 Iron nails"
+},
+"ragged": false,
+"link": "Iron brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Steel arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "20",
+"s": null,
+"c": []
+},
+{
+"t": "75",
+"s": null,
+"c": []
+},
+{
+"t": "3,650",
+"s": null,
+"c": []
+},
+{
+"t": "54,750 Steel arrowheads 54,750 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "3,723,000",
+"s": "3723000",
+"c": []
+},
+{
+"t": "1,314,000",
+"s": "1314000",
+"c": []
+},
+{
+"t": "−2,409,000",
+"s": "-2409000",
+"c": []
+},
+{
+"t": "−8.8",
+"s": "-8.8",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Steel arrowheads",
+"Headless shaft"
+],
+"text": "54,750 Steel arrowheads 54,750 Headless shaft"
+},
+"ragged": false,
+"link": "Steel arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Mithril arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "30",
+"s": null,
+"c": []
+},
+{
+"t": "112.5",
+"s": null,
+"c": []
+},
+{
+"t": "2,434",
+"s": null,
+"c": []
+},
+{
+"t": "36,510 Mithril arrowheads 36,510 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "3,030,330",
+"s": "3030330",
+"c": []
+},
+{
+"t": "912,750",
+"s": "912750",
+"c": []
+},
+{
+"t": "−2,117,580",
+"s": "-2117580",
+"c": []
+},
+{
+"t": "−7.73",
+"s": "-7.7333333333333",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Mithril arrowheads",
+"Headless shaft"
+],
+"text": "36,510 Mithril arrowheads 36,510 Headless shaft"
+},
+"ragged": false,
+"link": "Mithril arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Steel brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "33",
+"s": null,
+"c": []
+},
+{
+"t": "30.6",
+"s": null,
+"c": []
+},
+{
+"t": "8,946",
+"s": null,
+"c": []
+},
+{
+"t": "53,676 Flighted ogre arrow 53,676 Steel nails",
+"s": null,
+"c": []
+},
+{
+"t": "43,316,532",
+"s": "43316532",
+"c": []
+},
+{
+"t": "1,556,604",
+"s": "1556604",
+"c": []
+},
+{
+"t": "−41,759,928",
+"s": "-41759928",
+"c": []
+},
+{
+"t": "−152.55",
+"s": "-152.54901960784",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Steel nails"
+],
+"text": "53,676 Flighted ogre arrow 53,676 Steel nails"
+},
+"ragged": false,
+"link": "Steel brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Black brutal × 1",
+"s": null,
+"c": []
+},
+{
+"t": "38",
+"s": null,
+"c": []
+},
+{
+"t": "6.4",
+"s": null,
+"c": []
+},
+{
+"t": "42,773",
+"s": null,
+"c": []
+},
+{
+"t": "42,773 Flighted ogre arrow 42,773 Black nails",
+"s": null,
+"c": []
+},
+{
+"t": "288,118,928",
+"s": "288118928",
+"c": []
+},
+{
+"t": "4,191,754",
+"s": "4191754",
+"c": []
+},
+{
+"t": "−283,927,174",
+"s": "-283927174",
+"c": []
+},
+{
+"t": "−1,037.19",
+"s": "-1037.1875",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Black nails"
+],
+"text": "42,773 Flighted ogre arrow 42,773 Black nails"
+},
+"ragged": false,
+"link": "Black brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Adamant arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "40",
+"s": null,
+"c": []
+},
+{
+"t": "150",
+"s": null,
+"c": []
+},
+{
+"t": "1,825",
+"s": null,
+"c": []
+},
+{
+"t": "27,375 Adamant arrowheads 27,375 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "2,409,000",
+"s": "2409000",
+"c": []
+},
+{
+"t": "1,341,375",
+"s": "1341375",
+"c": []
+},
+{
+"t": "−1,067,625",
+"s": "-1067625",
+"c": []
+},
+{
+"t": "−3.9",
+"s": "-3.9",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Adamant arrowheads",
+"Headless shaft"
+],
+"text": "27,375 Adamant arrowheads 27,375 Headless shaft"
+},
+"ragged": false,
+"link": "Adamant arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Mithril brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "49",
+"s": null,
+"c": []
+},
+{
+"t": "45.6",
+"s": null,
+"c": []
+},
+{
+"t": "6,004",
+"s": null,
+"c": []
+},
+{
+"t": "36,024 Flighted ogre arrow 36,024 Mithril nails",
+"s": null,
+"c": []
+},
+{
+"t": "28,639,080",
+"s": "28639080",
+"c": []
+},
+{
+"t": "24,316,200",
+"s": "24316200",
+"c": []
+},
+{
+"t": "−4,322,880",
+"s": "-4322880",
+"c": []
+},
+{
+"t": "−15.79",
+"s": "-15.789473684211",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Mithril nails"
+],
+"text": "36,024 Flighted ogre arrow 36,024 Mithril nails"
+},
+"ragged": false,
+"link": "Mithril brutal"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Rune arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "50",
+"s": null,
+"c": []
+},
+{
+"t": "187.5",
+"s": null,
+"c": []
+},
+{
+"t": "1,460",
+"s": null,
+"c": []
+},
+{
+"t": "21,900 Rune arrowheads 21,900 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "3,876,300",
+"s": "3876300",
+"c": []
+},
+{
+"t": "3,044,100",
+"s": "3044100",
+"c": []
+},
+{
+"t": "−832,200",
+"s": "-832200",
+"c": []
+},
+{
+"t": "−3.04",
+"s": "-3.04",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Rune arrowheads",
+"Headless shaft"
+],
+"text": "21,900 Rune arrowheads 21,900 Headless shaft"
+},
+"ragged": false,
+"link": "Rune arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Broad arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "52",
+"s": null,
+"c": []
+},
+{
+"t": "225",
+"s": null,
+"c": []
+},
+{
+"t": "1,217",
+"s": null,
+"c": []
+},
+{
+"t": "18,255 Headless shaft 18,255 Broad arrowheads",
+"s": null,
+"c": []
+},
+{
+"t": "1,935,030",
+"s": "1935030",
+"c": []
+},
+{
+"t": "-",
+"s": "-1000000000",
+"c": [
+"sortbottom"
+]
+},
+{
+"t": "−1,935,030",
+"s": "-1935030",
+"c": []
+},
+{
+"t": "−7.07",
+"s": "-7.0666666666667",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Headless shaft",
+"Broad arrowheads"
+],
+"text": "18,255 Headless shaft 18,255 Broad arrowheads"
+},
+"ragged": false,
+"link": "Broad arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Fragment arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "60",
+"s": null,
+"c": []
+},
+{
+"t": "7.5",
+"s": null,
+"c": []
+},
+{
+"t": "36,499",
+"s": null,
+"c": []
+},
+{
+"t": "547,485 Bronze arrow 547,485 Ascension fragment",
+"s": null,
+"c": []
+},
+{
+"t": "62,960,775",
+"s": "62960775",
+"c": []
+},
+{
+"t": "-",
+"s": "-1000000000",
+"c": [
+"sortbottom"
+]
+},
+{
+"t": "−62,960,775",
+"s": "-62960775",
+"c": []
+},
+{
+"t": "−230",
+"s": "-230",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bronze arrow",
+"Ascension fragment"
+],
+"text": "547,485 Bronze arrow 547,485 Ascension fragment"
+},
+"ragged": false,
+"link": "Fragment arrows"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Orikalkum arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "60",
+"s": null,
+"c": []
+},
+{
+"t": "225",
+"s": null,
+"c": []
+},
+{
+"t": "1,217",
+"s": null,
+"c": []
+},
+{
+"t": "18,255 Orikalkum arrowheads 18,255 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "4,874,085",
+"s": "4874085",
+"c": []
+},
+{
+"t": "2,391,405",
+"s": "2391405",
+"c": []
+},
+{
+"t": "−2,482,680",
+"s": "-2482680",
+"c": []
+},
+{
+"t": "−9.07",
+"s": "-9.0666666666667",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Orikalkum arrowheads",
+"Headless shaft"
+],
+"text": "18,255 Orikalkum arrowheads 18,255 Headless shaft"
+},
+"ragged": false,
+"link": "Orikalkum arrow"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Dragon arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "60",
+"s": null,
+"c": []
+},
+{
+"t": "225",
+"s": null,
+"c": []
+},
+{
+"t": "1,217",
+"s": null,
+"c": []
+},
+{
+"t": "18,255 Dragon arrowheads 18,255 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "8,360,790",
+"s": "8360790",
+"c": []
+},
+{
+"t": "3,943,080",
+"s": "3943080",
+"c": []
+},
+{
+"t": "−4,417,710",
+"s": "-4417710",
+"c": []
+},
+{
+"t": "−16.13",
+"s": "-16.133333333333",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dragon arrowheads",
+"Headless shaft"
+],
+"text": "18,255 Dragon arrowheads 18,255 Headless shaft"
+},
+"ragged": false,
+"link": "Dragon arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Adamant brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "62",
+"s": null,
+"c": []
+},
+{
+"t": "60.6",
+"s": null,
+"c": []
+},
+{
+"t": "4,518",
+"s": null,
+"c": []
+},
+{
+"t": "27,108 Flighted ogre arrow 27,108 Adamant nails",
+"s": null,
+"c": []
+},
+{
+"t": "21,957,480",
+"s": "21957480",
+"c": []
+},
+{
+"t": "15,993,720",
+"s": "15993720",
+"c": []
+},
+{
+"t": "−5,963,760",
+"s": "-5963760",
+"c": []
+},
+{
+"t": "−21.78",
+"s": "-21.782178217822",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Adamant nails"
+],
+"text": "27,108 Flighted ogre arrow 27,108 Adamant nails"
+},
+"ragged": false,
+"link": "Adamant brutal"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Necronium arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "70",
+"s": null,
+"c": []
+},
+{
+"t": "243.8",
+"s": null,
+"c": []
+},
+{
+"t": "1,123",
+"s": null,
+"c": []
+},
+{
+"t": "16,845 Necronium arrowheads 16,845 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "5,659,920",
+"s": "5659920",
+"c": []
+},
+{
+"t": "2,627,820",
+"s": "2627820",
+"c": []
+},
+{
+"t": "−3,032,100",
+"s": "-3032100",
+"c": []
+},
+{
+"t": "−11.07",
+"s": "-11.074651353568",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Necronium arrowheads",
+"Headless shaft"
+],
+"text": "16,845 Necronium arrowheads 16,845 Headless shaft"
+},
+"ragged": false,
+"link": "Necronium arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Rune brutal × 6",
+"s": null,
+"c": []
+},
+{
+"t": "77",
+"s": null,
+"c": []
+},
+{
+"t": "75",
+"s": null,
+"c": []
+},
+{
+"t": "3,650",
+"s": null,
+"c": []
+},
+{
+"t": "21,900 Flighted ogre arrow 21,900 Rune nails",
+"s": null,
+"c": []
+},
+{
+"t": "20,301,300",
+"s": "20301300",
+"c": []
+},
+{
+"t": "26,345,700",
+"s": "26345700",
+"c": []
+},
+{
+"t": "6,044,400",
+"s": "6044400",
+"c": []
+},
+{
+"t": "22.08",
+"s": "22.08",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Flighted ogre arrow",
+"Rune nails"
+],
+"text": "21,900 Flighted ogre arrow 21,900 Rune nails"
+},
+"ragged": false,
+"link": "Rune brutal"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bane arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "80",
+"s": null,
+"c": []
+},
+{
+"t": "262.5",
+"s": null,
+"c": []
+},
+{
+"t": "1,043",
+"s": null,
+"c": []
+},
+{
+"t": "15,645 Bane arrowheads 15,645 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "6,445,740",
+"s": "6445740",
+"c": []
+},
+{
+"t": "1,720,950",
+"s": "1720950",
+"c": []
+},
+{
+"t": "−4,724,790",
+"s": "-4724790",
+"c": []
+},
+{
+"t": "−17.26",
+"s": "-17.257142857143",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bane arrowheads",
+"Headless shaft"
+],
+"text": "15,645 Bane arrowheads 15,645 Headless shaft"
+},
+"ragged": false,
+"link": "Bane arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Elder rune arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "90",
+"s": null,
+"c": []
+},
+{
+"t": "281.3",
+"s": null,
+"c": []
+},
+{
+"t": "974",
+"s": null,
+"c": []
+},
+{
+"t": "14,610 Elder rune arrowheads 14,610 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "7,918,620",
+"s": "7918620",
+"c": []
+},
+{
+"t": "2,206,110",
+"s": "2206110",
+"c": []
+},
+{
+"t": "−5,712,510",
+"s": "-5712510",
+"c": []
+},
+{
+"t": "−20.85",
+"s": "-20.849626733025",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Elder rune arrowheads",
+"Headless shaft"
+],
+"text": "14,610 Elder rune arrowheads 14,610 Headless shaft"
+},
+"ragged": false,
+"link": "Elder rune arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Black stone arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "92",
+"s": null,
+"c": []
+},
+{
+"t": "189",
+"s": null,
+"c": []
+},
+{
+"t": "1,449",
+"s": null,
+"c": []
+},
+{
+"t": "21,735 Black stone arrow tips 21,735 Elder headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "103,936,770",
+"s": "103936770",
+"c": []
+},
+{
+"t": "100,002,735",
+"s": "100002735",
+"c": []
+},
+{
+"t": "−3,934,035",
+"s": "-3934035",
+"c": []
+},
+{
+"t": "−14.37",
+"s": "-14.365079365079",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Black stone arrow tips",
+"Elder headless shaft"
+],
+"text": "21,735 Black stone arrow tips 21,735 Elder headless shaft"
+},
+"ragged": false,
+"link": "Black stone arrows"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Dark arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "262.5",
+"s": null,
+"c": []
+},
+{
+"t": "1,043",
+"s": null,
+"c": []
+},
+{
+"t": "15,645 Dark arrowheads 15,645 Headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "6,148,485",
+"s": "6148485",
+"c": []
+},
+{
+"t": "891,765",
+"s": "891765",
+"c": []
+},
+{
+"t": "−5,256,720",
+"s": "-5256720",
+"c": []
+},
+{
+"t": "−19.2",
+"s": "-19.2",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dark arrowheads",
+"Headless shaft"
+],
+"text": "15,645 Dark arrowheads 15,645 Headless shaft"
+},
+"ragged": false,
+"link": "Dark arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Stalker arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "262.5",
+"s": null,
+"c": []
+},
+{
+"t": "1,043",
+"s": null,
+"c": []
+},
+{
+"t": "15,645 Dark arrow 15,645 Stalker essence",
+"s": null,
+"c": []
+},
+{
+"t": "8,714,265",
+"s": "8714265",
+"c": []
+},
+{
+"t": "1,642,725",
+"s": "1642725",
+"c": []
+},
+{
+"t": "−7,071,540",
+"s": "-7071540",
+"c": []
+},
+{
+"t": "−25.83",
+"s": "-25.828571428571",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dark arrow",
+"Stalker essence"
+],
+"text": "15,645 Dark arrow 15,645 Stalker essence"
+},
+"ragged": false,
+"link": "Stalker arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bik arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "285",
+"s": null,
+"c": []
+},
+{
+"t": "961",
+"s": null,
+"c": []
+},
+{
+"t": "14,415 Dinarrow 43,245 Resonant anima of Bik (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "15,712,350",
+"s": "15712350",
+"c": []
+},
+{
+"t": "9,297,675",
+"s": "9297675",
+"c": []
+},
+{
+"t": "−6,414,675",
+"s": "-6414675",
+"c": []
+},
+{
+"t": "−23.42",
+"s": "-23.421052631579",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Bik (tradeable)"
+],
+"text": "14,415 Dinarrow 43,245 Resonant anima of Bik (tradeable)"
+},
+"ragged": false,
+"link": "Bik arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Ful arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "285",
+"s": null,
+"c": []
+},
+{
+"t": "961",
+"s": null,
+"c": []
+},
+{
+"t": "14,415 Dinarrow 43,245 Resonant anima of Ful (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "16,144,800",
+"s": "16144800",
+"c": []
+},
+{
+"t": "18,018,750",
+"s": "18018750",
+"c": []
+},
+{
+"t": "1,873,950",
+"s": "1873950",
+"c": []
+},
+{
+"t": "6.84",
+"s": "6.8421052631579",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Ful (tradeable)"
+],
+"text": "14,415 Dinarrow 43,245 Resonant anima of Ful (tradeable)"
+},
+"ragged": false,
+"link": "Ful arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Jas dragonbane arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "285",
+"s": null,
+"c": []
+},
+{
+"t": "961",
+"s": null,
+"c": []
+},
+{
+"t": "14,415 Dinarrow 43,245 Resonant anima of Jas (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "17,312,415",
+"s": "17312415",
+"c": []
+},
+{
+"t": "18,407,955",
+"s": "18407955",
+"c": []
+},
+{
+"t": "1,095,540",
+"s": "1095540",
+"c": []
+},
+{
+"t": "4",
+"s": "4",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Jas (tradeable)"
+],
+"text": "14,415 Dinarrow 43,245 Resonant anima of Jas (tradeable)"
+},
+"ragged": false,
+"link": "Jas dragonbane arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Wen arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "285",
+"s": null,
+"c": []
+},
+{
+"t": "961",
+"s": null,
+"c": []
+},
+{
+"t": "14,415 Dinarrow 43,245 Resonant anima of Wen (tradeable)",
+"s": null,
+"c": []
+},
+{
+"t": "15,971,820",
+"s": "15971820",
+"c": []
+},
+{
+"t": "14,299,680",
+"s": "14299680",
+"c": []
+},
+{
+"t": "−1,672,140",
+"s": "-1672140",
+"c": []
+},
+{
+"t": "−6.11",
+"s": "-6.1052631578947",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dinarrow",
+"Resonant anima of Wen (tradeable)"
+],
+"text": "14,415 Dinarrow 43,245 Resonant anima of Wen (tradeable)"
+},
+"ragged": false,
+"link": "Wen arrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Deathspore arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "300",
+"s": null,
+"c": []
+},
+{
+"t": "913",
+"s": null,
+"c": []
+},
+{
+"t": "13,695 Deathspore arrow tips 13,695 Elder headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "12,654,180",
+"s": "12654180",
+"c": []
+},
+{
+"t": "5,491,695",
+"s": "5491695",
+"c": []
+},
+{
+"t": "−7,162,485",
+"s": "-7162485",
+"c": []
+},
+{
+"t": "−26.15",
+"s": "-26.15",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Deathspore arrow tips",
+"Elder headless shaft"
+],
+"text": "13,695 Deathspore arrow tips 13,695 Elder headless shaft"
+},
+"ragged": false,
+"link": "Deathspore arrows"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Splintering arrows × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "300",
+"s": null,
+"c": []
+},
+{
+"t": "913",
+"s": null,
+"c": []
+},
+{
+"t": "13,695 Splintering arrow tips 13,695 Elder headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "12,517,230",
+"s": "12517230",
+"c": []
+},
+{
+"t": "1,889,910",
+"s": "1889910",
+"c": []
+},
+{
+"t": "−10,627,320",
+"s": "-10627320",
+"c": []
+},
+{
+"t": "−38.8",
+"s": "-38.8",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Splintering arrow tips",
+"Elder headless shaft"
+],
+"text": "13,695 Splintering arrow tips 13,695 Elder headless shaft"
+},
+"ragged": false,
+"link": "Splintering arrows"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Dinarrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "300",
+"s": null,
+"c": []
+},
+{
+"t": "913",
+"s": null,
+"c": []
+},
+{
+"t": "13,695 Sharp shell shard 13,695 Headless dinarrow",
+"s": null,
+"c": []
+},
+{
+"t": "24,377,100",
+"s": "24377100",
+"c": []
+},
+{
+"t": "14,886,465",
+"s": "14886465",
+"c": []
+},
+{
+"t": "−9,490,635",
+"s": "-9490635",
+"c": []
+},
+{
+"t": "−34.65",
+"s": "-34.65",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Sharp shell shard",
+"Headless dinarrow"
+],
+"text": "13,695 Sharp shell shard 13,695 Headless dinarrow"
+},
+"ragged": false,
+"link": "Dinarrow"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Primal arrow × 15",
+"s": null,
+"c": []
+},
+{
+"t": "100",
+"s": null,
+"c": []
+},
+{
+"t": "300",
+"s": null,
+"c": []
+},
+{
+"t": "913",
+"s": null,
+"c": []
+},
+{
+"t": "13,695 Primal arrowheads 13,695 Eternal magic headless shaft",
+"s": null,
+"c": []
+},
+{
+"t": "12,489,840",
+"s": "12489840",
+"c": []
+},
+{
+"t": "1,944,690",
+"s": "1944690",
+"c": []
+},
+{
+"t": "−10,545,150",
+"s": "-10545150",
+"c": []
+},
+{
+"t": "−38.5",
+"s": "-38.5",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Primal arrowheads",
+"Eternal magic headless shaft"
+],
+"text": "13,695 Primal arrowheads 13,695 Eternal magic headless shaft"
+},
+"ragged": false,
+"link": "Primal arrow"
+}
+],
+"name": "portable Yes then No again: brooch hidden, \"No effect\" sent",
+"submission": [
+[
+"name",
+""
+],
+[
+"currToggle",
+"Experience"
+],
+[
+"current",
+"1"
+],
+[
+"goalToggle",
+"Level"
+],
+[
+"goal",
+"60"
+],
+[
+"avatar",
+"0"
+],
+[
+"outfit",
+"0"
+],
+[
+"custom",
+"0"
+],
+[
+"portable",
+"No"
+],
+[
+"workroom",
+"No"
+],
+[
+"disp",
+"Arrows"
+],
+[
+"skill",
+"Fletching"
+],
+[
+"bxp",
+"0"
+],
+[
+"brooch_no_effect",
+"No effect"
+],
+[
+"dxp",
+"0"
+]
+]
+},
+{
+"message": "To train Fletching from 1 experience (level 1) to 1,986,068 experience (level 80), 1,936,067 experience is required. Name Level XP # needed Materials Raw cost Product cost Profit/Loss Profit/XP Bronze bolts × 10 3 10.3 187,968 1,879,680 Feather 1,879,680 Bronze bolts (unf) 105,262,080 159,772,800 54,510,720 28.16 Opal bolts × 10 11 32.8 59,027 590,270 Opal bolt tips 590,270 Bronze bolts 93,852,930 11,215,130 −82,637,800 −42.68 Iron bolts × 10 13 30.7 63,065 630,650 Feather 630,650 Iron bolts (unf) 19,550,150 39,100,300 19,550,150 10.1 Steel bolts × 10 23 71.8 26,965 269,650 Feather 269,650 Steel bolts (unf) 8,359,150 9,168,100 808,950 0.42 Blurite bolts × 10 24 20.5 94,443 944,430 Feather 944,430 Blurite bolts (unf) 10,388,730 - −10,388,730 −5.37 Jade bolts × 10 26 49.2 39,351 393,510 Jade bolt tips 393,510 Blurite bolts 110,182,800 - −110,182,800 −56.91 Kebbit bolts × 6 32 10.3 187,968 187,968 Kebbit spike 21,052,416 63,157,248 42,104,832 21.75 Mithril bolts × 10 33 102.5 18,889 188,890 Feather 188,890 Mithril bolts (unf) 9,066,720 6,233,370 −2,833,350 −1.46 Pearl bolts × 10 41 65.6 29,514 295,140 Pearl bolt tips 295,140 Iron bolts 84,410,040 38,073,060 −46,336,980 −23.93 Silver bolts × 10 43 51.2 37,814 378,140 Feather 378,140 Silver bolts (unf) 9,075,360 21,175,840 12,100,480 6.25 Adamant bolts × 10 43 143.5 13,492 134,920 Feather 134,920 Adamant bolts (unf) 13,087,240 6,476,160 −6,611,080 −3.41 Topaz bolts × 10 48 79.9 24,232 242,320 Topaz bolt tips 242,320 Feather 242,320 Steel bolts 70,757,440 31,986,240 −38,771,200 −20.03 Barbed bolts × 10 51 194.7 9,944 99,440 Barbed bolt tips 99,440 Bronze bolts 20,285,760 10,341,760 −9,944,000 −5.14 Rune bolts × 10 53 205 9,445 94,450 Feather 94,450 Rune bolts (unf) 17,756,600 7,933,800 −9,822,800 −5.07 Broad-tipped bolts × 10 55 61.5 31,481 314,810 Feather 314,810 Unfinished broad bolts 3,462,910 16,684,930 13,222,020 6.83 Sapphire bolts × 10 56 96.4 20,084 200,840 Sapphire bolt tips 200,840 Mithril bolts 15,665,520 7,029,400 −8,636,120 −4.46 Emerald bolts × 10 58 112.7 17,179 171,790 Emerald bolt tips 171,790 Mithril bolts 18,896,900 15,117,520 −3,779,380 −1.95 Fragment bolts × 10 60 10.3 187,968 1,879,680 Bronze bolts 1,879,680 Ascension fragment 159,772,800 - −159,772,800 −82.52 Ruby bolts × 10 63 129.1 14,997 149,970 Ruby bolt tips 149,970 Adamant bolts 17,246,550 13,947,210 −3,299,340 −1.7 Orikalkum bolts × 10 63 230.6 8,396 83,960 Orikalkum bolts (unf) 83,960 Feather 16,372,200 8,899,760 −7,472,440 −3.86 Diamond bolts × 10 65 143.5 13,492 134,920 Diamond bolt tips 134,920 Adamant bolts 19,968,160 24,285,600 4,317,440 2.23 Dragon bolts × 10 71 168.1 11,518 115,180 Dragonstone bolt tips 115,180 Rune bolts 31,444,140 43,768,400 12,324,260 6.37 Onyx bolts × 10 73 192.7 10,048 100,480 Onyx bolt tips 100,480 Rune bolts 740,035,200 632,119,680 −107,915,520 −55.73 Necronium bolts × 10 73 256.3 7,554 75,540 Necronium bolts (unf) 75,540 Feather 14,201,520 7,025,220 −7,176,300 −3.71 Ascendri bolts × 10 80 217.3 8,910 89,100 Hydrix bolt tips 89,100 Ascension bolts 869,972,400 698,454,900 −171,517,500 −88.59 Long kebbit bolts × 6 83 16.2 119,511 119,511 Long kebbit spike 18,524,205 43,023,960 24,499,755 12.65 Bane bolts × 10 83 281.9 6,868 68,680 Bane bolts (unf) 68,680 Feather 28,914,280 11,194,840 −17,719,440 −9.15 Sapphire bakriminel bolts × 10 90 235.7 8,215 82,150 Bakriminel bolts 82,150 Sapphire bolt tips 47,975,600 47,482,700 −492,900 −0.25 Ascension bolts × 10 90 410 4,723 47,230 Ascension shard 93,515,400 63,760,500 −29,754,900 −15.37 Jade bakriminel bolts × 10 91 237.8 8,142 81,420 Bakriminel bolts 81,420 Jade bolt tips 66,682,980 53,167,260 −13,515,720 −6.98 Pearl bakriminel bolts × 10 92 239.8 8,074 80,740 Bakriminel bolts 80,740 Pearl bolt tips 61,604,620 46,102,540 −15,502,080 −8.01 Emerald bakriminel bolts × 10 93 241.9 8,004 80,040 Bakriminel bolts 80,040 Emerald bolt tips 49,304,640 27,453,720 −21,850,920 −11.29 Bakriminel bolt × 10 93 266.5 7,265 72,650 Bakriminel bolt tips 72,650 Bakriminel bolt shafts - 39,158,350 39,158,350 20.23 Elder rune bolts × 10 93 307.5 6,297 62,970 Elder rune bolts (unf) 62,970 Feather 35,326,170 10,578,960 −24,747,210 −12.78 Red topaz bakriminel bolts × 10 94 244 7,935 79,350 Bakriminel bolts 79,350 Topaz bolt tips 65,067,000 56,735,250 −8,331,750 −4.3 Ruby bakriminel bolts × 10 95 246 7,871 78,710 Bakriminel bolts 78,710 Ruby bolt tips 47,698,260 26,840,110 −20,858,150 −10.77 Diamond bakriminel bolts × 10 96 248.1 7,804 78,040 Bakriminel bolts 78,040 Diamond bolt tips 49,867,560 24,426,520 −25,441,040 −13.14 Dragonstone bakriminel bolts × 10 97 254.2 7,617 76,170 Bakriminel bolts 76,170 Dragonstone bolt tips 55,451,760 23,917,380 −31,534,380 −16.29 Onyx bakriminel bolts × 10 98 256.3 7,554 75,540 Bakriminel bolts 75,540 Onyx bolt tips 590,722,800 433,901,760 −156,821,040 −81 Hydrix bakriminel bolts × 10 99 258.3 7,496 74,960 Bakriminel bolts 74,960 Hydrix bolt tips 671,116,880 475,996,000 −195,120,880 −100.77 Primal bolts × 10 103 333.1 5,813 58,130 Primal bolts (unf) 58,130 Feather 42,551,160 8,661,370 −33,889,790 −17.5",
+"head": [
+"",
+"Name",
+"Level",
+"XP",
+"# needed",
+"Materials",
+"Raw cost",
+"Product cost",
+"Profit/Loss",
+"Profit/XP",
+""
+],
+"rows": [
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bronze bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "3",
+"s": null,
+"c": []
+},
+{
+"t": "10.3",
+"s": null,
+"c": []
+},
+{
+"t": "187,968",
+"s": null,
+"c": []
+},
+{
+"t": "1,879,680 Feather 1,879,680 Bronze bolts (unf)",
+"s": null,
+"c": []
+},
+{
+"t": "105,262,080",
+"s": "105262080",
+"c": []
+},
+{
+"t": "159,772,800",
+"s": "159772800",
+"c": []
+},
+{
+"t": "54,510,720",
+"s": "54510720",
+"c": []
+},
+{
+"t": "28.16",
+"s": "28.155339805825",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Feather",
+"Bronze bolts (unf)"
+],
+"text": "1,879,680 Feather 1,879,680 Bronze bolts (unf)"
+},
+"ragged": false,
+"link": "Bronze bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Opal bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "11",
+"s": null,
+"c": []
+},
+{
+"t": "32.8",
+"s": null,
+"c": []
+},
+{
+"t": "59,027",
+"s": null,
+"c": []
+},
+{
+"t": "590,270 Opal bolt tips 590,270 Bronze bolts",
+"s": null,
+"c": []
+},
+{
+"t": "93,852,930",
+"s": "93852930",
+"c": []
+},
+{
+"t": "11,215,130",
+"s": "11215130",
+"c": []
+},
+{
+"t": "−82,637,800",
+"s": "-82637800",
+"c": []
+},
+{
+"t": "−42.68",
+"s": "-42.682926829268",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Opal bolt tips",
+"Bronze bolts"
+],
+"text": "590,270 Opal bolt tips 590,270 Bronze bolts"
+},
+"ragged": false,
+"link": "Opal bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Iron bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "13",
+"s": null,
+"c": []
+},
+{
+"t": "30.7",
+"s": null,
+"c": []
+},
+{
+"t": "63,065",
+"s": null,
+"c": []
+},
+{
+"t": "630,650 Feather 630,650 Iron bolts (unf)",
+"s": null,
+"c": []
+},
+{
+"t": "19,550,150",
+"s": "19550150",
+"c": []
+},
+{
+"t": "39,100,300",
+"s": "39100300",
+"c": []
+},
+{
+"t": "19,550,150",
+"s": "19550150",
+"c": []
+},
+{
+"t": "10.1",
+"s": "10.097719869707",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Feather",
+"Iron bolts (unf)"
+],
+"text": "630,650 Feather 630,650 Iron bolts (unf)"
+},
+"ragged": false,
+"link": "Iron bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Steel bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "23",
+"s": null,
+"c": []
+},
+{
+"t": "71.8",
+"s": null,
+"c": []
+},
+{
+"t": "26,965",
+"s": null,
+"c": []
+},
+{
+"t": "269,650 Feather 269,650 Steel bolts (unf)",
+"s": null,
+"c": []
+},
+{
+"t": "8,359,150",
+"s": "8359150",
+"c": []
+},
+{
+"t": "9,168,100",
+"s": "9168100",
+"c": []
+},
+{
+"t": "808,950",
+"s": "808950",
+"c": []
+},
+{
+"t": "0.42",
+"s": "0.41782729805014",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Feather",
+"Steel bolts (unf)"
+],
+"text": "269,650 Feather 269,650 Steel bolts (unf)"
+},
+"ragged": false,
+"link": "Steel bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Blurite bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "24",
+"s": null,
+"c": []
+},
+{
+"t": "20.5",
+"s": null,
+"c": []
+},
+{
+"t": "94,443",
+"s": null,
+"c": []
+},
+{
+"t": "944,430 Feather 944,430 Blurite bolts (unf)",
+"s": null,
+"c": []
+},
+{
+"t": "10,388,730",
+"s": "10388730",
+"c": []
+},
+{
+"t": "-",
+"s": "-1000000000",
+"c": [
+"sortbottom"
+]
+},
+{
+"t": "−10,388,730",
+"s": "-10388730",
+"c": []
+},
+{
+"t": "−5.37",
+"s": "-5.3658536585366",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Feather",
+"Blurite bolts (unf)"
+],
+"text": "944,430 Feather 944,430 Blurite bolts (unf)"
+},
+"ragged": false,
+"link": "Blurite bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Jade bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "26",
+"s": null,
+"c": []
+},
+{
+"t": "49.2",
+"s": null,
+"c": []
+},
+{
+"t": "39,351",
+"s": null,
+"c": []
+},
+{
+"t": "393,510 Jade bolt tips 393,510 Blurite bolts",
+"s": null,
+"c": []
+},
+{
+"t": "110,182,800",
+"s": "110182800",
+"c": []
+},
+{
+"t": "-",
+"s": "-1000000000",
+"c": [
+"sortbottom"
+]
+},
+{
+"t": "−110,182,800",
+"s": "-110182800",
+"c": []
+},
+{
+"t": "−56.91",
+"s": "-56.910569105691",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Jade bolt tips",
+"Blurite bolts"
+],
+"text": "393,510 Jade bolt tips 393,510 Blurite bolts"
+},
+"ragged": false,
+"link": "Jade bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Kebbit bolts × 6",
+"s": null,
+"c": []
+},
+{
+"t": "32",
+"s": null,
+"c": []
+},
+{
+"t": "10.3",
+"s": null,
+"c": []
+},
+{
+"t": "187,968",
+"s": null,
+"c": []
+},
+{
+"t": "187,968 Kebbit spike",
+"s": null,
+"c": []
+},
+{
+"t": "21,052,416",
+"s": "21052416",
+"c": []
+},
+{
+"t": "63,157,248",
+"s": "63157248",
+"c": []
+},
+{
+"t": "42,104,832",
+"s": "42104832",
+"c": []
+},
+{
+"t": "21.75",
+"s": "21.747572815534",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Kebbit spike"
+],
+"text": "187,968 Kebbit spike"
+},
+"ragged": false,
+"link": "Kebbit bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Mithril bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "33",
+"s": null,
+"c": []
+},
+{
+"t": "102.5",
+"s": null,
+"c": []
+},
+{
+"t": "18,889",
+"s": null,
+"c": []
+},
+{
+"t": "188,890 Feather 188,890 Mithril bolts (unf)",
+"s": null,
+"c": []
+},
+{
+"t": "9,066,720",
+"s": "9066720",
+"c": []
+},
+{
+"t": "6,233,370",
+"s": "6233370",
+"c": []
+},
+{
+"t": "−2,833,350",
+"s": "-2833350",
+"c": []
+},
+{
+"t": "−1.46",
+"s": "-1.4634146341463",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Feather",
+"Mithril bolts (unf)"
+],
+"text": "188,890 Feather 188,890 Mithril bolts (unf)"
+},
+"ragged": false,
+"link": "Mithril bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Pearl bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "41",
+"s": null,
+"c": []
+},
+{
+"t": "65.6",
+"s": null,
+"c": []
+},
+{
+"t": "29,514",
+"s": null,
+"c": []
+},
+{
+"t": "295,140 Pearl bolt tips 295,140 Iron bolts",
+"s": null,
+"c": []
+},
+{
+"t": "84,410,040",
+"s": "84410040",
+"c": []
+},
+{
+"t": "38,073,060",
+"s": "38073060",
+"c": []
+},
+{
+"t": "−46,336,980",
+"s": "-46336980",
+"c": []
+},
+{
+"t": "−23.93",
+"s": "-23.932926829268",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Pearl bolt tips",
+"Iron bolts"
+],
+"text": "295,140 Pearl bolt tips 295,140 Iron bolts"
+},
+"ragged": false,
+"link": "Pearl bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Silver bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "43",
+"s": null,
+"c": []
+},
+{
+"t": "51.2",
+"s": null,
+"c": []
+},
+{
+"t": "37,814",
+"s": null,
+"c": []
+},
+{
+"t": "378,140 Feather 378,140 Silver bolts (unf)",
+"s": null,
+"c": []
+},
+{
+"t": "9,075,360",
+"s": "9075360",
+"c": []
+},
+{
+"t": "21,175,840",
+"s": "21175840",
+"c": []
+},
+{
+"t": "12,100,480",
+"s": "12100480",
+"c": []
+},
+{
+"t": "6.25",
+"s": "6.25",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Feather",
+"Silver bolts (unf)"
+],
+"text": "378,140 Feather 378,140 Silver bolts (unf)"
+},
+"ragged": false,
+"link": "Silver bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Adamant bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "43",
+"s": null,
+"c": []
+},
+{
+"t": "143.5",
+"s": null,
+"c": []
+},
+{
+"t": "13,492",
+"s": null,
+"c": []
+},
+{
+"t": "134,920 Feather 134,920 Adamant bolts (unf)",
+"s": null,
+"c": []
+},
+{
+"t": "13,087,240",
+"s": "13087240",
+"c": []
+},
+{
+"t": "6,476,160",
+"s": "6476160",
+"c": []
+},
+{
+"t": "−6,611,080",
+"s": "-6611080",
+"c": []
+},
+{
+"t": "−3.41",
+"s": "-3.4146341463415",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Feather",
+"Adamant bolts (unf)"
+],
+"text": "134,920 Feather 134,920 Adamant bolts (unf)"
+},
+"ragged": false,
+"link": "Adamant bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Topaz bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "48",
+"s": null,
+"c": []
+},
+{
+"t": "79.9",
+"s": null,
+"c": []
+},
+{
+"t": "24,232",
+"s": null,
+"c": []
+},
+{
+"t": "242,320 Topaz bolt tips 242,320 Feather 242,320 Steel bolts",
+"s": null,
+"c": []
+},
+{
+"t": "70,757,440",
+"s": "70757440",
+"c": []
+},
+{
+"t": "31,986,240",
+"s": "31986240",
+"c": []
+},
+{
+"t": "−38,771,200",
+"s": "-38771200",
+"c": []
+},
+{
+"t": "−20.03",
+"s": "-20.025031289111",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Topaz bolt tips",
+"Feather",
+"Steel bolts"
+],
+"text": "242,320 Topaz bolt tips 242,320 Feather 242,320 Steel bolts"
+},
+"ragged": false,
+"link": "Topaz bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Barbed bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "51",
+"s": null,
+"c": []
+},
+{
+"t": "194.7",
+"s": null,
+"c": []
+},
+{
+"t": "9,944",
+"s": null,
+"c": []
+},
+{
+"t": "99,440 Barbed bolt tips 99,440 Bronze bolts",
+"s": null,
+"c": []
+},
+{
+"t": "20,285,760",
+"s": "20285760",
+"c": []
+},
+{
+"t": "10,341,760",
+"s": "10341760",
+"c": []
+},
+{
+"t": "−9,944,000",
+"s": "-9944000",
+"c": []
+},
+{
+"t": "−5.14",
+"s": "-5.1361068310221",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Barbed bolt tips",
+"Bronze bolts"
+],
+"text": "99,440 Barbed bolt tips 99,440 Bronze bolts"
+},
+"ragged": false,
+"link": "Barbed bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Rune bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "53",
+"s": null,
+"c": []
+},
+{
+"t": "205",
+"s": null,
+"c": []
+},
+{
+"t": "9,445",
+"s": null,
+"c": []
+},
+{
+"t": "94,450 Feather 94,450 Rune bolts (unf)",
+"s": null,
+"c": []
+},
+{
+"t": "17,756,600",
+"s": "17756600",
+"c": []
+},
+{
+"t": "7,933,800",
+"s": "7933800",
+"c": []
+},
+{
+"t": "−9,822,800",
+"s": "-9822800",
+"c": []
+},
+{
+"t": "−5.07",
+"s": "-5.0731707317073",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Feather",
+"Rune bolts (unf)"
+],
+"text": "94,450 Feather 94,450 Rune bolts (unf)"
+},
+"ragged": false,
+"link": "Rune bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Broad-tipped bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "55",
+"s": null,
+"c": []
+},
+{
+"t": "61.5",
+"s": null,
+"c": []
+},
+{
+"t": "31,481",
+"s": null,
+"c": []
+},
+{
+"t": "314,810 Feather 314,810 Unfinished broad bolts",
+"s": null,
+"c": []
+},
+{
+"t": "3,462,910",
+"s": "3462910",
+"c": []
+},
+{
+"t": "16,684,930",
+"s": "16684930",
+"c": []
+},
+{
+"t": "13,222,020",
+"s": "13222020",
+"c": []
+},
+{
+"t": "6.83",
+"s": "6.8292682926829",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Feather",
+"Unfinished broad bolts"
+],
+"text": "314,810 Feather 314,810 Unfinished broad bolts"
+},
+"ragged": false,
+"link": "Broad-tipped bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Sapphire bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "56",
+"s": null,
+"c": []
+},
+{
+"t": "96.4",
+"s": null,
+"c": []
+},
+{
+"t": "20,084",
+"s": null,
+"c": []
+},
+{
+"t": "200,840 Sapphire bolt tips 200,840 Mithril bolts",
+"s": null,
+"c": []
+},
+{
+"t": "15,665,520",
+"s": "15665520",
+"c": []
+},
+{
+"t": "7,029,400",
+"s": "7029400",
+"c": []
+},
+{
+"t": "−8,636,120",
+"s": "-8636120",
+"c": []
+},
+{
+"t": "−4.46",
+"s": "-4.4605809128631",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Sapphire bolt tips",
+"Mithril bolts"
+],
+"text": "200,840 Sapphire bolt tips 200,840 Mithril bolts"
+},
+"ragged": false,
+"link": "Sapphire bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Emerald bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "58",
+"s": null,
+"c": []
+},
+{
+"t": "112.7",
+"s": null,
+"c": []
+},
+{
+"t": "17,179",
+"s": null,
+"c": []
+},
+{
+"t": "171,790 Emerald bolt tips 171,790 Mithril bolts",
+"s": null,
+"c": []
+},
+{
+"t": "18,896,900",
+"s": "18896900",
+"c": []
+},
+{
+"t": "15,117,520",
+"s": "15117520",
+"c": []
+},
+{
+"t": "−3,779,380",
+"s": "-3779380",
+"c": []
+},
+{
+"t": "−1.95",
+"s": "-1.9520851818988",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Emerald bolt tips",
+"Mithril bolts"
+],
+"text": "171,790 Emerald bolt tips 171,790 Mithril bolts"
+},
+"ragged": false,
+"link": "Emerald bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Fragment bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "60",
+"s": null,
+"c": []
+},
+{
+"t": "10.3",
+"s": null,
+"c": []
+},
+{
+"t": "187,968",
+"s": null,
+"c": []
+},
+{
+"t": "1,879,680 Bronze bolts 1,879,680 Ascension fragment",
+"s": null,
+"c": []
+},
+{
+"t": "159,772,800",
+"s": "159772800",
+"c": []
+},
+{
+"t": "-",
+"s": "-1000000000",
+"c": [
+"sortbottom"
+]
+},
+{
+"t": "−159,772,800",
+"s": "-159772800",
+"c": []
+},
+{
+"t": "−82.52",
+"s": "-82.52427184466",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bronze bolts",
+"Ascension fragment"
+],
+"text": "1,879,680 Bronze bolts 1,879,680 Ascension fragment"
+},
+"ragged": false,
+"link": "Fragment bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Ruby bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "63",
+"s": null,
+"c": []
+},
+{
+"t": "129.1",
+"s": null,
+"c": []
+},
+{
+"t": "14,997",
+"s": null,
+"c": []
+},
+{
+"t": "149,970 Ruby bolt tips 149,970 Adamant bolts",
+"s": null,
+"c": []
+},
+{
+"t": "17,246,550",
+"s": "17246550",
+"c": []
+},
+{
+"t": "13,947,210",
+"s": "13947210",
+"c": []
+},
+{
+"t": "−3,299,340",
+"s": "-3299340",
+"c": []
+},
+{
+"t": "−1.7",
+"s": "-1.704105344694",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Ruby bolt tips",
+"Adamant bolts"
+],
+"text": "149,970 Ruby bolt tips 149,970 Adamant bolts"
+},
+"ragged": false,
+"link": "Ruby bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Orikalkum bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "63",
+"s": null,
+"c": []
+},
+{
+"t": "230.6",
+"s": null,
+"c": []
+},
+{
+"t": "8,396",
+"s": null,
+"c": []
+},
+{
+"t": "83,960 Orikalkum bolts (unf) 83,960 Feather",
+"s": null,
+"c": []
+},
+{
+"t": "16,372,200",
+"s": "16372200",
+"c": []
+},
+{
+"t": "8,899,760",
+"s": "8899760",
+"c": []
+},
+{
+"t": "−7,472,440",
+"s": "-7472440",
+"c": []
+},
+{
+"t": "−3.86",
+"s": "-3.8594969644406",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Orikalkum bolts (unf)",
+"Feather"
+],
+"text": "83,960 Orikalkum bolts (unf) 83,960 Feather"
+},
+"ragged": false,
+"link": "Orikalkum bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Diamond bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "65",
+"s": null,
+"c": []
+},
+{
+"t": "143.5",
+"s": null,
+"c": []
+},
+{
+"t": "13,492",
+"s": null,
+"c": []
+},
+{
+"t": "134,920 Diamond bolt tips 134,920 Adamant bolts",
+"s": null,
+"c": []
+},
+{
+"t": "19,968,160",
+"s": "19968160",
+"c": []
+},
+{
+"t": "24,285,600",
+"s": "24285600",
+"c": []
+},
+{
+"t": "4,317,440",
+"s": "4317440",
+"c": []
+},
+{
+"t": "2.23",
+"s": "2.2299651567944",
+"c": []
+},
+{
+"t": "",
+"s": "0",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Diamond bolt tips",
+"Adamant bolts"
+],
+"text": "134,920 Diamond bolt tips 134,920 Adamant bolts"
+},
+"ragged": false,
+"link": "Diamond bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Dragon bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "71",
+"s": null,
+"c": []
+},
+{
+"t": "168.1",
+"s": null,
+"c": []
+},
+{
+"t": "11,518",
+"s": null,
+"c": []
+},
+{
+"t": "115,180 Dragonstone bolt tips 115,180 Rune bolts",
+"s": null,
+"c": []
+},
+{
+"t": "31,444,140",
+"s": "31444140",
+"c": []
+},
+{
+"t": "43,768,400",
+"s": "43768400",
+"c": []
+},
+{
+"t": "12,324,260",
+"s": "12324260",
+"c": []
+},
+{
+"t": "6.37",
+"s": "6.365258774539",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Dragonstone bolt tips",
+"Rune bolts"
+],
+"text": "115,180 Dragonstone bolt tips 115,180 Rune bolts"
+},
+"ragged": false,
+"link": "Dragon bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Onyx bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "73",
+"s": null,
+"c": []
+},
+{
+"t": "192.7",
+"s": null,
+"c": []
+},
+{
+"t": "10,048",
+"s": null,
+"c": []
+},
+{
+"t": "100,480 Onyx bolt tips 100,480 Rune bolts",
+"s": null,
+"c": []
+},
+{
+"t": "740,035,200",
+"s": "740035200",
+"c": []
+},
+{
+"t": "632,119,680",
+"s": "632119680",
+"c": []
+},
+{
+"t": "−107,915,520",
+"s": "-107915520",
+"c": []
+},
+{
+"t": "−55.73",
+"s": "-55.734302023871",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Onyx bolt tips",
+"Rune bolts"
+],
+"text": "100,480 Onyx bolt tips 100,480 Rune bolts"
+},
+"ragged": false,
+"link": "Onyx bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Necronium bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "73",
+"s": null,
+"c": []
+},
+{
+"t": "256.3",
+"s": null,
+"c": []
+},
+{
+"t": "7,554",
+"s": null,
+"c": []
+},
+{
+"t": "75,540 Necronium bolts (unf) 75,540 Feather",
+"s": null,
+"c": []
+},
+{
+"t": "14,201,520",
+"s": "14201520",
+"c": []
+},
+{
+"t": "7,025,220",
+"s": "7025220",
+"c": []
+},
+{
+"t": "−7,176,300",
+"s": "-7176300",
+"c": []
+},
+{
+"t": "−3.71",
+"s": "-3.7065938353492",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Necronium bolts (unf)",
+"Feather"
+],
+"text": "75,540 Necronium bolts (unf) 75,540 Feather"
+},
+"ragged": false,
+"link": "Necronium bolts"
+},
+{
+"cls": [
+"table-bg-yellow",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Ascendri bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "80",
+"s": null,
+"c": []
+},
+{
+"t": "217.3",
+"s": null,
+"c": []
+},
+{
+"t": "8,910",
+"s": null,
+"c": []
+},
+{
+"t": "89,100 Hydrix bolt tips 89,100 Ascension bolts",
+"s": null,
+"c": []
+},
+{
+"t": "869,972,400",
+"s": "869972400",
+"c": []
+},
+{
+"t": "698,454,900",
+"s": "698454900",
+"c": []
+},
+{
+"t": "−171,517,500",
+"s": "-171517500",
+"c": []
+},
+{
+"t": "−88.59",
+"s": "-88.587206626783",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Hydrix bolt tips",
+"Ascension bolts"
+],
+"text": "89,100 Hydrix bolt tips 89,100 Ascension bolts"
+},
+"ragged": false,
+"link": "Ascendri bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Long kebbit bolts × 6",
+"s": null,
+"c": []
+},
+{
+"t": "83",
+"s": null,
+"c": []
+},
+{
+"t": "16.2",
+"s": null,
+"c": []
+},
+{
+"t": "119,511",
+"s": null,
+"c": []
+},
+{
+"t": "119,511 Long kebbit spike",
+"s": null,
+"c": []
+},
+{
+"t": "18,524,205",
+"s": "18524205",
+"c": []
+},
+{
+"t": "43,023,960",
+"s": "43023960",
+"c": []
+},
+{
+"t": "24,499,755",
+"s": "24499755",
+"c": []
+},
+{
+"t": "12.65",
+"s": "12.654320987654",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Long kebbit spike"
+],
+"text": "119,511 Long kebbit spike"
+},
+"ragged": false,
+"link": "Long kebbit bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bane bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "83",
+"s": null,
+"c": []
+},
+{
+"t": "281.9",
+"s": null,
+"c": []
+},
+{
+"t": "6,868",
+"s": null,
+"c": []
+},
+{
+"t": "68,680 Bane bolts (unf) 68,680 Feather",
+"s": null,
+"c": []
+},
+{
+"t": "28,914,280",
+"s": "28914280",
+"c": []
+},
+{
+"t": "11,194,840",
+"s": "11194840",
+"c": []
+},
+{
+"t": "−17,719,440",
+"s": "-17719440",
+"c": []
+},
+{
+"t": "−9.15",
+"s": "-9.1521816246896",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bane bolts (unf)",
+"Feather"
+],
+"text": "68,680 Bane bolts (unf) 68,680 Feather"
+},
+"ragged": false,
+"link": "Bane bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Sapphire bakriminel bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "90",
+"s": null,
+"c": []
+},
+{
+"t": "235.7",
+"s": null,
+"c": []
+},
+{
+"t": "8,215",
+"s": null,
+"c": []
+},
+{
+"t": "82,150 Bakriminel bolts 82,150 Sapphire bolt tips",
+"s": null,
+"c": []
+},
+{
+"t": "47,975,600",
+"s": "47975600",
+"c": []
+},
+{
+"t": "47,482,700",
+"s": "47482700",
+"c": []
+},
+{
+"t": "−492,900",
+"s": "-492900",
+"c": []
+},
+{
+"t": "−0.25",
+"s": "-0.25456088247773",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bakriminel bolts",
+"Sapphire bolt tips"
+],
+"text": "82,150 Bakriminel bolts 82,150 Sapphire bolt tips"
+},
+"ragged": false,
+"link": "Sapphire bakriminel bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Ascension bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "90",
+"s": null,
+"c": []
+},
+{
+"t": "410",
+"s": null,
+"c": []
+},
+{
+"t": "4,723",
+"s": null,
+"c": []
+},
+{
+"t": "47,230 Ascension shard",
+"s": null,
+"c": []
+},
+{
+"t": "93,515,400",
+"s": "93515400",
+"c": []
+},
+{
+"t": "63,760,500",
+"s": "63760500",
+"c": []
+},
+{
+"t": "−29,754,900",
+"s": "-29754900",
+"c": []
+},
+{
+"t": "−15.37",
+"s": "-15.365853658537",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Ascension shard"
+],
+"text": "47,230 Ascension shard"
+},
+"ragged": false,
+"link": "Ascension bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Jade bakriminel bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "91",
+"s": null,
+"c": []
+},
+{
+"t": "237.8",
+"s": null,
+"c": []
+},
+{
+"t": "8,142",
+"s": null,
+"c": []
+},
+{
+"t": "81,420 Bakriminel bolts 81,420 Jade bolt tips",
+"s": null,
+"c": []
+},
+{
+"t": "66,682,980",
+"s": "66682980",
+"c": []
+},
+{
+"t": "53,167,260",
+"s": "53167260",
+"c": []
+},
+{
+"t": "−13,515,720",
+"s": "-13515720",
+"c": []
+},
+{
+"t": "−6.98",
+"s": "-6.9806560134567",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bakriminel bolts",
+"Jade bolt tips"
+],
+"text": "81,420 Bakriminel bolts 81,420 Jade bolt tips"
+},
+"ragged": false,
+"link": "Jade bakriminel bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Pearl bakriminel bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "92",
+"s": null,
+"c": []
+},
+{
+"t": "239.8",
+"s": null,
+"c": []
+},
+{
+"t": "8,074",
+"s": null,
+"c": []
+},
+{
+"t": "80,740 Bakriminel bolts 80,740 Pearl bolt tips",
+"s": null,
+"c": []
+},
+{
+"t": "61,604,620",
+"s": "61604620",
+"c": []
+},
+{
+"t": "46,102,540",
+"s": "46102540",
+"c": []
+},
+{
+"t": "−15,502,080",
+"s": "-15502080",
+"c": []
+},
+{
+"t": "−8.01",
+"s": "-8.0066722268557",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bakriminel bolts",
+"Pearl bolt tips"
+],
+"text": "80,740 Bakriminel bolts 80,740 Pearl bolt tips"
+},
+"ragged": false,
+"link": "Pearl bakriminel bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Emerald bakriminel bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "93",
+"s": null,
+"c": []
+},
+{
+"t": "241.9",
+"s": null,
+"c": []
+},
+{
+"t": "8,004",
+"s": null,
+"c": []
+},
+{
+"t": "80,040 Bakriminel bolts 80,040 Emerald bolt tips",
+"s": null,
+"c": []
+},
+{
+"t": "49,304,640",
+"s": "49304640",
+"c": []
+},
+{
+"t": "27,453,720",
+"s": "27453720",
+"c": []
+},
+{
+"t": "−21,850,920",
+"s": "-21850920",
+"c": []
+},
+{
+"t": "−11.29",
+"s": "-11.285655229434",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bakriminel bolts",
+"Emerald bolt tips"
+],
+"text": "80,040 Bakriminel bolts 80,040 Emerald bolt tips"
+},
+"ragged": false,
+"link": "Emerald bakriminel bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Bakriminel bolt × 10",
+"s": null,
+"c": []
+},
+{
+"t": "93",
+"s": null,
+"c": []
+},
+{
+"t": "266.5",
+"s": null,
+"c": []
+},
+{
+"t": "7,265",
+"s": null,
+"c": []
+},
+{
+"t": "72,650 Bakriminel bolt tips 72,650 Bakriminel bolt shafts",
+"s": null,
+"c": []
+},
+{
+"t": "-",
+"s": "-1000000000",
+"c": [
+"sortbottom"
+]
+},
+{
+"t": "39,158,350",
+"s": "39158350",
+"c": []
+},
+{
+"t": "39,158,350",
+"s": "39158350",
+"c": []
+},
+{
+"t": "20.23",
+"s": "20.225140712946",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bakriminel bolt tips",
+"Bakriminel bolt shafts"
+],
+"text": "72,650 Bakriminel bolt tips 72,650 Bakriminel bolt shafts"
+},
+"ragged": false,
+"link": "Bakriminel bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Elder rune bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "93",
+"s": null,
+"c": []
+},
+{
+"t": "307.5",
+"s": null,
+"c": []
+},
+{
+"t": "6,297",
+"s": null,
+"c": []
+},
+{
+"t": "62,970 Elder rune bolts (unf) 62,970 Feather",
+"s": null,
+"c": []
+},
+{
+"t": "35,326,170",
+"s": "35326170",
+"c": []
+},
+{
+"t": "10,578,960",
+"s": "10578960",
+"c": []
+},
+{
+"t": "−24,747,210",
+"s": "-24747210",
+"c": []
+},
+{
+"t": "−12.78",
+"s": "-12.780487804878",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Elder rune bolts (unf)",
+"Feather"
+],
+"text": "62,970 Elder rune bolts (unf) 62,970 Feather"
+},
+"ragged": false,
+"link": "Elder rune bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Red topaz bakriminel bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "94",
+"s": null,
+"c": []
+},
+{
+"t": "244",
+"s": null,
+"c": []
+},
+{
+"t": "7,935",
+"s": null,
+"c": []
+},
+{
+"t": "79,350 Bakriminel bolts 79,350 Topaz bolt tips",
+"s": null,
+"c": []
+},
+{
+"t": "65,067,000",
+"s": "65067000",
+"c": []
+},
+{
+"t": "56,735,250",
+"s": "56735250",
+"c": []
+},
+{
+"t": "−8,331,750",
+"s": "-8331750",
+"c": []
+},
+{
+"t": "−4.3",
+"s": "-4.3032786885246",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bakriminel bolts",
+"Topaz bolt tips"
+],
+"text": "79,350 Bakriminel bolts 79,350 Topaz bolt tips"
+},
+"ragged": false,
+"link": "Red topaz bakriminel bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Ruby bakriminel bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "95",
+"s": null,
+"c": []
+},
+{
+"t": "246",
+"s": null,
+"c": []
+},
+{
+"t": "7,871",
+"s": null,
+"c": []
+},
+{
+"t": "78,710 Bakriminel bolts 78,710 Ruby bolt tips",
+"s": null,
+"c": []
+},
+{
+"t": "47,698,260",
+"s": "47698260",
+"c": []
+},
+{
+"t": "26,840,110",
+"s": "26840110",
+"c": []
+},
+{
+"t": "−20,858,150",
+"s": "-20858150",
+"c": []
+},
+{
+"t": "−10.77",
+"s": "-10.772357723577",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bakriminel bolts",
+"Ruby bolt tips"
+],
+"text": "78,710 Bakriminel bolts 78,710 Ruby bolt tips"
+},
+"ragged": false,
+"link": "Ruby bakriminel bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Diamond bakriminel bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "96",
+"s": null,
+"c": []
+},
+{
+"t": "248.1",
+"s": null,
+"c": []
+},
+{
+"t": "7,804",
+"s": null,
+"c": []
+},
+{
+"t": "78,040 Bakriminel bolts 78,040 Diamond bolt tips",
+"s": null,
+"c": []
+},
+{
+"t": "49,867,560",
+"s": "49867560",
+"c": []
+},
+{
+"t": "24,426,520",
+"s": "24426520",
+"c": []
+},
+{
+"t": "−25,441,040",
+"s": "-25441040",
+"c": []
+},
+{
+"t": "−13.14",
+"s": "-13.139862958484",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bakriminel bolts",
+"Diamond bolt tips"
+],
+"text": "78,040 Bakriminel bolts 78,040 Diamond bolt tips"
+},
+"ragged": false,
+"link": "Diamond bakriminel bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Dragonstone bakriminel bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "97",
+"s": null,
+"c": []
+},
+{
+"t": "254.2",
+"s": null,
+"c": []
+},
+{
+"t": "7,617",
+"s": null,
+"c": []
+},
+{
+"t": "76,170 Bakriminel bolts 76,170 Dragonstone bolt tips",
+"s": null,
+"c": []
+},
+{
+"t": "55,451,760",
+"s": "55451760",
+"c": []
+},
+{
+"t": "23,917,380",
+"s": "23917380",
+"c": []
+},
+{
+"t": "−31,534,380",
+"s": "-31534380",
+"c": []
+},
+{
+"t": "−16.29",
+"s": "-16.286388670338",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bakriminel bolts",
+"Dragonstone bolt tips"
+],
+"text": "76,170 Bakriminel bolts 76,170 Dragonstone bolt tips"
+},
+"ragged": false,
+"link": "Dragonstone bakriminel bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Onyx bakriminel bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "98",
+"s": null,
+"c": []
+},
+{
+"t": "256.3",
+"s": null,
+"c": []
+},
+{
+"t": "7,554",
+"s": null,
+"c": []
+},
+{
+"t": "75,540 Bakriminel bolts 75,540 Onyx bolt tips",
+"s": null,
+"c": []
+},
+{
+"t": "590,722,800",
+"s": "590722800",
+"c": []
+},
+{
+"t": "433,901,760",
+"s": "433901760",
+"c": []
+},
+{
+"t": "−156,821,040",
+"s": "-156821040",
+"c": []
+},
+{
+"t": "−81",
+"s": "-80.998829496684",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bakriminel bolts",
+"Onyx bolt tips"
+],
+"text": "75,540 Bakriminel bolts 75,540 Onyx bolt tips"
+},
+"ragged": false,
+"link": "Onyx bakriminel bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Hydrix bakriminel bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "99",
+"s": null,
+"c": []
+},
+{
+"t": "258.3",
+"s": null,
+"c": []
+},
+{
+"t": "7,496",
+"s": null,
+"c": []
+},
+{
+"t": "74,960 Bakriminel bolts 74,960 Hydrix bolt tips",
+"s": null,
+"c": []
+},
+{
+"t": "671,116,880",
+"s": "671116880",
+"c": []
+},
+{
+"t": "475,996,000",
+"s": "475996000",
+"c": []
+},
+{
+"t": "−195,120,880",
+"s": "-195120880",
+"c": []
+},
+{
+"t": "−100.77",
+"s": "-100.77429345722",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Bakriminel bolts",
+"Hydrix bolt tips"
+],
+"text": "74,960 Bakriminel bolts 74,960 Hydrix bolt tips"
+},
+"ragged": false,
+"link": "Hydrix bakriminel bolts"
+},
+{
+"cls": [
+"table-bg-red",
+"sortbottom"
+],
+"cells": [
+{
+"t": "",
+"s": null,
+"c": []
+},
+{
+"t": "Primal bolts × 10",
+"s": null,
+"c": []
+},
+{
+"t": "103",
+"s": null,
+"c": []
+},
+{
+"t": "333.1",
+"s": null,
+"c": []
+},
+{
+"t": "5,813",
+"s": null,
+"c": []
+},
+{
+"t": "58,130 Primal bolts (unf) 58,130 Feather",
+"s": null,
+"c": []
+},
+{
+"t": "42,551,160",
+"s": "42551160",
+"c": []
+},
+{
+"t": "8,661,370",
+"s": "8661370",
+"c": []
+},
+{
+"t": "−33,889,790",
+"s": "-33889790",
+"c": []
+},
+{
+"t": "−17.5",
+"s": "-17.502251576103",
+"c": []
+},
+{
+"t": "",
+"s": "1",
+"c": []
+}
+],
+"mats": {
+"names": [
+"Primal bolts (unf)",
+"Feather"
+],
+"text": "58,130 Primal bolts (unf) 58,130 Feather"
+},
+"ragged": false,
+"link": "Primal bolts"
+}
+],
+"name": "bxp on 50,000 + double XP + workroom, Bolts to 80",
+"submission": [
+[
+"name",
+""
+],
+[
+"currToggle",
+"Experience"
+],
+[
+"current",
+"1"
+],
+[
+"goalToggle",
+"Level"
+],
+[
+"goal",
+"80"
+],
+[
+"avatar",
+"0"
+],
+[
+"outfit",
+"0"
+],
+[
+"custom",
+"0"
+],
+[
+"portable",
+"No"
+],
+[
+"workroom",
+"Yes"
+],
+[
+"disp",
+"Bolts"
+],
+[
+"skill",
+"Fletching"
+],
+[
+"bxp",
+"1"
+],
+[
+"bxpnum",
+"50000"
+],
+[
+"brooch_no_effect",
+"No effect"
+],
+[
+"dxp",
+"1"
+]
+]
+}
+]
 }

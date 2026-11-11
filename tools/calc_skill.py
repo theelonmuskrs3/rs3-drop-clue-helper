@@ -63,17 +63,26 @@ def golden(skill):
     for t, pin in P.items():
         lr = latest(t)[0]
         if lr != pin: sys.exit('%s is now at revision %s, pinned %s: re-read/port it first' % (t, lr, pin))
+    fpath = os.path.join(ROOT, 'tests', slug + '-form-cases.json')
+    form = json.load(open(fpath)) if os.path.exists(fpath) else {'cases': []}
+    subs = json.loads(subprocess.run(['node', os.path.join(ROOT, 'tools', 'skill_form.cjs'), slug], capture_output=True, check=True).stdout) if form['cases'] else []
+    for c, s in zip(form['cases'], subs):
+        got = [x for x in s['submission'] if x[0] != 'name']
+        assert got == c['expected'] and not s['errors'], ('form emulation differs from the hand-derived gadget result', c['name'], got)
     for attempt in range(3):
-        r1, ts1, prices_text = content('Module:GEPrices/data.json'); out = []
+        r1, ts1, prices_text = content('Module:GEPrices/data.json'); out, fout = [], []
         for c in cases:
             res = G.render(list(c['args'].items())); res.update(name=c['name'], args=c['args']); out.append(res)
             print(c['name'], len(res.get('rows', [])), res.get('error', ''), file=sys.stderr); time.sleep(1)
+        for c, s in zip(form['cases'], subs):
+            res = G.render(s['submission']); res.update(name=c['name'], submission=s['submission']); fout.append(res)
+            print('form', c['name'], len(res.get('rows', [])), file=sys.stderr); time.sleep(1)
         if latest('Module:GEPrices/data.json')[0] == r1: break
     else: sys.exit('GEPrices kept changing')
     allp = json.loads(prices_text)
     fx = {'generated': time.strftime('%Y-%m-%d %H:%M %Z'), 'gePricesRevision': r1, 'gePricesTimestamp': ts1, 'pins': P,
           'license': f"Rendered by the RuneScape Wiki ({S['page'][0]}, Module:Skill calc, {S['data'][0]}, Module:GEPrices/data.json); CC BY-NC-SA 3.0",
-          'prices': {n: allp[n] for n in sorted(D['ids']) if isinstance(allp.get(n), (int, float))}, 'cases': out, 'formCases': []}
+          'prices': {n: allp[n] for n in sorted(D['ids']) if isinstance(allp.get(n), (int, float))}, 'cases': out, 'formCases': fout}
     p = os.path.join(ROOT, 'tests', 'fixtures-' + slug + '-golden.json')
     json.dump(fx, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
     print('wrote', p, sum(len(c.get('rows', [])) for c in out), 'rows in', len(out), 'cases; GEPrices revision', r1)

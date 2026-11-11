@@ -570,7 +570,9 @@
        skillCalcCost(row, linePrice) -> the Wiki's per-action and total cost / product / profit arithmetic with any price
          source (Wiki guide prices in tests, live prices in the app); null (never 0) when a needed price is unavailable.
   --------------------------------------------------------------------------------------------- */
-  const SC_VALIDATED = ['Cooking'];
+  const SC_VALIDATED = ['Cooking', 'Fletching'];
+  // options the Wiki module reads that are validated against Wiki goldens, per skill (others are refused)
+  const SC_OPTS = {Fletching: ['dxp', 'portable', 'workroom', 'brooch']};
   /* Module:Yesno */
   function scYn(arg, def) {
     if (arg == null) return def;
@@ -668,15 +670,19 @@
     const skill = args.skill, disp = args.disp;
     if (typeof skill !== 'string' || typeof disp !== 'string') scFail('skill and sub-category are required');
     if (!SC_VALIDATED.includes(skill)) scUnsupported('the ' + skill + ' skill calculator');
+    const okOpts = SC_OPTS[skill] || [];
     for (const k of ['testing', 'dxp', 'torstol', 'elite', 'abyss', 'portable', 'workroom', 'tool', 'wild', 'altar', 'SOCleansing', 'spiritWeaver', 'summoningFocus', 'potion', 'vos', 'aura', 'aot', 'brooch', 'amuletOfOfferings', 'creature', 'equipment'])
-      if (args[k] != null) scUnsupported('option "' + k + '"');
+      if (args[k] != null && !okOpts.includes(k)) scUnsupported('option "' + k + '"');
     let pct = 0, flat = 0;
-    // order of the Wiki module: avatar, then (outside bonusExceptions) extra, outfit, custom
+    // order of the Wiki module: double XP, avatar, then (outside bonusExceptions) extra, outfit, portable, workroom, custom
+    if (scNum(args.dxp) === 1) pct += 1.0;
     if (args.avatar != null && disp !== 'Urns') pct += scBonus({skill, object: 'avatar', pieces: scNum(args.avatar)});
     const bonusExceptions = ['Dungeoneering', 'Blast furnace'];
     if (!scFind(bonusExceptions, disp)) {
       if (args.extra != null) pct += scBonus({skill, category: disp, object: 'extra', item: args.extra});
       if (args.outfit != null) { const n = scNum(args.outfit); if (n == null) scFail('outfit pieces is not a number'); pct += scBonus({skill, object: 'outfit', pieces: n}); }
+      if (scYn(args.portable) === true) pct += scBonus({skill, object: 'portable', pieces: 1});
+      if (scYn(args.workroom) === true) pct += scBonus({skill, object: 'workroom'});
       if (scNum(args.custom) != null) pct += scBonus({skill, category: disp, object: 'custom', item: args.custom});
     }
     // remainingExp
@@ -698,7 +704,7 @@
     let elts = D.elts[skill];
     if (disp === 'Urns') elts = D.elts.Urns;
     else if (skill === 'Cooking' && disp === 'Dungeoneering') elts = D.elts['Cooking-Dungeoneering'];
-    else if (/Dungeoneering - /.test(disp)) scUnsupported('sub-category ' + disp);
+    else if (/Dungeoneering - /.test(disp)) elts = D.elts['Dungeons-Materials'];
     const allowsUrns = disp !== 'Urns';
     let urn = null;
     if (allowsUrns && args.urn != null && args.urn !== 'None') {
@@ -712,12 +718,17 @@
     let headers = elts.slice(), urnColumn = null;
     if (urn) { const i = headers.indexOf('# needed'); if (i >= 0) { headers.splice(i + 1, 0, '# urns'); urnColumn = i + 1; } }
     const rows = src.sorted.map((v, idx) => {
-      const mcount = v.mcount || 1;
+      const mcount = v.mcount != null ? v.mcount : 1;   // Lua: 0 is a real count (the Wiki then prices no ingredient)
       let matLines = [], matPriced = false;
       if (v.material && (v.mtrade !== 0 || (disp === 'Urns' && !v.currency))) { matPriced = true; matLines = scLines(v.material, mcount); }
       let product = null;
       if (v.trade !== 0 && !v.currency) product = {name: v.name, units: 1};
-      if (v.multiplier) scUnsupported('product multiplier');
+      if (product && v.multiplier) product.units = v.multiplier;   // items made per action: product value x multiplier
+      // Fletching at a portable fletcher: ingredients cost 10% less in these sub-categories, 20% with the brooch (args.brooch == "true")
+      let matReduction = 0;
+      if (skill === 'Fletching' && scYn(args.portable) === true && ['Arrows', 'Bolts', 'Darts', 'Bows - Unstrung'].includes(disp)) matReduction = 0.1;
+      if (skill === 'Crafting' && scYn(args.portable) === true) scUnsupported('Crafting portable');
+      if (args.brooch === 'true') matReduction *= 2;
       const brewing = disp === 'Brewing';
       const unitExp = scRound(v.xp * (1 + pct) + flat, 1);
       let needed = 0, urnsNeeded = 0;
@@ -735,8 +746,8 @@
       if (v.material && v.currency) for (let i = 0; i < v.material.length; i++) if (typeof v.material[i] === 'string') { const parts = v.material[i].split(','); listed.push({name: parts.length > 1 ? parts[1] : parts[0], image: parts[0], qty: scNum(v.material[i - 2]), priced: false}); }
       return {idx, item: v, name: v.name, title: v.title || null, level: v.level == null ? null : scRound(v.level, 0), reqLevel: reqLv, cls,
         baseXp: v.xp, unitExp, needed, urnsNeeded, urnColumn: urnColumn != null, members: v.members === 0 || v.members === true,
-        matLines, listed, matPriced, product, brewing, currency: v.currency || null, value: v.value != null ? v.value : null, materialCost: v.materialCost != null ? v.materialCost : null,
-        costCols: !(skill === 'Cooking' && disp === 'Dungeoneering'), urnRow: disp === 'Urns',
+        matLines, listed, matPriced, product, brewing, matReduction, multiplier: v.multiplier || null, currency: v.currency || null, value: v.value != null ? v.value : null, materialCost: v.materialCost != null ? v.materialCost : null,
+        costCols: !(skill === 'Cooking' && disp === 'Dungeoneering') && !/Dungeoneering - /.test(disp), urnRow: disp === 'Urns',
         // eltGenerator builds {images, links, numbers(T.level), ...}: with no level the Lua list ends at the nil, so the Wiki row shows
         // only the picture and name (urns in "All"). The app shows no values for such rows rather than inventing them.
         truncated: disp !== 'Urns' && v.level == null};
@@ -753,7 +764,8 @@
     if (row.currency) { out.prodEach = row.value; out.rawEach = row.materialCost != null ? row.materialCost : 0; }
     else {
       for (const l of row.matLines) { const p = linePrice(l.name, 'mat'); if (p == null) { out.missing.push(l.name); continue; } out.rawEach += Math.floor(p * l.qty); }
-      if (row.product) { const p = linePrice(row.product.name, 'product'); if (p == null) out.missing.push(row.product.name); else out.prodEach = Math.floor(Math.floor(p) * 1 * 1); }
+      if (row.product) { const p = linePrice(row.product.name, 'product'); if (p == null) out.missing.push(row.product.name); else out.prodEach = Math.floor(Math.floor(p) * (row.product.units || 1) * 1 * 1); }
+      if (row.matReduction) out.rawEach = out.rawEach * (1 - row.matReduction);   // not rounded, as on the Wiki
       if (row.brewing) out.prodEach *= 2;
     }
     if (out.missing.length) { out.rawEach = out.prodEach = out.raw = out.prod = out.profit = out.profitPerXp = out.profitEach = null; return out; }
@@ -782,7 +794,7 @@
       if (p.type === 'select') { const opts = p.range.split(/\s*,\s*/); const v = opts.includes(p.def) ? p.def : opts[0]; st.value[p.name] = v; st.togs[p.name] = scToggles(p.rawtogs, v); }
       else if (p.type === 'check') { const r = p.range ? p.range.split(/\s*,\s*/) : null; st.value[p.name] = p.def === 'true' || (r != null && p.def === r[0]); st.togs[p.name] = scToggles(p.rawtogs, 'true'); }
       else if (p.type === 'int') { st.value[p.name] = p.def || '0'; st.togs[p.name] = scToggles(p.rawtogs, 'not0'); }
-      else if (p.type === 'hs' || p.type === 'hidden') st.value[p.name] = p.def;
+      else if (p.type === 'hs' || p.type === 'hidden' || p.type === 'fixed') st.value[p.name] = p.def;
       else scUnsupported('form field type "' + p.type + '"');
     }
     for (const p of form.params) if (st.togs[p.name] && Object.keys(st.togs[p.name]).length) scApplyToggle(form, st, scTogKey(p, st.value[p.name]), st.togs[p.name]);
@@ -821,7 +833,7 @@
     for (const p of form.params) {
       if (!(p.type === 'hidden' || !st.disabled[p.name])) continue;
       let v;
-      if (p.type === 'hidden') v = p.def;
+      if (p.type === 'hidden' || p.type === 'fixed') v = p.def;   // gadget submitForm: fixed and hidden send their default
       else if (p.type === 'check') { v = st.value[p.name]; if (p.range) v = p.range.split(',')[v ? 0 : 1]; else v = String(v); }
       else if (p.type === 'int') { v = String(st.value[p.name]).split(',').join(''); const e = skillFieldError(p, st.value[p.name]); if (e) errors.push(p.label + ': ' + e); }
       else v = String(st.value[p.name]);
