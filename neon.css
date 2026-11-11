@@ -1442,6 +1442,8 @@ th[aria-sort=ascending] .fd-arrow,th[aria-sort=descending] .fd-arrow{color:var(-
 .fd-prices .fd-unk{color:var(--muted)}
 .fd-wtable td.fd-g::after{content:"G";margin-left:3px;font-size:9px;font-weight:700;vertical-align:super;color:var(--gold)}
 .fd-gsrc{color:var(--gold)}
+.fd-src-l{font-weight:600;color:var(--soft);align-self:center}
+#fd-src,#fd-show{max-width:100%;min-width:0}
 .calc-assume-d>summary{cursor:pointer;color:var(--muted);font-size:.9em;margin:4px 0}
 @media (max-width:480px){.fd-wtable{font-size:13px;min-width:520px}.fd-wtable th,.fd-wtable td{padding:3px 6px}.fd-sort{padding:5px 6px;font-size:11px}.fd-name{max-width:150px}}
 .calc-prices ul{margin:4px 0 0;padding-left:1.1em;font-weight:400;font-size:.88em}

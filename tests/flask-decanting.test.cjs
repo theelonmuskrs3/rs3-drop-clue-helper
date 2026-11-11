@@ -230,7 +230,9 @@ const val = td => { const t = td.textContent.trim(); return t === '—' ? null :
     assert.equal(new Set(asked).size, Object.keys(byName).length); assert.ok(asked.every(id => Object.values(byName).includes(+id)));
     const cache = JSON.parse(w.localStorage.getItem('dch_ge_guide_cache_v1')); assert.equal(cache.prices[r0.v1.id].price, gv); assert.equal(cache.prices[r0.v1.id].timestamp, '2026-11-11T07:14:05.000Z'); }
   // "Prices: GE guide (as the Wiki)": every item at its guide price; Gross profit = the Wiki calculator's own rendered numbers, all 344
-  { const src = d.querySelector('#fd-src'); assert.deepEqual([...src.options].map(o => o.textContent), ['Prices: latest trades (Items tab)', 'Prices: GE guide (as the Wiki)']);
+  { const src = d.querySelector('#fd-src'); assert.deepEqual([...src.options].map(o => o.textContent), ['Items prices', 'Wiki guide prices']);
+    assert.equal(d.querySelector('label[for="fd-src"]').textContent, 'Prices'); assert.equal(src.getAttribute('aria-describedby'), 'fd-src-what fd-src-help');
+    assert.equal(d.querySelector('#fd-src-what').textContent, 'Items prices: latest Grand Exchange trades, as on the Items tab (an item with no trade uses its GE guide price, marked G). Wiki guide prices: Jagex GE guide prices for every item, as the Wiki calculator uses.');
     src.value = 'guide'; src.dispatchEvent(new w.Event('change')); assert.equal(w.localStorage.getItem('dch_calc_fd_src_v1'), 'guide');
     d.querySelectorAll('#fd-table thead button.fd-sort')[0].click(); if (d.querySelectorAll('#fd-table thead th')[0].getAttribute('aria-sort') !== 'ascending') d.querySelectorAll('#fd-table thead button.fd-sort')[0].click();
     d.querySelector('#fd-show').value = 'gross'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
@@ -242,6 +244,21 @@ const val = td => { const t = td.textContent.trim(); return t === '—' ? null :
     d.querySelector('#fd-show').value = 'net'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
     const ag = FX.guide['Aggression flask (6)']; assert.equal(val(cellsOf(d)[names.indexOf('Aggression flask')][0]), FX.rows[0].values[0] - Math.floor(ag / 50), 'net = Wiki gross - per-flask tax'); }
   const savedGuide = w.localStorage.getItem('dch_ge_guide_cache_v1'); dom.window.close();
+  // reload keeps Gross and Wiki guide prices (8801 browser bug: Gross came back as Net); default stays Net / Items prices
+  { const st = {dch_ge_guide_cache_v1: savedGuide, dch_calc_fd_src_v1: 'guide', dch_calc_fd_show_v1: 'gross'};
+    GUIDE_MOCK = {prices: goldenGuide()};
+    ({dom, w, d} = await screen('calculators/flask-decanting', st));
+    assert.equal(d.querySelector('#fd-show').value, 'gross'); assert.equal(d.querySelector('#fd-src').value, 'guide');
+    const i0 = [...d.querySelectorAll('#fd-table tbody button.fd-name')].findIndex(b => b.dataset.flask === FX.rows[0].flask);
+    assert.equal(val(cellsOf(d)[i0][0]), FX.rows[0].values[0], 'reloaded Gross + Wiki guide = Wiki cell');
+    d.querySelector('#fd-show').value = 'net'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change')); assert.equal(w.localStorage.getItem('dch_calc_fd_show_v1'), 'net'); dom.window.close();
+    ({dom, w, d} = await screen('calculators/flask-decanting', {dch_calc_fd_show_v1: 'net', dch_calc_fd_src_v1: 'guide', dch_ge_guide_cache_v1: savedGuide}));
+    assert.equal(d.querySelector('#fd-show').value, 'net'); assert.equal(d.querySelector('#fd-src').value, 'guide'); dom.window.close();
+    ({dom, w, d} = await screen('calculators/flask-decanting', {dch_calc_fd_show_v1: 'bogus', dch_calc_fd_src_v1: 'bogus'}));
+    assert.equal(d.querySelector('#fd-show').value, 'net'); assert.equal(d.querySelector('#fd-src').value, 'live', 'unknown stored values fall back to the defaults'); dom.window.close();
+    ({dom, w, d} = await screen('calculators/flask-decanting'));
+    assert.equal(d.querySelector('#fd-show').value, 'net'); assert.equal(d.querySelector('#fd-src').value, 'live', 'defaults unchanged'); dom.window.close(); }
+  { const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'); assert.match(css, /#fd-src,#fd-show\{max-width:100%;min-width:0\}/); }
   // saved guide copy is used (and said so) when a refresh fails
   { const cached = savedGuide; const old = JSON.parse(cached); old.fetchedAt = Date.now() - 5 * 3600e3;
     GUIDE_MOCK = {fail: 503};
