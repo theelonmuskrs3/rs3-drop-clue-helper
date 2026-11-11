@@ -1065,7 +1065,7 @@ async function flaskDecantView(n) {
   star.onclick = () => { RS3Calc.toggle(CALC_LS, {path: D.path, label}); drawStar(); };
   drawStar();
   const q = $('#fd-q'), show = $('#fd-show');
-  let sortKey = '', sortDir = 'desc';
+  let sortKey = '', sortDir = 'asc';   // default: potion name A to Z
   try { const s = JSON.parse(CALC_LS.getItem(FD_SORT_KEY) || 'null'); if (s && (s.k === '' || cols.some(c => c.key === s.k)) && ['asc', 'desc'].includes(s.d)) { sortKey = s.k; sortDir = s.d; } } catch (e) {}
   const open = new Set();
   const num = v => (v < 0 ? '−' : '') + Math.abs(v).toLocaleString('en-GB');
@@ -1078,7 +1078,7 @@ async function flaskDecantView(n) {
     const key = show.value === 'gross' ? 'gross' : 'net', nq = norm(q.value);
     let rows = D.rows.map(r => ({r, e: cols.map(c => fdBatch(D, r, c))})).filter(x => !nq || norm(x.r.flask + ' ' + x.r.vial).includes(nq));
     const ci = cols.findIndex(c => c.key === sortKey);
-    rows.sort((a, b) => { if (ci < 0) return sortDir === 'asc' || !sortKey ? a.r.flask.localeCompare(b.r.flask) : b.r.flask.localeCompare(a.r.flask);
+    rows.sort((a, b) => { if (ci < 0) return sortDir === 'desc' ? b.r.flask.localeCompare(a.r.flask) : a.r.flask.localeCompare(b.r.flask);
       const x = a.e[ci][key], y = b.e[ci][key];
       return x == null && y == null ? a.r.flask.localeCompare(b.r.flask) : x == null ? 1 : y == null ? -1 : sortDir === 'asc' ? x - y : y - x; });
     $('#fd-count').textContent = `${rows.length} of ${D.rows.length} potions · ${show.value === 'gross' ? 'gross profit (before tax)' : 'net profit (after estimated 2% tax)'} per batch, in gp`;

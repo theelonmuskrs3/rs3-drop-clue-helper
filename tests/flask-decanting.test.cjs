@@ -167,8 +167,21 @@ const val = td => { const t = td.textContent.trim(); return t === '—' ? null :
     sb().click(); let v = cellsOf(d).map(r => val(r[col])); assert.deepEqual(v, [...v].sort((a, b) => b - a)); assert.equal(d.querySelectorAll('#fd-table thead th')[col + 1].getAttribute('aria-sort'), 'descending');
     sb().click(); v = cellsOf(d).map(r => val(r[col])); assert.deepEqual(v, [...v].sort((a, b) => a - b)); assert.equal(d.querySelectorAll('#fd-table thead th')[col + 1].getAttribute('aria-sort'), 'ascending');
     assert.deepEqual(JSON.parse(w.localStorage.getItem('dch_calc_fd_sort_v1')), {k: D.columns[col].key, d: 'asc'});
-    d.querySelectorAll('#fd-table thead button.fd-sort')[0].click(); const nm = [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask);
-    assert.deepEqual(nm, [...nm].sort((a, b) => a.localeCompare(b))); }
+    // Flask (name) header: A to Z, then Z to A, then A to Z again; aria-sort and the arrow follow the actual row order (8799 browser bug)
+    const nameB = () => d.querySelectorAll('#fd-table thead button.fd-sort')[0], nameTh = () => d.querySelectorAll('#fd-table thead th')[0];
+    const nmz = () => [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask), az = [...nmz()].sort((a, b) => a.localeCompare(b));
+    nameB().click(); assert.deepEqual(nmz(), az); assert.equal(nameTh().getAttribute('aria-sort'), 'ascending'); assert.match(nameB().textContent, /▲/);
+    nameB().click(); assert.deepEqual(nmz(), [...az].reverse()); assert.equal(nmz()[0], az[az.length - 1]); assert.equal(nameTh().getAttribute('aria-sort'), 'descending'); assert.match(nameB().textContent, /▼/);
+    assert.deepEqual(JSON.parse(w.localStorage.getItem('dch_calc_fd_sort_v1')), {k: '', d: 'desc'});
+    nameB().click(); assert.deepEqual(nmz(), az); assert.equal(nmz()[0], 'Aggression flask'); assert.equal(nameTh().getAttribute('aria-sort'), 'ascending'); }
+  dom.window.close();
+  // saved Z to A order is restored on reload
+  ({dom, w, d} = await screen('calculators/flask-decanting', {dch_calc_fd_sort_v1: JSON.stringify({k: '', d: 'desc'})}));
+  { const nm = [...d.querySelectorAll('#fd-table tbody button.fd-name')].map(b => b.dataset.flask); assert.deepEqual(nm, [...nm].sort((a, b) => b.localeCompare(a)));
+    assert.equal(d.querySelectorAll('#fd-table thead th')[0].getAttribute('aria-sort'), 'descending'); }
+  // default (nothing saved): A to Z, and the Flask header says ascending
+  { const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8');
+    assert.match(css, /\.fd-wtable th\{opacity:1\}/, 'pinned cells not see-through'); assert.match(css, /\.fd-wtable tbody th\{[^}]*position:sticky;left:0;background:#[0-9a-f]{6};/); assert.match(css, /\.fd-wtable thead th\{[^}]*background:#[0-9a-f]{6};/); }
   dom.window.close();
   // a refresh keeps an opened price row open and shows the new quote
   ({dom, w, d} = await screen('calculators/flask-decanting'));

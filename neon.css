@@ -1421,9 +1421,12 @@ html{scrollbar-gutter:stable}
 .fd-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;border:1px solid var(--edge2);border-radius:5px}
 .fd-wtable{border-collapse:collapse;width:100%;min-width:600px;font-size:14px;line-height:1.3}
 .fd-wtable th,.fd-wtable td{padding:3px 8px;border-bottom:1px solid var(--edge2);vertical-align:middle;white-space:nowrap}
-.fd-wtable thead th{position:sticky;top:0;background:var(--stone2);z-index:1;padding:0;white-space:normal}
+/* pinned cells: fully opaque (the global th rule sets opacity:.85, which let numbers show through when scrolled) */
+.fd-wtable th{opacity:1}
+.fd-wtable thead th{position:sticky;top:0;background:#171312;z-index:2;padding:0;white-space:normal}
+.fd-wtable thead th:first-child{left:0;z-index:3}
 .fd-wtable tbody>tr:nth-child(even):not(.fd-detail){background:rgba(255,255,255,.025)}
-.fd-wtable tbody th{text-align:left;font-weight:600;position:sticky;left:0;background:var(--stone2);z-index:1}
+.fd-wtable tbody th{text-align:left;font-weight:600;position:sticky;left:0;background:#151110;z-index:1;box-shadow:1px 0 0 var(--edge2)}
 .fd-wtable .fd-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
 .fd-wtable td.gain{color:#7fdc8a}.fd-wtable td.loss{color:#ff6b6b}.fd-wtable td.fd-unk{color:var(--muted);font-weight:400;text-align:center}
 .fd-sort{all:unset;box-sizing:border-box;display:flex;align-items:flex-end;justify-content:space-between;gap:4px;width:100%;padding:6px 8px;cursor:pointer;font:600 12px/1.25 var(--ui);color:var(--gold);text-align:left;white-space:normal}
