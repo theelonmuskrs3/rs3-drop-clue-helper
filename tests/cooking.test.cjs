@@ -8,7 +8,7 @@ const D = J('data/calc/cooking.json'), G = J('tests/fixtures-cooking-golden.json
 const tick = () => new Promise(r => setTimeout(r, 10));
 // 1. every golden cell
 const cmp = compare(D, G);
-assert.deepEqual(cmp.fails, []); assert.equal(cmp.cases, 66); assert.ok(cmp.rows >= 2899 && cmp.cells >= 34000, JSON.stringify(cmp));
+assert.deepEqual(cmp.fails, []); assert.equal(cmp.cases, 66); assert.equal(cmp.messages, 66, "every golden goal sentence (incl. bonus XP over half, goal below current, Level>120) matches the Wiki text"); assert.ok(cmp.rows >= 2899 && cmp.cells >= 34000, JSON.stringify(cmp));
 // 2. form: hand-derived gadget submissions
 for (const c of F.cases) { let st = C.skillFormDefaults(D.form); for (const [k, v] of c.actions) st = C.skillFormSet(D.form, st, k, v);
   const s = C.skillFormSubmission(D.form, st); assert.deepEqual(s.submission.filter(x => x[0] !== 'name'), c.expected, c.name); assert.deepEqual(s.errors, []); }
@@ -87,7 +87,8 @@ const set = (d, w, k, v) => { const el = d.querySelector('#ck-' + k); assert.ok(
   d.querySelector('#ck-sort').value = 'xp'; d.querySelector('#ck-sort').dispatchEvent(new w.Event('change'));
   { const xs = rows(d).map(tr => Number(tr.querySelectorAll('td')[1].textContent.replace(/,/g, ''))); assert.deepEqual(xs, [...xs].sort((a, b) => b - a)); }
   // bxp reveals bxpnum (Wiki toggle); invalid goal stops the run with the Wiki's message
-  set(d, w, 'bxp', true); assert.ok(d.querySelector('#ck-bxpnum')); set(d, w, 'bxpnum', '50000'); assert.match(d.querySelector('#ck-msg').textContent, /With 50,000 bonus XP/);
+  set(d, w, 'bxp', true); assert.ok(d.querySelector('#ck-bxpnum')); set(d, w, 'bxpnum', '50000'); (() => { const m = /, ([\d,]+) experience is required\. \(50,000 bonus XP available; ([\d,]+) XP to the goal in total\.\)$/.exec(d.querySelector('#ck-msg').textContent); assert.ok(m, d.querySelector('#ck-msg').textContent);
+    const tot = +m[2].replace(/,/g, ''); assert.equal(+m[1].replace(/,/g, ''), tot - Math.min(tot / 2, 50000), 'Wiki: XP still needed from actions after bonus XP'); })();
   set(d, w, 'goal', 'abc'); assert.match(d.querySelector('#ck-msg').textContent, /Invalid integer provided/); assert.equal(rows(d).length, 0);
   set(d, w, 'goal', '99');
   // urn column

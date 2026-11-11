@@ -11,6 +11,15 @@ const tick = () => new Promise(r => setTimeout(r, 10));
 // 1. every golden cell (Wiki renders at pinned revisions; GE guide prices frozen in the fixture)
 const cmp = compare(D, G);
 assert.deepEqual(cmp.fails, []); assert.equal(cmp.cases, 32); assert.ok(cmp.rows >= 1003 && cmp.cells >= 11756, JSON.stringify(cmp));
+// 1b. the goal sentence: every golden case above already matches the Wiki's text (compare); edge cases by the Lua formula
+{ assert.equal(cmp.messages, 32);
+  const M = o => C.skillCalcMessage(C.skillCalcRun(D, Object.entries({currToggle: 'Level', current: '1', goalToggle: 'Level', goal: '80', skill: 'Fletching', disp: 'Arrows', ...o})));
+  assert.equal(M({current: '60', goal: '50', bxp: '1', bxpnum: '50000'}), 'To train Fletching from 273,742 experience (level 60) to 101,333 experience (level 50), 0 experience is required. (50,000 bonus XP available; 0 XP to the goal in total.)');
+  assert.equal(M({bxp: '1', bxpnum: '99999999'}), 'To train Fletching from 0 experience (level 1) to 1,986,068 experience (level 80), 993,034 experience is required. (99,999,999 bonus XP available; 1,986,068 XP to the goal in total.)', 'bonus XP covers at most half');
+  assert.equal(M({bxp: '1', bxpnum: '0'}), 'To train Fletching from 0 experience (level 1) to 1,986,068 experience (level 80), 1,986,068 experience is required.');
+  assert.equal(M({bxp: '0', bxpnum: '50000'}), 'To train Fletching from 0 experience (level 1) to 1,986,068 experience (level 80), 1,986,068 experience is required.');
+  // Goal "Level" above 120 is experience on the Wiki (live render 2026-11-11: "...to 130 experience (level 2), 130 experience is required.")
+  assert.equal(M({goal: '130'}), 'To train Fletching from 0 experience (level 1) to 130 experience (level 2), 130 experience is required.'); }
 // 2. form: hand-derived gadget submissions
 for (const c of F.cases) { let st = C.skillFormDefaults(D.form); for (const [k, v] of c.actions) st = C.skillFormSet(D.form, st, k, v);
   const s = C.skillFormSubmission(D.form, st); assert.deepEqual(s.submission.filter(x => x[0] !== 'name'), c.expected, c.name); assert.deepEqual(s.errors, []); }
@@ -92,6 +101,11 @@ const set = (d, w, k, v) => { const el = d.querySelector('#fl-' + k); assert.ok(
   // Dungeoneering: no cost columns, as on the Wiki
   set(d, w, 'disp', 'Dungeoneering - Bows'); assert.deepEqual([...d.querySelectorAll('#fl-table thead th')].map(th => th.textContent), ['Level', 'Name', 'XP', '# needed', 'Materials']);
   set(d, w, 'disp', 'Arrows');
+  // Goal Level above 120: kept as the Wiki reads it (experience), with a note under the field, never clamped
+  { set(d, w, 'goal', '130'); assert.equal(d.querySelector('#fl-goal-r').textContent, 'Above 120 the Wiki reads this as experience: 130 XP, not level 130');
+    assert.equal(d.querySelector('#fl-goal').getAttribute('aria-invalid'), 'false'); assert.match(d.querySelector('#fl-msg').textContent, /to 130 experience \(level 2\), 130 experience is required\.$/);
+    set(d, w, 'goalToggle', 'Experience'); assert.equal(d.querySelector('#fl-goal-r').textContent, '0–200000000');
+    set(d, w, 'goalToggle', 'Level'); assert.match(d.querySelector('#fl-goal-r').textContent, /^Above 120/); set(d, w, 'goal', '99'); assert.equal(d.querySelector('#fl-goal-r').textContent, '0–200000000'); }
   // number fields are never rebuilt: typing, blur ("change") and moving to another number field keep the same elements and caret
   { const cur = d.querySelector('#fl-current'), goal = d.querySelector('#fl-goal');
     goal.focus(); goal.value = ''; for (const ch of '80') { goal.value += ch; goal.dispatchEvent(new w.Event('input', {bubbles: true})); }
@@ -104,7 +118,9 @@ const set = (d, w, k, v) => { const el = d.querySelector('#fl-' + k); assert.ok(
   { for (const v of [true, false, true]) set(d, w, 'bxp', v); const bx = d.querySelector('#fl-bxpnum'); assert.ok(bx); bx.focus(); bx.value = '';
     for (const ch of '50000') { bx.value += ch; bx.dispatchEvent(new w.Event('input', {bubbles: true})); }
     assert.equal(d.querySelector('#fl-bxpnum'), bx); set(d, w, 'workroom', 'Yes'); assert.equal(d.querySelector('#fl-bxpnum'), bx, 'non-toggling select keeps fields');
-    assert.equal(bx.value, '50000'); assert.match(d.querySelector('#fl-msg').textContent, /With 50,000 bonus XP/);
+    assert.equal(bx.value, '50000');
+    // Wiki wording: "experience is required" is what actions still have to earn after bonus XP (1,884,735 - 50,000)
+    assert.equal(d.querySelector('#fl-msg').textContent, 'To train Fletching from 101,333 experience (level 50) to 1,986,068 experience (level 80), 1,834,735 experience is required. (50,000 bonus XP available; 1,884,735 XP to the goal in total.)');
     bx.value = '5x'; bx.dispatchEvent(new w.Event('input', {bubbles: true})); assert.equal(bx.getAttribute('aria-invalid'), 'true'); assert.match(d.querySelector('#fl-bxpnum-r').textContent, /Invalid integer/i);
     bx.value = '50000'; bx.dispatchEvent(new w.Event('input', {bubbles: true})); assert.equal(bx.getAttribute('aria-invalid'), 'false'); }
   // favourite + persistence
