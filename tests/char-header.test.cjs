@@ -6,7 +6,7 @@ const app = rd('app.js'), html = rd('index.html'), css = rd('neon.css');
 const img = fs.readFileSync(path.join(base, 'brand/wise-old-man.webp'));
 assert.equal(img.toString('ascii', 0, 4), 'RIFF'); assert.equal(img.toString('ascii', 8, 12), 'WEBP'); assert.ok(img.length < 64e3, 'small picture');
 const hero = app.slice(app.indexOf('<section class="panel chhero">'), app.indexOf('</section>', app.indexOf('<section class="panel chhero">')));
-assert.match(hero, /<img class="chwom" src="brand\/wise-old-man\.webp" width="256" height="256" alt="Wise Old Man in a red partyhat and red cape with gold teeth, a gold Cuban link chain and a gold ring \(custom illustration, not an official Jagex render\)"/);
+assert.match(hero, /<img class="chwom" src="brand\/wise-old-man\.webp" width="256" height="256" alt="Wise Old Man in a red partyhat and red cape with glinting gold teeth, a gold Cuban link chain and a gold ring, holding a poisoned Dragon dagger \(custom illustration, not an official Jagex render\)"/);
 assert.ok(!hero.includes('brand/dds.webp'), 'Character header no longer uses the dagger');
 assert.equal((html.match(/brand\/dds\.webp/g) || []).length, 2, 'title bar + splash keep the dagger');
 assert.ok(!/class="chdds" aria-hidden/.test(app), 'picture is not hidden from screen readers');
