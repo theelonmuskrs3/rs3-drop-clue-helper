@@ -14,6 +14,10 @@ function compare(D, G, opt = {}) {
     if (R.error) { bad('engine error ' + R.error); continue; }
     const head = c.head; const hx = h => head.indexOf(h);
     if (JSON.stringify(head.slice(0, -1)) !== JSON.stringify(R.headers.slice(0, -1)) || !/Members/.test(R.headers.at(-1))) bad('headers ' + JSON.stringify(head) + ' vs ' + JSON.stringify(R.headers));
+    // the goal sentence the app shows must equal the Wiki's, character for character (bonus XP adds a separate note after it)
+    { const ws = /^To train .*? experience is required\./.exec(c.message), as = C.skillCalcMessage(R); out.messages = (out.messages || 0) + 1;
+      if (!ws || !(as === ws[0] || as.startsWith(ws[0] + ' ('))) bad('message: wiki "' + (ws && ws[0]) + '" vs app "' + as + '"');
+      if (R.bonusXp > 0 && !as.endsWith(` (${R.bonusXp.toLocaleString('en-GB')} bonus XP available; ${R.actualRemaining.toLocaleString('en-GB')} XP to the goal in total.)`)) bad('bonus XP note ' + as); }
     const m = /from ([\d,]+) experience \(level (\d+)\) to ([\d,]+) experience \(level (\d+)\), ([\d,]+) experience is required/.exec(c.message);
     if (m) { const [cx, cl, gx, gl, rq] = [m[1], m[2], m[3], m[4], m[5]].map(num); if (cx !== R.currXp || cl !== R.currLv || gx !== R.goalXp || gl !== R.goalLv) bad('message ' + c.message + ' vs ' + [R.currXp, R.currLv, R.goalXp, R.goalLv]); out.msgRemaining = rq; if (rq !== R.remaining) bad('message experience required ' + rq + ' vs engine remaining ' + R.remaining); }
     if (c.rows.length !== R.rows.length) { bad('rows ' + c.rows.length + ' vs ' + R.rows.length); continue; }
