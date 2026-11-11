@@ -98,6 +98,7 @@ async function screen(hash) {
   w.eval(fs.readFileSync(path.join(base, 'live-prices.js'), 'utf8'));
   w.eval(fs.readFileSync(path.join(base, 'map.js'), 'utf8'));
   w.eval(fs.readFileSync(path.join(base, 'calculators.js'), 'utf8'));
+  w.eval(fs.readFileSync(path.join(base, 'player-import.js'), 'utf8')); w.eval(fs.readFileSync(path.join(base, 'chars.js'), 'utf8'));   // same order as index.html
   w.eval(fs.readFileSync(path.join(base, 'app.js'), 'utf8') + '\nwindow.__t={book:LIVE.book,refresh:refreshPriceView};');
   for (let i = 0; i < 200; i++) {
     await tick();

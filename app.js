@@ -789,6 +789,8 @@ async function acctImport(raw, done) {
   const base = PLAYER_API(), name = DCHImport.normName(raw || '');
   if (base == null) return say(acctNote());
   if (!name) return say(ACCT_ERR.invalid_name);
+  statsFlush();
+  const tok = DCHChars.token(localStorage);   // the character this lookup was started for
   if (b) b.disabled = true; say('Looking up ' + name + '…');
   let resp = null;
   try { const ac = new AbortController(), t = setTimeout(() => ac.abort(), 15000);
@@ -796,20 +798,44 @@ async function acctImport(raw, done) {
     resp = await r.json().catch(() => null); }
   catch (e) { if (b) b.disabled = false; return say(ACCT_ERR.network); }
   if (b) b.disabled = false;
-  const qs = await get('data/quests.json').catch(() => []);
-  const cur = loadStats(), p = DCHImport.plan(resp, cur, SKORDER, k => [k === 'Constitution' ? 10 : 1, skMax(k)], qs);
-  if (!p.ok) return say(ACCT_ERR[p.error] || ACCT_ERR.bad_response);   // error / private / unranked: saved levels, ticks and name untouched
-  /* apply all at once; if storage refuses part way, put every touched key back */
-  const keys = [STATS_KEY, STATS_KEY + '_bak', ACCT_KEY, ...(p.quests ? p.quests.done.map(QDONE) : [])], old = keys.map(k => [k, lsGet(k)]);
-  try {
-    const j = JSON.stringify({v: 2, t: Date.now(), levels: p.levels});
-    localStorage.setItem(STATS_KEY, j); localStorage.setItem(STATS_KEY + '_bak', j);
-    if (p.quests) for (const t of p.quests.done) localStorage.setItem(QDONE(t), '1');   // only official completions are ticked; nothing is unticked
-    localStorage.setItem(ACCT_KEY, JSON.stringify({name: p.name, at: Date.now(), source: p.source, fetchedAt: p.fetchedAt, quests: !!p.quests,
-      qp: p.quests ? p.quests.qp : null, qpMax: p.quests ? p.quests.qpMax : null, completed: p.quests ? p.quests.completed : null, unmatched: p.quests ? p.quests.unmatched.length : null}));
-    STATS_SAVED = true; _stDirty = null;
-  } catch (e) { for (const [k, v] of old) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (x) {} } return say('This browser would not save the import. Nothing was changed.'); }
+  statsFlush();
+  if (DCHChars.token(localStorage) !== tok) return say('You switched character while the lookup was running. Nothing was changed; import again.');
+  const qs = await get('data/quests.json').catch(() => []), lim = k => [k === 'Constitution' ? 10 : 1, skMax(k)];
+  const p0 = DCHImport.plan(resp, loadStats(), SKORDER, lim, qs);
+  if (!p0.ok) return say(ACCT_ERR[p0.error] || ACCT_ERR.bad_response);   // error / private / unranked: active and saved characters untouched
+  /* another account than the active character: start from that account's own saved data (or blank), never the current one's */
+  const sw = DCHChars.planSwitch(localStorage, p0.name);
+  if (!sw.ok) return say(sw.error === 'full' ? `You already have ${DCHChars.MAX} saved characters. Nothing was changed.` : ACCT_ERR.bad_response);
+  const p = sw.same ? p0 : DCHImport.plan(resp, (sw.entry.levels && cleanStats(sw.entry.levels)) || neutralStats(), SKORDER, lim, qs);
+  if (!p.ok) return say(ACCT_ERR[p.error] || ACCT_ERR.bad_response);
+  /* one all-or-nothing write: the switch (if any) + levels + official completions + import details; storage refusal puts every key back */
+  const ch = sw.same ? new Map() : sw.changes, j = JSON.stringify({v: 2, t: Date.now(), levels: p.levels});
+  ch.set(STATS_KEY, j); ch.set(STATS_KEY + '_bak', j);
+  if (p.quests) for (const t of p.quests.done) ch.set(QDONE(t), '1');   // only official completions are ticked; nothing is unticked
+  ch.set(ACCT_KEY, JSON.stringify({name: p.name, at: Date.now(), source: p.source, fetchedAt: p.fetchedAt, quests: !!p.quests,
+    qp: p.quests ? p.quests.qp : null, qpMax: p.quests ? p.quests.qpMax : null, completed: p.quests ? p.quests.completed : null, unmatched: p.quests ? p.quests.unmatched.length : null}));
+  try { DCHChars.txn(localStorage, ch); } catch (e) { return say('This browser would not save the import. Nothing was changed.'); }
+  STATS_SAVED = true; _stDirty = null;
+  DCHChars.afterImport(localStorage, p.name);   // keep the saved entry (if this character is saved) in step
   done && done();
+}
+/* saved characters (PR #21): quick picker + Save character; switching needs no network */
+function charPicker() {
+  const db = DCHChars.load(localStorage), a = ACCT();
+  const opts = db.list.map(c => `<option value="${esc(c.id)}"${c.id === db.active ? ' selected' : ''}>${esc(c.name)}${c.acct ? '' : ' (manual)'}</option>`).join('');
+  return `<div class="chpick" id="chpick"><label for="chsel">Character</label><select id="chsel"${db.list.length ? '' : ' disabled'}>${db.active ? '' : `<option value="" selected>${esc(a ? a.name : 'This device')} (not saved)</option>`}${opts}</select>
+    <button type="button" class="btn ghost" id="chsave" title="Save these levels and quest ticks as a character on this device (the same name updates it)">Save character</button></div>`;
+}
+function charPickerBind(redraw) {
+  const say = t => { const e = document.getElementById('chimps'); if (e) e.textContent = t; };
+  const sel = document.getElementById('chsel'), sv = document.getElementById('chsave');
+  if (sel) sel.onchange = () => { if (!sel.value) return; statsFlush();
+    const r = DCHChars.select(localStorage, sel.value); if (!r.ok) { say(r.error === 'full' ? `You already have ${DCHChars.MAX} saved characters.` : 'Could not switch: this browser would not save. Nothing was changed.'); redraw(); return; }
+    loadStats(); redraw(); };
+  if (sv) sv.onclick = () => { statsFlush();
+    const a = ACCT(), typed = (document.getElementById('chrsn') || {}).value || '', n = a ? a.name : (DCHImport.normName(typed) || 'Main');
+    const r = DCHChars.save(localStorage, n); if (!r.ok) return say(r.error === 'full' ? `You already have ${DCHChars.MAX} saved characters.` : r.error === 'invalid_name' ? ACCT_ERR.invalid_name : 'This browser would not save. Nothing was changed.');
+    redraw(); say(`Saved ${n} on this device.`); };
 }
 async function charView(sub) {
   const S = loadStats(), BASE = {...S};
@@ -825,6 +851,7 @@ async function charView(sub) {
       <div class="chn"><span class="chl">Skills at 99+</span><b class="chv" id="n99">0</b><span class="chm" id="nmx">0 maxed</span></div>
       <div class="chn"><span class="chl">Quests done</span><b class="chv" id="nq">–</b><span class="chm" id="nqm">tracked here</span></div></div>
     <div class="chpriv"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 7.5h9V14h-9zM5.2 7.5V5.2a2.8 2.8 0 015.6 0v2.3"/></svg><span>Private: levels and quest ticks are saved in this browser on this device only. Import sends only the RuneScape name you type to the lookup service, which asks Jagex's official Player Data API (HiScores if that is down); nothing else leaves this device.${STATS_SAVED ? '' : ' <b>Nothing saved yet:</b> import, tap + or type a level to start.'}</span></div>
+    ${charPicker()}
     <form class="chimp" id="chimp" autocomplete="off"><input id="chrsn" maxlength="12" spellcheck="false" placeholder="RuneScape name" aria-label="RuneScape name" value="${esc(ACCT() ? ACCT().name : '')}"><button type="submit" class="btn" id="chimpb"${PLAYER_API() == null ? ' disabled' : ''}>Import levels &amp; quests</button><span class="chimps" id="chimps" role="status" aria-live="polite">${esc(acctNote())}</span></form></section>
   <section class="panel chsk"><h2>Skills</h2>
     <div class="chtools"><button type="button" class="btn ghost" data-all="1">All 1</button><button type="button" class="btn ghost" data-all="99">All 99</button><button type="button" class="btn ghost" data-all="max">All max</button><button type="button" class="btn ghost" data-all="start" title="Every skill 1, Constitution 10 (the RS3 starting levels)">Starting levels</button><button type="button" class="btn" id="chundo" hidden>Undo</button></div>
@@ -895,6 +922,7 @@ async function charView(sub) {
   }
   fillCounts();
   const fm = document.getElementById('chimp'); if (fm) fm.onsubmit = ev => { ev.preventDefault(); acctImport(document.getElementById('chrsn').value, () => charView(sub)); };
+  charPickerBind(() => charView(sub));
   if (sub === 'sets') { const e = document.getElementById('chg2'); if (e) e.scrollIntoView({block: 'start'}); }
 }
 
@@ -2977,7 +3005,7 @@ async function mmFill(card, r, S) {
   const wnote = `<div class="note">Wiki figures and prose are guide snapshots (${esc(MM_GE)}${dateNote ? ', ' + esc(dateNote) : ''}), not live quotes. Estimates use the Wiki's quantities with each item's latest recorded trade (age shown), a GE guide price (G) for an item with no recorded trade, and the Wiki's own values for untradeable items. Methods the Wiki gives no complete item formula for are ranked by the Wiki's own figure, labelled. Estimated selling tax is deducted once per output item; unlisted costs remain excluded, not assumed zero.</div>`;
   /* requirements */
   const ph = trPhone();
-  const reqs = m.rq.length ? `<div class="secreq mmreqs">${mmReqChips(m, S)}</div>${STATS_SAVED ? '' : '<div class="note">Save your levels (<a href="#char">Character tab</a>) to see ✓/✗ against them.</div>'}` : '<div class="note">The wiki lists no requirements for this method.</div>';
+  const reqs = m.rq.length ? `<div class="secreq mmreqs">${mmReqChips(m, S)}</div>${STATS_SAVED ? '' : '<div class="note">Save your levels (<a href="#char">My Characters tab</a>) to see ✓/✗ against them.</div>'}` : '<div class="note">The wiki lists no requirements for this method.</div>';
   /* xp */
   const xp = m.xp.length ? `<div class="kv">${m.xp.map(x => `<b><a href="#train/${encodeURIComponent(x.s)}">${esc(x.s)}</a></b><span>${x.h.toLocaleString()} xp/hr${x.pk ? ` <i>(${x.x} per kill)</i>` : ''}${x.nt ? ` <i>${esc(x.nt)}</i>` : ''}</span>`).join('')}</div>` : '';
   const items = (m.it || []).map(([n, ic]) => `<a class="trit" href="#items/${encodeURIComponent(n)}">${ic ? `<img class="ico" loading="lazy" src="${esc(ic)}" alt="">` : PH('✦', 28)}<span>${esc(n)}</span>${priceTag(D, n)}</a>`).join('');
@@ -3039,7 +3067,7 @@ async function moneyView(arg) {
       <label>Sort<select id="mmsort"><option value="profit">Profit/hr (highest first)</option><option value="level"${MM.sort === 'level' ? ' selected' : ''}>Level needed</option><option value="name"${MM.sort === 'name' ? ' selected' : ''}>Name</option></select></label></div>
     <div class="mmrng"><label for="mmmin">Min profit/hr: <b id="mmminv">${MM.minp ? mmGpH(MM.minp) : 'any'}</b></label><input id="mmmin" type="range" min="0" max="${MM_MIN.length - 1}" step="1" value="${Math.max(0, MM_MIN.indexOf(MM.minp))}"></div>
     <div class="chips" id="mmf"><button data-v="afk"${MM.afk ? ' class="on"' : ''}>AFK / low effort</button><button data-v="cmb"${MM.cmb ? ' class="on"' : ''}>Needs combat</button><button data-v="norec"${MM.norec ? ' class="on"' : ''}>Hide timed recurring</button><button data-v="hl"${MM.hl ? ' class="on"' : ''}>Only profitable</button></div>
-    ${STATS_SAVED ? '' : '<div class="note">Tip: save your levels (<a href="#char">Character tab</a>) to use “Fits my levels” and to see ✓/✗ on requirements. They stay on this device.</div>'}
+    ${STATS_SAVED ? '' : '<div class="note">Tip: save your levels (<a href="#char">My Characters tab</a>) to use “Fits my levels” and to see ✓/✗ on requirements. They stay on this device.</div>'}
     <div id="mmres"></div></div>
     <div class="panel"><h3>Sources</h3><div class="note">All text, numbers and pictures come from these RS3 wiki pages (CC BY-NC-SA 3.0, <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener noreferrer">licence</a>). Guide text and pictures are unchanged; this app separately calculates labeled net live-price estimates where supported. Each method has its own “Source: RS3 Wiki” link.</div>
       <details class="thv"><summary>${st.pages} guide pages + ${st.list_pages} index pages</summary><ul class="trsrc">${X.src.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(t.replace('Money making guide/', ''))} ↗</a></li>`).join('')}<li><a href="${WIKI('Money making guide')}" target="_blank" rel="noopener noreferrer">Money making guide (index) ↗</a></li><li><a href="${WIKI('Money making')}" target="_blank" rel="noopener noreferrer">Money making ↗</a></li></ul></details></div>
