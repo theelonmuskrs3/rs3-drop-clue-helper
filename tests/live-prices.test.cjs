@@ -46,17 +46,20 @@ assert.equal(b.total([{n:'Input',q:Number.MAX_SAFE_INTEGER}],'buy',T).value,null
 // Exercise the app's actual ranking and min-profit code, not a parallel invented comparator.
 const app=fs.readFileSync('app.js','utf8');
 const extract=(start,end)=>app.slice(app.indexOf(start),app.indexOf(end,app.indexOf(start)));
-const context={LIVE:{book:b},MM:{models:{a:m,z:{...m,inp:[{n:'Missing',q:1}]}},sort:'profit',ob:true},mmLvl:()=>0,norm:s=>s,mmCats:()=>[],mmFit:()=>null};
+const context={LIVE:{book:b},RS3Prices:require('../live-prices.js'),GUIDE:{prices:{}},fdAge:()=>'',MM_GE:'Oct 21, 2026',MM:{models:{a:m,z:{...m,inp:[{n:'Missing',q:1}]}},sort:'profit',ob:true},mmLvl:()=>0,norm:s=>s,mmCats:()=>[],mmFit:()=>null};
 vm.createContext(context);
-vm.runInContext("const priceCompare = (a,b,asc=false)=>a==null?(b==null?0:1):b==null?-1:asc?a-b:b-a;"+extract('function mmLive(r)','async function mmLoadModels')+extract('function mmSort(rows)','function mmProfitTxt')+extract('function mmOk(r','function mmSort'),context);
+vm.runInContext("const priceCompare = (a,b,asc=false)=>a==null?(b==null?0:1):b==null?-1:asc?a-b:b-a;"+extract('let MM_LC = null;','async function mmLoadModels')+extract('function mmSort(rows)','function mmProfitTxt')+extract('function mmOk(r','function mmSort'),context);
 // PriceBook defaults to actual now for production; use a fixed fixture clock for app ranking.
 const estimate=b.estimate.bind(b); b.estimate=m=>estimate(m,T);
 context.rows=[{id:'z',t:'ZZ missing',tg:[]},{id:'a',t:'AA complete',tg:[]}];
 vm.runInContext('mmSort(rows)',context); assert.equal(context.rows[0].id,'a');
 context.r=context.rows[0]; context.MM.minp=300; assert.equal(vm.runInContext("mmOk(r,'',{})",context),true);
-b.setLatest(latest(T,400,200),T); assert.equal(vm.runInContext("mmOk(r,'',{})",context),false,'dynamic high acquisition changes profit/filter');
-b.setLatest(latest(T,99,100),T);context.MM.minp=100;assert.equal(vm.runInContext("mmOk(r,'',{})",context),false,'gross102/net96 must fail min NET profit100');assert.equal(vm.runInContext('mmLive(r).profit',context),96);
-context.MM.minp=0; b.online=false; vm.runInContext('mmSort(rows)',context); assert.equal(vm.runInContext('mmLive(r).profit',context),null); b.online=true;
+b.setLatest(latest(T,400,200),T); context.MM.calc=null; assert.equal(vm.runInContext("mmOk(r,'',{})",context),false,'dynamic high acquisition changes profit/filter');
+b.setLatest(latest(T,99,100),T);context.MM.calc=null;context.MM.minp=100;assert.equal(vm.runInContext("mmOk(r,'',{})",context),false,'gross102/net96 must fail min NET profit100');assert.equal(vm.runInContext('mmLive(r).profit',context),96);
+context.MM.minp=0; b.online=false; context.MM.calc=null; assert.equal(vm.runInContext('mmLive(r).profit',context),96,'offline: last prices received, labelled by age (Items-tab policy)'); b.online=true;
+// older trades still count, with their age (Items-tab policy); a missing price is never 0; the Wiki figure is the labelled fallback
+b.setLatest(latest(T-86400e3,99,100),T); context.MM.calc=null; assert.equal(vm.runInContext('mmLive(r).profit',context),96); assert.equal(vm.runInContext('mmLive(r).basis',context),'est');
+context.MM.calc=null; assert.equal(vm.runInContext("mmLive({id:'z',pw:1234,tg:[]}).value",context),1234); assert.equal(vm.runInContext("mmLive({id:'z',pw:1234,tg:[]}).basis",context),'wiki'); context.MM.calc=null; assert.equal(vm.runInContext("mmLive({id:'z',tg:[]}).value",context),null);
 assert.match(app,/watchPriceDraw\(\(\) => draw\(true\), out\)/);
 assert.doesNotMatch(app,/counted as 0|untradeables count as 0/);
 assert.match(app,/Wiki snapshot costs &amp; experience/);

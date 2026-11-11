@@ -341,6 +341,8 @@ function locBlock(l, travel) {
 let GICONS = {};
 const WIKI = p => 'https://runescape.wiki/w/' + encodeURIComponent(String(p).replace(/ /g, '_'));
 const gp = n => n == null ? '' : Math.round(n).toLocaleString() + ' gp';
+/* An amount with the Wiki's coins icon (icons/1c41f66de5ec.webp, the Coins item icon) drawn by CSS, decorative only. HTML contexts only. */
+const gpH = n => n == null ? '' : `<span class="gpc">${esc(gp(n))}</span>`;
 const SLOT_LABEL = {head: 'Head', neck: 'Neck', cape: 'Cape', body: 'Body', legs: 'Legs', hands: 'Hands', feet: 'Feet', ring: 'Ring', ammo: 'Ammo', pocket: 'Pocket',
   aura: 'Aura', sigil: 'Sigil', main: 'Main-hand', off: 'Off-hand (shield)', offw: 'Off-hand weapon', '2h': 'Two-handed'};
 const SLOT_ORDER = ['2h', 'main', 'offw', 'off', 'head', 'body', 'legs', 'hands', 'feet', 'neck', 'cape', 'ring', 'ammo', 'pocket', 'aura', 'sigil'];
@@ -381,13 +383,13 @@ const priceTime = ts => ts ? new Date(ts * 1000).toLocaleString('en-US', {timeZo
 function quoteContents(n, side, snapshot, date, showGraph = false) {
   const now = Date.now(), q = LIVE.book.quote(n, side, now), label = side === 'buy' ? 'Buy' : 'Sell';
   const time = priceTime(q.time);
-  const guide = snapshot != null && Number.isFinite(snapshot) ? `<small class="price-age">Guide snapshot: ${gp(snapshot)} · ${esc(date)}</small>` : '';
+  const guide = snapshot != null && Number.isFinite(snapshot) ? `<small class="price-age">Guide snapshot: ${gpH(snapshot)} · ${esc(date)}</small>` : '';
   const graph = showGraph && q.id && side === 'buy' ? `<a class="price-age" href="https://prices.runescape.wiki/rs/item/${q.id}" target="_blank" rel="noopener noreferrer">Source prices &amp; graph ↗</a>` : '';
   const sale = side === 'sell' && q.live ? LIVE.book.sale(n, now) : null;
-  const taxLine = sale ? `<small class="price-tax">Est. 2% tax ${gp(sale.tax)} · Net ${gp(sale.net)}</small>` : '';
-  if (q.live) return `<span class="gp" title="RuneScape Wiki Prices; ${esc(time)}">${label} ${gp(q.value)}</span>${taxLine}<small class="price-age">Observed ${esc(time)}</small>${guide}${graph}`;
-  const observed = q.value != null ? `${label} ${gp(q.value)} · ${q.status} · ${time}` : `${label}: ${q.status === 'unmapped' ? 'no exact RS3 mapping' : 'no current quote'}`;
-  return `<span class="note">${esc(observed)}</span>${guide}${graph}`;
+  const taxLine = sale ? `<small class="price-tax">Est. 2% tax ${gpH(sale.tax)} · Net ${gpH(sale.net)}</small>` : '';
+  if (q.live) return `<span class="gp" title="RuneScape Wiki Prices; ${esc(time)}">${label} ${gpH(q.value)}</span>${taxLine}<small class="price-age">Observed ${esc(time)}</small>${guide}${graph}`;
+  const observed = q.value != null ? `${esc(label)} ${gpH(q.value)} · ${esc(q.status)} · ${esc(time)}` : esc(`${label}: ${q.status === 'unmapped' ? 'no exact RS3 mapping' : 'no current quote'}`);
+  return `<span class="note">${observed}</span>${guide}${graph}`;
 }
 function livePriceTag(n, side = 'buy', snapshot = null, date = '', showGraph = false) {
   return `<span class="live-price" data-live-item="${esc(n)}" data-live-side="${side}"${showGraph ? ' data-live-graph="true"' : ''}${snapshot != null ? ` data-guide="${snapshot}" data-guide-date="${esc(date)}"` : ''}>${quoteContents(n, side, snapshot, date, showGraph)}</span>`;
@@ -408,7 +410,7 @@ function refreshPriceView() {
   view.querySelectorAll('[data-mm-estimate]').forEach(e => { const m = MM.models && MM.models[e.dataset.mmEstimate]; if (m) e.innerHTML = mmEstimateHTML(m); });
   const status = $('#live-price-status');
   if (status) status.textContent = LIVE.book.online === false ? 'Offline — cached observations and guide snapshots are not live; live ranking is unavailable.'
-    : LIVE.book.connected ? `Last successful price fetch: ${priceTime(LIVE.book.fetchedAt / 1000)}. Trade quotes older than 15 minutes are excluded from live totals/rankings.`
+    : LIVE.book.connected ? `Last successful price fetch: ${priceTime(LIVE.book.fetchedAt / 1000)}. Gear buy totals use trades from the last 15 minutes only; Money and Flask decanting use each item's latest recorded trade, with its age shown.`
     : 'Live source unavailable or loading — snapshots and cached observations are not ranked as live.';
 }
 function bindPriceView() {
@@ -437,7 +439,7 @@ function priceTag(D, n, side = 'buy', showGraph = false) {
 function rarTag(r) { return r == null ? '' : `<span class="rtag r${r}">${RANK[r]}</span>`; }
 function subnav(on) {
   const b = (h, t, k) => `<a class="btn sub ${on === k ? 'on' : ''}" href="${h}">${t}</a>`;
-  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}${b('#secrets', 'Easter eggs', 'secrets')}<a class="btn sub" href="#ge">Grand Exchange</a><a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
+  return `<div class="row subnav">${b('#items/~search', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}${b('#secrets', 'Easter eggs', 'secrets')}<a class="btn sub" href="#ge">Grand Exchange</a><a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
 }
 
 /* ----- stats storage ----- */
@@ -628,7 +630,7 @@ function gearHub(D, S, mount) {
       <div style="overflow-x:auto"><table><thead><tr><th>Slot</th><th>Item</th><th>Tier</th><th>Stats (wiki)</th><th>Price</th><th>Why</th></tr></thead><tbody>
       ${bs.map(x => `<tr><td>${esc(SLOT_LABEL[x.slot])}</td><td><a class="item" href="#items/${encodeURIComponent(x.g.n)}">${icon(x.g.n)}<span>${esc(x.g.n)}</span></a></td><td class="num">${x.g.tier ?? ''}</td>
         <td>${esc(keyStat(x.g, st))}</td><td class="num">${priceTag(D, x.g.n)}</td><td class="why">${esc(x.why)}${x.src ? ` <a class="note" href="${WIKI(x.src)}" target="_blank" rel="noopener noreferrer">[wiki]</a>` : ''}${x.note ? `<div class="note">${esc(x.note).replace(/\n/g, '<br>')}</div>` : ''}</td></tr>`).join('') || '<tr><td colspan="6" class="note">Nothing to show.</td></tr>'}
-      </tbody></table></div><div class="note" style="margin-top:6px">Observed buy total of all listed alternatives: ${total.complete ? gp(total.value) : 'Incomplete — unavailable/stale/untradeable: ' + esc(total.missing.join(', '))}. Both weapon alternatives are included, not a single loadout. Picks still follow wiki tiers/stats, not a value-for-money rule.</div>
+      </tbody></table></div><div class="note" style="margin-top:6px">Observed buy total of all listed alternatives: ${total.complete ? gpH(total.value) : 'Incomplete — unavailable/stale/untradeable: ' + esc(total.missing.join(', '))}. Both weapon alternatives are included, not a single loadout. Picks still follow wiki tiers/stats, not a value-for-money rule.</div>
       ${opt.mode === 'pvp' ? `<div class="quotes">${q.filter(x => /PvP/.test(x.text) || x.page === 'Player versus player').map(x => `<blockquote>“${esc(x.text)}” <a href="${WIKI(x.page)}" target="_blank" rel="noopener noreferrer">— ${esc(x.page)}</a></blockquote>`).join('')}
         <div class="note">PvP-type armour sets on the wiki's Armour page: ${D.gd.armour_sets.filter(s => s.type === 'PvP' && s.styles.includes(STYLES[st])).map(s => `<a href="${WIKI(s.set)}" target="_blank" rel="noopener noreferrer">${esc(s.set)}</a> (level ${s.level})${lv(S, 'Defence') >= s.level ? ' ✓' : ''}`).join(', ') || 'none for this style'}. ✓ = your Defence is at least that level.</div></div>`
       : `<div class="quotes">${q.filter(x => x.page === 'Recommended equipment for PvM').map(x => `<blockquote>“${esc(x.text)}” <a href="${WIKI(x.page)}" target="_blank" rel="noopener noreferrer">— ${esc(x.page)}</a></blockquote>`).join('')}</div>`}`;
@@ -729,7 +731,7 @@ function infoTable(d) {
     ['high', 'High alch'], ['low', 'Low alch'], ['limit', 'GE buy limit'], ['gecat', 'GE category'], ['weight', 'Weight'], ['kept', 'Kept on death'], ['destroy', 'Destroy'], ['id', 'Item ID']];
   const fmt = (k, v) => ['members', 'tradeable', 'equipable', 'stackable', 'noteable', 'lendable', 'edible'].includes(k) ? yesno(v) : k === 'restriction' ? (RST_ITEM[v] || v)
     : ['value', 'high', 'low'].includes(k) ? gp(v) : k === 'weight' ? v + ' kg' : v;
-  const rows = F.filter(([k]) => d[k] != null && d[k] !== '' && fmt(k, d[k]) !== '').map(([k, l]) => `<b>${l}</b><span>${esc(fmt(k, d[k]))}</span>`);
+  const rows = F.filter(([k]) => d[k] != null && d[k] !== '' && fmt(k, d[k]) !== '').map(([k, l]) => `<b>${l}</b><span${['value', 'high', 'low'].includes(k) ? ' class="gpc"' : ''}>${esc(fmt(k, d[k]))}</span>`);
   if (d.alch === false) rows.push('<b>Alchemy</b><span>Cannot be alchemised</span>');
   if (d.runecoins && d.runecoins.some(x => x)) rows.push(`<b>Solomon's price</b><span>${esc(d.runecoins.filter(x => x).join(' / '))}</span>`);
   return `<div class="kv">${rows.join('')}</div>`;
@@ -754,7 +756,7 @@ const xpAt = L => { let t = 0; for (let i = 1; i < L; i++) t += Math.floor(i + 3
 const skMin = k => k === 'Constitution' ? 10 : 1;
 function chGo(kind) {
   const S = loadStats();
-  if (kind === 'wear' || kind === 'sets') { try { sessionStorage.gfopt = JSON.stringify({...GF_DEF, wear: true, view: kind === 'sets' ? 'sets' : 'items'}); sessionStorage.removeItem('iopt'); sessionStorage.removeItem('iq'); } catch (e) {} location.hash = '#items'; }
+  if (kind === 'wear' || kind === 'sets') { try { sessionStorage.gfopt = JSON.stringify({...GF_DEF, wear: true, view: kind === 'sets' ? 'sets' : 'items'}); sessionStorage.removeItem('iopt'); sessionStorage.removeItem('iq'); } catch (e) {} location.hash = '#items/~search'; }
   else if (kind === 'train') { TR.fit = true; location.hash = '#train'; }
   else if (kind === 'money') { MM.fit = 'ok'; location.hash = '#money'; }
   else if (kind === 'quest') { try { sessionStorage.qf = JSON.stringify({q: '', kind: 'quest', mem: '', diff: '', st: 'todo'}); } catch (e) {} location.hash = '#quests'; }
@@ -1116,14 +1118,14 @@ async function flaskDecantView(n) {
   try { const s = JSON.parse(CALC_LS.getItem(FD_SORT_KEY) || 'null'); if (s && (s.k === '' || cols.some(c => c.key === s.k)) && ['asc', 'desc'].includes(s.d)) { sortKey = s.k; sortDir = s.d; } } catch (e) {}
   const open = new Set();
   const num = v => (v < 0 ? '−' : '') + Math.abs(v).toLocaleString('en-GB');
-  const priceLi = l => `<li>${liIco(l.n)}${l.side === 'sell' ? 'Sell' : 'Buy'} ${l.q} × ${esc(l.n)}: ${l.p.value == null ? `<span class="fd-unk">no recorded trade or guide price</span>` : `${esc(gp(l.p.value))}${l.side === 'sell' ? ` (est. tax ${esc(gp(RS3Prices.sellingTax(l.p.value, l.id)))} each)` : ''} <small class="fd-age${l.p.src === 'guide' ? ' fd-gsrc' : ''}">${esc(fdWhen(l.p))}</small>`}</li>`;
+  const priceLi = l => `<li>${liIco(l.n)}${l.side === 'sell' ? 'Sell' : 'Buy'} ${l.q} × ${esc(l.n)}: ${l.p.value == null ? `<span class="fd-unk">no recorded trade or guide price</span>` : `${gpH(l.p.value)}${l.side === 'sell' ? ` (est. tax ${gpH(RS3Prices.sellingTax(l.p.value, l.id))} each)` : ''} <small class="fd-age${l.p.src === 'guide' ? ' fd-gsrc' : ''}">${esc(fdWhen(l.p))}</small>`}</li>`;
   const draw = () => {
     const mode = srcSel.value === 'guide' ? 'guide' : 'live', fq = fdPrice(D.flask, 'buy', mode), book = LIVE.book;
     const fetched = book.fetchedAt ? priceTime(book.fetchedAt / 1000) : null;
     const gts = Object.values(GUIDE.prices).map(g => Date.parse(g.timestamp)).filter(Number.isFinite), gAsOf = gts.length ? priceTime(Math.max(...gts) / 1000) : null;
     const gLine = GUIDE.loading && !gts.length ? 'GE guide prices loading…' : gAsOf ? `GE guide prices (Jagex, via api.weirdgloop.org): as of ${gAsOf}${GUIDE.error ? ' (saved copy; refresh failed)' : ''}.` : `GE guide prices unavailable${GUIDE.error ? ' (' + GUIDE.error + ')' : ''}.`;
-    $('#fd-flask').textContent = (fq.value != null ? `Empty potion flask: Buy ${gp(fq.value)} (${fdWhen(fq)}). ` : 'Empty potion flask: no recorded trade price yet. ')
-      + (mode === 'guide' ? gLine : (book.online === false ? 'Offline: showing the last prices received. ' : fetched ? `Trade prices fetched ${fetched}. ` : 'Loading prices… ') + gLine);
+    $('#fd-flask').innerHTML = (fq.value != null ? `Empty potion flask: Buy ${gpH(fq.value)} (${esc(fdWhen(fq))}). ` : 'Empty potion flask: no recorded trade price yet. ')
+      + esc(mode === 'guide' ? gLine : (book.online === false ? 'Offline: showing the last prices received. ' : fetched ? `Trade prices fetched ${fetched}. ` : 'Loading prices… ') + gLine);
     const key = show.value === 'gross' ? 'gross' : 'net', nq = norm(q.value);
     let rows = D.rows.map(r => ({r, e: cols.map(c => fdBatch(D, r, c, mode))})).filter(x => !nq || norm(x.r.flask + ' ' + x.r.vial).includes(nq));
     const ci = cols.findIndex(c => c.key === sortKey);
@@ -1140,7 +1142,7 @@ async function flaskDecantView(n) {
       return `<th scope="col"${i ? ' class="fd-num"' : ''} aria-sort="${cur ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}"><button type="button" class="fd-sort" data-k="${esc(k)}">${esc(text)}<span class="fd-arrow" aria-hidden="true">${cur ? (sortDir === 'asc' ? '▲' : '▼') : '⇅'}</span></button></th>`; };
     const cell = x => x[key] == null
       ? `<td class="fd-num fd-unk" title="No price: ${esc(x.unknown.join(', '))}">—</td>`
-      : `<td class="fd-num ${x[key] < 0 ? 'loss' : 'gain'}${x.guided.length ? ' fd-g' : ''}" title="Gross ${esc(gp(x.gross))} · tax ${esc(gp(x.tax))} · net ${esc(gp(x.net))}${x.guided.length ? ` · GE guide price used for ${esc(x.guided.join(', '))}` : mode === 'guide' ? ' · GE guide prices' : ` · oldest price ${esc(fdAge(x.oldest))}`}">${num(x[key])}</td>`;
+      : `<td class="fd-num ${x[key] < 0 ? 'loss' : 'gain'}${x.guided.length ? ' fd-g' : ''}" title="Gross ${esc(gp(x.gross))} · tax ${esc(gp(x.tax))} · net ${esc(gp(x.net))}${x.guided.length ? ` · GE guide price used for ${esc(x.guided.join(', '))}` : mode === 'guide' ? ' · GE guide prices' : ` · oldest price ${esc(fdAge(x.oldest))}`}"><span class="gpc">${num(x[key])}</span></td>`;
     $('#fd-table').innerHTML = rows.length ? `<table class="fd-wtable"><thead><tr>${th('', 'Flask', 0)}${cols.map((c, i) => th(c.key, c.label, i + 1)).join('')}</tr></thead><tbody>${rows.map(({r, e}) => {
       const isOpen = open.has(r.flask);
       return `<tr><th scope="row"><button type="button" class="fd-name" data-flask="${esc(r.flask)}" aria-expanded="${isOpen}">${calcIco(r.f6.n)}<span class="calc-name">${esc(r.flask)}</span></button></th>${e.map(cell).join('')}</tr>`
@@ -1741,7 +1743,9 @@ async function itemsView(name) {
   if (name === '~sets') { location.replace('#char/sets'); return; }
   if (name === '~obtain' || name === '~dragon') return obtainView(name === '~dragon' ? 'dragon' : null);
   if (name === '~disc') return discView();
-  if (name === '~all') return allView();
+  /* Plain #items opens “Search all items” (owner choice); the rarity/price search keeps its own link, #items/~search. */
+  if (name === '~all' || !name) return allView();
+  if (name === '~search') name = '';
   const [D] = await Promise.all([itemData(), loadThumbs()]);
   const {items, best, gear} = D;
   const asof = `as of ${esc(geDateET(D))}`;
@@ -2678,6 +2682,7 @@ const MM_INT = ['', 'Low intensity', 'Moderate intensity', 'High intensity'];
 const mmCats = r => { const o = []; if (r.g === 'pvm') o.push('pvm'); else if (r.g !== 'oth' || true) o.push(r.g); if (r.tg.includes('slay')) o.push('slay'); if (r.tg.includes('mini')) o.push('mini'); if (r.tg.includes('merch')) o.push('merch'); return o; };
 const mmWiki = pg => 'https://runescape.wiki/w/Money_making_guide/' + encodeURIComponent(String(pg).replace(/ /g, '_')).replace(/%2C/g, ',');
 const mmGp = n => n == null ? '' : (n < 0 ? '−' : '') + Math.abs(Math.round(n)).toLocaleString() + ' gp';
+const mmGpH = n => n == null ? '' : `<span class="gpc">${esc(mmGp(n))}</span>`;
 function mmFit(r, S) {
   if (!STATS_SAVED || !S) return null;
   let gap = 0; for (const [s, l] of r.rl || []) { const h = +S[s] || 1; if (h < l) gap = Math.max(gap, l - h); }
@@ -2691,7 +2696,81 @@ function mmReqLine(r, S) {
   if ((r.qq || []).length) parts.push(r.qq.length + (r.qq.length > 1 ? ' quests' : ' quest'));
   return parts.length ? 'Needs ' + parts.join(', ') : 'No skill or quest requirement stated';
 }
-function mmLive(r) { return LIVE.book.estimate(MM.models && MM.models[r.id]); }
+/* Money estimate, same price policy as the Items tab and Flask decanting: each item's latest recorded trade (Buy/high for
+   supplies, Sell/low for outputs) with its age shown; an item with no recorded trade uses its Jagex GE guide price (marked G,
+   Weird Gloop API, shared cache with Flask). Values the Wiki guide itself fixes (untradeable items, shop prices) are used as the
+   Wiki states them, untaxed, as the Wiki does. Coins are 1 gp. Tax: 2% per sold item, rounded down (Bond exempt) — the Wiki
+   guide's own rule. Anything else unpriced, or a method the Wiki gives no complete formula for, gets no estimate (never 0);
+   it falls back to the Wiki's own profit figure, labelled with its GE price date. */
+let MM_LC = null;
+function mmId(n) {
+  const id = LIVE.book.resolve(n); if (id != null) return id;
+  if (!MM_LC || MM_LC.size0 !== LIVE.book.mapping.size) { MM_LC = new Map(); MM_LC.size0 = LIVE.book.mapping.size;
+    for (const [i, r] of LIVE.book.mapping) { const k = r.name.toLowerCase(); MM_LC.set(k, MM_LC.has(k) ? null : i); } }
+  return MM_LC.get(String(n).toLowerCase()) ?? null;   // same name, different capitalisation only; never fuzzy
+}
+const mmCoin = l => l.n === 'Coins' || l.n === 'coins';
+function mmQuote(l, side) {
+  if (mmCoin(l)) return {value: 1, src: 'coin'};
+  if (l.v != null) return {value: l.v, src: 'wiki'};
+  if (l.cv) return {value: null, why: 'unresolved Wiki formula value'};
+  const id = mmId(l.n); if (id == null) return {value: null, why: 'not a Grand Exchange item'};
+  const q = LIVE.book.quote(id, side);
+  if (q.value != null) return {value: q.value, time: q.time, src: 'trade', id};
+  const g = GUIDE.prices[id]; if (g) return {value: g.price, time: Date.parse(g.timestamp) / 1000, src: 'guide', id};
+  return {value: null, id, why: 'no recorded trade or GE guide price'};
+}
+function mmCalc(m) {
+  const no = why => ({complete: false, profit: null, why});
+  if (!LIVE.book.mapping.size) return no(LIVE.book.online === false ? 'offline, no saved prices' : 'prices loading');
+  if (!m || m.wf !== 'c' || (m.tg || []).some(t => ['pp', 'free'].includes(t)) || !Array.isArray(m.inp) || !Array.isArray(m.out) || !m.out.length) return no('the Wiki guide has no complete item formula');
+  let factor = 1;
+  if (m.run != null || m.g === 'rec') { if (!(Number.isFinite(m.at) && m.at > 0)) return no('the Wiki gives no activity time'); factor = 60 / m.at; }
+  let cost = 0, revenue = 0, tax = 0, oldest = Infinity, nG = 0, nW = 0; const missing = [];
+  for (const [ls, side] of [[m.inp, 'buy'], [m.out, 'sell']]) for (const l of ls) {
+    if (!l || !Number.isFinite(l.q) || l.q < 0) { missing.push((l && l.n) || 'quantity'); continue; }
+    // per-kill drop: the Wiki's exact per-kill quantity × kills/hr (the stored per-hour quantity is rounded to 4 decimals)
+    const q = l.k === 1 && !l.d && Number.isFinite(l.pq) && Number.isFinite(m.kph) && m.kph > 0 ? l.pq * m.kph : l.q;
+    const p = mmQuote(l, side);
+    if (p.value == null) { missing.push(l.n + ' (' + p.why + ')'); continue; }
+    if (p.src === 'trade' || p.src === 'guide') { oldest = Math.min(oldest, p.time || 0); if (p.src === 'guide') nG++; } else if (p.src === 'wiki') nW++;
+    if (side === 'buy') cost += q * p.value;
+    else { revenue += q * p.value; if (p.src === 'trade' || p.src === 'guide') tax += q * RS3Prices.sellingTax(p.value, p.id); }
+  }
+  if (missing.length) return {...no('no price for ' + missing.slice(0, 3).join(', ') + (missing.length > 3 ? '…' : '')), missing};
+  cost *= factor; revenue *= factor; tax *= factor;
+  const profit = revenue - tax - cost;
+  if (![cost, revenue, tax, profit].every(Number.isFinite)) return no('estimate out of range');
+  return {complete: true, profit, grossProfit: revenue - cost, tax, netRevenue: revenue - tax, cost, revenue, oldest: oldest === Infinity ? null : oldest, nG, nW, missing: []};
+}
+/* Methods whose Wiki guide profit uses templates the offline copy cannot expand (#expr, MinMax, Calcvalue): the figure the
+   Wiki page itself renders, read from the RuneScape Wiki API (action=parse, page revision in brackets) on 11 Nov 2026 ~11:05 ET,
+   i.e. the Wiki's GE guide prices of that day, after tax, per hour. */
+const MM_WIKI_RENDER_DATE = 'Nov 11, 2026';
+const MM_WIKI_RENDER = {'killing-abyssal-lords': [8253884, 37022456], 'killing-elite-profane-scabarites-afk': [9758092, 37138487],
+  'making-large-historic-component-crates': [8661720, 36967262], 'mining-animica-dark-animica': [1628698, 37157957], 'mining-animica-light-animica': [1708310, 37157957],
+  'mining-banite': [4860447, 37010986], 'mining-concentrated-coal-rocks': [2429140, 37081664]};
+/* Checked on the rendered Wiki page (same date): these state no single profit per hour. */
+const MM_WIKI_NONE = {'making-strong-divination-urns-no-rune': 'The Wiki guide page shows no profit figure (rendered page, revision 37165721)',
+  'raising-rex-dinosaurs-other-dinosaurs': 'The Wiki lists profit per day for each animal, not one figure (revision 35397138); see the guide'};
+function mmWikiFig(r) {
+  if (r.pw != null) return {value: r.pw, label: `Wiki figure, GE prices ${MM_GE}, after tax`};
+  const x = MM_WIKI_RENDER[r.id]; return x ? {value: x[0], label: `Wiki page figure, GE prices ${MM_WIKI_RENDER_DATE}, after tax`} : null;
+}
+/* What a method is ranked and filtered by: the estimate when it can be worked out, else the Wiki's own figure. */
+function mmLive(r) {
+  if (!MM.calc) MM.calc = new Map();
+  let e = MM.calc.get(r.id);
+  if (!e) { e = mmCalc(MM.models && MM.models[r.id]); const wf = mmWikiFig(r); e.wiki = wf; e.basis = e.complete ? 'est' : wf ? 'wiki' : 'none'; e.value = e.complete ? e.profit : wf ? wf.value : null; MM.calc.set(r.id, e); }
+  return e;
+}
+function mmGuideIds() {
+  const ids = new Set();
+  for (const m of Object.values(MM.models || {})) for (const [ls, side] of [[m.inp || [], 'buy'], [m.out || [], 'sell']]) for (const l of ls) {
+    if (mmCoin(l) || l.v != null || l.cv) continue; const id = mmId(l.n); if (id != null && LIVE.book.quote(id, side).value == null && !GUIDE.prices[id]) ids.add(id); }
+  return [...ids];
+}
+function mmAge(t) { return t ? fdAge(t) : ''; }
 async function mmLoadModels(X) {
   if (MM.models) return;
   const models = {};
@@ -2707,12 +2786,12 @@ function mmOk(r, nq, S) {
   if (MM.mem === 'f2p' && r.mem) return false;
   if (MM.mem === 'p2p' && !r.mem) return false;
   const live = mmLive(r);
-  if (!MM.ob && !nq && (live.complete ? live.profit <= 0 : r.tg.includes('ob'))) return false;
+  if (!MM.ob && !nq && (live.value != null ? live.value <= 0 : r.tg.includes('ob'))) return false;
   if (MM.afk && !r.tg.includes('afk')) return false;
   if (MM.cmb && !r.tg.includes('cmb')) return false;
   if (MM.norec && r.at) return false;
   if (MM.sk && !(r.xs || []).includes(MM.sk) && !(r.rl || []).some(x => x[0] === MM.sk)) return false;
-  if (MM.minp && !(live.complete && live.profit >= MM.minp)) return false;
+  if (MM.minp && !(live.value != null && live.value >= MM.minp)) return false;
   if (MM.fit) { const f = mmFit(r, S); if (MM.fit === 'ok' && f !== 'ok') return false; if (MM.fit === 'close' && f !== 'ok' && f !== 'close') return false; if (MM.fit === 'no' && f !== 'no') return false; }
   if (nq) { const h = norm(r.t + ' ' + r.pg + ' ' + (r.xs || []).join(' ') + ' ' + (r.rl || []).map(x => x[0]).join(' ') + ' ' + (r.qq || []).join(' ') + ' ' + (r.io || []).join(' ') + ' ' + r.tg.map(t => MM_TAG[t] || '').join(' ')); if (!nq.split(' ').every(t => h.includes(t))) return false; }
   return true;
@@ -2722,15 +2801,19 @@ function mmSort(rows) {
   rows.sort((a, b) => {
     if (k === 'name') return a.t.localeCompare(b.t);
     if (k === 'level') return mmLvl(a) - mmLvl(b) || a.t.localeCompare(b.t);
-    return priceCompare(mmLive(a).profit, mmLive(b).profit) || a.t.localeCompare(b.t);
+    const x = mmLive(a).value, y = mmLive(b).value;
+    return (x == null) - (y == null) || (x != null && y != null ? y - x : 0) || a.t.localeCompare(b.t);
   });
   return rows;
 }
 function mmProfitTxt(r) {
-  const e = mmLive(r);
-  const live = e.complete ? `<span class="mmp${e.profit < 0 ? ' mmneg' : ''}">${mmGp(e.profit)}<i>/hr${r.at ? ' of activity' : ''} · live net estimate (est. 2% selling tax)</i></span>` : '<span class="mmnone">Live estimate incomplete / unavailable — not live-ranked</span>';
-  const snap = r.pw == null ? '' : `<small class="price-age">Wiki guide snapshot ${esc(MM_GE)}: ${mmGp(r.pw)}/hr${r.at ? ' of activity' : ''}</small>`;
-  return live + snap;
+  const e = mmLive(r), per = `/hr${r.at ? ' of activity' : ''}`;
+  if (e.basis === 'est') {
+    const src = [e.oldest ? `latest trades, oldest ${mmAge(e.oldest)}` : 'Wiki values', e.nG ? `${e.nG} GE guide price${e.nG > 1 ? 's' : ''} (G)` : '', e.nW ? `${e.nW} Wiki value${e.nW > 1 ? 's' : ''}` : ''].filter(Boolean).join(' · ');
+    return `<span class="mmp${e.profit < 0 ? ' mmneg' : ''}">${mmGpH(e.profit)}<i>${per} · estimate after 2% tax${e.nG ? ' · G' : ''}</i></span><small class="price-age">${esc(src)}</small>${r.pw == null ? '' : `<small class="price-age">Wiki figure (GE prices ${esc(MM_GE)}): ${mmGpH(r.pw)}${per}</small>`}`;
+  }
+  if (e.basis === 'wiki') return `<span class="mmp${e.value < 0 ? ' mmneg' : ''}">${mmGpH(e.value)}<i>${per} · ${esc(e.wiki.label)}</i></span><small class="price-age">Not repriced: ${esc(e.why)}</small>`;
+  return `<span class="mmnone">${esc(MM_WIKI_NONE[r.id] || 'No profit figure in the Wiki guide data')}</span>`;
 }
 
 function mmCard(r, S, open) {
@@ -2759,10 +2842,10 @@ function mmEstimate(D, m) {
   return {...e, h: e.profit, out: e.revenue, inn: e.cost, miss: e.missing};
 }
 function mmEstimateHTML(m) {
-  const e = LIVE.book.estimate(m);
-  if (!e.complete) return `<h5>Live estimate unavailable</h5><p class="note">Live estimate incomplete / unavailable. No total or profit is fabricated. Missing/stale/unverified: ${esc(e.missing.slice(0, 8).join(', '))}${e.missing.length > 8 ? '…' : ''}. Excluded from live-profit filters.</p>`;
-  const row = (label, value, cls = '') => `<div class="estimate-row ${cls}"><dt>${label}</dt><dd>${mmGp(value)}/hr</dd></div>`;
-  return `<h5>Live estimate</h5><dl class="estimate-metrics">${row('Buy supplies', e.cost)}${row('Sell gross', e.revenue)}${row('Est. 2% tax', e.tax)}${row('Sell net', e.netRevenue)}${row('Profit gross', e.grossProfit)}${row('Profit net', e.profit, 'estimate-profit')}</dl><p class="price-age estimate-source">Source fetched ${esc(priceTime(LIVE.book.fetchedAt / 1000))}; individual trade times below.</p><p class="note">${m.at ? 'Per hour of activity, not passive clock-hour income. ' : ''}Buy/high costs; Sell/low returns. Tax rounded down per sold item; bonds exempt. Wiki quantities/rates are assumptions. Degradation and unlisted costs excluded.</p>`;
+  const e = mmCalc(m);
+  if (!e.complete) return `<h5>Estimate</h5><p class="note">Not repriced: ${esc(e.why)}. ${(f => f ? `Ranked by the ${esc(f.label.replace(/^Wiki/, 'Wiki'))}: ${mmGpH(f.value)}/hr.` : esc(MM_WIKI_NONE[m.id] || 'No profit figure in the Wiki guide data') + '.')(mmWikiFig(m))} No value is invented; nothing is treated as 0.</p>`;
+  const row = (label, value, cls = '') => `<div class="estimate-row ${cls}"><dt>${label}</dt><dd>${mmGpH(value)}/hr</dd></div>`;
+  return `<h5>Estimate</h5><dl class="estimate-metrics">${row('Buy supplies', e.cost)}${row('Sell gross', e.revenue)}${row('Est. 2% tax', e.tax)}${row('Sell net', e.netRevenue)}${row('Profit gross', e.grossProfit)}${row('Profit net', e.profit, 'estimate-profit')}</dl><p class="price-age estimate-source">${e.oldest ? `Latest recorded trades (oldest ${esc(mmAge(e.oldest))})` : 'No trade prices needed'}${e.nG ? ` · ${e.nG} item${e.nG > 1 ? 's' : ''} with no recorded trade at the GE guide price (G)` : ''}${e.nW ? ` · ${e.nW} Wiki value${e.nW > 1 ? 's' : ''} (untaxed)` : ''}; prices per item below.</p><p class="note">${m.at ? 'Per hour of activity, not passive clock-hour income. ' : ''}Buy/high costs; Sell/low returns. Older trades are not current offers. Tax rounded down per sold item; bonds exempt. Wiki quantities/rates are assumptions. Degradation and unlisted costs excluded.</p>`;
 }
 
 function mmReqChips(m, S) {
@@ -2785,6 +2868,11 @@ function mmReqChips(m, S) {
   };
   return m.rq.map((e, i) => { const o = e.alt && m.rq[i - 1] && m.rq[i - 1].alt && !(e.k === 'o' && /^or /.test(e.h || '')) ? '<span class="mmor">or</span>' : ''; return o + chip(e); }).join('');
 }
+function mmLinePriceTag(l, side) {
+  const p = mmQuote(l, side);
+  if (p.src === 'guide') return `<span class="live-price"><span class="gp">${side === 'buy' ? 'Buy' : 'Sell'} ${gpH(p.value)} <b class="mm-g" title="No recorded trade: Jagex GE guide price">G</b></span><small class="price-age">GE guide price, ${esc(priceTime(p.time))}</small></span>`;
+  const id = p.id ?? l.n; return livePriceTag(id === l.n ? l.n : (LIVE.book.mapping.get(id) || {}).name || l.n, side);
+}
 function mmLines(D, lines, title, noteExtra, side = 'sell') {
   if (!lines.length) return '';
   const noteId = 'mm-quantity-' + (++responsiveTableId);
@@ -2793,7 +2881,7 @@ function mmLines(D, lines, title, noteExtra, side = 'sell') {
     const ic = l.ic ? `<img class="ico" loading="lazy" src="${esc(l.ic)}" alt="">` : '';
     const nm = l.a ? `<a class="ti" href="#items/${encodeURIComponent(l.n)}">${esc(l.n)}</a>` : esc(l.n);
     const q = l.q >= 100 ? Math.round(l.q).toLocaleString() : +(+l.q).toFixed(2);
-    const price = l.n === 'Coins' || l.n === 'coins' ? '1 gp (coin denomination)' : l.v != null ? `${Math.round(l.v).toLocaleString()} <i>wiki fixed-value snapshot; not live</i>` : l.cv ? '<i>Unverified wiki formula — not repriced</i>' : livePriceTag(l.n, side);
+    const price = l.n === 'Coins' || l.n === 'coins' ? `${gpH(1)} (coin denomination)` : l.v != null ? `${gpH(l.v)} <i>Wiki value (untaxed); not a GE price</i>` : l.cv ? '<i>Unverified wiki formula — not repriced</i>' : mmLinePriceTag(l, side);
     return `<tr><td>${ic}${nm}${l.nt ? ` <i>${esc(l.nt)}</i>` : ''}${l.cv ? ' <i title="Unverified wiki calculation; excluded from live estimates.">(wiki calc)</i>' : ''}</td><td class="r">${q}</td><td class="r">${price}</td></tr>`;
   }).join('');
   return `<details class="trsub mmln"${lines.length <= 6 ? ' open' : ''}><summary>${title} <span class="cnt">${lines.length}</span></summary><p class="note mm-quantity-note" id="${noteId}">Wiki units per hour; per run for recurring methods.</p><div class="tscroll"><table class="tt"><thead><tr><th>Item</th><th scope="col" aria-describedby="${noteId}">Quantity</th><th scope="col">Price each</th></tr></thead><tbody>${rows}</tbody></table></div>${noteExtra || ''}</details>`;
@@ -2807,11 +2895,11 @@ async function mmFill(card, r, S) {
   const dateNote = m.ts ? `guide last edited ${m.ts}` : '';
   /* profit blocks: wiki figure and app estimate stay separate */
   let wiki = '';
-  if (m.pw == null) wiki = `<div class="mmfig"><b>Profit per hour <i>(wiki guide snapshot ${esc(MM_GE)})</i></b><span class="mmnone">Not stated — this guide's profit depends on a live wiki calculation that cannot be reproduced offline.</span></div>`;
-  else if (m.run != null) wiki = `<div class="mmfig"><b>Profit per hour <i>(wiki guide snapshot ${esc(MM_GE)})</i></b><span><b class="gp">${mmGp(m.pw)}</b></span></div><div class="mmfig"><b>Each time you do it</b><span>${mmGp(m.run)} every ${esc(m.rt || '?')}, ${m.at} min of activity</span></div>`;
-  else wiki = `<div class="mmfig"><b>Profit per hour <i>(wiki guide snapshot ${esc(MM_GE)})</i></b><span><b class="gp">${mmGp(m.pw)}</b></span></div>${perk ? `<div class="mmfig"><b>Profit per kill</b><span>${mmGp(m.pk)}${m.kph ? ` · ${m.kph} ${esc(m.kn || 'kills')}/hr` : ''}</span></div>` : ''}`;
+  if (m.pw == null) wiki = (f => f ? `<div class="mmfig"><b>Profit per hour <i>(${esc(f.label)}; the offline copy cannot expand this guide's formula)</i></b><span><b class="gp">${mmGpH(f.value)}</b></span></div>` : `<div class="mmfig"><b>Profit per hour</b><span class="mmnone">${esc(MM_WIKI_NONE[m.id] || 'No profit figure in the Wiki guide data')}</span></div>`)(mmWikiFig(m));
+  else if (m.run != null) wiki = `<div class="mmfig"><b>Profit per hour <i>(wiki guide snapshot ${esc(MM_GE)})</i></b><span><b class="gp">${mmGpH(m.pw)}</b></span></div><div class="mmfig"><b>Each time you do it</b><span>${mmGpH(m.run)} every ${esc(m.rt || '?')}, ${m.at} min of activity</span></div>`;
+  else wiki = `<div class="mmfig"><b>Profit per hour <i>(wiki guide snapshot ${esc(MM_GE)})</i></b><span><b class="gp">${mmGpH(m.pw)}</b></span></div>${perk ? `<div class="mmfig"><b>Profit per kill</b><span>${mmGpH(m.pk)}${m.kph ? ` · ${m.kph} ${esc(m.kn || 'kills')}/hr` : ''}</span></div>` : ''}`;
   const estBlk = `<section class="mmest" data-mm-estimate="${esc(m.id)}" aria-label="Live price estimate">${mmEstimateHTML(m)}</section>`;
-  const wnote = `<div class="note">Wiki figures and prose are guide snapshots (${esc(MM_GE)}${dateNote ? ', ' + esc(dateNote) : ''}), not live quotes. Net live estimates require complete structured quantities/rates, observed Buy for supplies and Sell for revenue. Missing/stale quotes, unresolved formulas/fixed values and partly parsed methods are not live-ranked. Estimated selling tax is deducted once per output item; unlisted costs remain excluded, not assumed zero.</div>`;
+  const wnote = `<div class="note">Wiki figures and prose are guide snapshots (${esc(MM_GE)}${dateNote ? ', ' + esc(dateNote) : ''}), not live quotes. Estimates use the Wiki's quantities with each item's latest recorded trade (age shown), a GE guide price (G) for an item with no recorded trade, and the Wiki's own values for untradeable items. Methods the Wiki gives no complete item formula for are ranked by the Wiki's own figure, labelled. Estimated selling tax is deducted once per output item; unlisted costs remain excluded, not assumed zero.</div>`;
   /* requirements */
   const ph = trPhone();
   const reqs = m.rq.length ? `<div class="secreq mmreqs">${mmReqChips(m, S)}</div>${STATS_SAVED ? '' : '<div class="note">Save your levels (<a href="#char">Character tab</a>) to see ✓/✗ against them.</div>'}` : '<div class="note">The wiki lists no requirements for this method.</div>';
@@ -2864,14 +2952,14 @@ async function moneyView(arg) {
   view.innerHTML = `<div class="trbar" id="mmbar"><b class="trbn">Money</b><select id="mmcatj" aria-label="Category">${MM_CATS.map(c => `<option value="${c[0]}"${MM.c === c[0] ? ' selected' : ''}>${esc(c[1])} (${cnt[c[0]]})</option>`).join('')}</select><button type="button" class="btn mini ghost" id="trtop" aria-label="Back to top">↑ Top</button></div>
     <div class="panel"><h2>Money making</h2>
     <details class="src-info" id="mm-src-info"><summary>Details &amp; sources</summary>
-    <div class="note">Every money-making guide on the RS3 wiki: ${st.methods.toLocaleString()} methods from ${st.pages} guide pages. Default sorting and minimum profit use complete fresh net live-price estimates only (Buy supplies, Sell outputs; estimated 2% selling tax deducted). Unverified/stale methods rank last and fail live-profit filters. Wiki figures (${esc(X.ge_date)}) remain guide snapshots; not every method can be recomputed.</div></details>
+    <div class="note">Every money-making guide on the RS3 wiki: ${st.methods.toLocaleString()} methods from ${st.pages} guide pages. Sorting and minimum profit use the estimate where the Wiki gives a complete item formula (latest recorded trades with their age, GE guide price marked G for an item with no trade, Wiki values for untradeable items; Buy supplies, Sell outputs, estimated 2% selling tax deducted), otherwise the Wiki's own figure, labelled on each method. Wiki figures (${esc(X.ge_date)}) remain guide snapshots; not every method can be recomputed.</div></details>
     ${searchBox('mmq', 'Search methods, e.g. dragons, herbs, AFK', MM.q)}
     <div class="chips" id="mmc">${MM_CATS.map(c => `<button data-v="${c[0]}"${MM.c === c[0] ? ' class="on"' : ''}>${esc(c[1])}<span class="cnt">${cnt[c[0]]}</span></button>`).join('')}</div>
     <div class="mmsel"><label>Skill<select id="mmsk"><option value="">Any skill</option>${skills.map(s => `<option${MM.sk === s ? ' selected' : ''}>${esc(s)}</option>`).join('')}</select></label>
       <label>Access<select id="mmmem"><option value="">F2P &amp; members</option><option value="f2p"${MM.mem === 'f2p' ? ' selected' : ''}>Free-to-play only</option><option value="p2p"${MM.mem === 'p2p' ? ' selected' : ''}>Members only</option></select></label>
       <label>My levels<select id="mmfit"><option value="">Any</option><option value="ok"${MM.fit === 'ok' ? ' selected' : ''}>Fits my levels</option><option value="close"${MM.fit === 'close' ? ' selected' : ''}>Fits or close (within 5)</option><option value="no"${MM.fit === 'no' ? ' selected' : ''}>Can't do yet</option></select></label>
-      <label>Sort<select id="mmsort"><option value="profit">Net profit/hr (fresh live estimate)</option><option value="level"${MM.sort === 'level' ? ' selected' : ''}>Level needed</option><option value="name"${MM.sort === 'name' ? ' selected' : ''}>Name</option></select></label></div>
-    <div class="mmrng"><label for="mmmin">Min net profit/hr (fresh live): <b id="mmminv">${MM.minp ? mmGp(MM.minp) : 'any'}</b></label><input id="mmmin" type="range" min="0" max="${MM_MIN.length - 1}" step="1" value="${Math.max(0, MM_MIN.indexOf(MM.minp))}"></div>
+      <label>Sort<select id="mmsort"><option value="profit">Profit/hr (highest first)</option><option value="level"${MM.sort === 'level' ? ' selected' : ''}>Level needed</option><option value="name"${MM.sort === 'name' ? ' selected' : ''}>Name</option></select></label></div>
+    <div class="mmrng"><label for="mmmin">Min profit/hr: <b id="mmminv">${MM.minp ? mmGpH(MM.minp) : 'any'}</b></label><input id="mmmin" type="range" min="0" max="${MM_MIN.length - 1}" step="1" value="${Math.max(0, MM_MIN.indexOf(MM.minp))}"></div>
     <div class="chips" id="mmf"><button data-v="afk"${MM.afk ? ' class="on"' : ''}>AFK / low effort</button><button data-v="cmb"${MM.cmb ? ' class="on"' : ''}>Needs combat</button><button data-v="norec"${MM.norec ? ' class="on"' : ''}>Hide timed recurring</button><button data-v="ob"${MM.ob ? ' class="on"' : ''}>Show non-positive / wiki-obsolete methods</button></div>
     ${STATS_SAVED ? '' : '<div class="note">Tip: save your levels (<a href="#char">Character tab</a>) to use “Fits my levels” and to see ✓/✗ on requirements. They stay on this device.</div>'}
     <div id="mmres"></div></div>
@@ -2881,11 +2969,12 @@ async function moneyView(arg) {
   const out = $('#mmres'), q = $('#mmq'); let tmr = null;
   const draw = (keep) => {
     if (!keep) MM.n = 20;
+    MM.calc = null;   // prices may have changed
     MM.q = q.value; const nq = norm(q.value);
     const rows = mmSort(X.rows.filter(r => mmOk(r, nq, S)));
     const show = rows.slice(0, MM.n);
-    const hidden = X.rows.filter(r => r.tg.includes('ob')).length;
-    out.innerHTML = `<div class="note trcount">${rows.length.toLocaleString()} of ${X.rows.length.toLocaleString()} methods${MM.ob || nq ? '' : ` (${hidden} not-profitable ones hidden)`}.${MM.sort === 'profit' ? ' Only complete fresh net estimates are live-ranked; incomplete methods are last.' : ''}</div>
+    const hidden = X.rows.filter(r => { const v = mmLive(r).value; return v != null ? v <= 0 : r.tg.includes('ob'); }).length;
+    out.innerHTML = `<div class="note trcount">${rows.length.toLocaleString()} of ${X.rows.length.toLocaleString()} methods${MM.ob || nq ? '' : ` (${hidden} with no profit hidden)`}.</div>
       ${show.length ? `<div class="mmlist">${show.map(r => mmCard(r, S, false)).join('')}</div>` : '<div class="obempty"><div><b>No method matches.</b><div class="note">Clear a filter, lower the minimum profit, or change the search.</div></div></div>'}
       ${rows.length > show.length ? `<div class="mmmore"><button type="button" class="btn" id="mmmore">Show ${Math.min(20, rows.length - show.length)} more <span class="cnt">${rows.length - show.length} left</span></button></div>` : ''}`;
     mmBindCards(out, show, S);
@@ -2900,11 +2989,18 @@ async function moneyView(arg) {
   $('#mmmem').onchange = e => { MM.mem = e.target.value; draw(); };
   $('#mmfit').onchange = e => { MM.fit = e.target.value; draw(); };
   $('#mmsort').onchange = e => { MM.sort = e.target.value; draw(); };
-  $('#mmmin').oninput = e => { MM.minp = MM_MIN[+e.target.value]; $('#mmminv').textContent = MM.minp ? mmGp(MM.minp) : 'any'; draw(); };
+  $('#mmmin').oninput = e => { MM.minp = MM_MIN[+e.target.value]; $('#mmminv').innerHTML = MM.minp ? mmGpH(MM.minp) : 'any'; draw(); };
   document.querySelectorAll('#mmf button').forEach(b => b.onclick = () => { MM[b.dataset.v] = !MM[b.dataset.v]; b.classList.toggle('on', MM[b.dataset.v]); draw(); });
   $('#trtop').onclick = $('#trtopb').onclick = () => window.scrollTo(0, 0);
   watchPriceDraw(() => draw(true), out);
   draw();
+  mmGuideNeeded(() => draw(true));
+}
+let MM_GUIDE_ASKED = false;
+function mmGuideNeeded(redraw) {
+  guideLoadCache();
+  const go = () => { if (MM_GUIDE_ASKED || !LIVE.book.mapping.size) return; MM_GUIDE_ASKED = true; const ids = mmGuideIds(); if (ids.length) guideFetch(ids).then(() => { if ($('#mmres')) { MM.calc = null; redraw(); } }); };
+  go(); if (!MM_GUIDE_ASKED) { const off = LIVE.subscribe(() => { go(); if (MM_GUIDE_ASKED) off(); }); }
 }
 async function aboutView() {
   const m = await get('data/meta.json');
@@ -2927,7 +3023,7 @@ async function aboutView() {
     <div class="note" style="margin-top:8px">Rarity bands follow the wiki's drop tables (Module:DropsLine): Always, Common ≥ 1/16, Uncommon ≥ 1/64, Rare ≥ 1/256, Very rare below that.</div>
     <table style="margin-top:10px"><thead><tr><th>Tier</th><th>Clue types</th></tr></thead><tbody>${cc}</tbody></table></div>
   <div class="panel"><h2>Known gaps</h2><ul>
-    ${m.money ? `<li>Money making: every guide page in Category:Money making guides is included, built only from the wiki. Profits shown “per the wiki” use the wiki's own formula on its Grand Exchange data (${esc((m.ge && m.ge.date) || '')}); fresh net estimates and live ranking are available only for complete structured formulas, using observed instant-buy supply costs and instant-sell revenue, deducting estimated 2% per-item selling tax but excluding degradation and unlisted costs; stale/incomplete methods are not live-ranked. Training cost prose remains a snapshot without verified quantities/yields. ${m.money.partly} guides have free-form layouts and are tagged “Partly parsed”; ${m.money.unresolved_templates} wiki templates could not be expanded and are shown as plain text; ${m.money.ge_missing_methods} methods use items with no GE price here; ${m.money.profit_not_stated} methods state no profit. “Find on map” appears only where the wiki gives coordinates (${m.money.with_maps} methods). Recurring methods (timed) show the wiki's per-hour-of-activity figure.</li>` : ''}
+    ${m.money ? `<li>Money making: every guide page in Category:Money making guides is included, built only from the wiki. Profits shown “per the wiki” use the wiki's own formula on its Grand Exchange data (${esc((m.ge && m.ge.date) || '')}); estimates are worked out for every method with a complete item formula, using each item's latest recorded trade (instant-buy supplies, instant-sell outputs, age shown), the GE guide price for an item with no recorded trade and the Wiki's own values for untradeable items, deducting estimated 2% per-item selling tax but excluding degradation and unlisted costs; other methods are ranked by the Wiki's own figure, labelled. Training cost prose remains a snapshot without verified quantities/yields. ${m.money.partly} guides have free-form layouts and are tagged “Partly parsed”; ${m.money.unresolved_templates} wiki templates could not be expanded and are shown as plain text; ${m.money.ge_missing_methods} methods use items with no GE price here; ${m.money.profit_not_stated} methods state no profit. “Find on map” appears only where the wiki gives coordinates (${m.money.with_maps} methods). Recurring methods (timed) show the wiki's per-hour-of-activity figure.</li>` : ''}
     <li>Pictures come from the wiki pages themselves: ${(m.coverage.quest_pictures_total || 0).toLocaleString()} quest pictures (steps, start NPCs and places) and location maps, entrances and teleports for monsters. A step the wiki shows no picture for gets the place or NPC picture it mentions, where the wiki has one. ${m.qpic_not_on_wiki ? `${m.qpic_not_on_wiki.toLocaleString()} picture names that quest pages mention do not exist as files on the wiki itself (mostly NPC chatheads), so nothing can be shown for those.` : ''}</li>
     <li>${m.spawn_maps ? `${m.spawn_maps.with_tiles.toLocaleString()} of ${m.spawn_maps.with_coords.toLocaleString()} monster spawn locations open an interactive map (drag, zoom, floors) built from the wiki's own map tiles, with the wiki's spawn point marked.` : ''} The wiki gives one spawn coordinate per place, so the other map layers the wiki can show (extra markers, routes, filters) are not reproduced, and the location pictures still show the wiki's red spawn dots.</li>
     ${m.icons_missing_names && m.icons_missing_names.length ? `<li>${m.icons_missing_names.length.toLocaleString()} item names have no icon because they are not single wiki items (for example “Nothing equipped…” rows), and ${m.icons_variant.toLocaleString()} names use the first variant icon of their wiki disambiguation page.${m.monster_images_missing_names && m.monster_images_missing_names.length ? ` The wiki has no picture for ${m.monster_images_missing_names.map(esc).join(' and ')}.` : ''}</li>` : ''}

@@ -72,16 +72,18 @@ async function screen(hash) {
       assert.equal(estimate.querySelectorAll('.estimate-row small').length,0);
       const table=w.document.querySelector('.mmln table');assert.ok(table.classList.contains('rtable'),'async table enhancement runs');assert.ok(table.querySelector('th[aria-describedby]').textContent==='Quantity');assert.equal(table.querySelector('tbody td').dataset.cellLabel,'Item');
       assert.ok(estimate.querySelector('h5'));
-    }else assert.match(text,/Live estimate incomplete \/ unavailable/);
+      assert.equal(estimate.querySelectorAll('dd .gpc').length,6,'coins icon on every amount');assert.equal(estimate.querySelector('.gpc').textContent.trim().endsWith('gp'),true);
+      assert.ok(w.document.querySelector('.mmcard .mmp .gpc'),'card profit has the coins icon');
+    }else assert.match(text,/Not repriced: /);
     assert.doesNotMatch(text,/App estimate.*541,382,400/);
     console.log(search+':',w.document.querySelector('.mmest').textContent);
   }
   // Render the actual app estimate implementation against a complete structured recipe.
   const html=w.__priceTest.estimate({wf:'c',tg:[],inp:[{n:'Input',q:2}],out:[{n:'Output',q:3}]});
   assert.match(html,/240 gp/);assert.match(html,/600 gp/);assert.match(html,/360 gp/); assert.match(html,/348 gp/);assert.match(html,/12 gp/);
-  assert.match(html,/Source fetched/);assert.match(html,/ET/);
+  assert.match(html,/Latest recorded trades \(oldest /);
   w.__priceTest.book.data[2].low=null;
   const missing=w.__priceTest.estimate({wf:'c',tg:[],inp:[{n:'Input',q:2}],out:[{n:'Output',q:3}]});
-  assert.match(missing,/incomplete \/ unavailable/);assert.doesNotMatch(missing,/360 gp/);assert.doesNotMatch(missing,/348 gp/);
+  assert.match(missing,/Not repriced: no price for Output \(no recorded trade or GE guide price\)/);assert.doesNotMatch(missing,/360 gp/);assert.doesNotMatch(missing,/348 gp/);
   dom.window.close(); console.log('PASS full app DOM routes, actual data, real service subscriptions/rendering');
 })().catch(e=>{console.error(e);process.exit(1)});
