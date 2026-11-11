@@ -1,0 +1,535 @@
+[
+ {
+  "name": "Arrows defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Arrows"
+  }
+ },
+ {
+  "name": "Arrows - Scratch defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Arrows - Scratch"
+  }
+ },
+ {
+  "name": "Bolts defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Bolts"
+  }
+ },
+ {
+  "name": "Bolts - Scratch defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Bolts - Scratch"
+  }
+ },
+ {
+  "name": "Bows - Unstrung defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Bows - Unstrung"
+  }
+ },
+ {
+  "name": "Bows - Stringing defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Bows - Stringing"
+  }
+ },
+ {
+  "name": "Bows - Scratch defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Bows - Scratch"
+  }
+ },
+ {
+  "name": "Bows - Martial defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Bows - Martial"
+  }
+ },
+ {
+  "name": "Darts defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Darts"
+  }
+ },
+ {
+  "name": "Darts - Scratch defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Darts - Scratch"
+  }
+ },
+ {
+  "name": "Unfinished projectiles defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Unfinished projectiles"
+  }
+ },
+ {
+  "name": "Dungeoneering - Arrows defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Dungeoneering - Arrows"
+  }
+ },
+ {
+  "name": "Dungeoneering - Bows defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Dungeoneering - Bows"
+  }
+ },
+ {
+  "name": "Dungeoneering - Staves defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Dungeoneering - Staves"
+  }
+ },
+ {
+  "name": "Dungeoneering - Traps defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Dungeoneering - Traps"
+  }
+ },
+ {
+  "name": "Miscellaneous defaults 1-99",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Miscellaneous"
+  }
+ },
+ {
+  "name": "Arrows portable",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "Yes",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "disp": "Arrows",
+   "brooch": "false"
+  }
+ },
+ {
+  "name": "Arrows portable + brooch",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "Yes",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "disp": "Arrows",
+   "brooch": "true"
+  }
+ },
+ {
+  "name": "Bows - Unstrung portable + brooch",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "Yes",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "disp": "Bows - Unstrung",
+   "brooch": "true"
+  }
+ },
+ {
+  "name": "Bows - Stringing portable (no material reduction)",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "Yes",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "disp": "Bows - Stringing",
+   "brooch": "false"
+  }
+ },
+ {
+  "name": "Bolts workroom",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "Yes",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Bolts"
+  }
+ },
+ {
+  "name": "Darts DXP",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "1",
+   "brooch_no_effect": "No effect",
+   "disp": "Darts"
+  }
+ },
+ {
+  "name": "Bows - Scratch avatar 6 outfit 5 custom 7",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "6",
+   "outfit": "5",
+   "custom": "7",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Bows - Scratch"
+  }
+ },
+ {
+  "name": "Dungeoneering - Bows everything on",
+  "args": {
+   "currToggle": "Level",
+   "current": "1",
+   "goalToggle": "Level",
+   "goal": "99",
+   "avatar": "3",
+   "outfit": "3",
+   "custom": "10",
+   "portable": "Yes",
+   "workroom": "Yes",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "1",
+   "disp": "Dungeoneering - Bows",
+   "brooch": "true"
+  }
+ },
+ {
+  "name": "Arrows BXP 50000 XP 12345 to level 80",
+  "args": {
+   "currToggle": "Experience",
+   "current": "12345",
+   "goalToggle": "Level",
+   "goal": "80",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "1",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Arrows",
+   "bxpnum": "50000"
+  }
+ },
+ {
+  "name": "Bolts XP to XP 1000000-5000000",
+  "args": {
+   "currToggle": "Experience",
+   "current": "1000000",
+   "goalToggle": "Experience",
+   "goal": "5000000",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Bolts"
+  }
+ },
+ {
+  "name": "Miscellaneous level 50-51",
+  "args": {
+   "currToggle": "Level",
+   "current": "50",
+   "goalToggle": "Level",
+   "goal": "51",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Miscellaneous"
+  }
+ },
+ {
+  "name": "Unfinished projectiles goal below current",
+  "args": {
+   "currToggle": "Level",
+   "current": "60",
+   "goalToggle": "Level",
+   "goal": "50",
+   "avatar": "0",
+   "outfit": "0",
+   "custom": "0",
+   "portable": "No",
+   "workroom": "No",
+   "skill": "Fletching",
+   "bxp": "0",
+   "dxp": "0",
+   "brooch_no_effect": "No effect",
+   "disp": "Unfinished projectiles"
+  }
+ }
+]

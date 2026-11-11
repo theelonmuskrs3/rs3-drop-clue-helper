@@ -1012,6 +1012,7 @@ async function nativeCalcView(n) {
   if (n.slug === 'flask-decanting') return flaskDecantView(n);
   if (n.slug === 'herblore') return herbloreView(n);
   if (n.slug === 'cooking') return cookingView(n);
+  if (n.slug === 'fletching') return fletchingView(n);
   location.replace('#calculators');
 }
 const QUOTE_WHY = {missing: 'no recent trade price', stale: 'price is stale', offline: 'offline', unavailable: 'live source unavailable', unmapped: 'not found in the price source'};
@@ -1318,70 +1319,84 @@ async function herbloreView(n) {
 /* Calculator:Cooking, native. The Wiki's generic Module:Skill calc (with Cooking/data) is ported to RS3Calc.skillCalcRun and
    checked cell by cell against Wiki renders (tests/cooking.test.cjs); the form is the Wiki form, driven through the port of
    MediaWiki:Gadget-calc-core.js (hidden fields are not sent, invalid numbers stop the run as on the Wiki). */
-const CK_KEY = 'dch_calc_cooking_v1';
-function ckLoad(D) { let st = RS3Calc.skillFormDefaults(D.form); let o = null; try { o = JSON.parse(CALC_LS && CALC_LS.getItem(CK_KEY) || 'null'); } catch (e) {}
+function skLoad(D, KEY) { let st = RS3Calc.skillFormDefaults(D.form); let o = null; try { o = JSON.parse(CALC_LS && CALC_LS.getItem(KEY) || 'null'); } catch (e) {}
   if (o && typeof o === 'object' && Array.isArray(o.actions)) for (const [k, v] of o.actions.slice(0, 50)) { try { st = RS3Calc.skillFormSet(D.form, st, String(k), typeof v === 'boolean' ? v : String(v)); } catch (e) {} }
   return st; }
-function ckSave(D, st) { const def = RS3Calc.skillFormDefaults(D.form), actions = [];
+function skSave(D, st, KEY) { const def = RS3Calc.skillFormDefaults(D.form), actions = [];
   for (const p of D.form.params) if (p.type !== 'hidden' && p.type !== 'hs' && st.value[p.name] !== def.value[p.name]) actions.push([p.name, st.value[p.name]]);
   // replay order: toggling fields first so the fields they reveal can be set
   actions.sort((a, b) => (D.form.params.find(p => p.name === b[0]).rawtogs ? 1 : 0) - (D.form.params.find(p => p.name === a[0]).rawtogs ? 1 : 0));
-  try { CALC_LS && CALC_LS.setItem(CK_KEY, JSON.stringify({actions})); } catch (e) {} }
-async function cookingView(n) {
+  try { CALC_LS && CALC_LS.setItem(KEY, JSON.stringify({actions})); } catch (e) {} }
+async function skillView(n, K) {
+  const P = K.id;
   const D = await get(n.data); await calcImages();
-  const label = 'Cooking calculator', src = RS3Calc.wikiUrl(D.path), rev = t => esc(D.source[t].revid);
-  let st = ckLoad(D);
+  const label = K.skill + ' calculator', src = RS3Calc.wikiUrl(D.path), rev = t => esc(D.source[t].revid);
+  let st = skLoad(D, K.key);
   view.innerHTML = `<div class="row subnav"><a class="btn sub" href="#calculators">← All calculators</a></div>
-  <section class="panel calc-native-panel" aria-labelledby="ck-title">
-    <div class="ge-heading calc-heading"><h2 id="ck-title">Cooking calculator</h2>
-      <div class="calc-native-actions"><button class="calc-star" type="button" id="ck-star"></button>
+  <section class="panel calc-native-panel" aria-labelledby="${P}-title">
+    <div class="ge-heading calc-heading"><h2 id="${P}-title">${esc(label)}</h2>
+      <div class="calc-native-actions"><button class="calc-star" type="button" id="${P}-star"></button>
       <a class="btn sub calc-source" href="${esc(src)}" target="_blank" rel="noopener noreferrer">Wiki calculator ↗</a></div></div>
-    <p class="note">How many of each Cooking recipe you need to reach a level or XP goal, with ingredients, cost and profit. Same recipes, options and formulas as the RuneScape Wiki <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">Cooking calculator</a>, using live prices instead of the Wiki's guide prices, so costs and profits differ from the Wiki page.</p>
-    <ul class="note calc-assume">
-      <li>XP, number of actions, urns and ingredient quantities follow the Wiki calculator exactly, including its quirks: the Bonfire method adds no XP, Portable Range adds 21% in every sub-category, and the avatar bonus does not apply to Urns.</li>
-      <li>Ingredients are bought at the live Buy (high) price and products sold at the live Sell (low) price; each ingredient line is rounded down, as on the Wiki. Brewing sells two batches.</li>
-      <li>Net profit deducts the estimated 2% Grand Exchange tax per product sold (rounded down per item). Gross is before tax.</li>
-      <li>Ingredients or products the Wiki does not price (untradeable) count as 0, as on the Wiki. They are not free: totals that include one say "excludes untradeable …".</li>
-      <li>A price that is missing or older than 15 minutes makes that recipe's totals unavailable; it is never treated as 0. Recipes priced in chimes show the Wiki's chime values, not coins.</li></ul>
-    <form id="ck-form" class="hb-form" autocomplete="off" onsubmit="return false"></form>
-    <div class="row hb-reset"><button class="btn sub" type="button" id="ck-reset">Reset all options</button></div>
-    <p class="hb-msg" id="ck-msg" role="status"></p>
+    ${K.intro(src)}
+    <ul class="note calc-assume">${K.assume.map(t => `<li>${t}</li>`).join('')}</ul>
+    <form id="${P}-form" class="hb-form" autocomplete="off" onsubmit="return false"></form>
+    <div class="row hb-reset"><button class="btn sub" type="button" id="${P}-reset">Reset all options</button></div>
+    <p class="hb-msg" id="${P}-msg" role="status"></p>
     <div class="row calc-filters">
-      <input id="ck-q" type="search" placeholder="Search recipes or ingredients" aria-label="Search recipes or ingredients" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <select id="ck-show" aria-label="Profit shown"><option value="net">Net profit (after est. tax)</option><option value="gross">Gross profit (before tax)</option></select>
-      <select id="ck-sort" aria-label="Sort"><option value="">Sort: as on the Wiki</option><option value="profit">Sort: most profit</option><option value="pxp">Sort: best profit/XP</option><option value="xp">Sort: most XP each</option><option value="num">Sort: fewest actions</option></select></div>
-    <p class="note" id="ck-count" role="status" aria-live="polite"></p>
-    <div id="ck-table"></div>
-    <p class="note">Formulas, recipes and form: RuneScape Wiki <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">Calculator:Cooking</a> (revision ${rev('Calculator:Cooking')}), Module:Skill calc (revision ${rev('Module:Skill calc')}), Module:Skill calc/bonusGenerator (revision ${rev('Module:Skill calc/bonusGenerator')}), Module:Skill calc/eltGenerator (revision ${rev('Module:Skill calc/eltGenerator')}), Module:Skill calc/Cooking/data (revision ${rev('Module:Skill calc/Cooking/data')}); XP table Module:Experience/data (revision ${rev('Module:Experience/data')}); item IDs Module:GEIDs (revision ${rev('Module:GEIDs/data.json')}). CC BY-NC-SA 3.0.</p>
+      <input id="${P}-q" type="search" placeholder="Search recipes or ingredients" aria-label="Search recipes or ingredients" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <select id="${P}-show" aria-label="Profit shown"><option value="net">Net profit (after est. tax)</option><option value="gross">Gross profit (before tax)</option></select>
+      <select id="${P}-sort" aria-label="Sort"><option value="">Sort: as on the Wiki</option><option value="profit">Sort: most profit</option><option value="pxp">Sort: best profit/XP</option><option value="xp">Sort: most XP each</option><option value="num">Sort: fewest actions</option></select></div>
+    <p class="note" id="${P}-count" role="status" aria-live="polite"></p>
+    <div id="${P}-table"></div>
+    <p class="note">Formulas, ${K.noun} and form: RuneScape Wiki <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">Calculator:${esc(K.skill)}</a> (revision ${rev('Calculator:' + K.skill)}), Module:Skill calc (revision ${rev('Module:Skill calc')}), Module:Skill calc/bonusGenerator (revision ${rev('Module:Skill calc/bonusGenerator')}), Module:Skill calc/eltGenerator (revision ${rev('Module:Skill calc/eltGenerator')}), Module:Skill calc/${esc(K.skill)}/data (revision ${rev('Module:Skill calc/' + K.skill + '/data')}); XP table Module:Experience/data (revision ${rev('Module:Experience/data')}); item IDs Module:GEIDs (revision ${rev('Module:GEIDs/data.json')}). CC BY-NC-SA 3.0.</p>
   </section>`;
-  const star = $('#ck-star');
+  const star = $('#' + P + '-star');
   const drawStar = () => { const on = RS3Calc.has(RS3Calc.load(CALC_LS), D.path); star.classList.toggle('on', on); star.setAttribute('aria-pressed', String(on)); star.textContent = on ? '★' : '☆';
     star.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${label} ${on ? 'from' : 'to'} favourites`); star.title = on ? 'Remove from favourites' : 'Save to favourites'; };
   star.onclick = () => { RS3Calc.toggle(CALC_LS, {path: D.path, label}); drawStar(); };
   drawStar();
-  const form = $('#ck-form');
-  const ctl = p => { const id = 'ck-' + p.name, v = st.value[p.name];
+  const form = $('#' + P + '-form');
+  const ctl = p => { const id = P + '-' + p.name, v = st.value[p.name];
     if (p.type === 'check') return `<label class="hb-chk" for="${id}"><input type="checkbox" id="${id}" data-k="${esc(p.name)}"${v ? ' checked' : ''}> ${esc(p.label)}</label>`;
+    if (p.type === 'fixed') return `<div class="hb-field hb-fixed" id="${id}"><span>${esc(p.label)}</span><output>${esc(p.def)}</output></div>`;
     if (p.type === 'select') return `<label class="hb-field" for="${id}"><span>${esc(p.label)}</span><select id="${id}" data-k="${esc(p.name)}">${p.range.split(/\s*,\s*/).map(o => `<option${o === v ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select></label>`;
     const err = RS3Calc.skillFieldError(p, v);
-    return `<label class="hb-field" for="${id}"><span>${esc(p.label)}</span><input id="${id}" data-k="${esc(p.name)}" type="text" inputmode="numeric" value="${esc(v)}" aria-invalid="${err ? 'true' : 'false'}" aria-describedby="${id}-r"><small id="${id}-r" class="calc-sub${err ? ' hb-warn' : ''}">${esc(err || (p.range ? p.range.replace('-', '–') : '0 or more'))}</small></label>`; };
-  const drawForm = () => { form.innerHTML = `<div class="hb-fields">${D.form.params.filter(p => p.type !== 'hidden' && p.type !== 'hs' && !st.disabled[p.name]).map(ctl).join('')}</div>`; };
+    return `<label class="hb-field" for="${id}"><span>${esc(p.label)}</span><input id="${id}" data-k="${esc(p.name)}" type="text" inputmode="numeric" value="${esc(v)}" aria-invalid="${err ? 'true' : 'false'}" aria-describedby="${id}-r"><small id="${id}-r" class="calc-sub${err ? ' hb-warn' : ''}">${esc(hintText(p, v))}</small></label>`; };
+  const rangeText = p => p.range ? p.range.replace('-', '–') : '0 or more';
+  /* Module:Skill calc reads Current/Goal as a level only when "Level" is chosen and the number is 120 or less; anything higher is
+     taken as experience (Goal Level 130 = 130 XP, level 2). The app keeps that Wiki behaviour and says so; it never clamps. */
+  const LVL_TOGGLE = {current: 'currToggle', goal: 'goalToggle'};
+  const levelNote = (p, raw) => { const t = LVL_TOGGLE[p.name], n = +String(raw).split(',').join('');
+    return t && st.value[t] === 'Level' && Number.isInteger(n) && n > 120 ? `Above 120 the Wiki reads this as experience: ${n.toLocaleString('en-GB')} XP, not level ${n}` : ''; };
+  const hintText = (p, raw) => RS3Calc.skillFieldError(p, raw) || levelNote(p, raw) || rangeText(p);
+  const shown = () => D.form.params.filter(p => p.type !== 'hidden' && p.type !== 'hs' && !st.disabled[p.name]);
+  let shownKey = '';
+  const drawForm = () => { const ps = shown(); shownKey = ps.map(p => p.name).join(); form.innerHTML = `<div class="hb-fields">${ps.map(ctl).join('')}</div>`; };
+  /* The form is rebuilt only when the Wiki's toggles change which fields are shown (a select or check the user just set).
+     Typing in a number field, or leaving it (its "change" on blur), never replaces any field element: a rebuild on blur
+     would remove the field the user just clicked into. The hint under a number field is updated in place as you type. */
+  const hint = (p, el) => { const err = RS3Calc.skillFieldError(p, el.value); el.setAttribute('aria-invalid', err ? 'true' : 'false');
+    const sm = document.getElementById(el.id + '-r'); if (sm) { sm.textContent = hintText(p, el.value); sm.classList.toggle('hb-warn', !!err); } };
   const onChange = e => { const k = e.target.dataset.k; if (!k) return; const p = D.form.params.find(x => x.name === k);
     const v = p.type === 'check' ? e.target.checked : e.target.value;
     try { st = RS3Calc.skillFormSet(D.form, st, k, v); } catch (err) { return; }
-    ckSave(D, st);
-    if (p.type !== 'int' || e.type === 'change') { const foc = document.activeElement && document.activeElement.id; drawForm(); const el = foc && document.getElementById(foc); if (el) el.focus(); }
+    skSave(D, st, K.key);
+    if (p.type === 'int') hint(p, e.target);
+    for (const [f, t] of Object.entries(LVL_TOGGLE)) if (k === t) { const el = document.getElementById(P + '-' + f); if (el) hint(D.form.params.find(x => x.name === f), el); }
+    if (shown().map(x => x.name).join() !== shownKey) {
+      const a = document.activeElement, foc = a && form.contains(a) ? a.id : '';
+      drawForm(); const el = foc && document.getElementById(foc); if (el) el.focus(); }
     draw(); };
   form.addEventListener('change', onChange); form.addEventListener('input', onChange);
-  $('#ck-reset').onclick = () => { st = RS3Calc.skillFormDefaults(D.form); ckSave(D, st); drawForm(); draw(); };
-  const q = $('#ck-q'), show = $('#ck-show'), sort = $('#ck-sort');
+  $('#' + P + '-reset').onclick = () => { st = RS3Calc.skillFormDefaults(D.form); skSave(D, st, K.key); drawForm(); draw(); };
+  const q = $('#' + P + '-q'), show = $('#' + P + '-show'), sort = $('#' + P + '-sort');
   const money = v => `${v < 0 ? '−' : ''}${gp(Math.abs(v))}`;
   const draw = () => {
     const {submission, errors} = RS3Calc.skillFormSubmission(D.form, st);
-    if (errors.length) { $('#ck-msg').textContent = errors.join(' · '); $('#ck-count').textContent = ''; $('#ck-table').innerHTML = ''; return; }
+    if (errors.length) { $('#' + P + '-msg').textContent = errors.join(' · '); $('#' + P + '-count').textContent = ''; $('#' + P + '-table').innerHTML = ''; return; }
     const res = RS3Calc.skillCalcRun(D, submission);
-    if (res.error) { $('#ck-msg').textContent = res.error; $('#ck-count').textContent = ''; $('#ck-table').innerHTML = ''; return; }
-    $('#ck-msg').textContent = `To train Cooking from ${res.currXp.toLocaleString('en-GB')} experience (level ${res.currLv}) to ${res.goalXp.toLocaleString('en-GB')} experience (level ${res.goalLv}), ${res.actualRemaining.toLocaleString('en-GB')} experience is required.${res.bonusXp > 0 ? ` With ${res.bonusXp.toLocaleString('en-GB')} bonus XP, ${res.remaining.toLocaleString('en-GB')} is earned from actions.` : ''}`;
+    if (res.error) { $('#' + P + '-msg').textContent = res.error; $('#' + P + '-count').textContent = ''; $('#' + P + '-table').innerHTML = ''; return; }
+    $('#' + P + '-msg').textContent = RS3Calc.skillCalcMessage(res);
     const gross = show.value === 'gross', urns = res.disp === 'Urns', costs = res.rows.length ? res.rows[0].costCols : true;
     const rows = res.rows.map(r => {
       const why = new Map(); let taxEach = 0;
@@ -1389,38 +1404,61 @@ async function cookingView(n) {
         const x = role === 'product' ? LIVE.book.sale(id) : LIVE.book.quote(id, 'buy');
         if (!x.live) { why.set(name, quoteWhy(x.status)); return null; } if (role === 'product') taxEach = x.tax; return x.value; };
       const c = r.truncated ? null : RS3Calc.skillCalcCost(r, lp);
-      const taxA = c && !c.currency && c.prodEach != null && r.product ? taxEach * (r.brewing ? 2 : 1) : 0;
+      const taxA = c && !c.currency && c.prodEach != null && r.product ? taxEach * ((r.product && r.product.units) || 1) * (r.brewing ? 2 : 1) : 0;
       const netEach = c && c.profitEach != null ? c.profitEach - taxA : null;
       const profitEach = gross ? (c && c.profitEach) : netEach;
-      const excl = [...r.listed.filter(l => !l.priced && !r.currency).map(l => l.name), ...(!r.product && !r.currency && !urns ? [r.name + ' (product)'] : [])];
-      return {r, c, why, taxA, profitEach, profit: profitEach == null ? null : profitEach * r.needed, perXp: profitEach != null && r.unitExp ? profitEach / r.unitExp : null, excl};
+      // never counted as free: untradeable lines and lines the Wiki does not price make the totals partial (shown neutral)
+      const excl = [...r.listed.filter(l => !l.priced && !r.currency && l.unpriced !== 'wiki').map(l => l.name), ...(!r.product && !r.currency && !urns ? [r.name + ' (product)'] : [])];
+      const unp = r.currency ? [] : r.listed.filter(l => l.unpriced === 'wiki').map(l => l.name);
+      return {r, c, why, taxA, profitEach, profit: profitEach == null ? null : profitEach * r.needed, perXp: profitEach != null && r.unitExp ? profitEach / r.unitExp : null, excl, unp, partial: excl.length + unp.length > 0};
     });
     const nq = norm(q.value);
     let shown = nq ? rows.filter(x => norm([x.r.title || x.r.name, ...x.r.listed.map(l => l.name)].join(' ')).includes(nq)) : rows;
     const by = {profit: x => x.profit, pxp: x => x.perXp, xp: x => x.r.unitExp, num: x => x.r.needed ? -x.r.needed : null}[sort.value];
     if (by) shown = [...shown].sort((x, y) => { const a1 = by(x), b1 = by(y); return a1 == null && b1 == null ? 0 : a1 == null ? 1 : b1 == null ? -1 : b1 - a1; });
     const priced = rows.filter(x => x.c && x.c.raw != null).length;
-    $('#ck-count').textContent = `${shown.length} of ${rows.length} recipes · ${priced} with complete live costs${costs ? ` · profit shown ${gross ? 'gross (before tax)' : 'net (after estimated tax)'}` : ''}`;
+    $('#' + P + '-count').textContent = `${shown.length} of ${rows.length} recipes · ${priced} with complete live costs${costs ? ` · profit shown ${gross ? 'gross (before tax)' : 'net (after estimated tax)'}` : ''}`;
     const cur = x => x.r.currency ? ` ${esc(x.r.currency)}` : '';
     const unav = x => `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc([...new Set(x.why.values())].join('; '))}</small>`;
     // Totals that leave out an untradeable ingredient or product keep the Wiki's arithmetic (valued at 0) but are shown neutral,
     // never as a green profit: they are partial, non-market figures, not something you would earn.
-    const exclTag = x => x.excl.length ? `<small class="calc-sub hb-excl">Partial, not a market profit: excludes untradeable ${esc(x.excl.slice(0, 3).join(', '))}${x.excl.length > 3 ? '…' : ''} (no market price, not free)</small>` : '';
+    const list3 = a => esc(a.slice(0, 3).join(', ')) + (a.length > 3 ? '…' : '');
+    const exclTag = x => x.partial ? `<small class="calc-sub hb-excl">Partial, not a market profit: excludes ${[x.excl.length ? `untradeable ${list3(x.excl)} (no market price, not free)` : '', x.unp.length ? `${list3(x.unp)} (not priced by the Wiki for this recipe, not free)` : ''].filter(Boolean).join('; ')}</small>` : '';
     const amt = (x, v) => v == null ? unav(x) : x.r.currency ? `${esc(Math.round(v).toLocaleString('en-GB'))}${cur(x)}` : esc(money(v));
     const qty = (l, r) => { let a = l.qty * r.needed; if (a > 100) a = Math.ceil(a); else if (!(a < 0.1)) a = Math.ceil(a * 100) / 100; return a.toLocaleString('en-GB'); };
-    const priceLines = x => `<details class="calc-prices"><summary>Prices used</summary><ul>${x.r.listed.map(l => `<li>${liIco(l.image || l.name)}${esc(l.name)} — ${x.r.currency ? `Wiki value in ${esc(x.r.currency)}` : !l.priced ? 'untradeable, not priced by the Wiki: valued at 0 (not free; not in the totals)' : x.why.has(l.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(l.name))})</span>` : `Buy ${esc(gp(LIVE.book.quote(D.ids[l.name], 'buy').value))} each`}</li>`).join('')}${x.r.product ? `<li>${liIco(x.r.name)}${esc(x.r.name)} — ${x.why.has(x.r.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(x.r.name))})</span>` : `Sell ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).value))} each · est. tax ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).tax))}${x.r.brewing ? ' · Brewing: 2 batches per action' : ''}`}</li>` : ''}</ul></details>`;
+    const priceLines = x => `<details class="calc-prices"><summary>Prices used</summary><ul>${x.r.listed.map(l => `<li>${liIco(l.image || l.name)}${esc(l.name)} — ${x.r.currency ? `Wiki value in ${esc(x.r.currency)}` : !l.priced ? (l.unpriced === 'wiki' ? 'not priced by the Wiki for this recipe: left out of the totals (not free)' : 'untradeable, not priced by the Wiki: valued at 0 (not free; not in the totals)') : x.why.has(l.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(l.name))})</span>` : `Buy ${esc(gp(LIVE.book.quote(D.ids[l.name], 'buy').value))} each`}</li>`).join('')}${x.r.product ? `<li>${liIco(x.r.name)}${esc(x.r.name)} — ${x.why.has(x.r.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(x.r.name))})</span>` : `Sell ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).value))} each · est. tax ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).tax))}${x.r.brewing ? ' · Brewing: 2 batches per action' : ''}`}</li>` : ''}</ul></details>`;
     // the Wiki's own column order and names (Module:Skill calc/elts); its picture and members columns are folded into the name cell
     const head = urns ? ['Name', 'XP', '# needed', 'Cost'] : ['Level', 'Name', 'XP', '# needed', ...(res.urn ? ['# urns'] : []), 'Materials', ...(costs ? ['Raw cost', 'Product cost', 'Profit/Loss', 'Profit/XP'] : [])];
     const lvCls = c => 'hb-lv-' + c;
-    $('#ck-table').innerHTML = shown.length ? `<table class="calc-table hb-table"><thead><tr>${head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${shown.map(x => { const r = x.r, nm = esc(r.title || r.name), ico = calcIco(r.item.icon || r.item.image || r.name);
+    $('#' + P + '-table').innerHTML = shown.length ? `<table class="calc-table hb-table"><thead><tr>${head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${shown.map(x => { const r = x.r, nm = esc((r.title || r.name) + (r.multiplier ? ' × ' + r.multiplier : '')), ico = calcIco(r.item.icon || r.item.image || r.name);
       if (r.truncated) return `<tr><td>-</td><th scope="row">${ico}<span class="calc-name">${nm}</span><small class="calc-sub hb-warn">The Wiki's "All" list shows this urn without values; choose the Urns sub-category.</small></th><td colspan="${head.length - 2}">-</td></tr>`;
       if (urns) return `<tr><th scope="row">${ico}<span class="calc-name">${nm}</span>${priceLines(x)}</th><td>${esc(r.unitExp.toLocaleString('en-GB'))}</td><td>${esc(r.needed.toLocaleString('en-GB'))}</td><td>${amt(x, x.c.raw)}</td></tr>`;
       const mats = r.listed.length ? `<ul class="hb-list">${r.listed.map(l => `<li>${liIco(l.image || l.name)}<span class="hb-item">${esc(l.name)}</span> <span class="hb-qty">× ${esc(qty(l, r))}</span></li>`).join('')}</ul>` : '-';
-      return `<tr><td class="${lvCls(r.cls)}">${esc(String(r.level))}</td><th scope="row">${ico}<span class="calc-name">${nm}</span>${r.members ? '<small class="calc-sub">Members</small>' : ''}${costs ? priceLines(x) : ''}</th><td>${esc(r.unitExp.toLocaleString('en-GB'))}</td><td>${r.needed > 0 ? esc(r.needed.toLocaleString('en-GB')) : '-'}</td>${res.urn ? `<td>${r.urnsNeeded ? esc(r.urnsNeeded.toLocaleString('en-GB')) : '-'}</td>` : ''}<td>${mats}</td>${costs ? `<td>${amt(x, x.c.raw)}</td><td>${amt(x, x.c.prod)}</td><td>${x.profit == null ? unav(x) : `<span class="calc-val ${x.excl.length ? 'partial' : x.profit < 0 ? 'loss' : 'gain'}">${amt(x, x.profit)}</span>${!r.currency && r.product ? `<small class="calc-sub">${gross ? 'before tax' : `tax ${esc(gp(x.taxA * r.needed))}`}</small>` : ''}`}${exclTag(x)}</td><td>${x.perXp == null ? '-' : `<span class="calc-val${x.excl.length ? ' partial' : ''}">${x.perXp < 0 ? '−' : ''}${esc(Math.abs(x.perXp).toLocaleString('en-GB', {maximumFractionDigits: 2}))}${r.currency ? cur(x) : ' gp'}</span>${x.excl.length ? '<small class="calc-sub hb-excl">partial</small>' : ''}`}</td>` : ''}</tr>`; }).join('')}</tbody></table>` : '<p class="note">No recipes match these options.</p>';
+      return `<tr><td class="${lvCls(r.cls)}">${esc(String(r.level))}</td><th scope="row">${ico}<span class="calc-name">${nm}</span>${r.members ? '<small class="calc-sub">Members</small>' : ''}${costs ? priceLines(x) : ''}</th><td>${esc(r.unitExp.toLocaleString('en-GB'))}</td><td>${r.needed > 0 ? esc(r.needed.toLocaleString('en-GB')) : '-'}</td>${res.urn ? `<td>${r.urnsNeeded ? esc(r.urnsNeeded.toLocaleString('en-GB')) : '-'}</td>` : ''}<td>${mats}</td>${costs ? `<td>${amt(x, x.c.raw)}</td><td>${amt(x, x.c.prod)}</td><td>${x.profit == null ? unav(x) : `<span class="calc-val ${x.partial ? 'partial' : x.profit < 0 ? 'loss' : 'gain'}">${amt(x, x.profit)}</span>${!r.currency && r.product ? `<small class="calc-sub">${gross ? 'before tax' : `tax ${esc(gp(x.taxA * r.needed))}`}</small>` : ''}`}${exclTag(x)}</td><td>${x.perXp == null ? '-' : `<span class="calc-val${x.partial ? ' partial' : ''}">${x.perXp < 0 ? '−' : ''}${esc(Math.abs(x.perXp).toLocaleString('en-GB', {maximumFractionDigits: 2}))}${r.currency ? cur(x) : ' gp'}</span>${x.partial ? '<small class="calc-sub hb-excl">partial</small>' : ''}`}</td>` : ''}</tr>`; }).join('')}</tbody></table>` : '<p class="note">No recipes match these options.</p>';
   };
   q.addEventListener('input', draw); show.onchange = draw; sort.onchange = draw;
   drawForm(); priceDraws.push(draw); draw();
 }
+
+/* Per-calculator texts for the shared Wiki skill calculator screen (skillView); everything else comes from the Wiki data file. */
+const wikiCalcIntro = (skill, noun, src) => `<p class="note">How many of each ${esc(skill)} ${noun} you need to reach a level or XP goal, with ingredients, cost and profit. Same ${noun}s, options and formulas as the RuneScape Wiki <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">${esc(skill)} calculator</a>, using live prices instead of the Wiki's guide prices, so costs and profits differ from the Wiki page.</p>`;
+const SKILL_PRICE_NOTES = [
+  'Net profit deducts the estimated 2% Grand Exchange tax per product sold (rounded down per item). Gross is before tax.',
+  'Partial totals are never shown as profit: ingredients or products the Wiki does not price (untradeable, or left out of a recipe by the Wiki) count as 0, as on the Wiki, but they are not free, so those totals are marked "Partial, not a market profit" and shown in a neutral colour.',
+  'A price that is missing or older than 15 minutes, or an item with no Grand Exchange ID, makes that recipe\'s totals unavailable; it is never treated as 0.'];
+const COOKING_K = {id: 'ck', key: 'dch_calc_cooking_v1', skill: 'Cooking', noun: 'recipes',
+  intro: src => wikiCalcIntro('Cooking', 'recipe', src),
+  assume: ['XP, number of actions, urns and ingredient quantities follow the Wiki calculator exactly, including its quirks: the Bonfire method adds no XP, Portable Range adds 21% in every sub-category, and the avatar bonus does not apply to Urns.',
+    'Ingredients are bought at the live Buy (high) price and products sold at the live Sell (low) price; each ingredient line is rounded down, as on the Wiki. Brewing sells two batches.',
+    ...SKILL_PRICE_NOTES, 'Recipes priced in chimes show the Wiki\'s chime values, not coins.']};
+const FLETCHING_K = {id: 'fl', key: 'dch_calc_fletching_v1', skill: 'Fletching', noun: 'items',
+  intro: src => wikiCalcIntro('Fletching', 'item', src),
+  assume: ['XP, number of actions and ingredient quantities follow the Wiki calculator exactly: Portable Fletcher +10% XP, Ranger\'s workroom +5%, Double Experience Weekend +100%, bonus XP halves the XP needed up to its amount.',
+    'Items made several at a time (for example "Bronze arrow × 15") sell all of them per action, as on the Wiki; tax is per item sold.',
+    'Ingredients are bought at the live Buy (high) price and products sold at the live Sell (low) price; each ingredient line is rounded down, as on the Wiki. At a Portable Fletcher, ingredients for Arrows, Bolts, Darts and Bows - Unstrung cost 10% less (20% with the Brooch of the Gods), as on the Wiki.',
+    ...SKILL_PRICE_NOTES, 'Dungeoneering sub-categories show no costs, as on the Wiki.']};
+const cookingView = n => skillView(n, COOKING_K);
+const fletchingView = n => skillView(n, FLETCHING_K);
 
 /* Official RuneScape Wiki pictures for calculator items (data/calc/images.json, built by tools/calc_images.py): exact
    File:<item>.png or a file the Wiki itself redirects to. No picture -> no picture slot (never a stand-in). */
