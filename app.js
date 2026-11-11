@@ -2190,7 +2190,7 @@ async function allView() {
     ${searchBox('q', 'Any item, any state: e.g. red partyhat, h\'ween mask, abyssal whip, a quest item, a Daemonheim item…', sq)}
     ${gfHTML(gf, false)}
     <div class="row" style="margin-top:6px"><button class="btn ghost" id="clr">Clear</button><span class="note">No section, category or other filter applies here (only the optional gear filter above narrows the list): every one of the ${TOT.toLocaleString()} entries of the RS3 wiki item list is searched, including Daemonheim-only, quest-only, discontinued, cosmetic-override, untradeable and no-GE-price items. Names, the wiki page title and the wiki's own redirects (alternative names) are matched.</span></div>
-    <div class="note" id="cnt" style="margin:8px 0"></div><div id="res" class="list"></div><div id="more"></div></div>`;
+    <div class="note" id="cnt" style="margin:8px 0"></div><div id="top"></div><div id="res" class="list"></div><div id="more"></div></div>`;
   const q = $('#q'), out = $('#res'), cnt = $('#cnt'), more = $('#more');
   let hits = [], hitsAll = [], lim = 60, seq = 0;
   const gInfo = i => gearInfo(D, rows[i][0], rows[i][4]);
@@ -2200,8 +2200,8 @@ async function allView() {
     lim = 60;
     if (!nq) {
       const ix = rows.map((_, i) => i);
-      if (!gfActive(gf)) { hits = hitsAll = []; gfRefresh(ix.map(gInfo)); cnt.textContent = `Type to search all ${TOT.toLocaleString()} items, or open the gear filter to browse by class, slot or tier.`; out.innerHTML = ''; more.innerHTML = ''; return; }
-      hitsAll = ix.filter(i => gInfo(i)).sort((a, b) => (gInfo(b).t ?? -1) - (gInfo(a).t ?? -1) || D.nameN[a].localeCompare(D.nameN[b]) || a - b);
+      if (!gfActive(gf)) { hits = hitsAll = []; gfRefresh(ix.map(gInfo)); cnt.textContent = `Type to search all ${TOT.toLocaleString()} items, or open the gear filter to browse by class, slot or tier.`; out.innerHTML = ''; more.innerHTML = ''; drawTop(); return; }
+      drawTop(); hitsAll = ix.filter(i => gInfo(i)).sort((a, b) => (gInfo(b).t ?? -1) - (gInfo(a).t ?? -1) || D.nameN[a].localeCompare(D.nameN[b]) || a - b);
       return draw();
     }
     const qc = nq.replace(/ /g, ''), tk = nq.split(' ').filter(Boolean), M = new Map(), N = D.nameN, PN = D.pageN;
@@ -2225,21 +2225,44 @@ async function allView() {
       if (A) for (const [a, ids] of A) { if (!tk.every(t => a.includes(t))) continue; const sc = (a === nq ? 700 : a.startsWith(nq) ? 450 : 100) - a.length / 100; for (const i of ids) if (!M.has(i) || M.get(i) < sc) M.set(i, sc); }
     }
     hitsAll = [...M.entries()].sort((a, b) => b[1] - a[1] || N[a[0]].localeCompare(N[b[0]]) || a[0] - b[0]).map(h => h[0]);
-    draw();
+    drawTop(); draw();
   };
   const rowTags = r => { const f = r[3], t = [];
     if (f & F.override) t.push('Cosmetic override'); if (f & F.holiday) t.push('Holiday item'); if (f & F.disc) t.push('Discontinued'); else if (f & F.limited) t.push('Limited time');
     if (f & F.quest) t.push('Quest item'); if (f & F.removed) t.push('Removed from game'); return t.map(x => `<span class="tag">${x}</span>`).join(''); };
-  const draw = () => {
-    const infos = hitsAll.map(gInfo); gfRefresh(infos);
-    hits = gfActive(gf) ? hitsAll.filter((_, k) => gfPass(infos[k], gf, GS)) : hitsAll;
-    cnt.textContent = hits.length ? `${hits.length.toLocaleString()} of ${TOT.toLocaleString()} entries match${hits.length > lim ? ` · showing ${lim}` : ''}.` : `No entries match in all ${TOT.toLocaleString()} items.`;
-    out.innerHTML = hits.slice(0, lim).map(i => {
+  const rowHTML = i => {
       const r = rows[i], n = r[0], pg = r[4] || n;
       const pic = r[1] ? `<img class="ico" loading="lazy" decoding="async" src="${esc(r[1])}.webp" alt="">` : PH('✦');
       const price = priceTag(D, r[0], 'sell');
       return `<div class="allrow"><a class="hit" href="#items/${encodeURIComponent(n)}">${pic}<span>${esc(n)}${pg !== n ? ` <span class="note">(wiki page: ${esc(pg)})</span>` : ''}${rowTags(r)}</span><span class="meta">${price}</span></a><a class="allwiki" href="${WIKI(pg)}" target="_blank" rel="noopener noreferrer" title="Open on the RS3 wiki">wiki ↗</a></div>`;
-    }).join('');
+  };
+  /* Blank search: the most expensive items, as the G.E. lists them, by each item's latest recorded Sell (instant-sell, low)
+     trade in the shared RuneScape Wiki Prices feed (Items-tab policy: older trades show their age). Only items whose GE name maps
+     to exactly one GE ID and is in this item list; no recorded trade or 0 is left out. No snapshot prices mixed in. */
+  const TOP_N = 20;
+  const topList = () => {
+    const b = LIVE.book;
+    if (!b.mapping.size) return `<div class="note" id="top-status">${b.online === false ? 'Offline: no saved prices yet.' : 'Loading prices…'}</div>`;
+    const best = [];
+    for (const [id, x] of Object.entries(b.data)) {
+      if (!x || !(x.low > 0) || !x.lowTime) continue;
+      const m = b.mapping.get(+id); if (!m || b.resolve(m.name) !== +id || D.row[m.name] == null) continue;
+      best.push([x.low, m.name]);
+    }
+    best.sort((a, c) => c[0] - a[0] || a[1].localeCompare(c[1]));
+    const top = best.slice(0, TOP_N);
+    return `<h3 class="top-h">Most expensive <span class="note">by latest Sell trade</span></h3>
+      <details class="src-info" id="top-info"><summary>Details &amp; sources</summary><div class="note">RuneScape Wiki Prices (trade data supplied by Jagex): each item's latest recorded Sell (instant-sell) trade, highest first; older trades show their age and are not current offers. Left out: items with no recorded trade, and names shared by several GE items. Prices fetched ${esc(priceTime(b.fetchedAt / 1000))}.</div></details>
+      <div class="list" id="top-list">${top.map(([, n]) => rowHTML(D.row[n])).join('')}</div>`;
+  };
+  const top = $('#top');
+  const drawTop = () => { if (!top.isConnected) return; const open = !!(top.querySelector('#top-info') || {}).open; top.innerHTML = norm(q.value) || gfActive(gf) ? '' : topList(); const d = top.querySelector('#top-info'); if (d && open) d.open = true; };
+  watchPriceDraw(drawTop, null);
+  const draw = () => {
+    const infos = hitsAll.map(gInfo); gfRefresh(infos);
+    hits = gfActive(gf) ? hitsAll.filter((_, k) => gfPass(infos[k], gf, GS)) : hitsAll;
+    cnt.textContent = hits.length ? `${hits.length.toLocaleString()} of ${TOT.toLocaleString()} entries match${hits.length > lim ? ` · showing ${lim}` : ''}.` : `No entries match in all ${TOT.toLocaleString()} items.`;
+    out.innerHTML = hits.slice(0, lim).map(rowHTML).join('');
     more.innerHTML = hits.length > lim ? '<div class="row" style="justify-content:center;margin-top:10px"><button class="btn" id="mb">Show more</button></div>' : '';
     const mb = $('#mb'); if (mb) mb.onclick = () => { lim += 100; draw(); };
   };
