@@ -826,6 +826,13 @@
     return st;
   }
   /* The int widget's own check: a whole number within the field's range (no range: 0 or more). Returns error text or null. */
+  /* The goal sentence exactly as Module:Skill calc displayExp prints it: "experience is required" is the XP still to earn from
+     actions after bonus XP (remainingExp's baseExpNeeded), not the total to the goal. With bonus XP the app adds the total. */
+  function skillCalcMessage(res) {
+    const f = n => n.toLocaleString('en-GB');
+    return `To train ${res.skill} from ${f(res.currXp)} experience (level ${res.currLv}) to ${f(res.goalXp)} experience (level ${res.goalLv}), ${f(res.remaining)} experience is required.`
+      + (res.bonusXp > 0 ? ` (${f(res.bonusXp)} bonus XP available; ${f(res.actualRemaining)} XP to the goal in total.)` : '');
+  }
   function skillFieldError(p, raw) {
     if (p.type !== 'int') return null;
     const s = String(raw).split(',').join('');
@@ -847,7 +854,7 @@
     }
     return {submission: out, errors};
   }
-  const api = {NATIVE, nativeFor, nativeBySlug, flaskModel, guideProfit, herbloreRun, herbloreCost, skillCalcRun, skillCalcCost, skillFormDefaults, skillFormSet, skillFormSubmission, skillFieldError, SC_VALIDATED, FAV_KEY, ORIGIN, MAX_FAVS, safeWikiPath, wikiUrl, parseCalculatorUrl, load, save, toggle, has};
+  const api = {NATIVE, nativeFor, nativeBySlug, flaskModel, guideProfit, herbloreRun, herbloreCost, skillCalcRun, skillCalcCost, skillCalcMessage, skillFormDefaults, skillFormSet, skillFormSubmission, skillFieldError, SC_VALIDATED, FAV_KEY, ORIGIN, MAX_FAVS, safeWikiPath, wikiUrl, parseCalculatorUrl, load, save, toggle, has};
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.RS3Calc = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

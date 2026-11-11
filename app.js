@@ -1401,8 +1401,14 @@ async function skillView(n, K) {
     if (p.type === 'fixed') return `<div class="hb-field hb-fixed" id="${id}"><span>${esc(p.label)}</span><output>${esc(p.def)}</output></div>`;
     if (p.type === 'select') return `<label class="hb-field" for="${id}"><span>${esc(p.label)}</span><select id="${id}" data-k="${esc(p.name)}">${p.range.split(/\s*,\s*/).map(o => `<option${o === v ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select></label>`;
     const err = RS3Calc.skillFieldError(p, v);
-    return `<label class="hb-field" for="${id}"><span>${esc(p.label)}</span><input id="${id}" data-k="${esc(p.name)}" type="text" inputmode="numeric" value="${esc(v)}" aria-invalid="${err ? 'true' : 'false'}" aria-describedby="${id}-r"><small id="${id}-r" class="calc-sub${err ? ' hb-warn' : ''}">${esc(err || rangeText(p))}</small></label>`; };
+    return `<label class="hb-field" for="${id}"><span>${esc(p.label)}</span><input id="${id}" data-k="${esc(p.name)}" type="text" inputmode="numeric" value="${esc(v)}" aria-invalid="${err ? 'true' : 'false'}" aria-describedby="${id}-r"><small id="${id}-r" class="calc-sub${err ? ' hb-warn' : ''}">${esc(hintText(p, v))}</small></label>`; };
   const rangeText = p => p.range ? p.range.replace('-', '–') : '0 or more';
+  /* Module:Skill calc reads Current/Goal as a level only when "Level" is chosen and the number is 120 or less; anything higher is
+     taken as experience (Goal Level 130 = 130 XP, level 2). The app keeps that Wiki behaviour and says so; it never clamps. */
+  const LVL_TOGGLE = {current: 'currToggle', goal: 'goalToggle'};
+  const levelNote = (p, raw) => { const t = LVL_TOGGLE[p.name], n = +String(raw).split(',').join('');
+    return t && st.value[t] === 'Level' && Number.isInteger(n) && n > 120 ? `Above 120 the Wiki reads this as experience: ${n.toLocaleString('en-GB')} XP, not level ${n}` : ''; };
+  const hintText = (p, raw) => RS3Calc.skillFieldError(p, raw) || levelNote(p, raw) || rangeText(p);
   const shown = () => D.form.params.filter(p => p.type !== 'hidden' && p.type !== 'hs' && !st.disabled[p.name]);
   let shownKey = '';
   const drawForm = () => { const ps = shown(); shownKey = ps.map(p => p.name).join(); form.innerHTML = `<div class="hb-fields">${ps.map(ctl).join('')}</div>`; };
@@ -1410,12 +1416,13 @@ async function skillView(n, K) {
      Typing in a number field, or leaving it (its "change" on blur), never replaces any field element: a rebuild on blur
      would remove the field the user just clicked into. The hint under a number field is updated in place as you type. */
   const hint = (p, el) => { const err = RS3Calc.skillFieldError(p, el.value); el.setAttribute('aria-invalid', err ? 'true' : 'false');
-    const sm = document.getElementById(el.id + '-r'); if (sm) { sm.textContent = err || rangeText(p); sm.classList.toggle('hb-warn', !!err); } };
+    const sm = document.getElementById(el.id + '-r'); if (sm) { sm.textContent = hintText(p, el.value); sm.classList.toggle('hb-warn', !!err); } };
   const onChange = e => { const k = e.target.dataset.k; if (!k) return; const p = D.form.params.find(x => x.name === k);
     const v = p.type === 'check' ? e.target.checked : e.target.value;
     try { st = RS3Calc.skillFormSet(D.form, st, k, v); } catch (err) { return; }
     skSave(D, st, K.key);
     if (p.type === 'int') hint(p, e.target);
+    for (const [f, t] of Object.entries(LVL_TOGGLE)) if (k === t) { const el = document.getElementById(P + '-' + f); if (el) hint(D.form.params.find(x => x.name === f), el); }
     if (shown().map(x => x.name).join() !== shownKey) {
       const a = document.activeElement, foc = a && form.contains(a) ? a.id : '';
       drawForm(); const el = foc && document.getElementById(foc); if (el) el.focus(); }
@@ -1429,7 +1436,7 @@ async function skillView(n, K) {
     if (errors.length) { $('#' + P + '-msg').textContent = errors.join(' · '); $('#' + P + '-count').textContent = ''; $('#' + P + '-table').innerHTML = ''; return; }
     const res = RS3Calc.skillCalcRun(D, submission);
     if (res.error) { $('#' + P + '-msg').textContent = res.error; $('#' + P + '-count').textContent = ''; $('#' + P + '-table').innerHTML = ''; return; }
-    $('#' + P + '-msg').textContent = `To train ${K.skill} from ${res.currXp.toLocaleString('en-GB')} experience (level ${res.currLv}) to ${res.goalXp.toLocaleString('en-GB')} experience (level ${res.goalLv}), ${res.actualRemaining.toLocaleString('en-GB')} experience is required.${res.bonusXp > 0 ? ` With ${res.bonusXp.toLocaleString('en-GB')} bonus XP, ${res.remaining.toLocaleString('en-GB')} is earned from actions.` : ''}`;
+    $('#' + P + '-msg').textContent = RS3Calc.skillCalcMessage(res);
     const gross = show.value === 'gross', urns = res.disp === 'Urns', costs = res.rows.length ? res.rows[0].costCols : true;
     const rows = res.rows.map(r => {
       const why = new Map(); let taxEach = 0;
