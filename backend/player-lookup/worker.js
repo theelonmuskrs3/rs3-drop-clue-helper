@@ -44,8 +44,8 @@ export function shapeHiscores(j) {
 }
 async function upstream(url, f) {
   const ac = new AbortController(), t = setTimeout(() => ac.abort(), TIMEOUT);
-  try { const r = await f(url, {signal: ac.signal, headers: {accept: 'application/json', 'user-agent': 'DropClueHelper-player-lookup/1 (+https://theelonmuskrs3.github.io/rs3-drop-clue-helper/)'}, redirect: 'error'});
-    if (!r.ok) return {status: r.status, json: null};
+  try { const r = await f(url, {signal: ac.signal, headers: {accept: 'application/json', 'user-agent': 'DropClueHelper-player-lookup/1 (+https://theelonmuskrs3.github.io/rs3-drop-clue-helper/)'}, redirect: 'manual'});   // Workers fetch supports only 'follow'/'manual'; a 3xx is never followed (treated as no answer)
+    if (r.status !== 200) return {status: r.status === 404 ? 404 : r.status >= 300 && r.status < 400 ? 0 : r.status, json: null};
     if (+(r.headers.get('content-length') || 0) > MAX_BYTES) return {status: 0, json: null};
     const t = await r.text(); return {status: r.status, json: t.length > MAX_BYTES ? null : (() => { try { return JSON.parse(t); } catch (e) { return null; } })()}; }
   catch (e) { return {status: 0, json: null}; } finally { clearTimeout(t); }

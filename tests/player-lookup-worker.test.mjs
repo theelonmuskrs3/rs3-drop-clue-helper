@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'; import fs from 'node:fs';
 const W = await import('../backend/player-lookup/worker.js');
 const PD = JSON.parse(fs.readFileSync(new URL('./fixtures-playerdata-sample.json', import.meta.url)));
 const HLJ = {name: 'Zezima', skills: [{name: 'Overall', level: 3232, xp: 1}, {name: 'Attack', level: 120, xp: 200000000}, {name: 'Slayer', level: -1, xp: -1}]};
-const mk = (plan) => { const calls = []; const f = async (url, o) => { calls.push(url); assert.equal(o.redirect, 'error'); const p = plan(url); return new Response(p.body == null ? '' : JSON.stringify(p.body), {status: p.status}); }; f.calls = calls; return f; };
+const mk = (plan) => { const calls = []; const f = async (url, o) => { calls.push(url); assert.equal(o.redirect, 'manual'); const p = plan(url); return new Response(p.body == null ? '' : JSON.stringify(p.body), {status: p.status}); }; f.calls = calls; return f; };
 const mem = () => { const m = new Map(); return {match: async k => m.has(k.url) ? new Response(m.get(k.url)) : undefined, put: async (k, r) => m.set(k.url, await r.text()), m}; };
 const req = (q, origin = 'https://theelonmuskrs3.github.io', method = 'GET') => new Request('https://x.workers.dev/v1/player' + q, {method, headers: origin ? {origin} : {}});
 const pdOK = mk(u => u.startsWith('https://secure.runescape.com/m=adventurers-log/api/v1/playerData/') ? {status: 200, body: PD} : {status: 500});
@@ -34,6 +34,8 @@ let f = mk(u => ({status: u.includes('playerData') ? 404 : 200, body: HLJ})); r 
 // Player Data down -> HiScores skills only, quests null (never invented), unranked skill left out
 f = mk(u => u.includes('playerData') ? {status: 503} : {status: 200, body: HLJ}); r = await W.handle(req('?rsn=Zezima'), {}, null, f, mem()); j = await r.json();
 assert.equal(f.calls[1], 'https://secure.runescape.com/m=hiscore/index_lite.json?player=Zezima'); assert.equal(j.source, 'hiscores'); assert.equal(j.quests, null); assert.deepEqual(Object.keys(j.skills), ['Attack']);
+// a redirect is never followed: treated as no answer (HiScores fallback, then 502)
+f = mk(u => ({status: 302, body: null})); r = await W.handle(req('?rsn=Zezima'), {}, null, f, mem()); assert.equal(r.status, 502); assert.equal(f.calls.length, 2);
 // both down -> 502, not cached
 c = mem(); f = mk(() => ({status: 503})); r = await W.handle(req('?rsn=Zezima'), {}, null, f, c); assert.equal(r.status, 502); assert.equal((await r.json()).error, 'upstream_unavailable'); assert.equal(c.m.size, 0); assert.equal(r.headers.get('cache-control'), 'no-store');
 // junk upstream bodies are dropped
