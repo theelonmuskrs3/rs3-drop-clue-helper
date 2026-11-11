@@ -130,13 +130,25 @@ const val = td => { const t = td.textContent.trim(); return t === '—' ? null :
   const exp = (c, sell, vial, fl, gross) => c.flasks * sell - c.vials * vial - c.flasks * fl - (gross ? 0 : c.flasks * Math.floor(sell / 50));
   { const cs = cellsOf(d); let n = 0; cs.forEach(r => r.forEach((td, i) => { assert.equal(val(td), exp(D.columns[i], 29000, 1000, 1000)); n++; })); assert.equal(n, 344); }
   assert.equal(cellsOf(d)[0][0].textContent, '21,420'); assert.equal(cellsOf(d)[0][2].textContent, '50,840');
+  // explanations are in one collapsed "Details & sources" section under the table; controls and table stay up front
+  { const info = d.querySelector('details#fd-info'); assert.ok(info); assert.equal(info.open, false, 'collapsed by default'); assert.equal(info.querySelector('summary').textContent, 'Details & sources');
+    const sec = d.querySelector('section.calc-native-panel'), kids = [...sec.children];
+    assert.equal(d.querySelectorAll('section.calc-native-panel details').length, 1, 'one disclosure (How it is worked out is inside it)');
+    for (const id of ['fd-status', 'fd-flask', 'fd-show-help', 'fd-src-what', 'fd-src-help']) assert.ok(info.contains(d.getElementById(id)), id + ' inside the closed Details');
+    assert.match(info.textContent, /How it is worked out/); assert.match(info.textContent, /Profit or loss from buying potions/); assert.match(info.textContent, /CC BY-NC-SA 3\.0/);
+    assert.ok(kids.indexOf(d.querySelector('#fd-table')) < kids.indexOf(info), 'Details below the table');
+    for (const id of ['fd-q', 'fd-show', 'fd-src', 'fd-count', 'fd-table']) assert.ok(!info.contains(d.getElementById(id)), id + ' up front');
+    assert.deepEqual(kids.filter(e => e.matches('p.note') && !e.hidden && e.id !== 'fd-count').map(e => e.id + ':' + e.textContent), [], 'no prose paragraphs outside Details');
+    assert.equal(d.querySelector('#fd-count').textContent, '86 potions'); assert.equal(d.querySelector('#fd-alert').hidden, true, 'no alert when prices are fine');
+    assert.match(d.querySelector('#fd-flask').textContent, /Empty potion flask: Buy 1,000 gp/); assert.match(d.querySelector('#fd-status').textContent, /^86 of 86 potions · net profit/);
+    info.open = true; assert.equal(cellsOf(d)[0][0].textContent, '21,420', 'opening Details does not change the table'); }
   assert.match(cellsOf(d)[0][0].title, /Gross 22,000 gp · tax 580 gp · net 21,420 gp/);
   { const s = d.querySelector('#fd-show'); assert.deepEqual([...s.options].map(o => o.textContent), ['Net profit', 'Gross profit']); assert.equal(s.getAttribute('aria-describedby'), 'fd-show-help'); assert.equal(d.querySelector('#fd-show-help').textContent, 'Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.'); }
   d.querySelector('#fd-show').value = 'gross'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
-  assert.equal(cellsOf(d)[0][0].textContent, '22,000'); assert.match(d.querySelector('#fd-count').textContent, /gross profit \(before tax\)/);
+  assert.equal(cellsOf(d)[0][0].textContent, '22,000'); assert.match(d.querySelector('#fd-status').textContent, /gross profit \(before tax\)/); assert.equal(d.querySelector('#fd-count').textContent, '86 potions');
   d.querySelector('#fd-show').value = 'net'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
   const q = d.querySelector('#fd-q'); q.value = 'super restore'; q.dispatchEvent(new w.Event('input'));
-  assert.equal(cellsOf(d).length, 1); assert.match(d.querySelector('#fd-count').textContent, /^1 of 86/);
+  assert.equal(cellsOf(d).length, 1); assert.equal(d.querySelector('#fd-count').textContent, '1 of 86 potions'); assert.match(d.querySelector('#fd-status').textContent, /^1 of 86/);
   q.value = ''; q.dispatchEvent(new w.Event('input'));
   // tap a potion name: one compact row with the prices used and their trade times
   d.querySelector('#fd-table button.fd-name').click();
@@ -214,7 +226,9 @@ const val = td => { const t = td.textContent.trim(); return t === '—' ? null :
   // GE guide fallback: an item with no recorded trade gets its GE guide price, marked G; trade prices stay primary
   GUIDE_MOCK = {prices: goldenGuide()};
   ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'partial'));
+  d.querySelector('#fd-info').open = true;   // Details opened before the guide prices arrive: its text still updates
   for (let i = 0; i < 50 && !d.querySelector('#fd-table td.fd-g'); i++) await tick();
+  assert.equal(d.querySelector('#fd-info').open, true); assert.equal(d.querySelector('#fd-count').textContent, '86 potions · G = GE guide price');
   { const r0 = D.rows[0], rows = cellsOf(d), i0 = [...d.querySelectorAll('#fd-table tbody button.fd-name')].findIndex(b => b.dataset.flask === r0.flask);
     const gv = FX.guide[r0.v1.n], c = D.columns[0];
     assert.equal(val(rows[i0][0]), c.flasks * (29000 - 580) - c.vials * gv - c.flasks * 1000, 'guide price for the vial only; trade prices for flask (6) and empty flask');
@@ -240,7 +254,7 @@ const val = td => { const t = td.textContent.trim(); return t === '—' ? null :
     names.forEach((f, ri) => { const g = FX.rows.find(x => x.flask === f); g.values.forEach((v, i) => { assert.equal(val(rows[ri][i]), v, 'Wiki cell ' + f + ' ' + i); n++; }); });
     assert.equal(n, 344, '344/344 equal the Wiki-rendered cells');
     assert.equal(d.querySelectorAll('#fd-table td.fd-g').length, 0, 'no G marks when every price is a guide price');
-    assert.match(d.querySelector('#fd-count').textContent, /GE guide prices \(as the Wiki\)/); assert.match(d.querySelector('#fd-src-help').textContent, /the Wiki shows gross profit/);
+    assert.match(d.querySelector('#fd-status').textContent, /GE guide prices \(as the Wiki\)/); assert.equal(d.querySelector('#fd-count').textContent, '86 potions'); assert.match(d.querySelector('#fd-src-help').textContent, /the Wiki shows gross profit/);
     d.querySelector('#fd-show').value = 'net'; d.querySelector('#fd-show').dispatchEvent(new w.Event('change'));
     const ag = FX.guide['Aggression flask (6)']; assert.equal(val(cellsOf(d)[names.indexOf('Aggression flask')][0]), FX.rows[0].values[0] - Math.floor(ag / 50), 'net = Wiki gross - per-flask tax'); }
   const savedGuide = w.localStorage.getItem('dch_ge_guide_cache_v1'); dom.window.close();
@@ -265,12 +279,14 @@ const val = td => { const t = td.textContent.trim(); return t === '—' ? null :
     ({dom, w, d} = await screen('calculators/flask-decanting', {dch_ge_guide_cache_v1: JSON.stringify(old)}, 'partial'));
     for (let i = 0; i < 50 && !/refresh failed/.test(d.querySelector('#fd-flask').textContent); i++) await tick();
     assert.match(d.querySelector('#fd-flask').textContent, /as of Nov 11, 2026, 2:14 AM ET \(saved copy; refresh failed\)/);
-    assert.equal(d.querySelectorAll('#fd-table td.fd-g').length, 1); assert.equal(d.querySelectorAll('#fd-table td.fd-unk').length, 0); dom.window.close(); }
+    assert.equal(d.querySelectorAll('#fd-table td.fd-g').length, 1); assert.equal(d.querySelectorAll('#fd-table td.fd-unk').length, 0);
+    assert.equal(d.querySelector('#fd-alert').hidden, false); assert.equal(d.querySelector('#fd-alert').textContent, 'GE guide prices could not be refreshed (using saved copy).'); dom.window.close(); }
   // guide source down and nothing saved: the gap stays — (never 0), and the page says the guide prices are unavailable
   GUIDE_MOCK = {fail: 503};
   ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'partial'));
   for (let i = 0; i < 50 && !/unavailable/.test(d.querySelector('#fd-flask').textContent); i++) await tick();
   assert.match(d.querySelector('#fd-flask').textContent, /GE guide prices unavailable \(HTTP 503\)/); assert.equal(d.querySelectorAll('#fd-table td.fd-unk').length, 1); assert.equal(d.querySelectorAll('#fd-table td.fd-g').length, 0);
+  assert.equal(d.querySelector('#fd-alert').textContent, 'GE guide prices could not be loaded.'); assert.equal(d.querySelector('#fd-alert').hidden, false);
   dom.window.close();
   // bad guide data is never used: price 0, negative, fractional, text, or an answer for a different ID
   for (const bad of [0, -5, 12.5, '900', null]) {
@@ -297,7 +313,7 @@ const val = td => { const t = td.textContent.trim(); return t === '—' ? null :
   dom.window.close();
   // before the price list arrives: unknown (—), never 0
   ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'hang'));
-  { const tds = cellsOf(d).flat(); assert.equal(tds.length, 344); assert.ok(tds.every(td => td.textContent === '—')); assert.match(d.querySelector('#fd-flask').textContent, /Loading prices/); }
+  { const tds = cellsOf(d).flat(); assert.equal(tds.length, 344); assert.ok(tds.every(td => td.textContent === '—')); assert.match(d.querySelector('#fd-flask').textContent, /Loading prices/); assert.equal(d.querySelector('#fd-alert').textContent, 'Loading prices…'); }
   dom.window.close();
   // unknown slug goes to Flask decanting (the only calculator)
   ({dom, w, d} = await screen('calculators/not-a-calc'));
