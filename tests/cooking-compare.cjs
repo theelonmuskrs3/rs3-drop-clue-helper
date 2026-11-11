@@ -23,7 +23,10 @@ function compare(D, G, opt = {}) {
     if (c.rows.length !== R.rows.length) { bad('rows ' + c.rows.length + ' vs ' + R.rows.length); continue; }
     c.rows.forEach((w, i) => {
       out.rows++; const r = R.rows[i];
-      if (w.ragged || r.truncated) { out.cells++; if (!(w.ragged && r.truncated && w.cells.length === 2 && w.cells[1].t === (r.title || r.name))) bad(`row ${i} truncation: wiki ${w.cells.length} cells vs app truncated=${r.truncated}`); out.truncated = (out.truncated || 0) + 1; return; }
+      // the Wiki dropped the members cell (targetElt past the row end): every other cell is still compared
+      const noMember = w.ragged && r.memberCell === false && !r.truncated && w.cells.length === head.length - 1;
+      if (r.memberCell === false && !noMember) bad(`row ${i} members cell: app drops it, wiki has ${w.cells.length} of ${head.length} cells`);
+      if (!noMember && (w.ragged || r.truncated)) { out.cells++; if (!(w.ragged && r.truncated && w.cells.length === 2 && w.cells[1].t === (r.title || r.name))) bad(`row ${i} truncation: wiki ${w.cells.length} cells vs app truncated=${r.truncated}`); out.truncated = (out.truncated || 0) + 1; return; }
       void 0, cells = w.cells, T = h => cells[hx(h)] && cells[hx(h)].t, chk = (what, a, b) => { out.cells++; if (!(a === b || (typeof a === 'number' && typeof b === 'number' && Math.abs(a - b) <= 1e-9 * Math.max(1, Math.abs(a))))) bad(`row ${i} ${r.name} ${what}: wiki ${a} vs app ${b}`); };
       chk('class', (w.cls.find(x => x.startsWith('table-bg-')) || '').slice(9), r.cls);
       chk('name', T('Name'), (r.title || r.name) + (r.multiplier ? ' \u00d7 ' + r.multiplier : ''));
@@ -31,14 +34,16 @@ function compare(D, G, opt = {}) {
       chk('xp', num(T('XP')), r.unitExp);
       chk('needed', num(T('# needed')), r.needed);
       if (hx('# urns') >= 0) chk('urns', (s => s === -1000000000 ? 0 : s)(num(cells[hx('# urns')].s)), r.urnColumn ? r.urnsNeeded : null);
-      chk('members', num(cells[cells.length - 1].s), r.members ? 1 : 0);
+      if (noMember) out.noMemberCell = (out.noMemberCell || 0) + 1; else chk('members', num(cells[cells.length - 1].s), r.members ? 1 : 0);
       if (w.ragged) { out.ragged = (out.ragged || 0) + 1; }
       // the Wiki's gePrice is 0 for a name it has no price for; opt.missingAsZero reproduces that for golden comparison only
       const k = C.skillCalcCost(r, n => (n in prices ? prices[n] : opt.missingAsZero ? 0 : null));
       const money = (h, v) => { if (hx(h) < 0 || w.ragged) return; const cell = cells[hx(h)], s = num(cell.s); chk(h, s === -1000000000 ? 0 : s, v); };
       if (D.cats && c.args && c.args.disp === 'Urns' || (c.submission && 0)) money('Cost', k.raw);
       else { money('Raw cost', k.raw); money('Product cost', k.prod); money('Profit/Loss', k.profit); if (hx('Profit/XP') >= 0 && !w.ragged) { const s = num(cells[hx('Profit/XP')].s); chk('Profit/XP', s === -1000000000 ? 0 : s, k.profitPerXp == null ? null : (k.profitEach === 0 ? 0 : k.profitPerXp)); } }
-      if (w.mats) { const names = w.mats.names; const mine = r.listed.map(l => l.name); chk('material names', names.join('|'), mine.join('|'));
+      // opt.redlinks: ingredient files missing on the Wiki (File:Koi Scales.png) render as a text link next to the name link, so the
+      // golden parser reads the name twice; collapse only that adjacent pair, only for the names listed by the test
+      if (w.mats) { const names = w.mats.names.filter((n, j, a) => !(opt.redlinks && opt.redlinks.includes(n) && j > 0 && a[j - 1] === n)); const mine = r.listed.map(l => l.name); chk('material names', names.join('|'), mine.join('|'));
         const qs = (w.mats.text.match(/(?:^|\s)([\d,]+(?:\.\d+)?)(?=\s)/g) || []).map(num); chk('material qty', qs.join('|'), r.listed.map(l => qtyText(l.qty * r.needed)).join('|')); }
     });
   }

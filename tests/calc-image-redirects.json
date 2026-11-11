@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-11 01:01 EST",
+ "checked": "2026-11-11 01:52 EST",
  "items": {
   "Adamant arrow": {
    "appFile": "File:Adamant arrow 5.png",
@@ -1010,6 +1010,34 @@
    "resolvedTitle": "File:Fungal bowstring 5.png",
    "via": "File redirect from File:Fungal bowstring.png"
   },
+  "Fungal flake": {
+   "appFile": "File:Fungal flake 5.png",
+   "appSha1": "ab3ae34273d3be356b39df4bc8e0fc8ccee480d4",
+   "fileRedirects": [
+    {
+     "from": "File:Fungal flake.png",
+     "to": "File:Fungal flake 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "ab3ae34273d3be356b39df4bc8e0fc8ccee480d4",
+   "resolvedTitle": "File:Fungal flake 5.png",
+   "via": "File redirect from File:Fungal flake.png"
+  },
+  "Ganodermic flake": {
+   "appFile": "File:Ganodermic flake 5.png",
+   "appSha1": "3a426938ce8a1f7bd34ebfa07e33d54dbab93829",
+   "fileRedirects": [
+    {
+     "from": "File:Ganodermic flake.png",
+     "to": "File:Ganodermic flake 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "3a426938ce8a1f7bd34ebfa07e33d54dbab93829",
+   "resolvedTitle": "File:Ganodermic flake 5.png",
+   "via": "File redirect from File:Ganodermic flake.png"
+  },
   "Gorgonite arrows": {
    "appFile": "File:Gorgonite arrows 5.png",
    "appSha1": "bc6c2e7926c573d5d1dd91bfaa3a2d926f4bb944",
@@ -1037,6 +1065,20 @@
    "resolvedSha1": "bc6aaac306b76c4f107733c98ec141bcd3e7315a",
    "resolvedTitle": "File:Grenwall spikes 5.png",
    "via": "File redirect from File:Grenwall spikes.png"
+  },
+  "Grifolic flake": {
+   "appFile": "File:Grifolic flake 5.png",
+   "appSha1": "f869ad9faaf65580a0aa4a08906d8ed7fc12630d",
+   "fileRedirects": [
+    {
+     "from": "File:Grifolic flake.png",
+     "to": "File:Grifolic flake 5.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "f869ad9faaf65580a0aa4a08906d8ed7fc12630d",
+   "resolvedTitle": "File:Grifolic flake 5.png",
+   "via": "File redirect from File:Grifolic flake.png"
   },
   "Guthix balance (unfinished)": {
    "appFile": "File:Guthix balance (unfinished) (4).png",
@@ -1248,6 +1290,21 @@
    "resolvedTitle": "File:Katagon arrows 5.png",
    "via": "File redirect from File:Katagon arrows.png"
   },
+  "Koi Scales": {
+   "appFile": "File:Koi scales.png",
+   "appSha1": "c0441d9962a8137151185d75aa84dd250395117e",
+   "fileRedirects": [],
+   "missing": true,
+   "pageRedirects": [
+    {
+     "from": "Koi Scales",
+     "to": "Koi scales"
+    }
+   ],
+   "resolvedSha1": null,
+   "resolvedTitle": "File:Koi Scales.png",
+   "via": "item page Koi Scales redirects to Koi scales"
+  },
   "Kratonite arrows": {
    "appFile": "File:Kratonite arrows 5.png",
    "appSha1": "f420c7e6061e389f8c392825e77243f1d3c8697e",
@@ -1345,6 +1402,104 @@
    "resolvedSha1": "9c371cc695fa540c4566244f3115e6130f1b6aa8",
    "resolvedTitle": "File:Mithril brutal 5.png",
    "via": "File redirect from File:Mithril brutal.png"
+  },
+  "Necromancer's air staff": {
+   "appFile": "File:Shade mystic air staff.png",
+   "appSha1": "c54c7797ca8c1e5143c85f570a723c5da910c3f2",
+   "fileRedirects": [
+    {
+     "from": "File:Necromancer's air staff.png",
+     "to": "File:Shade mystic air staff.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "c54c7797ca8c1e5143c85f570a723c5da910c3f2",
+   "resolvedTitle": "File:Shade mystic air staff.png",
+   "via": "File redirect from File:Necromancer's air staff.png"
+  },
+  "Necromancer's earth staff": {
+   "appFile": "File:Shade mystic earth staff.png",
+   "appSha1": "a2542ae7d75b8e219822410261a317bac8e282f0",
+   "fileRedirects": [
+    {
+     "from": "File:Necromancer's earth staff.png",
+     "to": "File:Shade mystic earth staff.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "a2542ae7d75b8e219822410261a317bac8e282f0",
+   "resolvedTitle": "File:Shade mystic earth staff.png",
+   "via": "File redirect from File:Necromancer's earth staff.png"
+  },
+  "Necromancer's fire staff": {
+   "appFile": "File:Shade mystic fire staff.png",
+   "appSha1": "9240ba481c65c86489ab4c4500485c0339f685b7",
+   "fileRedirects": [
+    {
+     "from": "File:Necromancer's fire staff.png",
+     "to": "File:Shade mystic fire staff.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "9240ba481c65c86489ab4c4500485c0339f685b7",
+   "resolvedTitle": "File:Shade mystic fire staff.png",
+   "via": "File redirect from File:Necromancer's fire staff.png"
+  },
+  "Necromancer's lava staff": {
+   "appFile": "File:Shade mystic lava staff.png",
+   "appSha1": "73325215ec13b0dbd926f9dbbfd0906edef981ff",
+   "fileRedirects": [
+    {
+     "from": "File:Necromancer's lava staff.png",
+     "to": "File:Shade mystic lava staff.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "73325215ec13b0dbd926f9dbbfd0906edef981ff",
+   "resolvedTitle": "File:Shade mystic lava staff.png",
+   "via": "File redirect from File:Necromancer's lava staff.png"
+  },
+  "Necromancer's mud staff": {
+   "appFile": "File:Shade mystic mud staff.png",
+   "appSha1": "657721772fb9b65323782cf1bab5f5bc8dfc030f",
+   "fileRedirects": [
+    {
+     "from": "File:Necromancer's mud staff.png",
+     "to": "File:Shade mystic mud staff.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "657721772fb9b65323782cf1bab5f5bc8dfc030f",
+   "resolvedTitle": "File:Shade mystic mud staff.png",
+   "via": "File redirect from File:Necromancer's mud staff.png"
+  },
+  "Necromancer's steam staff": {
+   "appFile": "File:Shade mystic steam staff.png",
+   "appSha1": "4e595132ce2546c479102a79d15f72486bebf956",
+   "fileRedirects": [
+    {
+     "from": "File:Necromancer's steam staff.png",
+     "to": "File:Shade mystic steam staff.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "4e595132ce2546c479102a79d15f72486bebf956",
+   "resolvedTitle": "File:Shade mystic steam staff.png",
+   "via": "File redirect from File:Necromancer's steam staff.png"
+  },
+  "Necromancer's water staff": {
+   "appFile": "File:Shade mystic water staff.png",
+   "appSha1": "9da2d5aaf08f6d953ff35d21204c4332981d006f",
+   "fileRedirects": [
+    {
+     "from": "File:Necromancer's water staff.png",
+     "to": "File:Shade mystic water staff.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "9da2d5aaf08f6d953ff35d21204c4332981d006f",
+   "resolvedTitle": "File:Shade mystic water staff.png",
+   "via": "File redirect from File:Necromancer's water staff.png"
   },
   "Necronium arrow": {
    "appFile": "File:Necronium arrow 5.png",
@@ -1710,6 +1865,20 @@
    "resolvedTitle": "File:Red topaz bakriminel bolts 5.png",
    "via": "File redirect from File:Red topaz bakriminel bolts.png"
   },
+  "Ring of slaying": {
+   "appFile": "File:Ring of slaying (8).png",
+   "appSha1": "b193c03ade898887b709c1ea5241938423dea9ca",
+   "fileRedirects": [
+    {
+     "from": "File:Ring of slaying.png",
+     "to": "File:Ring of slaying (8).png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "b193c03ade898887b709c1ea5241938423dea9ca",
+   "resolvedTitle": "File:Ring of slaying (8).png",
+   "via": "File redirect from File:Ring of slaying.png"
+  },
   "Ruby bakriminel bolts": {
    "appFile": "File:Ruby bakriminel bolts 5.png",
    "appSha1": "0fd9dd07a97df4f72d9c69f2228417786d114d1d",
@@ -1933,6 +2102,160 @@
    "resolvedSha1": "b1c7a309f46cc1cc71bde0c57b4cb428336f002a",
    "resolvedTitle": "File:Silver bolts (unf) 5.png",
    "via": "File redirect from File:Silver bolts (unf).png"
+  },
+  "Skeletal battlestaff of air": {
+   "appFile": "File:Shade battlestaff of air.png",
+   "appSha1": "c3ebbed5f4623100916f4c089a5c1f05acacccb6",
+   "fileRedirects": [
+    {
+     "from": "File:Skeletal battlestaff of air.png",
+     "to": "File:Shade battlestaff of air.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "c3ebbed5f4623100916f4c089a5c1f05acacccb6",
+   "resolvedTitle": "File:Shade battlestaff of air.png",
+   "via": "File redirect from File:Skeletal battlestaff of air.png"
+  },
+  "Skeletal battlestaff of earth": {
+   "appFile": "File:Shade battlestaff of earth.png",
+   "appSha1": "422233f21f205d6a80818eda331592ec398d16a4",
+   "fileRedirects": [
+    {
+     "from": "File:Skeletal battlestaff of earth.png",
+     "to": "File:Shade battlestaff of earth.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "422233f21f205d6a80818eda331592ec398d16a4",
+   "resolvedTitle": "File:Shade battlestaff of earth.png",
+   "via": "File redirect from File:Skeletal battlestaff of earth.png"
+  },
+  "Skeletal battlestaff of fire": {
+   "appFile": "File:Shade battlestaff of fire.png",
+   "appSha1": "133b959c8a75484f20df120189e03a2159ab7235",
+   "fileRedirects": [
+    {
+     "from": "File:Skeletal battlestaff of fire.png",
+     "to": "File:Shade battlestaff of fire.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "133b959c8a75484f20df120189e03a2159ab7235",
+   "resolvedTitle": "File:Shade battlestaff of fire.png",
+   "via": "File redirect from File:Skeletal battlestaff of fire.png"
+  },
+  "Skeletal battlestaff of water": {
+   "appFile": "File:Shade battlestaff of water.png",
+   "appSha1": "74ce7bf8f04ef31907ef7cf409e7ee69f951fe42",
+   "fileRedirects": [
+    {
+     "from": "File:Skeletal battlestaff of water.png",
+     "to": "File:Shade battlestaff of water.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "74ce7bf8f04ef31907ef7cf409e7ee69f951fe42",
+   "resolvedTitle": "File:Shade battlestaff of water.png",
+   "via": "File redirect from File:Skeletal battlestaff of water.png"
+  },
+  "Skeletal lava battlestaff": {
+   "appFile": "File:Shade lava battlestaff.png",
+   "appSha1": "b39e93c28e9ce07d79027cb05f88e96b3fffc9bd",
+   "fileRedirects": [
+    {
+     "from": "File:Skeletal lava battlestaff.png",
+     "to": "File:Shade lava battlestaff.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "b39e93c28e9ce07d79027cb05f88e96b3fffc9bd",
+   "resolvedTitle": "File:Shade lava battlestaff.png",
+   "via": "File redirect from File:Skeletal lava battlestaff.png"
+  },
+  "Skeletal mud battlestaff": {
+   "appFile": "File:Shade mud battlestaff.png",
+   "appSha1": "fdee13ccec5b6582b796e0a3bc8c6e3188472dd1",
+   "fileRedirects": [
+    {
+     "from": "File:Skeletal mud battlestaff.png",
+     "to": "File:Shade mud battlestaff.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "fdee13ccec5b6582b796e0a3bc8c6e3188472dd1",
+   "resolvedTitle": "File:Shade mud battlestaff.png",
+   "via": "File redirect from File:Skeletal mud battlestaff.png"
+  },
+  "Skeletal staff of air": {
+   "appFile": "File:Shade staff of air.png",
+   "appSha1": "961958822aa5023068befab6bae113d7697e3de9",
+   "fileRedirects": [
+    {
+     "from": "File:Skeletal staff of air.png",
+     "to": "File:Shade staff of air.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "961958822aa5023068befab6bae113d7697e3de9",
+   "resolvedTitle": "File:Shade staff of air.png",
+   "via": "File redirect from File:Skeletal staff of air.png"
+  },
+  "Skeletal staff of earth": {
+   "appFile": "File:Shade staff of earth.png",
+   "appSha1": "1d93deea21dde2c59e7f7db4b3861de1cca7a77a",
+   "fileRedirects": [
+    {
+     "from": "File:Skeletal staff of earth.png",
+     "to": "File:Shade staff of earth.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "1d93deea21dde2c59e7f7db4b3861de1cca7a77a",
+   "resolvedTitle": "File:Shade staff of earth.png",
+   "via": "File redirect from File:Skeletal staff of earth.png"
+  },
+  "Skeletal staff of fire": {
+   "appFile": "File:Shade staff of fire.png",
+   "appSha1": "6def9606b685bddf846c2391fe965af5abf160d0",
+   "fileRedirects": [
+    {
+     "from": "File:Skeletal staff of fire.png",
+     "to": "File:Shade staff of fire.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "6def9606b685bddf846c2391fe965af5abf160d0",
+   "resolvedTitle": "File:Shade staff of fire.png",
+   "via": "File redirect from File:Skeletal staff of fire.png"
+  },
+  "Skeletal staff of water": {
+   "appFile": "File:Shade staff of water.png",
+   "appSha1": "b85c6d42ad77eb30686c4699207f33cd4920ab81",
+   "fileRedirects": [
+    {
+     "from": "File:Skeletal staff of water.png",
+     "to": "File:Shade staff of water.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "b85c6d42ad77eb30686c4699207f33cd4920ab81",
+   "resolvedTitle": "File:Shade staff of water.png",
+   "via": "File redirect from File:Skeletal staff of water.png"
+  },
+  "Skeletal steam battlestaff": {
+   "appFile": "File:Shade steam battlestaff.png",
+   "appSha1": "9cc6b7fb214645da8008d5d9a4edebf145af3cb4",
+   "fileRedirects": [
+    {
+     "from": "File:Skeletal steam battlestaff.png",
+     "to": "File:Shade steam battlestaff.png"
+    }
+   ],
+   "missing": false,
+   "resolvedSha1": "9cc6b7fb214645da8008d5d9a4edebf145af3cb4",
+   "resolvedTitle": "File:Shade steam battlestaff.png",
+   "via": "File redirect from File:Skeletal steam battlestaff.png"
   },
   "Splintering arrow tips": {
    "appFile": "File:Splintering arrow tips 5.png",

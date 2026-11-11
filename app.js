@@ -1013,6 +1013,7 @@ async function nativeCalcView(n) {
   if (n.slug === 'herblore') return herbloreView(n);
   if (n.slug === 'cooking') return cookingView(n);
   if (n.slug === 'fletching') return fletchingView(n);
+  if (n.slug === 'crafting') return craftingView(n);
   location.replace('#calculators');
 }
 const QUOTE_WHY = {missing: 'no recent trade price', stale: 'price is stale', offline: 'offline', unavailable: 'live source unavailable', unmapped: 'not found in the price source'};
@@ -1037,7 +1038,7 @@ async function flaskDecantView(n) {
     <p class="note" id="fd-flask" role="status"></p>
     <div class="row calc-filters">
       <input id="fd-q" type="search" placeholder="Search potions" aria-label="Search potions" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <select id="fd-show" aria-label="Show"><option value="net">Net profit (after est. tax)</option><option value="gross">Gross profit (before tax)</option></select>
+      <select id="fd-show" aria-label="Show" aria-describedby="fd-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><small class="calc-sub calc-show-help" id="fd-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</small>
       <select id="fd-sort" aria-label="Sort"><option value="">Sort: potion name</option>${cols.map(c => `<option value="${esc(c.key)}">Sort: best ${esc(c.label.replace('Decanting ', ''))}</option>`).join('')}</select></div>
     <p class="note" id="fd-count" role="status" aria-live="polite"></p>
     <div id="fd-table"></div>
@@ -1217,7 +1218,7 @@ async function herbloreView(n) {
     <p class="hb-msg" id="hb-msg" role="status"></p>
     <div class="row calc-filters">
       <input id="hb-q" type="search" placeholder="Search recipes or ingredients" aria-label="Search recipes or ingredients" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <select id="hb-show" aria-label="Profit shown"><option value="net">Net profit (after est. tax)</option><option value="gross">Gross profit (before tax)</option></select>
+      <select id="hb-show" aria-label="Profit shown" aria-describedby="hb-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><small class="calc-sub calc-show-help" id="hb-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</small>
       <select id="hb-sort" aria-label="Sort"><option value="">Sort: level (as on the Wiki)</option><option value="profit">Sort: most profit</option><option value="pxp">Sort: best profit/XP</option><option value="cxp">Sort: lowest cost/XP</option><option value="xp">Sort: most XP each</option><option value="num">Sort: fewest actions</option></select></div>
     <p class="note" id="hb-count" role="status" aria-live="polite"></p>
     <div id="hb-table"></div>
@@ -1384,7 +1385,7 @@ async function skillView(n, K) {
     <p class="hb-msg" id="${P}-msg" role="status"></p>
     <div class="row calc-filters">
       <input id="${P}-q" type="search" placeholder="Search recipes or ingredients" aria-label="Search recipes or ingredients" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <select id="${P}-show" aria-label="Profit shown"><option value="net">Net profit (after est. tax)</option><option value="gross">Gross profit (before tax)</option></select>
+      <select id="${P}-show" aria-label="Profit shown" aria-describedby="${P}-show-help"><option value="net">Net profit</option><option value="gross">Gross profit</option></select><small class="calc-sub calc-show-help" id="${P}-show-help">Net profit: after the estimated 2% Grand Exchange tax. Gross profit: before tax.</small>
       <select id="${P}-sort" aria-label="Sort"><option value="">Sort: as on the Wiki</option><option value="profit">Sort: most profit</option><option value="pxp">Sort: best profit/XP</option><option value="xp">Sort: most XP each</option><option value="num">Sort: fewest actions</option></select></div>
     <p class="note" id="${P}-count" role="status" aria-live="polite"></p>
     <div id="${P}-table"></div>
@@ -1497,8 +1498,14 @@ const FLETCHING_K = {id: 'fl', key: 'dch_calc_fletching_v1', skill: 'Fletching',
     'Items made several at a time (for example "Bronze arrow × 15") sell all of them per action, as on the Wiki; tax is per item sold.',
     'Ingredients are bought at the live Buy (high) price and products sold at the live Sell (low) price; each ingredient line is rounded down, as on the Wiki. At a Portable Fletcher, ingredients for Arrows, Bolts, Darts and Bows - Unstrung cost 10% less (20% with the Brooch of the Gods), as on the Wiki.',
     ...SKILL_PRICE_NOTES, 'Dungeoneering sub-categories show no costs, as on the Wiki.']};
+const CRAFTING_K = {id: 'cr', key: 'dch_calc_crafting_v1', skill: 'Crafting', noun: 'items',
+  intro: src => wikiCalcIntro('Crafting', 'item', src),
+  assume: ['XP, number of actions and ingredient quantities follow the Wiki calculator exactly: Portable Crafter +10% XP, Amulet of offerings +3% (added after the other boosts), outfit and avatar bonuses as on the Wiki, bonus XP halves the XP needed up to its amount.',
+    'Ingredients are bought at the live Buy (high) price and products sold at the live Sell (low) price; each ingredient line is rounded down, as on the Wiki. At a Portable Crafter, ingredients in every sub-category cost 10% less (20% with the Brooch of the Gods), as on the Wiki.',
+    ...SKILL_PRICE_NOTES, 'Dungeoneering Armour shows no costs, as on the Wiki.']};
 const cookingView = n => skillView(n, COOKING_K);
 const fletchingView = n => skillView(n, FLETCHING_K);
+const craftingView = n => skillView(n, CRAFTING_K);
 
 /* Official RuneScape Wiki pictures for calculator items (data/calc/images.json, built by tools/calc_images.py): exact
    File:<item>.png or a file the Wiki itself redirects to. No picture -> no picture slot (never a stand-in). */

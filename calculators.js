@@ -71,7 +71,8 @@
   const NATIVE = [{slug: 'flask-decanting', path: '/w/Calculator:Herblore/Flask_decanting', data: 'data/calc/flask-decanting.json'},
     {slug: 'herblore', path: '/w/Calculator:Herblore', data: 'data/calc/herblore.json'},
     {slug: 'cooking', path: '/w/Calculator:Cooking', data: 'data/calc/cooking.json'},
-    {slug: 'fletching', path: '/w/Calculator:Fletching', data: 'data/calc/fletching.json'}];
+    {slug: 'fletching', path: '/w/Calculator:Fletching', data: 'data/calc/fletching.json'},
+    {slug: 'crafting', path: '/w/Calculator:Crafting', data: 'data/calc/crafting.json'}];
   const nativeFor = path => NATIVE.find(n => n.path === path) || null;
   const nativeBySlug = slug => NATIVE.find(n => n.slug === slug) || null;
 
@@ -561,7 +562,7 @@
      Shared RuneScape Wiki skill calculator engine — a JavaScript port of the generic Module:Skill calc (noValue) with
      Module:Skill calc/bonusGenerator and the Profit/Loss table of Module:Skill calc/eltGenerator, plus the parts of
      MediaWiki:Gadget-calc-core.js that decide what the Wiki form submits (CC BY-NC-SA 3.0; revisions in the calculator's
-     data file, e.g. data/calc/cooking.json). Validated against Wiki renders for Calculator:Cooking and Calculator:Fletching only (SC_VALIDATED, SC_OPTS);
+     data file, e.g. data/calc/cooking.json). Validated against Wiki renders for Calculator:Cooking, Calculator:Fletching and Calculator:Crafting only (SC_VALIDATED, SC_OPTS);
      every branch the Wiki module takes only for other skills or sub-categories is refused with an explicit
      "not supported" error instead of being guessed, so the next calculators (Crafting, Firemaking, Runecrafting)
      can be added by porting and validating their branches against Wiki goldens.
@@ -571,9 +572,9 @@
        skillCalcCost(row, linePrice) -> the Wiki's per-action and total cost / product / profit arithmetic with any price
          source (Wiki guide prices in tests, live prices in the app); null (never 0) when a needed price is unavailable.
   --------------------------------------------------------------------------------------------- */
-  const SC_VALIDATED = ['Cooking', 'Fletching'];
+  const SC_VALIDATED = ['Cooking', 'Fletching', 'Crafting'];
   // options the Wiki module reads that are validated against Wiki goldens, per skill (others are refused)
-  const SC_OPTS = {Fletching: ['dxp', 'portable', 'workroom', 'brooch']};
+  const SC_OPTS = {Fletching: ['dxp', 'portable', 'workroom', 'brooch'], Crafting: ['portable', 'brooch', 'amuletOfOfferings']};
   /* Module:Yesno */
   function scYn(arg, def) {
     if (arg == null) return def;
@@ -593,6 +594,9 @@
   const scRound = (num, dp) => { const m = 10 ** (dp || 0); return Math.floor(num * m + 0.5) / m; };   // Module:Number._round
   class SkillCalcError extends Error {}
   const scFail = msg => { throw new SkillCalcError(msg); };
+  // Lua string.find(disp, "Dungeoneering - ") is a pattern: " -" means "zero or more spaces", so it matches "Dungeoneering"
+  // followed by at least one space ("Dungeoneering - Bows" and also Crafting's "Dungeoneering Armour"), never "Dungeoneering".
+  const scDungPat = disp => /Dungeoneering +/.test(String(disp));
   const scUnsupported = what => scFail('Not supported in the app yet: ' + what + ' (this part of the Wiki engine is not validated here).');
   /* Module:Skill calc/bonusGenerator. Note: the Wiki module never copies data.category into its local `category`, so the
      category checks in 'extra' always see '' (Bonfire never adds XP; Portable Range adds 21% in every sub-category). Ported as is. */
@@ -687,6 +691,8 @@
       if (scYn(args.workroom) === true) pct += scBonus({skill, object: 'workroom'});
       if (scNum(args.custom) != null) pct += scBonus({skill, category: disp, object: 'custom', item: args.custom});
     }
+    // Crafting: Amulet of offerings adds 3% after every other boost (outside bonusExceptions too), as in Module:Skill calc
+    if (skill === 'Crafting' && scYn(args.amuletOfOfferings) === true) pct += 0.03;
     // remainingExp
     const cur = scNum(args.current), goal = scNum(args.goal);
     if (cur == null || goal == null) scFail('Current and goal must be numbers (the Wiki module errors).');
@@ -706,7 +712,7 @@
     let elts = D.elts[skill];
     if (disp === 'Urns') elts = D.elts.Urns;
     else if (skill === 'Cooking' && disp === 'Dungeoneering') elts = D.elts['Cooking-Dungeoneering'];
-    else if (/Dungeoneering - /.test(disp)) elts = D.elts['Dungeons-Materials'];
+    else if (scDungPat(disp)) elts = D.elts['Dungeons-Materials'];
     const allowsUrns = disp !== 'Urns';
     let urn = null;
     if (allowsUrns && args.urn != null && args.urn !== 'None') {
@@ -720,6 +726,14 @@
     if (!elts) scFail('No Wiki column layout for ' + skill + ' / ' + disp + '.');
     let headers = elts.slice(), urnColumn = null;
     if (urn) { const i = headers.indexOf('# needed'); if (i >= 0) { headers.splice(i + 1, 0, '# urns'); urnColumn = i + 1; } }
+    // eltGenerator.generate_ProfitLoss puts the members icon at targetElt with table.insert; when targetElt is past the end of the
+    // row (Crafting "Dungeoneering Armour": 6 cells, targetElt 11) Lua stores it after a hole and the Wiki row ends without it.
+    const dungRow = scDungPat(disp), eltsLen = disp === 'Urns' ? 5 : 6 + (!(skill === 'Cooking' && disp === 'Dungeoneering') && !dungRow ? 4 : 0);
+    let targetElt = 11;
+    if (skill === 'Cooking' && (disp === 'Dungeoneering' || disp === 'Urns')) targetElt = disp === 'Dungeoneering' ? 7 : 6;
+    else if (['Cooking', 'Fletching', 'Herblore', 'Hunter', 'Summoning'].includes(skill) && dungRow) targetElt = disp === 'Dungeoneering - Pouches' ? 8 : 7;
+    else if (!['Cooking', 'Fletching', 'Crafting'].includes(skill)) scUnsupported('the column layout of ' + skill);
+    const memberCell = targetElt <= eltsLen + 1;
     const rows = src.sorted.map((v, idx) => {
       const mcount = v.mcount != null ? v.mcount : 1;   // Lua: 0 is a real count (the Wiki then prices no ingredient)
       let matLines = [], matPriced = false;
@@ -730,7 +744,8 @@
       // Fletching at a portable fletcher: ingredients cost 10% less in these sub-categories, 20% with the brooch (args.brooch == "true")
       let matReduction = 0;
       if (skill === 'Fletching' && scYn(args.portable) === true && ['Arrows', 'Bolts', 'Darts', 'Bows - Unstrung'].includes(disp)) matReduction = 0.1;
-      if (skill === 'Crafting' && scYn(args.portable) === true) scUnsupported('Crafting portable');
+      // Crafting at a portable crafter: every sub-category's ingredients cost 10% less (20% with the brooch)
+      if (skill === 'Crafting' && scYn(args.portable) === true) matReduction = 0.1;
       if (args.brooch === 'true') matReduction *= 2;
       const brewing = disp === 'Brewing';
       const unitExp = scRound(v.xp * (1 + pct) + flat, 1);
@@ -753,7 +768,7 @@
       return {idx, item: v, name: v.name, title: v.title || null, level: v.level == null ? null : scRound(v.level, 0), reqLevel: reqLv, cls,
         baseXp: v.xp, unitExp, needed, urnsNeeded, urnColumn: urnColumn != null, members: v.members === 0 || v.members === true,
         matLines, listed, matPriced, product, brewing, matReduction, multiplier: v.multiplier || null, currency: v.currency || null, value: v.value != null ? v.value : null, materialCost: v.materialCost != null ? v.materialCost : null,
-        costCols: !(skill === 'Cooking' && disp === 'Dungeoneering') && !/Dungeoneering - /.test(disp), urnRow: disp === 'Urns',
+        costCols: !(skill === 'Cooking' && disp === 'Dungeoneering') && !scDungPat(disp), urnRow: disp === 'Urns', memberCell,
         // eltGenerator builds {images, links, numbers(T.level), ...}: with no level the Lua list ends at the nil, so the Wiki row shows
         // only the picture and name (urns in "All"). The app shows no values for such rows rather than inventing them.
         truncated: disp !== 'Urns' && v.level == null};
