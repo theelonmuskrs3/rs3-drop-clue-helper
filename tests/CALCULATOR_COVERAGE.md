@@ -24,7 +24,7 @@ Every native port records its page, template and module revisions and gives attr
 | Calculator | Wiki path | Status | Verification |
 |---|---|---|---|
 | Flask decanting (Herblore) | /w/Calculator:Herblore/Flask_decanting | **Native** `#calculators/flask-decanting` | 86 potions × 4 decanting options: all 344 Wiki-rendered cells reproduced (page rev 37202169, row template rev 37202166, GEPrices rev 37236236). Rebuild with `tools/calc_flask_decanting.py`. |
-| Herblore skill calculator | /w/Calculator:Herblore | **Native** `#calculators/herblore` (released PR #4) | JS port of `Module:Skill calc/Herblore` rev 36813069 with data rev 37201040, page rev 37008978, Experience 35948183 / data 35392677, GEIDs 37236241. 39 template renders (2,978 rows) + 15 Wiki form click-sequence renders (1,522 rows) at GEPrices rev 37236236: every row's order, XP, actions, time, colour, steps and line quantities match; costs/profits match on 2,551 template rows, the rest are unavailable by rule (see below). See below. Rebuild with `tools/calc_herblore.py build` / `golden`. |
+| Herblore skill calculator | /w/Calculator:Herblore | **Native** `#calculators/herblore` (released PR #4) | JS port of `Module:Skill calc/Herblore` rev 36813069 with data rev 37201040, page rev 37008978, Experience 35948183 / data 35392677, GEIDs 37236241. 39 template renders (2,978 rows) + 18 Wiki form click-sequence renders (1,867 rows; replayed click by click on the app screen) at GEPrices rev 37236236: every row's order, XP, actions, time, colour, steps and line quantities match; costs/profits match on 2,551 template rows, the rest are unavailable by rule (see below). See below. Rebuild with `tools/calc_herblore.py build` / `golden`. |
 | Cooking skill calculator | /w/Calculator:Cooking | **Native** `#calculators/cooking` (released 2026.11.11-0044, PR #6) | JS port of the shared `Module:Skill calc` rev 37183472 (bonusGenerator 37061127, eltGenerator 37078757, elts 37076682) with `Module:Skill calc/Cooking/data` rev 37177236, page rev 37078013, form via MediaWiki:Gadget-calc-core.js rev 37082305. 59 template renders + 7 form click sequences (2,899 rows) at GEPrices rev 37236236: all 34,486 compared cells match (row colour, name, level, XP, # needed, # urns, members, raw/product cost, profit, profit/XP, material names and quantities). Rebuild with `tools/calc_cooking.py build` / `golden`. |
 | Fletching skill calculator | /w/Calculator:Fletching | **Native** `#calculators/fletching` (draft PR, awaiting browser gates) | Same shared engine port (pins as Cooking) with `Module:Skill calc/Fletching/data` rev 37229972, page rev 37236406; Fletching branches: Dungeoneering XP-boost-first (+1.0), portable fletcher and Fletching workroom bonuses, brooch of the gods (portable only, 20% material saving, raw cost unrounded), product multiplier (× N per action), Dungeoneering - * layouts (Dungeons-Materials, no costs). 28 template renders + 4 form click sequences (1,003 rows) at GEPrices rev 37236236: all 11,756 compared cells match. Rebuild `tools/calc_skill.py Fletching build` / `golden`. Urns and auras/testing/torstol/abyss are refused, not guessed. |
 | All other 179 pages | — | Not in the app yet | — |
@@ -56,6 +56,17 @@ brooch, botanist's amulet, Morytania legs 4, desert amulet 4, envenomed, scroll 
 (fixed dose incl. flask, profitable with restriction); ingredient preparation (Potions and herbs / Most ingredients with
 every sub-choice, ingredient sets, cape 99/120); level range and level options, tradability filters.
 Display modes (time, steps, material/product display) are presentation only; goldens use the fullest display.
+The form follows the Wiki form's flow (draft PR, awaiting browser gates): the same fields in the same order with the Wiki's
+labels, defaults, options and help text ("?"), and the same sections: the switches Experience boost, Outfit pieces, Cost saving and
+Potion decanting, the Ingredient preparation selector and Display customization (Default / Change columns / Filter recipes / Both),
+each followed by its group under the Wiki's label (Experience boost, Outfit pieces, Cost saving, Decanting options, Preparation
+options, Column options, Filter options). A section that is switched off sends none of its fields, as on the Wiki; the values are
+kept. Factory outfit pieces sits in Outfit pieces: the Wiki form lists it in both groups, but the gadget lays it out (and switches it)
+with the group defined before it. Column options work as on the Wiki (item pictures, cost and profit columns; currency images have
+no effect because prices are text here). Checked by `tests/herblore-form-fields.json` (recorded by `tools/herblore_fields.py`) and
+by replaying every Wiki click sequence on the app screen. Known difference, kept on purpose: the gadget quirk where switching Cost saving
+off and on re-enables a hidden Brooch checkbox; the app follows what is visible. Profits that leave out an untradeable item's value
+are neutral ("Partial, not a market profit"), never green or red.
 
 Test inputs and fixtures: `tests/herblore-defaults.json` (the Wiki form's defaults), `tests/herblore-cases.json` and
 `tests/herblore-form-cases.json` (inputs and click sequences), `tests/fixtures-herblore-golden.json` (Wiki renders and guide

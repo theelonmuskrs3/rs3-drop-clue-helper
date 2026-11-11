@@ -1096,50 +1096,61 @@ const HB_FIELDS = [
   ['target_xp', 'Target XP', 'int', [0, 200000000], '13034431', 'goal', s => s.target_toggle === 'Experience'],
   ['category_choice', 'Skill subcategory choice', 'sel', ['Single', 'Multiple', 'Common potions', 'Dungeoneering', 'Outside Daemonheim', 'All'], 'Single', 'recipes'],
   ['category', 'Skill subcategory', 'sel', HB_CATS.map(c => c[1]), 'Standard potions', 'recipes', s => s.category_choice === 'Single'],
-  ...HB_CATS.map(([c, l]) => ['categories_' + c, l, 'chk', HB_YN, c === 'standard' ? 'true' : 'false', 'recipes', s => s.category_choice === 'Multiple']),
+  ...HB_CATS.map(([c, l]) => ['categories_' + c, l, 'chk', HB_YN, c === 'standard' ? 'true' : 'false', 'cats']),
+  ['experience_boost', 'Experience boost', 'switch', HB_YN, 'false', 'xpsw'],
   ['bik_scripture', 'Scripture of Bik', 'sel', ['None', 'Flicking and switching every minute', 'Always activated'], 'None', 'xp'],
   ['inspire', 'Inspire Genius', 'chk', HB_YN, 'false', 'xp'],
   ['avatar', 'Clan avatar bonus (%)', 'sel', ['None', '3', '4', '5', '6'], 'None', 'xp'],
-  ['wise', 'Wise perk', 'sel', ['None', 'Wise 1', 'Wise 2', 'Wise 3', 'Wise 4'], 'None', 'xp'],
+  ['wise', 'Wise', 'sel', ['None', 'Wise 1', 'Wise 2', 'Wise 3', 'Wise 4'], 'None', 'xp'],
   ['torsol', 'Torstol incense sticks potency level', 'sel', ['None', '1', '2', '3', '4'], 'None', 'xp'],
   ['pulse_core', 'Advanced pulse core', 'sel', ['None', 'Buff only', 'Equipped', 'Buff and equipped'], 'None', 'xp'],
-  ['knowledge_bomb', 'Knowledge bomb', 'sel', ['None', 'Small/Medium/Large/Huge/Prime Gaming', 'Superior'], 'None', 'xp'],
-  ['perfect_juju', 'Perfect juju potion / Perfect plus potion', 'sel', ['None', 'Perfect juju herblore potion', 'Perfect plus potion'], 'None', 'xp'],
-  ['meilyr_hour', 'Meilyr Hour (Voice of Seren)', 'chk', HB_YN, 'false', 'xp'],
+  ['knowledge_bomb', 'Small knowledge bomb', 'sel', ['None', 'Small/Medium/Large/Huge/Prime Gaming', 'Superior'], 'None', 'xp'],
+  ['perfect_juju', 'Perfect juju herblore potion / Perfect plus potion', 'sel', ['None', 'Perfect juju herblore potion', 'Perfect plus potion'], 'None', 'xp'],
+  ['meilyr_hour', 'Meilyr Hour', 'chk', HB_YN, 'false', 'xp'],
   ['raf', 'Recruit a Friend', 'chk', HB_YN, 'false', 'xp'],
   ['dxp', 'Double XP Live', 'chk', HB_YN, 'false', 'xp'],
   ['add_xp_boost', 'Additional XP boost (%)', 'num', [0, 1600], '0', 'xp'],
-  ['bxp', 'Bonus Experience', 'chk', HB_YN, 'false', 'xp'],
+  ['bxp', 'Bonus Experience', 'switch', HB_YN, 'false', 'xp'],
   ['bxp_amount', 'Amount of BXP', 'int', [0, 200000000], '0', 'xp', s => s.bxp === 'true'],
   ['cinder_core', 'Cinder core', 'sel', ['None', 'Buff only', 'Equipped', 'Buff and equipped'], 'None', 'xp', s => s.bxp === 'true'],
+  ['outfit_piece', 'Outfit pieces', 'switch', HB_YN, 'false', 'outfitsw'],
   ['outfit', "Botanist's outfit pieces", 'sel', ['None', '1', '2', '3', '4', '5'], 'None', 'outfit'],
+  ['modified_mask_off', "Modified botanist's mask", 'fixed', null, 'None', 'outfit', s => s.outfit === 'None'],
   ['modified_mask', "Modified botanist's mask", 'chk', HB_YN, 'false', 'outfit', s => s.outfit !== 'None'],
-  ['factory', 'Factory outfit pieces', 'sel', ['None', '3', '5'], 'None', 'outfit'],
+  ['factory', 'Factory outfit pieces', 'sel', ['None', '3', '5'], 'None', 'outfit'],   // the Wiki form also lists it under Cost saving, but the gadget lays it out (and switches it) with Outfit pieces
+  ['cost_saving', 'Cost saving', 'switch', HB_YN, 'false', 'savingsw'],
   ['portable', 'Portable well', 'chk', HB_YN, 'false', 'saving'],
+  ['brooch_no_effect', 'Brooch of the Gods', 'fixed', null, 'No effect', 'saving', s => s.portable !== 'true'],
   ['brooch', 'Brooch of the Gods', 'chk', HB_YN, 'false', 'saving', s => s.portable === 'true'],
   ['botanist_amulet', "Botanist's amulet", 'chk', HB_YN, 'false', 'saving'],
   ['morytania_4', 'Morytania legs 4', 'chk', HB_YN, 'false', 'saving'],
   ['desert_4', 'Desert amulet 4', 'chk', HB_YN, 'false', 'saving'],
   ['envenomed', 'Envenomed perk', 'chk', HB_YN, 'false', 'saving'],
   ['soc', 'Scroll of cleansing', 'chk', HB_YN, 'false', 'saving'],
+  ['potion_decanting', 'Potion decanting', 'switch', HB_YN, 'false', 'decantsw'],
   ['product_decant_type', 'Decanting product to', 'sel', ['None', 'Fixed', 'Profitable'], 'None', 'decant'],
   ['product_decant_dose_fixed', 'Dose', 'sel', HB_DOSE, '3', 'decant', s => s.product_decant_type === 'Fixed'],
-  ['product_decant_dose_restriction', 'Restriction (dose)', 'sel', HB_RESTRICT, 'Any', 'decant', s => s.product_decant_type === 'Profitable'],
+  ['product_decant_dose_restriction', 'Restriction (Dose)', 'sel', HB_RESTRICT, 'Any', 'decant', s => s.product_decant_type === 'Profitable'],
   ['material_decant_type', 'Decanting material from', 'sel', ['None', 'Fixed', 'Profitable'], 'None', 'decant'],
   ['material_decant_dose_fixed', 'Dose', 'sel', HB_DOSE, '3', 'decant', s => s.material_decant_type === 'Fixed'],
-  ['material_decant_dose_restriction', 'Restriction (dose)', 'sel', HB_RESTRICT, 'Any', 'decant', s => s.material_decant_type === 'Profitable'],
-  ['raw_material_replacement_mode', 'Ingredient preparation', 'sel', ['Original only', 'Potions and herbs', 'Most ingredients'], 'Original only', 'prep'],
+  ['material_decant_dose_restriction', 'Restriction (Dose)', 'sel', HB_RESTRICT, 'Any', 'decant', s => s.material_decant_type === 'Profitable'],
+  ['raw_material_replacement_mode', 'Ingredient preparation', 'sel', ['Original only', 'Potions and herbs', 'Most ingredients'], 'Original only', 'prepsw'],
   ['herb_potion_from', 'Potions and herbs', 'sel', ['Keep original', 'Tradable potions', 'Unfinished potions', 'Clean herbs', 'Grimy herbs'], 'Keep original', 'prep', s => s.raw_material_replacement_mode !== 'Original only'],
   ['use_ingredient_set', 'Ingredient set', 'sel', ['Avoid', 'Replace', 'Add'], 'Avoid', 'prep', s => s.raw_material_replacement_mode !== 'Original only'],
-  ['cape99', 'Herblore cape (instantly clean 28 grimy herbs)', 'chk', HB_YN, 'false', 'prep', s => s.raw_material_replacement_mode !== 'Original only'],
-  ['cape120', 'Herblore master cape (overloads in batches of five)', 'chk', HB_YN, 'false', 'prep', s => s.raw_material_replacement_mode !== 'Original only'],
+  ['cape99', 'Herblore cape', 'chk', HB_YN, 'false', 'prep', s => s.raw_material_replacement_mode !== 'Original only'],
+  ['cape120', 'Herblore master cape', 'chk', HB_YN, 'false', 'prep', s => s.raw_material_replacement_mode !== 'Original only'],
   ['primal_extract_from', 'Primal extract', 'sel', ['Keep original', 'Regular portion', 'Improved yield +1', 'Improved yield +2'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
   ['primal_pulp_from', 'Primal fruit pulp', 'sel', ['Keep original', 'Most yield per primal fruit', 'Most profitable primal fruit', 'Avocado', 'Carambola', 'Ciku', 'Dragonfruit', 'Golden dragonfruit', 'Guarana', 'Lychee', 'Mango'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
   ['adrenaline_from', 'Adrenaline crystal', 'sel', ['Keep original', 'Charging inert'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
   ['ground_from', 'Ground ingredients', 'sel', ['Keep original', 'Manual grinding', 'Telekinetic Grind'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
   ['water_from', 'Vials of water', 'sel', ['Keep original', 'Manual filling', 'Humidify'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
   ['coconut_from', 'Coconut milk', 'sel', ['Keep original', 'Opened coconut', 'Whole coconut'], 'Keep original', 'prep', s => s.raw_material_replacement_mode === 'Most ingredients'],
+  ['show_opts', 'Display customization', 'sel', ['Default', 'Change columns', 'Filter recipes', 'Both'], 'Default', 'showsw'],
+  ['show_currency_image', 'Show currency image', 'chk', HB_YN, 'true', 'show'],
+  ['show_item_image', 'Show item image', 'chk', HB_YN, 'true', 'show'],
   ['show_production_time', 'Show production time', 'chk', HB_YN, 'false', 'show'],
+  ['show_cost', 'Show cost', 'chk', HB_YN, 'true', 'show'],
+  ['show_profit', 'Show profit', 'chk', HB_YN, 'true', 'show'],
   ['step_mode', 'Step display', 'sel', ['Hidden', 'Total', 'Item', 'Quantity'], 'Hidden', 'show', s => s.raw_material_replacement_mode !== 'Original only'],
   ['mat_mode', 'Material display', 'sel', ['Item', 'Quantity', 'Price'], 'Quantity', 'show'],
   ['product_mode', 'Product display', 'sel', ['Hidden', 'Item', 'Quantity', 'Price'], 'Hidden', 'show'],
@@ -1150,19 +1161,36 @@ const HB_FIELDS = [
   ['recipe_product_tradability', 'Tradability of products', 'sel', ['All', 'Tradable', 'Untradable'], 'All', 'filter'],
   ['recipe_material_tradability', 'Tradability of ingredients', 'sel', ['All', 'All tradable', 'Some tradable', 'All untradable'], 'All', 'filter'],
 ];
-const HB_GROUPS = [['goal', 'Goal'], ['recipes', 'Recipes'], ['xp', 'Experience boosts'], ['outfit', 'Outfit pieces'], ['saving', 'Cost saving and extra doses'], ['decant', 'Potion decanting'], ['prep', 'Ingredient preparation'], ['show', 'Display'], ['filter', 'Filter recipes']];
-const hbDefaults = () => Object.fromEntries(HB_FIELDS.map(f => [f[0], f[4]]));
+/* The Wiki form's sections, in its order: a switch or selector field (group '<g>sw' or top level) followed by the group it
+   reveals, under the Wiki's own group label. A group switched off sends none of its fields (the Wiki gadget disables them),
+   so the calculation uses their defaults; the values are kept and come back when the section is switched on again. */
+const HB_GROUPS = {cats: ['Skill subcategory multiple choice', s => s.category_choice === 'Multiple'], xp: ['Experience boost', s => s.experience_boost === 'true'],
+  outfit: ['Outfit pieces', s => s.outfit_piece === 'true'], saving: ['Cost saving', s => s.cost_saving === 'true'], decant: ['Decanting options', s => s.potion_decanting === 'true'],
+  prep: ['Preparation options', s => s.raw_material_replacement_mode !== 'Original only'], show: ['Column options', s => s.show_opts === 'Change columns' || s.show_opts === 'Both'],
+  filter: ['Filter options', s => s.show_opts === 'Filter recipes' || s.show_opts === 'Both']};
+/* The Wiki form's help text for each field (Calculator:Herblore, CC BY-NC-SA 3.0), shown behind a "?" as on the Wiki. */
+const HB_HELP = {"category_choice": "\"Common potions\" includes standard, combination, bomb, powerburst potions. \"Outside Daemonheim\" and \"All\" does not include deployable herb burner.", "categories_overload_variants": "Selecting it and \"Combination potions\" together will duplicate all recipes in this subcategory.", "bik_scripture": "Only accounts for XP boost in average. Has lower priority than Brooch of the Gods.", "wise": "Only accounts for XP boost but not drain rate of divine charges.", "pulse_core": "Only accounts for XP boost but not level boosts.", "knowledge_bomb": "Only accounts for XP boost. Disabled if Double XP Live is active.", "perfect_juju": "5% additional Herblore XP when making combination potions.", "meilyr_hour": "20% more Herblore XP from making combination potions.", "dxp": "Only accounts for XP boost for members, which is 100% XP boost.", "cinder_core": "Only accounts for bonus XP burn rate boost from cinder core but no additional effects.", "modified_mask": "5% chance of making duplicate potions.", "factory": "3 pieces: 10% chance to make a 4 dose potion instead of 3 dose potion. 5 pieces: Extra herb cleaning experience.", "portable": "Doubles the portable well effect from 5% to 10%.", "brooch": "Doubles the portable well effect from 5% to 10%.", "botanist_amulet": "5% chance to brew a 4-dose potion instead of a 3-dose potion. Has lower priority than Desert amulet 4.", "morytania_4": "20% chance of creating a 4-dose prayer renewal instead of 3-dose while mixing them in Morytania.", "desert_4": "20% chance to create a 4-dose super antifire instead of 3-dose, while in the desert.", "envenomed": "10% chance to make 4 doses instead of 3 doses when mixing weapon poison potions or antipoisons.", "soc": "10% chance to save an ingredient or one tick every single time you make a potion.", "product_decant_type": "Only handles decanting standard potions and juju potions.", "product_decant_dose_restriction": "Any: 1 – 4, Max. 2: 1 – 2, Max. 3: 1 – 3, Min. 2: 2 – 4, Min. 3: 3 – 4, 2 or 3: 2 – 3.", "material_decant_type": "Only handles decanting standard potions and juju potions.", "material_decant_dose_restriction": "Any: 1 – 4, Max. 2: 1 – 2, Max. 3: 1 – 3, Min. 2: 2 – 4, Min. 3: 3 – 4, 2 or 3: 2 – 3.", "use_ingredient_set": "Avoid: avoids using ingredient sets, Replace: replaces ingredients with ingredient sets, Add: adds ingredient sets as an alternative. Opening ingredient sets is not counted as one step.", "cape99": "Only accounts for instantly cleaning 28 grimy herbs on each action.", "cape120": "Only accounts for enabling the creation of overload, supreme overload, and elder overload potions in batches of five.", "primal_extract_from": "Regular portion: level 90 required, Improved yield +1: level 102 required, Improved yield +2: level 112 required.", "primal_pulp_from": "Most yield per primal fruit is always golden dragonfruit.", "ground_from": "Telekinetic Grind: assumes 26 available inventory spaces, one law runes and two astral runes are used per cast.", "water_from": "Humidify: assumes 27 vials are processed with one astral rune per cast.", "coconut_from": "Opened coconut, Whole coconut: Opening coconut is not counted as one step. Assumes 14 coconuts are processed every time.", "show_production_time": "Only accounts for the ticks to make multiple potions and ingredients, and rounds up to seconds.", "step_mode": "Total: shows the total number of steps, Item: shows items involved in the intermediate steps, Quantity: shows items and quantity involved in the intermediate steps.", "mat_mode": "Item: shows item names of materials, Quantity: shows item names and quantity of materials, Price: shows item names, quantity and price of materials.", "product_mode": "Item: shows item names of materials, Quantity: shows item names and quantity of materials, Price: shows item names, quantity and price of materials.", "recipe_level_filter": "Only filters the recipes to prepare ingredients or original products.", "ingredient_level_filter": "Herbs: filters cleaning herbs, Unfinished: filters mixing unfinished potions and above options, Standard potions: filters mixing standard potions and above options, Tradable: filters making tradable items and above options, Untradable: filters making untradable items and above options, Every recipe: filters every recipe.", "recipe_product_tradability": "Ignores the option if the category is in \"Daemonheim\". All: no filtering, Tradable: shows only tradable products, Untradable: shows only untradable products.", "recipe_material_tradability": "Ignores the option if the category is in \"Daemonheim\". All: no filtering, All tradable: shows only tradable ingredients, Some tradable: shows some tradable ingredients, All untradable: shows only untradable ingredients."};
+const hbShown = (f, s) => (!HB_GROUPS[f[5]] || HB_GROUPS[f[5]][1](s)) && (!f[6] || f[6](s));
+const hbInputs = HB_FIELDS.filter(f => f[2] !== 'fixed');
+const hbDefaults = () => Object.fromEntries(hbInputs.map(f => [f[0], f[4]]));
 function hbClean(f, v) {
   const [, , type, opt, def] = f; v = typeof v === 'string' ? v.trim() : v == null ? '' : String(v);
-  if (type === 'sel' || type === 'chk') return opt.includes(v) ? v : def;
+  if (type === 'sel' || type === 'chk' || type === 'switch') return opt.includes(v) ? v : def;
   if (!/^\d+(\.\d+)?$/.test(v.replace(/,/g, ''))) return def;
   let n = Number(v.replace(/,/g, '')); if (type === 'int') n = Math.floor(n);
   return String(Math.min(opt[1], Math.max(opt[0], n)));
 }
-function hbLoad() { const d = hbDefaults(); let o = null; try { o = JSON.parse(CALC_LS && CALC_LS.getItem(HB_KEY) || 'null'); } catch (e) {} if (o && typeof o === 'object' && !Array.isArray(o)) for (const f of HB_FIELDS) if (typeof o[f[0]] === 'string') d[f[0]] = hbClean(f, o[f[0]]); return d; }
+function hbLoad() { const d = hbDefaults(); let o = null; try { o = JSON.parse(CALC_LS && CALC_LS.getItem(HB_KEY) || 'null'); } catch (e) {}
+  if (o && typeof o === 'object' && !Array.isArray(o)) {
+    for (const f of hbInputs) if (typeof o[f[0]] === 'string') d[f[0]] = hbClean(f, o[f[0]]);
+    // options saved before the app had the Wiki's section switches: switch on the sections that hold a changed option
+    if (!('experience_boost' in o)) { const set = g => hbInputs.some(f => f[5] === g && d[f[0]] !== f[4]);
+      for (const [g, k] of [['xp', 'experience_boost'], ['outfit', 'outfit_piece'], ['saving', 'cost_saving'], ['decant', 'potion_decanting']]) if (set(g)) d[k] = 'true';
+      const c = set('show'), fl = set('filter'); d.show_opts = c && fl ? 'Both' : c ? 'Change columns' : fl ? 'Filter recipes' : 'Default'; } }
+  return d; }
 function hbSave(s) { try { CALC_LS && CALC_LS.setItem(HB_KEY, JSON.stringify(s)); } catch (e) {} }
 /* The arguments the Wiki module receives: every field, with hidden ones at their defaults. */
-const hbArgs = s => Object.fromEntries(HB_FIELDS.map(f => [f[0], !f[6] || f[6](s) ? s[f[0]] : f[4]]));
+const hbArgs = s => Object.fromEntries(hbInputs.map(f => [f[0], hbShown(f, s) ? s[f[0]] : f[4]]));
 const hbFmt = n => Number(n).toLocaleString('en-GB', {maximumFractionDigits: 2});
 const hbDur = ticks => { let t = Math.ceil(ticks * 0.6); const parts = [[86400, 'day'], [3600, 'hour'], [60, 'minute'], [1, 'second']].map(([s, u]) => { const k = Math.floor(t / s); t -= k * s; return k ? `${k.toLocaleString('en-GB')} ${u}${k === 1 ? '' : 's'}` : null; }).filter(Boolean); return parts.length > 1 ? parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] : parts[0] || '0 seconds'; };
 
@@ -1181,7 +1209,7 @@ async function herbloreView(n) {
       <li>XP, number of actions, time, ingredient and product quantities follow the Wiki calculator exactly.</li>
       <li>Ingredients are bought at the live Buy (high) price and products are sold at the live Sell (low) price. Each item's cost is rounded up, as on the Wiki.</li>
       <li>Net profit deducts the estimated 2% Grand Exchange tax on each product sold (rounded down per item; Bonds are exempt). Gross profit is before tax.</li>
-      <li>Items the Wiki marks as having no price (untradeable) count as 0 in the totals, as on the Wiki. They are not free: totals that include one say "excludes untradeable …". Items the Wiki prices by its own calculated value, Daemonheim items in rusty coins, and any item without a Grand Exchange ID have no live price here, so the totals for those recipes are unavailable.</li>
+      <li>Items the Wiki marks as having no price (untradeable) count as 0 in the totals, as on the Wiki. They are not free: totals that include one say "excludes untradeable …", and such a profit is shown in a neutral colour as "Partial, not a market profit", never as a gain. Items the Wiki prices by its own calculated value, Daemonheim items in rusty coins, and any item without a Grand Exchange ID have no live price here, so the totals for those recipes are unavailable.</li>
       <li>A price that is missing or older than 15 minutes makes the totals for that recipe unavailable; it is never treated as 0.</li>
       <li>"Profitable" decanting and "Most profitable primal fruit" choose using live prices (the Wiki uses guide prices), so the dose or fruit chosen can differ from the Wiki. Products are compared on the profit basis shown (after estimated tax for Net, before tax for Gross). If any candidate has no live price, the choice is undetermined and that recipe's totals are unavailable.</li></ul>
     <form id="hb-form" class="hb-form" autocomplete="off" onsubmit="return false"></form>
@@ -1201,35 +1229,47 @@ async function herbloreView(n) {
   star.onclick = () => { RS3Calc.toggle(CALC_LS, {path: D.path, label}); drawStar(); };
   drawStar();
 
-  const form = $('#hb-form'), openGroups = new Set(['goal', 'recipes']);
-  const ctl = f => {
+  const form = $('#hb-form');
+  const help = k => HB_HELP[k] ? `<details class="hb-help"><summary aria-label="Help: ${esc(HB_FIELDS.find(f => f[0] === k)[1])}">?</summary><small>${esc(HB_HELP[k])}</small></details>` : '';
+  const ctl0 = f => {
     const [k, l, type, opt] = f, id = 'hb-' + k, v = st[k];
-    if (type === 'chk') return `<label class="hb-chk" for="${id}"><input type="checkbox" id="${id}" data-k="${k}"${v === 'true' ? ' checked' : ''}> ${esc(l)}</label>`;
+    if (type === 'fixed') return `<div class="hb-fixed" id="${id}"><span>${esc(l)}</span><output>${esc(f[4])}</output></div>`;
+    if (type === 'switch') return `<label class="hb-chk hb-switch" for="${id}"><input type="checkbox" role="switch" id="${id}" data-k="${k}"${v === 'true' ? ' checked' : ''}> ${esc(l)}</label>`;
+    if (type === 'chk') return `<label class="hb-chk" for="${id}"><input type="checkbox" id="${id}" data-k="${k}"${v === 'true' ? ' checked' : ''}> ${esc(l)}${k === 'show_currency_image' ? ' <small class="calc-sub">(no effect here: this app shows prices as text)</small>' : ''}</label>`;
     if (type === 'sel') return `<label class="hb-field" for="${id}"><span>${esc(l)}</span><select id="${id}" data-k="${k}">${opt.map(o => `<option${o === v ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select></label>`;
     return `<label class="hb-field" for="${id}"><span>${esc(l)}</span><input id="${id}" data-k="${k}" type="text" inputmode="${type === 'int' ? 'numeric' : 'decimal'}" value="${esc(v)}" aria-describedby="${id}-r"><small id="${id}-r" class="calc-sub">${esc(opt[0].toLocaleString())}–${esc(opt[1].toLocaleString())}</small></label>`;
   };
-  const drawForm = () => {
-    for (const d of form.querySelectorAll('details')) { if (d.open) openGroups.add(d.dataset.g); else openGroups.delete(d.dataset.g); }
-    const a = hbArgs(st), def = hbDefaults();
-    form.innerHTML = HB_GROUPS.map(([g, title]) => {
-      const fs = HB_FIELDS.filter(f => f[5] === g && (!f[6] || f[6](st)));
-      const active = HB_FIELDS.filter(f => f[5] === g && a[f[0]] !== def[f[0]]).length;
-      return `<details class="hb-group" data-g="${g}"${openGroups.has(g) ? ' open' : ''}><summary>${esc(title)}${active && !['goal', 'recipes'].includes(g) ? ` <span class="tag">${active} set</span>` : ''}</summary><div class="hb-fields">${fs.map(ctl).join('')}</div></details>`;
-    }).join('');
+  const ctl = f => { const h = ctl0(f), x = help(f[0]); return x ? `<div class="hb-ctl">${h}${x}</div>` : h; };
+  /* Wiki order: plain fields and section switches at the top level, each group right after the field that reveals it.
+     The form is cut into fixed segments (runs of top-level fields, and each group); a segment is redrawn only when the set
+     of fields it shows changes, so every other control keeps its node, value and focus. */
+  const segs = []; for (const f of HB_FIELDS) { const g = HB_GROUPS[f[5]] ? f[5] : null, last = segs[segs.length - 1];
+    if (last && last.g === g) last.fields.push(f); else segs.push({id: g || 'top-' + f[0], g, fields: [f]}); }
+  const segKey = sg => sg.fields.filter(f => hbShown(f, st)).map(f => f[0]).join();
+  const segHtml = sg => { const inner = sg.fields.filter(f => hbShown(f, st)).map(ctl).join('');
+    return sg.g ? (inner ? `<fieldset class="hb-group" data-g="${sg.g}"><legend>${esc(HB_GROUPS[sg.g][0])}</legend><div class="hb-fields">${inner}</div></fieldset>` : '') : `<div class="hb-fields hb-top">${inner}</div>`; };
+  const shownKey = () => segs.map(segKey).join('|');
+  let drawnKey = '';
+  const drawForm = full => {
+    if (full || !form.querySelector('[data-seg]')) form.innerHTML = segs.map(sg => `<div class="hb-seg" data-seg="${sg.id}">${segHtml(sg)}</div>`).join('');
+    else for (const sg of segs) { const el = form.querySelector(`[data-seg="${sg.id}"]`); if (el.dataset.k !== segKey(sg)) el.innerHTML = segHtml(sg); }
+    for (const sg of segs) form.querySelector(`[data-seg="${sg.id}"]`).dataset.k = segKey(sg);
+    drawnKey = shownKey();
   };
+  /* Typing never rebuilds the form (a number field keeps its node, caret and focus); the form is rebuilt only when a choice
+     shows or hides fields, and focus then returns to the control that was used. */
   const onChange = e => {
     const k = e.target.dataset.k; if (!k) return;
-    const f = HB_FIELDS.find(x => x[0] === k);
-    const raw = f[2] === 'chk' ? String(e.target.checked) : e.target.value;
-    if (f[2] !== 'chk' && f[2] !== 'sel' && e.type === 'input') { const c = hbClean(f, raw); if (c !== raw.replace(/,/g, '').trim()) return; }   // wait for a complete number
-    const before = HB_FIELDS.filter(x => x[6]).map(x => x[6](st)).join();
+    const f = HB_FIELDS.find(x => x[0] === k), num = f[2] === 'int' || f[2] === 'num';
+    const raw = f[2] === 'chk' || f[2] === 'switch' ? String(e.target.checked) : e.target.value;
+    if (num && e.type === 'input') { const c = hbClean(f, raw); if (c !== raw.replace(/,/g, '').trim()) return; }   // wait for a complete number
     st[k] = hbClean(f, raw); hbSave(st);
-    if (e.type === 'change' && f[2] !== 'chk' && f[2] !== 'sel') e.target.value = st[k];
-    if (HB_FIELDS.filter(x => x[6]).map(x => x[6](st)).join() !== before || e.type === 'change') { const foc = document.activeElement && document.activeElement.id; drawForm(); const el = foc && document.getElementById(foc); if (el) el.focus(); }
+    if (num && e.type === 'change' && e.target.value !== st[k]) e.target.value = st[k];
+    if (shownKey() !== drawnKey) { const a = document.activeElement, foc = a && form.contains(a) ? a.id : null; drawForm(); const el = foc && document.getElementById(foc); if (el) el.focus(); }
     draw();
   };
   form.addEventListener('change', onChange); form.addEventListener('input', onChange);
-  $('#hb-reset').onclick = () => { st = hbDefaults(); hbSave(st); drawForm(); draw(); };
+  $('#hb-reset').onclick = () => { st = hbDefaults(); hbSave(st); drawForm(true); draw(); };
 
   const q = $('#hb-q'), show = $('#hb-show'), sort = $('#hb-sort');
   const methodOf = l => String(l.price || 'gemw').toLowerCase();
@@ -1262,7 +1302,7 @@ async function herbloreView(n) {
     if (res.error) { $('#hb-msg').textContent = res.error; $('#hb-count').textContent = ''; $('#hb-table').innerHTML = ''; return; }
     $('#hb-msg').textContent = `To train Herblore from ${res.currXp.toLocaleString('en-GB')} experience (level ${res.currLevel}) to ${res.targetXp.toLocaleString('en-GB')} experience (level ${res.targetLevel}), ${res.remaining.toLocaleString('en-GB')} experience is required.`;
     const gross = show.value === 'gross';
-    const showProducts = !res.hideProducts && a.product_mode !== 'Hidden', showProfit = !res.hideProducts;
+    const showProducts = !res.hideProducts && a.product_mode !== 'Hidden', showProfit = !res.hideProducts && a.show_profit === 'true', showCost = a.show_cost === 'true', pics = a.show_item_image === 'true';
     const matMode = a.mat_mode, prodMode = res.hideProducts ? 'Hidden' : a.product_mode, stepMode = a.step_mode;
     const rows = res.rows.map(r => {
       const prices = new Map();
@@ -1284,30 +1324,30 @@ async function herbloreView(n) {
     const open = new Set([...document.querySelectorAll('#hb-table details[open]')].map(d => d.dataset.row));
     const lvlCls = lv => lv > res.targetLevel ? 'hb-lv-red' : lv <= res.currLevel ? 'hb-lv-green' : 'hb-lv-yellow';
     const lineVal = (x, l, role) => { const p = x.prices.get(role + ':' + l.name); return p.v == null ? '<span class="calc-unavail">unavailable</span>' : p.kind === 'untradeable' ? 'untradeable: 0, not counted' : l.cost > 0 ? esc(gp(l.cost)) : '-'; };
-    const list = (x, items, mode, role) => mode === 'Hidden' ? '' : items.length ? `<ul class="hb-list">${items.map(l => `<li>${liIco(l.name)}<span class="hb-item">${esc(l.name)}</span>${mode !== 'Item' ? ` <span class="hb-qty">× ${esc(hbFmt(l.qty))}</span>` : ''}${mode === 'Price' && l.cost !== undefined ? ` <span class="hb-cost">${lineVal(x, l, role)}</span>` : ''}</li>`).join('')}</ul>` : '-';
+    const list = (x, items, mode, role) => mode === 'Hidden' ? '' : items.length ? `<ul class="hb-list">${items.map(l => `<li>${pics ? liIco(l.name) : ''}<span class="hb-item">${esc(l.name)}</span>${mode !== 'Item' ? ` <span class="hb-qty">× ${esc(hbFmt(l.qty))}</span>` : ''}${mode === 'Price' && l.cost !== undefined ? ` <span class="hb-cost">${lineVal(x, l, role)}</span>` : ''}</li>`).join('')}</ul>` : '-';
     const steps = x => { const s = x.r.steps; if (stepMode === 'Hidden') return null; if (stepMode === 'Total') return String((s ? s.length : 0) + 1); return s && s.length ? `<ul class="hb-list">${s.map(l => `<li>${esc(l.name)}${stepMode === 'Quantity' ? ` × ${esc(hbFmt(l.qty))}` : ''}</li>`).join('')}</ul>` : '-'; };
     const why = (x, role, items) => [...new Set(items.map(l => x.prices.get(role + ':' + l.name)).filter(p => p && p.v == null).map(p => p.why))].join('; ');
     const priceLine = (x, l, role) => { const p = x.prices.get(role + ':' + l.name);
-      return `<li>${liIco(l.name)}${esc(l.name)} — ${role === 'product' ? 'Sell' : 'Buy'} ${p.v == null ? `<span class="calc-unavail">unavailable (${esc(p.why)})</span>` : p.kind === 'untradeable' ? 'untradeable, no market price: valued at 0 as on the Wiki (not free; its real cost/value is not in the totals)' : p.kind === 'fixed' ? `fixed Wiki value ${esc(gp(p.v))}` : `${esc(gp(p.v))} each${role === 'product' ? ` · est. tax ${esc(gp(p.tax))}` : ''}`}</li>`; };
-    const recipe = x => { const r = x.r; let h = `<span class="calc-name-row">${calcIco(r.item_name)}<span class="calc-name">${esc(r.item_name)}${r.item_multi > 1 ? ` × ${esc(String(r.item_multi))}` : ''}</span></span>`;
+      return `<li>${pics ? liIco(l.name) : ''}${esc(l.name)} — ${role === 'product' ? 'Sell' : 'Buy'} ${p.v == null ? `<span class="calc-unavail">unavailable (${esc(p.why)})</span>` : p.kind === 'untradeable' ? 'untradeable, no market price: valued at 0 as on the Wiki (not free; its real cost/value is not in the totals)' : p.kind === 'fixed' ? `fixed Wiki value ${esc(gp(p.v))}` : `${esc(gp(p.v))} each${role === 'product' ? ` · est. tax ${esc(gp(p.tax))}` : ''}`}</li>`; };
+    const recipe = x => { const r = x.r; let h = `<span class="calc-name-row">${pics ? calcIco(r.item_name) : ''}<span class="calc-name">${esc(r.item_name)}${r.item_multi > 1 ? ` × ${esc(String(r.item_multi))}` : ''}</span></span>`;
       if (Number(r.improved) > 0) h += `<small class="calc-sub">(Improved +${esc(String(r.improved))} recipe)</small>`;
       for (const m of [r.method, ...(r.steps || []).map(s => s.method)]) if (m) h += `<small class="calc-sub"><i>(${esc(m)})</i></small>`;
       if (r.choice_gaps && r.choice_gaps.length) h += `<small class="calc-sub hb-warn">Profitable choice undetermined (totals unavailable), no live price for: ${esc(r.choice_gaps.slice(0, 4).join(', '))}${r.choice_gaps.length > 4 ? '…' : ''}</small>`;
       const k = rowKey(r);
-      h += `<details class="calc-prices" data-row="${esc(k)}"${open.has(k) ? ' open' : ''}><summary>Prices used</summary><ul>${r.mats.map(l => priceLine(x, l, 'mat')).join('')}${showProfit ? r.products.map(l => priceLine(x, l, 'product')).join('') : ''}</ul></details>`;
+      h += `<details class="calc-prices" data-row="${esc(k)}"${open.has(k) ? ' open' : ''}><summary>Prices used</summary><ul>${r.mats.map(l => priceLine(x, l, 'mat')).join('')}${!res.hideProducts ? r.products.map(l => priceLine(x, l, 'product')).join('') : ''}</ul></details>`;
       return h; };
     const untr = (x, role, items) => items.filter(l => { const p = x.prices.get(role + ':' + l.name); return p && p.kind === 'untradeable'; }).map(l => l.name);
     const undet = x => x.c.undetermined ? `Profitable choice undetermined: no price for ${x.c.undetermined.slice(0, 3).join(', ')}${x.c.undetermined.length > 3 ? '…' : ''}` : '';
     const excl = names => names.length ? `<small class="calc-sub hb-excl">excludes untradeable ${esc(names.slice(0, 3).join(', '))}${names.length > 3 ? '…' : ''} (no market price, not free)</small>` : '';
     const total = (x, v, miss, names) => v == null ? `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc(undet(x) || miss)}</small>` : (v > 0 ? esc(gp(v)) : '-') + excl(names);
     const profitCell = x => x.profit == null ? `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc(undet(x) || why(x, 'mat', x.r.mats) || why(x, 'product', x.r.products))}</small>`
-      : `<span class="calc-val ${x.profit < 0 ? 'loss' : 'gain'}">${esc(money(x.profit))}</span><small class="calc-sub">${gross ? `net ${esc(money(x.net))}` : `gross ${esc(money(x.c.profit))} · tax ${esc(gp(x.tax))}`}</small>${excl([...untr(x, 'mat', x.r.mats), ...untr(x, 'product', x.r.products)])}`;
+      : (ex => `<span class="calc-val ${ex.length ? 'partial' : x.profit < 0 ? 'loss' : 'gain'}">${esc(money(x.profit))}</span><small class="calc-sub">${gross ? `net ${esc(money(x.net))}` : `gross ${esc(money(x.c.profit))} · tax ${esc(gp(x.tax))}`}</small>${ex.length ? `<small class="calc-sub hb-excl">Partial, not a market profit: excludes untradeable ${esc(ex.slice(0, 3).join(', '))}${ex.length > 3 ? '…' : ''} (no market price, not free)</small>` : ''}`)([...untr(x, 'mat', x.r.mats), ...untr(x, 'product', x.r.products)]);
     const perXp = v => v == null ? '-' : `${v < 0 ? '−' : ''}${esc(Math.abs(v).toLocaleString('en-GB', {maximumFractionDigits: 2}))} gp`;
     const showTime = a.show_production_time === 'true';
-    const head = ['Lvl', 'Recipe', 'XP', 'Number', ...(showTime ? ['Time'] : []), ...(stepMode !== 'Hidden' ? ['Steps'] : []), 'Materials', 'Total cost', 'Cost/XP', ...(showProducts ? ['Products'] : []), ...(showProfit ? ['Total value', gross ? 'Gross profit' : 'Net profit', 'Profit/XP'] : [])];
+    const head = ['Lvl', 'Recipe', 'XP', 'Number', ...(showTime ? ['Time'] : []), ...(stepMode !== 'Hidden' ? ['Steps'] : []), 'Materials', ...(showCost ? ['Total cost', 'Cost/XP'] : []), ...(showProducts ? ['Products'] : []), ...(showProfit ? ['Total value', gross ? 'Gross profit' : 'Net profit', 'Profit/XP'] : [])];
     $('#hb-table').innerHTML = shown.length ? `<table class="calc-table hb-table"><thead><tr>${head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${shown.map(x => {
       const r = x.r, st1 = steps(x);
-      return `<tr><td class="${lvlCls(r.level)}">${esc(String(r.level))}</td><th scope="row">${recipe(x)}</th><td>${esc(hbFmt(r.xp_per_iter))}</td><td>${r.needed_iterations > 0 ? esc(Math.round(r.needed_iterations).toLocaleString('en-GB')) : '-'}</td>${showTime ? `<td>${r.tick ? esc(hbDur(r.tick)) : '-'}</td>` : ''}${st1 != null ? `<td>${st1}</td>` : ''}<td>${list(x, r.mats, matMode, 'mat')}</td><td>${total(x, x.c.matTotal, why(x, 'mat', r.mats), untr(x, 'mat', r.mats))}</td><td>${x.c.costPerXp == null ? '-' : perXp(x.c.costPerXp)}</td>${showProducts ? `<td>${list(x, r.products, prodMode, 'product')}</td>` : ''}${showProfit ? `<td>${total(x, x.c.prodTotal, why(x, 'product', r.products), untr(x, 'product', r.products))}</td><td>${profitCell(x)}</td><td>${perXp(x.perXp)}</td>` : ''}</tr>`;
+      return `<tr><td class="${lvlCls(r.level)}">${esc(String(r.level))}</td><th scope="row">${recipe(x)}</th><td>${esc(hbFmt(r.xp_per_iter))}</td><td>${r.needed_iterations > 0 ? esc(Math.round(r.needed_iterations).toLocaleString('en-GB')) : '-'}</td>${showTime ? `<td>${r.tick ? esc(hbDur(r.tick)) : '-'}</td>` : ''}${st1 != null ? `<td>${st1}</td>` : ''}<td>${list(x, r.mats, matMode, 'mat')}</td>${showCost ? `<td>${total(x, x.c.matTotal, why(x, 'mat', r.mats), untr(x, 'mat', r.mats))}</td><td>${x.c.costPerXp == null ? '-' : perXp(x.c.costPerXp)}</td>` : ''}${showProducts ? `<td>${list(x, r.products, prodMode, 'product')}</td>` : ''}${showProfit ? `<td>${total(x, x.c.prodTotal, why(x, 'product', r.products), untr(x, 'product', r.products))}</td><td>${profitCell(x)}</td><td>${perXp(x.perXp)}</td>` : ''}</tr>`;
     }).join('')}</tbody></table>` : '<p class="note">No recipes match these options.</p>';
   };
   q.addEventListener('input', draw); show.onchange = draw; sort.onchange = draw;

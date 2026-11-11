@@ -2,7 +2,9 @@
 """Emulate what the RuneScape Wiki calculator gadget submits for Calculator:Herblore.
 
 Port of the parts of MediaWiki:Gadget-calc-core.js (rev 37082305) that decide which fields reach the template:
-setupCalc (group membership: a field listed in several groups belongs to the LAST one; initial toggles in field order),
+setupCalc (group membership: a field goes into the group listing it that was defined most recently before the field,
+as groupkeys is filled while the fields are laid out in order (so Factory outfit pieces sits in Outfit pieces, not in
+Cost saving which lists it later); a group toggles only the widgets placed in it; initial toggles in field order),
 helper.parseToggles, helper.toggle (groups enable/disable all their member widgets; other fields toggle themselves),
 the buttonselect default (first option when the default is not in the range) and submitForm (a field is sent only if it
 is type hidden, or not a group and not disabled; fixed/hidden send their default; checks/switches send true/false).
@@ -42,10 +44,13 @@ class Form:
         self.fields = parse_fields(page_text)
         self.by = {f['param']: f for f in self.fields}
         self.group_of = {}
-        for f in self.fields:
+        groupkeys = {}
+        for f in self.fields:   # setupCalc: a field goes into the group that lists it and was defined most recently BEFORE it
             if f['type'] == 'group':
-                for c in re.split(r'\s*,\s*', f['range']): self.group_of[c] = f['param']   # last group wins
+                for c in re.split(r'\s*,\s*', f['range']): groupkeys[c] = f['param']
+            elif f['param'] in groupkeys: self.group_of[f['param']] = groupkeys[f['param']]
         self.disabled = {f['param']: False for f in self.fields}
+        self.shown = {f['param']: True for f in self.fields}   # layout visibility (a group's toggle shows/hides the group, not its children)
         self.value = {}
         for f in self.fields:
             t, d = f['type'], f['default']
@@ -67,6 +72,7 @@ class Form:
 
     def _togitem(self, name, show):
         f = self.by[name]
+        self.shown[name] = show
         if f['type'] == 'group':
             for c, g in self.group_of.items():
                 if g == name: self.disabled[c] = not show
@@ -83,9 +89,15 @@ class Form:
         """A user changing one visible control (and its toggles firing, as on 'choose'/'change')."""
         f = self.by[name]
         if self.disabled[name]: raise ValueError('control is disabled on the Wiki form: ' + name)
+        if not self.visible(name): raise ValueError('control is not visible on the Wiki form: ' + name)
         if f['type'] in ('check', 'toggleswitch', 'togglebutton'): value = value in (True, 'true')
         self.value[name] = value
         if f.get('_tog'): self._toggle(self._val(f), f['_tog'])
+
+    def visible(self, name):
+        """Can a user see (and so click) this control: its own layout and its group are shown."""
+        g = self.group_of.get(name)
+        return self.shown[name] and (g is None or self.shown[g])
 
     def submission(self):
         out = []

@@ -24,17 +24,12 @@
   [
    "product_mode",
    "Price"
-  ],
-  [
-   "step_mode",
-   "Quantity"
   ]
  ],
  "cases": [
   {
    "name": "form-defaults",
-   "actions": [],
-   "app": {}
+   "actions": []
   },
   {
    "name": "form-sections-switched-off",
@@ -80,6 +75,10 @@
      "true"
     ],
     [
+     "factory",
+     "3"
+    ],
+    [
      "outfit_piece",
      "false"
     ],
@@ -100,10 +99,6 @@
      "true"
     ],
     [
-     "factory",
-     "3"
-    ],
-    [
      "cost_saving",
      "false"
     ],
@@ -120,8 +115,7 @@
      "false"
     ]
    ],
-   "app": {},
-   "note": "the app has no section switches: a Wiki section switched off equals that section at its defaults"
+   "note": "each Wiki section switched on, changed, then switched off again: nothing from it is sent"
   },
   {
    "name": "form-brooch-hidden-after-portable-off",
@@ -150,12 +144,7 @@
      "portable",
      "false"
     ]
-   ],
-   "app": {
-    "bik_scripture": "Always activated",
-    "portable": "false",
-    "brooch": "true"
-   }
+   ]
   },
   {
    "name": "form-brooch-gadget-quirk",
@@ -193,11 +182,6 @@
      "true"
     ]
    ],
-   "app": {
-    "bik_scripture": "Always activated",
-    "portable": "false",
-    "brooch": "true"
-   },
    "expectDifferent": true,
    "note": "Wiki gadget quirk: switching Cost saving off/on re-enables the hidden Brooch checkbox, which is then submitted; the app follows the visible form"
   },
@@ -224,12 +208,7 @@
      "bxp",
      "false"
     ]
-   ],
-   "app": {
-    "bxp": "false",
-    "bxp_amount": "500000",
-    "cinder_core": "Buff and equipped"
-   }
+   ]
   },
   {
    "name": "form-mask-hidden-after-outfit-none",
@@ -250,11 +229,7 @@
      "outfit",
      "None"
     ]
-   ],
-   "app": {
-    "outfit": "None",
-    "modified_mask": "true"
-   }
+   ]
   },
   {
    "name": "form-factory-5-clean-herbs",
@@ -264,18 +239,14 @@
      "Clean herbs"
     ],
     [
-     "cost_saving",
+     "outfit_piece",
      "true"
     ],
     [
      "factory",
      "5"
     ]
-   ],
-   "app": {
-    "category": "Clean herbs",
-    "factory": "5"
-   }
+   ]
   },
   {
    "name": "form-decant-fixed-then-profitable",
@@ -300,12 +271,7 @@
      "product_decant_dose_restriction",
      "2 or 3"
     ]
-   ],
-   "app": {
-    "product_decant_type": "Profitable",
-    "product_decant_dose_fixed": "6",
-    "product_decant_dose_restriction": "2 or 3"
-   }
+   ]
   },
   {
    "name": "form-raw-most-then-potions",
@@ -313,6 +279,10 @@
     [
      "raw_material_replacement_mode",
      "Most ingredients"
+    ],
+    [
+     "step_mode",
+     "Quantity"
     ],
     [
      "primal_pulp_from",
@@ -330,13 +300,7 @@
      "raw_material_replacement_mode",
      "Potions and herbs"
     ]
-   ],
-   "app": {
-    "raw_material_replacement_mode": "Potions and herbs",
-    "primal_pulp_from": "Golden dragonfruit",
-    "water_from": "Humidify",
-    "herb_potion_from": "Grimy herbs"
-   }
+   ]
   },
   {
    "name": "form-current-xp-then-level",
@@ -357,12 +321,7 @@
      "curr_level",
      "40"
     ]
-   ],
-   "app": {
-    "curr_toggle": "Level",
-    "curr_xp": "500000",
-    "curr_level": "40"
-   }
+   ]
   },
   {
    "name": "form-filter-switched-back",
@@ -370,6 +329,10 @@
     [
      "raw_material_replacement_mode",
      "Potions and herbs"
+    ],
+    [
+     "step_mode",
+     "Quantity"
     ],
     [
      "herb_potion_from",
@@ -391,14 +354,7 @@
      "recipe_level_start",
      "20"
     ]
-   ],
-   "app": {
-    "raw_material_replacement_mode": "Potions and herbs",
-    "herb_potion_from": "Clean herbs",
-    "recipe_level_filter": "Original recipe",
-    "ingredient_level_filter": "Tradable",
-    "recipe_level_start": "20"
-   }
+   ]
   },
   {
    "name": "form-multiple-overload-variants",
@@ -419,13 +375,7 @@
      "categories_overload_variants",
      "true"
     ]
-   ],
-   "app": {
-    "category_choice": "Multiple",
-    "categories_standard": "false",
-    "categories_combinations": "true",
-    "categories_overload_variants": "true"
-   }
+   ]
   },
   {
    "name": "form-multiple-daemonheim",
@@ -446,13 +396,7 @@
      "categories_daemonheim",
      "true"
     ]
-   ],
-   "app": {
-    "category_choice": "Multiple",
-    "categories_herb": "true",
-    "categories_daemonheim_herb": "true",
-    "categories_daemonheim": "true"
-   }
+   ]
   },
   {
    "name": "spot-boosts-bxp",
@@ -501,19 +445,7 @@
      "cinder_core",
      "Buff and equipped"
     ]
-   ],
-   "app": {
-    "curr_level": "30",
-    "target_level": "50",
-    "inspire": "true",
-    "wise": "Wise 4",
-    "avatar": "6",
-    "torsol": "4",
-    "pulse_core": "Buff and equipped",
-    "bxp": "true",
-    "bxp_amount": "100000",
-    "cinder_core": "Buff and equipped"
-   }
+   ]
   },
   {
    "name": "spot-dxp-outfit-brooch",
@@ -562,17 +494,82 @@
      "brooch",
      "true"
     ]
+   ]
+  },
+  {
+   "name": "form-display-columns",
+   "actions": [
+    [
+     "show_opts",
+     "Change columns"
+    ],
+    [
+     "show_cost",
+     "false"
+    ],
+    [
+     "show_profit",
+     "false"
+    ],
+    [
+     "show_item_image",
+     "false"
+    ],
+    [
+     "mat_mode",
+     "Item"
+    ]
    ],
-   "app": {
-    "curr_level": "30",
-    "target_level": "50",
-    "bik_scripture": "Flicking and switching every minute",
-    "dxp": "true",
-    "outfit": "5",
-    "modified_mask": "true",
-    "portable": "true",
-    "brooch": "true"
-   }
+   "note": "Column options: cost and profit columns off"
+  },
+  {
+   "name": "form-filter-then-default",
+   "actions": [
+    [
+     "show_opts",
+     "Filter recipes"
+    ],
+    [
+     "recipe_level_start",
+     "50"
+    ],
+    [
+     "recipe_product_tradability",
+     "Tradable"
+    ],
+    [
+     "show_opts",
+     "Default"
+    ]
+   ],
+   "note": "filter set, then Display customization back to Default: the filter is not sent"
+  },
+  {
+   "name": "form-boost-off-on",
+   "actions": [
+    [
+     "experience_boost",
+     "true"
+    ],
+    [
+     "dxp",
+     "true"
+    ],
+    [
+     "avatar",
+     "6"
+    ],
+    [
+     "experience_boost",
+     "false"
+    ],
+    [
+     "experience_boost",
+     "true"
+    ]
+   ],
+   "note": "section switched off and on again keeps its values"
   }
- ]
+ ],
+ "note": "Each case is a click sequence on the Wiki form (after the \"display\" clicks). tests/herblore.test.cjs replays the same clicks on the app screen and compares with the Wiki render of exactly what the gadget submitted."
 }

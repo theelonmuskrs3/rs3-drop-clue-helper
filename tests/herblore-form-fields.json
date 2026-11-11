@@ -1,0 +1,1072 @@
+{
+ "source": "Calculator:Herblore rev 37008978 (2026-04-13T14:56:01Z) form fields, grouped as MediaWiki:Gadget-calc-core.js rev 37082305 does. RuneScape Wiki, CC BY-NC-SA 3.0.",
+ "fields": [
+  {
+   "param": "name",
+   "type": "hs",
+   "label": "Name",
+   "default": ""
+  },
+  {
+   "param": "curr_toggle",
+   "type": "buttonselect",
+   "label": "Current",
+   "default": "Level",
+   "options": [
+    "Level",
+    "Experience"
+   ],
+   "toggles": "Level=curr_level;Experience=curr_xp"
+  },
+  {
+   "param": "curr_level",
+   "type": "int",
+   "label": "Herblore level",
+   "default": "1"
+  },
+  {
+   "param": "curr_xp",
+   "type": "int",
+   "label": "Herblore XP",
+   "default": "1"
+  },
+  {
+   "param": "target_toggle",
+   "type": "buttonselect",
+   "label": "Target",
+   "default": "Level",
+   "options": [
+    "Level",
+    "Experience"
+   ],
+   "toggles": "Level=target_level;Experience=target_xp"
+  },
+  {
+   "param": "target_level",
+   "type": "int",
+   "label": "Target level",
+   "default": "120"
+  },
+  {
+   "param": "target_xp",
+   "type": "int",
+   "label": "Target XP",
+   "default": "13034431"
+  },
+  {
+   "param": "category_choice",
+   "type": "buttonselect",
+   "label": "Skill subcategory choice",
+   "default": "Single",
+   "options": [
+    "Single",
+    "Multiple",
+    "Common potions",
+    "Dungeoneering",
+    "Outside Daemonheim",
+    "All"
+   ],
+   "help": "\"Common potions\" includes standard, combination, bomb, powerburst potions. \"Outside Daemonheim\" and \"All\" does not include deployable herb burner.",
+   "toggles": "Single=category;Multiple=category_group"
+  },
+  {
+   "param": "category",
+   "type": "select",
+   "label": "Skill subcategory",
+   "default": "Standard potions",
+   "options": [
+    "Clean herbs",
+    "Unfinished potions",
+    "Standard potions",
+    "Combination potions",
+    "Overload variants",
+    "Primal extract",
+    "Primal fruit pulp",
+    "Adrenaline crystal",
+    "Clean juju herbs",
+    "Unfinished juju potions",
+    "Juju potions",
+    "Barbarian mix",
+    "Bomb",
+    "Powerbursts",
+    "Tar",
+    "Deployable herb burner",
+    "Daemonheim - clean herbs",
+    "Daemonheim - potions"
+   ]
+  },
+  {
+   "param": "category_group",
+   "type": "group",
+   "label": "Skill subcategory multiple choice",
+   "default": "",
+   "members": [
+    "categories_herb",
+    "categories_unfinished",
+    "categories_standard",
+    "categories_combinations",
+    "categories_overload_variants",
+    "categories_primal",
+    "categories_primal_pulp",
+    "categories_adrenaline",
+    "categories_juju_herb",
+    "categories_juju_unfinished",
+    "categories_juju",
+    "categories_barbarian",
+    "categories_bomb",
+    "categories_powerburst",
+    "categories_tar",
+    "categories_burner",
+    "categories_daemonheim_herb",
+    "categories_daemonheim"
+   ]
+  },
+  {
+   "param": "categories_herb",
+   "type": "togglebutton",
+   "label": "Clean herbs",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_unfinished",
+   "type": "togglebutton",
+   "label": "Unfinished potions",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_standard",
+   "type": "togglebutton",
+   "label": "Standard potions",
+   "default": "true",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_combinations",
+   "type": "togglebutton",
+   "label": "Combination potions",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_overload_variants",
+   "type": "togglebutton",
+   "label": "Overload variants",
+   "default": "false",
+   "help": "Selecting it and \"Combination potions\" together will duplicate all recipes in this subcategory.",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_primal",
+   "type": "togglebutton",
+   "label": "Primal extract",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_primal_pulp",
+   "type": "togglebutton",
+   "label": "Primal fruit pulp",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_adrenaline",
+   "type": "togglebutton",
+   "label": "Adrenaline crystal",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_juju_herb",
+   "type": "togglebutton",
+   "label": "Clean juju herbs",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_juju_unfinished",
+   "type": "togglebutton",
+   "label": "Unfinished juju potions",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_juju",
+   "type": "togglebutton",
+   "label": "Juju potions",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_barbarian",
+   "type": "togglebutton",
+   "label": "Barbarian mix",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_bomb",
+   "type": "togglebutton",
+   "label": "Bomb",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_powerburst",
+   "type": "togglebutton",
+   "label": "Powerbursts",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_tar",
+   "type": "togglebutton",
+   "label": "Tar",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_burner",
+   "type": "togglebutton",
+   "label": "Deployable herb burner",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_daemonheim_herb",
+   "type": "togglebutton",
+   "label": "Daemonheim - clean herbs",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "categories_daemonheim",
+   "type": "togglebutton",
+   "label": "Daemonheim - potions",
+   "default": "false",
+   "group": "category_group"
+  },
+  {
+   "param": "experience_boost",
+   "type": "toggleswitch",
+   "label": "Experience boost",
+   "default": "false",
+   "toggles": "true=experience_boost_group"
+  },
+  {
+   "param": "experience_boost_group",
+   "type": "group",
+   "label": "Experience boost",
+   "default": "",
+   "members": [
+    "bik_scripture",
+    "wisdom",
+    "desert_pantheon",
+    "inspire",
+    "avatar",
+    "wise",
+    "torsol",
+    "pulse_core",
+    "knowledge_bomb",
+    "perfect_juju",
+    "meilyr_hour",
+    "raf",
+    "dxp",
+    "add_xp_boost",
+    "bxp",
+    "bxp_amount",
+    "cinder_core"
+   ]
+  },
+  {
+   "param": "bik_scripture",
+   "type": "buttonselect",
+   "label": "Scripture of Bik",
+   "default": "None",
+   "options": [
+    "None",
+    "Flicking and switching every minute",
+    "Always activated"
+   ],
+   "help": "Only accounts for XP boost in average. Has lower priority than Brooch of the Gods.",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "wisdom",
+   "type": "hidden",
+   "label": "Wisdom aura",
+   "default": "false",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "desert_pantheon",
+   "type": "hidden",
+   "label": "Desert pantheon aura",
+   "default": "false",
+   "help": "Only accounts for XP boost. Disabled if Double XP Live is active.",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "inspire",
+   "type": "check",
+   "label": "Inspire Genius",
+   "default": "false",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "avatar",
+   "type": "buttonselect",
+   "label": "Clan avatar bonus (%)",
+   "default": "None",
+   "options": [
+    "None",
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "wise",
+   "type": "buttonselect",
+   "label": "Wise",
+   "default": "None",
+   "options": [
+    "None",
+    "Wise 1",
+    "Wise 2",
+    "Wise 3",
+    "Wise 4"
+   ],
+   "help": "Only accounts for XP boost but not drain rate of divine charges.",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "torsol",
+   "type": "buttonselect",
+   "label": "Torstol incense sticks potency level",
+   "default": "None",
+   "options": [
+    "None",
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "pulse_core",
+   "type": "buttonselect",
+   "label": "Advanced pulse core",
+   "default": "None",
+   "options": [
+    "None",
+    "Buff only",
+    "Equipped",
+    "Buff and equipped"
+   ],
+   "help": "Only accounts for XP boost but not level boosts.",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "knowledge_bomb",
+   "type": "buttonselect",
+   "label": "Small knowledge bomb",
+   "default": "None",
+   "options": [
+    "None",
+    "Small/Medium/Large/Huge/Prime Gaming",
+    "Superior"
+   ],
+   "help": "Only accounts for XP boost. Disabled if Double XP Live is active.",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "perfect_juju",
+   "type": "buttonselect",
+   "label": "Perfect juju herblore potion / Perfect plus potion",
+   "default": "None",
+   "options": [
+    "None",
+    "Perfect juju herblore potion",
+    "Perfect plus potion"
+   ],
+   "help": "5% additional Herblore XP when making combination potions.",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "meilyr_hour",
+   "type": "check",
+   "label": "Meilyr Hour",
+   "default": "false",
+   "help": "20% more Herblore XP from making combination potions.",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "raf",
+   "type": "check",
+   "label": "Recruit a Friend",
+   "default": "false",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "dxp",
+   "type": "check",
+   "label": "Double XP Live",
+   "default": "false",
+   "help": "Only accounts for XP boost for members, which is 100% XP boost.",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "add_xp_boost",
+   "type": "number",
+   "label": "Additional XP boost (%)",
+   "default": "0",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "bxp",
+   "type": "toggleswitch",
+   "label": "Bonus Experience",
+   "default": "false",
+   "group": "experience_boost_group",
+   "toggles": "bxp_amount, cinder_core"
+  },
+  {
+   "param": "bxp_amount",
+   "type": "int",
+   "label": "Amount of BXP",
+   "default": "0",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "cinder_core",
+   "type": "buttonselect",
+   "label": "Cinder core",
+   "default": "None",
+   "options": [
+    "None",
+    "Buff only",
+    "Equipped",
+    "Buff and equipped"
+   ],
+   "help": "Only accounts for bonus XP burn rate boost from cinder core but no additional effects.",
+   "group": "experience_boost_group"
+  },
+  {
+   "param": "outfit_piece",
+   "type": "toggleswitch",
+   "label": "Outfit pieces",
+   "default": "false",
+   "toggles": "true=outfit_piece_group"
+  },
+  {
+   "param": "outfit_piece_group",
+   "type": "group",
+   "label": "Outfit pieces",
+   "default": "",
+   "members": [
+    "outfit",
+    "modified_mask_off",
+    "modified_mask",
+    "factory"
+   ]
+  },
+  {
+   "param": "outfit",
+   "type": "buttonselect",
+   "label": "Botanist's outfit pieces",
+   "default": "None",
+   "options": [
+    "None",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "group": "outfit_piece_group",
+   "toggles": "None=modified_mask_off;1, 2, 3, 4, 5=modified_mask"
+  },
+  {
+   "param": "modified_mask_off",
+   "type": "fixed",
+   "label": "Modified botanist's mask",
+   "default": "None",
+   "help": "5% chance of making duplicate potions.",
+   "group": "outfit_piece_group"
+  },
+  {
+   "param": "modified_mask",
+   "type": "check",
+   "label": "Modified botanist's mask",
+   "default": "false",
+   "help": "5% chance of making duplicate potions.",
+   "group": "outfit_piece_group"
+  },
+  {
+   "param": "factory",
+   "type": "buttonselect",
+   "label": "Factory outfit pieces",
+   "default": "None",
+   "options": [
+    "None",
+    "3",
+    "5"
+   ],
+   "help": "3 pieces: 10% chance to make a 4 dose potion instead of 3 dose potion. 5 pieces: Extra herb cleaning experience.",
+   "group": "outfit_piece_group"
+  },
+  {
+   "param": "cost_saving",
+   "type": "toggleswitch",
+   "label": "Cost saving",
+   "default": "false",
+   "toggles": "true=cost_saving_group"
+  },
+  {
+   "param": "cost_saving_group",
+   "type": "group",
+   "label": "Cost saving",
+   "default": "",
+   "members": [
+    "portable",
+    "brooch_no_effect",
+    "brooch",
+    "factory",
+    "botanist_amulet",
+    "morytania_4",
+    "desert_4",
+    "envenomed",
+    "soc"
+   ]
+  },
+  {
+   "param": "portable",
+   "type": "check",
+   "label": "Portable well",
+   "default": "false",
+   "help": "Doubles the portable well effect from 5% to 10%.",
+   "group": "cost_saving_group",
+   "toggles": "true=brooch;false=brooch_no_effect"
+  },
+  {
+   "param": "brooch_no_effect",
+   "type": "fixed",
+   "label": "Brooch of the Gods",
+   "default": "No effect",
+   "help": "Doubles the portable well effect from 5% to 10%.",
+   "group": "cost_saving_group"
+  },
+  {
+   "param": "brooch",
+   "type": "check",
+   "label": "Brooch of the Gods",
+   "default": "false",
+   "help": "Doubles the portable well effect from 5% to 10%.",
+   "group": "cost_saving_group"
+  },
+  {
+   "param": "botanist_amulet",
+   "type": "check",
+   "label": "Botanist's amulet",
+   "default": "false",
+   "help": "5% chance to brew a 4-dose potion instead of a 3-dose potion. Has lower priority than Desert amulet 4.",
+   "group": "cost_saving_group"
+  },
+  {
+   "param": "morytania_4",
+   "type": "check",
+   "label": "Morytania legs 4",
+   "default": "false",
+   "help": "20% chance of creating a 4-dose prayer renewal instead of 3-dose while mixing them in Morytania.",
+   "group": "cost_saving_group"
+  },
+  {
+   "param": "desert_4",
+   "type": "check",
+   "label": "Desert amulet 4",
+   "default": "false",
+   "help": "20% chance to create a 4-dose super antifire instead of 3-dose, while in the desert.",
+   "group": "cost_saving_group"
+  },
+  {
+   "param": "envenomed",
+   "type": "check",
+   "label": "Envenomed perk",
+   "default": "false",
+   "help": "10% chance to make 4 doses instead of 3 doses when mixing weapon poison potions or antipoisons.",
+   "group": "cost_saving_group"
+  },
+  {
+   "param": "soc",
+   "type": "check",
+   "label": "Scroll of cleansing",
+   "default": "false",
+   "help": "10% chance to save an ingredient or one tick every single time you make a potion.",
+   "group": "cost_saving_group"
+  },
+  {
+   "param": "potion_decanting",
+   "type": "toggleswitch",
+   "label": "Potion decanting",
+   "default": "false",
+   "toggles": "true=decanting_group"
+  },
+  {
+   "param": "decanting_group",
+   "type": "group",
+   "label": "Decanting options",
+   "default": "",
+   "members": [
+    "product_decant_type",
+    "product_decant_dose_fixed",
+    "product_decant_dose_restriction",
+    "material_decant_type",
+    "material_decant_dose_fixed",
+    "material_decant_dose_restriction"
+   ]
+  },
+  {
+   "param": "product_decant_type",
+   "type": "buttonselect",
+   "label": "Decanting product to",
+   "default": "None",
+   "options": [
+    "None",
+    "Fixed",
+    "Profitable"
+   ],
+   "help": "Only handles decanting standard potions and juju potions.",
+   "group": "decanting_group",
+   "toggles": "Fixed=product_decant_dose_fixed;Profitable=product_decant_dose_restriction"
+  },
+  {
+   "param": "product_decant_dose_fixed",
+   "type": "buttonselect",
+   "label": "Dose",
+   "default": "3",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "6"
+   ],
+   "group": "decanting_group"
+  },
+  {
+   "param": "product_decant_dose_restriction",
+   "type": "buttonselect",
+   "label": "Restriction (Dose)",
+   "default": "Any",
+   "options": [
+    "Any",
+    "Max. 2",
+    "Max. 3",
+    "Min. 2",
+    "Min. 3",
+    "2 or 3"
+   ],
+   "help": "Any: 1 – 4, Max. 2: 1 – 2, Max. 3: 1 – 3, Min. 2: 2 – 4, Min. 3: 3 – 4, 2 or 3: 2 – 3.",
+   "group": "decanting_group"
+  },
+  {
+   "param": "material_decant_type",
+   "type": "buttonselect",
+   "label": "Decanting material from",
+   "default": "None",
+   "options": [
+    "None",
+    "Fixed",
+    "Profitable"
+   ],
+   "help": "Only handles decanting standard potions and juju potions.",
+   "group": "decanting_group",
+   "toggles": "Fixed=material_decant_dose_fixed;Profitable=material_decant_dose_restriction"
+  },
+  {
+   "param": "material_decant_dose_fixed",
+   "type": "buttonselect",
+   "label": "Dose",
+   "default": "3",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "6"
+   ],
+   "group": "decanting_group"
+  },
+  {
+   "param": "material_decant_dose_restriction",
+   "type": "buttonselect",
+   "label": "Restriction (Dose)",
+   "default": "Any",
+   "options": [
+    "Any",
+    "Max. 2",
+    "Max. 3",
+    "Min. 2",
+    "Min. 3",
+    "2 or 3"
+   ],
+   "help": "Any: 1 – 4, Max. 2: 1 – 2, Max. 3: 1 – 3, Min. 2: 2 – 4, Min. 3: 3 – 4, 2 or 3: 2 – 3.",
+   "group": "decanting_group"
+  },
+  {
+   "param": "raw_material_replacement_mode",
+   "type": "buttonselect",
+   "label": "Ingredient preparation",
+   "default": "Original only",
+   "options": [
+    "Original only",
+    "Potions and herbs",
+    "Most ingredients"
+   ],
+   "toggles": "Potions and herbs=material_replacement_group, step_mode;Most ingredients=material_replacement_group, step_mode, primal_extract_from, primal_pulp_from, adrenaline_from, ground_from, water_from, coconut_from"
+  },
+  {
+   "param": "material_replacement_group",
+   "type": "group",
+   "label": "Preparation options",
+   "default": "",
+   "members": [
+    "herb_potion_from",
+    "use_ingredient_set",
+    "cape99",
+    "cape120",
+    "primal_extract_from",
+    "primal_pulp_from",
+    "adrenaline_from",
+    "ground_from",
+    "water_from",
+    "coconut_from"
+   ]
+  },
+  {
+   "param": "herb_potion_from",
+   "type": "buttonselect",
+   "label": "Potions and herbs",
+   "default": "Keep original",
+   "options": [
+    "Keep original",
+    "Tradable potions",
+    "Unfinished potions",
+    "Clean herbs",
+    "Grimy herbs"
+   ],
+   "group": "material_replacement_group"
+  },
+  {
+   "param": "use_ingredient_set",
+   "type": "buttonselect",
+   "label": "Ingredient set",
+   "default": "Avoid",
+   "options": [
+    "Avoid",
+    "Replace",
+    "Add"
+   ],
+   "help": "Avoid: avoids using ingredient sets, Replace: replaces ingredients with ingredient sets, Add: adds ingredient sets as an alternative. Opening ingredient sets is not counted as one step.",
+   "group": "material_replacement_group"
+  },
+  {
+   "param": "cape99",
+   "type": "check",
+   "label": "Herblore cape",
+   "default": "false",
+   "help": "Only accounts for instantly cleaning 28 grimy herbs on each action.",
+   "group": "material_replacement_group"
+  },
+  {
+   "param": "cape120",
+   "type": "check",
+   "label": "Herblore master cape",
+   "default": "false",
+   "help": "Only accounts for enabling the creation of overload, supreme overload, and elder overload potions in batches of five.",
+   "group": "material_replacement_group"
+  },
+  {
+   "param": "primal_extract_from",
+   "type": "buttonselect",
+   "label": "Primal extract",
+   "default": "Keep original",
+   "options": [
+    "Keep original",
+    "Regular portion",
+    "Improved yield +1",
+    "Improved yield +2"
+   ],
+   "help": "Regular portion: level 90 required, Improved yield +1: level 102 required, Improved yield +2: level 112 required.",
+   "group": "material_replacement_group"
+  },
+  {
+   "param": "primal_pulp_from",
+   "type": "select",
+   "label": "Primal fruit pulp",
+   "default": "Keep original",
+   "options": [
+    "Keep original",
+    "Most yield per primal fruit",
+    "Most profitable primal fruit",
+    "Avocado",
+    "Carambola",
+    "Ciku",
+    "Dragonfruit",
+    "Golden dragonfruit",
+    "Guarana",
+    "Lychee",
+    "Mango"
+   ],
+   "help": "Most yield per primal fruit is always golden dragonfruit.",
+   "group": "material_replacement_group"
+  },
+  {
+   "param": "adrenaline_from",
+   "type": "buttonselect",
+   "label": "Adrenaline crystal",
+   "default": "Keep original",
+   "options": [
+    "Keep original",
+    "Charging inert"
+   ],
+   "group": "material_replacement_group"
+  },
+  {
+   "param": "ground_from",
+   "type": "buttonselect",
+   "label": "Ground ingredients",
+   "default": "Keep original",
+   "options": [
+    "Keep original",
+    "Manual grinding",
+    "Telekinetic Grind"
+   ],
+   "help": "Telekinetic Grind: assumes 26 available inventory spaces, one law runes and two astral runes are used per cast.",
+   "group": "material_replacement_group"
+  },
+  {
+   "param": "water_from",
+   "type": "buttonselect",
+   "label": "Vials of water",
+   "default": "Keep original",
+   "options": [
+    "Keep original",
+    "Manual filling",
+    "Humidify"
+   ],
+   "help": "Humidify: assumes 27 vials are processed with one astral rune per cast.",
+   "group": "material_replacement_group"
+  },
+  {
+   "param": "coconut_from",
+   "type": "buttonselect",
+   "label": "Coconut milk",
+   "default": "Keep original",
+   "options": [
+    "Keep original",
+    "Opened coconut",
+    "Whole coconut"
+   ],
+   "help": "Opened coconut, Whole coconut: Opening coconut is not counted as one step. Assumes 14 coconuts are processed every time.",
+   "group": "material_replacement_group"
+  },
+  {
+   "param": "show_opts",
+   "type": "buttonselect",
+   "label": "Display customization",
+   "default": "Default",
+   "options": [
+    "Default",
+    "Change columns",
+    "Filter recipes",
+    "Both"
+   ],
+   "toggles": "Change columns=column_opts_group;Filter recipes=level_range_group;Both=column_opts_group,level_range_group"
+  },
+  {
+   "param": "column_opts_group",
+   "type": "group",
+   "label": "Column options",
+   "default": "",
+   "members": [
+    "show_currency_image",
+    "show_item_image",
+    "show_production_time",
+    "show_cost",
+    "show_profit",
+    "step_mode",
+    "mat_mode",
+    "product_mode"
+   ]
+  },
+  {
+   "param": "show_currency_image",
+   "type": "check",
+   "label": "Show currency image",
+   "default": "true",
+   "group": "column_opts_group"
+  },
+  {
+   "param": "show_item_image",
+   "type": "check",
+   "label": "Show item image",
+   "default": "true",
+   "group": "column_opts_group"
+  },
+  {
+   "param": "show_production_time",
+   "type": "check",
+   "label": "Show production time",
+   "default": "false",
+   "help": "Only accounts for the ticks to make multiple potions and ingredients, and rounds up to seconds.",
+   "group": "column_opts_group"
+  },
+  {
+   "param": "show_cost",
+   "type": "check",
+   "label": "Show cost",
+   "default": "true",
+   "group": "column_opts_group"
+  },
+  {
+   "param": "show_profit",
+   "type": "check",
+   "label": "Show profit",
+   "default": "true",
+   "group": "column_opts_group"
+  },
+  {
+   "param": "step_mode",
+   "type": "buttonselect",
+   "label": "Step display",
+   "default": "Hidden",
+   "options": [
+    "Hidden",
+    "Total",
+    "Item",
+    "Quantity"
+   ],
+   "help": "Total: shows the total number of steps, Item: shows items involved in the intermediate steps, Quantity: shows items and quantity involved in the intermediate steps.",
+   "group": "column_opts_group"
+  },
+  {
+   "param": "mat_mode",
+   "type": "buttonselect",
+   "label": "Material display",
+   "default": "Quantity",
+   "options": [
+    "Item",
+    "Quantity",
+    "Price"
+   ],
+   "help": "Item: shows item names of materials, Quantity: shows item names and quantity of materials, Price: shows item names, quantity and price of materials.",
+   "group": "column_opts_group"
+  },
+  {
+   "param": "product_mode",
+   "type": "buttonselect",
+   "label": "Product display",
+   "default": "Hidden",
+   "options": [
+    "Hidden",
+    "Item",
+    "Quantity",
+    "Price"
+   ],
+   "help": "Item: shows item names of materials, Quantity: shows item names and quantity of materials, Price: shows item names, quantity and price of materials.",
+   "group": "column_opts_group"
+  },
+  {
+   "param": "level_range_group",
+   "type": "group",
+   "label": "Filter options",
+   "default": "",
+   "members": [
+    "recipe_level_start",
+    "recipe_level_end",
+    "recipe_level_filter",
+    "ingredient_level_filter",
+    "recipe_product_tradability",
+    "recipe_material_tradability"
+   ]
+  },
+  {
+   "param": "recipe_level_start",
+   "type": "int",
+   "label": "Level from",
+   "default": "1",
+   "group": "level_range_group"
+  },
+  {
+   "param": "recipe_level_end",
+   "type": "int",
+   "label": "Level to",
+   "default": "120",
+   "group": "level_range_group"
+  },
+  {
+   "param": "recipe_level_filter",
+   "type": "buttonselect",
+   "label": "Level options",
+   "default": "Original recipe",
+   "options": [
+    "Original recipe",
+    "Ingredients",
+    "Both"
+   ],
+   "help": "Only filters the recipes to prepare ingredients or original products.",
+   "group": "level_range_group",
+   "toggles": "Ingredients, Both=ingredient_level_filter"
+  },
+  {
+   "param": "ingredient_level_filter",
+   "type": "buttonselect",
+   "label": "Level of ingredient recipes",
+   "default": "Herbs",
+   "options": [
+    "Herbs",
+    "Unfinished",
+    "Standard potions",
+    "Tradable",
+    "Untradable",
+    "Every recipe"
+   ],
+   "help": "Herbs: filters cleaning herbs, Unfinished: filters mixing unfinished potions and above options, Standard potions: filters mixing standard potions and above options, Tradable: filters making tradable items and above options, Untradable: filters making untradable items and above options, Every recipe: filters every recipe.",
+   "group": "level_range_group"
+  },
+  {
+   "param": "recipe_product_tradability",
+   "type": "buttonselect",
+   "label": "Tradability of products",
+   "default": "All",
+   "options": [
+    "All",
+    "Tradable",
+    "Untradable"
+   ],
+   "help": "Ignores the option if the category is in \"Daemonheim\". All: no filtering, Tradable: shows only tradable products, Untradable: shows only untradable products.",
+   "group": "level_range_group"
+  },
+  {
+   "param": "recipe_material_tradability",
+   "type": "buttonselect",
+   "label": "Tradability of ingredients",
+   "default": "All",
+   "options": [
+    "All",
+    "All tradable",
+    "Some tradable",
+    "All untradable"
+   ],
+   "help": "Ignores the option if the category is in \"Daemonheim\". All: no filtering, All tradable: shows only tradable ingredients, Some tradable: shows some tradable ingredients, All untradable: shows only untradable ingredients.",
+   "group": "level_range_group"
+  }
+ ]
+}

@@ -1425,6 +1425,18 @@ html{scrollbar-gutter:stable}
 .hb-form{display:grid;gap:8px;margin:10px 0;min-width:0}
 .hb-group{border:1px solid var(--edge2);border-radius:6px;padding:6px 10px;min-width:0}
 .hb-group summary{cursor:pointer;font-weight:600;padding:4px 0}
+.hb-seg{display:contents}
+.hb-group legend{font-weight:600;padding:0 4px}
+.hb-top{padding:0}
+.hb-switch{font-weight:600}
+.hb-switch input{accent-color:var(--accent,currentColor)}
+.hb-ctl{display:flex;flex-direction:column;gap:2px;min-width:0}
+.hb-help summary{cursor:pointer;display:inline-block;width:1.4em;height:1.4em;line-height:1.4em;text-align:center;border:1px solid var(--edge2);border-radius:50%;font-size:.8em;color:var(--muted);list-style:none}
+.hb-help summary::-webkit-details-marker{display:none}
+.hb-help small{display:block;color:var(--muted);padding:2px 0 4px;overflow-wrap:normal}
+.hb-fixed{display:flex;flex-direction:column;gap:3px;min-width:0}
+.hb-fixed span{font-size:.9em;color:var(--muted)}
+.hb-fixed output{min-height:32px;display:flex;align-items:center;color:var(--soft)}
 .hb-fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15em),1fr));gap:8px 12px;padding:6px 0 4px;min-width:0}
 .hb-field{display:flex;flex-direction:column;gap:3px;min-width:0}
 .hb-field span{font-size:.9em;color:var(--muted)}
