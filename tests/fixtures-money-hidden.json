@@ -853,7 +853,7 @@
 "page": "Money making guide/Hiring Adam Antite the tracker",
 "rev": 36473871,
 "wiki": -50051,
-"note": "Wiki page figure differs slightly from the Wiki formula on its own GE prices"
+"note": "Page Outputs total 31,062 after tax vs 31,089 from the same 48 outputs at the same GE prices (27 gp per instance, x60 = 1,658/hr); both a loss. Inputs equal (31,896 coins). Not an exact match; difference sits in the many fractional-quantity output lines (offline quantities are rounded to 4 decimals)."
 },
 {
 "id": "humidifying-clay",
@@ -1085,7 +1085,7 @@
 "page": "Money making guide/Making scentless potions",
 "rev": 36771109,
 "wiki": 237565,
-"note": "Wiki page figure differs slightly from the Wiki formula on its own GE prices"
+"note": "Page Inputs 228,981 vs 225,568: the page values the untradeable Botanist's amulet (x1.21) at 22,411 today (27,117 total) while the offline copy holds the Wiki value 19,590 from the 21 Oct 2026 snapshot (23,704). Outputs equal (466,547). Not an exact match; both a profit."
 },
 {
 "id": "making-spiritual-prayer-potions",
@@ -1260,7 +1260,8 @@
 "was": "stored Wiki figure below 0",
 "page": "Money making guide/Operating optimised hide tanner",
 "rev": 36905462,
-"wiki": 332078988600
+"wiki": 332078988600,
+"note": "Wiki arithmetic verified exact on its GE prices (30,000 x (5,125,612 - 102,512 tax) - 30,000 x 4,653,988 - 60 x 67,673 = 11,069,299,620 per instance; x30 per hour of 2-min activity); the page lists daily volume 58 Dinosaur leather, so shown with a not-achievable note. Revision 36905462 (2025-12-22 00:40 UTC)."
 },
 {
 "id": "picking-bloodweed-with-supreme-growth-potion-leafy",

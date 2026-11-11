@@ -23,7 +23,7 @@ assert.equal(F.methods.length, 134); assert.equal(new Set(F.methods.map(m => m.i
     const e = c.mmLive(rows.get(m.id)); assert.ok(e.value != null, m.id + ' has a figure');
     assert.equal(Math.sign(Math.round(e.value)), Math.sign(m.wiki), m.id + ': same sign as the Wiki page (a loss stays a loss)');
     const d = Math.abs(e.value - m.wiki);
-    if (d <= Math.max(2, Math.abs(m.wiki) * 0.005)) eq++; else { assert.ok(m.note && d <= Math.abs(m.wiki) * 0.04, `${m.id}: ${Math.round(e.value)} vs Wiki page ${m.wiki}`); near++; }
+    if (d <= Math.max(2, Math.abs(m.wiki) * 0.005)) eq++; else { assert.ok(m.note && /Not an exact match/.test(m.note) && d <= Math.abs(m.wiki) * 0.04, `${m.id}: ${Math.round(e.value)} vs Wiki page ${m.wiki}`); near++; }
     if (e.basis === 'est') est++; else { assert.equal(e.basis, 'wiki'); page++; assert.deepEqual([...c.MM_WIKI_RENDER[m.id]], [m.wiki, m.rev], m.id + ': page figure + revision'); assert.match(e.wiki.label, /^Wiki page figure, GE prices Nov 11, 2026, after tax$/); }
   }
   assert.equal(eq + near, 134); assert.equal(near, 2);
@@ -70,6 +70,9 @@ assert.equal(F.methods.length, 134); assert.equal(new Set(F.methods.map(m => m.i
   const ids = new Set([...d.querySelectorAll('.mmcard')].map(c => c.dataset.id)); for (const m of F.methods) assert.ok(ids.has(m.id), m.id + ' listed');
   const lossCard = [...d.querySelectorAll('.mmcard')].find(c => c.querySelector('.mmp.mmneg')); assert.match(lossCard.textContent, /−[\d,]+ gp.*loss/);
   assert.ok([...d.querySelectorAll('.mmcard .mmnone')].length === 2);
+  const dino = d.querySelector('.mmcard[data-id="operating-optimised-hide-tanner-dinosaur-hide"]'); assert.match(dino.textContent, /Wiki page figure, GE prices Nov 11, 2026/); assert.match(dino.querySelector('.mm-warn').textContent, /Not achievable: Wiki lists daily volume 58 vs 30,000 needed/);
+  assert.match(d.querySelector('#mm-src-info').textContent, /revision 36905462.*not achievable earnings/); assert.equal(d.querySelector('#mm-src-info').open, false);
+  assert.equal(d.querySelector('#mmsrc').value, 'live', 'default: latest trades');
   // Only profitable: opt-in
   d.querySelector('#mmf button[data-v="hl"]').click();
   [shown] = kinds(d.querySelector('#mmcount').textContent); assert.equal(shown, pos);
