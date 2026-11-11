@@ -1535,3 +1535,9 @@ th[aria-sort=ascending] .fd-arrow,th[aria-sort=descending] .fd-arrow{color:var(-
 .calc-item-name{font-weight:600}
 .calc-src{font-weight:400}
 .foot-about{display:inline-block;margin-left:.4em;color:var(--muted);text-decoration:underline;white-space:nowrap}
+
+/* Flask decanting: explanations live in a collapsed Details & sources section under the table */
+.fd-count{margin:4px 0;font-size:.85em}
+.fd-info{margin-top:8px}
+.fd-info-h{font-size:.95em;margin:10px 0 4px}
+.fd-alert{color:var(--warn,#e6b450);margin:4px 0}
