@@ -63,30 +63,50 @@ async function screen(hash, store = {}) {
 (async () => {
   let {dom, w, d, calls} = await screen('calculators', {mystats_v2: '{"Attack":99}'});
   const tabs = [...d.querySelectorAll('.tabs button[data-tab]')];
-  assert.equal(tabs.length, 12); assert.deepEqual(tabs.map(b => b.dataset.tab), ['drops', 'items', 'ge', 'char', 'clues', 'quests', 'train', 'money', 'calculators', 'secrets', 'map', 'about']);
+  // Easter eggs moved under Items, About to the footer (user request 2026-11-11): 10 main tabs
+  assert.equal(tabs.length, 10); assert.deepEqual(tabs.map(b => b.dataset.tab), ['drops', 'items', 'ge', 'char', 'clues', 'quests', 'train', 'money', 'calculators', 'map']);
+  { const fa = d.querySelector('footer a.foot-about'); assert.ok(fa); assert.equal(fa.getAttribute('href'), '#about'); assert.ok(!fa.target); assert.match(d.querySelector('footer').textContent, /Dev\. Soy Yoda[\s\S]*property of Jagex[\s\S]*CC BY-NC-SA 3\.0/); }
   assert.equal(d.querySelector('.tabs button.on').dataset.tab, 'calculators'); assert.equal(d.querySelector('.tabs button[aria-current="page"]').dataset.tab, 'calculators');
   assert.equal(d.querySelector('button[data-tab="calculators"]').getAttribute('aria-label'), 'Calculators');
   assert.equal(d.querySelectorAll('#view iframe').length, 0, 'Wiki calculators are not framed (Wiki sends X-Frame-Options DENY)');
   assert.ok(!calls.some(u => /runescape\.wiki/.test(u) && !u.startsWith(prices.BASE)), 'no requests to runescape.wiki from the app');
   assert.equal(d.querySelector('#live-price-banner, .live-price-banner'), null, 'calculators tab has no price banner');
-  const links = [...d.querySelectorAll('#calc-list a.calc-link')];
-  assert.equal(links.length, D.calculators.length);
-  for (const a of d.querySelectorAll('#view a[href]:not(.calc-native)')) { assert.match(a.href, /^https:\/\/runescape\.wiki\/w\//); assert.equal(a.target, '_blank'); assert.equal(a.rel, 'noopener noreferrer'); }
-  assert.match(d.querySelector('#calc-count').textContent, new RegExp(`^${D.calculators.length} of ${D.calculators.length}`));
+  // native-first: in-app calculators are the primary content and open inside the app; everything else is an explicit "not in the app yet" list
+  const nativeRows = D.calculators.filter(c => C.nativeFor(c.path));
+  assert.ok(nativeRows.length >= 2);
+  const cards = [...d.querySelectorAll('#calc-native .calc-card')];
+  assert.equal(cards.length, nativeRows.length, 'one card per in-app calculator');
+  for (const c of cards) { const a = c.querySelector('a.calc-card-main'); assert.match(a.getAttribute('href'), /^#calculators\/[a-z-]+$/); assert.equal(a.target, '', 'in-app card opens in the app, not a new tab'); assert.match(c.textContent, /In app · live prices/); }
+  assert.equal(d.querySelectorAll('#calc-native .calc-wiki-only').length, 0);
+  assert.equal(d.querySelectorAll('#calc-list .calc-in-app').length, 0, 'no fake native status in the upcoming list');
+  assert.equal(d.querySelectorAll('#calc-list .calc-item').length, D.calculators.length - nativeRows.length);
+  assert.equal(d.querySelectorAll('#calc-native .calc-star, #calc-list .calc-star').length, D.calculators.length, 'every catalog entry listed exactly once');
+  assert.equal(d.querySelector('#calc-upcoming').open, false, 'upcoming list collapsed by default');
+  for (const a of d.querySelectorAll('#view a[href]')) {
+    if (a.getAttribute('href').startsWith('#calculators/')) { assert.equal(a.target, ''); continue; }
+    assert.match(a.href, /^https:\/\/runescape\.wiki\/w\//); assert.equal(a.target, '_blank'); assert.equal(a.rel, 'noopener noreferrer'); assert.ok(a.classList.contains('calc-src'), 'Wiki links are secondary source links');
+  }
+  assert.match(d.querySelector('#calc-count').textContent, new RegExp(`^${nativeRows.length} in the app · ${D.calculators.length - nativeRows.length} not in the app yet`));
+  // skill picker: Herblore tile shows the in-app Herblore calculators first
+  const tile = [...d.querySelectorAll('#calc-tiles .calc-tile')].find(b => b.dataset.g === 'Artisan skills|Herblore'); assert.ok(tile && /in app/.test(tile.textContent));
+  tile.click(); assert.ok(d.querySelectorAll('#calc-native .calc-card').length >= 2); assert.ok([...d.querySelectorAll('#calc-list .calc-group')].every(g => g.dataset.g === 'Artisan skills|Herblore'));
+  assert.equal(d.querySelector('#calc-tiles .calc-tile[aria-pressed="true"]').dataset.g, 'Artisan skills|Herblore');
+  d.querySelector('#calc-tiles .calc-tile[data-g=""]').click(); assert.equal(d.querySelectorAll('#calc-native .calc-card').length, nativeRows.length);
   const q = d.querySelector('#calc-q'); q.value = 'herblore'; q.dispatchEvent(new w.Event('input'));
-  const n = d.querySelectorAll('#calc-list .calc-item').length; assert.ok(n > 0 && n < D.calculators.length);
+  const n = d.querySelectorAll('#calc-list .calc-item').length; assert.ok(n > 0 && n < D.calculators.length); assert.ok(d.querySelector('#calc-upcoming').open, 'search opens matching upcoming groups');
   q.value = 'zzzz-no-match'; q.dispatchEvent(new w.Event('input')); assert.match(d.querySelector('#calc-list').textContent, /No calculators match/);
   q.value = ''; q.dispatchEvent(new w.Event('input'));
   const sec = d.querySelector('#calc-sec'); sec.value = 'Combat skills'; sec.dispatchEvent(new w.Event('change'));
-  assert.ok([...d.querySelectorAll('.calc-group small')].every(s => s.textContent === 'Combat skills')); sec.value = ''; sec.dispatchEvent(new w.Event('change'));
-  // star
+  assert.ok([...d.querySelectorAll('.calc-group > summary small')].every(s => s.textContent === 'Combat skills')); sec.value = ''; sec.dispatchEvent(new w.Event('change'));
+  // star (a not-yet-built calculator): its favourite says so and keeps only a source link
   const first = d.querySelector('#calc-list .calc-star'); const p = first.dataset.path;
   assert.equal(first.getAttribute('aria-pressed'), 'false'); assert.match(first.getAttribute('aria-label'), /^Save .+ to favourites$/);
   first.click();
   const same = [...d.querySelectorAll('#calc-list .calc-star')].filter(b => b.dataset.path === p);
   assert.ok(same.every(b => b.getAttribute('aria-pressed') === 'true' && b.textContent === '★'));
   assert.match(first.getAttribute('aria-label'), /^Remove .+ from favourites$/);
-  const favLink = d.querySelector('#calc-fav-list a.calc-link'); assert.equal(favLink.href, C.wikiUrl(p), 'favourite reopens directly');
+  const favLink = d.querySelector('#calc-fav-list a.calc-src'); assert.equal(favLink.href, C.wikiUrl(p), 'favourite keeps its Wiki source');
+  assert.match(d.querySelector('#calc-fav-list').textContent, /Not in the app yet/);
   assert.match(d.querySelector('#calc-msg').textContent, /^Saved /);
   assert.deepEqual(JSON.parse(w.localStorage.getItem(C.FAV_KEY)).map(f => f.path), [p]);
   assert.equal(w.localStorage.getItem('mystats_v2'), '{"Attack":99}', 'saved stats untouched');
@@ -99,6 +119,9 @@ async function screen(hash, store = {}) {
   url.value = 'https://runescape.wiki/w/Calculator:Some_new_calculator'; add.click();
   assert.equal(url.value, ''); assert.equal(d.querySelectorAll('#calc-fav-list li').length, 2);
   url.value = 'Calculator:Some new calculator'; add.click(); assert.match(d.querySelector('#calc-msg').textContent, /already a favourite/);
+  const nstar = d.querySelector('#calc-native .calc-star'); nstar.click();
+  const nfav = [...d.querySelectorAll('#calc-fav-list a.calc-open')]; assert.equal(nfav.length, 1); assert.match(nfav[0].getAttribute('href'), /^#calculators\//); assert.equal(nfav[0].target, '');
+  nstar.click(); assert.equal(d.querySelectorAll('#calc-fav-list a.calc-open').length, 0);
   const stored = w.localStorage.getItem(C.FAV_KEY); dom.window.close();
   // persistence across reload
   ({dom, w, d} = await screen('calculators', {[C.FAV_KEY]: stored, mystats_v2: '{"Attack":99}'}));
@@ -112,7 +135,7 @@ async function screen(hash, store = {}) {
   // hostile stored favourites render as text, never as script/other-origin links
   ({dom, w, d} = await screen('calculators', {[C.FAV_KEY]: JSON.stringify([{path: 'javascript:alert(1)', label: 'x'}, {path: '/w/Calculator:X', label: '<img src=x onerror=alert(1)>'}])}));
   assert.equal(d.querySelectorAll('#calc-fav-list li').length, 1); assert.equal(d.querySelector('#calc-fav-list img'), null);
-  assert.match(d.querySelector('#calc-fav-list a').textContent, /<img src=x/); dom.window.close();
+  assert.match(d.querySelector('#calc-fav-list').textContent, /<img src=x/); dom.window.close();
   // G.E. main tab and old bookmark alias
   ({dom, w, d} = await screen('ge'));
   assert.equal(d.querySelector('.tabs button.on').dataset.tab, 'ge');
@@ -128,8 +151,12 @@ async function screen(hash, store = {}) {
   assert.equal(d.querySelector('#view .subnav a[href="#ge"]').textContent, 'Grand Exchange'); assert.doesNotMatch(d.querySelector('#view .subnav').textContent, /G\.E\./);
   assert.equal(d.querySelector('button[data-tab="ge"]').textContent.trim(), 'Grand Exchange'); assert.doesNotMatch(d.querySelector('.tabs').textContent, /G\.E\./); dom.window.close();
   // CSS: nav grid for 12 tabs, no sideways scroll container
-  const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'); const tail = css.slice(css.indexOf('/* ===== 12 main tabs'));
-  assert.match(tail, /@media \(max-width:699px\)\{[^}]*repeat\(4,minmax\(0,1fr\)\)/); assert.match(tail, /@media \(min-width:700px\)\{[^}]*repeat\(6,minmax\(0,1fr\)\)[^}]*overflow:visible/);
+  const css = fs.readFileSync(path.join(base, 'neon.css'), 'utf8'); const tail = css.slice(css.indexOf('/* ===== 10 main tabs'));
+  assert.match(tail, /@media \(max-width:699px\)\{[^}]*repeat\(5,minmax\(0,1fr\)\)/); assert.match(tail, /@media \(min-width:700px\)\{[^}]*repeat\(5,minmax\(0,1fr\)\)[^}]*overflow:visible/); assert.match(tail, /@media \(min-width:1180px\)\{[^}]*repeat\(10,minmax\(0,1fr\)\)/);
   assert.match(tail, /\.tabs button\{white-space:normal;word-break:normal;overflow-wrap:normal/);
-  console.log('PASS calculators: URL validation, independent favourites key, add/remove/persist/reopen, hostile storage, a11y, no framing; G.E. main tab + #items/~ge alias; 12-tab nav CSS');
+  { let x = await screen('secrets'); assert.equal(x.d.querySelector('.tabs button.on').dataset.tab, 'items'); assert.ok(x.d.querySelector('.subnav a.on[href="#secrets"]'));
+    assert.match(x.d.querySelector('#view').textContent, /Easter Eggs/); x.dom.window.close();
+    x = await screen('items'); assert.ok(x.d.querySelector('.subnav a[href="#secrets"]')); x.dom.window.close();
+    x = await screen('about'); assert.equal(x.d.querySelectorAll('.tabs button.on').length, 0); assert.ok(x.d.querySelector('#view').textContent.length > 200); x.dom.window.close(); }
+  console.log('PASS calculators: URL validation, independent favourites key, add/remove/persist/reopen, hostile storage, a11y, no framing; G.E. main tab + #items/~ge alias; 10-tab nav (Easter eggs under Items, About in footer) + CSS');
 })().catch(e => { console.error(e); process.exit(1); });

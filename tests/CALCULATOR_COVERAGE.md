@@ -24,10 +24,19 @@ Every native port records its page, template and module revisions and gives attr
 | Calculator | Wiki path | Status | Verification |
 |---|---|---|---|
 | Flask decanting (Herblore) | /w/Calculator:Herblore/Flask_decanting | **Native** `#calculators/flask-decanting` | 86 potions × 4 decanting options: all 344 Wiki-rendered cells reproduced (page rev 37202169, row template rev 37202166, GEPrices rev 37236236). Rebuild with `tools/calc_flask_decanting.py`. |
-| Herblore skill calculator | /w/Calculator:Herblore | **Native** `#calculators/herblore` (draft, not published) | JS port of `Module:Skill calc/Herblore` rev 36813069 with data rev 37201040, page rev 37008978, Experience 35948183 / data 35392677, GEIDs 37236241. 39 template renders (2,978 rows) + 15 Wiki form click-sequence renders (1,522 rows) at GEPrices rev 37236236: every row's order, XP, actions, time, colour, steps and line quantities match; costs/profits match on 2,551 template rows, the rest are unavailable by rule (see below). See below. Rebuild with `tools/calc_herblore.py build` / `golden`. |
-| All other 180 pages | — | Wiki only | — |
+| Herblore skill calculator | /w/Calculator:Herblore | **Native** `#calculators/herblore` (released PR #4) | JS port of `Module:Skill calc/Herblore` rev 36813069 with data rev 37201040, page rev 37008978, Experience 35948183 / data 35392677, GEIDs 37236241. 39 template renders (2,978 rows) + 15 Wiki form click-sequence renders (1,522 rows) at GEPrices rev 37236236: every row's order, XP, actions, time, colour, steps and line quantities match; costs/profits match on 2,551 template rows, the rest are unavailable by rule (see below). See below. Rebuild with `tools/calc_herblore.py build` / `golden`. |
+| Cooking skill calculator | /w/Calculator:Cooking | **Native** `#calculators/cooking` (draft PR, awaiting browser gates) | JS port of the shared `Module:Skill calc` rev 37183472 (bonusGenerator 37061127, eltGenerator 37078757, elts 37076682) with `Module:Skill calc/Cooking/data` rev 37177236, page rev 37078013, form via MediaWiki:Gadget-calc-core.js rev 37082305. 59 template renders + 7 form click sequences (2,899 rows) at GEPrices rev 37236236: all 34,486 compared cells match (row colour, name, level, XP, # needed, # urns, members, raw/product cost, profit, profit/XP, material names and quantities). Rebuild with `tools/calc_cooking.py build` / `golden`. |
+| All other 179 pages | — | Not in the app yet | — |
 
-Running coverage: **2 of 182 pages native** (2 of 186 directory entries "In app"; 184 "Wiki only — not yet in app").
+Running coverage: **3 of 182 pages native** (3 of 186 directory entries "In app"; 183 "Not in the app yet").
+
+Cooking follows the Wiki form exactly: same fields, order, labels, defaults (the invalid default sub-category "Harvest" becomes
+the first option "Meat", as the gadget does), the bonus-XP toggle reveals its amount, and results use the Wiki's column order
+and names. Wiki quirks are kept, not fixed: Bonfire adds no XP, Portable Range adds 21% in every sub-category (the module never
+sets its category), the avatar bonus is not applied to Urns, and urns listed under "All" show no values (the Wiki row stops at
+the missing level). Options the shared engine has for other skills (dxp, aura, testing, etc.) are refused with a message, not
+guessed. Live prices replace guide prices (Buy high / Sell low, 2% tax per item); untradeable ingredients/products count 0 as
+on the Wiki and are flagged "excludes untradeable … (not free)"; missing or stale prices make that row unavailable.
 
 Flask decanting covers the whole Wiki calculator: every row and all four decanting options. The Wiki page has no further
 modes. As on the Wiki, leftover empty vials are not counted.
@@ -94,6 +103,6 @@ Limits (explicit, not simplified):
 | Custom scripts / ordinary articles | 10 | Case by case. |
 
 ## Next batches (in order)
-1. Six skill calculators: Herblore (native port in draft PR, awaiting browser gates), Cooking, Fletching, Crafting, Firemaking and Runecrafting. These need the shared engine plus the Herblore engine.
+1. Skill calculators on the shared engine: Cooking (draft PR), then Fletching, Crafting, Firemaking and Runecrafting, each with its own Wiki goldens before it is enabled (`SC_VALIDATED`).
 2. The remaining 12 shared-engine skills, then Archaeology.
 3. Static GE-price tables, then form calculators, then the rest, each verified separately.

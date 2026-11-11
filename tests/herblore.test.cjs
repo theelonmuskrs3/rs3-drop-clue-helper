@@ -225,9 +225,9 @@ const set = (d, w, k, v) => { const el = d.querySelector('#hb-' + k); assert.ok(
   dom.window.close();
   // directory: Herblore In app, favourite opens the native route; Flask decanting unchanged
   ({dom, w, d} = await screen('calculators', {[C.FAV_KEY]: favs}));
-  { const nat = [...d.querySelectorAll('#calc-list a.calc-native')].map(a => a.getAttribute('href')).sort(); assert.deepEqual(nat, ['#calculators/cooking', '#calculators/flask-decanting', '#calculators/herblore']);
-    const total = d.querySelectorAll('#calc-list .calc-item').length; assert.equal(d.querySelectorAll('#calc-list .calc-in-app').length, 3); assert.equal(d.querySelectorAll('#calc-list .calc-wiki-only').length, total - 3);
-    assert.equal(d.querySelector('#calc-fav-list a.calc-native').getAttribute('href'), '#calculators/herblore'); }
+  { const nat = [...d.querySelectorAll('#calc-native a.calc-card-main')].map(a => a.getAttribute('href')).sort(); assert.deepEqual(nat, ['#calculators/cooking', '#calculators/flask-decanting', '#calculators/herblore']);
+    assert.equal(d.querySelectorAll('#calc-upcoming .calc-in-app').length, 0); assert.ok(d.querySelectorAll('#calc-upcoming .calc-item').length > 100);
+    assert.equal(d.querySelector('#calc-fav-list a.calc-open').getAttribute('href'), '#calculators/herblore'); }
   dom.window.close();
   // missing and stale prices: that recipe unavailable, never 0
   ({dom, w, d} = await screen('calculators/herblore', {}, {over: {'Guam potion (unfinished)': null, 'Eye of newt': {high: 1000, low: 900, highTime: Date.now() / 1000 - 7200}}}));

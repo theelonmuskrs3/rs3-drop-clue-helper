@@ -22,6 +22,11 @@ for (const extra of [['dxp', '1'], ['aura', 'x'], ['testing', 'active']]) assert
 assert.ok(C.skillCalcRun(D, B.map(([k, v]) => [k, k === 'skill' ? 'Fletching' : v])).error);
 assert.ok(C.skillCalcRun(D, B.map(([k, v]) => [k, k === 'disp' ? 'Harvest' : v])).error);
 assert.ok(C.skillCalcRun(D, B.map(([k, v]) => [k, k === 'goal' ? 'x' : v])).error);
+// 3b. every picture the engine can show (all sub-categories) has an official Wiki file in data/calc/images.json
+{ const I = J('data/calc/images.json').items, miss = new Set();
+  for (const disp of D.catOrder) for (const r of C.skillCalcRun(D, B.map(([k, v]) => [k, k === 'disp' ? disp : v])).rows) {
+    for (const n of [r.item.icon || r.item.image || r.name, ...r.listed.map(l => l.image || l.name)]) if (!I[n]) miss.add(n); }
+  assert.deepEqual([...miss], [], 'cooking names without a Wiki picture'); }
 // 4. the app screen
 const NAMES = Object.keys(D.ids);
 async function screen(hash, store = {}, feed = {}) {
@@ -65,6 +70,9 @@ const set = (d, w, k, v) => { const el = d.querySelector('#ck-' + k); assert.ok(
     assert.equal(td[5].textContent, (900 * sh.needed).toLocaleString('en-GB') + ' gp');
     assert.match(td[6].textContent, new RegExp('^−' + ((100 + 18) * sh.needed).toLocaleString('en-GB') + ' gptax ' + (18 * sh.needed).toLocaleString('en-GB') + ' gp'));
     assert.ok(tr.querySelector('.calc-prices summary')); assert.equal(tr.querySelector('.calc-prices').open, false); }
+  // pictures (data/calc/images.json, official Wiki files): every row and ingredient line in the screen
+  assert.ok(rows(d).every(tr => tr.querySelector('th img.calc-ico[src^="icons/"]')), 'row pictures');
+  assert.ok([...d.querySelectorAll('#ck-table .hb-list li')].every(li => li.querySelector('img.calc-li-ico[src^="icons/"]')), 'ingredient pictures');
   // untradeable (Wiki mtrade/trade 0): 0 as on the Wiki, explicitly flagged, not free
   assert.match(row(d, 'Karambwanji').textContent, /excludes untradeable Raw karambwanji, Karambwanji \(product\)/);
   // gross toggle
@@ -79,7 +87,7 @@ const set = (d, w, k, v) => { const el = d.querySelector('#ck-' + k); assert.ok(
   set(d, w, 'goal', 'abc'); assert.match(d.querySelector('#ck-msg').textContent, /Invalid integer provided/); assert.equal(rows(d).length, 0);
   set(d, w, 'goal', '99');
   // urn column
-  set(d, w, 'urn', 'Strong'); assert.ok([...d.querySelectorAll('#ck-table thead th')].some(th => th.textContent === 'Urns'));
+  set(d, w, 'urn', 'Strong'); assert.ok([...d.querySelectorAll('#ck-table thead th')].some(th => th.textContent === '# urns'));
   // favourites star (exact route)
   d.querySelector('#ck-star').click(); assert.ok(C.load(w.localStorage).some(f => f.path === '/w/Calculator:Cooking'));
   const store = {[C.FAV_KEY]: w.localStorage.getItem(C.FAV_KEY), dch_calc_cooking_v1: w.localStorage.getItem('dch_calc_cooking_v1')}; dom.window.close();
@@ -89,7 +97,7 @@ const set = (d, w, k, v) => { const el = d.querySelector('#ck-' + k); assert.ok(
   // All: urns have no values on the Wiki -> none here either
   set(d, w, 'urn', 'None'); set(d, w, 'disp', 'All'); assert.ok(rows(d).some(tr => /without values/.test(tr.textContent)));
   set(d, w, 'disp', 'Dungeoneering'); assert.ok(![...d.querySelectorAll('#ck-table thead th')].some(th => th.textContent === 'Raw cost'));
-  set(d, w, 'disp', 'Urns'); assert.deepEqual([...d.querySelectorAll('#ck-table thead th')].map(th => th.textContent), ['Urn', 'XP', 'Number', 'Cost']);
+  set(d, w, 'disp', 'Urns'); assert.deepEqual([...d.querySelectorAll('#ck-table thead th')].map(th => th.textContent), ['Name', 'XP', '# needed', 'Cost']);
   dom.window.close();
   // missing / stale prices are unavailable, never 0
   ({dom, w, d} = await screen('calculators/cooking', {dch_calc_cooking_v1: JSON.stringify({actions: [['disp', 'Fish']]})}, {over: {'Raw shrimps': null}}));
@@ -101,5 +109,6 @@ const set = (d, w, k, v) => { const el = d.querySelector('#ck-' + k); assert.ok(
   // hostile saved state is ignored safely
   ({dom, w, d} = await screen('calculators/cooking', {dch_calc_cooking_v1: '{"actions":[["disp","<img src=x onerror=alert(1)>"],["__proto__","x"],["goal",{"a":1}]]}'}));
   assert.equal(d.querySelector('#ck-disp').value, 'Meat'); assert.equal(d.querySelectorAll('#view img[src="x"]').length, 0); dom.window.close();
+  // pictures: every row and ingredient shows its Wiki picture
   console.log(`PASS cooking: ${cmp.cases} Wiki golden cases (${cmp.rows} rows, ${cmp.cells} cells incl. truncated urn rows), ${F.cases.length} gadget form sequences, invalid/unsupported refused, screen: defaults/message, live buy/sell/tax, untradeable flagged, search/sort/gross, bxp toggle, urns, favourite, persistence, missing/stale unavailable, hostile storage`);
 })().catch(e => { console.error(e); process.exit(1); });

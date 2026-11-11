@@ -1,0 +1,133 @@
+{
+ "checked": "2026-11-11 00:19 EST",
+ "method": "MediaWiki API action=query&prop=imageinfo|revisions&redirects=1 on File:<item name>.png (and page redirects for item pages); recorded exactly as returned",
+ "items": {
+  "Clean wormwood": {
+   "via": "item page Clean wormwood redirects to Clean wormwood leaf",
+   "appFile": "File:Clean wormwood leaf.png",
+   "appSha1": "fcf765e99010f0c061c68c44350904d9f9cf70b8",
+   "fileRedirects": [],
+   "resolvedTitle": "File:Clean wormwood.png",
+   "resolvedSha1": null,
+   "missing": true,
+   "pageRedirects": [
+    {
+     "from": "Clean wormwood",
+     "to": "Clean wormwood leaf"
+    }
+   ]
+  },
+  "Congealed blood": {
+   "via": "File redirect from File:Congealed blood.png",
+   "appFile": "File:Congealed blood 1000.png",
+   "appSha1": "68e1d8e45fb5135560d663bbf1b3a4d63741cedc",
+   "fileRedirects": [
+    {
+     "from": "File:Congealed blood.png",
+     "to": "File:Congealed blood 1000.png"
+    }
+   ],
+   "resolvedTitle": "File:Congealed blood 1000.png",
+   "resolvedSha1": "68e1d8e45fb5135560d663bbf1b3a4d63741cedc",
+   "missing": false
+  },
+  "Extreme prayer potion (1)": {
+   "via": "File redirect from File:Extreme prayer potion (1).png",
+   "appFile": "File:Extreme prayer (1).png",
+   "appSha1": "0d72071142fc77de78d461391b8ca130c098addd",
+   "fileRedirects": [
+    {
+     "from": "File:Extreme prayer potion (1).png",
+     "to": "File:Extreme prayer (1).png"
+    }
+   ],
+   "resolvedTitle": "File:Extreme prayer (1).png",
+   "resolvedSha1": "0d72071142fc77de78d461391b8ca130c098addd",
+   "missing": false
+  },
+  "Extreme prayer potion (2)": {
+   "via": "File redirect from File:Extreme prayer potion (2).png",
+   "appFile": "File:Extreme prayer (2).png",
+   "appSha1": "19d20c33e017207902e55c70a103db4835b7fc0b",
+   "fileRedirects": [
+    {
+     "from": "File:Extreme prayer potion (2).png",
+     "to": "File:Extreme prayer (2).png"
+    }
+   ],
+   "resolvedTitle": "File:Extreme prayer (2).png",
+   "resolvedSha1": "19d20c33e017207902e55c70a103db4835b7fc0b",
+   "missing": false
+  },
+  "Extreme prayer potion (3)": {
+   "via": "File redirect from File:Extreme prayer potion (3).png",
+   "appFile": "File:Extreme prayer (3).png",
+   "appSha1": "c67419e904a26d6e47e98c1f5321af889b8cf03c",
+   "fileRedirects": [
+    {
+     "from": "File:Extreme prayer potion (3).png",
+     "to": "File:Extreme prayer (3).png"
+    }
+   ],
+   "resolvedTitle": "File:Extreme prayer (3).png",
+   "resolvedSha1": "c67419e904a26d6e47e98c1f5321af889b8cf03c",
+   "missing": false
+  },
+  "Grenwall spikes": {
+   "via": "File redirect from File:Grenwall spikes.png",
+   "appFile": "File:Grenwall spikes 5.png",
+   "appSha1": "bc6aaac306b76c4f107733c98ec141bcd3e7315a",
+   "fileRedirects": [
+    {
+     "from": "File:Grenwall spikes.png",
+     "to": "File:Grenwall spikes 5.png"
+    }
+   ],
+   "resolvedTitle": "File:Grenwall spikes 5.png",
+   "resolvedSha1": "bc6aaac306b76c4f107733c98ec141bcd3e7315a",
+   "missing": false
+  },
+  "Guthix balance (unfinished)": {
+   "via": "File redirect from File:Guthix balance (unfinished).png",
+   "appFile": "File:Guthix balance (unfinished) (4).png",
+   "appSha1": "81c157326077d96eb4921f3bec11f3ff1037c045",
+   "fileRedirects": [
+    {
+     "from": "File:Guthix balance (unfinished).png",
+     "to": "File:Guthix balance (unfinished) (4).png"
+    }
+   ],
+   "resolvedTitle": "File:Guthix balance (unfinished) (4).png",
+   "resolvedSha1": "81c157326077d96eb4921f3bec11f3ff1037c045",
+   "missing": false
+  },
+  "Onyx bolt tips": {
+   "via": "File redirect from File:Onyx bolt tips.png",
+   "appFile": "File:Onyx bolt tips 5.png",
+   "appSha1": "0e85832398d54c28d77cafc05792c862801b0c03",
+   "fileRedirects": [
+    {
+     "from": "File:Onyx bolt tips.png",
+     "to": "File:Onyx bolt tips 5.png"
+    }
+   ],
+   "resolvedTitle": "File:Onyx bolt tips 5.png",
+   "resolvedSha1": "0e85832398d54c28d77cafc05792c862801b0c03",
+   "missing": false
+  },
+  "Cooked crab meat": {
+   "via": "File redirect from File:Cooked crab meat.png",
+   "appFile": "File:Cooked crab meat (5).png",
+   "appSha1": "cfdc32bc6214c9fd755703698d39d2d18bbca8bd",
+   "fileRedirects": [
+    {
+     "from": "File:Cooked crab meat.png",
+     "to": "File:Cooked crab meat (5).png"
+    }
+   ],
+   "resolvedTitle": "File:Cooked crab meat (5).png",
+   "resolvedSha1": "cfdc32bc6214c9fd755703698d39d2d18bbca8bd",
+   "missing": false
+  }
+ }
+}

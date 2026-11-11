@@ -169,7 +169,9 @@ responsiveTables.observe(view, {childList:true, subtree:true});
 
 /* ---------- tabs / routing ---------- */
 document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { location.hash = b.dataset.tab; });
-function setTab(t) { document.querySelectorAll('.tabs button').forEach(b => { const on = b.dataset.tab === t; b.classList.toggle('on', on); if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); }); }
+/* Easter eggs live under Items (route #secrets kept for links); About is linked from the footer, not a main tab. */
+const TAB_HOME = {secrets: 'items'};
+function setTab(t) { t = TAB_HOME[t] || t; document.querySelectorAll('.tabs button').forEach(b => { const on = b.dataset.tab === t; b.classList.toggle('on', on); if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); }); }
 let geCleanup = null;
 async function route() {
   if (geCleanup) { geCleanup(); geCleanup = null; }
@@ -435,7 +437,7 @@ function priceTag(D, n, side = 'buy', showGraph = false) {
 function rarTag(r) { return r == null ? '' : `<span class="rtag r${r}">${RANK[r]}</span>`; }
 function subnav(on) {
   const b = (h, t, k) => `<a class="btn sub ${on === k ? 'on' : ''}" href="${h}">${t}</a>`;
-  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}<a class="btn sub" href="#ge">Grand Exchange</a><a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
+  return `<div class="row subnav">${b('#items', 'Search · rarity · prices', 'search')}${b('#items/~obtain', 'Obtainable · worth money · cosmetics', 'obtain')}${b('#items/~disc', 'Discontinued', 'disc')}${b('#items/~all', '🔎 Search all items', 'all')}${b('#secrets', 'Easter eggs', 'secrets')}<a class="btn sub" href="#ge">Grand Exchange</a><a class="btn sub chlink" href="#char" title="Your levels now live in the Character tab">Edit my stats → Character</a></div>`;
 }
 
 /* ----- stats storage ----- */
@@ -1048,7 +1050,7 @@ async function flaskDecantView(n) {
   const q = $('#fd-q'), show = $('#fd-show'), sort = $('#fd-sort');
   const why = (item, side) => { const x = LIVE.book.quote(item.id, side); return x.live ? null : `${item.n}: ${quoteWhy(x.status)}`; };
   const quoteLine = (item, side) => { const x = side === 'sell' ? LIVE.book.sale(item.id) : LIVE.book.quote(item.id, 'buy');
-    return `<li>${esc(item.n)} — ${side === 'sell' ? 'Sell' : 'Buy'} ${x.live ? `${esc(gp(x.value))}${side === 'sell' ? ` · est. tax ${esc(gp(x.tax))} · net ${esc(gp(x.net))}` : ''}` : `<span class="calc-unavail">unavailable (${esc(quoteWhy(x.status))})</span>`}</li>`; };
+    return `<li>${liIco(item.n)}${esc(item.n)} — ${side === 'sell' ? 'Sell' : 'Buy'} ${x.live ? `${esc(gp(x.value))}${side === 'sell' ? ` · est. tax ${esc(gp(x.tax))} · net ${esc(gp(x.net))}` : ''}` : `<span class="calc-unavail">unavailable (${esc(quoteWhy(x.status))})</span>`}</li>`; };
   const draw = () => {
     const fq = LIVE.book.quote(D.flask.id, 'buy');
     $('#fd-flask').textContent = fq.live ? `Empty potion flask: Buy ${gp(fq.value)} each (live).` : `Empty potion flask: live Buy price unavailable (${quoteWhy(fq.status)}), so every result below is unavailable.`;
@@ -1067,7 +1069,7 @@ async function flaskDecantView(n) {
       : `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc(x.reasons.slice(0, 2).join('; '))}</small>`;
     const openRows = new Set([...document.querySelectorAll('#fd-table details[open]')].map(d => d.dataset.flask));
     $('#fd-table').innerHTML = rows.length ? `<table class="calc-table"><thead><tr><th scope="col">Flask</th>${cols.map(c => `<th scope="col">${esc(c.label)}</th>`).join('')}</tr></thead><tbody>${rows.map(({r, e}) =>
-      `<tr><th scope="row"><span class="calc-name">${esc(r.flask)}</span><details class="calc-prices" data-flask="${esc(r.flask)}"${openRows.has(r.flask) ? ' open' : ''}><summary>Prices used</summary><ul>${quoteLine(r.f6, 'sell')}${[1, 2, 3, 4].map(d => quoteLine(r['v' + d], 'buy')).join('')}${quoteLine(D.flask, 'buy')}</ul></details></th>${e.map(x => `<td>${cell(x)}</td>`).join('')}</tr>`).join('')}</tbody></table>`
+      `<tr><th scope="row"><span class="calc-name-row">${calcIco(r.f6.n)}<span class="calc-name">${esc(r.flask)}</span></span><details class="calc-prices" data-flask="${esc(r.flask)}"${openRows.has(r.flask) ? ' open' : ''}><summary>Prices used</summary><ul>${quoteLine(r.f6, 'sell')}${[1, 2, 3, 4].map(d => quoteLine(r['v' + d], 'buy')).join('')}${quoteLine(D.flask, 'buy')}</ul></details></th>${e.map(x => `<td>${cell(x)}</td>`).join('')}</tr>`).join('')}</tbody></table>`
       : '<p class="note">No potions match.</p>';
   };
   q.addEventListener('input', draw); show.onchange = draw; sort.onchange = draw;
@@ -1281,12 +1283,12 @@ async function herbloreView(n) {
     const open = new Set([...document.querySelectorAll('#hb-table details[open]')].map(d => d.dataset.row));
     const lvlCls = lv => lv > res.targetLevel ? 'hb-lv-red' : lv <= res.currLevel ? 'hb-lv-green' : 'hb-lv-yellow';
     const lineVal = (x, l, role) => { const p = x.prices.get(role + ':' + l.name); return p.v == null ? '<span class="calc-unavail">unavailable</span>' : p.kind === 'untradeable' ? 'untradeable: 0, not counted' : l.cost > 0 ? esc(gp(l.cost)) : '-'; };
-    const list = (x, items, mode, role) => mode === 'Hidden' ? '' : items.length ? `<ul class="hb-list">${items.map(l => `<li><span class="hb-item">${esc(l.name)}</span>${mode !== 'Item' ? ` <span class="hb-qty">× ${esc(hbFmt(l.qty))}</span>` : ''}${mode === 'Price' && l.cost !== undefined ? ` <span class="hb-cost">${lineVal(x, l, role)}</span>` : ''}</li>`).join('')}</ul>` : '-';
+    const list = (x, items, mode, role) => mode === 'Hidden' ? '' : items.length ? `<ul class="hb-list">${items.map(l => `<li>${liIco(l.name)}<span class="hb-item">${esc(l.name)}</span>${mode !== 'Item' ? ` <span class="hb-qty">× ${esc(hbFmt(l.qty))}</span>` : ''}${mode === 'Price' && l.cost !== undefined ? ` <span class="hb-cost">${lineVal(x, l, role)}</span>` : ''}</li>`).join('')}</ul>` : '-';
     const steps = x => { const s = x.r.steps; if (stepMode === 'Hidden') return null; if (stepMode === 'Total') return String((s ? s.length : 0) + 1); return s && s.length ? `<ul class="hb-list">${s.map(l => `<li>${esc(l.name)}${stepMode === 'Quantity' ? ` × ${esc(hbFmt(l.qty))}` : ''}</li>`).join('')}</ul>` : '-'; };
     const why = (x, role, items) => [...new Set(items.map(l => x.prices.get(role + ':' + l.name)).filter(p => p && p.v == null).map(p => p.why))].join('; ');
     const priceLine = (x, l, role) => { const p = x.prices.get(role + ':' + l.name);
-      return `<li>${esc(l.name)} — ${role === 'product' ? 'Sell' : 'Buy'} ${p.v == null ? `<span class="calc-unavail">unavailable (${esc(p.why)})</span>` : p.kind === 'untradeable' ? 'untradeable, no market price: valued at 0 as on the Wiki (not free; its real cost/value is not in the totals)' : p.kind === 'fixed' ? `fixed Wiki value ${esc(gp(p.v))}` : `${esc(gp(p.v))} each${role === 'product' ? ` · est. tax ${esc(gp(p.tax))}` : ''}`}</li>`; };
-    const recipe = x => { const r = x.r; let h = `<span class="calc-name">${esc(r.item_name)}${r.item_multi > 1 ? ` × ${esc(String(r.item_multi))}` : ''}</span>`;
+      return `<li>${liIco(l.name)}${esc(l.name)} — ${role === 'product' ? 'Sell' : 'Buy'} ${p.v == null ? `<span class="calc-unavail">unavailable (${esc(p.why)})</span>` : p.kind === 'untradeable' ? 'untradeable, no market price: valued at 0 as on the Wiki (not free; its real cost/value is not in the totals)' : p.kind === 'fixed' ? `fixed Wiki value ${esc(gp(p.v))}` : `${esc(gp(p.v))} each${role === 'product' ? ` · est. tax ${esc(gp(p.tax))}` : ''}`}</li>`; };
+    const recipe = x => { const r = x.r; let h = `<span class="calc-name-row">${calcIco(r.item_name)}<span class="calc-name">${esc(r.item_name)}${r.item_multi > 1 ? ` × ${esc(String(r.item_multi))}` : ''}</span></span>`;
       if (Number(r.improved) > 0) h += `<small class="calc-sub">(Improved +${esc(String(r.improved))} recipe)</small>`;
       for (const m of [r.method, ...(r.steps || []).map(s => s.method)]) if (m) h += `<small class="calc-sub"><i>(${esc(m)})</i></small>`;
       if (r.choice_gaps && r.choice_gaps.length) h += `<small class="calc-sub hb-warn">Profitable choice undetermined (totals unavailable), no live price for: ${esc(r.choice_gaps.slice(0, 4).join(', '))}${r.choice_gaps.length > 4 ? '…' : ''}</small>`;
@@ -1326,7 +1328,7 @@ function ckSave(D, st) { const def = RS3Calc.skillFormDefaults(D.form), actions 
   actions.sort((a, b) => (D.form.params.find(p => p.name === b[0]).rawtogs ? 1 : 0) - (D.form.params.find(p => p.name === a[0]).rawtogs ? 1 : 0));
   try { CALC_LS && CALC_LS.setItem(CK_KEY, JSON.stringify({actions})); } catch (e) {} }
 async function cookingView(n) {
-  const D = await get(n.data);
+  const D = await get(n.data); await calcImages();
   const label = 'Cooking calculator', src = RS3Calc.wikiUrl(D.path), rev = t => esc(D.source[t].revid);
   let st = ckLoad(D);
   view.innerHTML = `<div class="row subnav"><a class="btn sub" href="#calculators">← All calculators</a></div>
@@ -1404,32 +1406,52 @@ async function cookingView(n) {
     const exclTag = x => x.excl.length ? `<small class="calc-sub hb-excl">excludes untradeable ${esc(x.excl.slice(0, 3).join(', '))}${x.excl.length > 3 ? '…' : ''} (no market price, not free)</small>` : '';
     const amt = (x, v) => v == null ? unav(x) : x.r.currency ? `${esc(Math.round(v).toLocaleString('en-GB'))}${cur(x)}` : esc(money(v));
     const qty = (l, r) => { let a = l.qty * r.needed; if (a > 100) a = Math.ceil(a); else if (!(a < 0.1)) a = Math.ceil(a * 100) / 100; return a.toLocaleString('en-GB'); };
-    const priceLines = x => `<details class="calc-prices"><summary>Prices used</summary><ul>${x.r.listed.map(l => `<li>${esc(l.name)} — ${x.r.currency ? `Wiki value in ${esc(x.r.currency)}` : !l.priced ? 'untradeable, not priced by the Wiki: valued at 0 (not free; not in the totals)' : x.why.has(l.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(l.name))})</span>` : `Buy ${esc(gp(LIVE.book.quote(D.ids[l.name], 'buy').value))} each`}</li>`).join('')}${x.r.product ? `<li>${esc(x.r.name)} — ${x.why.has(x.r.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(x.r.name))})</span>` : `Sell ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).value))} each · est. tax ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).tax))}${x.r.brewing ? ' · Brewing: 2 batches per action' : ''}`}</li>` : ''}</ul></details>`;
-    const head = urns ? ['Urn', 'XP', 'Number', 'Cost'] : ['Lvl', 'Recipe', 'XP', 'Number', ...(res.urn ? ['Urns'] : []), 'Materials', ...(costs ? ['Raw cost', 'Product value', gross ? 'Gross profit' : 'Net profit', 'Profit/XP'] : [])];
+    const priceLines = x => `<details class="calc-prices"><summary>Prices used</summary><ul>${x.r.listed.map(l => `<li>${liIco(l.image || l.name)}${esc(l.name)} — ${x.r.currency ? `Wiki value in ${esc(x.r.currency)}` : !l.priced ? 'untradeable, not priced by the Wiki: valued at 0 (not free; not in the totals)' : x.why.has(l.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(l.name))})</span>` : `Buy ${esc(gp(LIVE.book.quote(D.ids[l.name], 'buy').value))} each`}</li>`).join('')}${x.r.product ? `<li>${liIco(x.r.name)}${esc(x.r.name)} — ${x.why.has(x.r.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(x.r.name))})</span>` : `Sell ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).value))} each · est. tax ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).tax))}${x.r.brewing ? ' · Brewing: 2 batches per action' : ''}`}</li>` : ''}</ul></details>`;
+    // the Wiki's own column order and names (Module:Skill calc/elts); its picture and members columns are folded into the name cell
+    const head = urns ? ['Name', 'XP', '# needed', 'Cost'] : ['Level', 'Name', 'XP', '# needed', ...(res.urn ? ['# urns'] : []), 'Materials', ...(costs ? ['Raw cost', 'Product cost', 'Profit/Loss', 'Profit/XP'] : [])];
     const lvCls = c => 'hb-lv-' + c;
-    $('#ck-table').innerHTML = shown.length ? `<table class="calc-table hb-table"><thead><tr>${head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${shown.map(x => { const r = x.r, nm = esc(r.title || r.name);
-      if (r.truncated) return `<tr><td>-</td><th scope="row"><span class="calc-name">${nm}</span><small class="calc-sub hb-warn">The Wiki's "All" list shows this urn without values; choose the Urns sub-category.</small></th><td colspan="${head.length - 2}">-</td></tr>`;
-      if (urns) return `<tr><th scope="row"><span class="calc-name">${nm}</span>${priceLines(x)}</th><td>${esc(r.unitExp.toLocaleString('en-GB'))}</td><td>${esc(r.needed.toLocaleString('en-GB'))}</td><td>${amt(x, x.c.raw)}</td></tr>`;
-      const mats = r.listed.length ? `<ul class="hb-list">${r.listed.map(l => `<li><span class="hb-item">${esc(l.name)}</span> <span class="hb-qty">× ${esc(qty(l, r))}</span></li>`).join('')}</ul>` : '-';
-      return `<tr><td class="${lvCls(r.cls)}">${esc(String(r.level))}</td><th scope="row"><span class="calc-name">${nm}</span>${r.members ? '<small class="calc-sub">Members</small>' : ''}${costs ? priceLines(x) : ''}</th><td>${esc(r.unitExp.toLocaleString('en-GB'))}</td><td>${r.needed > 0 ? esc(r.needed.toLocaleString('en-GB')) : '-'}</td>${res.urn ? `<td>${r.urnsNeeded ? esc(r.urnsNeeded.toLocaleString('en-GB')) : '-'}</td>` : ''}<td>${mats}</td>${costs ? `<td>${amt(x, x.c.raw)}</td><td>${amt(x, x.c.prod)}</td><td>${x.profit == null ? unav(x) : `<span class="calc-val ${x.profit < 0 ? 'loss' : 'gain'}">${amt(x, x.profit)}</span>${!r.currency && r.product ? `<small class="calc-sub">${gross ? 'before tax' : `tax ${esc(gp(x.taxA * r.needed))}`}</small>` : ''}`}${exclTag(x)}</td><td>${x.perXp == null ? '-' : `${x.perXp < 0 ? '−' : ''}${esc(Math.abs(x.perXp).toLocaleString('en-GB', {maximumFractionDigits: 2}))}${r.currency ? cur(x) : ' gp'}`}</td>` : ''}</tr>`; }).join('')}</tbody></table>` : '<p class="note">No recipes match these options.</p>';
+    $('#ck-table').innerHTML = shown.length ? `<table class="calc-table hb-table"><thead><tr>${head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${shown.map(x => { const r = x.r, nm = esc(r.title || r.name), ico = calcIco(r.item.icon || r.item.image || r.name);
+      if (r.truncated) return `<tr><td>-</td><th scope="row">${ico}<span class="calc-name">${nm}</span><small class="calc-sub hb-warn">The Wiki's "All" list shows this urn without values; choose the Urns sub-category.</small></th><td colspan="${head.length - 2}">-</td></tr>`;
+      if (urns) return `<tr><th scope="row">${ico}<span class="calc-name">${nm}</span>${priceLines(x)}</th><td>${esc(r.unitExp.toLocaleString('en-GB'))}</td><td>${esc(r.needed.toLocaleString('en-GB'))}</td><td>${amt(x, x.c.raw)}</td></tr>`;
+      const mats = r.listed.length ? `<ul class="hb-list">${r.listed.map(l => `<li>${liIco(l.image || l.name)}<span class="hb-item">${esc(l.name)}</span> <span class="hb-qty">× ${esc(qty(l, r))}</span></li>`).join('')}</ul>` : '-';
+      return `<tr><td class="${lvCls(r.cls)}">${esc(String(r.level))}</td><th scope="row">${ico}<span class="calc-name">${nm}</span>${r.members ? '<small class="calc-sub">Members</small>' : ''}${costs ? priceLines(x) : ''}</th><td>${esc(r.unitExp.toLocaleString('en-GB'))}</td><td>${r.needed > 0 ? esc(r.needed.toLocaleString('en-GB')) : '-'}</td>${res.urn ? `<td>${r.urnsNeeded ? esc(r.urnsNeeded.toLocaleString('en-GB')) : '-'}</td>` : ''}<td>${mats}</td>${costs ? `<td>${amt(x, x.c.raw)}</td><td>${amt(x, x.c.prod)}</td><td>${x.profit == null ? unav(x) : `<span class="calc-val ${x.profit < 0 ? 'loss' : 'gain'}">${amt(x, x.profit)}</span>${!r.currency && r.product ? `<small class="calc-sub">${gross ? 'before tax' : `tax ${esc(gp(x.taxA * r.needed))}`}</small>` : ''}`}${exclTag(x)}</td><td>${x.perXp == null ? '-' : `${x.perXp < 0 ? '−' : ''}${esc(Math.abs(x.perXp).toLocaleString('en-GB', {maximumFractionDigits: 2}))}${r.currency ? cur(x) : ' gp'}`}</td>` : ''}</tr>`; }).join('')}</tbody></table>` : '<p class="note">No recipes match these options.</p>';
   };
   q.addEventListener('input', draw); show.onchange = draw; sort.onchange = draw;
   drawForm(); priceDraws.push(draw); draw();
 }
 
+/* Official RuneScape Wiki pictures for calculator items (data/calc/images.json, built by tools/calc_images.py): exact
+   File:<item>.png or a file the Wiki itself redirects to. No picture -> no picture slot (never a stand-in). */
+let CALC_IMG = null;
+async function calcImages() { if (!CALC_IMG) { try { CALC_IMG = (await get('data/calc/images.json')).items || {}; } catch (e) { CALC_IMG = {}; } } return CALC_IMG; }
+const liIco = name => { const r = CALC_IMG && CALC_IMG[name]; return r ? `<img class="calc-li-ico" src="${esc(r.src)}" width="20" height="20" alt="" loading="lazy" decoding="async">` : ''; };
+const calcIco = name => { const r = CALC_IMG && CALC_IMG[name]; return r ? `<img class="calc-ico" src="${esc(r.src)}" width="32" height="32" alt="" loading="lazy" decoding="async" title="${esc(name)} (picture: RuneScape Wiki, ${esc(r.file)})">` : PH(); };
+const CALC_OPEN_KEY = 'dch_calc_dir_open_v1';
 async function calcView(arg) {
   const native = arg ? RS3Calc.nativeBySlug(arg) : null;
   if (arg && !native) { location.replace('#calculators'); return; }
-  if (native) return nativeCalcView(native);
-  const D = await get('data/calculators.json');
+  if (native) { await calcImages(); return nativeCalcView(native); }
+  const [D, L] = await Promise.all([get('data/calculators.json'), get('data/calc/directory.json').catch(() => null)]);
   const rows = (D.calculators || []).map(c => ({...c, path: RS3Calc.safeWikiPath(c.path)})).filter(c => c.path);
   const sections = [...new Set(rows.map(r => r.section))];
   const types = [...new Set(rows.map(r => r.type))].sort();
   const rev = D.sourceRevisionTimestamp ? new Date(D.sourceRevisionTimestamp).toLocaleDateString('en-US', {timeZone: 'America/New_York', day: 'numeric', month: 'short', year: 'numeric'}) : '';
+  /* Groups in the Wiki page's order (sections, then its "Fancy tiles" groups); each entry stays in its own catalog group. */
+  const groupMeta = new Map();
+  if (L) for (const s of L.sections) for (const g of s.groups) groupMeta.set(s.name + '|' + g.name, g);
+  const groupOrder = [];
+  if (L) for (const s of L.sections) for (const g of s.groups) groupOrder.push(s.name + '|' + g.name);
+  for (const r of rows) { const k = r.section + '|' + r.group; if (!groupOrder.includes(k)) groupOrder.push(k); }
+  const entryIcon = r => { const x = L && L.icons[r.section + '|' + r.group + '|' + (D.calculators.find(c => RS3Calc.safeWikiPath(c.path) === r.path && c.group === r.group) || {}).path];
+    return x && x.img ? `<img class="calc-ico" src="${esc(x.img.src)}" width="32" height="32" alt="" loading="lazy" decoding="async">` : PH(); };
+  const groupIcon = k => { const g = groupMeta.get(k); const src = g && (g.img ? g.img.src : g.skillIcon); return src ? `<img class="calc-gico" src="${esc(src)}" width="32" height="32" alt="" decoding="async">` : PH(); };
+  let openSet; try { openSet = new Set(JSON.parse(CALC_LS && CALC_LS.getItem(CALC_OPEN_KEY) || '[]')); } catch (e) { openSet = new Set(); }
+  const saveOpen = () => { try { CALC_LS && CALC_LS.setItem(CALC_OPEN_KEY, JSON.stringify([...openSet])); } catch (e) {} };
+  const isNative = r => !!RS3Calc.nativeFor(r.path);
+  const nNative = rows.filter(isNative).length;
   view.innerHTML = `<section class="panel calc-panel" aria-labelledby="calc-title">
-    <div class="ge-heading calc-heading"><h2 id="calc-title">Calculators</h2>
-      <a class="btn sub calc-source" href="${esc(D.source)}" target="_blank" rel="noopener noreferrer">Wiki Calculators page ↗</a></div>
-    <p class="note">${rows.length} calculators listed on the RuneScape Wiki <a href="${esc(D.source)}" target="_blank" rel="noopener noreferrer">Calculators</a> page${rev ? ` (revision of ${esc(rev)})` : ''}. Calculators marked <b>In app</b> are rebuilt here from the Wiki's own formulas and use live Grand Exchange trade prices; ${rows.filter(r => RS3Calc.nativeFor(r.path)).length ? 'the others' : 'all others'} open on the RuneScape Wiki in a new tab (the Wiki does not allow its pages to be embedded in other sites). This list is a dated snapshot; the Wiki page has the current full list.</p>
+    <div class="ge-heading calc-heading"><h2 id="calc-title">Calculators</h2></div>
+    <p class="note">Calculators built into the app: the RuneScape Wiki's own formulas and options, checked against the Wiki's results, with live Grand Exchange prices. ${nNative} ${nNative === 1 ? 'is' : 'are'} ready now; more are being built skill by skill (listed under "Not in the app yet").</p>
     <section class="calc-favs" aria-labelledby="calc-fav-title"><h3 id="calc-fav-title">★ Favourite calculators</h3>
       <div id="calc-fav-list"></div>
       <div class="row calc-add"><label for="calc-url" class="calc-add-label">Save another Wiki calculator</label>
@@ -1437,36 +1459,71 @@ async function calcView(arg) {
         <button class="btn sub" id="calc-add" type="button">Save</button></div>
       <p class="note" id="calc-msg" role="status" aria-live="polite"></p>
       <p class="note">Saved on this device only. Saving does not change your saved stats.</p></section>
+    <h3 class="calc-pick-h" id="calc-pick-h">Choose a skill</h3>
+    <nav class="calc-tiles" id="calc-tiles" aria-labelledby="calc-pick-h"></nav>
     <div class="row calc-filters">
       <input id="calc-q" type="search" placeholder="Search calculators" aria-label="Search calculators" autocomplete="off" autocapitalize="off" spellcheck="false">
       <select id="calc-sec" aria-label="Category"><option value="">All categories</option>${sections.map(s => `<option>${esc(s)}</option>`).join('')}</select>
       <select id="calc-type" aria-label="Calculator type"><option value="">All types</option>${types.map(s => `<option>${esc(s)}</option>`).join('')}</select></div>
     <p class="note" id="calc-count" role="status" aria-live="polite"></p>
-    <div id="calc-list"></div>
-    <p class="note">Calculator names and descriptions: RuneScape Wiki, CC BY-NC-SA 3.0. Calculators and their results belong to the Wiki.</p>
+    <section aria-labelledby="calc-native-h"><h3 id="calc-native-h" class="calc-sec-h">In the app</h3><div id="calc-native"></div></section>
+    <details class="calc-upcoming" id="calc-upcoming"><summary><span class="calc-group-name">Not in the app yet</span> <span class="calc-group-n" id="calc-up-n"></span></summary>
+      <p class="note">Listed on the RuneScape Wiki <a class="calc-src" href="${esc(D.source)}" target="_blank" rel="noopener noreferrer">Calculators</a> page${rev ? ` (revision of ${esc(rev)})` : ''} and not rebuilt in the app yet. Each has a link to its Wiki page as the source; the Wiki does not allow its pages to be embedded.</p>
+      <div class="row calc-expand"><button class="btn sub" type="button" id="calc-open-all">Expand all</button><button class="btn sub" type="button" id="calc-close-all">Collapse all</button></div>
+      <div id="calc-list"></div></details>
+    <p class="note">Calculator names, descriptions, groups and pictures: RuneScape Wiki${L ? ` (Calculators page revision ${esc(L.sourceRevision)})` : ''}, CC BY-NC-SA 3.0; RuneScape images © Jagex Ltd.</p>
   </section>`;
   const star = (c, on) => `<button class="calc-star${on ? ' on' : ''}" type="button" data-path="${esc(c.path)}" data-label="${esc(c.label)}" aria-pressed="${on}" aria-label="${on ? 'Remove' : 'Save'} ${esc(c.label)} ${on ? 'from' : 'to'} favourites" title="${on ? 'Remove from favourites' : 'Save to favourites'}">${on ? '★' : '☆'}</button>`;
-  const link = (path, label) => `<a class="calc-link" href="${esc(RS3Calc.wikiUrl(path))}" target="_blank" rel="noopener noreferrer">${esc(label)} <span aria-hidden="true">↗ Wiki</span><span class="sr-only"> (opens RuneScape Wiki in a new tab)</span></a>`;
-  const appLink = path => { const n = RS3Calc.nativeFor(path); return n ? `<a class="btn sub calc-native" href="#calculators/${esc(n.slug)}">Open in app</a> ` : ''; };
-  const status = path => RS3Calc.nativeFor(path) ? ' <span class="tag calc-in-app">In app · live prices</span>' : ' <span class="tag calc-wiki-only">Wiki only — not yet in app</span>';
+  const srcLink = (path, label) => `<a class="calc-src" href="${esc(RS3Calc.wikiUrl(path))}" target="_blank" rel="noopener noreferrer">${esc(label)} <span aria-hidden="true">↗</span><span class="sr-only"> (opens RuneScape Wiki in a new tab)</span></a>`;
+  const appHref = path => { const n = RS3Calc.nativeFor(path); return n ? '#calculators/' + n.slug : null; };
   let favs = RS3Calc.load(CALC_LS);
+  const favIcon = path => { const r = rows.find(x => x.path === path); return r ? entryIcon(r) : PH(); };
   const drawFavs = () => {
     $('#calc-fav-list').innerHTML = favs.length
-      ? `<ul class="calc-fav-ul">${favs.map(f => `<li class="calc-fav">${appLink(f.path)}${link(f.path, f.label)}<button class="btn sub calc-unfav" type="button" data-path="${esc(f.path)}" aria-label="Remove ${esc(f.label)} from favourites">Remove</button></li>`).join('')}</ul>`
+      ? `<ul class="calc-fav-ul">${favs.map(f => { const h = appHref(f.path);
+          return `<li class="calc-fav">${h ? `<a class="calc-open" href="${esc(h)}">${favIcon(f.path)}<span>${esc(f.label)}</span></a><span class="tag calc-in-app">In app</span>`
+            : `<span class="calc-fav-name">${favIcon(f.path)}<span>${esc(f.label)}</span></span><span class="tag calc-wiki-only">Not in the app yet</span>${srcLink(f.path, 'Wiki page')}`}<button class="btn sub calc-unfav" type="button" data-path="${esc(f.path)}" aria-label="Remove ${esc(f.label)} from favourites">Remove</button></li>`; }).join('')}</ul>`
       : '<p class="note">No favourites yet. Tap ☆ next to a calculator to save it here.</p>';
   };
   const q = $('#calc-q'), sec = $('#calc-sec'), typ = $('#calc-type');
+  const gid = k => 'calc-g-' + k.replace(/[^A-Za-z0-9]+/g, '-');
+  let pick = '';   // selected skill/group key ('' = all)
+  const card = r => { const n = RS3Calc.nativeFor(r.path);
+    return `<li class="calc-card">${star(r, RS3Calc.has(favs, r.path))}<a class="calc-open calc-card-main" href="#calculators/${esc(n.slug)}">${entryIcon(r)}<span class="calc-card-text"><span class="calc-card-title">${esc(r.label)}</span>${r.desc ? `<span class="calc-desc">${esc(r.desc)}</span>` : ''}</span><span class="calc-go" aria-hidden="true">Open ›</span></a>
+      <div class="calc-card-meta"><span class="tag calc-in-app">In app · live prices</span> <span class="tag calc-type">${esc(r.type)}</span> <small class="calc-sub">Formulas: ${srcLink(r.path, 'Wiki source')}</small></div></li>`; };
   const drawList = () => {
-    const n = norm(q.value), s = sec.value, t = typ.value;
-    const hit = rows.filter(r => (!s || r.section === s) && (!t || r.type === t) && (!n || norm(`${r.label} ${r.page} ${r.group} ${r.desc}`).includes(n)));
-    const groups = new Map();
-    for (const r of hit) { const k = r.section + '\u0000' + r.group; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(r); }
-    $('#calc-count').textContent = `${hit.length} of ${rows.length} calculators`;
-    $('#calc-list').innerHTML = hit.length ? [...groups.values()].map(g => `<section class="calc-group"><h3>${esc(g[0].group)} <small>${esc(g[0].section)}</small></h3><ul class="calc-ul">${g.map(r =>
-      `<li class="calc-item">${star(r, RS3Calc.has(favs, r.path))}<div class="calc-body">${appLink(r.path)}${link(r.path, r.label)} <span class="tag calc-type">${esc(r.type)}</span>${status(r.path)}${r.desc ? `<div class="calc-desc">${esc(r.desc)}</div>` : ''}</div></li>`).join('')}</ul></section>`).join('')
+    const n = norm(q.value), s = sec.value, t = typ.value, filtering = !!(n || t);
+    const base = rows.filter(r => (!s || r.section === s) && (!t || r.type === t) && (!n || norm(`${r.label} ${r.page} ${r.group} ${r.desc}`).includes(n)));
+    const hit = base.filter(r => !pick || r.section + '|' + r.group === pick);
+    const groups = new Map(groupOrder.map(k => [k, []]));
+    for (const r of base) groups.get(r.section + '|' + r.group).push(r);
+    const used = [...groups.entries()].filter(([, g]) => g.length);
+    let lastSec = null;
+    $('#calc-tiles').innerHTML = `<button type="button" class="calc-tile" data-g="" aria-pressed="${!pick}"><span class="calc-tile-name">All</span><span class="calc-tile-n">${base.filter(isNative).length} in app</span></button>` + used.map(([k, g]) => { const [sn, gn] = k.split('|'); const head = sn !== lastSec ? `<span class="calc-tile-sec">${esc(sn)}</span>` : ''; lastSec = sn;
+      const nn = g.filter(isNative).length;
+      return `${head}<button type="button" class="calc-tile${nn ? ' has-native' : ''}" data-g="${esc(k)}" aria-pressed="${pick === k}">${groupIcon(k)}<span class="calc-tile-name">${esc(gn)}</span><span class="calc-tile-n">${nn ? `${nn} in app` : `${g.length} soon`}</span></button>`; }).join('');
+    const nat = hit.filter(isNative), up = hit.filter(r => !isNative(r));
+    $('#calc-count').textContent = `${nat.length} in the app · ${up.length} not in the app yet${pick ? ' · ' + pick.split('|')[1] : ''}`;
+    const ng = new Map(groupOrder.map(k => [k, []])); for (const r of nat) ng.get(r.section + '|' + r.group).push(r);
+    const nUsed = [...ng.entries()].filter(([, g]) => g.length);
+    $('#calc-native').innerHTML = nUsed.length ? nUsed.map(([k, g]) => `<div class="calc-native-group"><h4 class="calc-ng-h">${groupIcon(k)}<span>${esc(k.split('|')[1])}</span></h4><ul class="calc-cards">${g.map(card).join('')}</ul></div>`).join('')
+      : `<p class="note">${pick ? 'No calculator for ' + esc(pick.split('|')[1]) + ' is in the app yet; it is listed under "Not in the app yet".' : 'No in-app calculator matches.'}</p>`;
+    const ug = new Map(groupOrder.map(k => [k, []])); for (const r of up) ug.get(r.section + '|' + r.group).push(r);
+    const uUsed = [...ug.entries()].filter(([, g]) => g.length);
+    $('#calc-up-n').textContent = String(up.length);
+    if (filtering || pick) $('#calc-upcoming').open = up.length > 0 && (filtering || pick !== '');
+    lastSec = null;
+    $('#calc-list').innerHTML = uUsed.length ? uUsed.map(([k, g]) => { const [sn, gn] = k.split('|'); const head = sn !== lastSec ? `<h4 class="calc-sec-h">${esc(sn)}</h4>` : ''; lastSec = sn;
+      const open = filtering || pick === k || openSet.has(k);
+      return `${head}<details class="calc-group" id="${gid(k)}" data-g="${esc(k)}"${open ? ' open' : ''}><summary>${groupIcon(k)}<span class="calc-group-name">${esc(gn)}</span> <small>${esc(sn)}</small><span class="calc-group-n" aria-label="${g.length} calculators">${g.length}</span></summary><ul class="calc-ul">${g.map(r =>
+        `<li class="calc-item">${star(r, RS3Calc.has(favs, r.path))}${entryIcon(r)}<div class="calc-body"><span class="calc-item-name">${esc(r.label)}</span> <span class="tag calc-type">${esc(r.type)}</span> <span class="tag calc-wiki-only">Not in the app yet</span>${r.desc ? `<div class="calc-desc">${esc(r.desc)}</div>` : ''}<small class="calc-sub">Source: ${srcLink(r.path, 'Wiki page')}</small></div></li>`).join('')}</ul></details>`; }).join('')
       : '<p class="note">No calculators match.</p>';
   };
-  const refreshStars = () => document.querySelectorAll('#calc-list .calc-star').forEach(b => {
+  $('#calc-list').addEventListener('toggle', e => { const d = e.target; if (!d.matches || !d.matches('details.calc-group') || q.value || typ.value || pick) return; if (d.open) openSet.add(d.dataset.g); else openSet.delete(d.dataset.g); saveOpen(); }, true);
+  $('#calc-tiles').addEventListener('click', e => { const b = e.target.closest('.calc-tile'); if (!b) return; pick = pick === b.dataset.g ? '' : b.dataset.g; drawList(); const g0 = b.dataset.g, nb = [...$('#calc-tiles').querySelectorAll('.calc-tile')].find(x => x.dataset.g === g0); if (nb) nb.focus({preventScroll: true}); });
+  $('#calc-open-all').onclick = () => { document.querySelectorAll('#calc-list details.calc-group').forEach(d => { d.open = true; }); };
+  $('#calc-close-all').onclick = () => { document.querySelectorAll('#calc-list details.calc-group').forEach(d => { d.open = false; }); };
+  const refreshStars = () => document.querySelectorAll('#calc-list .calc-star, #calc-native .calc-star').forEach(b => {
     const on = RS3Calc.has(favs, b.dataset.path), label = b.dataset.label;
     b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); b.textContent = on ? '★' : '☆';
     b.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${label} ${on ? 'from' : 'to'} favourites`); b.title = on ? 'Remove from favourites' : 'Save to favourites';
@@ -1477,7 +1534,7 @@ async function calcView(arg) {
     if (!r.ok) { msg('Could not save on this device (storage unavailable or full).'); return; }
     favs = r.favs; drawFavs(); refreshStars(); msg(r.on ? `Saved ${label} to favourites.` : `Removed ${label} from favourites.`);
   };
-  $('#calc-list').addEventListener('click', e => { const b = e.target.closest('.calc-star'); if (b) toggleFav(b.dataset.path, b.dataset.label); });
+  for (const id of ['#calc-list', '#calc-native']) $(id).addEventListener('click', e => { const b = e.target.closest('.calc-star'); if (b) toggleFav(b.dataset.path, b.dataset.label); });
   $('#calc-fav-list').addEventListener('click', e => { const b = e.target.closest('.calc-unfav'); if (!b) return; const f = favs.find(x => x.path === b.dataset.path); if (f) toggleFav(f.path, f.label); });
   const add = () => {
     const u = $('#calc-url'), p = RS3Calc.parseCalculatorUrl(u.value);
@@ -2246,7 +2303,7 @@ async function secretsView(arg) {
   const S = await get('data/secrets.json'), all = S.rows, cur = all.filter(r => !r.x);
   const hay = all.map(r => norm([r.t, r.d, r.rq.join(' '), r.rw.map(w => w.n).join(' '), r.s.join(' '), r.l ? r.l.rows.map(x => x.join(' ')).join(' ') : '', r.k.map(k => SEC_KL[k]).join(' '), (r.m || []).map(m => m.l).join(' ')].join(' ')));
   const cnt = k => cur.filter(r => r.k.includes(k)).length;
-  view.innerHTML = `<div class="panel"><h2>Easter Eggs &amp; hidden secrets</h2>
+  view.innerHTML = `${subnav('secrets')}<div class="panel"><h2>Easter Eggs &amp; hidden secrets</h2>
     <div class="note">${cur.length} hidden interactions the RS3 wiki documents as still possible in the game today, ${cur.filter(r => r.rw.length).length} of them give a reward. Open one for requirements and numbered steps. Pins sit only where the wiki gives coordinates.</div>
     ${searchBox('sq', 'Search easter eggs, rewards, quests… e.g. title, pet, candle', sessionStorage.sq || '')}
     <div class="chips" id="skind"><button data-v=""${!SEC.kind ? ' class="on"' : ''}>All</button>${S.kinds.filter(([k]) => cnt(k)).map(([k, l]) => `<button data-v="${k}"${SEC.kind === k ? ' class="on"' : ''}>${esc(l)}<span class="cnt">${cnt(k)}</span></button>`).join('')}</div>
