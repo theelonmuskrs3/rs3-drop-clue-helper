@@ -18,11 +18,12 @@ const kf = n => { const m = css.match(new RegExp('@keyframes ' + n + '\\{([\\s\\
   for (const [, ks, body] of (m[1] + '}').matchAll(/([\d.,%]+)\{([^}]*)\}/g)) for (const k of ks.split(',')) o[parseFloat(k)] = body; return o; };
 const bead = kf('ddsBead'), fall = kf('ddsFall');
 assert.equal(bead[0], bead[100], 'bead loop: end state = start state');
-for (const k of [0, 65.9, 100]) assert.match(fall[k], /opacity:0/, 'drop invisible at ' + k + '% (no visible reset)');
-assert.match(fall[66], /opacity:1/, 'drop appears when the neck breaks');
-assert.match(bead[64], /scale\(\.62,1\.8\)/, 'neck: thinnest and longest just before detaching'); assert.match(bead[67], /scale\(\.4,\.38\)/, 'snaps back as the drop leaves');
+for (const k of [0, 55.9, 100]) assert.match(fall[k], /opacity:0/, 'drop invisible at ' + k + '% (no visible reset)');
+for (const k of [56, 62, 66]) assert.match(fall[k], /opacity:1/, 'drop grows out of the bead before the break');
+assert.match(bead[64], /scale\(\.55,1\.6\)/, 'neck: thinnest and longest just before detaching'); assert.match(bead[67], /scale\(\.4,\.38\)/, 'snaps back as the drop leaves');
 // gravity: distance per equal time step grows (accelerating), from the bead down to --fall
-const ys = [[72, .03], [80, .17], [88, .42], [96, .78]]; for (const [k, f] of ys) assert.match(fall[k], new RegExp('var\\(--fall\\) \\* ' + String(f).replace('0.', '\\.')));
+const ys = [[72, .03], [80, .17], [88, .42], [96, .78]]; for (const [k, f] of ys) assert.match(fall[k], new RegExp('translateY\\(calc\\(5px \\+ \\(var\\(--fall\\) - 5px\\) \\* ' + String(f).replace('0.', '\\.') + '\\)\\)'));
+assert.match(fall[66], /translateY\(5px\)/, 'fall measured from the break point');
 const v = [[66, .0], ...ys, [100, 1]]; for (let i = 2; i < v.length; i++) { const a = (v[i - 1][1] - v[i - 2][1]) / (v[i - 1][0] - v[i - 2][0]), b = (v[i][1] - v[i - 1][1]) / (v[i][0] - v[i - 1][0]); assert.ok(b > a, 'accelerating at ' + v[i][0]); }
 for (const [k, f] of ys) assert.ok(Math.abs(f - ((k - 66) / 34) ** 2) < .01, 'free fall y = t² at ' + k);
 // stagger: unequal durations, negative delays (already mid-cycle on load), not in lockstep
@@ -44,15 +45,18 @@ console.log('PASS header dagger: HD Wiki picture, 4 drips in the rig, seamless b
   for (const m of css.matchAll(/\.nx-dds \.dds-drip::after[^{]*\{([^}]*)\}/g)) assert.doesNotMatch(m[1], /display:[^;]*!important/, 'no !important display on the drop');
   assert.ok((css.match(/\.nx-dds \.dds-drip::before\{animation:none!important\}/g) || []).length >= 2, 'Off and reduced motion both use !important stops');
 }
-{ // neck -> detach continuity: the drop appears exactly where and as wide as the stretched neck, the bead snaps back the same instant
-  const sc = s => s.match(/scale\(([\d.]+),([\d.]+)\)/).slice(1).map(Number);
-  const [nw, nh] = sc(bead[64]), [dw] = sc(fall[66]); assert.ok(Math.abs(nw - dw) < .01, 'drop width = neck width at the break');
-  const bw = 4, h = bw * 1.15, neckLen = h * nh - 1; const y0 = +fall[66].match(/translateY\(([\d.]+)px\)/)[1]; assert.ok(y0 <= neckLen && y0 >= neckLen * .3, 'drop starts inside the neck tip, not below it');
+{ // neck -> detach geometry (px, transform-origin top, both shapes width bw and height 1.15*bw, top -1px), interpolated between keyframes
+  const sc = s => s.match(/scale\(([\d.]+),([\d.]+)\)/).slice(1).map(Number), ty = s => +((s.match(/translateY\(([\d.]+)px\)/) || [0, NaN])[1]);
+  const lerp = (o, a, b, t, f) => a === b ? f(o[a]) : f(o[a]) + (f(o[b]) - f(o[a])) * (t - a) / (b - a);
+  for (const bw of [4, 3.4, 2.9, 2.8]) {   // desktop d1, phone d1/d2, phone d3/d4, desktop d4
+    const h = bw * 1.15, beadBot = (k, a, b) => -1 + h * lerp(bead, a, b, k, x => sc(x)[1]), dropTop = (k, a, b) => -1 + lerp(fall, a, b, k, ty);
+    assert.ok(dropTop(62, 62, 66) < beadBot(62, 58, 64) && dropTop(64, 62, 66) < beadBot(64, 64, 64), `bw ${bw}: bead and drop joined (hourglass) at 62-64%`);
+    const gap = (-1 + ty(fall[66]) + 0) - beadBot(67, 67, 67); assert.ok(gap >= 3, `bw ${bw}: >=3px clear gap right after the break (${gap.toFixed(1)}px)`);
+    const bulb = bw * sc(fall[62])[0], neck = bw * sc(bead[64])[0]; assert.ok(bulb > neck * 1.4, `bw ${bw}: drop bulb wider than the neck`);
+    console.log(`bw ${bw}px: neck ${neck.toFixed(2)}px, drop bulb ${bulb.toFixed(2)}px, gap after break ${gap.toFixed(1)}px`);
+  }
   assert.ok(sc(bead[67])[1] < .5, 'bead snaps back after the break');
-  // pixel sizes of the neck (what can physically be seen): desktop d1..d4 and the phone sizes
-  const px = (w) => (w * nw).toFixed(2) + 'x' + (w * 1.15 * nh).toFixed(1);
-  const desk = [4, 3.6, 3.2, 2.8].map(px), phone = [3, 3, 2.4, 2.4].map(px); console.log('neck px desktop', desk.join(' '), '| <=760px', phone.join(' '));
-  assert.ok(2.8 * nw >= 1.7 && 2.4 * nw >= 1.4, 'neck at least ~1.5px wide (at 46px it is near the 1px limit, so detachment is hard to resolve by eye)');
+  assert.match(css, /@media \(max-width:760px\)\{\.nx-dds\{width:46px;height:42px\}\.nx-dds \.dds-drip\{--fall:20px;--bw:3\.4px\}\.nx-dds \.d3,\.nx-dds \.d4\{--bw:2\.9px\}\}/, 'phone drips a bit bigger so the pinch can be seen');
 }
 assert.match(css, /\.nx-dds \.dds-pool\{[^}]*animation:ddsPool 3\.3s/, 'pool pulses with the d1 drop (3.3s)');
-console.log('PASS header dagger non-GUI gaps: reduced-motion cascade, neck/detach continuity, neck pixel size, pool timing (CSS only, not a visual check)');
+console.log('PASS header dagger non-GUI gaps: reduced-motion cascade, hourglass neck + clear detach gap at desktop and phone sizes, pool timing (CSS only, not a visual check)');
