@@ -1601,3 +1601,10 @@ th[aria-sort=ascending] .fd-arrow,th[aria-sort=descending] .fd-arrow{color:var(-
 .chimp .btn{padding:7px 11px;font-size:12px}.chimp .btn[disabled]{opacity:.55;cursor:not-allowed}
 .chimps{flex:1 1 100%;font-size:11.5px;color:var(--soft);line-height:1.35}
 @media (max-width:699px){.chhero .chimp{grid-column:1/-1;grid-row:auto}.chimp input{flex:1 1 120px}}
+/* saved characters picker (PR #21) */
+.chhero .chpick{grid-column:2;grid-row:4;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:8px;position:relative;z-index:1}
+.chhero .chimp{grid-row:5}
+.chpick label{font:700 10px var(--ui);letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+.chpick select{flex:0 1 200px;min-width:0;padding:6px 8px;border:1px solid #4a1d24;border-radius:8px;background:rgba(10,4,6,.85);color:#fff;font:600 13px var(--body)}
+.chpick .btn{padding:7px 11px;font-size:12px}
+@media (max-width:699px){.chhero .chpick{grid-column:1/-1;grid-row:auto}.chhero .chimp{grid-row:auto}.chpick select{flex:1 1 120px}}
