@@ -1439,12 +1439,13 @@ html{scrollbar-gutter:stable}
 .calc-group>summary small{color:var(--muted);font-weight:400}
 .calc-group-name{font-weight:700;min-width:0}
 .calc-group .calc-ul{padding-bottom:8px}
-.calc-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(8.5em,1fr));gap:6px;margin:12px 0 6px;min-width:0}
+.calc-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5em,1fr));gap:6px;margin:12px 0 6px;min-width:0}
 .calc-tile-sec{grid-column:1/-1;font-size:.85em;color:var(--muted);margin-top:6px}
-.calc-tile{display:flex;align-items:center;gap:6px;min-height:44px;padding:4px 8px;border:1px solid var(--edge2);border-radius:6px;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;min-width:0}
+.calc-tile{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;min-height:44px;padding:6px 4px;border:1px solid var(--edge2);border-radius:6px;background:transparent;color:inherit;font:inherit;text-align:center;cursor:pointer;min-width:0}
 .calc-tile:focus-visible,.calc-group>summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .calc-tile:hover{border-color:var(--gold)}
-.calc-tile-name{flex:1 1 auto;min-width:0;overflow-wrap:anywhere;font-size:.92em}
+/* skill labels wrap only between words (never inside a word): icon above, full tile width for the label */
+.calc-tile-name{display:block;max-width:100%;overflow-wrap:normal;word-break:normal;hyphens:manual;font-size:.9em;line-height:1.2}
 .calc-tile-n{color:var(--muted);font-size:.8em}
 .calc-tile>.noimg,.calc-group>summary>.noimg{display:block!important;visibility:hidden;width:32px;height:32px;flex:0 0 32px}
 .calc-expand{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0}
