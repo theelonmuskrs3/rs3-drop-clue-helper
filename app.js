@@ -1011,6 +1011,8 @@ async function nativeCalcView(n) {
   location.replace('#calculators');
 }
 const QUOTE_WHY = {missing: 'no recent trade price', stale: 'price is stale', offline: 'offline', unavailable: 'live source unavailable', unmapped: 'not found in the price source'};
+/* Before the first item list arrives every item is 'unmapped'; say it is loading rather than 'not found'. */
+const quoteWhy = st => st === 'unmapped' && !LIVE.book.mapping.size ? 'live prices loading' : QUOTE_WHY[st] || st;
 async function flaskDecantView(n) {
   const D = await get(n.data);
   const cols = D.columns, label = 'Decanting flasks for profit';
@@ -1042,12 +1044,12 @@ async function flaskDecantView(n) {
   star.onclick = () => { RS3Calc.toggle(CALC_LS, {path: D.path, label}); drawStar(); };
   drawStar();
   const q = $('#fd-q'), show = $('#fd-show'), sort = $('#fd-sort');
-  const why = (item, side) => { const x = LIVE.book.quote(item.id, side); return x.live ? null : `${item.n}: ${QUOTE_WHY[x.status] || x.status}`; };
+  const why = (item, side) => { const x = LIVE.book.quote(item.id, side); return x.live ? null : `${item.n}: ${quoteWhy(x.status)}`; };
   const quoteLine = (item, side) => { const x = side === 'sell' ? LIVE.book.sale(item.id) : LIVE.book.quote(item.id, 'buy');
-    return `<li>${esc(item.n)} — ${side === 'sell' ? 'Sell' : 'Buy'} ${x.live ? `${esc(gp(x.value))}${side === 'sell' ? ` · est. tax ${esc(gp(x.tax))} · net ${esc(gp(x.net))}` : ''}` : `<span class="calc-unavail">unavailable (${esc(QUOTE_WHY[x.status] || x.status)})</span>`}</li>`; };
+    return `<li>${esc(item.n)} — ${side === 'sell' ? 'Sell' : 'Buy'} ${x.live ? `${esc(gp(x.value))}${side === 'sell' ? ` · est. tax ${esc(gp(x.tax))} · net ${esc(gp(x.net))}` : ''}` : `<span class="calc-unavail">unavailable (${esc(quoteWhy(x.status))})</span>`}</li>`; };
   const draw = () => {
     const fq = LIVE.book.quote(D.flask.id, 'buy');
-    $('#fd-flask').textContent = fq.live ? `Empty potion flask: Buy ${gp(fq.value)} each (live).` : `Empty potion flask: live Buy price unavailable (${QUOTE_WHY[fq.status] || fq.status}), so every result below is unavailable.`;
+    $('#fd-flask').textContent = fq.live ? `Empty potion flask: Buy ${gp(fq.value)} each (live).` : `Empty potion flask: live Buy price unavailable (${quoteWhy(fq.status)}), so every result below is unavailable.`;
     const key = show.value === 'gross' ? 'grossProfit' : 'profit', nq = norm(q.value);
     let rows = D.rows.map(r => ({r, e: cols.map(c => {
       const m = RS3Calc.flaskModel(D, r, c), est = LIVE.book.estimate(m);

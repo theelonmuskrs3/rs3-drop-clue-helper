@@ -75,6 +75,7 @@ async function screen(hash, store = {}, feed = 'full') {
   w.fetch = async url => {
     url = String(url);
     if (url.startsWith(prices.BASE)) {
+      if (feed === 'hang') return new Promise(() => {});
       const ts = Date.now() / 1000 - 30;
       if (url.endsWith('/mapping')) return {ok: true, json: async () => items.map(x => ({id: x.id, name: x.n}))};
       const data = {}; for (const x of items) data[x.id] = {high: 1000, low: 900, highTime: ts, lowTime: ts};
@@ -87,7 +88,7 @@ async function screen(hash, store = {}, feed = 'full') {
   };
   w.addEventListener('error', e => errors.push(e.error));
   for (const f of ['live-prices.js', 'calculators.js', 'map.js', 'app.js']) w.eval(fs.readFileSync(path.join(base, f), 'utf8'));
-  for (let i = 0; i < 200; i++) { await tick(); if (w.document.querySelector('#live-price-status')?.textContent.includes('Last successful') && w.document.querySelector('#fd-table table')) break; }
+  for (let i = 0; i < (feed === 'hang' ? 30 : 200); i++) { await tick(); if (w.document.querySelector('#live-price-status')?.textContent.includes('Last successful') && w.document.querySelector('#fd-table table')) break; }
   await tick();
   assert.deepEqual(errors, [], hash + ' runtime errors');
   return {dom, w, d: w.document};
@@ -131,6 +132,12 @@ async function screen(hash, store = {}, feed = 'full') {
   const tds = [...d.querySelectorAll('#fd-table tbody td')]; assert.equal(tds.length, 344);
   assert.ok(tds.every(td => /^Unavailable/.test(td.textContent) && /Potion flask/.test(td.textContent)));
   assert.ok(!tds.some(td => /\b0 gp/.test(td.textContent)));
+  dom.window.close();
+  // before the price list arrives: 'loading', not 'not found', and never 0
+  ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'hang'));
+  { const cells = [...d.querySelectorAll('#fd-table tbody td')]; assert.equal(cells.length, 344);
+    assert.ok(cells.every(td => /^Unavailable/.test(td.textContent) && /live prices loading/.test(td.textContent) && !/not found/.test(td.textContent)));
+    assert.match(d.querySelector('#fd-flask').textContent, /live prices loading/); }
   dom.window.close();
   // unknown native slug falls back to the directory
   ({dom, w, d} = await screen('calculators/not-a-calc'));
