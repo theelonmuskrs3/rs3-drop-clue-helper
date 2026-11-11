@@ -33,7 +33,9 @@ const lim = k => [k === 'Constitution' ? 10 : 1, mx[k] || 99];
     [{v: 1, ok: true, name: '<img src=x>', skills: {}}, 'bad_response'], [{v: 1, ok: true, name: 'Zezima', skills: {}}, 'no_levels'], [{v: 1, ok: false, error: 'x<script>'}, 'bad_response']]) assert.equal(I.plan(r, cur, order, lim, cat).error, e);
   // app wiring: atomic apply with rollback, only completions ticked, name replaced only on success, honest not-live note, import off until a real URL
   const app = fs.readFileSync(path.join(base, 'app.js'), 'utf8'), html = fs.readFileSync(path.join(base, 'index.html'), 'utf8');
-  assert.match(html, /<meta name="dch-player-api" content="">/, 'no lookup URL configured yet: import shows as not switched on');
+  const U = 'https://rs3-drop-clue-player-data.rs3-drop-clue-helper.workers.dev';
+  assert.ok(html.includes(`<meta name="dch-player-api" content="${U}">`), 'lookup Worker URL configured');
+  assert.ok(html.includes(`connect-src 'self' https://prices.runescape.wiki https://api.weirdgloop.org ${U};`), 'CSP allows exactly that origin');
   assert.match(html, /<script src="player-import\.js"><\/script>\n<script src="app\.js"><\/script>/);
   assert.match(app, /if \(!p\.ok\) return say\(ACCT_ERR\[p\.error\] \|\| ACCT_ERR\.bad_response\);/);
   assert.match(app, /for \(const \[k, v\] of old\) \{ try \{ v == null \? localStorage\.removeItem\(k\) : localStorage\.setItem\(k, v\); \}/, 'rollback on storage failure');
