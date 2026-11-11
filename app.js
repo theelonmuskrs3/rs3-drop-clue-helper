@@ -3592,14 +3592,41 @@ async function fillWtg(el, D, name, page, drops) {
     ${usedIn}
     ${!hasAny && !wikiTxt ? `<div class="note wnone">The RS3 wiki documents no way to obtain this item: its page has no shop, drop, recipe, ground spawn, reward or availability entry and no sentence describing how to get it. <a href="${WIKI(page)}" target="_blank" rel="noopener noreferrer">Check the wiki page ↗</a></div>` : ''}
     <div class="note">Built from the RS3 wiki’s shop, drop, recipe, spawn and rotation data. Map pins sit only at coordinates the wiki states.</div></div>`;
+  wtgExpand(el);
 }
-document.addEventListener('click', async e => {
-  const b = e.target.closest('button[data-mm]'); if (!b) return;
+/* Item pages open fully (owner request pt348u): every "Where to get it" section is expanded for each newly opened item and every
+   wiki map location shows its map without a click. Maps start only when they near the screen, at most 2 at a time; Hide map still works. */
+function wtgExpand(el) {
+  el.querySelectorAll('details').forEach(d => { d.open = true; });
+  const seen = new Set(), btns = [...el.querySelectorAll('.wcard button[data-mm]'), ...el.querySelectorAll('button[data-mm]')].filter(b => !seen.has(b) && !seen.has(b.dataset.mm) && seen.add(b).add(b.dataset.mm));   // each location once, in its own card ("Where …"); a summary button with the same pins stays a button
+  if (!btns.length || typeof IntersectionObserver !== 'function') return;
+  const q = [];
+  let busy = 0;
+  const next = () => {
+    while (busy < 2 && q.length) {
+      const b = q.shift();
+      if (!b.isConnected || b.dataset.auto) continue;
+      b.dataset.auto = '1'; busy++;
+      mmOpen(b).finally(() => { busy--; next(); });
+    }
+  };
+  const io = new IntersectionObserver(es => {
+    for (const x of es) if (x.isIntersecting) { io.unobserve(x.target); q.push(x.target); }
+    next();
+  }, {rootMargin: '400px 0px'});
+  btns.forEach(b => io.observe(b));
+}
+async function mmOpen(b) {
   const host = b.closest('.wcard,.wsum,.trbody') || b.parentElement;
   let box = host.querySelector(':scope > .mmbox');
   if (box) { box.remove(); b.textContent = b.dataset.t; return; }
   box = document.createElement('div'); box.className = 'mmbox mapwrap'; host.appendChild(box); b.textContent = 'Hide map';
   try { await miniMap(box, JSON.parse(b.dataset.mm)); } catch (err) { box.innerHTML = `<div class="note">Could not load the map: ${esc(err.message)}</div>`; }
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('button[data-mm]'); if (!b) return;
+  b.dataset.auto = '1';   // a click wins over a pending automatic open
+  mmOpen(b);
 });
 
 /* a one-line source summary on every item card (search hits, Obtainable, Discontinued, gear / best-set / clue / quest / monster-drop item links) */
