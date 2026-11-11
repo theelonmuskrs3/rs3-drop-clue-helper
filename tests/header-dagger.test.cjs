@@ -37,3 +37,22 @@ assert.match(css, /html\[data-fx=off\] \.nx-dds \.dds-drip::after,html\[data-fx=
 assert.match(css, /html\[data-fx=low\] \.nx-dds \.d3,html\[data-fx=low\] \.nx-dds \.d4\{display:none\}/); assert.match(css, /html\[data-fx=low\] \.nx-dds \.dds-rig\{animation:none\}/);
 assert.doesNotMatch(css, /ddsDrip/);
 console.log('PASS header dagger: HD Wiki picture, 4 drips in the rig, seamless bead/drop loop, gravity fall, staggered negative phases', ph.map(p => p.toFixed(2)).join('/'), ', Low/Off/reduced motion, fits 72x65 and 46x42');
+// --- non-GUI gaps (CSS cascade/geometry only; NOT a visual check) ---
+{ // reduced motion: the media block comes after every other dagger rule, and nothing later turns the drop, the sway or the bead animation back on
+  const i = css.indexOf('@media (prefers-reduced-motion:reduce){.nx-dds .dds-drip::after'); assert.ok(i > 0);
+  const later = css.slice(i + 1); assert.doesNotMatch(later, /\.nx-dds[^{]*\{[^}]*(animation(-name)?:\s*dds|display:\s*block)/, 'nothing after the reduced-motion block re-enables dagger motion');
+  for (const m of css.matchAll(/\.nx-dds \.dds-drip::after[^{]*\{([^}]*)\}/g)) assert.doesNotMatch(m[1], /display:[^;]*!important/, 'no !important display on the drop');
+  assert.ok((css.match(/\.nx-dds \.dds-drip::before\{animation:none!important\}/g) || []).length >= 2, 'Off and reduced motion both use !important stops');
+}
+{ // neck -> detach continuity: the drop appears exactly where and as wide as the stretched neck, the bead snaps back the same instant
+  const sc = s => s.match(/scale\(([\d.]+),([\d.]+)\)/).slice(1).map(Number);
+  const [nw, nh] = sc(bead[64]), [dw] = sc(fall[66]); assert.ok(Math.abs(nw - dw) < .01, 'drop width = neck width at the break');
+  const bw = 4, h = bw * 1.15, neckLen = h * nh - 1; const y0 = +fall[66].match(/translateY\(([\d.]+)px\)/)[1]; assert.ok(y0 <= neckLen && y0 >= neckLen * .3, 'drop starts inside the neck tip, not below it');
+  assert.ok(sc(bead[67])[1] < .5, 'bead snaps back after the break');
+  // pixel sizes of the neck (what can physically be seen): desktop d1..d4 and the phone sizes
+  const px = (w) => (w * nw).toFixed(2) + 'x' + (w * 1.15 * nh).toFixed(1);
+  const desk = [4, 3.6, 3.2, 2.8].map(px), phone = [3, 3, 2.4, 2.4].map(px); console.log('neck px desktop', desk.join(' '), '| <=760px', phone.join(' '));
+  assert.ok(2.8 * nw >= 1.7 && 2.4 * nw >= 1.4, 'neck at least ~1.5px wide (at 46px it is near the 1px limit, so detachment is hard to resolve by eye)');
+}
+assert.match(css, /\.nx-dds \.dds-pool\{[^}]*animation:ddsPool 3\.3s/, 'pool pulses with the d1 drop (3.3s)');
+console.log('PASS header dagger non-GUI gaps: reduced-motion cascade, neck/detach continuity, neck pixel size, pool timing (CSS only, not a visual check)');
