@@ -1,0 +1,2117 @@
+{
+ "id": "flask-decanting",
+ "title": "Flask decanting",
+ "wikiPage": "Calculator:Herblore/Flask decanting",
+ "path": "/w/Calculator:Herblore/Flask_decanting",
+ "source": {
+  "pageRevision": 37202169,
+  "pageRevisionTimestamp": "2026-10-11T00:39:02Z",
+  "rowTemplate": "Calculator:Herblore/Flask decanting/row",
+  "rowTemplateRevision": 37202166,
+  "rowTemplateRevisionTimestamp": "2026-10-11T00:36:43Z",
+  "itemIds": "Module:GEIDs/data.json",
+  "itemIdsRevision": 37236241,
+  "mechanics": "Potion flask (revision 37196221)",
+  "license": "CC BY-NC-SA 3.0 (RuneScape Wiki)"
+ },
+ "flask": {
+  "n": "Potion flask",
+  "id": 23191
+ },
+ "columns": [
+  {
+   "key": "d1",
+   "label": "Decanting 6 (1)s into 1 flask",
+   "dose": 1,
+   "vials": 6,
+   "flasks": 1
+  },
+  {
+   "key": "d2",
+   "label": "Decanting 3 (2)s into 1 flask",
+   "dose": 2,
+   "vials": 3,
+   "flasks": 1
+  },
+  {
+   "key": "d3",
+   "label": "Decanting 4 (3)s into 2 flasks",
+   "dose": 3,
+   "vials": 4,
+   "flasks": 2
+  },
+  {
+   "key": "d4",
+   "label": "Decanting 3 (4)s into 2 flasks",
+   "dose": 4,
+   "vials": 3,
+   "flasks": 2
+  }
+ ],
+ "rows": [
+  {
+   "flask": "Aggression flask",
+   "vial": "Aggression potion",
+   "f6": {
+    "n": "Aggression flask (6)",
+    "id": 37939
+   },
+   "v1": {
+    "n": "Aggression potion (1)",
+    "id": 37965
+   },
+   "v2": {
+    "n": "Aggression potion (2)",
+    "id": 37967
+   },
+   "v3": {
+    "n": "Aggression potion (3)",
+    "id": 37969
+   },
+   "v4": {
+    "n": "Aggression potion (4)",
+    "id": 37971
+   }
+  },
+  {
+   "flask": "Agility flask",
+   "vial": "Agility potion",
+   "f6": {
+    "n": "Agility flask (6)",
+    "id": 23411
+   },
+   "v1": {
+    "n": "Agility potion (1)",
+    "id": 3038
+   },
+   "v2": {
+    "n": "Agility potion (2)",
+    "id": 3036
+   },
+   "v3": {
+    "n": "Agility potion (3)",
+    "id": 3034
+   },
+   "v4": {
+    "n": "Agility potion (4)",
+    "id": 3032
+   }
+  },
+  {
+   "flask": "Antifire flask",
+   "vial": "Antifire",
+   "f6": {
+    "n": "Antifire flask (6)",
+    "id": 23363
+   },
+   "v1": {
+    "n": "Antifire (1)",
+    "id": 2458
+   },
+   "v2": {
+    "n": "Antifire (2)",
+    "id": 2456
+   },
+   "v3": {
+    "n": "Antifire (3)",
+    "id": 2454
+   },
+   "v4": {
+    "n": "Antifire (4)",
+    "id": 2452
+   }
+  },
+  {
+   "flask": "Antipoison flask",
+   "vial": "Antipoison",
+   "f6": {
+    "n": "Antipoison flask (6)",
+    "id": 23315
+   },
+   "v1": {
+    "n": "Antipoison (1)",
+    "id": 179
+   },
+   "v2": {
+    "n": "Antipoison (2)",
+    "id": 177
+   },
+   "v3": {
+    "n": "Antipoison (3)",
+    "id": 175
+   },
+   "v4": {
+    "n": "Antipoison (4)",
+    "id": 2446
+   }
+  },
+  {
+   "flask": "Antipoison+ flask",
+   "vial": "Antipoison+",
+   "f6": {
+    "n": "Antipoison+ flask (6)",
+    "id": 23579
+   },
+   "v1": {
+    "n": "Antipoison+ (1)",
+    "id": 5949
+   },
+   "v2": {
+    "n": "Antipoison+ (2)",
+    "id": 5947
+   },
+   "v3": {
+    "n": "Antipoison+ (3)",
+    "id": 5945
+   },
+   "v4": {
+    "n": "Antipoison+ (4)",
+    "id": 5943
+   }
+  },
+  {
+   "flask": "Antipoison++ flask",
+   "vial": "Antipoison++",
+   "f6": {
+    "n": "Antipoison++ flask (6)",
+    "id": 23591
+   },
+   "v1": {
+    "n": "Antipoison++ (1)",
+    "id": 5958
+   },
+   "v2": {
+    "n": "Antipoison++ (2)",
+    "id": 5956
+   },
+   "v3": {
+    "n": "Antipoison++ (3)",
+    "id": 5954
+   },
+   "v4": {
+    "n": "Antipoison++ (4)",
+    "id": 5952
+   }
+  },
+  {
+   "flask": "Antisanguine flask",
+   "vial": "Antisanguine",
+   "f6": {
+    "n": "Antisanguine flask (6)",
+    "id": 60516
+   },
+   "v1": {
+    "n": "Antisanguine (1)",
+    "id": 60693
+   },
+   "v2": {
+    "n": "Antisanguine (2)",
+    "id": 60691
+   },
+   "v3": {
+    "n": "Antisanguine (3)",
+    "id": 60689
+   },
+   "v4": {
+    "n": "Antisanguine (4)",
+    "id": 60687
+   }
+  },
+  {
+   "flask": "Archaeology flask",
+   "vial": "Archaeology potion",
+   "f6": {
+    "n": "Archaeology flask (6)",
+    "id": 50819
+   },
+   "v1": {
+    "n": "Archaeology potion (1)",
+    "id": 50857
+   },
+   "v2": {
+    "n": "Archaeology potion (2)",
+    "id": 50855
+   },
+   "v3": {
+    "n": "Archaeology potion (3)",
+    "id": 50853
+   },
+   "v4": {
+    "n": "Archaeology potion (4)",
+    "id": 50851
+   }
+  },
+  {
+   "flask": "Attack flask",
+   "vial": "Attack potion",
+   "f6": {
+    "n": "Attack flask (6)",
+    "id": 23195
+   },
+   "v1": {
+    "n": "Attack potion (1)",
+    "id": 125
+   },
+   "v2": {
+    "n": "Attack potion (2)",
+    "id": 123
+   },
+   "v3": {
+    "n": "Attack potion (3)",
+    "id": 121
+   },
+   "v4": {
+    "n": "Attack potion (4)",
+    "id": 2428
+   }
+  },
+  {
+   "flask": "Charming potion flask",
+   "vial": "Charming potion",
+   "f6": {
+    "n": "Charming potion flask (6)",
+    "id": 48662
+   },
+   "v1": {
+    "n": "Charming potion (1)",
+    "id": 48990
+   },
+   "v2": {
+    "n": "Charming potion (2)",
+    "id": 48988
+   },
+   "v3": {
+    "n": "Charming potion (3)",
+    "id": 48986
+   },
+   "v4": {
+    "n": "Charming potion (4)",
+    "id": 48984
+   }
+  },
+  {
+   "flask": "Combat flask",
+   "vial": "Combat potion",
+   "f6": {
+    "n": "Combat flask (6)",
+    "id": 23447
+   },
+   "v1": {
+    "n": "Combat potion (1)",
+    "id": 9745
+   },
+   "v2": {
+    "n": "Combat potion (2)",
+    "id": 9743
+   },
+   "v3": {
+    "n": "Combat potion (3)",
+    "id": 9741
+   },
+   "v4": {
+    "n": "Combat potion (4)",
+    "id": 9739
+   }
+  },
+  {
+   "flask": "Cooking flask",
+   "vial": "Cooking potion",
+   "f6": {
+    "n": "Cooking flask (6)",
+    "id": 48590
+   },
+   "v1": {
+    "n": "Cooking potion (1)",
+    "id": 48998
+   },
+   "v2": {
+    "n": "Cooking potion (2)",
+    "id": 48996
+   },
+   "v3": {
+    "n": "Cooking potion (3)",
+    "id": 48994
+   },
+   "v4": {
+    "n": "Cooking potion (4)",
+    "id": 48992
+   }
+  },
+  {
+   "flask": "Crafting flask",
+   "vial": "Crafting potion",
+   "f6": {
+    "n": "Crafting flask (6)",
+    "id": 23459
+   },
+   "v1": {
+    "n": "Crafting potion (1)",
+    "id": 14844
+   },
+   "v2": {
+    "n": "Crafting potion (2)",
+    "id": 14842
+   },
+   "v3": {
+    "n": "Crafting potion (3)",
+    "id": 14840
+   },
+   "v4": {
+    "n": "Crafting potion (4)",
+    "id": 14838
+   }
+  },
+  {
+   "flask": "Defence flask",
+   "vial": "Defence potion",
+   "f6": {
+    "n": "Defence flask (6)",
+    "id": 23231
+   },
+   "v1": {
+    "n": "Defence potion (1)",
+    "id": 137
+   },
+   "v2": {
+    "n": "Defence potion (2)",
+    "id": 135
+   },
+   "v3": {
+    "n": "Defence potion (3)",
+    "id": 133
+   },
+   "v4": {
+    "n": "Defence potion (4)",
+    "id": 2432
+   }
+  },
+  {
+   "flask": "Divination flask",
+   "vial": "Divination potion",
+   "f6": {
+    "n": "Divination flask (6)",
+    "id": 43442
+   },
+   "v1": {
+    "n": "Divination potion (1)",
+    "id": 44051
+   },
+   "v2": {
+    "n": "Divination potion (2)",
+    "id": 44049
+   },
+   "v3": {
+    "n": "Divination potion (3)",
+    "id": 44047
+   },
+   "v4": {
+    "n": "Divination potion (4)",
+    "id": 44045
+   }
+  },
+  {
+   "flask": "Energy flask",
+   "vial": "Energy potion",
+   "f6": {
+    "n": "Energy flask (6)",
+    "id": 23375
+   },
+   "v1": {
+    "n": "Energy potion (1)",
+    "id": 3014
+   },
+   "v2": {
+    "n": "Energy potion (2)",
+    "id": 3012
+   },
+   "v3": {
+    "n": "Energy potion (3)",
+    "id": 3010
+   },
+   "v4": {
+    "n": "Energy potion (4)",
+    "id": 3008
+   }
+  },
+  {
+   "flask": "Fishing flask",
+   "vial": "Fishing potion",
+   "f6": {
+    "n": "Fishing flask (6)",
+    "id": 23267
+   },
+   "v1": {
+    "n": "Fishing potion (1)",
+    "id": 155
+   },
+   "v2": {
+    "n": "Fishing potion (2)",
+    "id": 153
+   },
+   "v3": {
+    "n": "Fishing potion (3)",
+    "id": 151
+   },
+   "v4": {
+    "n": "Fishing potion (4)",
+    "id": 2438
+   }
+  },
+  {
+   "flask": "Fletching flask",
+   "vial": "Fletching potion",
+   "f6": {
+    "n": "Fletching flask (6)",
+    "id": 23471
+   },
+   "v1": {
+    "n": "Fletching potion (1)",
+    "id": 14852
+   },
+   "v2": {
+    "n": "Fletching potion (2)",
+    "id": 14850
+   },
+   "v3": {
+    "n": "Fletching potion (3)",
+    "id": 14848
+   },
+   "v4": {
+    "n": "Fletching potion (4)",
+    "id": 14846
+   }
+  },
+  {
+   "flask": "Guthix balance flask",
+   "vial": "Guthix balance",
+   "f6": {
+    "n": "Guthix balance flask (6)",
+    "id": 23555
+   },
+   "v1": {
+    "n": "Guthix balance (1)",
+    "id": 7666
+   },
+   "v2": {
+    "n": "Guthix balance (2)",
+    "id": 7664
+   },
+   "v3": {
+    "n": "Guthix balance (3)",
+    "id": 7662
+   },
+   "v4": {
+    "n": "Guthix balance (4)",
+    "id": 7660
+   }
+  },
+  {
+   "flask": "Guthix rest flask",
+   "vial": "Guthix rest",
+   "f6": {
+    "n": "Guthix rest flask (6)",
+    "id": 29448
+   },
+   "v1": {
+    "n": "Guthix rest (1)",
+    "id": 4423
+   },
+   "v2": {
+    "n": "Guthix rest (2)",
+    "id": 4421
+   },
+   "v3": {
+    "n": "Guthix rest (3)",
+    "id": 4419
+   },
+   "v4": {
+    "n": "Guthix rest (4)",
+    "id": 4417
+   }
+  },
+  {
+   "flask": "Guthix's gift flask",
+   "vial": "Guthix's gift",
+   "f6": {
+    "n": "Guthix's gift flask (6)",
+    "id": 23179
+   },
+   "v1": {
+    "n": "Guthix's gift (1)",
+    "id": 20038
+   },
+   "v2": {
+    "n": "Guthix's gift (2)",
+    "id": 20037
+   },
+   "v3": {
+    "n": "Guthix's gift (3)",
+    "id": 20036
+   },
+   "v4": {
+    "n": "Guthix's gift (4)",
+    "id": 20035
+   }
+  },
+  {
+   "flask": "Harvest flask",
+   "vial": "Harvest potion",
+   "f6": {
+    "n": "Harvest flask (6)",
+    "id": 48638
+   },
+   "v1": {
+    "n": "Harvest potion (1)",
+    "id": 48974
+   },
+   "v2": {
+    "n": "Harvest potion (2)",
+    "id": 48972
+   },
+   "v3": {
+    "n": "Harvest potion (3)",
+    "id": 48970
+   },
+   "v4": {
+    "n": "Harvest potion (4)",
+    "id": 48968
+   }
+  },
+  {
+   "flask": "Hunter flask",
+   "vial": "Hunter potion",
+   "f6": {
+    "n": "Hunter flask (6)",
+    "id": 23435
+   },
+   "v1": {
+    "n": "Hunter potion (1)",
+    "id": 10004
+   },
+   "v2": {
+    "n": "Hunter potion (2)",
+    "id": 10002
+   },
+   "v3": {
+    "n": "Hunter potion (3)",
+    "id": 10000
+   },
+   "v4": {
+    "n": "Hunter potion (4)",
+    "id": 9998
+   }
+  },
+  {
+   "flask": "Invention flask",
+   "vial": "Invention potion",
+   "f6": {
+    "n": "Invention flask (6)",
+    "id": 43466
+   },
+   "v1": {
+    "n": "Invention potion (1)",
+    "id": 44067
+   },
+   "v2": {
+    "n": "Invention potion (2)",
+    "id": 44065
+   },
+   "v3": {
+    "n": "Invention potion (3)",
+    "id": 44063
+   },
+   "v4": {
+    "n": "Invention potion (4)",
+    "id": 44061
+   }
+  },
+  {
+   "flask": "Juju cooking flask",
+   "vial": "Juju cooking potion",
+   "f6": {
+    "n": "Juju cooking flask (6)",
+    "id": 23137
+   },
+   "v1": {
+    "n": "Juju cooking potion (1)",
+    "id": 20010
+   },
+   "v2": {
+    "n": "Juju cooking potion (2)",
+    "id": 20009
+   },
+   "v3": {
+    "n": "Juju cooking potion (3)",
+    "id": 20008
+   },
+   "v4": {
+    "n": "Juju cooking potion (4)",
+    "id": 20007
+   }
+  },
+  {
+   "flask": "Juju farming flask",
+   "vial": "Juju farming potion",
+   "f6": {
+    "n": "Juju farming flask (6)",
+    "id": 23143
+   },
+   "v1": {
+    "n": "Juju farming potion (1)",
+    "id": 20014
+   },
+   "v2": {
+    "n": "Juju farming potion (2)",
+    "id": 20013
+   },
+   "v3": {
+    "n": "Juju farming potion (3)",
+    "id": 20012
+   },
+   "v4": {
+    "n": "Juju farming potion (4)",
+    "id": 20011
+   }
+  },
+  {
+   "flask": "Juju fishing flask",
+   "vial": "Juju fishing potion",
+   "f6": {
+    "n": "Juju fishing flask (6)",
+    "id": 23155
+   },
+   "v1": {
+    "n": "Juju fishing potion (1)",
+    "id": 20022
+   },
+   "v2": {
+    "n": "Juju fishing potion (2)",
+    "id": 20021
+   },
+   "v3": {
+    "n": "Juju fishing potion (3)",
+    "id": 20020
+   },
+   "v4": {
+    "n": "Juju fishing potion (4)",
+    "id": 20019
+   }
+  },
+  {
+   "flask": "Juju hunter flask",
+   "vial": "Juju hunter potion",
+   "f6": {
+    "n": "Juju hunter flask (6)",
+    "id": 23161
+   },
+   "v1": {
+    "n": "Juju hunter potion (1)",
+    "id": 20026
+   },
+   "v2": {
+    "n": "Juju hunter potion (2)",
+    "id": 20025
+   },
+   "v3": {
+    "n": "Juju hunter potion (3)",
+    "id": 20024
+   },
+   "v4": {
+    "n": "Juju hunter potion (4)",
+    "id": 20023
+   }
+  },
+  {
+   "flask": "Juju mining flask",
+   "vial": "Juju mining potion",
+   "f6": {
+    "n": "Juju mining flask (6)",
+    "id": 23131
+   },
+   "v1": {
+    "n": "Juju mining potion (1)",
+    "id": 20006
+   },
+   "v2": {
+    "n": "Juju mining potion (2)",
+    "id": 20005
+   },
+   "v3": {
+    "n": "Juju mining potion (3)",
+    "id": 20004
+   },
+   "v4": {
+    "n": "Juju mining potion (4)",
+    "id": 20003
+   }
+  },
+  {
+   "flask": "Juju woodcutting flask",
+   "vial": "Juju woodcutting potion",
+   "f6": {
+    "n": "Juju woodcutting flask (6)",
+    "id": 23149
+   },
+   "v1": {
+    "n": "Juju woodcutting potion (1)",
+    "id": 20018
+   },
+   "v2": {
+    "n": "Juju woodcutting potion (2)",
+    "id": 20017
+   },
+   "v3": {
+    "n": "Juju woodcutting potion (3)",
+    "id": 20016
+   },
+   "v4": {
+    "n": "Juju woodcutting potion (4)",
+    "id": 20015
+   }
+  },
+  {
+   "flask": "Magic flask",
+   "vial": "Magic potion",
+   "f6": {
+    "n": "Magic flask (6)",
+    "id": 27532
+   },
+   "v1": {
+    "n": "Magic potion (1)",
+    "id": 27518
+   },
+   "v2": {
+    "n": "Magic potion (2)",
+    "id": 27516
+   },
+   "v3": {
+    "n": "Magic potion (3)",
+    "id": 27514
+   },
+   "v4": {
+    "n": "Magic potion (4)",
+    "id": 27512
+   }
+  },
+  {
+   "flask": "Mining flask",
+   "vial": "Mining potion",
+   "f6": {
+    "n": "Mining flask (6)",
+    "id": 52374
+   },
+   "v1": {
+    "n": "Mining potion (1)",
+    "id": 52440
+   },
+   "v2": {
+    "n": "Mining potion (2)",
+    "id": 52438
+   },
+   "v3": {
+    "n": "Mining potion (3)",
+    "id": 52436
+   },
+   "v4": {
+    "n": "Mining potion (4)",
+    "id": 52434
+   }
+  },
+  {
+   "flask": "Necromancy flask",
+   "vial": "Necromancy potion",
+   "f6": {
+    "n": "Necromancy flask (6)",
+    "id": 55263
+   },
+   "v1": {
+    "n": "Necromancy potion (1)",
+    "id": 55314
+   },
+   "v2": {
+    "n": "Necromancy potion (2)",
+    "id": 55312
+   },
+   "v3": {
+    "n": "Necromancy potion (3)",
+    "id": 55310
+   },
+   "v4": {
+    "n": "Necromancy potion (4)",
+    "id": 55308
+   }
+  },
+  {
+   "flask": "Perfect juju agility flask",
+   "vial": "Perfect juju agility potion",
+   "f6": {
+    "n": "Perfect juju agility flask (6)",
+    "id": 32907
+   },
+   "v1": {
+    "n": "Perfect juju agility potion (1)",
+    "id": 32785
+   },
+   "v2": {
+    "n": "Perfect juju agility potion (2)",
+    "id": 32787
+   },
+   "v3": {
+    "n": "Perfect juju agility potion (3)",
+    "id": 32789
+   },
+   "v4": {
+    "n": "Perfect juju agility potion (4)",
+    "id": 32791
+   }
+  },
+  {
+   "flask": "Perfect juju dungeoneering flask",
+   "vial": "Perfect juju dungeoneering potion",
+   "f6": {
+    "n": "Perfect juju dungeoneering flask (6)",
+    "id": 32943
+   },
+   "v1": {
+    "n": "Perfect juju dungeoneering potion (1)",
+    "id": 32809
+   },
+   "v2": {
+    "n": "Perfect juju dungeoneering potion (2)",
+    "id": 32811
+   },
+   "v3": {
+    "n": "Perfect juju dungeoneering potion (3)",
+    "id": 32813
+   },
+   "v4": {
+    "n": "Perfect juju dungeoneering potion (4)",
+    "id": 32815
+   }
+  },
+  {
+   "flask": "Perfect juju farming flask",
+   "vial": "Perfect juju farming potion",
+   "f6": {
+    "n": "Perfect juju farming flask (6)",
+    "id": 32871
+   },
+   "v1": {
+    "n": "Perfect juju farming potion (1)",
+    "id": 32761
+   },
+   "v2": {
+    "n": "Perfect juju farming potion (2)",
+    "id": 32763
+   },
+   "v3": {
+    "n": "Perfect juju farming potion (3)",
+    "id": 32765
+   },
+   "v4": {
+    "n": "Perfect juju farming potion (4)",
+    "id": 32767
+   }
+  },
+  {
+   "flask": "Perfect juju fishing flask",
+   "vial": "Perfect juju fishing potion",
+   "f6": {
+    "n": "Perfect juju fishing flask (6)",
+    "id": 35754
+   },
+   "v1": {
+    "n": "Perfect juju fishing potion (1)",
+    "id": 35735
+   },
+   "v2": {
+    "n": "Perfect juju fishing potion (2)",
+    "id": 35737
+   },
+   "v3": {
+    "n": "Perfect juju fishing potion (3)",
+    "id": 35739
+   },
+   "v4": {
+    "n": "Perfect juju fishing potion (4)",
+    "id": 35741
+   }
+  },
+  {
+   "flask": "Perfect juju herblore flask",
+   "vial": "Perfect juju herblore potion",
+   "f6": {
+    "n": "Perfect juju herblore flask (6)",
+    "id": 32931
+   },
+   "v1": {
+    "n": "Perfect juju herblore potion (1)",
+    "id": 32801
+   },
+   "v2": {
+    "n": "Perfect juju herblore potion (2)",
+    "id": 32803
+   },
+   "v3": {
+    "n": "Perfect juju herblore potion (3)",
+    "id": 32805
+   },
+   "v4": {
+    "n": "Perfect juju herblore potion (4)",
+    "id": 32807
+   }
+  },
+  {
+   "flask": "Perfect juju mining flask",
+   "vial": "Perfect juju mining potion",
+   "f6": {
+    "n": "Perfect juju mining flask (6)",
+    "id": 32883
+   },
+   "v1": {
+    "n": "Perfect juju mining potion (1)",
+    "id": 32769
+   },
+   "v2": {
+    "n": "Perfect juju mining potion (2)",
+    "id": 32771
+   },
+   "v3": {
+    "n": "Perfect juju mining potion (3)",
+    "id": 32773
+   },
+   "v4": {
+    "n": "Perfect juju mining potion (4)",
+    "id": 32775
+   }
+  },
+  {
+   "flask": "Perfect juju prayer flask",
+   "vial": "Perfect juju prayer potion",
+   "f6": {
+    "n": "Perfect juju prayer flask (6)",
+    "id": 32919
+   },
+   "v1": {
+    "n": "Perfect juju prayer potion (1)",
+    "id": 32793
+   },
+   "v2": {
+    "n": "Perfect juju prayer potion (2)",
+    "id": 32795
+   },
+   "v3": {
+    "n": "Perfect juju prayer potion (3)",
+    "id": 32797
+   },
+   "v4": {
+    "n": "Perfect juju prayer potion (4)",
+    "id": 32799
+   }
+  },
+  {
+   "flask": "Perfect juju smithing flask",
+   "vial": "Perfect juju smithing potion",
+   "f6": {
+    "n": "Perfect juju smithing flask (6)",
+    "id": 32895
+   },
+   "v1": {
+    "n": "Perfect juju smithing potion (1)",
+    "id": 32777
+   },
+   "v2": {
+    "n": "Perfect juju smithing potion (2)",
+    "id": 32779
+   },
+   "v3": {
+    "n": "Perfect juju smithing potion (3)",
+    "id": 32781
+   },
+   "v4": {
+    "n": "Perfect juju smithing potion (4)",
+    "id": 32783
+   }
+  },
+  {
+   "flask": "Perfect juju woodcutting flask",
+   "vial": "Perfect juju woodcutting potion",
+   "f6": {
+    "n": "Perfect juju woodcutting flask (6)",
+    "id": 32859
+   },
+   "v1": {
+    "n": "Perfect juju woodcutting potion (1)",
+    "id": 32753
+   },
+   "v2": {
+    "n": "Perfect juju woodcutting potion (2)",
+    "id": 32755
+   },
+   "v3": {
+    "n": "Perfect juju woodcutting potion (3)",
+    "id": 32757
+   },
+   "v4": {
+    "n": "Perfect juju woodcutting potion (4)",
+    "id": 32759
+   }
+  },
+  {
+   "flask": "Prayer flask",
+   "vial": "Prayer potion",
+   "f6": {
+    "n": "Prayer flask (6)",
+    "id": 23243
+   },
+   "v1": {
+    "n": "Prayer potion (1)",
+    "id": 143
+   },
+   "v2": {
+    "n": "Prayer potion (2)",
+    "id": 141
+   },
+   "v3": {
+    "n": "Prayer potion (3)",
+    "id": 139
+   },
+   "v4": {
+    "n": "Prayer potion (4)",
+    "id": 2434
+   }
+  },
+  {
+   "flask": "Prayer renewal flask",
+   "vial": "Prayer renewal",
+   "f6": {
+    "n": "Prayer renewal flask (6)",
+    "id": 23609
+   },
+   "v1": {
+    "n": "Prayer renewal (1)",
+    "id": 21636
+   },
+   "v2": {
+    "n": "Prayer renewal (2)",
+    "id": 21634
+   },
+   "v3": {
+    "n": "Prayer renewal (3)",
+    "id": 21632
+   },
+   "v4": {
+    "n": "Prayer renewal (4)",
+    "id": 21630
+   }
+  },
+  {
+   "flask": "Ranging flask",
+   "vial": "Ranging potion",
+   "f6": {
+    "n": "Ranging flask (6)",
+    "id": 27520
+   },
+   "v1": {
+    "n": "Ranging potion (1)",
+    "id": 27510
+   },
+   "v2": {
+    "n": "Ranging potion (2)",
+    "id": 27508
+   },
+   "v3": {
+    "n": "Ranging potion (3)",
+    "id": 27506
+   },
+   "v4": {
+    "n": "Ranging potion (4)",
+    "id": 27504
+   }
+  },
+  {
+   "flask": "Relicym's balm flask",
+   "vial": "Relicym's balm",
+   "f6": {
+    "n": "Relicym's balm flask (6)",
+    "id": 23537
+   },
+   "v1": {
+    "n": "Relicym's balm (1)",
+    "id": 4848
+   },
+   "v2": {
+    "n": "Relicym's balm (2)",
+    "id": 4846
+   },
+   "v3": {
+    "n": "Relicym's balm (3)",
+    "id": 4844
+   },
+   "v4": {
+    "n": "Relicym's balm (4)",
+    "id": 4842
+   }
+  },
+  {
+   "flask": "Restore flask",
+   "vial": "Restore potion",
+   "f6": {
+    "n": "Restore flask (6)",
+    "id": 23219
+   },
+   "v1": {
+    "n": "Restore potion (1)",
+    "id": 131
+   },
+   "v2": {
+    "n": "Restore potion (2)",
+    "id": 129
+   },
+   "v3": {
+    "n": "Restore potion (3)",
+    "id": 127
+   },
+   "v4": {
+    "n": "Restore potion (4)",
+    "id": 2430
+   }
+  },
+  {
+   "flask": "Runecrafting flask",
+   "vial": "Runecrafting potion",
+   "f6": {
+    "n": "Runecrafting flask (6)",
+    "id": 43454
+   },
+   "v1": {
+    "n": "Runecrafting potion (1)",
+    "id": 44059
+   },
+   "v2": {
+    "n": "Runecrafting potion (2)",
+    "id": 44057
+   },
+   "v3": {
+    "n": "Runecrafting potion (3)",
+    "id": 44055
+   },
+   "v4": {
+    "n": "Runecrafting potion (4)",
+    "id": 44053
+   }
+  },
+  {
+   "flask": "Sanfew serum flask",
+   "vial": "Sanfew serum",
+   "f6": {
+    "n": "Sanfew serum flask (6)",
+    "id": 23567
+   },
+   "v1": {
+    "n": "Sanfew serum (1)",
+    "id": 10931
+   },
+   "v2": {
+    "n": "Sanfew serum (2)",
+    "id": 10929
+   },
+   "v3": {
+    "n": "Sanfew serum (3)",
+    "id": 10927
+   },
+   "v4": {
+    "n": "Sanfew serum (4)",
+    "id": 10925
+   }
+  },
+  {
+   "flask": "Saradomin brew flask",
+   "vial": "Saradomin brew",
+   "f6": {
+    "n": "Saradomin brew flask (6)",
+    "id": 23351
+   },
+   "v1": {
+    "n": "Saradomin brew (1)",
+    "id": 6691
+   },
+   "v2": {
+    "n": "Saradomin brew (2)",
+    "id": 6689
+   },
+   "v3": {
+    "n": "Saradomin brew (3)",
+    "id": 6687
+   },
+   "v4": {
+    "n": "Saradomin brew (4)",
+    "id": 6685
+   }
+  },
+  {
+   "flask": "Saradomin's blessing flask",
+   "vial": "Saradomin's blessing",
+   "f6": {
+    "n": "Saradomin's blessing flask (6)",
+    "id": 23173
+   },
+   "v1": {
+    "n": "Saradomin's blessing (1)",
+    "id": 20034
+   },
+   "v2": {
+    "n": "Saradomin's blessing (2)",
+    "id": 20033
+   },
+   "v3": {
+    "n": "Saradomin's blessing (3)",
+    "id": 20032
+   },
+   "v4": {
+    "n": "Saradomin's blessing (4)",
+    "id": 20031
+   }
+  },
+  {
+   "flask": "Scentless flask",
+   "vial": "Scentless potion",
+   "f6": {
+    "n": "Scentless flask (6)",
+    "id": 23167
+   },
+   "v1": {
+    "n": "Scentless potion (1)",
+    "id": 20030
+   },
+   "v2": {
+    "n": "Scentless potion (2)",
+    "id": 20029
+   },
+   "v3": {
+    "n": "Scentless potion (3)",
+    "id": 20028
+   },
+   "v4": {
+    "n": "Scentless potion (4)",
+    "id": 20027
+   }
+  },
+  {
+   "flask": "Spirit attraction flask",
+   "vial": "Spirit attraction potion",
+   "f6": {
+    "n": "Spirit attraction flask (6)",
+    "id": 50831
+   },
+   "v1": {
+    "n": "Spirit attraction potion (1)",
+    "id": 50865
+   },
+   "v2": {
+    "n": "Spirit attraction potion (2)",
+    "id": 50863
+   },
+   "v3": {
+    "n": "Spirit attraction potion (3)",
+    "id": 50861
+   },
+   "v4": {
+    "n": "Spirit attraction potion (4)",
+    "id": 50859
+   }
+  },
+  {
+   "flask": "Strength flask",
+   "vial": "Strength potion",
+   "f6": {
+    "n": "Strength flask (6)",
+    "id": 23207
+   },
+   "v1": {
+    "n": "Strength potion (1)",
+    "id": 119
+   },
+   "v2": {
+    "n": "Strength potion (2)",
+    "id": 117
+   },
+   "v3": {
+    "n": "Strength potion (3)",
+    "id": 115
+   },
+   "v4": {
+    "n": "Strength potion (4)",
+    "id": 113
+   }
+  },
+  {
+   "flask": "Summoning flask",
+   "vial": "Summoning potion",
+   "f6": {
+    "n": "Summoning flask (6)",
+    "id": 23621
+   },
+   "v1": {
+    "n": "Summoning potion (1)",
+    "id": 12146
+   },
+   "v2": {
+    "n": "Summoning potion (2)",
+    "id": 12144
+   },
+   "v3": {
+    "n": "Summoning potion (3)",
+    "id": 12142
+   },
+   "v4": {
+    "n": "Summoning potion (4)",
+    "id": 12140
+   }
+  },
+  {
+   "flask": "Summoning renewal flask",
+   "vial": "Summoning renewal",
+   "f6": {
+    "n": "Summoning renewal flask (6)",
+    "id": 50807
+   },
+   "v1": {
+    "n": "Summoning renewal (1)",
+    "id": 50849
+   },
+   "v2": {
+    "n": "Summoning renewal (2)",
+    "id": 50847
+   },
+   "v3": {
+    "n": "Summoning renewal (3)",
+    "id": 50845
+   },
+   "v4": {
+    "n": "Summoning renewal (4)",
+    "id": 50843
+   }
+  },
+  {
+   "flask": "Super antifire flask",
+   "vial": "Super antifire",
+   "f6": {
+    "n": "Super antifire flask (6)",
+    "id": 23489
+   },
+   "v1": {
+    "n": "Super antifire (1)",
+    "id": 15307
+   },
+   "v2": {
+    "n": "Super antifire (2)",
+    "id": 15306
+   },
+   "v3": {
+    "n": "Super antifire (3)",
+    "id": 15305
+   },
+   "v4": {
+    "n": "Super antifire (4)",
+    "id": 15304
+   }
+  },
+  {
+   "flask": "Super antipoison flask",
+   "vial": "Super antipoison",
+   "f6": {
+    "n": "Super antipoison flask (6)",
+    "id": 23327
+   },
+   "v1": {
+    "n": "Super antipoison (1)",
+    "id": 185
+   },
+   "v2": {
+    "n": "Super antipoison (2)",
+    "id": 183
+   },
+   "v3": {
+    "n": "Super antipoison (3)",
+    "id": 181
+   },
+   "v4": {
+    "n": "Super antipoison (4)",
+    "id": 2448
+   }
+  },
+  {
+   "flask": "Super antisanguine flask",
+   "vial": "Super antisanguine",
+   "f6": {
+    "n": "Super antisanguine flask (6)",
+    "id": 63966
+   },
+   "v1": {
+    "n": "Super antisanguine (1)",
+    "id": 64025
+   },
+   "v2": {
+    "n": "Super antisanguine (2)",
+    "id": 64023
+   },
+   "v3": {
+    "n": "Super antisanguine (3)",
+    "id": 64021
+   },
+   "v4": {
+    "n": "Super antisanguine (4)",
+    "id": 64019
+   }
+  },
+  {
+   "flask": "Super attack flask",
+   "vial": "Super attack",
+   "f6": {
+    "n": "Super attack flask (6)",
+    "id": 23255
+   },
+   "v1": {
+    "n": "Super attack (1)",
+    "id": 149
+   },
+   "v2": {
+    "n": "Super attack (2)",
+    "id": 147
+   },
+   "v3": {
+    "n": "Super attack (3)",
+    "id": 145
+   },
+   "v4": {
+    "n": "Super attack (4)",
+    "id": 2436
+   }
+  },
+  {
+   "flask": "Super cooking flask",
+   "vial": "Super cooking potion",
+   "f6": {
+    "n": "Super cooking flask (6)",
+    "id": 48602
+   },
+   "v1": {
+    "n": "Super cooking potion (1)",
+    "id": 49006
+   },
+   "v2": {
+    "n": "Super cooking potion (2)",
+    "id": 49004
+   },
+   "v3": {
+    "n": "Super cooking potion (3)",
+    "id": 49002
+   },
+   "v4": {
+    "n": "Super cooking potion (4)",
+    "id": 49000
+   }
+  },
+  {
+   "flask": "Super defence flask",
+   "vial": "Super defence",
+   "f6": {
+    "n": "Super defence flask (6)",
+    "id": 23291
+   },
+   "v1": {
+    "n": "Super defence (1)",
+    "id": 167
+   },
+   "v2": {
+    "n": "Super defence (2)",
+    "id": 165
+   },
+   "v3": {
+    "n": "Super defence (3)",
+    "id": 163
+   },
+   "v4": {
+    "n": "Super defence (4)",
+    "id": 2442
+   }
+  },
+  {
+   "flask": "Super divination flask",
+   "vial": "Super divination",
+   "f6": {
+    "n": "Super divination flask (6)",
+    "id": 43478
+   },
+   "v1": {
+    "n": "Super divination (1)",
+    "id": 44075
+   },
+   "v2": {
+    "n": "Super divination (2)",
+    "id": 44073
+   },
+   "v3": {
+    "n": "Super divination (3)",
+    "id": 44071
+   },
+   "v4": {
+    "n": "Super divination (4)",
+    "id": 44069
+   }
+  },
+  {
+   "flask": "Super energy flask",
+   "vial": "Super energy",
+   "f6": {
+    "n": "Super energy flask (6)",
+    "id": 23387
+   },
+   "v1": {
+    "n": "Super energy (1)",
+    "id": 3022
+   },
+   "v2": {
+    "n": "Super energy (2)",
+    "id": 3020
+   },
+   "v3": {
+    "n": "Super energy (3)",
+    "id": 3018
+   },
+   "v4": {
+    "n": "Super energy (4)",
+    "id": 3016
+   }
+  },
+  {
+   "flask": "Super fishing flask",
+   "vial": "Super fishing potion",
+   "f6": {
+    "n": "Super fishing flask (6)",
+    "id": 52350
+   },
+   "v1": {
+    "n": "Super fishing potion (1)",
+    "id": 52424
+   },
+   "v2": {
+    "n": "Super fishing potion (2)",
+    "id": 52422
+   },
+   "v3": {
+    "n": "Super fishing potion (3)",
+    "id": 52420
+   },
+   "v4": {
+    "n": "Super fishing potion (4)",
+    "id": 52418
+   }
+  },
+  {
+   "flask": "Super Guthix brew flask",
+   "vial": "Super Guthix rest",
+   "f6": {
+    "n": "Super Guthix brew flask (6)",
+    "id": 28239
+   },
+   "v1": {
+    "n": "Super Guthix rest (1)",
+    "id": 28213
+   },
+   "v2": {
+    "n": "Super Guthix rest (2)",
+    "id": 28211
+   },
+   "v3": {
+    "n": "Super Guthix rest (3)",
+    "id": 28209
+   },
+   "v4": {
+    "n": "Super Guthix rest (4)",
+    "id": 28207
+   }
+  },
+  {
+   "flask": "Super hunter flask",
+   "vial": "Super hunter",
+   "f6": {
+    "n": "Super hunter flask (6)",
+    "id": 43514
+   },
+   "v1": {
+    "n": "Super hunter (1)",
+    "id": 44099
+   },
+   "v2": {
+    "n": "Super hunter (2)",
+    "id": 44097
+   },
+   "v3": {
+    "n": "Super hunter (3)",
+    "id": 44095
+   },
+   "v4": {
+    "n": "Super hunter (4)",
+    "id": 44093
+   }
+  },
+  {
+   "flask": "Super invention flask",
+   "vial": "Super invention",
+   "f6": {
+    "n": "Super invention flask (6)",
+    "id": 43502
+   },
+   "v1": {
+    "n": "Super invention (1)",
+    "id": 44091
+   },
+   "v2": {
+    "n": "Super invention (2)",
+    "id": 44089
+   },
+   "v3": {
+    "n": "Super invention (3)",
+    "id": 44087
+   },
+   "v4": {
+    "n": "Super invention (4)",
+    "id": 44085
+   }
+  },
+  {
+   "flask": "Super magic flask",
+   "vial": "Super magic potion",
+   "f6": {
+    "n": "Super magic flask (6)",
+    "id": 23423
+   },
+   "v1": {
+    "n": "Super magic potion (1)",
+    "id": 3046
+   },
+   "v2": {
+    "n": "Super magic potion (2)",
+    "id": 3044
+   },
+   "v3": {
+    "n": "Super magic potion (3)",
+    "id": 3042
+   },
+   "v4": {
+    "n": "Super magic potion (4)",
+    "id": 3040
+   }
+  },
+  {
+   "flask": "Super mining flask",
+   "vial": "Super mining potion",
+   "f6": {
+    "n": "Super mining flask (6)",
+    "id": 52398
+   },
+   "v1": {
+    "n": "Super mining potion (1)",
+    "id": 52456
+   },
+   "v2": {
+    "n": "Super mining potion (2)",
+    "id": 52454
+   },
+   "v3": {
+    "n": "Super mining potion (3)",
+    "id": 52452
+   },
+   "v4": {
+    "n": "Super mining potion (4)",
+    "id": 52450
+   }
+  },
+  {
+   "flask": "Super necromancy flask",
+   "vial": "Super necromancy",
+   "f6": {
+    "n": "Super necromancy flask (6)",
+    "id": 55275
+   },
+   "v1": {
+    "n": "Super necromancy (1)",
+    "id": 55322
+   },
+   "v2": {
+    "n": "Super necromancy (2)",
+    "id": 55320
+   },
+   "v3": {
+    "n": "Super necromancy (3)",
+    "id": 55318
+   },
+   "v4": {
+    "n": "Super necromancy (4)",
+    "id": 55316
+   }
+  },
+  {
+   "flask": "Super prayer flask",
+   "vial": "Super prayer",
+   "f6": {
+    "n": "Super prayer flask (6)",
+    "id": 23525
+   },
+   "v1": {
+    "n": "Super prayer (1)",
+    "id": 15331
+   },
+   "v2": {
+    "n": "Super prayer (2)",
+    "id": 15330
+   },
+   "v3": {
+    "n": "Super prayer (3)",
+    "id": 15329
+   },
+   "v4": {
+    "n": "Super prayer (4)",
+    "id": 15328
+   }
+  },
+  {
+   "flask": "Super ranging flask",
+   "vial": "Super ranging potion",
+   "f6": {
+    "n": "Super ranging flask (6)",
+    "id": 23303
+   },
+   "v1": {
+    "n": "Super ranging potion (1)",
+    "id": 173
+   },
+   "v2": {
+    "n": "Super ranging potion (2)",
+    "id": 171
+   },
+   "v3": {
+    "n": "Super ranging potion (3)",
+    "id": 169
+   },
+   "v4": {
+    "n": "Super ranging potion (4)",
+    "id": 2444
+   }
+  },
+  {
+   "flask": "Super restore flask",
+   "vial": "Super restore",
+   "f6": {
+    "n": "Super restore flask (6)",
+    "id": 23399
+   },
+   "v1": {
+    "n": "Super restore (1)",
+    "id": 3030
+   },
+   "v2": {
+    "n": "Super restore (2)",
+    "id": 3028
+   },
+   "v3": {
+    "n": "Super restore (3)",
+    "id": 3026
+   },
+   "v4": {
+    "n": "Super restore (4)",
+    "id": 3024
+   }
+  },
+  {
+   "flask": "Super runecrafting flask",
+   "vial": "Super runecrafting",
+   "f6": {
+    "n": "Super runecrafting flask (6)",
+    "id": 43490
+   },
+   "v1": {
+    "n": "Super runecrafting (1)",
+    "id": 44083
+   },
+   "v2": {
+    "n": "Super runecrafting (2)",
+    "id": 44081
+   },
+   "v3": {
+    "n": "Super runecrafting (3)",
+    "id": 44079
+   },
+   "v4": {
+    "n": "Super runecrafting (4)",
+    "id": 44077
+   }
+  },
+  {
+   "flask": "Super Saradomin brew flask",
+   "vial": "Super Saradomin brew",
+   "f6": {
+    "n": "Super Saradomin brew flask (6)",
+    "id": 28227
+   },
+   "v1": {
+    "n": "Super Saradomin brew (1)",
+    "id": 28197
+   },
+   "v2": {
+    "n": "Super Saradomin brew (2)",
+    "id": 28195
+   },
+   "v3": {
+    "n": "Super Saradomin brew (3)",
+    "id": 28193
+   },
+   "v4": {
+    "n": "Super Saradomin brew (4)",
+    "id": 28191
+   }
+  },
+  {
+   "flask": "Super strength flask",
+   "vial": "Super strength",
+   "f6": {
+    "n": "Super strength flask (6)",
+    "id": 23279
+   },
+   "v1": {
+    "n": "Super strength (1)",
+    "id": 161
+   },
+   "v2": {
+    "n": "Super strength (2)",
+    "id": 159
+   },
+   "v3": {
+    "n": "Super strength (3)",
+    "id": 157
+   },
+   "v4": {
+    "n": "Super strength (4)",
+    "id": 2440
+   }
+  },
+  {
+   "flask": "Super woodcutting flask",
+   "vial": "Super woodcutting potion",
+   "f6": {
+    "n": "Super woodcutting flask (6)",
+    "id": 52386
+   },
+   "v1": {
+    "n": "Super woodcutting potion (1)",
+    "id": 52448
+   },
+   "v2": {
+    "n": "Super woodcutting potion (2)",
+    "id": 52446
+   },
+   "v3": {
+    "n": "Super woodcutting potion (3)",
+    "id": 52444
+   },
+   "v4": {
+    "n": "Super woodcutting potion (4)",
+    "id": 52442
+   }
+  },
+  {
+   "flask": "Super Zamorak brew flask",
+   "vial": "Super Zamorak brew",
+   "f6": {
+    "n": "Super Zamorak brew flask (6)",
+    "id": 28215
+   },
+   "v1": {
+    "n": "Super Zamorak brew (1)",
+    "id": 28205
+   },
+   "v2": {
+    "n": "Super Zamorak brew (2)",
+    "id": 28203
+   },
+   "v3": {
+    "n": "Super Zamorak brew (3)",
+    "id": 28201
+   },
+   "v4": {
+    "n": "Super Zamorak brew (4)",
+    "id": 28199
+   }
+  },
+  {
+   "flask": "Weapon poison flask",
+   "vial": "Weapon poison",
+   "f6": {
+    "n": "Weapon poison flask (6)",
+    "id": 25509
+   },
+   "v1": {
+    "n": "Weapon poison (1)",
+    "id": 25491
+   },
+   "v2": {
+    "n": "Weapon poison (2)",
+    "id": 25489
+   },
+   "v3": {
+    "n": "Weapon poison (3)",
+    "id": 25487
+   },
+   "v4": {
+    "n": "Weapon poison (4)",
+    "id": 25485
+   }
+  },
+  {
+   "flask": "Weapon poison+ flask",
+   "vial": "Weapon poison+",
+   "f6": {
+    "n": "Weapon poison+ flask (6)",
+    "id": 25521
+   },
+   "v1": {
+    "n": "Weapon poison+ (1)",
+    "id": 25499
+   },
+   "v2": {
+    "n": "Weapon poison+ (2)",
+    "id": 25497
+   },
+   "v3": {
+    "n": "Weapon poison+ (3)",
+    "id": 25495
+   },
+   "v4": {
+    "n": "Weapon poison+ (4)",
+    "id": 25493
+   }
+  },
+  {
+   "flask": "Weapon poison++ flask",
+   "vial": "Weapon poison++",
+   "f6": {
+    "n": "Weapon poison++ flask (6)",
+    "id": 25533
+   },
+   "v1": {
+    "n": "Weapon poison++ (1)",
+    "id": 25507
+   },
+   "v2": {
+    "n": "Weapon poison++ (2)",
+    "id": 25505
+   },
+   "v3": {
+    "n": "Weapon poison++ (3)",
+    "id": 25503
+   },
+   "v4": {
+    "n": "Weapon poison++ (4)",
+    "id": 25501
+   }
+  },
+  {
+   "flask": "Weapon poison+++ flask",
+   "vial": "Weapon poison+++",
+   "f6": {
+    "n": "Weapon poison+++ flask (6)",
+    "id": 48626
+   },
+   "v1": {
+    "n": "Weapon poison+++ (1)",
+    "id": 49121
+   },
+   "v2": {
+    "n": "Weapon poison+++ (2)",
+    "id": 49119
+   },
+   "v3": {
+    "n": "Weapon poison+++ (3)",
+    "id": 49117
+   },
+   "v4": {
+    "n": "Weapon poison+++ (4)",
+    "id": 49115
+   }
+  },
+  {
+   "flask": "Woodcutting flask",
+   "vial": "Woodcutting potion",
+   "f6": {
+    "n": "Woodcutting flask (6)",
+    "id": 52362
+   },
+   "v1": {
+    "n": "Woodcutting potion (1)",
+    "id": 52432
+   },
+   "v2": {
+    "n": "Woodcutting potion (2)",
+    "id": 52430
+   },
+   "v3": {
+    "n": "Woodcutting potion (3)",
+    "id": 52428
+   },
+   "v4": {
+    "n": "Woodcutting potion (4)",
+    "id": 52426
+   }
+  },
+  {
+   "flask": "Zamorak brew flask",
+   "vial": "Zamorak brew",
+   "f6": {
+    "n": "Zamorak brew flask (6)",
+    "id": 23339
+   },
+   "v1": {
+    "n": "Zamorak brew (1)",
+    "id": 193
+   },
+   "v2": {
+    "n": "Zamorak brew (2)",
+    "id": 191
+   },
+   "v3": {
+    "n": "Zamorak brew (3)",
+    "id": 189
+   },
+   "v4": {
+    "n": "Zamorak brew (4)",
+    "id": 2450
+   }
+  },
+  {
+   "flask": "Zamorak's favour flask",
+   "vial": "Zamorak's favour",
+   "f6": {
+    "n": "Zamorak's favour flask (6)",
+    "id": 23185
+   },
+   "v1": {
+    "n": "Zamorak's favour (1)",
+    "id": 20042
+   },
+   "v2": {
+    "n": "Zamorak's favour (2)",
+    "id": 20041
+   },
+   "v3": {
+    "n": "Zamorak's favour (3)",
+    "id": 20040
+   },
+   "v4": {
+    "n": "Zamorak's favour (4)",
+    "id": 20039
+   }
+  }
+ ]
+}

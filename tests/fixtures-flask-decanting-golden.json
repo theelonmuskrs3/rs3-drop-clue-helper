@@ -1,0 +1,1213 @@
+{
+ "note": "Wiki-rendered Calculator:Herblore/Flask decanting (rev 37202169, row rev 37202166) with Module:GEPrices/data.json rev 37236236; guide prices for exactly the items used.",
+ "gePricesRevision": 37236236,
+ "guide": {
+  "Aggression flask (6)": 94195,
+  "Aggression potion (1)": 15144,
+  "Aggression potion (2)": 30912,
+  "Aggression potion (3)": 38844,
+  "Aggression potion (4)": 55442,
+  "Agility flask (6)": 22141,
+  "Agility potion (1)": 188,
+  "Agility potion (2)": 383,
+  "Agility potion (3)": 360,
+  "Agility potion (4)": 1533,
+  "Antifire (1)": 3520,
+  "Antifire (2)": 9165,
+  "Antifire (3)": 7160,
+  "Antifire (4)": 10792,
+  "Antifire flask (6)": 33647,
+  "Antipoison (1)": 21,
+  "Antipoison (2)": 68,
+  "Antipoison (3)": 288,
+  "Antipoison (4)": 704,
+  "Antipoison flask (6)": 13162,
+  "Antipoison+ (1)": 886,
+  "Antipoison+ (2)": 1430,
+  "Antipoison+ (3)": 5635,
+  "Antipoison+ (4)": 7596,
+  "Antipoison+ flask (6)": 46440,
+  "Antipoison++ (1)": 892,
+  "Antipoison++ (2)": 1288,
+  "Antipoison++ (3)": 1897,
+  "Antipoison++ (4)": 499,
+  "Antipoison++ flask (6)": 18457,
+  "Antisanguine (1)": 497,
+  "Antisanguine (2)": 998,
+  "Antisanguine (3)": 15368,
+  "Antisanguine (4)": 43542,
+  "Antisanguine flask (6)": 45572,
+  "Archaeology flask (6)": 42342,
+  "Archaeology potion (1)": 1562,
+  "Archaeology potion (2)": 2551,
+  "Archaeology potion (3)": 6140,
+  "Archaeology potion (4)": 7660,
+  "Attack flask (6)": 9450,
+  "Attack potion (1)": 547,
+  "Attack potion (2)": 476,
+  "Attack potion (3)": 660,
+  "Attack potion (4)": 820,
+  "Charming potion (1)": 1784,
+  "Charming potion (2)": 3486,
+  "Charming potion (3)": 8353,
+  "Charming potion (4)": 15267,
+  "Charming potion flask (6)": 49664,
+  "Combat flask (6)": 32305,
+  "Combat potion (1)": 120,
+  "Combat potion (2)": 255,
+  "Combat potion (3)": 218,
+  "Combat potion (4)": 737,
+  "Cooking flask (6)": 5510,
+  "Cooking potion (1)": 345,
+  "Cooking potion (2)": 695,
+  "Cooking potion (3)": 1279,
+  "Cooking potion (4)": 1377,
+  "Crafting flask (6)": 21263,
+  "Crafting potion (1)": 2576,
+  "Crafting potion (2)": 2629,
+  "Crafting potion (3)": 7770,
+  "Crafting potion (4)": 12249,
+  "Defence flask (6)": 21246,
+  "Defence potion (1)": 2084,
+  "Defence potion (2)": 2470,
+  "Defence potion (3)": 3879,
+  "Defence potion (4)": 5577,
+  "Divination flask (6)": 14420,
+  "Divination potion (1)": 10850,
+  "Divination potion (2)": 16905,
+  "Divination potion (3)": 41516,
+  "Divination potion (4)": 42516,
+  "Energy flask (6)": 26090,
+  "Energy potion (1)": 2116,
+  "Energy potion (2)": 3384,
+  "Energy potion (3)": 1336,
+  "Energy potion (4)": 1788,
+  "Fishing flask (6)": 11550,
+  "Fishing potion (1)": 201,
+  "Fishing potion (2)": 280,
+  "Fishing potion (3)": 608,
+  "Fishing potion (4)": 639,
+  "Fletching flask (6)": 22246,
+  "Fletching potion (1)": 292,
+  "Fletching potion (2)": 249,
+  "Fletching potion (3)": 389,
+  "Fletching potion (4)": 1162,
+  "Guthix balance (1)": 869,
+  "Guthix balance (2)": 516,
+  "Guthix balance (3)": 6099,
+  "Guthix balance (4)": 18991,
+  "Guthix balance flask (6)": 54772,
+  "Guthix rest (1)": 21,
+  "Guthix rest (2)": 42,
+  "Guthix rest (3)": 8467,
+  "Guthix rest (4)": 7632,
+  "Guthix rest flask (6)": 36655,
+  "Guthix's gift (1)": 2038,
+  "Guthix's gift (2)": 3763,
+  "Guthix's gift (3)": 59351,
+  "Guthix's gift (4)": 12236,
+  "Guthix's gift flask (6)": 13678,
+  "Harvest flask (6)": 10628,
+  "Harvest potion (1)": 936,
+  "Harvest potion (2)": 2242,
+  "Harvest potion (3)": 2441,
+  "Harvest potion (4)": 4292,
+  "Hunter flask (6)": 39905,
+  "Hunter potion (1)": 392,
+  "Hunter potion (2)": 814,
+  "Hunter potion (3)": 31592,
+  "Hunter potion (4)": 32733,
+  "Invention flask (6)": 11677,
+  "Invention potion (1)": 226,
+  "Invention potion (2)": 369,
+  "Invention potion (3)": 1206,
+  "Invention potion (4)": 1975,
+  "Juju cooking flask (6)": 43430,
+  "Juju cooking potion (1)": 2340,
+  "Juju cooking potion (2)": 3655,
+  "Juju cooking potion (3)": 5042,
+  "Juju cooking potion (4)": 11742,
+  "Juju farming flask (6)": 73014,
+  "Juju farming potion (1)": 7768,
+  "Juju farming potion (2)": 18268,
+  "Juju farming potion (3)": 17284,
+  "Juju farming potion (4)": 29786,
+  "Juju fishing flask (6)": 88800,
+  "Juju fishing potion (1)": 4086,
+  "Juju fishing potion (2)": 7203,
+  "Juju fishing potion (3)": 29860,
+  "Juju fishing potion (4)": 35492,
+  "Juju hunter flask (6)": 92042,
+  "Juju hunter potion (1)": 6099,
+  "Juju hunter potion (2)": 10488,
+  "Juju hunter potion (3)": 29940,
+  "Juju hunter potion (4)": 43925,
+  "Juju mining flask (6)": 121765,
+  "Juju mining potion (1)": 2645,
+  "Juju mining potion (2)": 9118,
+  "Juju mining potion (3)": 38967,
+  "Juju mining potion (4)": 46256,
+  "Juju woodcutting flask (6)": 116787,
+  "Juju woodcutting potion (1)": 4653,
+  "Juju woodcutting potion (2)": 7408,
+  "Juju woodcutting potion (3)": 35719,
+  "Juju woodcutting potion (4)": 51402,
+  "Magic flask (6)": 12947,
+  "Magic potion (1)": 1775,
+  "Magic potion (2)": 1444,
+  "Magic potion (3)": 1780,
+  "Magic potion (4)": 3620,
+  "Mining flask (6)": 452,
+  "Mining potion (1)": 130,
+  "Mining potion (2)": 175,
+  "Mining potion (3)": 2675,
+  "Mining potion (4)": 1644,
+  "Necromancy flask (6)": 14324,
+  "Necromancy potion (1)": 1246,
+  "Necromancy potion (2)": 2037,
+  "Necromancy potion (3)": 736,
+  "Necromancy potion (4)": 1509,
+  "Perfect juju agility flask (6)": 58760,
+  "Perfect juju agility potion (1)": 7041,
+  "Perfect juju agility potion (2)": 14563,
+  "Perfect juju agility potion (3)": 8152,
+  "Perfect juju agility potion (4)": 15586,
+  "Perfect juju dungeoneering flask (6)": 58019,
+  "Perfect juju dungeoneering potion (1)": 3556,
+  "Perfect juju dungeoneering potion (2)": 3745,
+  "Perfect juju dungeoneering potion (3)": 6104,
+  "Perfect juju dungeoneering potion (4)": 29980,
+  "Perfect juju farming flask (6)": 96755,
+  "Perfect juju farming potion (1)": 11417,
+  "Perfect juju farming potion (2)": 13296,
+  "Perfect juju farming potion (3)": 26087,
+  "Perfect juju farming potion (4)": 36032,
+  "Perfect juju fishing flask (6)": 299119,
+  "Perfect juju fishing potion (1)": 41999,
+  "Perfect juju fishing potion (2)": 67220,
+  "Perfect juju fishing potion (3)": 111718,
+  "Perfect juju fishing potion (4)": 154201,
+  "Perfect juju herblore flask (6)": 197228,
+  "Perfect juju herblore potion (1)": 23419,
+  "Perfect juju herblore potion (2)": 24622,
+  "Perfect juju herblore potion (3)": 66271,
+  "Perfect juju herblore potion (4)": 124653,
+  "Perfect juju mining flask (6)": 126812,
+  "Perfect juju mining potion (1)": 21521,
+  "Perfect juju mining potion (2)": 42023,
+  "Perfect juju mining potion (3)": 55332,
+  "Perfect juju mining potion (4)": 70300,
+  "Perfect juju prayer flask (6)": 170122,
+  "Perfect juju prayer potion (1)": 19668,
+  "Perfect juju prayer potion (2)": 38216,
+  "Perfect juju prayer potion (3)": 73664,
+  "Perfect juju prayer potion (4)": 98087,
+  "Perfect juju smithing flask (6)": 111364,
+  "Perfect juju smithing potion (1)": 14109,
+  "Perfect juju smithing potion (2)": 27469,
+  "Perfect juju smithing potion (3)": 46486,
+  "Perfect juju smithing potion (4)": 63548,
+  "Perfect juju woodcutting flask (6)": 120014,
+  "Perfect juju woodcutting potion (1)": 20362,
+  "Perfect juju woodcutting potion (2)": 36583,
+  "Perfect juju woodcutting potion (3)": 49335,
+  "Perfect juju woodcutting potion (4)": 67370,
+  "Potion flask": 14704,
+  "Prayer flask (6)": 31754,
+  "Prayer potion (1)": 949,
+  "Prayer potion (2)": 1676,
+  "Prayer potion (3)": 3253,
+  "Prayer potion (4)": 4593,
+  "Prayer renewal (1)": 4916,
+  "Prayer renewal (2)": 8951,
+  "Prayer renewal (3)": 14467,
+  "Prayer renewal (4)": 21516,
+  "Prayer renewal flask (6)": 47900,
+  "Ranging flask (6)": 15683,
+  "Ranging potion (1)": 3422,
+  "Ranging potion (2)": 2334,
+  "Ranging potion (3)": 1074,
+  "Ranging potion (4)": 3198,
+  "Relicym's balm (1)": 367,
+  "Relicym's balm (2)": 578,
+  "Relicym's balm (3)": 612,
+  "Relicym's balm (4)": 1054,
+  "Relicym's balm flask (6)": 6944,
+  "Restore flask (6)": 25991,
+  "Restore potion (1)": 182,
+  "Restore potion (2)": 100,
+  "Restore potion (3)": 111,
+  "Restore potion (4)": 622,
+  "Runecrafting flask (6)": 6058,
+  "Runecrafting potion (1)": 126,
+  "Runecrafting potion (2)": 236,
+  "Runecrafting potion (3)": 15654,
+  "Runecrafting potion (4)": 6071,
+  "Sanfew serum (1)": 4021,
+  "Sanfew serum (2)": 3313,
+  "Sanfew serum (3)": 5134,
+  "Sanfew serum (4)": 6620,
+  "Sanfew serum flask (6)": 21375,
+  "Saradomin brew (1)": 1383,
+  "Saradomin brew (2)": 2206,
+  "Saradomin brew (3)": 2487,
+  "Saradomin brew (4)": 3676,
+  "Saradomin brew flask (6)": 21586,
+  "Saradomin's blessing (1)": 2249,
+  "Saradomin's blessing (2)": 4046,
+  "Saradomin's blessing (3)": 53291,
+  "Saradomin's blessing (4)": 35978,
+  "Saradomin's blessing flask (6)": 55354,
+  "Scentless flask (6)": 42103,
+  "Scentless potion (1)": 398,
+  "Scentless potion (2)": 826,
+  "Scentless potion (3)": 3503,
+  "Scentless potion (4)": 8383,
+  "Spirit attraction flask (6)": 191638,
+  "Spirit attraction potion (1)": 28816,
+  "Spirit attraction potion (2)": 52023,
+  "Spirit attraction potion (3)": 85363,
+  "Spirit attraction potion (4)": 118092,
+  "Strength flask (6)": 12786,
+  "Strength potion (1)": 596,
+  "Strength potion (2)": 372,
+  "Strength potion (3)": 719,
+  "Strength potion (4)": 1087,
+  "Summoning flask (6)": 42926,
+  "Summoning potion (1)": 5612,
+  "Summoning potion (2)": 7609,
+  "Summoning potion (3)": 13416,
+  "Summoning potion (4)": 14158,
+  "Summoning renewal (1)": 5795,
+  "Summoning renewal (2)": 9950,
+  "Summoning renewal (3)": 8477,
+  "Summoning renewal (4)": 15502,
+  "Summoning renewal flask (6)": 51496,
+  "Super Guthix brew flask (6)": 54562,
+  "Super Guthix rest (1)": 486,
+  "Super Guthix rest (2)": 966,
+  "Super Guthix rest (3)": 9531,
+  "Super Guthix rest (4)": 26202,
+  "Super Saradomin brew (1)": 8094,
+  "Super Saradomin brew (2)": 25159,
+  "Super Saradomin brew (3)": 34914,
+  "Super Saradomin brew (4)": 50568,
+  "Super Saradomin brew flask (6)": 98101,
+  "Super Zamorak brew (1)": 1447,
+  "Super Zamorak brew (2)": 2921,
+  "Super Zamorak brew (3)": 901,
+  "Super Zamorak brew (4)": 3711,
+  "Super Zamorak brew flask (6)": 25797,
+  "Super antifire (1)": 5999,
+  "Super antifire (2)": 11401,
+  "Super antifire (3)": 13478,
+  "Super antifire (4)": 19877,
+  "Super antifire flask (6)": 41018,
+  "Super antipoison (1)": 2040,
+  "Super antipoison (2)": 4816,
+  "Super antipoison (3)": 7009,
+  "Super antipoison (4)": 16794,
+  "Super antipoison flask (6)": 37882,
+  "Super antisanguine (1)": 144,
+  "Super antisanguine (2)": 253,
+  "Super antisanguine (3)": 4237,
+  "Super antisanguine (4)": 722,
+  "Super antisanguine flask (6)": 8320,
+  "Super attack (1)": 1353,
+  "Super attack (2)": 2782,
+  "Super attack (3)": 5537,
+  "Super attack (4)": 9456,
+  "Super attack flask (6)": 27813,
+  "Super cooking flask (6)": 11267,
+  "Super cooking potion (1)": 886,
+  "Super cooking potion (2)": 1245,
+  "Super cooking potion (3)": 5468,
+  "Super cooking potion (4)": 5563,
+  "Super defence (1)": 2037,
+  "Super defence (2)": 5050,
+  "Super defence (3)": 8464,
+  "Super defence (4)": 13196,
+  "Super defence flask (6)": 34544,
+  "Super divination (1)": 297,
+  "Super divination (2)": 452,
+  "Super divination (3)": 38382,
+  "Super divination (4)": 56131,
+  "Super divination flask (6)": 107496,
+  "Super energy (1)": 2024,
+  "Super energy (2)": 3031,
+  "Super energy (3)": 7976,
+  "Super energy (4)": 9052,
+  "Super energy flask (6)": 31599,
+  "Super fishing flask (6)": 2110,
+  "Super fishing potion (1)": 157,
+  "Super fishing potion (2)": 186,
+  "Super fishing potion (3)": 1926,
+  "Super fishing potion (4)": 3597,
+  "Super hunter (1)": 213,
+  "Super hunter (2)": 456,
+  "Super hunter (3)": 47838,
+  "Super hunter (4)": 42329,
+  "Super hunter flask (6)": 103825,
+  "Super invention (1)": 1292,
+  "Super invention (2)": 1080,
+  "Super invention (3)": 3286,
+  "Super invention (4)": 6338,
+  "Super invention flask (6)": 30176,
+  "Super magic flask (6)": 30806,
+  "Super magic potion (1)": 1982,
+  "Super magic potion (2)": 4571,
+  "Super magic potion (3)": 7194,
+  "Super magic potion (4)": 10865,
+  "Super mining flask (6)": 4970,
+  "Super mining potion (1)": 358,
+  "Super mining potion (2)": 407,
+  "Super mining potion (3)": 7458,
+  "Super mining potion (4)": 16092,
+  "Super necromancy (1)": 4490,
+  "Super necromancy (2)": 9484,
+  "Super necromancy (3)": 11515,
+  "Super necromancy (4)": 16645,
+  "Super necromancy flask (6)": 36977,
+  "Super prayer (1)": 8385,
+  "Super prayer (2)": 15991,
+  "Super prayer (3)": 19235,
+  "Super prayer (4)": 25090,
+  "Super prayer flask (6)": 55653,
+  "Super ranging flask (6)": 20439,
+  "Super ranging potion (1)": 2429,
+  "Super ranging potion (2)": 3903,
+  "Super ranging potion (3)": 7576,
+  "Super ranging potion (4)": 11362,
+  "Super restore (1)": 397,
+  "Super restore (2)": 975,
+  "Super restore (3)": 832,
+  "Super restore (4)": 1505,
+  "Super restore flask (6)": 16540,
+  "Super runecrafting (1)": 31526,
+  "Super runecrafting (2)": 49562,
+  "Super runecrafting (3)": 83114,
+  "Super runecrafting (4)": 110455,
+  "Super runecrafting flask (6)": 164661,
+  "Super strength (1)": 2934,
+  "Super strength (2)": 5719,
+  "Super strength (3)": 8800,
+  "Super strength (4)": 13094,
+  "Super strength flask (6)": 28859,
+  "Super woodcutting flask (6)": 3216,
+  "Super woodcutting potion (1)": 331,
+  "Super woodcutting potion (2)": 325,
+  "Super woodcutting potion (3)": 4836,
+  "Super woodcutting potion (4)": 8053,
+  "Weapon poison (1)": 241,
+  "Weapon poison (2)": 1313,
+  "Weapon poison (3)": 1348,
+  "Weapon poison (4)": 654,
+  "Weapon poison flask (6)": 12840,
+  "Weapon poison+ (1)": 477,
+  "Weapon poison+ (2)": 600,
+  "Weapon poison+ (3)": 533,
+  "Weapon poison+ (4)": 1282,
+  "Weapon poison+ flask (6)": 13170,
+  "Weapon poison++ (1)": 5630,
+  "Weapon poison++ (2)": 10854,
+  "Weapon poison++ (3)": 30183,
+  "Weapon poison++ (4)": 38510,
+  "Weapon poison++ flask (6)": 52112,
+  "Weapon poison+++ (1)": 8612,
+  "Weapon poison+++ (2)": 15855,
+  "Weapon poison+++ (3)": 17802,
+  "Weapon poison+++ (4)": 27202,
+  "Weapon poison+++ flask (6)": 56197,
+  "Woodcutting flask (6)": 327,
+  "Woodcutting potion (1)": 109,
+  "Woodcutting potion (2)": 161,
+  "Woodcutting potion (3)": 2358,
+  "Woodcutting potion (4)": 859,
+  "Zamorak brew (1)": 587,
+  "Zamorak brew (2)": 289,
+  "Zamorak brew (3)": 1678,
+  "Zamorak brew (4)": 2358,
+  "Zamorak brew flask (6)": 16890,
+  "Zamorak's favour (1)": 61,
+  "Zamorak's favour (2)": 411,
+  "Zamorak's favour (3)": 496,
+  "Zamorak's favour (4)": 2158,
+  "Zamorak's favour flask (6)": 7972
+ },
+ "rows": [
+  {
+   "flask": "Aggression flask",
+   "values": [
+    -11373.0,
+    -13245.0,
+    3606.0,
+    -7344.0
+   ]
+  },
+  {
+   "flask": "Agility flask",
+   "values": [
+    6309.0,
+    6288.0,
+    13434.0,
+    10275.0
+   ]
+  },
+  {
+   "flask": "Antifire flask",
+   "values": [
+    -2177.0,
+    -8552.0,
+    9246.0,
+    5510.0
+   ]
+  },
+  {
+   "flask": "Antipoison flask",
+   "values": [
+    -1668.0,
+    -1746.0,
+    -4236.0,
+    -5196.0
+   ]
+  },
+  {
+   "flask": "Antipoison+ flask",
+   "values": [
+    26420.0,
+    27446.0,
+    40932.0,
+    40684.0
+   ]
+  },
+  {
+   "flask": "Antipoison++ flask",
+   "values": [
+    -1599.0,
+    -111.0,
+    -82.0,
+    6009.0
+   ]
+  },
+  {
+   "flask": "Antisanguine flask",
+   "values": [
+    27886.0,
+    27874.0,
+    264.0,
+    -68890.0
+   ]
+  },
+  {
+   "flask": "Archaeology flask",
+   "values": [
+    18266.0,
+    19985.0,
+    30716.0,
+    32296.0
+   ]
+  },
+  {
+   "flask": "Attack flask",
+   "values": [
+    -8536.0,
+    -6682.0,
+    -13148.0,
+    -12968.0
+   ]
+  },
+  {
+   "flask": "Charming potion flask",
+   "values": [
+    24256.0,
+    24502.0,
+    36508.0,
+    24119.0
+   ]
+  },
+  {
+   "flask": "Combat flask",
+   "values": [
+    16881.0,
+    16836.0,
+    34330.0,
+    32991.0
+   ]
+  },
+  {
+   "flask": "Cooking flask",
+   "values": [
+    -11264.0,
+    -11279.0,
+    -23504.0,
+    -22519.0
+   ]
+  },
+  {
+   "flask": "Crafting flask",
+   "values": [
+    -8897.0,
+    -1328.0,
+    -17962.0,
+    -23629.0
+   ]
+  },
+  {
+   "flask": "Defence flask",
+   "values": [
+    -5962.0,
+    -868.0,
+    -2432.0,
+    -3647.0
+   ]
+  },
+  {
+   "flask": "Divination flask",
+   "values": [
+    -65384.0,
+    -50999.0,
+    -166632.0,
+    -128116.0
+   ]
+  },
+  {
+   "flask": "Energy flask",
+   "values": [
+    -1310.0,
+    1234.0,
+    17428.0,
+    17408.0
+   ]
+  },
+  {
+   "flask": "Fishing flask",
+   "values": [
+    -4360.0,
+    -3994.0,
+    -8740.0,
+    -8225.0
+   ]
+  },
+  {
+   "flask": "Fletching flask",
+   "values": [
+    5790.0,
+    6795.0,
+    13528.0,
+    11598.0
+   ]
+  },
+  {
+   "flask": "Guthix balance flask",
+   "values": [
+    34854.0,
+    38520.0,
+    55740.0,
+    23163.0
+   ]
+  },
+  {
+   "flask": "Guthix rest flask",
+   "values": [
+    21825.0,
+    21825.0,
+    10034.0,
+    21006.0
+   ]
+  },
+  {
+   "flask": "Guthix's gift flask",
+   "values": [
+    -13254.0,
+    -12315.0,
+    -239456.0,
+    -38760.0
+   ]
+  },
+  {
+   "flask": "Harvest flask",
+   "values": [
+    -9692.0,
+    -10802.0,
+    -17916.0,
+    -21028.0
+   ]
+  },
+  {
+   "flask": "Hunter flask",
+   "values": [
+    22849.0,
+    22759.0,
+    -75966.0,
+    -47797.0
+   ]
+  },
+  {
+   "flask": "Invention flask",
+   "values": [
+    -4383.0,
+    -4134.0,
+    -10878.0,
+    -11979.0
+   ]
+  },
+  {
+   "flask": "Juju cooking flask",
+   "values": [
+    14686.0,
+    17761.0,
+    37284.0,
+    22226.0
+   ]
+  },
+  {
+   "flask": "Juju farming flask",
+   "values": [
+    11702.0,
+    3506.0,
+    47484.0,
+    27262.0
+   ]
+  },
+  {
+   "flask": "Juju fishing flask",
+   "values": [
+    49580.0,
+    52487.0,
+    28752.0,
+    41716.0
+   ]
+  },
+  {
+   "flask": "Juju hunter flask",
+   "values": [
+    40744.0,
+    45874.0,
+    34916.0,
+    22901.0
+   ]
+  },
+  {
+   "flask": "Juju mining flask",
+   "values": [
+    91191.0,
+    79707.0,
+    58254.0,
+    75354.0
+   ]
+  },
+  {
+   "flask": "Juju woodcutting flask",
+   "values": [
+    74165.0,
+    79859.0,
+    61290.0,
+    49960.0
+   ]
+  },
+  {
+   "flask": "Magic flask",
+   "values": [
+    -12407.0,
+    -6089.0,
+    -10634.0,
+    -14374.0
+   ]
+  },
+  {
+   "flask": "Mining flask",
+   "values": [
+    -15032.0,
+    -14777.0,
+    -39204.0,
+    -33436.0
+   ]
+  },
+  {
+   "flask": "Necromancy flask",
+   "values": [
+    -7856.0,
+    -6491.0,
+    -3704.0,
+    -5287.0
+   ]
+  },
+  {
+   "flask": "Perfect juju agility flask",
+   "values": [
+    1810.0,
+    367.0,
+    55504.0,
+    41354.0
+   ]
+  },
+  {
+   "flask": "Perfect juju dungeoneering flask",
+   "values": [
+    21979.0,
+    32080.0,
+    62214.0,
+    -3310.0
+   ]
+  },
+  {
+   "flask": "Perfect juju farming flask",
+   "values": [
+    13549.0,
+    42163.0,
+    59754.0,
+    56006.0
+   ]
+  },
+  {
+   "flask": "Perfect juju fishing flask",
+   "values": [
+    32421.0,
+    82755.0,
+    121958.0,
+    106227.0
+   ]
+  },
+  {
+   "flask": "Perfect juju herblore flask",
+   "values": [
+    42010.0,
+    108658.0,
+    99964.0,
+    -8911.0
+   ]
+  },
+  {
+   "flask": "Perfect juju mining flask",
+   "values": [
+    -17018.0,
+    -13961.0,
+    2888.0,
+    13316.0
+   ]
+  },
+  {
+   "flask": "Perfect juju prayer flask",
+   "values": [
+    37410.0,
+    40770.0,
+    16180.0,
+    16575.0
+   ]
+  },
+  {
+   "flask": "Perfect juju smithing flask",
+   "values": [
+    12006.0,
+    14253.0,
+    7376.0,
+    2676.0
+   ]
+  },
+  {
+   "flask": "Perfect juju woodcutting flask",
+   "values": [
+    -16862.0,
+    -4439.0,
+    13280.0,
+    8510.0
+   ]
+  },
+  {
+   "flask": "Prayer flask",
+   "values": [
+    11356.0,
+    12022.0,
+    21088.0,
+    20321.0
+   ]
+  },
+  {
+   "flask": "Prayer renewal flask",
+   "values": [
+    3700.0,
+    6343.0,
+    8524.0,
+    1844.0
+   ]
+  },
+  {
+   "flask": "Ranging flask",
+   "values": [
+    -19553.0,
+    -6023.0,
+    -2338.0,
+    -7636.0
+   ]
+  },
+  {
+   "flask": "Relicym's balm flask",
+   "values": [
+    -9962.0,
+    -9494.0,
+    -17968.0,
+    -18682.0
+   ]
+  },
+  {
+   "flask": "Restore flask",
+   "values": [
+    10195.0,
+    10987.0,
+    22130.0,
+    20708.0
+   ]
+  },
+  {
+   "flask": "Runecrafting flask",
+   "values": [
+    -9402.0,
+    -9354.0,
+    -79908.0,
+    -35505.0
+   ]
+  },
+  {
+   "flask": "Sanfew serum flask",
+   "values": [
+    -17455.0,
+    -3268.0,
+    -7194.0,
+    -6518.0
+   ]
+  },
+  {
+   "flask": "Saradomin brew flask",
+   "values": [
+    -1416.0,
+    264.0,
+    3816.0,
+    2736.0
+   ]
+  },
+  {
+   "flask": "Saradomin's blessing flask",
+   "values": [
+    27156.0,
+    28512.0,
+    -131864.0,
+    -26634.0
+   ]
+  },
+  {
+   "flask": "Scentless flask",
+   "values": [
+    25011.0,
+    24921.0,
+    40786.0,
+    29649.0
+   ]
+  },
+  {
+   "flask": "Spirit attraction flask",
+   "values": [
+    4038.0,
+    20865.0,
+    12416.0,
+    -408.0
+   ]
+  },
+  {
+   "flask": "Strength flask",
+   "values": [
+    -5494.0,
+    -3034.0,
+    -6712.0,
+    -7097.0
+   ]
+  },
+  {
+   "flask": "Summoning flask",
+   "values": [
+    -5450.0,
+    5395.0,
+    2780.0,
+    13970.0
+   ]
+  },
+  {
+   "flask": "Summoning renewal flask",
+   "values": [
+    2022.0,
+    6942.0,
+    39676.0,
+    27078.0
+   ]
+  },
+  {
+   "flask": "Super antifire flask",
+   "values": [
+    -9680.0,
+    -7889.0,
+    -1284.0,
+    -7003.0
+   ]
+  },
+  {
+   "flask": "Super antipoison flask",
+   "values": [
+    10938.0,
+    8730.0,
+    18320.0,
+    -4026.0
+   ]
+  },
+  {
+   "flask": "Super antisanguine flask",
+   "values": [
+    -7248.0,
+    -7143.0,
+    -29716.0,
+    -14934.0
+   ]
+  },
+  {
+   "flask": "Super attack flask",
+   "values": [
+    4991.0,
+    4763.0,
+    4070.0,
+    -2150.0
+   ]
+  },
+  {
+   "flask": "Super cooking flask",
+   "values": [
+    -8753.0,
+    -7172.0,
+    -28746.0,
+    -23563.0
+   ]
+  },
+  {
+   "flask": "Super defence flask",
+   "values": [
+    7618.0,
+    4690.0,
+    5824.0,
+    92.0
+   ]
+  },
+  {
+   "flask": "Super divination flask",
+   "values": [
+    91010.0,
+    91436.0,
+    32056.0,
+    17191.0
+   ]
+  },
+  {
+   "flask": "Super energy flask",
+   "values": [
+    4751.0,
+    7802.0,
+    1886.0,
+    6634.0
+   ]
+  },
+  {
+   "flask": "Super fishing flask",
+   "values": [
+    -13536.0,
+    -13152.0,
+    -32892.0,
+    -35979.0
+   ]
+  },
+  {
+   "flask": "Super Guthix brew flask",
+   "values": [
+    36942.0,
+    36960.0,
+    41592.0,
+    1110.0
+   ]
+  },
+  {
+   "flask": "Super hunter flask",
+   "values": [
+    87843.0,
+    87753.0,
+    -13110.0,
+    51255.0
+   ]
+  },
+  {
+   "flask": "Super invention flask",
+   "values": [
+    7720.0,
+    12232.0,
+    17800.0,
+    11930.0
+   ]
+  },
+  {
+   "flask": "Super magic flask",
+   "values": [
+    4210.0,
+    2389.0,
+    3428.0,
+    -391.0
+   ]
+  },
+  {
+   "flask": "Super mining flask",
+   "values": [
+    -11882.0,
+    -10955.0,
+    -49300.0,
+    -67744.0
+   ]
+  },
+  {
+   "flask": "Super necromancy flask",
+   "values": [
+    -4667.0,
+    -6179.0,
+    -1514.0,
+    -5389.0
+   ]
+  },
+  {
+   "flask": "Super prayer flask",
+   "values": [
+    -9361.0,
+    -7024.0,
+    4958.0,
+    6628.0
+   ]
+  },
+  {
+   "flask": "Super ranging flask",
+   "values": [
+    -8839.0,
+    -5974.0,
+    -18834.0,
+    -22616.0
+   ]
+  },
+  {
+   "flask": "Super restore flask",
+   "values": [
+    -546.0,
+    -1089.0,
+    344.0,
+    -843.0
+   ]
+  },
+  {
+   "flask": "Super runecrafting flask",
+   "values": [
+    -39199.0,
+    1271.0,
+    -32542.0,
+    -31451.0
+   ]
+  },
+  {
+   "flask": "Super Saradomin brew flask",
+   "values": [
+    34833.0,
+    7920.0,
+    27138.0,
+    15090.0
+   ]
+  },
+  {
+   "flask": "Super strength flask",
+   "values": [
+    -3449.0,
+    -3002.0,
+    -6890.0,
+    -10972.0
+   ]
+  },
+  {
+   "flask": "Super woodcutting flask",
+   "values": [
+    -13474.0,
+    -12463.0,
+    -42320.0,
+    -47135.0
+   ]
+  },
+  {
+   "flask": "Super Zamorak brew flask",
+   "values": [
+    2411.0,
+    2330.0,
+    18582.0,
+    11053.0
+   ]
+  },
+  {
+   "flask": "Weapon poison flask",
+   "values": [
+    -3310.0,
+    -5803.0,
+    -9120.0,
+    -5690.0
+   ]
+  },
+  {
+   "flask": "Weapon poison+ flask",
+   "values": [
+    -4396.0,
+    -3334.0,
+    -5200.0,
+    -6914.0
+   ]
+  },
+  {
+   "flask": "Weapon poison++ flask",
+   "values": [
+    3628.0,
+    4846.0,
+    -45916.0,
+    -40714.0
+   ]
+  },
+  {
+   "flask": "Weapon poison+++ flask",
+   "values": [
+    -10179.0,
+    -6072.0,
+    11778.0,
+    1380.0
+   ]
+  },
+  {
+   "flask": "Woodcutting flask",
+   "values": [
+    -15031.0,
+    -14860.0,
+    -38186.0,
+    -31331.0
+   ]
+  },
+  {
+   "flask": "Zamorak brew flask",
+   "values": [
+    -1336.0,
+    1319.0,
+    -2340.0,
+    -2702.0
+   ]
+  },
+  {
+   "flask": "Zamorak's favour flask",
+   "values": [
+    -7098.0,
+    -7965.0,
+    -15448.0,
+    -19938.0
+   ]
+  }
+ ]
+}

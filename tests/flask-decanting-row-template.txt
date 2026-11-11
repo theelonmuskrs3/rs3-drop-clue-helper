@@ -1,0 +1,6 @@
+<includeonly>|-
+| {{plinkt|{{{flask}}}|pic={{{flask}}} (6)}}
+| data-sort-value="{{#expr:{{GEP|{{{flask}}} (6)}} - {{GEP|{{{vial}}} (1)|6}} - {{#var:flask}}}}" | {{coins|{{GEP|{{{flask}}} (6)}} - {{GEP|{{{vial}}} (1)|6}} - {{#var:flask}}}}
+| data-sort-value="{{#expr:{{GEP|{{{flask}}} (6)}} - {{GEP|{{{vial}}} (2)|3}} - {{#var:flask}}}}" | {{coins|{{GEP|{{{flask}}} (6)}} - {{GEP|{{{vial}}} (2)|3}} - {{#var:flask}}}}
+| data-sort-value="{{#expr:{{GEP|{{{flask}}} (6)|2}} - {{GEP|{{{vial}}} (3)|4}} - {{#var:flask}}*2}}" | {{coins|{{GEP|{{{flask}}} (6)|2}} - {{GEP|{{{vial}}} (3)|4}} - {{#var:flask}}*2}}
+| data-sort-value="{{#expr:{{GEP|{{{flask}}} (6)|2}} - {{GEP|{{{vial}}} (4)|3}} - {{#var:flask}}*2}}" | {{coins|{{GEP|{{{flask}}} (6)|2}} - {{GEP|{{{vial}}} (4)|3}} - {{#var:flask}}*2}}</includeonly>

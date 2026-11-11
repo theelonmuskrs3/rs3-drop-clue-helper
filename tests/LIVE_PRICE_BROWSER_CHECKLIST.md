@@ -130,3 +130,39 @@ cleanup. Do NOT pass a clipped left edge, hidden prices, or merely the item grap
 If the 1024px source itself overflows, report it rather than hide its scrollbar or
 claim fit. At phone widths scaling may be too small; retain that honest limitation
 and get a user decision before replacing their chosen source embed with custom charts.
+
+## PR3: Grand Exchange main tab + Calculators tab
+Navigation (320/390/800/1280, plus 360/700/1000/1001): 12 main tabs fit with no
+sideways scroll and no layout shift between tabs. Phones: 4 x 3 tiles; ≥700px:
+6 x 2 tiles. "Grand Exchange" / "Easter Eggs" wrap between words only; at ≤360px
+the Calculators label reads "Calcs" (accessible name stays "Calculators").
+Selected tab: gold `.on` + `aria-current="page"`.
+
+Grand Exchange (strict relocation; geView is byte-identical apart from the removed
+Items subnav): repeat the full PR2 G.E. Fit overview checks above on `#ge`. Same
+source URL, Fit overview / Readable size, scaling, search, graphs, attribution,
+online/offline text, cleanup on navigating away. No app price banner (as before).
+Old bookmark `#items/~ge` must land on `#ge` (history replaced). Items subnav
+"G.E. → Grand Exchange tab" opens `#ge`.
+
+Calculators (`#calculators`): the Wiki sends `X-Frame-Options: DENY` and
+`frame-ancestors 'none'`, so calculators are NOT embedded; every entry opens the
+Wiki in a new tab. Check search, category/type filters, counts, star toggles
+(aria-pressed/label, 44px targets), Favourites list reopen links, Remove, reload
+persistence, invalid/`javascript:`/same-origin URL rejection message, and that
+saved stats (`mystats_v2`) are untouched. Favourites key: `dch_calc_favorites_v1`.
+
+## PR3b: native Flask decanting + "Grand Exchange" labels
+Main tab and Items sub-menu link both read "Grand Exchange" (no "G.E." in navigation).
+`#items/~ge` still lands on `#ge`, and the embed, Fit overview and Readable size are unchanged.
+
+`#calculators/flask-decanting` at 320/390/800/1280:
+- 86 potions × 4 decanting columns. Each column header must be readable, and narrow widths must use
+  cards with a label on every value. There must be no sideways scroll.
+- The live-price banner and status are shown.
+- Net/Gross selector, search and sort all work. "Prices used" shows Sell (low) with est. tax/net for the flask (6),
+  Buy (high) for the (1)–(4) vials and the empty Potion flask, and the details stay open across a price refresh.
+- Unavailable cells say why (e.g. "Potion flask: price is stale"), and none shows 0 gp.
+- The ☆ favourite saves the calculator. In the directory, "Open in app" appears only on "Decanting flasks for
+  profit" and in Favourites; every other entry is "Wiki only — not yet in app".
+- Spot-check one or two results by hand from the prices shown, e.g. 6 (1)s: sell − floor(sell/50) − 6×vial(1) − flask.
