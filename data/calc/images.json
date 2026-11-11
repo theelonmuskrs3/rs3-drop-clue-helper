@@ -8,6 +8,7 @@
 "sha1": "004862aa5a62198f933341a7f83f3100df5f68de",
 "src": "icons/d381c5cd52ba.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -65,11 +66,50 @@
 "via": "exact file",
 "w": 33
 },
+"Accursed acadia incense sticks": {
+"bytes": "mirror",
+"file": "File:Accursed acadia incense sticks.png",
+"h": 30,
+"icon": "new",
+"sha1": "bddd4cc2e9032ddde8561de9592f3132a45c4ccb",
+"src": "icons/3808638178ed.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 31
+},
+"Accursed ashes": {
+"bytes": "mirror",
+"file": "File:Accursed ashes.png",
+"h": 15,
+"icon": "reused",
+"sha1": "cf3f6489df3b95ab5361f0deeba0149e1368eb97",
+"src": "icons/003f491466c3.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 22
+},
+"Accursed maple incense sticks": {
+"bytes": "mirror",
+"file": "File:Accursed maple incense sticks.png",
+"h": 30,
+"icon": "new",
+"sha1": "5fcdc2a74dfdc5e50cea9c24f04b11e7001d41f1",
+"src": "icons/81db8e3d7acb.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 31
+},
 "Accursed urn (no rune)": {
 "bytes": "mirror",
 "file": "File:Accursed urn (no rune).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "4e9459aa2a0ecd121f24c59c4bf41b4fd0c446dd",
 "src": "icons/f69436de0e46.webp",
 "used": [
@@ -86,6 +126,7 @@
 "sha1": "cb45959ad603778a83a64fda50d546c9f3e7357b",
 "src": "icons/172af0e3ac17.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -673,6 +714,19 @@
 "via": "exact file",
 "w": 18
 },
+"Airut bones": {
+"bytes": "mirror",
+"file": "File:Airut bones.png",
+"h": 26,
+"icon": "reused",
+"sha1": "b197a5af534d7c73d9fd6c997fa9fdd3fbf6f23e",
+"src": "icons/7509d32c33e8.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 30
+},
 "Alaea sea salt": {
 "bytes": "mirror",
 "file": "File:Alaea sea salt.png",
@@ -690,7 +744,7 @@
 "bytes": "mirror",
 "file": "File:Alchemical onyx.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "68964fa4823c425ba3c55960abb4f13c92bb2da4",
 "src": "icons/89fe994a660c.webp",
 "used": [
@@ -703,7 +757,7 @@
 "bytes": "mirror",
 "file": "File:Alchemical onyx necklace.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "c5ace8dbaeaea07c2ab64fdb0a4fc2daadf18a30",
 "src": "icons/77adf2f8d6f1.webp",
 "used": [
@@ -716,7 +770,7 @@
 "bytes": "mirror",
 "file": "File:Alchemical onyx ring.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "ad53375846d153e89db1ac937897de9324a591fc",
 "src": "icons/5f334833965e.webp",
 "used": [
@@ -742,7 +796,7 @@
 "bytes": "mirror",
 "file": "File:Algarum thread.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "17ceaeeaf7fccdfdad9ad843c2023a447542b94b",
 "src": "icons/873815ed59cd.webp",
 "used": [
@@ -1260,7 +1314,7 @@
 "bytes": "mirror",
 "file": "File:Apex hide armour (adorned).png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "9efdff8581fadbb45f88cf23bacb45cc3047e83b",
 "src": "icons/9f66375596bb.webp",
 "used": [
@@ -1273,7 +1327,7 @@
 "bytes": "mirror",
 "file": "File:Apex hide body.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "559107d0264a7004e2c30a91ff02d5db4a126754",
 "src": "icons/925593ae2ee4.webp",
 "used": [
@@ -1351,7 +1405,7 @@
 "bytes": "mirror",
 "file": "File:Apex hide boots.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "a24ad7fbb7c192d27366ae094ee703432e8be8d1",
 "src": "icons/44e5409d1c19.webp",
 "used": [
@@ -1429,7 +1483,7 @@
 "bytes": "mirror",
 "file": "File:Apex hide chaps.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "b29c24200a8b01875e63e4eec947554d71f87ba8",
 "src": "icons/b92aa50c0288.webp",
 "used": [
@@ -1507,7 +1561,7 @@
 "bytes": "mirror",
 "file": "File:Apex hide cowl.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "57f1fc7624a929c420300baf513113e0dd94c836",
 "src": "icons/66adecd8dd49.webp",
 "used": [
@@ -1585,7 +1639,7 @@
 "bytes": "mirror",
 "file": "File:Apex hide vambraces.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "d2de3698b52611707cb5ce431b0b344771002ff5",
 "src": "icons/087b7ce83dc2.webp",
 "used": [
@@ -1663,7 +1717,7 @@
 "bytes": "mirror",
 "file": "File:Apex leather.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "606b99a272a55f585c7fcad65897c86c75ca1c1f",
 "src": "icons/16bb312dd0d6.webp",
 "used": [
@@ -1676,7 +1730,7 @@
 "bytes": "mirror",
 "file": "File:Apex sinew.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "0db84520c645e3c0d62ebdf54b38b5ac9e782871",
 "src": "icons/38fefc719378.webp",
 "used": [
@@ -1754,7 +1808,7 @@
 "bytes": "mirror",
 "file": "File:Archaemastyx hide.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "5ae59f3e74e0e12b2db8a4e7be2a843d546af6e2",
 "src": "icons/e90efac668ef.webp",
 "used": [
@@ -1863,7 +1917,7 @@
 "bytes": "mirror",
 "file": "File:Archleather chaps.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "2aaf448c30d2e0c52fa1ac1e10358babe5e97462",
 "src": "icons/d0af563274cf.webp",
 "used": [
@@ -1889,7 +1943,7 @@
 "bytes": "mirror",
 "file": "File:Archleather shield.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "6abbfdcbaf5a7cec60e23cb915e9784a1243e8e0",
 "src": "icons/a2944ec7e108.webp",
 "used": [
@@ -1915,11 +1969,25 @@
 "bytes": "mirror",
 "file": "File:Arctic pine logs.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "0d02d86718ea5434602ff10ea61853796d34fbf4",
 "src": "icons/0c5d4455a5dc.webp",
 "used": [
-"crafting"
+"crafting",
+"firemaking"
+],
+"via": "exact file",
+"w": 33
+},
+"Arctic pyre logs": {
+"bytes": "mirror",
+"file": "File:Arctic pyre logs.png",
+"h": 26,
+"icon": "new",
+"sha1": "afb63147709403b90fa2355b89484522f2d58a78",
+"src": "icons/80226d998720.webp",
+"used": [
+"firemaking"
 ],
 "via": "exact file",
 "w": 33
@@ -1980,7 +2048,7 @@
 "bytes": "mirror",
 "file": "File:Armadyl battlestaff.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "0d223f177a0bca7d471ace33593460caf99b731d",
 "src": "icons/8dc3c0214949.webp",
 "used": [
@@ -2280,6 +2348,19 @@
 "via": "exact file",
 "w": 22
 },
+"Baby dragon bones": {
+"bytes": "mirror",
+"file": "File:Baby dragon bones.png",
+"h": 20,
+"icon": "reused",
+"sha1": "c4451b372a05662667b09487c1c6b5c399964142",
+"src": "icons/f8177727c180.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 24
+},
 "Bacon": {
 "bytes": "mirror",
 "file": "File:Bacon.png",
@@ -2357,6 +2438,19 @@
 ],
 "via": "exact file",
 "w": 24
+},
+"Bad egg": {
+"bytes": "mirror",
+"file": "File:Bad egg.png",
+"h": 26,
+"icon": "new",
+"sha1": "6486d7ed435c1571d714751ce96dea6ff76457d2",
+"src": "icons/1250327ffe2d.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 20
 },
 "Bagrada rex meat": {
 "bytes": "mirror",
@@ -2440,7 +2534,7 @@
 "bytes": "mirror",
 "file": "File:Ball of black wool.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "0f8b0c8e399e878bac1ce2ad555a721af094c635",
 "src": "icons/4a08c9dfc145.webp",
 "used": [
@@ -2648,7 +2742,7 @@
 "bytes": "mirror",
 "file": "File:Basket.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "18087265f295ece2993148e8781313663eb86a19",
 "src": "icons/9b34377b6225.webp",
 "used": [
@@ -2669,6 +2763,19 @@
 ],
 "via": "exact file",
 "w": 30
+},
+"Bat bones": {
+"bytes": "mirror",
+"file": "File:Bat bones.png",
+"h": 19,
+"icon": "reused",
+"sha1": "1394d5aa488fec7ae625d4f4f99e54a39ed09a3b",
+"src": "icons/a849fc805112.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 26
 },
 "Bathus arrows": {
 "bytes": "mirror",
@@ -2726,7 +2833,7 @@
 "bytes": "mirror",
 "file": "File:Batwing book.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "80111cfa7a7ababaf0d3fb0932f7cdaf9cbb514f",
 "src": "icons/3fafed8afba5.webp",
 "used": [
@@ -2739,7 +2846,7 @@
 "bytes": "mirror",
 "file": "File:Batwing boots.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "af467f524bb1bf13b60bfbcac5a9ebfb9590376a",
 "src": "icons/de7e0dfa9ee2.webp",
 "used": [
@@ -2752,7 +2859,7 @@
 "bytes": "mirror",
 "file": "File:Batwing gloves.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "ee3c2bb3bb13d98c951ecee0d971fccc846cbb96",
 "src": "icons/42e0fd63965f.webp",
 "used": [
@@ -2817,7 +2924,7 @@
 "bytes": "mirror",
 "file": "File:Batwing wand.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "de20b9cc3218ceece5aea3faca32404770cbe411",
 "src": "icons/920685c05735.webp",
 "used": [
@@ -2825,6 +2932,19 @@
 ],
 "via": "exact file",
 "w": 29
+},
+"Beacon map icon": {
+"bytes": "mirror",
+"file": "File:Beacon map icon.png",
+"h": 29,
+"icon": "reused",
+"sha1": "4ac8969661e6d190f4735d91d37606af179c62c9",
+"src": "icons/e518ad4ec99d.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 21
 },
 "Beak snot": {
 "bytes": "mirror",
@@ -2877,6 +2997,19 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Big bones": {
+"bytes": "mirror",
+"file": "File:Big bones.png",
+"h": 20,
+"icon": "reused",
+"sha1": "c4451b372a05662667b09487c1c6b5c399964142",
+"src": "icons/f8177727c180.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 24
 },
 "Bik arrow": {
 "bytes": "mirror",
@@ -3025,7 +3158,7 @@
 "bytes": "mirror",
 "file": "File:Black dragonhide coif.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "01055bac2eeec53d793e9df2a0dbc6fb1e7086f5",
 "src": "icons/e077d99bbf3b.webp",
 "used": [
@@ -3038,7 +3171,7 @@
 "bytes": "mirror",
 "file": "File:Black dragonhide shield.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "31c306cb5b690bec18506e25c1fb9a59648babf5",
 "src": "icons/faf9de4037b5.webp",
 "used": [
@@ -3090,7 +3223,7 @@
 "bytes": "mirror",
 "file": "File:Black spiky vambraces.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "182c88283cc05ad0d1bd66350bdd5d23bd686944",
 "src": "icons/9ec8966918b9.webp",
 "used": [
@@ -3129,7 +3262,7 @@
 "bytes": "mirror",
 "file": "File:Black wizard boots.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "f330d8c2a8a03283ed41f57aca749976b433e370",
 "src": "icons/b11885deedc0.webp",
 "used": [
@@ -3142,7 +3275,7 @@
 "bytes": "mirror",
 "file": "File:Black wizard gloves.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "219f734578dd79bfcb3cd27f256c1b175bedb380",
 "src": "icons/6f15d1c64bba.webp",
 "used": [
@@ -3194,7 +3327,7 @@
 "bytes": "mirror",
 "file": "File:Black wizard shield.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "9cc3cd92c11053a91864d653f89f628d6dadd103",
 "src": "icons/674fe29a41ce.webp",
 "used": [
@@ -3367,6 +3500,7 @@
 "sha1": "93e2268f8ae93ff1c51639471519bf5456dba1b6",
 "src": "icons/37d38baf9091.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -3497,6 +3631,7 @@
 "sha1": "9601ab2c8cc020b6a2356d8e80ef9a9858392d70",
 "src": "icons/ac2b4a84733c.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -3766,7 +3901,7 @@
 "bytes": "mirror",
 "file": "File:Blue dragonhide shield.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "453c2a4b7d13425554e233cf4c8fdc85fc601d97",
 "src": "icons/677bf0b1bed6.webp",
 "used": [
@@ -3792,7 +3927,7 @@
 "bytes": "mirror",
 "file": "File:Blue feather.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "a5e442f4d311c2cf901df6d91a7adb767f8e86a9",
 "src": "icons/fb9f283da3ac.webp",
 "used": [
@@ -3805,7 +3940,7 @@
 "bytes": "mirror",
 "file": "File:Blue spiky vambraces.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "61066a62dad7c06cc8fd63f8b012f6dae9207e5f",
 "src": "icons/bcc33b85c9bc.webp",
 "used": [
@@ -3932,6 +4067,19 @@
 "via": "exact file",
 "w": 18
 },
+"Bones": {
+"bytes": "mirror",
+"file": "File:Bones.png",
+"h": 19,
+"icon": "reused",
+"sha1": "1394d5aa488fec7ae625d4f4f99e54a39ed09a3b",
+"src": "icons/a849fc805112.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 26
+},
 "Botanist's amulet (new)": {
 "bytes": "mirror",
 "file": "File:Botanist's amulet (new).png",
@@ -4018,6 +4166,7 @@
 "sha1": "bdb90eebb0623cd8dc30c36e31e3f520bfeb7541",
 "src": "icons/c93d05d65888.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -4237,7 +4386,7 @@
 "bytes": "mirror",
 "file": "File:Broken bark snelm (round).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "c34be1980b1c3a8a62b07f4ef37f364208ed6d31",
 "src": "icons/05e124a01aff.webp",
 "used": [
@@ -4521,6 +4670,19 @@
 "via": "exact file",
 "w": 31
 },
+"Burnt bones": {
+"bytes": "mirror",
+"file": "File:Burnt bones.png",
+"h": 19,
+"icon": "reused",
+"sha1": "16e547eaf8e28202d7a913df3f101adadb1cb755",
+"src": "icons/b8b62a85df52.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 26
+},
 "Cabbage": {
 "bytes": "mirror",
 "file": "File:Cabbage.png",
@@ -4785,7 +4947,7 @@
 "bytes": "mirror",
 "file": "File:Carapace shield.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "d70b0e15635caf7004389feacd63a75867ec35cc",
 "src": "icons/06161a8b711e.webp",
 "used": [
@@ -4837,11 +4999,12 @@
 "bytes": "mirror",
 "file": "File:Cave goblin wire.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "5f3051b9a714a0557e896ed256dd4b81ae3b96a5",
 "src": "icons/73fe0d77e727.webp",
 "used": [
-"crafting"
+"crafting",
+"firemaking"
 ],
 "via": "exact file",
 "w": 29
@@ -5045,6 +5208,19 @@
 ],
 "via": "exact file",
 "w": 22
+},
+"Chewed bones": {
+"bytes": "mirror",
+"file": "File:Chewed bones.png",
+"h": 29,
+"icon": "reused",
+"sha1": "03d53fd74a26dacdc2f1bd517202574cc831a796",
+"src": "icons/a54dc3c8ff72.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 30
 },
 "Chilli con carne": {
 "bytes": "downloaded",
@@ -5755,7 +5931,7 @@
 "bytes": "mirror",
 "file": "File:Clockwork cat.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "939eb20048d943452ffdb2513f5bb3f0be6b978a",
 "src": "icons/844cd3966df3.webp",
 "used": [
@@ -5955,7 +6131,7 @@
 "bytes": "mirror",
 "file": "File:Conductor.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "1ea6d8948ea55650016299097345a2bd5b7ef1e3",
 "src": "icons/b767ea90a630.webp",
 "used": [
@@ -6250,6 +6426,7 @@
 "sha1": "ddf52da4a21527910e118059430ad0a273593fb9",
 "src": "icons/d513bcad6db5.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -6328,6 +6505,7 @@
 "sha1": "3a9af6a81f2202c373231a5acd29fd591ac9275b",
 "src": "icons/7cc38ec728d1.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -6337,7 +6515,7 @@
 "bytes": "mirror",
 "file": "File:Crab claw.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "2d81cf28051cdfae6fb3d10fce1b2fe2d37b7248",
 "src": "icons/3fb5bb8e9f60.webp",
 "used": [
@@ -6350,7 +6528,7 @@
 "bytes": "mirror",
 "file": "File:Crab helmet.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "deadc843638b2170deb8bb2785b367f96405c20e",
 "src": "icons/62b936104bf3.webp",
 "used": [
@@ -6403,7 +6581,7 @@
 "bytes": "mirror",
 "file": "File:Cracked divination urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "55df44d11ff7bb0680afdcef24e7eceabf4322a3",
 "src": "icons/192fa3cbcf05.webp",
 "used": [
@@ -6416,7 +6594,7 @@
 "bytes": "mirror",
 "file": "File:Cracked farming urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "d5ff6323fe7bdc9fc0fa4892adb857515eae7f00",
 "src": "icons/76eb09048c77.webp",
 "used": [
@@ -6429,7 +6607,7 @@
 "bytes": "mirror",
 "file": "File:Cracked fishing urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "9c8c8d224a9a9d532a60bf43e2684895c9f41327",
 "src": "icons/f387be507e7c.webp",
 "used": [
@@ -6442,7 +6620,7 @@
 "bytes": "mirror",
 "file": "File:Cracked hunter urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "6d4ec5f30a2a7dfa37f5a4d86fcdb16523db0d33",
 "src": "icons/663d924c724b.webp",
 "used": [
@@ -6455,7 +6633,7 @@
 "bytes": "mirror",
 "file": "File:Cracked mining urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "2e84ff7df090cebb9a867373437d1e9c0b3fe866",
 "src": "icons/1061410ecc66.webp",
 "used": [
@@ -6468,7 +6646,7 @@
 "bytes": "mirror",
 "file": "File:Cracked runecrafting urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "48f22fbb2be2961433af5810441474197c0fa666",
 "src": "icons/3740a2f3c0dc.webp",
 "used": [
@@ -6481,7 +6659,7 @@
 "bytes": "mirror",
 "file": "File:Cracked smithing urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "6962bb37948f68b661a6d4edbfcc93db7c994880",
 "src": "icons/a96f84e23532.webp",
 "used": [
@@ -6494,7 +6672,7 @@
 "bytes": "mirror",
 "file": "File:Cracked woodcutting urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "d2648d54d57f2d30b8a0507c8282c0ac7cc80ae5",
 "src": "icons/a2ae98a6e0bb.webp",
 "used": [
@@ -6671,7 +6849,7 @@
 "bytes": "mirror",
 "file": "File:Crystal glass.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "2c02181840e290f1c1610b6eabe2d94c535c5cf6",
 "src": "icons/8dc49152ccbd.webp",
 "used": [
@@ -6719,6 +6897,19 @@
 "via": "exact file",
 "w": 18
 },
+"Curly root": {
+"bytes": "mirror",
+"file": "File:Curly root.png",
+"h": 25,
+"icon": "new",
+"sha1": "98478aa00858598a71d86ca9f6fc078c1a235a23",
+"src": "icons/2225f621be9e.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 27
+},
 "Curry": {
 "bytes": "mirror",
 "file": "File:Curry.png",
@@ -6744,6 +6935,45 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Cursed magic logs": {
+"bytes": "mirror",
+"file": "File:Cursed magic logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "3a9af6a81f2202c373231a5acd29fd591ac9275b",
+"src": "icons/7cc38ec728d1.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 33
+},
+"Curved bone": {
+"bytes": "mirror",
+"file": "File:Curved bone.png",
+"h": 30,
+"icon": "reused",
+"sha1": "897038be9c32939021d26d31a30e66c828107d82",
+"src": "icons/fa8d79c9f435.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 30
+},
+"Dagannoth bones": {
+"bytes": "mirror",
+"file": "File:Dagannoth bones.png",
+"h": 25,
+"icon": "reused",
+"sha1": "3a64bcad005f7689e93c8e87995c91c4b244d0d4",
+"src": "icons/dc7dc0c189fe.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 30
 },
 "Dark arrow": {
 "bytes": "mirror",
@@ -6775,7 +7005,7 @@
 "bytes": "mirror",
 "file": "File:Death Lotus chaps.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "1218214997c9a4604fb4fc0470fc1a6b2c8a6e83",
 "src": "icons/ae701f6f9083.webp",
 "used": [
@@ -6788,7 +7018,7 @@
 "bytes": "mirror",
 "file": "File:Death Lotus chestplate.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "949b8824990666eae2685ff5613f2afc5311cbe5",
 "src": "icons/61dc3775a56b.webp",
 "used": [
@@ -6801,7 +7031,7 @@
 "bytes": "mirror",
 "file": "File:Death Lotus hood.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "5247769a236053b12e706532f522494e39534563",
 "src": "icons/4c72b8ba7e1f.webp",
 "used": [
@@ -6867,7 +7097,7 @@
 "bytes": "mirror",
 "file": "File:Decorated divination urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "ac43f06a5daf9a4af6f99b8e76d6c11460f8d621",
 "src": "icons/5cace1cf44a8.webp",
 "used": [
@@ -6880,7 +7110,7 @@
 "bytes": "mirror",
 "file": "File:Decorated farming urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "dd15449b0d1bd2641daee2228fd8ceb8942645bc",
 "src": "icons/ab34708a37bd.webp",
 "used": [
@@ -6893,7 +7123,7 @@
 "bytes": "mirror",
 "file": "File:Decorated fishing urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "ac6c841303515b272e193daead13dfe07de58d83",
 "src": "icons/893a285df7e6.webp",
 "used": [
@@ -6906,7 +7136,7 @@
 "bytes": "mirror",
 "file": "File:Decorated hunter urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "3639b04b738e5a91839c6e6f371b96459bf1df0f",
 "src": "icons/a9c27b7ba344.webp",
 "used": [
@@ -6919,7 +7149,7 @@
 "bytes": "mirror",
 "file": "File:Decorated mining urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "715919d135a1d9a3f2327a9e00c9b22e4d94a93a",
 "src": "icons/88376c1dbeed.webp",
 "used": [
@@ -6932,7 +7162,7 @@
 "bytes": "mirror",
 "file": "File:Decorated runecrafting urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "4504474fabafa7434bdbdc7d6c592162a6d20a50",
 "src": "icons/4f3d79256965.webp",
 "used": [
@@ -6945,7 +7175,7 @@
 "bytes": "mirror",
 "file": "File:Decorated smithing urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "499fba555221ea09138565a625052312bcef28b3",
 "src": "icons/631a4e488634.webp",
 "used": [
@@ -6958,7 +7188,7 @@
 "bytes": "mirror",
 "file": "File:Decorated woodcutting urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "f15277c2706e3a54656e304ae9cb2362d0a8d048",
 "src": "icons/36f054cbb8d0.webp",
 "used": [
@@ -7133,7 +7363,7 @@
 "bytes": "mirror",
 "file": "File:Diamond amulet.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "d420a0c5036cf04b3d4d5c03f62fadcc6e6304bb",
 "src": "icons/8e03effc15f9.webp",
 "used": [
@@ -7146,7 +7376,7 @@
 "bytes": "mirror",
 "file": "File:Diamond amulet (unstrung).png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "dcb36e81ba7f0a3395842fd1b67bc8c2795f3344",
 "src": "icons/f9a21a5a02f7.webp",
 "used": [
@@ -7211,7 +7441,7 @@
 "bytes": "mirror",
 "file": "File:Diamond necklace.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "410f79a62b08de05f0c470e4b33a1111c210678b",
 "src": "icons/328e42616797.webp",
 "used": [
@@ -7433,6 +7663,19 @@
 "via": "File redirect from File:Dragon bolts.png",
 "w": 29
 },
+"Dragon bones": {
+"bytes": "mirror",
+"file": "File:Dragon bones.png",
+"h": 25,
+"icon": "reused",
+"sha1": "afe2fe8cbd507950d4a2841d1050154e052867c1",
+"src": "icons/4269bac19b64.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 30
+},
 "Dragon crossbow": {
 "bytes": "mirror",
 "file": "File:Dragon crossbow.png",
@@ -7557,7 +7800,7 @@
 "bytes": "mirror",
 "file": "File:Dragonstone amulet (unstrung).png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "3c8d1beb2fcaefdfee344a5d87782730d687cd24",
 "src": "icons/b29365ff39b2.webp",
 "used": [
@@ -7609,7 +7852,7 @@
 "bytes": "mirror",
 "file": "File:Dragonstone necklace.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "8b43d97cf0a27dd78b67ac58492a7dbaa46111a8",
 "src": "icons/fd105cd7956a.webp",
 "used": [
@@ -7630,6 +7873,19 @@
 ],
 "via": "exact file",
 "w": 21
+},
+"Driftwood": {
+"bytes": "mirror",
+"file": "File:Driftwood.png",
+"h": 23,
+"icon": "reused",
+"sha1": "f953bfc23ffb94865de7e1e8014a2c6cf8176dde",
+"src": "icons/e7af1afdff5b.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 30
 },
 "Dromoleather body": {
 "bytes": "mirror",
@@ -7674,7 +7930,7 @@
 "bytes": "mirror",
 "file": "File:Dromoleather coif.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "aaf5b3a5919457fbfae028a3b3d5fd2396367d49",
 "src": "icons/2bd7701ae52e.webp",
 "used": [
@@ -7713,7 +7969,7 @@
 "bytes": "mirror",
 "file": "File:Dromomastyx hide.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "acbcd406b08488fcf538a496022c0e55e32591df",
 "src": "icons/8702f9c3bb94.webp",
 "used": [
@@ -7990,6 +8246,7 @@
 "sha1": "431ac21ccadb5895467f9cc7bf2aad5b85a5434c",
 "src": "icons/1030b4aa62bc.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -8009,12 +8266,12 @@
 "w": 33
 },
 "Elder longbow (unstrung)": {
-"bytes": "mirror",
+"bytes": "downloaded",
 "file": "File:Elder longbow (unstrung).png",
 "h": 31,
-"icon": "reused",
-"sha1": "3c3a9abf74d03943bc591bf9a9532cccaf2301ff",
-"src": "icons/5a92ee833607.webp",
+"icon": "new",
+"sha1": "72277ac6be13d3c0866af1c8153109abf4922df4",
+"src": "icons/59e228a633e2.webp",
 "used": [
 "fletching"
 ],
@@ -8046,6 +8303,19 @@
 ],
 "via": "exact file",
 "w": 19
+},
+"Elder pyre logs": {
+"bytes": "mirror",
+"file": "File:Elder pyre logs.png",
+"h": 26,
+"icon": "new",
+"sha1": "41410d25ecd63109194790c09f47331c5d0d96cf",
+"src": "icons/28fc248b8f53.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 32
 },
 "Elder rune arrow": {
 "bytes": "mirror",
@@ -8247,7 +8517,7 @@
 "bytes": "mirror",
 "file": "File:Emerald necklace.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "dcb4b8026939ee220ef17b3a9f37cbd9ddde118d",
 "src": "icons/e7bce597e318.webp",
 "used": [
@@ -8273,7 +8543,7 @@
 "bytes": "mirror",
 "file": "File:Empty light orb.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "b6650f3072de45742b58d442eacf3e709f187514",
 "src": "icons/0808a8177bf6.webp",
 "used": [
@@ -8299,7 +8569,7 @@
 "bytes": "mirror",
 "file": "File:Empty sack.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "616649c81d7ecdc29873e40c37b3c60fbc3bb69b",
 "src": "icons/808898b48269.webp",
 "used": [
@@ -8312,7 +8582,7 @@
 "bytes": "mirror",
 "file": "File:Empty seaweed net.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "438cfbbb13600044151b6a069cf909e1a0a9088a",
 "src": "icons/257bbff246a8.webp",
 "used": [
@@ -8499,7 +8769,7 @@
 "bytes": "mirror",
 "file": "File:Ensouled bar.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "a140f435dad4e4da4cb972ef55287c9b41d50e93",
 "src": "icons/d5c85ff25251.webp",
 "used": [
@@ -8516,6 +8786,7 @@
 "sha1": "008fbb611f4e225247b7481d34af0dbd34e0c16f",
 "src": "icons/fad10bdfaa34.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -8620,6 +8891,7 @@
 "sha1": "d399e4e2562899dcfdf3010e61d4c93443e92c77",
 "src": "icons/50d97377e501.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -8781,6 +9053,110 @@
 "via": "exact file",
 "w": 24
 },
+"Eucalyptus logs": {
+"bytes": "mirror",
+"file": "File:Eucalyptus logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "00db772b95ce489d70db0ffc232394647cdaff1f",
+"src": "icons/ec010c5d75ff.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 33
+},
+"Eucalyptus pyre logs": {
+"bytes": "mirror",
+"file": "File:Eucalyptus pyre logs.png",
+"h": 26,
+"icon": "new",
+"sha1": "8fd61ad9986822cbfeb8f70f4142ef13993206c8",
+"src": "icons/1381dd16293e.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 33
+},
+"Evil elder tree": {
+"bytes": "mirror",
+"file": "File:Evil elder tree.png",
+"h": 36,
+"icon": "new",
+"sha1": "8d1a386b891a14ac9eb98cc3ad2b074abf50ca29",
+"src": "icons/2e9cb9fa438c.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 19
+},
+"Evil magic tree": {
+"bytes": "mirror",
+"file": "File:Evil magic tree.png",
+"h": 36,
+"icon": "new",
+"sha1": "0a2b4d9a974f2814bc5a05bbf26a6d3919f6795d",
+"src": "icons/4ff9b6fbbe61.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 26
+},
+"Evil maple tree": {
+"bytes": "mirror",
+"file": "File:Evil maple tree.png",
+"h": 36,
+"icon": "new",
+"sha1": "86ae18a7c64ff1e89afe2cdbf3bc3e83064399be",
+"src": "icons/463a39921c48.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 20
+},
+"Evil oak tree": {
+"bytes": "mirror",
+"file": "File:Evil oak tree.png",
+"h": 36,
+"icon": "new",
+"sha1": "c1d043738a6a4eab624d0e2a0bbe162905029c95",
+"src": "icons/ce2d229b1af5.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 17
+},
+"Evil tree kindling": {
+"bytes": "mirror",
+"file": "File:Evil tree kindling.png",
+"h": 21,
+"icon": "new",
+"sha1": "49873163f87703a492676e4c0853605d95fcff83",
+"src": "icons/c1b9df31a2f3.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 27
+},
+"Evil willow tree": {
+"bytes": "mirror",
+"file": "File:Evil willow tree.png",
+"h": 36,
+"icon": "new",
+"sha1": "dca5afd0561ef6d11749e6d0ca948343cf250278",
+"src": "icons/dbe8b8d2f511.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 19
+},
 "Exalted essence": {
 "bytes": "mirror",
 "file": "File:Exalted essence.png",
@@ -8824,7 +9200,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite cooking urn (no gem).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "aad934a85f3cdd6ea23664ea20681dfe6edde1b3",
 "src": "icons/dceaebafdd28.webp",
 "used": [
@@ -8851,7 +9227,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite divination urn (no gem).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "c5a575535c019e429bf98ece93a2a4b2d87e77da",
 "src": "icons/f24aa66d68f3.webp",
 "used": [
@@ -8864,7 +9240,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite divination urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "66606c5eb1bd7dee075aa3fd64160f9060e23ae8",
 "src": "icons/09a840e4892a.webp",
 "used": [
@@ -8877,7 +9253,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite farming urn (no gem).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "fb22bee77ac045bcf8526a85bd3c938d32b7edeb",
 "src": "icons/e375a588e675.webp",
 "used": [
@@ -8890,7 +9266,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite farming urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "35c55dd9b181a70f9f4236466c5bf4c730d485fb",
 "src": "icons/434494e79ec4.webp",
 "used": [
@@ -8903,7 +9279,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite fishing urn (no gem).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "10139defd7b944586f3be4e8e0e29693c998235a",
 "src": "icons/9f22ac111295.webp",
 "used": [
@@ -8916,7 +9292,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite fishing urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "33a8134482a2583ecfc7e29a541a4e9f4ea66d52",
 "src": "icons/eda00a2e4bf0.webp",
 "used": [
@@ -8929,7 +9305,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite hunter urn (no gem).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "4bb10ce79becc4b04f6a6a50e9a9fb68bdba929d",
 "src": "icons/12795366bc85.webp",
 "used": [
@@ -8942,7 +9318,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite hunter urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "da74e1dd78b8ad6de0061b07aa2750746cbd35e9",
 "src": "icons/a437ea65bf6e.webp",
 "used": [
@@ -8955,7 +9331,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite mining urn (no gem).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "02664875fc0c787691f213ff46d4b787144b026e",
 "src": "icons/ada07f981c81.webp",
 "used": [
@@ -8968,7 +9344,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite mining urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "e457835cb4b2518dad72288ae1d9243a08dd17f2",
 "src": "icons/d208d3074b8a.webp",
 "used": [
@@ -8981,7 +9357,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite runecrafting urn (no gem).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "866744b57e08c1eec3f7a9160d8bf2d8bcb67cdf",
 "src": "icons/86977a99bf87.webp",
 "used": [
@@ -8994,7 +9370,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite runecrafting urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "4abe667f1979d0a588f87524707fdeeaaeff6558",
 "src": "icons/d93e6bb36948.webp",
 "used": [
@@ -9007,7 +9383,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite smithing urn (no gem).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "f6ea2380a51a9441fdaf3caf4765af2047b6204d",
 "src": "icons/57871a7a50ac.webp",
 "used": [
@@ -9020,7 +9396,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite smithing urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "b587a0c182ed767c983185c16778655ffa70928a",
 "src": "icons/8d470502f9f5.webp",
 "used": [
@@ -9033,7 +9409,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite woodcutting urn (no gem).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "ee2776eaffe81fc0817c3659bdef7bb638eaf198",
 "src": "icons/d9987df4b6eb.webp",
 "used": [
@@ -9046,7 +9422,7 @@
 "bytes": "mirror",
 "file": "File:Exquisite woodcutting urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "50fe6d605702148c18bbabd43f110c93aca697f5",
 "src": "icons/5c8276fee341.webp",
 "used": [
@@ -10043,6 +10419,19 @@
 "via": "exact file",
 "w": 33
 },
+"Fayrg bones": {
+"bytes": "mirror",
+"file": "File:Fayrg bones.png",
+"h": 22,
+"icon": "new",
+"sha1": "343bbe9ce9ebb42bda3cf0f92b967111e88d783f",
+"src": "icons/38004f478384.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 25
+},
 "Feather": {
 "bytes": "mirror",
 "file": "File:Feather.png",
@@ -10073,7 +10462,7 @@
 "bytes": "mirror",
 "file": "File:Feather headdress (blue).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "211f82c246b6f152e759834524b43beac9860363",
 "src": "icons/1b65d92c0890.webp",
 "used": [
@@ -10086,7 +10475,7 @@
 "bytes": "mirror",
 "file": "File:Feather headdress (orange).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "844f144a75f13f60046fc989394b102fef60bb32",
 "src": "icons/a29852898125.webp",
 "used": [
@@ -10099,7 +10488,7 @@
 "bytes": "mirror",
 "file": "File:Feather headdress (red).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "e48d9740f10415b5fbd202ada5f54bdf22441d53",
 "src": "icons/9642ae5653c9.webp",
 "used": [
@@ -10112,7 +10501,7 @@
 "bytes": "mirror",
 "file": "File:Feather headdress (stripy).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "d138b5e3058f342e8e513ef17b48cd516e12c6cb",
 "src": "icons/111d66581581.webp",
 "used": [
@@ -10125,7 +10514,7 @@
 "bytes": "mirror",
 "file": "File:Feather headdress (yellow).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "95592dfc87e137563593b5464124b220fd2611a9",
 "src": "icons/77b0c9dfb55b.webp",
 "used": [
@@ -10224,6 +10613,19 @@
 ],
 "via": "exact file",
 "w": 26
+},
+"Firemaking-icon": {
+"bytes": "mirror",
+"file": "File:Firemaking-icon.png",
+"h": 25,
+"icon": "new",
+"sha1": "32b551dd0ba50b3cd2511680b04d72ed24a4c2e1",
+"src": "icons/eef357969dd2.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 25
 },
 "Fish oil 1": {
 "bytes": "mirror",
@@ -10565,7 +10967,7 @@
 "bytes": "mirror",
 "file": "File:Fragile divination urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "232a9a4279face7556a391b2d3d27ff74e9290ab",
 "src": "icons/e01d649f34a1.webp",
 "used": [
@@ -10578,7 +10980,7 @@
 "bytes": "mirror",
 "file": "File:Fragile farming urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "949b37741ff6fc209d1b7f8dadab678559ba7ff4",
 "src": "icons/4ccd9384bf1a.webp",
 "used": [
@@ -10591,7 +10993,7 @@
 "bytes": "mirror",
 "file": "File:Fragile fishing urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "47c85b1ebe8ce266de2feae5d86d349dc8e92d6e",
 "src": "icons/bdbcee48a1f1.webp",
 "used": [
@@ -10604,7 +11006,7 @@
 "bytes": "mirror",
 "file": "File:Fragile hunter urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "60b05fe4a9ade91e1bd796ba6ac5cabd17fd4d20",
 "src": "icons/425bac56fa72.webp",
 "used": [
@@ -10617,7 +11019,7 @@
 "bytes": "mirror",
 "file": "File:Fragile mining urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "06ea0d3503e07a45510b82752146bb61752f017e",
 "src": "icons/822ad22e3a7a.webp",
 "used": [
@@ -10630,7 +11032,7 @@
 "bytes": "mirror",
 "file": "File:Fragile runecrafting urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "92b2f5529492bd7709e47d328a87f2b32d65f010",
 "src": "icons/f3119880170e.webp",
 "used": [
@@ -10643,7 +11045,7 @@
 "bytes": "mirror",
 "file": "File:Fragile smithing urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "6da8609db9dbd07a59b8d5f4beb5d6ceb3c9169b",
 "src": "icons/878efa535548.webp",
 "used": [
@@ -10656,7 +11058,7 @@
 "bytes": "mirror",
 "file": "File:Fragile woodcutting urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "7f3092b346d0a77c4b3aad218418654de330e33c",
 "src": "icons/e8935a271fe8.webp",
 "used": [
@@ -10769,6 +11171,19 @@
 "via": "exact file",
 "w": 29
 },
+"Frost dragon bones": {
+"bytes": "mirror",
+"file": "File:Frost dragon bones.png",
+"h": 25,
+"icon": "reused",
+"sha1": "e1478ff45c12e049e40c2eee13b34007c37ccd90",
+"src": "icons/78d345967859.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 30
+},
 "Fruit Blast": {
 "bytes": "mirror",
 "file": "File:Fruit Blast.png",
@@ -10825,7 +11240,7 @@
 "bytes": "mirror",
 "file": "File:Fungal flake 5.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "ab3ae34273d3be356b39df4bc8e0fc8ccee480d4",
 "src": "icons/c50bd434fc9e.webp",
 "used": [
@@ -10838,7 +11253,7 @@
 "bytes": "mirror",
 "file": "File:Fungal leggings.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "84f106215db2333e5beae17c9b44c1dd37a6f5c3",
 "src": "icons/399f9160250c.webp",
 "used": [
@@ -10851,7 +11266,7 @@
 "bytes": "mirror",
 "file": "File:Fungal poncho.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "bc65fe1a132cfa544e0eeb2327ee14274705b814",
 "src": "icons/4f723e65de4c.webp",
 "used": [
@@ -10864,7 +11279,7 @@
 "bytes": "mirror",
 "file": "File:Fungal visor.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "5e19603e856343204668a198e0355586575d8593",
 "src": "icons/aa5e72273391.webp",
 "used": [
@@ -10968,7 +11383,7 @@
 "bytes": "mirror",
 "file": "File:Gallimastyx hide.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "aba2a49846c1d8f829cb5102de5b99a464d25b99",
 "src": "icons/76490c35da7d.webp",
 "used": [
@@ -10981,7 +11396,7 @@
 "bytes": "mirror",
 "file": "File:Ganodermic flake 5.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "3a426938ce8a1f7bd34ebfa07e33d54dbab93829",
 "src": "icons/0b076729bdc7.webp",
 "used": [
@@ -10994,7 +11409,7 @@
 "bytes": "mirror",
 "file": "File:Ganodermic leggings.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "4e4145e11bc6a110b46aa341d12aafedbaa1d1bf",
 "src": "icons/bc1c15cbe943.webp",
 "used": [
@@ -11007,7 +11422,7 @@
 "bytes": "mirror",
 "file": "File:Ganodermic poncho.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "944e3b7f8cddb2ea4fc6b51a3222b9245dd6a493",
 "src": "icons/41de0d72c05b.webp",
 "used": [
@@ -11020,7 +11435,7 @@
 "bytes": "mirror",
 "file": "File:Ganodermic visor.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "e7f412efc08993ed3f5284aff483cff82545d532",
 "src": "icons/0108b7c11689.webp",
 "used": [
@@ -11407,6 +11822,19 @@
 "via": "exact file",
 "w": 27
 },
+"Good egg": {
+"bytes": "mirror",
+"file": "File:Good egg.png",
+"h": 26,
+"icon": "new",
+"sha1": "6606748bab2309bd4346dd212d8dd8e00bce7e2e",
+"src": "icons/dce6d6d5cc7f.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 18
+},
 "Gorak claw powder": {
 "bytes": "mirror",
 "file": "File:Gorak claw powder.png",
@@ -11433,6 +11861,19 @@
 "via": "exact file",
 "w": 31
 },
+"Gorged ancient effigy": {
+"bytes": "mirror",
+"file": "File:Gorged ancient effigy.png",
+"h": 32,
+"icon": "new",
+"sha1": "9d96440be9fa6e3a4f81ea33da5bee05f65788bf",
+"src": "icons/08b44afa0776.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 29
+},
 "Gorgonite arrows": {
 "bytes": "mirror",
 "file": "File:Gorgonite arrows 5.png",
@@ -11458,6 +11899,19 @@
 ],
 "via": "exact file",
 "w": 30
+},
+"Gorilla bones": {
+"bytes": "mirror",
+"file": "File:Gorilla bones.png",
+"h": 20,
+"icon": "reused",
+"sha1": "c4451b372a05662667b09487c1c6b5c399964142",
+"src": "icons/f8177727c180.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 24
 },
 "Grand attack potion (6)": {
 "bytes": "mirror",
@@ -11545,6 +11999,7 @@
 "sha1": "5f03ee971eddbcf60da923ab1e56aba54429eecb",
 "src": "icons/82c2f36e56e6.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -11736,7 +12191,7 @@
 "bytes": "mirror",
 "file": "File:Green dragonhide shield.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "ad0cb050681027f51c79503f42326ac2a23d528e",
 "src": "icons/586b04e312fc.webp",
 "used": [
@@ -11762,7 +12217,7 @@
 "bytes": "mirror",
 "file": "File:Green spiky vambraces.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "0fc48ace2f3660240e0092bec5c1bcb6e8e4d8bc",
 "src": "icons/22b44156b8ee.webp",
 "used": [
@@ -11802,7 +12257,7 @@
 "bytes": "mirror",
 "file": "File:Grifolic flake 5.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "f869ad9faaf65580a0aa4a08906d8ed7fc12630d",
 "src": "icons/3e99a90ea0fe.webp",
 "used": [
@@ -11815,7 +12270,7 @@
 "bytes": "mirror",
 "file": "File:Grifolic leggings.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "3fef3ad867436f007a6dfa00c3d87b964ad5ec9d",
 "src": "icons/d59c602546e6.webp",
 "used": [
@@ -11828,7 +12283,7 @@
 "bytes": "mirror",
 "file": "File:Grifolic poncho.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "e12bbeb609c79874b22028c3420e56d98958d04c",
 "src": "icons/0415456b4da9.webp",
 "used": [
@@ -11841,7 +12296,7 @@
 "bytes": "mirror",
 "file": "File:Grifolic visor.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "20035c6397e4bc470f0542c21f6b2894151618af",
 "src": "icons/f4b57358ad8b.webp",
 "used": [
@@ -12870,7 +13325,7 @@
 "bytes": "mirror",
 "file": "File:Hard leather boots.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "67bea24113ee0817dc1f2945071d45817b315c7b",
 "src": "icons/bca9880d5818.webp",
 "used": [
@@ -12883,7 +13338,7 @@
 "bytes": "mirror",
 "file": "File:Hard leather chaps.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "6d84e4d75c5d0d949c09e9488af1dc41c1179695",
 "src": "icons/8c38f1579578.webp",
 "used": [
@@ -12896,7 +13351,7 @@
 "bytes": "mirror",
 "file": "File:Hard leather cowl.png",
 "h": 11,
-"icon": "new",
+"icon": "reused",
 "sha1": "61cc61a78a3d1a447c922c7930ecc3eb7a20b033",
 "src": "icons/0d318e49ab1a.webp",
 "used": [
@@ -12909,7 +13364,7 @@
 "bytes": "mirror",
 "file": "File:Hard leather gloves.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "346c648140e11e10b8f736de0d08d29da5880bcd",
 "src": "icons/e1b218eb03c3.webp",
 "used": [
@@ -12922,7 +13377,7 @@
 "bytes": "mirror",
 "file": "File:Hard leather shield.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "8548f511d3f8757bbe80b8819e608e2e39ad50c7",
 "src": "icons/e3e9a9d462f6.webp",
 "used": [
@@ -12931,11 +13386,24 @@
 "via": "exact file",
 "w": 27
 },
+"Hardened dragon bones": {
+"bytes": "mirror",
+"file": "File:Hardened dragon bones.png",
+"h": 29,
+"icon": "reused",
+"sha1": "2941a805705fda1502f7148af91a6be013f276d1",
+"src": "icons/342eaa237f10.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 32
+},
 "Harmonic dust": {
 "bytes": "mirror",
 "file": "File:Harmonic dust.png",
 "h": 15,
-"icon": "new",
+"icon": "reused",
 "sha1": "82fc8a83173f4c5ce0043585cf7afbcfb5c30efc",
 "src": "icons/935448ad79d9.webp",
 "used": [
@@ -13310,7 +13778,7 @@
 "bytes": "mirror",
 "file": "File:Hydrix amulet.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "f8369bd1809969d76d01dee6342544959e39e02c",
 "src": "icons/e6a89c4ab1ae.webp",
 "used": [
@@ -13323,7 +13791,7 @@
 "bytes": "mirror",
 "file": "File:Hydrix amulet (unstrung).png",
 "h": 13,
-"icon": "new",
+"icon": "reused",
 "sha1": "12b7ccfe9b7bf3133c6ac0aeb01d1d1afed64e94",
 "src": "icons/3951bdfca55d.webp",
 "used": [
@@ -13362,7 +13830,7 @@
 "bytes": "mirror",
 "file": "File:Hydrix bracelet.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "c19b1adf6bf3bdf9df3c7404b16145f93a7df4c2",
 "src": "icons/18a31c6f840b.webp",
 "used": [
@@ -13375,7 +13843,7 @@
 "bytes": "mirror",
 "file": "File:Hydrix necklace.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "ecfdbe9d698490a7288718d9a4f6a5cf20857d01",
 "src": "icons/60c0aedfb90c.webp",
 "used": [
@@ -13388,7 +13856,7 @@
 "bytes": "mirror",
 "file": "File:Hydrix ring.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "c5249b8574313d4e8da0ee5a297bfaf17db079ea",
 "src": "icons/a5d84dd5f0de.webp",
 "used": [
@@ -13401,7 +13869,7 @@
 "bytes": "downloaded",
 "file": "File:Imp horn wand.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "487aa3183fdf012d30c2dc96fc5d6b3cad4b3dce",
 "src": "icons/c6806b903af6.webp",
 "used": [
@@ -13414,7 +13882,7 @@
 "bytes": "downloaded",
 "file": "File:Imphide.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "39b8dc11d1a7ed6e65de4cbdcd6afc4825cf17b2",
 "src": "icons/06fbbff9ea7b.webp",
 "used": [
@@ -13427,7 +13895,7 @@
 "bytes": "downloaded",
 "file": "File:Imphide book.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "2d390d9ac3a286282fb58eb0d3f108f1679c2771",
 "src": "icons/efded2f439c6.webp",
 "used": [
@@ -13440,7 +13908,7 @@
 "bytes": "mirror",
 "file": "File:Imphide boots.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "5619ed8bc35de5ca549c220bf2c963e21576f6e0",
 "src": "icons/2c4983813553.webp",
 "used": [
@@ -13453,7 +13921,7 @@
 "bytes": "downloaded",
 "file": "File:Imphide gloves.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "1988e69d5b4a59661a119c1abc4880af38ca0b72",
 "src": "icons/3ea42a9dc426.webp",
 "used": [
@@ -13466,7 +13934,7 @@
 "bytes": "downloaded",
 "file": "File:Imphide hood.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "f03bcaa0ecf37e8946dd000c3639af4d4137e2f1",
 "src": "icons/eb608b796d76.webp",
 "used": [
@@ -13479,7 +13947,7 @@
 "bytes": "downloaded",
 "file": "File:Imphide robe bottom.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "4d81d4ad7129899c9872d6ba3f2d6731ea7f0e3b",
 "src": "icons/41db1e586b64.webp",
 "used": [
@@ -13492,7 +13960,7 @@
 "bytes": "downloaded",
 "file": "File:Imphide robe top.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "1259fdcd507b89f2ccf56d6fa8a432ead3bb84a1",
 "src": "icons/57e6fd54dbce.webp",
 "used": [
@@ -13505,7 +13973,7 @@
 "bytes": "downloaded",
 "file": "File:Imphide shield.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "1ee28d6bcb3cc2bd96d015f0d7ea29303e7a1f9e",
 "src": "icons/64c7bbc55ede.webp",
 "used": [
@@ -13514,11 +13982,50 @@
 "via": "exact file",
 "w": 31
 },
+"Impious ashes": {
+"bytes": "mirror",
+"file": "File:Impious ashes.png",
+"h": 15,
+"icon": "reused",
+"sha1": "2b13409d8a792bf0de4dfe7ae66b043fa524296c",
+"src": "icons/fe1460736fd8.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 22
+},
+"Impious incense sticks": {
+"bytes": "mirror",
+"file": "File:Impious incense sticks.png",
+"h": 30,
+"icon": "new",
+"sha1": "a70c443960ad08fd037715fbb87588015749c203",
+"src": "icons/9851a29c2718.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 31
+},
+"Impious oak incense sticks": {
+"bytes": "mirror",
+"file": "File:Impious oak incense sticks.png",
+"h": 30,
+"icon": "new",
+"sha1": "46fd5b9fd01ded31d0d015eb8c7f91e4333f2891",
+"src": "icons/a155c827eb17.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 31
+},
 "Impious urn (no rune)": {
 "bytes": "mirror",
 "file": "File:Impious urn (no rune).png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "0ef3797a7692e207090bf2ab936ee671e3077615",
 "src": "icons/a7234c686e67.webp",
 "used": [
@@ -13526,6 +14033,19 @@
 ],
 "via": "exact file",
 "w": 19
+},
+"Impious willow incense sticks": {
+"bytes": "mirror",
+"file": "File:Impious willow incense sticks.png",
+"h": 30,
+"icon": "new",
+"sha1": "c2fa188ed9b0fb9234c4f37f809dc4ff7358abab",
+"src": "icons/aaae96fc9dfe.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 31
 },
 "Inert adrenaline crystal": {
 "bytes": "mirror",
@@ -13540,11 +14060,37 @@
 "via": "exact file",
 "w": 11
 },
+"Infernal ashes": {
+"bytes": "mirror",
+"file": "File:Infernal ashes.png",
+"h": 15,
+"icon": "reused",
+"sha1": "b23ad07065e45ba99948a7f37dff0a50fd955759",
+"src": "icons/99282af169e5.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 22
+},
+"Infernal magic incense sticks": {
+"bytes": "mirror",
+"file": "File:Infernal magic incense sticks.png",
+"h": 30,
+"icon": "new",
+"sha1": "478a5ec0fa2fcb874a864c55518ffc3f36565999",
+"src": "icons/67c60fa5c0ea.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 31
+},
 "Infernal urn (no rune)": {
 "bytes": "mirror",
 "file": "File:Infernal urn (no rune).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "8d9f0bb271378f301c5d1fe159fc206a84e227f9",
 "src": "icons/79823c641b3f.webp",
 "used": [
@@ -13552,6 +14098,19 @@
 ],
 "via": "exact file",
 "w": 19
+},
+"Infernal yew incense sticks": {
+"bytes": "mirror",
+"file": "File:Infernal yew incense sticks.png",
+"h": 30,
+"icon": "new",
+"sha1": "e68460bdfc60a79d1d1a286c1eecb65fb2d1d2b1",
+"src": "icons/8c963be54f67.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 31
 },
 "Invention flask (6)": {
 "bytes": "downloaded",
@@ -13823,7 +14382,7 @@
 "bytes": "mirror",
 "file": "File:Jade amulet (unstrung).png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "8a890147e344570eaf3613935aabab6235a72490",
 "src": "icons/1744ea94185c.webp",
 "used": [
@@ -13875,7 +14434,7 @@
 "bytes": "mirror",
 "file": "File:Jade bracelet.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "5e86b4d4ca31b1ab1f9430a956c61ad05359b17b",
 "src": "icons/a17b2f000a14.webp",
 "used": [
@@ -13888,7 +14447,7 @@
 "bytes": "mirror",
 "file": "File:Jade necklace.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "003a8d4ffb29eadb05c127cbbec7dbce602f1743",
 "src": "icons/7996dd1bb45e.webp",
 "used": [
@@ -13935,6 +14494,19 @@
 ],
 "via": "File redirect from File:Jas dragonbane arrow.png",
 "w": 32
+},
+"Jogre bones": {
+"bytes": "mirror",
+"file": "File:Jogre bones.png",
+"h": 20,
+"icon": "reused",
+"sha1": "c4451b372a05662667b09487c1c6b5c399964142",
+"src": "icons/f8177727c180.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 24
 },
 "Jug of water": {
 "bytes": "mirror",
@@ -14412,7 +14984,7 @@
 "bytes": "mirror",
 "file": "File:Jute fibre.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "5203d5d3a3506f5318b68a3a4e65e5ee7cade2d2",
 "src": "icons/887dc266a671.webp",
 "used": [
@@ -14490,7 +15062,7 @@
 "bytes": "mirror",
 "file": "File:Kebbit claws.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "912a0599a0148fa5a209d6dae224e49f2db62816",
 "src": "icons/df6331c616c8.webp",
 "used": [
@@ -14568,7 +15140,7 @@
 "bytes": "mirror",
 "file": "File:Koi scales.png",
 "h": 34,
-"icon": "new",
+"icon": "reused",
 "sha1": "c0441d9962a8137151185d75aa84dd250395117e",
 "src": "icons/acbc5a4a79e2.webp",
 "used": [
@@ -14633,7 +15205,7 @@
 "bytes": "mirror",
 "file": "File:Lacquer.png",
 "h": 34,
-"icon": "new",
+"icon": "reused",
 "sha1": "6e99c9cc623f79022198ea8b505d4f821e208fc8",
 "src": "icons/186bb36b0ca2.webp",
 "used": [
@@ -14672,7 +15244,7 @@
 "bytes": "mirror",
 "file": "File:Lapis lazuli brooch.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "516f9b2d0eb19a77e3450f5eb50bab4000c53747",
 "src": "icons/e09a9ef6a7fc.webp",
 "used": [
@@ -14685,7 +15257,7 @@
 "bytes": "mirror",
 "file": "File:Lapis lazuli gem.png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "9a99b83bb76dc056acdc48309d8e7ddfd64d77dc",
 "src": "icons/1555f72039b2.webp",
 "used": [
@@ -14698,7 +15270,7 @@
 "bytes": "mirror",
 "file": "File:Lapis lazuli ring.png",
 "h": 17,
-"icon": "new",
+"icon": "reused",
 "sha1": "93d233ab82941cb3b2d568df50d492508bca34b7",
 "src": "icons/041c58ca10e3.webp",
 "used": [
@@ -14706,6 +15278,19 @@
 ],
 "via": "exact file",
 "w": 19
+},
+"Large zombie monkey bones": {
+"bytes": "mirror",
+"file": "File:Large zombie monkey bones.png",
+"h": 18,
+"icon": "reused",
+"sha1": "155fbded812ac414cca1e8a0daf9ce6289121865",
+"src": "icons/6fdaf2e1032a.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 28
 },
 "Lava battlestaff": {
 "bytes": "mirror",
@@ -14906,7 +15491,7 @@
 "bytes": "mirror",
 "file": "File:Leviathan ring.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "f42a3ef883df618060b7f8c39208e2dd7bfd594b",
 "src": "icons/22bde083460c.webp",
 "used": [
@@ -14919,11 +15504,12 @@
 "bytes": "mirror",
 "file": "File:Light orb.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "1553e26d463ed5ae0c93b70c5fa7a69d16d49a63",
 "src": "icons/8bce21eb342f.webp",
 "used": [
-"crafting"
+"crafting",
+"firemaking"
 ],
 "via": "exact file",
 "w": 18
@@ -14989,10 +15575,24 @@
 "src": "icons/d87ccbaca112.webp",
 "used": [
 "crafting",
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
 "w": 33
+},
+"Long bone": {
+"bytes": "mirror",
+"file": "File:Long bone.png",
+"h": 29,
+"icon": "reused",
+"sha1": "33f419c1db426aaf3417d21babda4b6130973154",
+"src": "icons/4c7e3055c7e1.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 29
 },
 "Long kebbit bolts": {
 "bytes": "mirror",
@@ -15237,6 +15837,7 @@
 "sha1": "4f2ffb5ae3065d802ba37af1ff382bad515002a9",
 "src": "icons/ececd320c370.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -15363,6 +15964,19 @@
 "via": "exact file",
 "w": 24
 },
+"Magic pyre logs": {
+"bytes": "mirror",
+"file": "File:Magic pyre logs.png",
+"h": 26,
+"icon": "new",
+"sha1": "76ce937e8cb4edfca0ee85ac84243359997f269f",
+"src": "icons/208d779a5519.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 33
+},
 "Magic roots": {
 "bytes": "mirror",
 "file": "File:Magic roots.png",
@@ -15407,7 +16021,7 @@
 "bytes": "mirror",
 "file": "File:Magic string.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "7694af420eab243162929d458cc62ea639c9865f",
 "src": "icons/12e75e860457.webp",
 "used": [
@@ -15424,7 +16038,21 @@
 "sha1": "43991b6d943ce9edb0ed6fe8db153c0c4d92bd6c",
 "src": "icons/e30be3641c6e.webp",
 "used": [
+"firemaking",
 "fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Mahogany pyre logs": {
+"bytes": "mirror",
+"file": "File:Mahogany pyre logs.png",
+"h": 26,
+"icon": "new",
+"sha1": "05187eda69e810405646f5edf5f5ec508c202514",
+"src": "icons/2558a4399dff.webp",
+"used": [
+"firemaking"
 ],
 "via": "exact file",
 "w": 33
@@ -15490,6 +16118,7 @@
 "sha1": "816072ab287b9af02956af0ffcd1a3512e874099",
 "src": "icons/ed8b83672572.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -15520,6 +16149,19 @@
 ],
 "via": "exact file",
 "w": 32
+},
+"Maple pyre logs": {
+"bytes": "mirror",
+"file": "File:Maple pyre logs.png",
+"h": 26,
+"icon": "new",
+"sha1": "9204cac16d59c151d7abca9586de5a3f8600fa94",
+"src": "icons/723099fda1d5.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 33
 },
 "Maple roots": {
 "bytes": "mirror",
@@ -15707,7 +16349,7 @@
 "bytes": "mirror",
 "file": "File:Megaleather shield.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "4ec94e0666b36384cf83b148c110ee8a89c0e5c2",
 "src": "icons/22a7ab7e1d72.webp",
 "used": [
@@ -15733,7 +16375,7 @@
 "bytes": "mirror",
 "file": "File:Megamastyx hide.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "5e5ff2c8288a32b0890d731821accdaed71e8b4d",
 "src": "icons/2a7db99c61ff.webp",
 "used": [
@@ -16163,6 +16805,19 @@
 "via": "exact file",
 "w": 29
 },
+"Monkey bones": {
+"bytes": "mirror",
+"file": "File:Monkey bones.png",
+"h": 19,
+"icon": "reused",
+"sha1": "1394d5aa488fec7ae625d4f4f99e54a39ed09a3b",
+"src": "icons/a849fc805112.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 26
+},
 "Monkfish": {
 "bytes": "mirror",
 "file": "File:Monkfish.png",
@@ -16193,7 +16848,7 @@
 "bytes": "mirror",
 "file": "File:Moonstone.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "d84c8d76afe28fa7a4b38f9e53ae6f5962539041",
 "src": "icons/7b60781d3556.webp",
 "used": [
@@ -16206,7 +16861,7 @@
 "bytes": "mirror",
 "file": "File:Moonstone amulet.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "324b747a2428439ebe754c0297123a8782cdca42",
 "src": "icons/8526fa05c223.webp",
 "used": [
@@ -16219,7 +16874,7 @@
 "bytes": "mirror",
 "file": "File:Moonstone amulet (unstrung).png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "693c92a52449249ef4f5316c2b4bd18ae74cf702",
 "src": "icons/3f8762453336.webp",
 "used": [
@@ -16232,7 +16887,7 @@
 "bytes": "mirror",
 "file": "File:Moonstone bracelet.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "85d7a4adc45e78e81cb94299025e94e6989d2b66",
 "src": "icons/fadd7e08215b.webp",
 "used": [
@@ -16245,7 +16900,7 @@
 "bytes": "mirror",
 "file": "File:Moonstone necklace.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "f81430192e4f498003ea33aee610153fd7298312",
 "src": "icons/95eb49396e4a.webp",
 "used": [
@@ -16258,7 +16913,7 @@
 "bytes": "mirror",
 "file": "File:Moonstone ring.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "3143b8aec48968b90b35ef8cb9958657fcae996a",
 "src": "icons/c56fd67081f6.webp",
 "used": [
@@ -16427,7 +17082,7 @@
 "bytes": "mirror",
 "file": "File:Mycelium leggings web.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "b3355532cc422404e008eb8a2a27f92a34ace672",
 "src": "icons/433b62992c21.webp",
 "used": [
@@ -16440,7 +17095,7 @@
 "bytes": "mirror",
 "file": "File:Mycelium poncho web.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "ff8cc171f44b3cac2bbd7d92ba7e13ea50f19eab",
 "src": "icons/2ba14ca0775a.webp",
 "used": [
@@ -16453,7 +17108,7 @@
 "bytes": "mirror",
 "file": "File:Mycelium visor web.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "921b324b0954c6ded1be8030bffe89d14fa028ed",
 "src": "icons/5f03f9f0855c.webp",
 "used": [
@@ -16466,7 +17121,7 @@
 "bytes": "mirror",
 "file": "File:Myre snelm (pointed).png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "0139e261f4646883ca682a0fc5d0e2de192436d4",
 "src": "icons/06ccdfbcd56e.webp",
 "used": [
@@ -16479,7 +17134,7 @@
 "bytes": "mirror",
 "file": "File:Myre snelm (round).png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "2c288a70f1ea3528c085501d0b50b333907d5853",
 "src": "icons/3036db354a95.webp",
 "used": [
@@ -16505,7 +17160,7 @@
 "bytes": "mirror",
 "file": "File:Mystic boots.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "e47e8d254f636d43ed452a0ddf9cfe780e5f6f4f",
 "src": "icons/b5231b4c36c7.webp",
 "used": [
@@ -16557,7 +17212,7 @@
 "bytes": "mirror",
 "file": "File:Mystic gloves.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "e5b848a016457b0560306c46a80bead900574017",
 "src": "icons/462fcd59975d.webp",
 "used": [
@@ -16570,7 +17225,7 @@
 "bytes": "mirror",
 "file": "File:Mystic hat.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "68ea07023954fb1b2eb3a251e909fd662ab19b80",
 "src": "icons/2305118e983a.webp",
 "used": [
@@ -16596,7 +17251,7 @@
 "bytes": "mirror",
 "file": "File:Mystic mud staff.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "b8bef23eabfaf3fd2de988a8b06f4cb5ee82e576",
 "src": "icons/82aadf9c4132.webp",
 "used": [
@@ -16609,7 +17264,7 @@
 "bytes": "mirror",
 "file": "File:Mystic orb.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "c89d9b52524a5159ed395930a3ab9c31e58645e1",
 "src": "icons/59e18f21b3e1.webp",
 "used": [
@@ -16648,7 +17303,7 @@
 "bytes": "mirror",
 "file": "File:Mystic shield.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "dc306c75fed55b2672c8f08cf8e651276b42c16a",
 "src": "icons/2ae645701579.webp",
 "used": [
@@ -16661,7 +17316,7 @@
 "bytes": "mirror",
 "file": "File:Mystic steam staff.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "13e34f214d93927a7386afa337362521fd468c8b",
 "src": "icons/a9e6b08fcad0.webp",
 "used": [
@@ -16674,7 +17329,7 @@
 "bytes": "mirror",
 "file": "File:Mystic wand.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "6b1668f30b3054cfc4b0897d1e5e91dc8d695f2e",
 "src": "icons/48ef9cbc6c45.webp",
 "used": [
@@ -16739,7 +17394,7 @@
 "bytes": "mirror",
 "file": "File:Shade mystic air staff.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "c54c7797ca8c1e5143c85f570a723c5da910c3f2",
 "src": "icons/3971503a8aa3.webp",
 "used": [
@@ -16752,7 +17407,7 @@
 "bytes": "mirror",
 "file": "File:Shade mystic earth staff.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "a2542ae7d75b8e219822410261a317bac8e282f0",
 "src": "icons/c3a485107192.webp",
 "used": [
@@ -16765,7 +17420,7 @@
 "bytes": "mirror",
 "file": "File:Shade mystic fire staff.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "9240ba481c65c86489ab4c4500485c0339f685b7",
 "src": "icons/eb0f8d7500d9.webp",
 "used": [
@@ -16778,7 +17433,7 @@
 "bytes": "mirror",
 "file": "File:Shade mystic lava staff.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "73325215ec13b0dbd926f9dbbfd0906edef981ff",
 "src": "icons/cd5f739122ac.webp",
 "used": [
@@ -16791,7 +17446,7 @@
 "bytes": "mirror",
 "file": "File:Shade mystic mud staff.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "657721772fb9b65323782cf1bab5f5bc8dfc030f",
 "src": "icons/6691c3cac20c.webp",
 "used": [
@@ -16804,7 +17459,7 @@
 "bytes": "mirror",
 "file": "File:Shade mystic steam staff.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "4e595132ce2546c479102a79d15f72486bebf956",
 "src": "icons/ba2c8ecfd590.webp",
 "used": [
@@ -16817,7 +17472,7 @@
 "bytes": "mirror",
 "file": "File:Shade mystic water staff.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "9da2d5aaf08f6d953ff35d21204c4332981d006f",
 "src": "icons/f137a78f37a3.webp",
 "used": [
@@ -17025,6 +17680,19 @@
 "via": "exact file",
 "w": 31
 },
+"Nourished ancient effigy": {
+"bytes": "mirror",
+"file": "File:Nourished ancient effigy.png",
+"h": 32,
+"icon": "reused",
+"sha1": "9d96440be9fa6e3a4f81ea33da5bee05f65788bf",
+"src": "icons/08b44afa0776.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 29
+},
 "Novite arrows": {
 "bytes": "mirror",
 "file": "File:Novite arrows 5.png",
@@ -17072,6 +17740,7 @@
 "sha1": "e15c5d2767ca573764a56dcb6d999f4654a8273c",
 "src": "icons/1a33ee60d0e9.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -17102,6 +17771,19 @@
 ],
 "via": "exact file",
 "w": 32
+},
+"Oak pyre logs": {
+"bytes": "mirror",
+"file": "File:Oak pyre logs.png",
+"h": 26,
+"icon": "new",
+"sha1": "c5793ba607f4218c3c3385903084abd1810dd319",
+"src": "icons/beb0f5b837bb.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 33
 },
 "Oak roots": {
 "bytes": "mirror",
@@ -17589,7 +18271,7 @@
 "bytes": "mirror",
 "file": "File:Oil lamp (empty).png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "e3675a6a0e7bbf7e61d6e9f4eae2242d120ef048",
 "src": "icons/70e1c11f8d25.webp",
 "used": [
@@ -17602,7 +18284,7 @@
 "bytes": "mirror",
 "file": "File:Oil lantern (empty).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "69cf277e2a1583c0377ceacbaf21c18327abcdfe",
 "src": "icons/cb794e36bcd6.webp",
 "used": [
@@ -17668,7 +18350,7 @@
 "bytes": "mirror",
 "file": "File:Onyx amulet.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "1bc1f449c2466ab6b4d4095fad1dcef786f2283b",
 "src": "icons/d728ea1017ee.webp",
 "used": [
@@ -17681,7 +18363,7 @@
 "bytes": "mirror",
 "file": "File:Onyx amulet (unstrung).png",
 "h": 13,
-"icon": "new",
+"icon": "reused",
 "sha1": "8d86362887e2a3a95a70b2b1b176964b30dd3f06",
 "src": "icons/2821ea6940e2.webp",
 "used": [
@@ -17734,7 +18416,7 @@
 "bytes": "mirror",
 "file": "File:Onyx bracelet.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "c6b1ce206993472f809801f6740262e8ce581741",
 "src": "icons/ad3ee7ba12e5.webp",
 "used": [
@@ -17747,7 +18429,7 @@
 "bytes": "mirror",
 "file": "File:Onyx necklace.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "f0ede3cfd78acd4a635b220f737998b078a3a0b1",
 "src": "icons/82f68deda70a.webp",
 "used": [
@@ -17760,7 +18442,7 @@
 "bytes": "mirror",
 "file": "File:Onyx ring.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "116924455b0a42de4e7bd522475ef18d97a20d59",
 "src": "icons/9f0be27355c6.webp",
 "used": [
@@ -17787,7 +18469,7 @@
 "bytes": "mirror",
 "file": "File:Opal amulet.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "a4c5e52ffeaa1bfcfce87826555f732956c5e2fe",
 "src": "icons/755c8fcaedb5.webp",
 "used": [
@@ -17800,7 +18482,7 @@
 "bytes": "mirror",
 "file": "File:Opal amulet (unstrung).png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "7efb7cbb905df1fb595af9174b3bcc805b2ead3d",
 "src": "icons/841f1732088e.webp",
 "used": [
@@ -17852,7 +18534,7 @@
 "bytes": "mirror",
 "file": "File:Opal bracelet.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "95416e8322cc2a126a47a714e636b3a0d28462e4",
 "src": "icons/d72f575aff55.webp",
 "used": [
@@ -17865,7 +18547,7 @@
 "bytes": "mirror",
 "file": "File:Opal necklace.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "b67b304dbb7e3fc5f0859ddbd02885a4e44050e5",
 "src": "icons/26cf8984fec5.webp",
 "used": [
@@ -17930,7 +18612,7 @@
 "bytes": "mirror",
 "file": "File:Orb of Armadyl.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "6797999b8a3348bd5494d6d33eae29635a9160d9",
 "src": "icons/88403e8810ae.webp",
 "used": [
@@ -18042,6 +18724,19 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Ourg bones": {
+"bytes": "mirror",
+"file": "File:Ourg bones.png",
+"h": 22,
+"icon": "reused",
+"sha1": "fec2460642e43a19ebf08e166e0ab2f83f90380a",
+"src": "icons/a486499b6d81.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 25
 },
 "Overload (1)": {
 "bytes": "mirror",
@@ -18177,7 +18872,7 @@
 "bytes": "mirror",
 "file": "File:Paraleather body.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "7dcbd6d7c78eb02f6414d2276365c0865e5ac3b9",
 "src": "icons/58a68cad89fe.webp",
 "used": [
@@ -18216,7 +18911,7 @@
 "bytes": "mirror",
 "file": "File:Paraleather coif.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "791f23255077ee1c41b47313f92197d8d97f2a68",
 "src": "icons/459edd136c7e.webp",
 "used": [
@@ -18242,7 +18937,7 @@
 "bytes": "mirror",
 "file": "File:Paraleather vambraces.png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "2302d8ec5cbbd389413304c7fac6bb7cbf7f92ba",
 "src": "icons/90766ab03fae.webp",
 "used": [
@@ -18255,7 +18950,7 @@
 "bytes": "mirror",
 "file": "File:Paramastyx hide.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "dd1fabb937418fe37f5d5968de1e4aafefc1bbb0",
 "src": "icons/4afda343daa1.webp",
 "used": [
@@ -18359,7 +19054,7 @@
 "bytes": "mirror",
 "file": "File:Pearls.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "171cc04fcd02beec1434767ec8cd7a4130c77932",
 "src": "icons/df28979ebe32.webp",
 "used": [
@@ -19050,6 +19745,19 @@
 "via": "exact file",
 "w": 32
 },
+"Phoenix chathead": {
+"bytes": "mirror",
+"file": "File:Phoenix chathead.png",
+"h": 36,
+"icon": "new",
+"sha1": "832951656806f9db47d2c6c3b6dbda65c02b29de",
+"src": "icons/d995b74e1b60.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 22
+},
 "Phoenix feather": {
 "bytes": "mirror",
 "file": "File:Phoenix feather.png",
@@ -19067,7 +19775,7 @@
 "bytes": "mirror",
 "file": "File:Pie dish.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "1381d8a3a405291c5375233591a7eebb3f01db1b",
 "src": "icons/171ea1ae4156.webp",
 "used": [
@@ -19250,7 +19958,7 @@
 "bytes": "mirror",
 "file": "File:Plain divination urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "fb9a6c7fb285ea574335f8604e802d04dc8ae809",
 "src": "icons/c8093e409265.webp",
 "used": [
@@ -19263,7 +19971,7 @@
 "bytes": "mirror",
 "file": "File:Plain farming urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "c6ac04dba97e749db49aee755944bc962642b5b5",
 "src": "icons/d42e74b77c2d.webp",
 "used": [
@@ -19276,7 +19984,7 @@
 "bytes": "mirror",
 "file": "File:Plain fishing urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "a5fded71e07419f6f7683ee14163fdd1bb77b3ff",
 "src": "icons/3cc0595dd6de.webp",
 "used": [
@@ -19289,7 +19997,7 @@
 "bytes": "mirror",
 "file": "File:Plain hunter urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "f0aaf192b5c884c18156067733c800ebc9e2e4af",
 "src": "icons/20dbefa5c078.webp",
 "used": [
@@ -19302,7 +20010,7 @@
 "bytes": "mirror",
 "file": "File:Plain mining urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "cd56d337232fd920156b2bdcdcb73b83c8eba26e",
 "src": "icons/5abbfe100c5e.webp",
 "used": [
@@ -19328,7 +20036,7 @@
 "bytes": "mirror",
 "file": "File:Plain runecrafting urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "168fdc0d850d4d46d67705744dde7d4dca6697ae",
 "src": "icons/85f475e77fd6.webp",
 "used": [
@@ -19341,7 +20049,7 @@
 "bytes": "mirror",
 "file": "File:Plain smithing urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "6f55feb5b4e68e4a52d4603d7c1d1168f68bc512",
 "src": "icons/43608eac7b7a.webp",
 "used": [
@@ -19354,7 +20062,7 @@
 "bytes": "mirror",
 "file": "File:Plain woodcutting urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "ebf9ac608e6f144f0d06899465789d66c30c5ca9",
 "src": "icons/a5eeac3e45ef.webp",
 "used": [
@@ -19406,7 +20114,7 @@
 "bytes": "mirror",
 "file": "File:Platinum amulet.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "74bf2a56ef9ccc0ed595c1b62daf5abe7ce5e16e",
 "src": "icons/ddb6fee3f6bf.webp",
 "used": [
@@ -19419,7 +20127,7 @@
 "bytes": "mirror",
 "file": "File:Platinum anklet.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "5fd3d237b2abfab0eeb599da58965c8a793dbd71",
 "src": "icons/aa4fc076bd2e.webp",
 "used": [
@@ -19432,7 +20140,7 @@
 "bytes": "mirror",
 "file": "File:Platinum bar.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "4bb01fdd29e6573f3e82512561a68aa81e917715",
 "src": "icons/879e4512e3f3.webp",
 "used": [
@@ -19445,7 +20153,7 @@
 "bytes": "mirror",
 "file": "File:Platinum bracelet.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "cea65ad3595e060f01f39c8c1209a750122ab19f",
 "src": "icons/7b7a8682cc51.webp",
 "used": [
@@ -19458,7 +20166,7 @@
 "bytes": "mirror",
 "file": "File:Platinum necklace.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "665f6498bfb8cb73eea88d9dc500f5061cd05054",
 "src": "icons/49c7577abb83.webp",
 "used": [
@@ -19471,7 +20179,7 @@
 "bytes": "mirror",
 "file": "File:Platinum ring.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "1a9ed055c9e8d6ce2619ae9a22e5dadde14e0c6e",
 "src": "icons/56181d979937.webp",
 "used": [
@@ -20484,7 +21192,7 @@
 "bytes": "mirror",
 "file": "File:Protoleather vambraces.png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "3ad88c6b29071d276d573eaf85c1e5862ecb8f68",
 "src": "icons/7d23051a5f90.webp",
 "used": [
@@ -20497,7 +21205,7 @@
 "bytes": "mirror",
 "file": "File:Protomastyx hide.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "0e57bc961fa889d473fe7a93f4ae37c91f996bc1",
 "src": "icons/11cf28270ac1.webp",
 "used": [
@@ -20505,6 +21213,19 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Pyre logs": {
+"bytes": "mirror",
+"file": "File:Pyre logs.png",
+"h": 26,
+"icon": "new",
+"sha1": "74ab87b01a72f706d5d01054acb64998b518b40d",
+"src": "icons/a28cc9954d5d.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 33
 },
 "Rabbit foot": {
 "bytes": "mirror",
@@ -20680,6 +21401,19 @@
 ],
 "via": "exact file",
 "w": 21
+},
+"Raurg bones": {
+"bytes": "mirror",
+"file": "File:Raurg bones.png",
+"h": 22,
+"icon": "new",
+"sha1": "9655046bda62a91f96df350c5a5b4b83c6bee19e",
+"src": "icons/3f79e9879683.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 25
 },
 "Raw admiral pie": {
 "bytes": "mirror",
@@ -21790,7 +22524,7 @@
 "bytes": "mirror",
 "file": "File:Red dragon leather.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "f11e6dd818e5bed16b69c942384dd2aeba9a0489",
 "src": "icons/efc12c3e7579.webp",
 "used": [
@@ -21842,7 +22576,7 @@
 "bytes": "mirror",
 "file": "File:Red dragonhide coif.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "df08263370abe8af3ff67d116db8277662d577c3",
 "src": "icons/6b8259b2cf00.webp",
 "used": [
@@ -21933,7 +22667,7 @@
 "bytes": "mirror",
 "file": "File:Red spiky vambraces.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "3193888d0d8c3b76dde2189452d091e535d0873a",
 "src": "icons/57374395c2e9.webp",
 "used": [
@@ -22052,7 +22786,7 @@
 "bytes": "mirror",
 "file": "File:Reefwalker's cape.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "6a04de4ce317b4d048d4289a1c41c2074d1e38cd",
 "src": "icons/8c82164055a8.webp",
 "used": [
@@ -22060,6 +22794,19 @@
 ],
 "via": "exact file",
 "w": 11
+},
+"Reinforced dragon bones": {
+"bytes": "mirror",
+"file": "File:Reinforced dragon bones.png",
+"h": 27,
+"icon": "reused",
+"sha1": "c5cb08981d7081a29c8441024ce991b88fe4f2c9",
+"src": "icons/7f0c7d769f1a.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 31
 },
 "Rejuvenation potion": {
 "bytes": "mirror",
@@ -22387,7 +23134,7 @@
 "bytes": "mirror",
 "file": "File:Robust glass.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "067c5037c8ddf02e6a48c08b61ddf87822ef2b9f",
 "src": "icons/449c5946a646.webp",
 "used": [
@@ -22466,7 +23213,7 @@
 "bytes": "mirror",
 "file": "File:Royal dragon leather.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "159c6f84ebac9d7bda4afc98286d06382b100f28",
 "src": "icons/b4a6ffa2c018.webp",
 "used": [
@@ -22479,7 +23226,7 @@
 "bytes": "mirror",
 "file": "File:Royal dragonhide body.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "cf6be0a3f8e460f526db6b1bee10a65b6e741a82",
 "src": "icons/a8298d711bf8.webp",
 "used": [
@@ -22492,7 +23239,7 @@
 "bytes": "mirror",
 "file": "File:Royal dragonhide boots.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "cec24de196907b1840aa6e66be43caf7a19c16a5",
 "src": "icons/e01efcb01b40.webp",
 "used": [
@@ -22505,7 +23252,7 @@
 "bytes": "mirror",
 "file": "File:Royal dragonhide chaps.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "057f66ac4a8a4ea774359110739f9ea2893be092",
 "src": "icons/e4bef1ba6cef.webp",
 "used": [
@@ -22518,7 +23265,7 @@
 "bytes": "mirror",
 "file": "File:Royal dragonhide coif.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "bb3316e88cda0bbcf8d1fb8471fc18c365a88653",
 "src": "icons/ad1641258292.webp",
 "used": [
@@ -22531,7 +23278,7 @@
 "bytes": "mirror",
 "file": "File:Royal dragonhide vambraces.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "398033976461bfd196cf8e1726c20db9c4b363f5",
 "src": "icons/63f04b667a50.webp",
 "used": [
@@ -22544,7 +23291,7 @@
 "bytes": "mirror",
 "file": "File:Royal spiky vambraces.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "ee61f0b6bb05ae08edc4429ad8f3da82c3595d15",
 "src": "icons/24b2bc47b128.webp",
 "used": [
@@ -22597,7 +23344,7 @@
 "bytes": "mirror",
 "file": "File:Ruby amulet (unstrung).png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "abf0dfad735ae9df9342a6c51e0da44f1b43230e",
 "src": "icons/e6a8b7d40134.webp",
 "used": [
@@ -22662,7 +23409,7 @@
 "bytes": "mirror",
 "file": "File:Ruby necklace.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "244f965f2ce52d3c2a91c12cc47eecd3f4cdfa39",
 "src": "icons/e5586e589a39.webp",
 "used": [
@@ -22675,7 +23422,7 @@
 "bytes": "mirror",
 "file": "File:Ruby ring.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "50ce1ab23f108c173d20c6d74da0f151c28f9403",
 "src": "icons/756837ae9ef3.webp",
 "used": [
@@ -23206,7 +23953,7 @@
 "bytes": "mirror",
 "file": "File:Sapphire amulet (unstrung).png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "6ca33456875f1321357d3b13b9d568d4a5e9b298",
 "src": "icons/c46c0b592a00.webp",
 "used": [
@@ -23472,6 +24219,19 @@
 "via": "exact file",
 "w": 19
 },
+"Sated ancient effigy": {
+"bytes": "mirror",
+"file": "File:Sated ancient effigy.png",
+"h": 32,
+"icon": "reused",
+"sha1": "9d96440be9fa6e3a4f81ea33da5bee05f65788bf",
+"src": "icons/08b44afa0776.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 29
+},
 "Scentless flask (6)": {
 "bytes": "mirror",
 "file": "File:Scentless flask (6).png",
@@ -23641,6 +24401,7 @@
 "sha1": "9f32cae72259bdf0dc67362d601382334e80488a",
 "src": "icons/42a7403ee516.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -23767,7 +24528,7 @@
 "bytes": "mirror",
 "file": "File:Sextant.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "03fc353c533bd2e6fdc2233f7675e8a9eaf23793",
 "src": "icons/d84a695a8c2a.webp",
 "used": [
@@ -23780,7 +24541,7 @@
 "bytes": "mirror",
 "file": "File:Shade skull.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "256a0dd4de69df85e5cdc5e30da6d356104f7451",
 "src": "icons/4833f58e96d4.webp",
 "used": [
@@ -23815,6 +24576,19 @@
 "via": "File redirect from File:Shaft.png",
 "w": 28
 },
+"Shaikahan bones": {
+"bytes": "mirror",
+"file": "File:Shaikahan bones.png",
+"h": 25,
+"icon": "reused",
+"sha1": "afe2fe8cbd507950d4a2841d1050154e052867c1",
+"src": "icons/4269bac19b64.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 30
+},
 "Shark": {
 "bytes": "mirror",
 "file": "File:Shark.png",
@@ -23845,7 +24619,7 @@
 "bytes": "mirror",
 "file": "File:Shark's tooth.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "8885b2b17ef2ef26abe754372e1826b0ef140a5b",
 "src": "icons/4b2de0e2a6de.webp",
 "used": [
@@ -23858,7 +24632,7 @@
 "bytes": "mirror",
 "file": "File:Shark's tooth necklace.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "e3fb91b2f6cd144d6c713067841ab8fccca3007b",
 "src": "icons/b15a3a2551e9.webp",
 "used": [
@@ -23875,6 +24649,7 @@
 "sha1": "35b050d87f29094e198527d0cda6d48b70862fb7",
 "src": "icons/c2ca62f3d2e5.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "File redirect from File:Sharp shell shard.png",
@@ -23884,7 +24659,7 @@
 "bytes": "mirror",
 "file": "File:Shell chippings.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "b1bcbd341acb3c87875a95bb7143d52f8c5f5554",
 "src": "icons/2d89bf47b496.webp",
 "used": [
@@ -23910,7 +24685,7 @@
 "bytes": "mirror",
 "file": "File:Shiny shell chippings.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "2d3ac4d22ad709e08ab924031fe0b75dce78f6dc",
 "src": "icons/9896a68bfed4.webp",
 "used": [
@@ -24148,7 +24923,7 @@
 "bytes": "mirror",
 "file": "File:Sirenic chaps.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "e805ee7ece691858f2603a783f43158b8c706540",
 "src": "icons/6a2a807539ca.webp",
 "used": [
@@ -24161,7 +24936,7 @@
 "bytes": "mirror",
 "file": "File:Sirenic hauberk.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "547c729c0a33ecbbe7ea0ca4d64de8b99f4747f6",
 "src": "icons/2c4e09802637.webp",
 "used": [
@@ -24174,7 +24949,7 @@
 "bytes": "mirror",
 "file": "File:Sirenic mask.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "d6156cc99af252561fdcd9ed04c3beceae957f76",
 "src": "icons/e5ce0edade34.webp",
 "used": [
@@ -24200,7 +24975,7 @@
 "bytes": "mirror",
 "file": "File:Shade battlestaff of air.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "c3ebbed5f4623100916f4c089a5c1f05acacccb6",
 "src": "icons/cef8b44ea445.webp",
 "used": [
@@ -24213,7 +24988,7 @@
 "bytes": "mirror",
 "file": "File:Shade battlestaff of earth.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "422233f21f205d6a80818eda331592ec398d16a4",
 "src": "icons/b9900d34666d.webp",
 "used": [
@@ -24226,7 +25001,7 @@
 "bytes": "mirror",
 "file": "File:Shade battlestaff of fire.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "133b959c8a75484f20df120189e03a2159ab7235",
 "src": "icons/aa955956d10f.webp",
 "used": [
@@ -24239,7 +25014,7 @@
 "bytes": "mirror",
 "file": "File:Shade battlestaff of water.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "74ce7bf8f04ef31907ef7cf409e7ee69f951fe42",
 "src": "icons/4cdf5d33cb21.webp",
 "used": [
@@ -24252,7 +25027,7 @@
 "bytes": "mirror",
 "file": "File:Shade lava battlestaff.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "b39e93c28e9ce07d79027cb05f88e96b3fffc9bd",
 "src": "icons/813bace11f4b.webp",
 "used": [
@@ -24265,7 +25040,7 @@
 "bytes": "mirror",
 "file": "File:Shade mud battlestaff.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "fdee13ccec5b6582b796e0a3bc8c6e3188472dd1",
 "src": "icons/64621b7d790e.webp",
 "used": [
@@ -24278,7 +25053,7 @@
 "bytes": "mirror",
 "file": "File:Shade staff of air.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "961958822aa5023068befab6bae113d7697e3de9",
 "src": "icons/61aa9cd70c83.webp",
 "used": [
@@ -24291,7 +25066,7 @@
 "bytes": "mirror",
 "file": "File:Shade staff of earth.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "1d93deea21dde2c59e7f7db4b3861de1cca7a77a",
 "src": "icons/22a86615bc83.webp",
 "used": [
@@ -24304,7 +25079,7 @@
 "bytes": "mirror",
 "file": "File:Shade staff of fire.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "6def9606b685bddf846c2391fe965af5abf160d0",
 "src": "icons/25e2f26cd9e1.webp",
 "used": [
@@ -24317,7 +25092,7 @@
 "bytes": "mirror",
 "file": "File:Shade staff of water.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "b85c6d42ad77eb30686c4699207f33cd4920ab81",
 "src": "icons/1bcc37712da9.webp",
 "used": [
@@ -24330,7 +25105,7 @@
 "bytes": "mirror",
 "file": "File:Shade steam battlestaff.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "9cc6b7fb214645da8008d5d9a4edebf145af3cb4",
 "src": "icons/504201e49db8.webp",
 "used": [
@@ -24408,7 +25183,7 @@
 "bytes": "mirror",
 "file": "File:Snakeskin.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "cae17a8a9c996636dd957765594d6d9747a4033e",
 "src": "icons/ffeefbfa25c0.webp",
 "used": [
@@ -24421,7 +25196,7 @@
 "bytes": "mirror",
 "file": "File:Snakeskin bandana.png",
 "h": 16,
-"icon": "new",
+"icon": "reused",
 "sha1": "89ff2a8a3ba3c2e4fa6ae23bc502063bfe9a574a",
 "src": "icons/d5a6118a6063.webp",
 "used": [
@@ -24473,7 +25248,7 @@
 "bytes": "mirror",
 "file": "File:Snakeskin vambraces.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "771a71b1f3f5b6a75ef61af25396365df71b5ab9",
 "src": "icons/32ba89e4b126.webp",
 "used": [
@@ -24590,7 +25365,7 @@
 "bytes": "mirror",
 "file": "File:Soft porcelain clay.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "f4166e21f1eee59ba7be21e1e5c6634e4e3047c9",
 "src": "icons/7d6dc036081f.webp",
 "used": [
@@ -24733,7 +25508,7 @@
 "bytes": "mirror",
 "file": "File:Spider orb.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "5b98c53e3e110be7ae83fb15abcf5dab6e4fd656",
 "src": "icons/d5b3d2fe97af.webp",
 "used": [
@@ -24759,7 +25534,7 @@
 "bytes": "mirror",
 "file": "File:Spider silk boots.png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "cbdd1a59af3d287e10c7c1dab837b141f1f4f6ea",
 "src": "icons/ae8741fcde7c.webp",
 "used": [
@@ -24772,7 +25547,7 @@
 "bytes": "mirror",
 "file": "File:Spider silk gloves.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "45543902bb32c3fda6c4207674618def20fa38e8",
 "src": "icons/5f371f2ae054.webp",
 "used": [
@@ -24785,7 +25560,7 @@
 "bytes": "mirror",
 "file": "File:Spider silk hood.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "400e708aadbe2e621ec4e201f91af6e78d6b7add",
 "src": "icons/543981b933a0.webp",
 "used": [
@@ -24798,7 +25573,7 @@
 "bytes": "mirror",
 "file": "File:Spider silk robe bottom.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "4e45706d7cf665eedcdcb631b19010aeeb50a39f",
 "src": "icons/709b27689e04.webp",
 "used": [
@@ -24811,7 +25586,7 @@
 "bytes": "mirror",
 "file": "File:Spider silk robe top.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "2a8505f9b5a556bd4d27b2d425e7c4ef59054963",
 "src": "icons/b7241e711163.webp",
 "used": [
@@ -24824,7 +25599,7 @@
 "bytes": "mirror",
 "file": "File:Spider silk shield.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "f6f41347ff2683c133deea09166fff901b63315c",
 "src": "icons/93c5bd54b3e4.webp",
 "used": [
@@ -24850,7 +25625,7 @@
 "bytes": "mirror",
 "file": "File:Spider wand.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "6fb8aac9b5731cd474bc144e8b67a79055bf918e",
 "src": "icons/236ad0cc3e1c.webp",
 "used": [
@@ -24863,7 +25638,7 @@
 "bytes": "mirror",
 "file": "File:Spiky vambraces.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "753a501b669a1ce375e52d3cede3f1e7076cdd87",
 "src": "icons/8d02b03c3d57.webp",
 "used": [
@@ -24880,6 +25655,7 @@
 "sha1": "42a0cead8db45f0cc25cb89378b9c7b7b2cfa083",
 "src": "icons/cb7df1f3d905.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -24941,7 +25717,7 @@
 "bytes": "mirror",
 "file": "File:Spinoleather body.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "f85ca96bbaa2538db97b581f641bd5a20a6d411c",
 "src": "icons/fce792fff848.webp",
 "used": [
@@ -24993,7 +25769,7 @@
 "bytes": "mirror",
 "file": "File:Spinoleather shield.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "6c414b7f20eb53b19ee7d20d54c6855ba751decf",
 "src": "icons/d557bafc3523.webp",
 "used": [
@@ -25019,7 +25795,7 @@
 "bytes": "mirror",
 "file": "File:Spinomastyx hide.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "2c2e1660763148972b73f598dd744efbc356c6b7",
 "src": "icons/d85f6b8b4f69.webp",
 "used": [
@@ -25323,7 +26099,7 @@
 "bytes": "mirror",
 "file": "File:Starbloom boots.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "2d8301e68da095b5e1f550dcca8e77600144f59d",
 "src": "icons/0a9818a18398.webp",
 "used": [
@@ -25401,7 +26177,7 @@
 "bytes": "mirror",
 "file": "File:Starbloom cloth.png",
 "h": 19,
-"icon": "new",
+"icon": "reused",
 "sha1": "1cca3469b7833b76053d9f1fb07a036f42c4059a",
 "src": "icons/bc95fd2f6d47.webp",
 "used": [
@@ -25414,7 +26190,7 @@
 "bytes": "mirror",
 "file": "File:Starbloom gloves.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "ad1b8f2a0ea05edf980c1bd04a508b1b69e20f77",
 "src": "icons/4424f8b9eb52.webp",
 "used": [
@@ -25492,7 +26268,7 @@
 "bytes": "mirror",
 "file": "File:Starbloom hat.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "5233d11ee276b00f3fc13a721c50706bc8af370a",
 "src": "icons/b290c4d4d9ac.webp",
 "used": [
@@ -25570,7 +26346,7 @@
 "bytes": "mirror",
 "file": "File:Starbloom robe bottom.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "f131324e62a41b01549235879dbd73127d2fcab2",
 "src": "icons/af99c734b741.webp",
 "used": [
@@ -25648,7 +26424,7 @@
 "bytes": "mirror",
 "file": "File:Starbloom robe top.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "ecc4b05bcfd54500fdbce7b1052e0b7aab734d20",
 "src": "icons/0c25a4f6c7dc.webp",
 "used": [
@@ -25726,7 +26502,7 @@
 "bytes": "mirror",
 "file": "File:Starbloom robes (adorned).png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "c578ad7f81c777db93b945350f853b570b09bd66",
 "src": "icons/9c0cfc989823.webp",
 "used": [
@@ -25734,6 +26510,19 @@
 ],
 "via": "exact file",
 "w": 31
+},
+"Starved ancient effigy": {
+"bytes": "mirror",
+"file": "File:Starved ancient effigy.png",
+"h": 32,
+"icon": "reused",
+"sha1": "9d96440be9fa6e3a4f81ea33da5bee05f65788bf",
+"src": "icons/08b44afa0776.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 29
 },
 "Stat restore potion (Dungeoneering)": {
 "bytes": "mirror",
@@ -26000,7 +26789,7 @@
 "bytes": "mirror",
 "file": "File:Stegoleather vambraces.png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "f985604734a6efa66a8515553db8aaea8ad89cfd",
 "src": "icons/604aae009b1d.webp",
 "used": [
@@ -26013,7 +26802,7 @@
 "bytes": "mirror",
 "file": "File:Stegomastyx hide.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "0070c85a6e01131be5b7bcf3eb605a856e80fefb",
 "src": "icons/7aff46528ab8.webp",
 "used": [
@@ -26200,7 +26989,7 @@
 "bytes": "mirror",
 "file": "File:Strip of black cloth.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "f4d40cd3ffc2f30388f44159e85738324f66fe31",
 "src": "icons/735d77054186.webp",
 "used": [
@@ -26305,7 +27094,7 @@
 "bytes": "mirror",
 "file": "File:Strong divination urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "98a9decd43f575a19312c4c64613229b462f5e51",
 "src": "icons/c5d6dffc367a.webp",
 "used": [
@@ -26318,7 +27107,7 @@
 "bytes": "mirror",
 "file": "File:Strong farming urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "562f68b7279d1954a5ce6a4eda10a0b392128e1e",
 "src": "icons/cc288bf34a10.webp",
 "used": [
@@ -26331,7 +27120,7 @@
 "bytes": "mirror",
 "file": "File:Strong fishing urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "afe3870c0708375df55e81cbdb3f94d1dcfa1800",
 "src": "icons/5d8c987d79ad.webp",
 "used": [
@@ -26357,7 +27146,7 @@
 "bytes": "mirror",
 "file": "File:Strong hunter urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "567e5cc8d5d2dea231fa37010fcc2f1ba51daf79",
 "src": "icons/13cffe489a29.webp",
 "used": [
@@ -26396,7 +27185,7 @@
 "bytes": "mirror",
 "file": "File:Strong mining urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "7f8bab6bf29794e8fe7e43244fff7e6db48cd336",
 "src": "icons/6053d3cf7423.webp",
 "used": [
@@ -26448,7 +27237,7 @@
 "bytes": "mirror",
 "file": "File:Strong runecrafting urn (no rune).png",
 "h": 28,
-"icon": "new",
+"icon": "reused",
 "sha1": "3c594c264f76b2a22dddf514588d55689253c12a",
 "src": "icons/68ad5c04abc6.webp",
 "used": [
@@ -26461,7 +27250,7 @@
 "bytes": "mirror",
 "file": "File:Strong smithing urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "1afc81db66e3d81f5c2422b16204f9a2738b0baa",
 "src": "icons/af5b595b66da.webp",
 "used": [
@@ -26513,7 +27302,7 @@
 "bytes": "mirror",
 "file": "File:Strong woodcutting urn (no rune).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "62793abf529176bcd8a55bef4287d5aaed7d276e",
 "src": "icons/c2c386b59b39.webp",
 "used": [
@@ -26526,7 +27315,7 @@
 "bytes": "mirror",
 "file": "File:Strung rabbit foot.png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "6defc301301cd889225d2242d4f995c85a082843",
 "src": "icons/5d0304b4124c.webp",
 "used": [
@@ -26565,7 +27354,7 @@
 "bytes": "mirror",
 "file": "File:Studded leather boots.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "3971ecda110f6f88f3efa3b4a7e1957231bf0478",
 "src": "icons/38782c715db8.webp",
 "used": [
@@ -26591,7 +27380,7 @@
 "bytes": "mirror",
 "file": "File:Studded leather gloves.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "b39439525cccc064bd138b917b42fa16a576f1ca",
 "src": "icons/b4ed23f5c266.webp",
 "used": [
@@ -26604,7 +27393,7 @@
 "bytes": "mirror",
 "file": "File:Studded leather shield.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "c6094911061899f768a77f0c023ff4e9bdd52398",
 "src": "icons/edf52d2648b3.webp",
 "used": [
@@ -26682,7 +27471,7 @@
 "bytes": "mirror",
 "file": "File:Subleather vambraces.png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "b4134a21a99c9399c9c37d6228f5b88dc6a7fcb3",
 "src": "icons/05f2ff734643.webp",
 "used": [
@@ -26695,7 +27484,7 @@
 "bytes": "mirror",
 "file": "File:Submastyx hide.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "4537ad317668e1c689578d0bbf7b692bb0bc4abb",
 "src": "icons/ffb2d110b4c5.webp",
 "used": [
@@ -28833,7 +29622,7 @@
 "bytes": "mirror",
 "file": "File:Superior Death Lotus hood.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "c4743776ea0f81e15a64e41db1bc81553230a88d",
 "src": "icons/8b2ae0e9dc47.webp",
 "used": [
@@ -29033,6 +29822,7 @@
 "sha1": "005846b37fafa4077efeeb832cd04b896085e55f",
 "src": "icons/5803a6bddf17.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -29137,7 +29927,21 @@
 "sha1": "8c3bde2d9c8094f7f8cdcd062d7f27f14b0e855d",
 "src": "icons/ce17499ae6df.webp",
 "used": [
+"firemaking",
 "fletching"
+],
+"via": "exact file",
+"w": 33
+},
+"Teak pyre logs": {
+"bytes": "mirror",
+"file": "File:Teak pyre logs.png",
+"h": 26,
+"icon": "reused",
+"sha1": "c9ceb7dfd6b69c959db2001c0a0d75ab3a6d2f5c",
+"src": "icons/7004ce66b80d.webp",
+"used": [
+"firemaking"
 ],
 "via": "exact file",
 "w": 33
@@ -29163,6 +29967,7 @@
 "sha1": "4324a93915e92ca2e468350b6929aa6c190839b2",
 "src": "icons/6f5b28bed193.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -29407,7 +30212,7 @@
 "bytes": "mirror",
 "file": "File:Topaz amulet.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "d875526584a5839c0307e3dc3c103e566f9debef",
 "src": "icons/8921e4669a10.webp",
 "used": [
@@ -29420,7 +30225,7 @@
 "bytes": "mirror",
 "file": "File:Topaz amulet (unstrung).png",
 "h": 18,
-"icon": "new",
+"icon": "reused",
 "sha1": "2d7f5ed15773a58ff3baadf70a1fd973f27eb24c",
 "src": "icons/53cd2b267edb.webp",
 "used": [
@@ -29459,7 +30264,7 @@
 "bytes": "mirror",
 "file": "File:Topaz bracelet.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "3c70befa03e956d6567ec22a7b34edbfff92efa5",
 "src": "icons/1a429d758835.webp",
 "used": [
@@ -29472,7 +30277,7 @@
 "bytes": "mirror",
 "file": "File:Topaz necklace.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "a9a6242309287b8782b5aff86d1b7716fe4520a8",
 "src": "icons/396ab7f82088.webp",
 "used": [
@@ -29485,7 +30290,7 @@
 "bytes": "mirror",
 "file": "File:Topaz ring.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "b466e5f1aa2358345fbe06a7a9a715584fd2e35e",
 "src": "icons/c5939ae5fb64.webp",
 "used": [
@@ -29551,7 +30356,7 @@
 "bytes": "mirror",
 "file": "File:Toy doll.png",
 "h": 25,
-"icon": "new",
+"icon": "reused",
 "sha1": "159d31d0c62e049cce9e0cd0543cae768a8779c4",
 "src": "icons/1c7a9c7dfd10.webp",
 "used": [
@@ -29564,7 +30369,7 @@
 "bytes": "mirror",
 "file": "File:Toy horsey (black).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "df1bd640aa99812516a23fa1a12af685344f062a",
 "src": "icons/4aa0be9968c4.webp",
 "used": [
@@ -29577,7 +30382,7 @@
 "bytes": "mirror",
 "file": "File:Toy horsey (brown).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "4ed6f9911e6b45ced621bee3259868ee0ff72c93",
 "src": "icons/34c9bcae87dc.webp",
 "used": [
@@ -29590,7 +30395,7 @@
 "bytes": "mirror",
 "file": "File:Toy horsey (grey).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "76567a4fe08218f4621c965d425b059d84a319a9",
 "src": "icons/350d84f25971.webp",
 "used": [
@@ -29603,7 +30408,7 @@
 "bytes": "mirror",
 "file": "File:Toy horsey (white).png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "6f47bad8eeb2fa54e008689956a19ae52f7cc919",
 "src": "icons/1f9710b55c45.webp",
 "used": [
@@ -29616,7 +30421,7 @@
 "bytes": "mirror",
 "file": "File:Toy mouse.png",
 "h": 16,
-"icon": "new",
+"icon": "reused",
 "sha1": "bee23de20adf9968131995b9ace0da7c71aa5152",
 "src": "icons/23c5390392bc.webp",
 "used": [
@@ -29629,7 +30434,7 @@
 "bytes": "mirror",
 "file": "File:Toy soldier.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "f359513da0b6805bdcefd2440da7d48aa6f05849",
 "src": "icons/c2fee8671524.webp",
 "used": [
@@ -29772,7 +30577,7 @@
 "bytes": "mirror",
 "file": "File:Tyrannomastyx hide.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "cfd924c65f77183d12453a7055ad65376e421b36",
 "src": "icons/acce71da7a99.webp",
 "used": [
@@ -29941,7 +30746,7 @@
 "bytes": "mirror",
 "file": "File:Uncut hydrix.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "5f9a6f32739f3d3d7a89d13fca6025155c77cefe",
 "src": "icons/e4a0011abe22.webp",
 "used": [
@@ -29967,7 +30772,7 @@
 "bytes": "mirror",
 "file": "File:Uncut lapis lazuli.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "2e3c91b8c71785e5ac907156dff84684fd3a0e29",
 "src": "icons/6dc3c8226489.webp",
 "used": [
@@ -30019,7 +30824,7 @@
 "bytes": "mirror",
 "file": "File:Uncut red topaz.png",
 "h": 24,
-"icon": "new",
+"icon": "reused",
 "sha1": "66b5885b0e442f6542e27eccd22e165a21084fde",
 "src": "icons/13b0a443c54f.webp",
 "used": [
@@ -30058,7 +30863,7 @@
 "bytes": "mirror",
 "file": "File:Undead dragon leather.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "fec85b456be4a6fbce16905739dc6d61bc0ab351",
 "src": "icons/0ac8c6fca832.webp",
 "used": [
@@ -30071,7 +30876,7 @@
 "bytes": "mirror",
 "file": "File:Undead dragonhide body.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "139009908aadd2769ec797ba52695e9e0cdb85b5",
 "src": "icons/1b3e7a58cdaa.webp",
 "used": [
@@ -30084,7 +30889,7 @@
 "bytes": "mirror",
 "file": "File:Undead dragonhide boots.png",
 "h": 21,
-"icon": "new",
+"icon": "reused",
 "sha1": "f199ebf8b86d4b0f91c4d9363d65109098029748",
 "src": "icons/b7df2f75e9eb.webp",
 "used": [
@@ -30097,7 +30902,7 @@
 "bytes": "mirror",
 "file": "File:Undead dragonhide chaps.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "a8b11d5d0101adb08d4ffad583c159541da60c92",
 "src": "icons/ab09c11ced09.webp",
 "used": [
@@ -30110,7 +30915,7 @@
 "bytes": "mirror",
 "file": "File:Undead dragonhide coif.png",
 "h": 32,
-"icon": "new",
+"icon": "reused",
 "sha1": "af23d33222babe8587ba3d347a58ddffcba41ca5",
 "src": "icons/b3e0ebf5550c.webp",
 "used": [
@@ -30123,7 +30928,7 @@
 "bytes": "mirror",
 "file": "File:Undead dragonhide vambraces.png",
 "h": 20,
-"icon": "new",
+"icon": "reused",
 "sha1": "756eee206c26e2bc92dcf0daf0eafcf35b670ad8",
 "src": "icons/1b6ee43d1d05.webp",
 "used": [
@@ -30149,7 +30954,7 @@
 "bytes": "mirror",
 "file": "File:Unfinished wooden brooch.png",
 "h": 22,
-"icon": "new",
+"icon": "reused",
 "sha1": "a9e6ef8a4d39cec78073296098937878834e17d6",
 "src": "icons/a887f15964c8.webp",
 "used": [
@@ -30214,7 +31019,7 @@
 "bytes": "mirror",
 "file": "File:Unstrung emblem.png",
 "h": 26,
-"icon": "new",
+"icon": "reused",
 "sha1": "a27e57884bbccf1c3a18e7a44694f32554f4ea1b",
 "src": "icons/42408b8fb327.webp",
 "used": [
@@ -30257,6 +31062,7 @@
 "sha1": "1199ce8878335c59d77c5aafb9f2ceb029f597b6",
 "src": "icons/32e5ede2196e.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -30514,7 +31320,7 @@
 "bytes": "mirror",
 "file": "File:Watch.png",
 "h": 27,
-"icon": "new",
+"icon": "reused",
 "sha1": "501dd4dc2adfb55515a37f053ed8b4adca4efeff",
 "src": "icons/9289a85c5152.webp",
 "used": [
@@ -31328,7 +32134,7 @@
 "bytes": "mirror",
 "file": "File:Willow branch.png",
 "h": 29,
-"icon": "new",
+"icon": "reused",
 "sha1": "461e2cc14baac1811458463280f6179c90dcf5a4",
 "src": "icons/80baabf7f8b7.webp",
 "used": [
@@ -31345,6 +32151,7 @@
 "sha1": "89042883f9e6579394d5ce689a0c9aa7c39de77b",
 "src": "icons/96e17cf17e0b.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -31376,11 +32183,24 @@
 "via": "exact file",
 "w": 32
 },
+"Willow pyre logs": {
+"bytes": "mirror",
+"file": "File:Willow pyre logs.png",
+"h": 26,
+"icon": "new",
+"sha1": "76f789c6f2661d17b737913a77d97fd97e8d6f18",
+"src": "icons/ee05da3e32c1.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 33
+},
 "Willow roots": {
 "bytes": "mirror",
 "file": "File:Willow roots.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "0b34eb15313916c617dd8de7c910986916e097df",
 "src": "icons/a5075daabf29.webp",
 "used": [
@@ -31549,7 +32369,7 @@
 "bytes": "mirror",
 "file": "File:Wizard hat.png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "907e286780f73190ec5cb362c15b4f1911654f45",
 "src": "icons/181dccaf25dc.webp",
 "used": [
@@ -31601,7 +32421,7 @@
 "bytes": "mirror",
 "file": "File:Wizard wand.png",
 "h": 23,
-"icon": "new",
+"icon": "reused",
 "sha1": "b24752c6be8f2bb7b860959f2f0608be941347c9",
 "src": "icons/122781135dfd.webp",
 "used": [
@@ -31657,6 +32477,7 @@
 "sha1": "5a4f9b36816a3010ee63dcb3422419bf26058856",
 "src": "icons/a1f4d61e5f3d.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -31857,6 +32678,7 @@
 "sha1": "6ed803a21f9bf8b4161e1c8b922ce475e6f7878d",
 "src": "icons/7e5f9db23c32.webp",
 "used": [
+"firemaking",
 "herblore"
 ],
 "via": "exact file",
@@ -31892,7 +32714,7 @@
 "bytes": "mirror",
 "file": "File:Yak-hide armour (legs).png",
 "h": 31,
-"icon": "new",
+"icon": "reused",
 "sha1": "2bf4bdbabfad6675304fce44cbf7959fe6926807",
 "src": "icons/4572009f4827.webp",
 "used": [
@@ -31905,7 +32727,7 @@
 "bytes": "mirror",
 "file": "File:Yak-hide armour (top).png",
 "h": 30,
-"icon": "new",
+"icon": "reused",
 "sha1": "28fd49e706b69aae34aa05278d2924da33c85cb6",
 "src": "icons/ac003f25ff42.webp",
 "used": [
@@ -31961,6 +32783,7 @@
 "sha1": "9fd4b2347ef9a73b603526e6fe96b96402e7de5e",
 "src": "icons/646844e1eaca.webp",
 "used": [
+"firemaking",
 "fletching"
 ],
 "via": "exact file",
@@ -31991,6 +32814,19 @@
 ],
 "via": "exact file",
 "w": 32
+},
+"Yew pyre logs": {
+"bytes": "mirror",
+"file": "File:Yew pyre logs.png",
+"h": 26,
+"icon": "new",
+"sha1": "e009c4b428a8cc8a7907ce25d53617af8fa54da0",
+"src": "icons/50073e73bc66.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 33
 },
 "Yew roots": {
 "bytes": "mirror",
@@ -32249,6 +33085,19 @@
 ],
 "via": "exact file",
 "w": 30
+},
+"Zogre bones": {
+"bytes": "mirror",
+"file": "File:Zogre bones.png",
+"h": 28,
+"icon": "reused",
+"sha1": "ea7fbd1338743cfdb2129edffaab334efc3180b2",
+"src": "icons/1d21fe7dc5dd.webp",
+"used": [
+"firemaking"
+],
+"via": "exact file",
+"w": 29
 },
 "Zygomite fruit": {
 "bytes": "mirror",

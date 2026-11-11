@@ -1014,6 +1014,7 @@ async function nativeCalcView(n) {
   if (n.slug === 'cooking') return cookingView(n);
   if (n.slug === 'fletching') return fletchingView(n);
   if (n.slug === 'crafting') return craftingView(n);
+  if (n.slug === 'firemaking') return firemakingView(n);
   location.replace('#calculators');
 }
 const QUOTE_WHY = {missing: 'no recent trade price', stale: 'price is stale', offline: 'offline', unavailable: 'live source unavailable', unmapped: 'not found in the price source'};
@@ -1402,7 +1403,7 @@ async function skillView(n, K) {
     if (p.type === 'fixed') return `<div class="hb-field hb-fixed" id="${id}"><span>${esc(p.label)}</span><output>${esc(p.def)}</output></div>`;
     if (p.type === 'select') return `<label class="hb-field" for="${id}"><span>${esc(p.label)}</span><select id="${id}" data-k="${esc(p.name)}">${p.range.split(/\s*,\s*/).map(o => `<option${o === v ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select></label>`;
     const err = RS3Calc.skillFieldError(p, v);
-    return `<label class="hb-field" for="${id}"><span>${esc(p.label)}</span><input id="${id}" data-k="${esc(p.name)}" type="text" inputmode="numeric" value="${esc(v)}" aria-invalid="${err ? 'true' : 'false'}" aria-describedby="${id}-r"><small id="${id}-r" class="calc-sub${err ? ' hb-warn' : ''}">${esc(hintText(p, v))}</small></label>`; };
+    return `<label class="hb-field" for="${id}"><span>${esc(p.label)}</span><input id="${id}" data-k="${esc(p.name)}" type="text" inputmode="${p.type === 'number' ? 'decimal' : 'numeric'}" value="${esc(v)}" aria-invalid="${err ? 'true' : 'false'}" aria-describedby="${id}-r"><small id="${id}-r" class="calc-sub${err ? ' hb-warn' : ''}">${esc(hintText(p, v))}</small></label>`; };
   const rangeText = p => p.range ? p.range.replace('-', '–') : '0 or more';
   /* Module:Skill calc reads Current/Goal as a level only when "Level" is chosen and the number is 120 or less; anything higher is
      taken as experience (Goal Level 130 = 130 XP, level 2). The app keeps that Wiki behaviour and says so; it never clamps. */
@@ -1422,7 +1423,7 @@ async function skillView(n, K) {
     const v = p.type === 'check' ? e.target.checked : e.target.value;
     try { st = RS3Calc.skillFormSet(D.form, st, k, v); } catch (err) { return; }
     skSave(D, st, K.key);
-    if (p.type === 'int') hint(p, e.target);
+    if (p.type === 'int' || p.type === 'number') hint(p, e.target);
     for (const [f, t] of Object.entries(LVL_TOGGLE)) if (k === t) { const el = document.getElementById(P + '-' + f); if (el) hint(D.form.params.find(x => x.name === f), el); }
     if (shown().map(x => x.name).join() !== shownKey) {
       const a = document.activeElement, foc = a && form.contains(a) ? a.id : '';
@@ -1439,6 +1440,11 @@ async function skillView(n, K) {
     if (res.error) { $('#' + P + '-msg').textContent = res.error; $('#' + P + '-count').textContent = ''; $('#' + P + '-table').innerHTML = ''; return; }
     $('#' + P + '-msg').textContent = RS3Calc.skillCalcMessage(res);
     const gross = show.value === 'gross', urns = res.disp === 'Urns', costs = res.rows.length ? res.rows[0].costCols : true;
+    // Wiki generate_NoProfitLoss tables (Firemaking outside incense) have only costs: nothing is sold, so there is no net/gross
+    // profit choice and the profit sorts become "lowest cost" sorts
+    const npl = res.layout === 'NoProfitLoss', helpEl = document.getElementById(P + '-show-help');
+    show.hidden = npl; if (helpEl) helpEl.hidden = npl;
+    for (const o of sort.options) { if (o.value === 'profit') o.textContent = npl ? 'Sort: lowest total cost' : 'Sort: most profit'; if (o.value === 'pxp') o.textContent = npl ? 'Sort: lowest cost/XP' : 'Sort: best profit/XP'; }
     const rows = res.rows.map(r => {
       const why = new Map(); let taxEach = 0;
       const lp = (name, role) => { const id = D.ids[name]; if (id == null) { why.set(name, 'no Grand Exchange item ID'); return null; }
@@ -1449,16 +1455,18 @@ async function skillView(n, K) {
       const netEach = c && c.profitEach != null ? c.profitEach - taxA : null;
       const profitEach = gross ? (c && c.profitEach) : netEach;
       // never counted as free: untradeable lines and lines the Wiki does not price make the totals partial (shown neutral)
-      const excl = [...r.listed.filter(l => !l.priced && !r.currency && l.unpriced !== 'wiki').map(l => l.name), ...(!r.product && !r.currency && !urns ? [r.name + ' (product)'] : [])];
+      const excl = [...r.listed.filter(l => !l.priced && !r.currency && l.unpriced !== 'wiki').map(l => l.name), ...(!npl && !r.product && !r.currency && !urns ? [r.name + ' (product)'] : [])];
       const unp = r.currency ? [] : r.listed.filter(l => l.unpriced === 'wiki').map(l => l.name);
       return {r, c, why, taxA, profitEach, profit: profitEach == null ? null : profitEach * r.needed, perXp: profitEach != null && r.unitExp ? profitEach / r.unitExp : null, excl, unp, partial: excl.length + unp.length > 0};
     });
     const nq = norm(q.value);
     let shown = nq ? rows.filter(x => norm([x.r.title || x.r.name, ...x.r.listed.map(l => l.name)].join(' ')).includes(nq)) : rows;
-    const by = {profit: x => x.profit, pxp: x => x.perXp, xp: x => x.r.unitExp, num: x => x.r.needed ? -x.r.needed : null}[sort.value];
+    const negc = v => v == null ? null : -v;
+    const by = (npl ? {profit: x => negc(x.c && x.c.costTotal), pxp: x => negc(x.c && x.c.costPerXp)} : {profit: x => x.profit, pxp: x => x.perXp})[sort.value]
+      || {xp: x => x.r.unitExp, num: x => x.r.needed ? -x.r.needed : null}[sort.value];
     if (by) shown = [...shown].sort((x, y) => { const a1 = by(x), b1 = by(y); return a1 == null && b1 == null ? 0 : a1 == null ? 1 : b1 == null ? -1 : b1 - a1; });
     const priced = rows.filter(x => x.c && x.c.raw != null).length;
-    $('#' + P + '-count').textContent = `${shown.length} of ${rows.length} recipes · ${priced} with complete live costs${costs ? ` · profit shown ${gross ? 'gross (before tax)' : 'net (after estimated tax)'}` : ''}`;
+    $('#' + P + '-count').textContent = `${shown.length} of ${rows.length} recipes · ${priced} with complete live costs${costs && !npl ? ` · profit shown ${gross ? 'gross (before tax)' : 'net (after estimated tax)'}` : ''}`;
     const cur = x => x.r.currency ? ` ${esc(x.r.currency)}` : '';
     const unav = x => `<span class="calc-unavail">Unavailable</span><small class="calc-sub">${esc([...new Set(x.why.values())].join('; '))}</small>`;
     // Totals that leave out an untradeable ingredient or product keep the Wiki's arithmetic (valued at 0) but are shown neutral,
@@ -1467,14 +1475,23 @@ async function skillView(n, K) {
     const exclTag = x => x.partial ? `<small class="calc-sub hb-excl">Partial, not a market profit: excludes ${[x.excl.length ? `untradeable ${list3(x.excl)} (no market price, not free)` : '', x.unp.length ? `${list3(x.unp)} (not priced by the Wiki for this recipe, not free)` : ''].filter(Boolean).join('; ')}</small>` : '';
     const amt = (x, v) => v == null ? unav(x) : x.r.currency ? `${esc(Math.round(v).toLocaleString('en-GB'))}${cur(x)}` : esc(money(v));
     const qty = (l, r) => { let a = l.qty * r.needed; if (a > 100) a = Math.ceil(a); else if (!(a < 0.1)) a = Math.ceil(a * 100) / 100; return a.toLocaleString('en-GB'); };
-    const priceLines = x => `<details class="calc-prices"><summary>Prices used</summary><ul>${x.r.listed.map(l => `<li>${liIco(l.image || l.name)}${esc(l.name)} — ${x.r.currency ? `Wiki value in ${esc(x.r.currency)}` : !l.priced ? (l.unpriced === 'wiki' ? 'not priced by the Wiki for this recipe: left out of the totals (not free)' : 'untradeable, not priced by the Wiki: valued at 0 (not free; not in the totals)') : x.why.has(l.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(l.name))})</span>` : `Buy ${esc(gp(LIVE.book.quote(D.ids[l.name], 'buy').value))} each`}</li>`).join('')}${x.r.product ? `<li>${liIco(x.r.name)}${esc(x.r.name)} — ${x.why.has(x.r.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(x.r.name))})</span>` : `Sell ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).value))} each · est. tax ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).tax))}${x.r.brewing ? ' · Brewing: 2 batches per action' : ''}`}</li>` : ''}</ul></details>`;
+    const priceLines = x => `<details class="calc-prices"><summary>Prices used</summary><ul>${x.r.listed.map(l => `<li>${liIco(l.image || l.name)}${esc(l.name)} — ${x.r.currency ? `Wiki value in ${esc(x.r.currency)}` : !l.priced ? (l.unpriced === 'wiki' ? 'not priced by the Wiki for this recipe: left out of the totals (not free)' : 'untradeable, not priced by the Wiki: valued at 0 (not free; not in the totals)') : x.why.has(l.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(l.name))})</span>` : `Buy ${esc(gp(LIVE.book.quote(D.ids[l.name], 'buy').value))} each`}</li>`).join('')}${x.r.product && !npl ? `<li>${liIco(x.r.name)}${esc(x.r.name)} — ${x.why.has(x.r.name) ? `<span class="calc-unavail">unavailable (${esc(x.why.get(x.r.name))})</span>` : `Sell ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).value))} each · est. tax ${esc(gp(LIVE.book.sale(D.ids[x.r.name]).tax))}${x.r.brewing ? ' · Brewing: 2 batches per action' : ''}`}</li>` : ''}</ul></details>`;
     // the Wiki's own column order and names (Module:Skill calc/elts); its picture and members columns are folded into the name cell
-    const head = urns ? ['Name', 'XP', '# needed', 'Cost'] : ['Level', 'Name', 'XP', '# needed', ...(res.urn ? ['# urns'] : []), 'Materials', ...(costs ? ['Raw cost', 'Product cost', 'Profit/Loss', 'Profit/XP'] : [])];
+    // cost-only tables keep the Wiki's own labels: "Product cost" there is the Wiki's name for unit cost x actions, and the last
+    // cost column is "XP cost" (Milestones: "Profit/XP"); Char has no materials column
+    const nplCostHeads = res.headers.filter(h => ['Unit cost', 'Product cost', 'XP cost', 'Profit/XP'].includes(h));
+    const head = urns ? ['Name', 'XP', '# needed', 'Cost'] : npl ? ['Level', 'Name', 'XP', '# needed', ...(res.headers.includes('Materials') ? ['Materials'] : []), ...(costs ? nplCostHeads : [])]
+      : ['Level', 'Name', 'XP', '# needed', ...(res.urn ? ['# urns'] : []), 'Materials', ...(costs ? ['Raw cost', 'Product cost', 'Profit/Loss', 'Profit/XP'] : [])];
+    const nplCost = (x, v, dec) => { if (v == null) return unav(x);
+      if (x.partial && !(x.c.costEach > 0)) return `-${exclTag(x)}`;   // every ingredient untradeable: the Wiki shows "-" (0); not free
+      const t = dec ? `${esc(v.toLocaleString('en-GB', {maximumFractionDigits: 2}))}${x.r.currency ? cur(x) : ' gp'}` : amt(x, v);
+      return `<span class="calc-val${x.partial ? ' partial' : ''}">${t}</span>${x.partial ? '<small class="calc-sub hb-excl">partial</small>' : ''}`; };
     const lvCls = c => 'hb-lv-' + c;
-    $('#' + P + '-table').innerHTML = shown.length ? `<table class="calc-table hb-table"><thead><tr>${head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${shown.map(x => { const r = x.r, nm = esc((r.title || r.name) + (r.multiplier ? ' × ' + r.multiplier : '')), ico = calcIco(r.item.icon || r.item.image || r.name);
+    $('#' + P + '-table').innerHTML = shown.length ? `<table class="calc-table hb-table"><thead><tr>${head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${shown.map(x => { const r = x.r, nm = esc([r.sLink, (r.title || r.name) + (r.multiplier ? ' × ' + r.multiplier : ''), r.eLink].filter(Boolean).join(' ')), ico = calcIco(r.item.icon || r.item.image || r.name);
       if (r.truncated) return `<tr><td>-</td><th scope="row">${ico}<span class="calc-name">${nm}</span><small class="calc-sub hb-warn">The Wiki's "All" list shows this urn without values; choose the Urns sub-category.</small></th><td colspan="${head.length - 2}">-</td></tr>`;
       if (urns) return `<tr><th scope="row">${ico}<span class="calc-name">${nm}</span>${priceLines(x)}</th><td>${esc(r.unitExp.toLocaleString('en-GB'))}</td><td>${esc(r.needed.toLocaleString('en-GB'))}</td><td>${amt(x, x.c.raw)}</td></tr>`;
       const mats = r.listed.length ? `<ul class="hb-list">${r.listed.map(l => `<li>${liIco(l.image || l.name)}<span class="hb-item">${esc(l.name)}</span> <span class="hb-qty">× ${esc(qty(l, r))}</span></li>`).join('')}</ul>` : '-';
+      if (npl) return `<tr><td class="${lvCls(r.cls)}">${esc(String(r.level))}</td><th scope="row">${ico}<span class="calc-name">${nm}</span>${r.members ? '<small class="calc-sub">Members</small>' : ''}${costs ? priceLines(x) : ''}</th><td>${esc(r.unitExp.toLocaleString('en-GB'))}</td><td>${r.needed > 0 ? esc(r.needed.toLocaleString('en-GB')) : '-'}</td>${head.includes('Materials') ? `<td>${mats}</td>` : ''}${costs ? `<td>${nplCost(x, x.c.costEach)}</td><td>${nplCost(x, x.c.costTotal)}${x.partial && x.c.costEach > 0 ? exclTag(x) : ''}</td><td>${x.c.costPerXp == null ? '-' : nplCost(x, x.c.costPerXp, true)}</td>` : ''}</tr>`;
       return `<tr><td class="${lvCls(r.cls)}">${esc(String(r.level))}</td><th scope="row">${ico}<span class="calc-name">${nm}</span>${r.members ? '<small class="calc-sub">Members</small>' : ''}${costs ? priceLines(x) : ''}</th><td>${esc(r.unitExp.toLocaleString('en-GB'))}</td><td>${r.needed > 0 ? esc(r.needed.toLocaleString('en-GB')) : '-'}</td>${res.urn ? `<td>${r.urnsNeeded ? esc(r.urnsNeeded.toLocaleString('en-GB')) : '-'}</td>` : ''}<td>${mats}</td>${costs ? `<td>${amt(x, x.c.raw)}</td><td>${amt(x, x.c.prod)}</td><td>${x.profit == null ? unav(x) : `<span class="calc-val ${x.partial ? 'partial' : x.profit < 0 ? 'loss' : 'gain'}">${amt(x, x.profit)}</span>${!r.currency && r.product ? `<small class="calc-sub">${gross ? 'before tax' : `tax ${esc(gp(x.taxA * r.needed))}`}</small>` : ''}`}${exclTag(x)}</td><td>${x.perXp == null ? '-' : `<span class="calc-val${x.partial ? ' partial' : ''}">${x.perXp < 0 ? '−' : ''}${esc(Math.abs(x.perXp).toLocaleString('en-GB', {maximumFractionDigits: 2}))}${r.currency ? cur(x) : ' gp'}</span>${x.partial ? '<small class="calc-sub hb-excl">partial</small>' : ''}`}</td>` : ''}</tr>`; }).join('')}</tbody></table>` : '<p class="note">No recipes match these options.</p>';
   };
   q.addEventListener('input', draw); show.onchange = draw; sort.onchange = draw;
@@ -1505,7 +1522,15 @@ const CRAFTING_K = {id: 'cr', key: 'dch_calc_crafting_v1', skill: 'Crafting', no
     ...SKILL_PRICE_NOTES, 'Dungeoneering Armour shows no costs, as on the Wiki.']};
 const cookingView = n => skillView(n, COOKING_K);
 const fletchingView = n => skillView(n, FLETCHING_K);
+const FIREMAKING_K = {id: 'fm', key: 'dch_calc_firemaking_v1', skill: 'Firemaking', noun: 'methods',
+  intro: src => `<p class="note">How many logs, bones or other fuel you need for each Firemaking method to reach a level or XP goal, and what the fuel costs. Same methods (bonfire and per-item variants), options and formulas as the RuneScape Wiki <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">Firemaking calculator</a>, using live prices instead of the Wiki's guide prices, so costs differ from the Wiki page.</p>`,
+  assume: ['XP and number of actions follow the Wiki calculator exactly: Portable Brazier +15% XP, outfit bonus +2% (1 piece) or +5% (2 pieces), avatar and custom boosts added to the same percentage, bonus XP halves the XP needed up to its amount.',
+    'As on the Wiki, the extra XP of beacons ("All Fired Up") and similar bonuses in the Other sub-category is not added: the Wiki module only adds it for items marked with a skill, and none are.',
+    'Costs: fuel is bought at the live Buy (high) price, each ingredient line rounded down, as on the Wiki. "Unit cost" is per action; "Product cost" is the Wiki\'s name for the total (unit cost × number needed); "XP cost" (Milestones: "Profit/XP") is the cost per XP. Nothing is sold, so there is no profit or tax, except in Incense Sticks, which shows the Wiki\'s profit columns.',
+    'Untradeable fuel (for example Blisterwood logs or Driftwood) has no market price: the Wiki shows "-", the app marks it as not free and shows no cost for it. Daemonheim branches show the Wiki\'s value in rusty coins, not coins.',
+    'A price that is missing or older than 15 minutes, or an item with no Grand Exchange ID, makes that method\'s costs unavailable; it is never treated as 0. Barbarian, Other and Char show no costs, as on the Wiki.']};
 const craftingView = n => skillView(n, CRAFTING_K);
+const firemakingView = n => skillView(n, FIREMAKING_K);
 
 /* Official RuneScape Wiki pictures for calculator items (data/calc/images.json, built by tools/calc_images.py): exact
    File:<item>.png or a file the Wiki itself redirects to. No picture -> no picture slot (never a stand-in). */

@@ -19,6 +19,10 @@ SKILLS = {
 }
 ENGINE = {k: v for k, v in CC.PIN.items() if k not in ('Calculator:Cooking', 'Module:Skill calc/Cooking/data')}
 ELTS = lambda skill: [skill, skill + '-Dungeoneering', 'Dungeons-Materials', 'Urns']
+# Module:Skill calc noValue picks elts[skill .. '-' .. disp] (or elts[disp]) for the sub-categories in its `exceptions` list;
+# the skills listed here have such sub-categories, so their layouts are recorded too (Firemaking: Barbarian, Char, Milestones,
+# Other, Incense Sticks (scratch + ashing)).
+EXTRA_ELTS = {'Firemaking': ['Firemaking-Barbarian', 'Firemaking-Char', 'Firemaking-Milestones', 'Firemaking-Other', 'Firemaking-Incense Sticks (scratch + ashing)']}
 
 def pins(skill):
     S = SKILLS[skill]; p = dict(ENGINE); p[S['page'][0]] = S['page'][1]; p[S['data'][0]] = S['data'][1]; return p
@@ -51,7 +55,7 @@ def build(skill):
     out = {'path': '/w/' + S['page'][0].replace(' ', '_'), 'skill': skill, 'source': revs,
            'license': f"RuneScape Wiki, CC BY-NC-SA 3.0 (https://runescape.wiki/w/RuneScape:Copyrights). Form: {S['page'][0]} (Module:Form calculator, MediaWiki:Gadget-calc-core.js). Formulas: Module:Skill calc, Module:Skill calc/bonusGenerator, Module:Skill calc/eltGenerator. Data: {S['data'][0]}, Module:Experience/data.",
            'form': cfg, 'xp': xp, 'ids': {n: gid[n] for n in sorted(names) if isinstance(gid.get(n), int)}, 'cats': out_cats, 'catOrder': cats,
-           'elts': {k: elts[k] for k in ELTS(skill) if k in elts}}
+           'elts': {k: elts[k] for k in ELTS(skill) + EXTRA_ELTS.get(skill, []) if k in elts}}
     p = os.path.join(ROOT, 'data', 'calc', S['slug'] + '.json')
     json.dump(out, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'), sort_keys=True)
     stale = {k: (v['revid'], v.get('latest')) for k, v in revs.items() if v.get('latest') not in (None, v['revid'])}
