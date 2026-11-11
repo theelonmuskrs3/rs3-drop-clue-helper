@@ -130,6 +130,7 @@ const val = td => { const t = td.textContent.trim(); return t === '—' ? null :
   const exp = (c, sell, vial, fl, gross) => c.flasks * sell - c.vials * vial - c.flasks * fl - (gross ? 0 : c.flasks * Math.floor(sell / 50));
   { const cs = cellsOf(d); let n = 0; cs.forEach(r => r.forEach((td, i) => { assert.equal(val(td), exp(D.columns[i], 29000, 1000, 1000)); n++; })); assert.equal(n, 344); }
   assert.equal(cellsOf(d)[0][0].textContent, '21,420'); assert.equal(cellsOf(d)[0][2].textContent, '50,840');
+  assert.ok(cellsOf(d).flat().every(td => td.querySelector('span.gpc')), 'coins icon on every profit cell (CSS, not read out)');
   // explanations are in one collapsed "Details & sources" section under the table; controls and table stay up front
   { const info = d.querySelector('details#fd-info'); assert.ok(info); assert.equal(info.open, false, 'collapsed by default'); assert.equal(info.querySelector('summary').textContent, 'Details & sources');
     const sec = d.querySelector('section.calc-native-panel'), kids = [...sec.children];
@@ -176,7 +177,7 @@ const val = td => { const t = td.textContent.trim(); return t === '—' ? null :
     assert.doesNotMatch(d.querySelector('#fd-table').textContent, /Unavailable|stale/i);
     assert.match(d.querySelector('#fd-flask').textContent, /Empty potion flask: Buy 1,000 gp \(last trade 11 h ago\)/);
     assert.match(cellsOf(d)[0][0].title, /oldest price 11 h ago/);
-    const r0 = D.rows[0]; assert.match(w.__t.quoteContents(r0.f6.n, 'sell'), /Sell 29,000 gp · stale/, 'Items tab shows this same 11-hour-old quote'); }
+    const r0 = D.rows[0]; assert.match(w.__t.quoteContents(r0.f6.n, 'sell').replace(/<[^>]+>/g, ''), /Sell 29,000 gp · stale/, 'Items tab shows this same 11-hour-old quote'); }
   dom.window.close();
   // varied prices per item and trade times hours/days old: every cell equals the formula on the Items tab's quote values
   ({dom, w, d} = await screen('calculators/flask-decanting', {}, 'varied'));

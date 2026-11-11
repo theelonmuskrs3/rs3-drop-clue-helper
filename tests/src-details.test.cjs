@@ -102,7 +102,7 @@ async function screen(hash) {
   for (let i = 0; i < 200; i++) {
     await tick();
     if (hash === 'ge') { if (w.document.querySelector('#ge-info') && w.document.querySelector('#ge-status')?.textContent) break; }
-    else if (hash === 'items') { if (w.document.querySelector('#items-src-info') && w.document.querySelector('#res')) break; }
+    else if (hash === 'items/~search') { if (w.document.querySelector('#items-src-info') && w.document.querySelector('#res')) break; }
     else if (hash === 'money') { if (w.document.querySelector('#mm-src-info') && w.document.querySelector('#mmq')) break; }
     else if (hash === 'char') { if (w.document.querySelector('#live-price-info') && w.document.querySelector('.chhero')) break; }
     else if (w.document.querySelector('#live-price-status')?.textContent) break;
@@ -144,7 +144,15 @@ function closedInfo(el, label) {
   dom.window.close();
 
   // Items advanced search: circled catalog + no-filter status in closed details; filters/results stay up front.
+  // Items tab default (owner t303u): plain #items opens "Search all items"; the rarity/price search keeps #items/~search
   ({dom, w, d} = await screen('items'));
+  for (let i = 0; i < 200 && !d.querySelector('.subnav a.on'); i++) await tick();
+  assert.equal(d.querySelector('.subnav a.on').getAttribute('href'), '#items/~all', 'Items opens on Search all items');
+  assert.ok(d.querySelector('.subnav a[href="#items/~search"]'), 'Search · rarity · prices still available');
+  assert.equal(d.querySelectorAll('.subnav a.btn').length >= 5, true);
+  assert.ok(d.querySelector('#live-price-info'), 'shared prices Details still bound');
+  dom.window.close();
+  ({dom, w, d} = await screen('items/~search'));
   const itemsInfo = d.querySelector('#items-src-info');
   closedInfo(itemsInfo, 'Items search info');
   assert.match(itemsInfo.textContent, /items: every item page of the RS3 wiki copy/);
@@ -180,7 +188,7 @@ function closedInfo(el, label) {
   const mm = d.querySelector('#mm-src-info');
   closedInfo(mm, 'Money intro');
   assert.match(mm.textContent, /Every money-making guide on the RS3 wiki: 878 methods from 592 guide pages/);
-  assert.match(mm.textContent, /Default sorting and minimum profit use complete fresh net live-price estimates only/);
+  assert.match(mm.textContent, /Sorting and minimum profit use the estimate where the Wiki gives a complete item formula/);
   for (const sel of ['#mmq', '#mmc', '#mmsort', '#mmres']) {
     const el = d.querySelector(sel);
     assert.ok(el && !mm.contains(el), sel + ' stays outside Money details');

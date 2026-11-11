@@ -30,5 +30,5 @@ assert.match(css,/\.mmest\{display:block;min-width:0;width:100%/);
 assert.match(css,/\.mmest \.estimate-source\{display:block;width:100%/);
 assert.match(css,/\.estimate-row dt,\.estimate-row dd\{[^}]*word-break:normal;overflow-wrap:break-word/);
 assert.match(css,/\.live-price,\.live-price \.gp,\.live-price \.price-age,\.live-price \.price-tax,\.live-price \.note\{[^}]*word-break:normal;overflow-wrap:break-word/);
-assert.match(app,/Net profit\/hr \(fresh live estimate\)/);assert.match(app,/Min net profit\/hr/);assert.doesNotMatch(app,/tax\/fees excluded/);
+assert.match(app,/Profit\/hr \(highest first\)/);assert.match(app,/Min profit\/hr/);assert.doesNotMatch(app,/tax\/fees excluded/);
 console.log('PASS per-unit RS3 2% estimate, below50/Bond exemption, quantity/rate order, no buyer/double tax, stale/missing, semantic full-width timestamp and scoped wrapping');
