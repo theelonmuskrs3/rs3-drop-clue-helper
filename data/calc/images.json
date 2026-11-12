@@ -519,7 +519,8 @@
 "src": "icons/b4ffe627d41d.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -628,7 +629,8 @@
 "src": "icons/a5f59587320e.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -840,7 +842,8 @@
 "src": "icons/211de6cf9400.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -936,7 +939,8 @@
 "src": "icons/0c0da3fc7eaf.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -1046,7 +1050,8 @@
 "src": "icons/ebd4cf156830.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -1059,7 +1064,8 @@
 "sha1": "fbc35d76ebcf884362c9febf5c650ea64e9b0cc9",
 "src": "icons/e855ee3cb9ed.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -1155,7 +1161,8 @@
 "src": "icons/adeee43e05f1.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -1168,7 +1175,8 @@
 "sha1": "053891eac3418a77f18cf8f886e356b6bfaf4a5a",
 "src": "icons/efd8ac8d9131.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -2114,7 +2122,8 @@
 "sha1": "53495de0d19799d835955098d7dfcdb6fdc093c3",
 "src": "icons/da699131443f.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 22
@@ -2222,7 +2231,8 @@
 "src": "icons/2c297db33fff.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -2249,7 +2259,8 @@
 "sha1": "9c9c462194cd75f53bdec1762f4ad329f846e565",
 "src": "icons/5a2a15731cdd.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -2847,7 +2858,8 @@
 "sha1": "758220596643462ffda00445fb164e3dbb4d04a3",
 "src": "icons/1f4d346ee0a5.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 31
@@ -2951,7 +2963,8 @@
 "sha1": "0d440a6a2b7c1dc163bbd47c4629f7585387305d",
 "src": "icons/a419613c74a3.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 15
@@ -3081,7 +3094,8 @@
 "sha1": "399e9eb5db4c36e0072496dbc4d4285367aac634",
 "src": "icons/f57bac1a4239.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -3315,7 +3329,8 @@
 "sha1": "61a40819d663eb53f8d0f6b4c6a5dbb93eb00ab4",
 "src": "icons/f1843d7630d4.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -3354,7 +3369,8 @@
 "sha1": "6526890474f647f01a182d36692e70ae15dc9c64",
 "src": "icons/6e508fa87878.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 18
@@ -3588,7 +3604,8 @@
 "sha1": "32a872fbca5b904e3872d2c7b9ba23f55728255e",
 "src": "icons/fef3c8c6de41.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -4542,7 +4559,8 @@
 "sha1": "40c5824d3d988a4f4c442fa9601515eacd8b66e3",
 "src": "icons/bdeee40e7d36.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 14
@@ -4555,7 +4573,8 @@
 "sha1": "86a5df8f78ee4171b9a22ab64ed1ae22681b8dc9",
 "src": "icons/b130d511e9d4.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -4659,7 +4678,8 @@
 "sha1": "b5e17c1c26cbe2a8b3ba4262da715bc45b98718d",
 "src": "icons/878f1ff32bb4.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -4880,7 +4900,8 @@
 "sha1": "fc3d2c617e14a64123eb54f27915644b46f6e844",
 "src": "icons/7225874221b8.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5080,7 +5101,8 @@
 "sha1": "bfe704f2f8deae81337337282c8686cae3fc7120",
 "src": "icons/ed31f1b8d4ed.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 26
@@ -5186,7 +5208,8 @@
 "src": "icons/e7bc0502ab69.webp",
 "used": [
 "cooking",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 22
@@ -5290,7 +5313,8 @@
 "sha1": "5a9e1357314164375bcd594c4b42518f3ca1ece1",
 "src": "icons/1f573a731a65.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5303,7 +5327,8 @@
 "sha1": "f7af04fe11e298d6649d5fab18d3250981f04a31",
 "src": "icons/9924262350f2.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5329,7 +5354,8 @@
 "sha1": "a7012ed4c26a8f79fa2cf43efd192ae744a561dd",
 "src": "icons/5eeb7e38702c.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5342,7 +5368,8 @@
 "sha1": "874aae306a315775129bdb07a7965df2ae98c315",
 "src": "icons/d89cc2f1ffc5.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5381,7 +5408,8 @@
 "sha1": "0bf60237802d96ee32175f77f1c7a3ebd58d7f26",
 "src": "icons/f80149bd62d9.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5394,7 +5422,8 @@
 "sha1": "67b3f5806f10b339dfdc2a4538ac539336ee9e86",
 "src": "icons/ed66e8a472a6.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5408,7 +5437,8 @@
 "src": "icons/5380fddd4876.webp",
 "used": [
 "cooking",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5421,7 +5451,8 @@
 "sha1": "fc613fd7aa514e48e466f2ba51c9dc8c8ac36ca7",
 "src": "icons/74dfc343fa8d.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5434,7 +5465,8 @@
 "sha1": "8c4e124c27694540d272bb27394a5da2a9353099",
 "src": "icons/e2a7214626fd.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5447,7 +5479,8 @@
 "sha1": "29b994b40207907f000d28e4bf4b84d964d0a265",
 "src": "icons/5f716973e85e.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5486,7 +5519,8 @@
 "sha1": "7bd4e30a4a6cbb381eba4d1b3231d206774ea74b",
 "src": "icons/2441ae5ffa9d.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5499,7 +5533,8 @@
 "sha1": "1c3b0abb2591bd32b4fdf342e0da79acf831f87d",
 "src": "icons/669b6271ae91.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5512,7 +5547,8 @@
 "sha1": "a296b13b6db185cffe477172522694d43be01ec7",
 "src": "icons/82f26c482afd.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5577,7 +5613,8 @@
 "sha1": "3a5f01544cc73536cd8e98ab4870c5dc69cc5565",
 "src": "icons/a30fcce25bae.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5590,7 +5627,8 @@
 "sha1": "6a9450874bfe85e036cbb71ac985ec62ea886e07",
 "src": "icons/214d3984c16e.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5603,7 +5641,8 @@
 "sha1": "9ff9751520d9122d713a32d45e1171eac7da6eae",
 "src": "icons/3a3598575bc0.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 32
@@ -5616,7 +5655,8 @@
 "sha1": "bba55018c89c29a1129481b40ccfd7dd84490fea",
 "src": "icons/78aa30bac3fa.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5629,7 +5669,8 @@
 "sha1": "4621bc7523ec34074a024c5e85895d5e6698bb14",
 "src": "icons/4825202a1b45.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5642,7 +5683,8 @@
 "sha1": "47fb33e14185e4623bc90f5f8f273db2592f9f94",
 "src": "icons/f0bee9f0f31f.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5694,7 +5736,8 @@
 "sha1": "ab70fff82be9b6729ef6629d1dee1dae870e7ef0",
 "src": "icons/c9b148c30087.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -5785,7 +5828,8 @@
 "sha1": "940de3c7556e086a31344a6d4d26e3643108e560",
 "src": "icons/e711f733ede0.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 22
@@ -5824,7 +5868,8 @@
 "sha1": "c36d4fc687885c43c03f9836b9ed5bab08fbad3a",
 "src": "icons/195ad669a96a.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -5919,7 +5964,8 @@
 "src": "icons/33594e5ceb57.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -5972,7 +6018,8 @@
 "sha1": "68e1d8e45fb5135560d663bbf1b3a4d63741cedc",
 "src": "icons/7df16fb16d2f.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "File redirect from File:Congealed blood.png",
 "w": 28
@@ -6554,7 +6601,8 @@
 "src": "icons/52ae33f7d35a.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -6635,7 +6683,8 @@
 "src": "icons/7e4af0f37b2d.webp",
 "used": [
 "cooking",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 22
@@ -6648,7 +6697,8 @@
 "sha1": "a7ed3a4ae9b24f09896e1a80ec6425ddf49b850b",
 "src": "icons/156bd78e71d4.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 28
@@ -7044,7 +7094,8 @@
 "src": "icons/cd416541eec6.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -7323,7 +7374,8 @@
 "src": "icons/ccca76aaf22e.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -7506,7 +7558,8 @@
 "sha1": "45848d0a1878b56539722b462dc4a2d26c281436",
 "src": "icons/72b3e1500823.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 22
@@ -7795,7 +7848,8 @@
 "sha1": "efad7ce395e8ab25e2ac68a647f5cc652e9cf958",
 "src": "icons/01708020cd94.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -8411,7 +8465,8 @@
 "src": "icons/4624809b1086.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -8438,7 +8493,8 @@
 "sha1": "7bdbafff66095b2b8ab1dbad480ae6933d3f12d4",
 "src": "icons/4a9a69426ae8.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 28
@@ -9206,7 +9262,8 @@
 "sha1": "36bc790c75d975efebdfdb9c6ab703cdb9ca05ea",
 "src": "icons/6b41275ea4ff.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -9362,7 +9419,8 @@
 "sha1": "8da97300b95e2becf7eb837bcf4ab5258229303d",
 "src": "icons/2851a84eeb5e.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -9622,7 +9680,8 @@
 "sha1": "36f51030b7ba649fa2154da802b0180aec902e12",
 "src": "icons/f4f358683b61.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -9687,7 +9746,8 @@
 "sha1": "a03fbbb14faeb830cf575c30d1fb3e04f3b685af",
 "src": "icons/c011cb88d8b8.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -9804,7 +9864,8 @@
 "sha1": "9fec711ace1621e55c59a4356cba0bd469eeaaee",
 "src": "icons/fb3615845a19.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -9947,7 +10008,8 @@
 "sha1": "f16007667920c85ef062c3f14368bc22dd1d2dcd",
 "src": "icons/172a312a295c.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -9999,7 +10061,8 @@
 "sha1": "341e5a47ce724bfcea4bcdb5361370fdef86ced7",
 "src": "icons/8a6c3b4ac171.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 14
@@ -10012,7 +10075,8 @@
 "sha1": "6747f485db5caf066e459ddf650388c9feb241aa",
 "src": "icons/7ba65d8ca70e.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 31
@@ -10155,7 +10219,8 @@
 "sha1": "e9df28ac9c72aa00ee8209c41ae3e2725fbda33c",
 "src": "icons/145b5d0268b0.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -10354,7 +10419,8 @@
 "src": "icons/8f83f076469e.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -10463,7 +10529,8 @@
 "src": "icons/30e712250c5e.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -10764,7 +10831,8 @@
 "sha1": "280acb1eb6bd794ed07629a10cfbe63738384e18",
 "src": "icons/41e9227563e1.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 29
@@ -11051,7 +11119,8 @@
 "src": "icons/912cf3789a85.webp",
 "used": [
 "cooking",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 18
@@ -11220,7 +11289,8 @@
 "sha1": "120420ab31c0daf04c847465f7e168076162546e",
 "src": "icons/05787af86790.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -11415,7 +11485,8 @@
 "sha1": "e929016dcd72abc9b5a06c24f74a82a3e5afcbf5",
 "src": "icons/0519677a66eb.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -11793,7 +11864,8 @@
 "src": "icons/3c694f0b1019.webp",
 "used": [
 "fletching",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "File redirect from File:Grenwall spikes.png",
 "w": 29
@@ -12391,7 +12463,8 @@
 "sha1": "5a24d4705685b6615b1139458dbc2ca8ba4281db",
 "src": "icons/29fd126d7086.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 28
@@ -12404,7 +12477,8 @@
 "sha1": "fe23f6dd91ac7123100f0a950033b7628acec22e",
 "src": "icons/1cc582d83ec7.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 28
@@ -12417,7 +12491,8 @@
 "sha1": "0fd5ecafe601e7f1b462a478dc9e66e470589512",
 "src": "icons/75bfa9c407e3.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 25
@@ -12430,7 +12505,8 @@
 "sha1": "8c7495645bf20f017a0a1afb17162e83d567bcd9",
 "src": "icons/916b799a4e50.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -12443,7 +12519,8 @@
 "sha1": "4b44c270e9b049f95f7529e86948f9acd9fb3348",
 "src": "icons/ac1b2b1b03d2.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 31
@@ -12511,7 +12588,8 @@
 "src": "icons/2555ff1d4707.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -12577,7 +12655,8 @@
 "sha1": "f45b877e5765eb7252ad79d3f041c6882b10a942",
 "src": "icons/005fa1018f36.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -12646,7 +12725,8 @@
 "src": "icons/8451c999661b.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -12978,7 +13058,8 @@
 "sha1": "489896c8ff1987463292a8ff6cd44540689d9a9e",
 "src": "icons/6e8b18b22ae5.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -12991,7 +13072,8 @@
 "sha1": "bb27d48ab7231d13cfb4a35d3eeee4d4bea8396f",
 "src": "icons/96980320b407.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 31
@@ -13247,7 +13329,8 @@
 "src": "icons/5672773334f6.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -13604,7 +13687,8 @@
 "src": "icons/4f97505c7a2e.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -13631,7 +13715,8 @@
 "sha1": "78a2a6244d67b3aec843fef136c8b85f3a4def90",
 "src": "icons/47d2298d7220.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -13918,7 +14003,8 @@
 "sha1": "aef2f74bf5946ccb6843e2d0765677316c762b81",
 "src": "icons/02913de3619a.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 20
@@ -14533,7 +14619,8 @@
 "sha1": "409be064f15451f46006e6b3989b2b086b6c834a",
 "src": "icons/3d4cec16c4c4.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -14624,7 +14711,8 @@
 "sha1": "715270899e9b0406acda7a98350096f764656ec2",
 "src": "icons/9ae2107325b8.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -14650,7 +14738,8 @@
 "sha1": "d58acaaac9adefb1076cbfe492bdc55a3f0af7a0",
 "src": "icons/bb3d3ff095e9.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -14962,7 +15051,8 @@
 "sha1": "f67b97bae33da1b834d173f0fbf6e31f7cf86b71",
 "src": "icons/7446ea9225ec.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 29
@@ -15054,7 +15144,8 @@
 "sha1": "7bdbafff66095b2b8ab1dbad480ae6933d3f12d4",
 "src": "icons/4a9a69426ae8.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 28
@@ -15145,7 +15236,8 @@
 "sha1": "f611cc19631f746be011f5c2e57ea108a93a6a52",
 "src": "icons/9e752029455e.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -15171,7 +15263,8 @@
 "sha1": "86bcd4b314fd19fe41aceae90bc544b1897e335c",
 "src": "icons/244bf29b69dc.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -15331,7 +15424,8 @@
 "src": "icons/9c65334fb857.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -15372,7 +15466,8 @@
 "src": "icons/e3699f626212.webp",
 "used": [
 "crafting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 33
@@ -15607,7 +15702,8 @@
 "sha1": "dffabb76932b40251ecc87feff49917478102a44",
 "src": "icons/6aac14d9018c.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -15620,7 +15716,8 @@
 "sha1": "fe7ee4915fc626dc55ae0dfb83df473541a907b5",
 "src": "icons/c07cb5b13621.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 31
@@ -16080,7 +16177,8 @@
 "sha1": "086c836b9685678feed5e7e0e95cb76301db1fd6",
 "src": "icons/bbe89dc7a6cc.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -16132,7 +16230,8 @@
 "sha1": "22b741b47e44487f9c4f37b6dcc5d85a525fa9b9",
 "src": "icons/86bd01404300.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -16301,7 +16400,8 @@
 "sha1": "9b278e99b37e9eae270e94e090c9053e8169fa88",
 "src": "icons/42ff3c9249d8.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 14
@@ -16314,7 +16414,8 @@
 "sha1": "aa984f6d18966aff9e1042c82dc7acaba7768d8c",
 "src": "icons/6630cb900455.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 25
@@ -16704,7 +16805,8 @@
 "sha1": "708ae5f7f06eab8d63a98c8c85ac5732f325fb51",
 "src": "icons/69b7d25a6997.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 28
@@ -17712,7 +17814,8 @@
 "src": "icons/eeda8851f3ae.webp",
 "used": [
 "fletching",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "File redirect from File:Onyx bolt tips.png",
 "w": 31
@@ -19501,7 +19604,8 @@
 "sha1": "33a77ee12dc074f5a56852e42418894adeaade49",
 "src": "icons/e3558dd544a8.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 20
@@ -19579,7 +19683,8 @@
 "sha1": "24f3d13b46dbfb6973d2254142edb23cf309133c",
 "src": "icons/76a2101a8940.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 27
@@ -20027,7 +20132,8 @@
 "src": "icons/d21cfaf573bd.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -20083,7 +20189,8 @@
 "src": "icons/afbc05779eed.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -20515,7 +20622,8 @@
 "src": "icons/18eb9d7af06e.webp",
 "used": [
 "crafting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 14
@@ -20528,7 +20636,8 @@
 "sha1": "f7ac5235f22c993ef3cc4b98de3de25bf598a704",
 "src": "icons/bf25eda3bdd2.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 24
@@ -20567,7 +20676,8 @@
 "sha1": "a7643f1984b3f759c5743e6de8502c0a1d3ce9b1",
 "src": "icons/bbd25430acb3.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -20662,7 +20772,8 @@
 "src": "icons/a0c4e2da237f.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -21781,7 +21892,8 @@
 "sha1": "cfd7d1dffc9f3d9e838c3a1831bcf4d185a85323",
 "src": "icons/07e0dc366797.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 15
@@ -21924,7 +22036,8 @@
 "sha1": "3aaa5357811f2f6dad8ca322ff1ace6f5b03cb5e",
 "src": "icons/aa7a29686ddb.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 20
@@ -22030,7 +22143,8 @@
 "src": "icons/c7d01bca8f2a.webp",
 "used": [
 "cooking",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 20
@@ -22111,7 +22225,8 @@
 "src": "icons/e084758c29c8.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -22312,7 +22427,8 @@
 "src": "icons/9d40abb16f5f.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -22444,7 +22560,8 @@
 "sha1": "7e2c1f68be04a9a587b9ac955af56d191e3b614f",
 "src": "icons/beb14f92cd46.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -22561,7 +22678,8 @@
 "sha1": "ba56278f959de0690de307019ee47d4b8266c21b",
 "src": "icons/c06c2e0b02c4.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 26
@@ -22904,7 +23022,8 @@
 "src": "icons/83f7d724206d.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -23129,7 +23248,8 @@
 "src": "icons/0c822775b2e1.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -23330,7 +23450,8 @@
 "src": "icons/e8ff16e32e9c.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -23602,7 +23723,8 @@
 "sha1": "68d6e48bcefeec11b82b02587beee875d01c2f44",
 "src": "icons/63ae6ce416e2.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 22
@@ -23732,7 +23854,8 @@
 "sha1": "9e001aabbffe998eaecc8812b8a6e2cebc67776e",
 "src": "icons/08b260c31515.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -24037,6 +24160,32 @@
 "via": "exact file",
 "w": 32
 },
+"Shrink-me-quick": {
+"bytes": "mirror",
+"file": "File:Shrink-me-quick.png",
+"h": 30,
+"icon": "new",
+"sha1": "a6c2ed7ad791ed3c9c0a907ccd34a6ab1bfdf311",
+"src": "icons/7d43c75437e1.webp",
+"used": [
+"herblore-potions"
+],
+"via": "exact file",
+"w": 21
+},
+"Shrunk ogleroot 1": {
+"bytes": "mirror",
+"file": "File:Shrunk ogleroot 1.png",
+"h": 30,
+"icon": "new",
+"sha1": "3595a31167186d4a4590894a4c1b40fbc66d3d59",
+"src": "icons/046b0f085a9d.webp",
+"used": [
+"herblore-potions"
+],
+"via": "exact file",
+"w": 16
+},
 "Silk": {
 "bytes": "mirror",
 "file": "File:Silk.png",
@@ -24099,7 +24248,8 @@
 "sha1": "63887717cf646d65e5666e2cf8bd8409f9b1949e",
 "src": "icons/63dfd26bd8b5.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 22
@@ -24503,7 +24653,8 @@
 "sha1": "6622c06fde16c5ee852527e264ec4e8ae9ec1718",
 "src": "icons/736759791823.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -24516,7 +24667,8 @@
 "sha1": "dbe8e9b21265dd780a895f9fc6ae2057b9a19cb0",
 "src": "icons/c7ea3756ccd8.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 34
@@ -24698,7 +24850,8 @@
 "sha1": "5ddf7ec3a79fc45519fc944aa43ac69ec5e2f7ea",
 "src": "icons/df7efb89b84c.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 26
@@ -25106,7 +25259,8 @@
 "sha1": "9d8c04eab63da94c05b060c4376a9bd417efc80b",
 "src": "icons/ed4403d00c8f.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -25158,7 +25312,8 @@
 "sha1": "d5549c146cd0675a11f1aa348a939e0b4c474fa7",
 "src": "icons/a645bdeb74ec.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 31
@@ -25314,7 +25469,8 @@
 "sha1": "b4515ffb6e1c113fc7a951e508b1aab3c76d6bf6",
 "src": "icons/35e0f93162e4.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 31
@@ -26177,7 +26333,8 @@
 "src": "icons/cb4e23467298.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -26725,7 +26882,8 @@
 "sha1": "1f1ce22c0469a1d238252f9e3a00d369cd286071",
 "src": "icons/437479da1d77.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 31
@@ -26781,7 +26939,8 @@
 "src": "icons/933985a5e77f.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -26921,7 +27080,8 @@
 "src": "icons/832a763a48ef.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 20
@@ -26977,7 +27137,8 @@
 "src": "icons/05422dbc552b.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 19
@@ -27047,7 +27208,8 @@
 "src": "icons/7fdf2156c491.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 19
@@ -27252,7 +27414,8 @@
 "src": "icons/8b62a02282cf.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -27417,7 +27580,8 @@
 "src": "icons/8ef659a6e700.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -27583,7 +27747,8 @@
 "src": "icons/278392db8a7d.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -27679,7 +27844,8 @@
 "src": "icons/6a64959a9c6e.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -27749,7 +27915,8 @@
 "src": "icons/0a4112bfa0c4.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -27816,7 +27983,8 @@
 "sha1": "d4e54af904da22cdba841e5d82435478fcaf6262",
 "src": "icons/5031cb488998.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -27928,7 +28096,8 @@
 "src": "icons/2719e9265040.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -27998,7 +28167,8 @@
 "src": "icons/bf2fe3936931.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -28108,7 +28278,8 @@
 "src": "icons/4cf5478791b3.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -28247,7 +28418,8 @@
 "src": "icons/3aa22a74f1a2.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -28316,7 +28488,8 @@
 "src": "icons/24f361742dba.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -28439,7 +28612,8 @@
 "src": "icons/9b080ad7014e.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -28495,7 +28669,8 @@
 "src": "icons/534999ca078f.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -28591,7 +28766,8 @@
 "src": "icons/89e5951bb7e1.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -28661,7 +28837,8 @@
 "src": "icons/f7e2506f6dba.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -28980,7 +29157,8 @@
 "sha1": "02408cca3b0f68b05c50bb8c9eb89fb53c64c561",
 "src": "icons/1a721d6b7fcb.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 31
@@ -29111,7 +29289,8 @@
 "sha1": "d0745b205937725259bda94db813dc2f2f96785a",
 "src": "icons/c399361e5944.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -29124,7 +29303,8 @@
 "sha1": "3b0eae45873dcff9222a455e5c66bd36da18c51b",
 "src": "icons/9bf512382004.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 31
@@ -29359,7 +29539,8 @@
 "src": "icons/0252ef390bfa.webp",
 "used": [
 "cooking",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 26
@@ -29372,7 +29553,8 @@
 "sha1": "8308f8b89ab1bba5ac7019dfde29c6bfacdae183",
 "src": "icons/11ffac1bb1cd.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -29515,7 +29697,8 @@
 "sha1": "3277c4e76901fc8311aa96c568e1c868bee3e44d",
 "src": "icons/f3598c5bfbc4.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -30179,7 +30362,8 @@
 "sha1": "b39066b1c35724253ee5537ae23a4fd594841566",
 "src": "icons/ecefb2d37670.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 22
@@ -30427,7 +30611,8 @@
 "sha1": "2aae33e958dce40f4eb1365a60c073baa4375a5b",
 "src": "icons/829d2efd2fa4.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -30756,7 +30941,8 @@
 "src": "icons/35674a05ebb7.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -30891,7 +31077,8 @@
 "src": "icons/4655e6d36f59.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -30918,7 +31105,8 @@
 "sha1": "035672eced5263dba37497a8edf56862704d0901",
 "src": "icons/9ad4414893a0.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -31026,7 +31214,8 @@
 "src": "icons/aa61f8e53c18.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -31053,7 +31242,8 @@
 "sha1": "80ab1007b292a6dd6ab9762bca6b42cc9e3b1437",
 "src": "icons/1bbb0db4653d.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -31228,7 +31418,8 @@
 "sha1": "242b48f8c6e0a51fc94ecc118cb165c7acb2fe3a",
 "src": "icons/668ff52c5519.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -31254,7 +31445,8 @@
 "sha1": "0bb1dd197cc4ef1cf1b3f1c56d8a0da250dae536",
 "src": "icons/a781c283b034.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 15
@@ -31267,7 +31459,8 @@
 "sha1": "cd887eecf46092e1de2a193ed219488de3390932",
 "src": "icons/65d244d8d854.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 20
@@ -31423,7 +31616,8 @@
 "sha1": "f150ea7b9c083149cef2c5247638338003c440d0",
 "src": "icons/37bdacebb1c3.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 30
@@ -31436,7 +31630,8 @@
 "sha1": "a0b148c67f8b136b10a11d980ebacc12fc3594fc",
 "src": "icons/971ec73bdcfd.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 27
@@ -31449,7 +31644,8 @@
 "sha1": "d4086b8b9fba20862fdc486d30b283feb52f65fb",
 "src": "icons/2cb53c147ad2.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 27
@@ -31462,7 +31658,8 @@
 "sha1": "7784ee9b816a6d25e5b4d407e26181cd547ca429",
 "src": "icons/7e22bcde6fff.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 27
@@ -31488,7 +31685,8 @@
 "sha1": "d7cd57ded2115cfff342dae8c7f6cec9ca70772c",
 "src": "icons/a2db97f8faa5.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 31
@@ -31870,7 +32068,8 @@
 "sha1": "808061781992460f22dafb20e7db847f252e3584",
 "src": "icons/940499fb7b82.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -31935,7 +32134,8 @@
 "sha1": "57a2f7a3796408e1a2dcd89b9b60080e154e051e",
 "src": "icons/8a2b2fa2e184.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 15
@@ -32001,7 +32201,8 @@
 "src": "icons/251963122a5a.webp",
 "used": [
 "crafting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 33
@@ -32082,7 +32283,8 @@
 "src": "icons/55eb5db9fb73.webp",
 "used": [
 "flask-decanting",
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 21
@@ -32258,7 +32460,8 @@
 "sha1": "0d774e8b7473884b2507fdb75a609d2217bb45b8",
 "src": "icons/db2ce26a6d1f.webp",
 "used": [
-"herblore"
+"herblore",
+"herblore-potions"
 ],
 "via": "exact file",
 "w": 24

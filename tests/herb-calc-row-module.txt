@@ -1,0 +1,186 @@
+require('strict')
+local exg = require('Module:ExchangeLite').price
+local coins = require('Module:Coins')._amount
+local paramtest = require('Module:Paramtest')
+local hc = paramtest.has_content
+local dt = paramtest.default_to
+
+local lang = mw.getContentLanguage()
+
+local p = {}
+
+local function plink(link, text, pic)
+	return string.format('[[File:%s.png|link=%s]] [[%s|%s]]', pic or link, link, link, text or link)
+end
+
+local function na()
+	return 'style="text-align:center;" class="table-na" | N/A'
+end
+
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local params = {}
+	
+	params.xp = tonumber(args.xp)
+	params.lv = tonumber(args.lv)
+	
+	-- scroll of cleansing
+	params.soc = tonumber(args.soc)
+	
+	-- vial
+	params.vialval = exg(args.vial or 'Vial of water')
+	params.vialref = ''
+	if hc(args.vial) then
+		if args.vial == 'Coconut milk' then
+			params.vialref = frame:extensionTag{ name = "ref", args = { name = "Coconut_milk" }};
+		else
+			params.vialref = frame:extensionTag("ref", string.format('Uses %s (%s) as a base.', plink(args.vial), coins(params.vialval)));
+		end
+	end
+	
+	-- completed potion
+	params.pot = dt(args.potname, (args.pot or '') .. ' (3)')
+	params.potqty = tonumber(args.potqty) or 1
+	params.potimg = dt(args.potimg, params.pot)
+	if hc(args.potnv) then
+		params.potval = false
+	else
+		params.potval = dt(args.potval, exg(params.pot)) * params.potqty
+	end
+	
+	-- herb
+	params.herbsort = lang:ucfirst(dt(args.herbname, args.herb))
+	params.herb = dt(args.herbname, 'Clean ' .. (args.herb or ''))
+	params.herbimg = dt(args.herbimg, params.herb)
+	if hc(args.herbnv) then
+		params.herbval = false
+	else
+		params.herbval = dt(args.herbval, exg(params.herb))
+	end
+	
+	-- unfinished potion
+	params.unf = dt(args.unf, params.herbsort .. ' potion (unfinished)')
+	params.unfimg = dt(args.unfimg, params.unf)
+	if params.unf == 'no' or hc(args.unfnv) then
+		params.unfval = false
+	else
+		params.unfval = dt(args.unfval, exg(params.unf))
+	end
+	
+	-- secondary
+	params.sec = args.sec
+	params.secqty = tonumber(args.secqty) or 1
+	params.secimg = dt(args.secimg, params.sec)
+	if hc(args.secnv) then
+		params.secval = false
+	else
+		params.secval = dt(args.secval, exg(params.sec)) * params.secqty
+	end
+	
+	return p.row(params, frame)
+end
+
+function p.row(params, frame)
+	frame = frame or mw.getCurrentFrame();
+	local f = string.format
+	
+	local ret = {'|-'}
+	
+	-- Pot name | level | xp | herb | herb price | unf | unf price | secondary | secondary price | pot price | profit | coins/xp | profit with scroll | c/x with scroll
+	
+	-- pot name
+	table.insert(ret, f('| data-sort-value="%s" | %s%s', params.pot, plink(params.pot, nil, params.potimg), params.vialref))
+	
+	-- level, xp
+	table.insert(ret, f('| data-sort-value="%s" | %s', params.lv, params.lv))
+	table.insert(ret, f('| data-sort-value="%s" | %s', params.xp, params.xp))
+	
+	--herb
+	table.insert(ret, f('| data-sort-value="%s" | %s', params.herbsort, plink(params.herb, params.herbsort, params.herbimg)))
+	if params.herbval == false then
+		table.insert(ret, '| data-sort-value="0" ' .. na())
+		params.herbval = 0
+	else
+		table.insert(ret, f('| data-sort-value="%s" | %s', params.herbval, coins(params.herbval)))
+	end
+		
+	-- unf
+	if params.unf == 'no' then
+		table.insert(ret, '| data-sort-value="0" ' .. na())
+		table.insert(ret, '| data-sort-value="0" ' .. na())
+	else
+		table.insert(ret, f('| data-sort-value="%s" | %s', params.unf, plink(params.unf, nil, params.unfimg)))
+		if params.unfval == false then
+			table.insert(ret, '| data-sort-value="0" ' .. na())
+		else
+			table.insert(ret, f('| data-sort-value="%s" | %s', params.unfval, coins(params.unfval)))
+		end
+	end
+	
+	-- secondary
+	local sstr=''
+	if params.secqty>1 then
+		sstr=params.secqty..' '
+	end
+	
+	table.insert(ret, f('| data-sort-value="%s" | %s%s', params.sec, sstr, plink(params.sec, nil, params.secimg)))
+	if params.secval == false then
+		table.insert(ret, '| data-sort-value="0" ' .. na())
+		params.secval = 0
+	else
+		table.insert(ret, f('| data-sort-value="%s" | %s', params.secval, coins(params.secval)))
+	end
+	
+	-- pot
+	if params.potval == false then
+		table.insert(ret, '| data-sort-value="0" ' .. na())
+		params.potval = 0
+	else
+		table.insert(ret, f('| data-sort-value="%s" | %s', params.potval, coins(params.potval)))
+	end
+	
+	-- profits
+	local prof, cpx, prof_soc, cpx_soc, soc_h, soc_s, soc_ref
+	
+	prof = params.potval - (params.vialval + params.herbval + params.secval)
+	cpx = prof / params.xp
+	
+	-- soc:
+	-- 0/nil: normal effect
+	-- 1: doesn't work on anything
+	-- 2: doesn't work on herb, does on secondary
+	-- 3: doesn't work on secondary, does on herb
+	soc_h = 0.9
+	soc_s = 0.9
+	
+	if params.soc == 1 then
+		soc_h = 1
+		soc_s = 1
+		soc_ref = 'SoC_1'
+	elseif params.soc == 2 then
+		soc_h = 1
+		soc_ref = 'SoC_2'
+	elseif params.soc == 3 then
+		soc_s = 1
+		soc_ref = 'SoC_3'
+	end
+	
+	local soc_r_s = ''
+	if soc_ref then
+		soc_r_s = frame:extensionTag{ name = "ref", args = { name = soc_ref }};
+	end
+	
+	prof_soc = params.potval - (params.vialval + soc_h * params.herbval + soc_s * params.secval)
+	
+	cpx_soc = prof_soc / params.xp
+	
+	table.insert(ret, f('| data-sort-value="%s" | %s', prof, coins(prof)))
+	table.insert(ret, f('| data-sort-value="%s" | %s', cpx, coins(cpx .. ' round 2')))
+	table.insert(ret, f('| data-sort-value="%s" | %s', prof_soc, coins(prof_soc .. ' round 2')))
+	table.insert(ret, f('| data-sort-value="%s" | %s%s', cpx_soc, coins(cpx_soc .. ' round 2'), soc_r_s))
+
+	return table.concat(ret, '\n')
+end
+
+return p

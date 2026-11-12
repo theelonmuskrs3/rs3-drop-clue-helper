@@ -213,6 +213,10 @@ def calc_names():
         if v in H['ids']: add(v, 'herblore')
     import subprocess   # plus every name the ported engine actually puts in its rows (tools/calc_names.cjs)
     for v in json.loads(subprocess.run(['node', os.path.join(ROOT, 'tools', 'calc_names.cjs')], capture_output=True, check=True).stdout): add(v, 'herblore')
+    P = os.path.join(ROOT, 'data', 'calc', 'herblore-potions.json')   # Calculator:Herblore/Potions (Module:Herb calc row: File:<img or name>.png)
+    if os.path.exists(P):
+        for r in json.load(open(P))['rows']:
+            for x in [r['pot'], r['vial'], r['sec'], *r['herb'], *r['unf']]: add(x.get('img') or x['n'], 'herblore-potions')
     for slug in ('cooking', 'fletching', 'crafting'):   # native Wiki skill calculators (Module:Skill calc data files)
         cp = os.path.join(ROOT, 'data', 'calc', slug + '.json')
         if not os.path.exists(cp): continue
@@ -261,7 +265,25 @@ def items():
           'bytes', {k: sum(1 for v in out.values() if v['bytes'] == k) for k in ('mirror', 'downloaded')},
           'icons', {k: sum(1 for v in out.values() if v['icon'] == k) for k in ('reused', 'new')})
 
+def potions():
+    """Add only the Potion making calculator's pictures to data/calc/images.json (same rule; other entries left as they are)."""
+    P = json.load(open(os.path.join(ROOT, 'data', 'calc', 'herblore-potions.json')))
+    path = os.path.join(ROOT, 'data', 'calc', 'images.json'); res = json.load(open(path, encoding='utf-8'))
+    want = sorted({x.get('img') or x['n'] for r in P['rows'] for x in [r['pot'], r['vial'], r['sec'], *r['herb'], *r['unf']]})
+    file_info(['File:' + n[:1].upper() + n[1:] + e for n in want if n not in res['items'] for e in ('.png', '.gif')])
+    added, missing = [], []
+    for n in want:
+        e = res['items'].get(n)
+        if e is None:
+            e = next((r for r in (resolve('File:' + n[:1].upper() + n[1:] + x) if _info.get('File:' + n[:1].upper() + n[1:] + x) else None for x in ('.png', '.gif')) if r), None)
+            if not e: missing.append(n); continue
+            e['used'] = []; res['items'][n] = e; added.append(n)
+        if 'herblore-potions' not in e['used']: e['used'] = sorted(e['used'] + ['herblore-potions'])
+    json.dump(res, open(path, 'w', encoding='utf-8'), ensure_ascii=False, indent=0, sort_keys=True)
+    print('potions:', len(want), 'names; added', added, 'missing', missing)
+
 if __name__ == '__main__':
     what = sys.argv[1:] or ['directory', 'items']
+    if what == ['potions']: potions(); sys.exit()
     if 'directory' in what: directory()
     if 'items' in what: items()
