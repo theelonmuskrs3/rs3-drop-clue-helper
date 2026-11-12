@@ -88,6 +88,27 @@
     for (const l of model.inp) { const p = price(l.n); if (p == null) return null; t -= p * l.q; }
     return t;
   }
+  /* Calculator:Herblore/Potions, "Making from clean herbs": Module:Herb calc row (rev 36714215), per row r and price(item):
+       profit     = potion x qty - (vial + herb + secondary x qty)
+       profit SoC = potion x qty - (vial + h x herb + s x secondary x qty), h = s = 0.9; soc 1: neither saved (h = s = 1),
+                    2: herb not saved, 3: secondary not saved
+       per XP     = profit / XP.
+     As on the Wiki, an item the page marks N/A (untradeable: *nv) counts as 0 gp, the unfinished potion's price is shown but not
+     used, and the vial is "Vial of water" unless the row names another base (Coconut milk, Restore potion (3), Super restore (3)).
+     A priced item with no price (price() -> null) makes the row unknown (null), never 0. Rows: data/calc/herblore-potions.json. */
+  function potionProfit(r, price) {
+    const unknown = [], val = it => { if (it.nv) return null; const p = price(it); if (p == null) unknown.push(it.n); return p; };
+    const pot = val(r.pot), vial = val(r.vial), sec = val(r.sec), herbs = r.herb.map(val), unfs = r.unf.map(u => u.nv ? null : price(u));   // shown only
+    const potQ = r.pot.q || 1, secQ = r.sec.q || 1;
+    const res = {pot, vial, sec, herbs, unfs, potTotal: pot == null ? null : pot * potQ, secTotal: sec == null ? null : sec * secQ, unknown,
+      gross: null, perXp: null, soc: null, socPerXp: null};
+    if (unknown.length) return res;
+    const potV = r.pot.nv ? 0 : pot * potQ, secV = r.sec.nv ? 0 : sec * secQ, herbV = herbs.reduce((t, h) => t + (h || 0), 0);
+    const sh = r.soc === 1 || r.soc === 2 ? 1 : 0.9, ss = r.soc === 1 || r.soc === 3 ? 1 : 0.9;
+    res.gross = potV - (vial + herbV + secV); res.perXp = res.gross / r.xp;
+    res.soc = potV - (vial + sh * herbV + ss * secV); res.socPerXp = res.soc / r.xp;
+    return res;
+  }
   /* ---------------------------------------------------------------------------------------------
      Calculator:Herblore — a line-by-line JavaScript port of the Wiki's own engine
      Module:Skill calc/Herblore (CC BY-NC-SA 3.0; revision in data/calc/herblore.json), run on its data
@@ -867,7 +888,7 @@
     }
     return {submission: out, errors};
   }
-  const api = {NATIVE, nativeFor, nativeBySlug, flaskModel, guideProfit, herbloreRun, herbloreCost, skillCalcRun, skillCalcCost, skillCalcMessage, skillFormDefaults, skillFormSet, skillFormSubmission, skillFieldError, SC_VALIDATED, FAV_KEY, ORIGIN, MAX_FAVS, safeWikiPath, wikiUrl, parseCalculatorUrl, load, save, toggle, has};
+  const api = {NATIVE, nativeFor, nativeBySlug, flaskModel, guideProfit, potionProfit, herbloreRun, herbloreCost, skillCalcRun, skillCalcCost, skillCalcMessage, skillFormDefaults, skillFormSet, skillFormSubmission, skillFieldError, SC_VALIDATED, FAV_KEY, ORIGIN, MAX_FAVS, safeWikiPath, wikiUrl, parseCalculatorUrl, load, save, toggle, has};
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.RS3Calc = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

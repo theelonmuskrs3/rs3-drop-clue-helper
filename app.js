@@ -1682,8 +1682,119 @@ function calcPruneFavs() {
 async function calcView(arg) {
   calcPruneFavs();
   const fd = RS3Calc.nativeBySlug('flask-decanting');
+  // Potion making (Calculator:Herblore/Potions) sits beside Flask decanting in this tab; the switch above both picks one
+  if (arg === PM_SLUG) { await calcImages(); await potionMakingView(); calcSubNav(PM_SLUG); return; }
   if (arg !== fd.slug) { location.replace('#calculators/' + fd.slug); return; }
-  await calcImages(); return flaskDecantView(fd);
+  await calcImages(); await flaskDecantView(fd); calcSubNav(fd.slug);
+}
+/* Potion making (Calculator:Herblore/Potions, "Making from clean herbs"): a sibling of Flask decanting in the same tab, opened
+   from the switch above both (#calculators/potion-making). Formula: RS3Calc.potionProfit (Module:Herb calc row), every row of the
+   Wiki table (data/calc/herblore-potions.json). Prices: the same Wiki guide prices and cache as Flask decanting (GUIDE, fdPrice).
+   Gross profit (default) is the Wiki's Profit; Net deducts the estimated 2% tax on the potions sold (RS3Prices.sellingTax). */
+const PM_SLUG = 'potion-making', PM_DATA = 'data/calc/herblore-potions.json', PM_SORT_KEY = 'dch_calc_pm_sort_v1', PM_SHOW_KEY = 'dch_calc_pm_show_v1';
+function calcSubNav(cur) {
+  const panel = view.querySelector('.calc-native-panel');
+  if (!panel || view.querySelector('.calc-sub')) return;
+  const a = (slug, text) => `<a href="#calculators/${slug}"${slug === cur ? ' aria-current="page"' : ''}>${text}</a>`;
+  panel.insertAdjacentHTML('beforebegin', `<nav class="calc-sub" aria-label="Calculator">${a('flask-decanting', 'Flask decanting')}${a(PM_SLUG, 'Potion making')}</nav>`);
+}
+/* One row at Wiki guide prices: Wiki arithmetic (gross) plus the 2% sell tax on the potions sold (net). */
+function pmRow(r) {
+  const e = RS3Calc.potionProfit(r, it => fdPrice(it, 'buy', 'guide').value);
+  const tax = e.gross == null || r.pot.nv ? 0 : RS3Prices.sellingTax(e.pot, r.pot.id) * (r.pot.q || 1);
+  return {...e, tax, net: e.gross == null ? null : e.gross - tax, socNet: e.soc == null ? null : e.soc - tax};
+}
+async function potionMakingView() {
+  const D = await get(PM_DATA);
+  const wiki = RS3Calc.wikiUrl(D.path) + '#Making_from_clean_herbs';
+  view.innerHTML = `<section class="panel calc-native-panel" aria-labelledby="pm-title">
+    <div class="ge-heading calc-heading"><h2 id="pm-title">Potion making</h2>
+      <div class="calc-native-actions"><a class="btn sub calc-source" href="${esc(wiki)}" target="_blank" rel="noopener noreferrer">Wiki calculator ↗</a></div></div>
+    <div class="row calc-filters">
+      <input id="pm-q" type="search" placeholder="Search potions or ingredients" aria-label="Search potions or ingredients" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <select id="pm-show" aria-label="Show" aria-describedby="pm-show-help"><option value="gross">Gross profit</option><option value="net">Net profit</option></select><span class="fd-src-l" aria-describedby="pm-src-what">Wiki guide prices</span></div>
+    <p class="note fd-alert" id="pm-alert" role="alert" hidden></p>
+    <p class="note fd-count" id="pm-count" role="status" aria-live="polite"></p>
+    <div id="pm-table" class="fd-scroll"></div>
+    <details class="calc-assume-d fd-info" id="pm-info"><summary>Details &amp; sources</summary>
+    <p class="note">Profit or loss from making one potion from a clean herb: the herb, the secondary and a vial of water are bought, the potion is sold. Same potions, ingredients and formula as the RuneScape Wiki <a href="${esc(wiki)}" target="_blank" rel="noopener noreferrer">Herblore potions calculator, Making from clean herbs</a> (revision ${esc(D.source.pageRevision)}). For which dose to decant potions into, use Flask decanting.</p>
+    <p class="note" id="pm-status"></p>
+    <p class="note" id="pm-show-help">Gross profit: before tax, as the Wiki shows. Net profit: after the estimated 2% Grand Exchange tax on the potions sold.</p>
+    <p class="note" id="pm-src-what">Wiki guide prices: Jagex's official Grand Exchange guide price for every item, updated once a day, as the Wiki calculator uses (the same prices as Flask decanting).</p>
+    <h3 class="fd-info-h">How it is worked out</h3><ul class="note calc-assume">
+      <li>Profit = GE price of the potion − (herb + secondary + vial of water), as on the Wiki. A few potions use another base instead of the vial (coconut milk, restore potion (3), super restore (3)); it is shown under the potion name.</li>
+      <li>The unfinished potion's price is shown for comparison only (buying it instead of the herb); it is not part of the profit, as on the Wiki.</li>
+      <li>SoC: the Scroll of cleansing (Dungeoneering reward) saves an ingredient 1 time in 10, so the SoC columns count 90% of the herb and secondary. Approximate, as the Wiki notes. ¹ No effect on this item (tars). ² No effect on the secondary, works on the herb.</li>
+      <li>N/A: the Wiki has no Grand Exchange price for that item (untradeable); like the Wiki, it counts as 0 gp, so those rows show the cost of the tradeable items only. — means a guide price is missing; that row's totals are not worked out (never treated as 0).</li>
+      <li>Profit per XP is profit divided by the XP for one potion. Quantities other than one (tars: 15, Super necromancy: 5 congealed blood, …) are shown before the item name.</li>
+      <li>Tap a potion name to see each price used and the sum.</li></ul>
+    <p class="note">Formula and potion list: RuneScape Wiki, <a href="${esc(RS3Calc.wikiUrl(D.path))}" target="_blank" rel="noopener noreferrer">Calculator:Herblore/Potions</a> (revision ${esc(D.source.pageRevision)}) and Module:Herb calc row (revision ${esc(D.source.rowModuleRevision)}), CC BY-NC-SA 3.0. Item IDs: Module:GEIDs (revision ${esc(D.source.itemIdsRevision)}).</p></details>
+  </section>`;
+  const q = $('#pm-q'), show = $('#pm-show');
+  try { if (CALC_LS.getItem(PM_SHOW_KEY) === 'net') show.value = 'net'; } catch (e) {}
+  const COLS = [['pot', 'Potion', 's'], ['lv', 'Level', 'n'], ['xp', 'XP', 'n'], ['herb', 'Herb', 's'], ['herbp', 'Herb price', 'n'], ['unf', 'Unfinished', 's'], ['unfp', 'Unf. price', 'n'],
+    ['sec', 'Secondary', 's'], ['secp', 'Sec. price', 'n'], ['ge', 'GE price', 'n'], ['profit', 'Profit', 'n'], ['pxp', 'Profit per XP', 'n'], ['soc', 'Profit (SoC)', 'n'], ['socxp', 'Profit/XP (SoC)', 'n']];
+  let sortKey = '', sortDir = 'asc';   // default: the Wiki's order (by level)
+  try { const s = JSON.parse(CALC_LS.getItem(PM_SORT_KEY) || 'null'); if (s && (s.k === '' || COLS.some(c => c[0] === s.k)) && ['asc', 'desc'].includes(s.d)) { sortKey = s.k; sortDir = s.d; } } catch (e) {}
+  const open = new Set();
+  const nm = it => it.txt || it.n, potName = r => nm(r.pot), keyOf = (r, i) => i + '|' + r.pot.n + '|' + r.sec.n;
+  const fmt = v => { const a = Math.round(Math.abs(v) * 100 + 1e-7) / 100;   // 2 d.p., halves away from zero as the Wiki shows them
+    return (v < 0 && a ? '−' : '') + a.toLocaleString('en-GB', {maximumFractionDigits: 2}); };
+  const money = (v, cls = '') => `<td class="fd-num pm-p${cls}"><span class="gpc">${fmt(v)}</span></td>`;
+  const NA = '<td class="fd-num fd-unk pm-na" title="No Grand Exchange price on the Wiki (untradeable): counted as 0 gp, as on the Wiki">N/A</td>';
+  const UNK = n => `<td class="fd-num fd-unk" title="No guide price yet: ${esc(n)}">—</td>`;
+  const priceTd = (it, v, total) => it.nv ? NA : v == null ? UNK(it.n) : money(total == null ? v : total);
+  const ing = (it, q) => `<span class="pm-ing">${liIco(it.img || it.n)}<span>${q > 1 ? q + ' × ' : ''}${esc(nm(it))}</span></span>`;
+  const SOC_NOTE = {1: ['¹', 'The Scroll of cleansing has no effect on this item.'], 3: ['²', 'The Scroll of cleansing has no effect on the secondary of this item, but does work on the herb.']};
+  const priceLi = (label, it, v, q) => `<li>${liIco(it.img || it.n)}${label} ${q > 1 ? q + ' × ' : ''}${esc(nm(it))}: ${it.nv ? '<span class="fd-unk">N/A (no GE price; 0 gp, as on the Wiki)</span>' : v == null ? '<span class="fd-unk">no guide price</span>' : `${gpH(v)}${q > 1 ? ` each = ${gpH(v * q)}` : ''} <small class="fd-age fd-gsrc">${esc(fdWhen(fdPrice(it, 'buy', 'guide')))}</small>`}</li>`;
+  const draw = () => {
+    const net = show.value === 'net', nq = norm(q.value);
+    const gts = Object.values(GUIDE.prices).map(g => Date.parse(g.timestamp)).filter(Number.isFinite), gAsOf = gts.length ? priceTime(Math.max(...gts) / 1000) : null;
+    const gLine = GUIDE.loading && !gts.length ? 'GE guide prices loading…' : gAsOf ? `GE guide prices (Jagex, via api.weirdgloop.org): as of ${gAsOf}${GUIDE.error ? ' (saved copy; refresh failed)' : ''}.` : `GE guide prices unavailable${GUIDE.error ? ' (' + GUIDE.error + ')' : ''}.`;
+    let rows = D.rows.map((r, i) => ({r, i, e: pmRow(r)})).filter(x => !nq || norm([x.r.pot, x.r.vial, x.r.sec, ...x.r.herb, ...x.r.unf].map(nm).join(' ')).includes(nq));
+    const sv = ({r, e}, k) => ({pot: potName(r), lv: r.lv, xp: r.xp, herb: nm(r.herb[0]), herbp: r.herb[0].nv ? 0 : e.herbs[0], unf: r.unf.length ? nm(r.unf[0]) : '', unfp: !r.unf.length || r.unf[0].nv ? 0 : e.unfs[0],
+      sec: r.sec.n, secp: r.sec.nv ? 0 : e.secTotal, ge: r.pot.nv ? 0 : e.potTotal, profit: net ? e.net : e.gross, pxp: e.gross == null ? null : (net ? e.net : e.gross) / r.xp,
+      soc: net ? e.socNet : e.soc, socxp: e.soc == null ? null : (net ? e.socNet : e.soc) / r.xp})[k];
+    const col = COLS.find(c => c[0] === sortKey);
+    if (col) rows.sort((a, b) => { const x = sv(a, sortKey), y = sv(b, sortKey);
+      if (col[2] === 's') return sortDir === 'asc' ? String(x).localeCompare(String(y)) : String(y).localeCompare(String(x));
+      return x == null && y == null ? a.i - b.i : x == null ? 1 : y == null ? -1 : sortDir === 'asc' ? x - y || a.i - b.i : y - x || a.i - b.i; });
+    const nU = rows.filter(x => x.e.gross == null).length;
+    $('#pm-status').textContent = `${rows.length} of ${D.rows.length} potions · ${net ? 'net profit (after estimated 2% tax on the potions sold)' : 'gross profit (before tax, as the Wiki)'} per potion, in gp · ${gLine}`;
+    const al = $('#pm-alert'), alT = GUIDE.error && !GUIDE.loading ? (gts.length ? 'GE guide prices could not be refreshed (using saved copy).' : 'GE guide prices could not be loaded.') : '';
+    al.textContent = alT; al.hidden = !alT;
+    $('#pm-count').textContent = (rows.length === D.rows.length ? `${D.rows.length} potions` : `${rows.length} of ${D.rows.length} potions`) + ` · ${net ? 'Net' : 'Gross'} · per potion` + (nU ? ` · —: ${nU} with a missing guide price` : '');
+    const th = ([k, text, t]) => { const cur = sortKey === k;
+      return `<th scope="col"${t === 'n' ? ' class="fd-num"' : ''} aria-sort="${cur ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}"><button type="button" class="fd-sort" data-k="${esc(k)}">${text.replace(/SoC/, '<abbr title="Scroll of cleansing">SoC</abbr>')}<span class="fd-arrow" aria-hidden="true">${cur ? (sortDir === 'asc' ? '▲' : '▼') : '⇅'}</span></button></th>`; };
+    const res = (v, x, dp) => v == null ? UNK(x.unknown.join(', ')) : `<td class="fd-num ${v < 0 ? 'loss' : 'gain'}" title="Gross ${esc(fmt(x.gross))} · tax ${esc(fmt(x.tax))} · net ${esc(fmt(x.net))} gp"><span class="gpc">${fmt(v)}</span></td>`;
+    $('#pm-table').innerHTML = rows.length ? `<table class="fd-wtable pm-table"><thead><tr>${COLS.map(th).join('')}</tr></thead><tbody>${rows.map(({r, i, e}) => {
+      const k = keyOf(r, i), isOpen = open.has(k), p = net ? e.net : e.gross, s = net ? e.socNet : e.soc, note = SOC_NOTE[r.soc] && r.socNote !== false ? SOC_NOTE[r.soc] : null;
+      const base = r.vial.ref ? `<small class="pm-base">${liIco(r.vial.n)}base: ${esc(r.vial.n)}${e.vial != null ? ' ' + gpH(e.vial) : ''}</small>` : '';
+      const herbs = r.herb.map(h => ing(h, 1)).join(''), unfs = r.unf.length ? r.unf.map(u => ing(u, 1)).join('') : '';
+      const multi = (list, vals) => list.length > 1 ? `<td class="fd-num pm-p">${list.map((it, j) => it.nv ? '<span class="fd-unk">N/A</span>' : vals[j] == null ? '<span class="fd-unk">—</span>' : `<span class="gpc">${fmt(vals[j])}</span>`).join('<br>')}</td>` : null;
+      const sum = e.gross == null ? '' : `<li class="pm-sum">${esc(fmt(r.pot.nv ? 0 : e.potTotal))} − (${[r.vial.n, ...r.herb.map(nm), (r.sec.q > 1 ? r.sec.q + ' × ' : '') + r.sec.n].map((n, j) => esc(fmt([e.vial, ...e.herbs.map(h => h || 0), r.sec.nv ? 0 : e.secTotal][j])) + ' ' + esc(n)).join(' + ')}) = <b class="${e.gross < 0 ? 'loss' : 'gain'}">${esc(fmt(e.gross))}</b> gp gross${net ? `; − ${esc(fmt(e.tax))} tax = <b class="${e.net < 0 ? 'loss' : 'gain'}">${esc(fmt(e.net))}</b> gp net` : ''}</li>`;
+      return `<tr><th scope="row"><button type="button" class="fd-name" data-k="${esc(k)}" aria-expanded="${isOpen}">${calcIco(r.pot.img || r.pot.n)}<span class="calc-name">${esc(potName(r))}${r.pot.q > 1 ? ` <small>× ${r.pot.q}</small>` : ''}${base}</span></button></th>`
+        + `<td class="fd-num pm-lv">${r.lv}</td><td class="fd-num pm-lv">${r.xp}</td>`
+        + `<td class="pm-ingc">${herbs}</td>${multi(r.herb, e.herbs) || priceTd(r.herb[0], e.herbs[0])}`
+        + (r.unf.length ? `<td class="pm-ingc">${unfs}</td>${multi(r.unf, e.unfs) || priceTd(r.unf[0], e.unfs[0])}` : NA + NA)
+        + `<td class="pm-ingc">${ing(r.sec, r.sec.q || 1)}</td>${priceTd(r.sec, e.sec, e.secTotal)}${priceTd(r.pot, e.pot, e.potTotal)}`
+        + res(p, e) + res(p == null ? null : p / r.xp, e, 1) + res(s, e, 1).replace('</td>', note ? `<sup class="pm-n" title="${esc(note[1])}">${note[0]}</sup></td>` : '</td>') + res(s == null ? null : s / r.xp, e, 1) + '</tr>'
+        + (isOpen ? `<tr class="fd-detail"><td colspan="${COLS.length}"><ul class="fd-prices">${priceLi('Sell', r.pot, e.pot, r.pot.q || 1)}${priceLi('Buy', r.vial, e.vial, 1)}${r.herb.map((h, j) => priceLi('Buy', h, e.herbs[j], 1)).join('')}${priceLi('Buy', r.sec, e.sec, r.sec.q || 1)}${r.unf.map((u, j) => priceLi('For comparison, not in the profit:', u, e.unfs[j], 1)).join('')}${sum}${note ? `<li>${esc(note[1])}</li>` : ''}</ul></td></tr>` : '');
+    }).join('')}</tbody></table>` : '<p class="note">No potions match.</p>';
+  };
+  $('#pm-table').addEventListener('click', ev => {
+    const s = ev.target.closest('button.fd-sort');
+    if (s) { const k = s.dataset.k; if (sortKey === k) sortDir = sortDir === 'desc' ? 'asc' : 'desc'; else { sortKey = k; sortDir = k && COLS.find(c => c[0] === k)[2] === 'n' ? 'desc' : 'asc'; }
+      try { CALC_LS.setItem(PM_SORT_KEY, JSON.stringify({k: sortKey, d: sortDir})); } catch (err) {} draw(); const b = [...document.querySelectorAll('#pm-table button.fd-sort')].find(x => x.dataset.k === k); if (b) b.focus(); return; }
+    const nb = ev.target.closest('button.fd-name');
+    if (nb) { const k = nb.dataset.k; open.has(k) ? open.delete(k) : open.add(k); draw(); const b = [...document.querySelectorAll('#pm-table button.fd-name')].find(x => x.dataset.k === k); if (b) b.focus(); }
+  });
+  q.addEventListener('input', draw); show.onchange = () => { try { CALC_LS.setItem(PM_SHOW_KEY, show.value); } catch (e) {} draw(); };
+  priceDraws.push(draw);
+  draw();
+  const ids = [...new Set(D.rows.flatMap(r => [r.pot, r.vial, r.sec, ...r.herb, ...r.unf]).filter(it => !it.nv && it.id).map(it => it.id))];
+  const redraw = () => { if ($('#pm-table')) draw(); };
+  guideFetch(ids).then(() => { redraw(); if (ids.some(i => !GUIDE.prices[i])) return guideFetch(ids).then(redraw); });
 }
 /* The former calculator directory (Wiki-only listings and the other native calculators); kept for history, not routed. */
 async function calcDirectoryViewRemoved(arg) {

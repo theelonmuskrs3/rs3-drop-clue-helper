@@ -74,7 +74,8 @@ async function screen(hash, store = {}) {
   const only = d => { assert.equal(w.location.hash, '#calculators/flask-decanting'); assert.ok(d.querySelector('#fd-title')); assert.equal(d.querySelector('#fd-title').textContent, 'Flask decanting');
     assert.equal(d.querySelectorAll('#calc-native, #calc-list, #calc-upcoming, #calc-tiles, #calc-q, #calc-url, #calc-fav-list').length, 0, 'no directory, Wiki-only list, picker, search or custom URL');
     assert.equal(d.querySelector('#view a[href="#calculators"]'), null, 'no "All calculators" link');
-    for (const a of d.querySelectorAll('#view a[href^="#calculators/"]')) assert.equal(a.getAttribute('href'), '#calculators/flask-decanting');
+    // the switch above the calculator also links Potion making (Calculator:Herblore/Potions, user request 2026-11-11)
+    for (const a of d.querySelectorAll('#view a[href^="#calculators/"]')) assert.ok(['#calculators/flask-decanting', '#calculators/potion-making'].includes(a.getAttribute('href')), a.getAttribute('href'));
     assert.doesNotMatch(d.querySelector('#view').textContent, /All calculators|not in the app yet|Herblore calculator|Cooking calculator|Fletching calculator|Crafting calculator/);
     assert.equal(d.querySelector('.tabs button.on').dataset.tab, 'calculators'); };
   only(d);
